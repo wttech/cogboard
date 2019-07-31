@@ -1,0 +1,181 @@
+{
+  "boards": {
+    "boardsById": {
+      "board1": {
+        "id": "board1",
+        "type": "board",
+        "title": "Example project",
+        "columns": 6,
+        "theme": "default",
+        "widgets": ["widget1", "widget2", "widget3", "widget4", "widget5", "widget6"]
+      },
+      "board2": {
+        "id": "board2",
+        "type": "board",
+        "title": "Another example project",
+        "columns": 4,
+        "theme": "default",
+        "widgets": ["widget7", "widget8", "widget9", "widget10", "widget11", "widget12"]
+      }
+    },
+    "allBoards": ["board1", "board2"]
+  },
+  "widgets": {
+    "widgetsById": {
+      "widget1": {
+        "id": "widget1",
+        "type": "widget",
+        "title": "Example Widget",
+        "disabled": false,
+        "contentType": "ExampleWidget",
+        "scheduleDelay": 500,
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget2": {
+        "id": "widget2",
+        "type": "widget",
+        "title": "Example Widget",
+        "disabled": false,
+        "contentType": "ExampleWidget",
+        "scheduleDelay": 1000,
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget3": {
+        "id": "widget3",
+        "type": "widget",
+        "config": {
+          "columns": 2
+        },
+        "title": "Example Widget",
+        "disabled": false,
+        "contentType": "ExampleWidget",
+        "scheduleDelay": 1500,
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget4": {
+        "id": "widget4",
+        "type": "widget",
+        "icon": "info",
+        "status": "OK",
+        "footer": "Some footer text",
+        "title": "Example Widget",
+        "disabled": false,
+        "contentType": "ExampleWidget",
+        "scheduleDelay": 2000,
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget5": {
+        "id": "widget5",
+        "type": "widget",
+        "icon": "info",
+        "footer": "Some footer text",
+        "title": "Example Widget",
+        "disabled": false,
+        "contentType": "ExampleWidget",
+        "scheduleDelay": 2500,
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget6": {
+        "id": "widget6",
+        "type": "widget",
+        "title": "Jenkins Job Widget",
+        "contentType": "JenkinsJobWidget",
+        "endpoint": "endpoint1",
+        "disabled": true,
+        "schedulePeriod": 10000,
+        "customProps": {
+          "path": "path"
+        }
+      },
+      "widget7": {
+        "id": "widget7",
+        "type": "widget",
+        "icon": "info",
+        "status": "ERROR",
+        "title": "Server Time 7",
+        "disabled": false,
+        "footer": "Some footer text",
+        "contentType": "ExampleWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget8": {
+        "id": "widget8",
+        "type": "widget",
+        "icon": "info",
+        "title": "Server Time 8",
+        "disabled": false,
+        "footer": "Some footer text",
+        "contentType": "ExampleWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget9": {
+        "id": "widget9",
+        "type": "widget",
+        "disabled": false,
+        "config": {
+          "columns": 2
+        },
+        "contentType": "DefaultWidget"
+      },
+      "widget10": {
+        "id": "widget10",
+        "type": "widget",
+        "icon": "info",
+        "status": "OK",
+        "title": "Server Time 10",
+        "disabled": false,
+        "footer": "Some footer text",
+        "contentType": "DefaultWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget11": {
+        "id": "widget11",
+        "type": "widget",
+        "icon": "info",
+        "title": "Server Time 11",
+        "disabled": false,
+        "footer": "Some footer text",
+        "contentType": "DefaultWidget",
+        "content": {
+          "serverTime": "no data"
+        },
+        "config": {
+          "goNewLine": true
+        }
+      },
+      "widget12": {
+        "id": "widget12",
+        "type": "widget",
+        "icon": "info",
+        "footer": "Some footer text",
+        "contentType": "DefaultWidget",
+        "content": {
+          "serverTime": "no data"
+        },
+        "status": "OK",
+        "title": "I have 2 columns width",
+        "disabled": false,
+        "config": {
+          "columns": 2
+        }
+      }
+    },
+    "allWidgets": ["widget1", "widget2", "widget3", "widget4", "widget5", "widget6", "widget7", "widget8", "widget9", "widget10", "widget11", "widget12"]
+  }
+}
