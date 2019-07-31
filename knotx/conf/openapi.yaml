@@ -1,0 +1,78 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: CogBoard
+  description: CogBoard
+
+servers:
+  - url: https://{domain}:{port}
+    description: The local API server
+    variables:
+      domain:
+        default: localhost
+        description: api domain
+      port:
+        enum:
+          - '8092'
+        default: '8092'
+  - url: ws://{domain}:{port}
+    description: The Websocket server
+    variables:
+      domain:
+        default: localhost
+        description: websockets
+      port:
+        enum:
+          - '9000'
+        default: '9000'
+
+paths:
+  /api/config/save:
+    post:
+      operationId: config-save-handler
+      responses:
+        default:
+          description: Config Save Handler
+  /api/widget/update:
+    post:
+      operationId: widget-update-handler
+      responses:
+        default:
+          description: Widget Update Handler
+  /api/endpoints:
+    get:
+      operationId: endpoints-handler
+      responses:
+        default:
+          description: Endpoint list
+  /api/v1/example:
+    get:
+      operationId: example-api-with-handlers-operation
+      responses:
+        default:
+          description: Example API response
+  /api/v2/example:
+    get:
+      operationId: example-api-with-fragments-operation
+      responses:
+        default:
+          description: Example API response
+  /healthcheck:
+    get:
+      operationId: healthcheck-operation
+      # https://vertx.io/docs/vertx-health-check/java/
+      responses:
+        '200':
+          description: Everything is fine
+        '204':
+          description: No procedure are registered.
+        '501':
+          description: At least one procedure has reported a non-healthy stat
+        '500':
+          description: One procedure has thrown an error or has not reported a status in time
+  /*:
+    get:
+      operationId: cogboard-react-app
+      responses:
+        default:
+          description: Cogboard Home

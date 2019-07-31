@@ -1,0 +1,31 @@
+{
+  "configRetrieverOptions": {
+    "scanPeriod": 5000,
+    "stores": [
+      {
+        "type": "file",
+        "format": "conf",
+        "config": {
+          "path": "${KNOTX_HOME}/conf/application.conf"
+        },
+        "optional": false
+      },
+      {
+        "type": "file",
+        "format": "conf",
+        "config": {
+          "path": "${KNOTX_HOME}/conf/widgets.conf"
+        },
+        "optional": true
+      },
+      {
+        "type": "file",
+        "format": "conf",
+        "config": {
+          "path": "${KNOTX_HOME}/conf/websockets.conf"
+        },
+        "optional": true
+      }
+    ]
+  }
+}
