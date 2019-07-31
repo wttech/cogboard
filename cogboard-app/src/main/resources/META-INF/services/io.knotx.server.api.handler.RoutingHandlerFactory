@@ -1,0 +1,3 @@
+com.cognifide.cogboard.config.handler.ConfigSaveHandler
+com.cognifide.cogboard.config.handler.EndpointsHandler
+com.cognifide.cogboard.widget.handler.WidgetUpdateHandler
