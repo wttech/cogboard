@@ -2,9 +2,7 @@ import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 
-const ExampleWidgetContent = ({ content }) => {
-  const { serverTime } = content;
-
+const ExampleWidgetContent = ({ serverTime }) => {
   return (
     <Typography color="textPrimary" variant="subtitle2">
       {serverTime}

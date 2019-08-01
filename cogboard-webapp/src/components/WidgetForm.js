@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled/macro';
 
 import widgetTypes from './widgets';
-import { useFormData, useWidgetType } from '../hooks';
+import { useFormData } from '../hooks';
+import DropdownField from './DropdownField';
+import WidgetTypeForm from './WidgetTypeForm';
 
-import { Divider, FormControlLabel, Input, InputLabel, FormControl, MenuItem, TextField, Select, Switch } from '@material-ui/core';
+import { FormControlLabel, FormControl, MenuItem, TextField, Switch } from '@material-ui/core';
 
 const StyledFieldset = styled(FormControl)`
   display: flex;
   margin-bottom: 32px;
   min-width: 300px;
-`;
-
-const StyledDivider = styled(Divider)`
-  margin-bottom: 24px;
 `;
 
 const renderWidgetTypesMenu = (widgetTypes) =>
@@ -23,67 +21,35 @@ const renderWidgetTypesMenu = (widgetTypes) =>
     return <MenuItem key={type} value={type}>{formatedName}</MenuItem>;
   });
 
-const useDropdownField = (dropdownProps) => {
-  const { data, dataUrl = '', id, name, onChange, value, renderItems } = dropdownProps;
-  const [dropdownData, setDropdownData] = useState({});
-
-  useEffect(() => {
-    console.log('effect');
-    if (dataUrl) {
-      fetch(dataUrl)
-        .then(response => response.json())
-        .then(data => setDropdownData(data));
-    }
-
-    setDropdownData(data);
-  }, [data, dataUrl, setDropdownData]);
-
-  const DropdownField = () => (
-    <FormControl>
-      <InputLabel
-        shrink
-        htmlFor={id}
-      >
-        Type
-      </InputLabel>
-      <Select
-        onChange={onChange(name)}
-        value={value}
-        input={<Input name={name} id={id} />}
-        name={name}
-      >
-        {renderItems(dropdownData)}
-      </Select>
-    </FormControl>
-  );
-
-  return DropdownField;
-};
-
 const WidgetForm = ({ initialData, renderActions }) => {
-  const { title = '', disabled = false, contentType, config = {} } = initialData;
+  const {
+    title = '',
+    disabled = false,
+    contentType,
+    config = {},
+    ...customInitialData
+  } = initialData;
   const { columns = 1, goNewLine = false } = config;
   const { values, handleChange, getFormDataProps } = useFormData({
     disabled,
     contentType,
     columns,
-    goNewLine
+    goNewLine,
   });
-  const { dialog: CustomWidgetForm } = useWidgetType(values.contentType);
-  const WidgetTypeDropdown = useDropdownField({
-    data: widgetTypes,
-    onChange: handleChange,
-    id: 'widget-type',
-    name: 'contentType',
-    value: values.contentType,
-    renderItems: renderWidgetTypesMenu
-  });
-  const emptyWidgetTypeForm = !CustomWidgetForm;
 
   return (
     <>
       <StyledFieldset component="fieldset">
-        <WidgetTypeDropdown />
+        <DropdownField
+          onChange={handleChange("contentType")}
+          label="Type"
+          id="widget-type"
+          name="contentType"
+          value={values.contentType}
+          dropdownItems={widgetTypes}
+        >
+          {renderWidgetTypesMenu}
+        </DropdownField>
         <TextField
           id="title"
           InputLabelProps={{
@@ -100,7 +66,7 @@ const WidgetForm = ({ initialData, renderActions }) => {
             shrink: true
           }}
           inputProps={{
-            min: 0
+            min: 1
           }}
           label="Columns"
           margin="normal"
@@ -134,17 +100,12 @@ const WidgetForm = ({ initialData, renderActions }) => {
           />
         </FormControl>
       </StyledFieldset>
-      {!emptyWidgetTypeForm &&
-        <>
-          <StyledDivider />
-          <StyledFieldset component="fieldset">
-            <CustomWidgetForm
-              handleChange={handleChange}
-              values={values}
-            />
-          </StyledFieldset>
-        </>
-      }
+      <WidgetTypeForm
+        contentType={values.contentType}
+        values={values}
+        handleChange={handleChange}
+        initialData={customInitialData}
+      />
       {renderActions(values)}
     </>
   );

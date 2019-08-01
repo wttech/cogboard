@@ -1,0 +1,10 @@
+[
+  {
+    "id": "endpoint1",
+    "label": "My Endpoint 1"
+  },
+  {
+    "id": "endpoint2",
+    "label": "My Endpoint 2"
+  }
+]

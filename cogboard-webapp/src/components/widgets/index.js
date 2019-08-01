@@ -1,6 +1,5 @@
 import DefaultWidget from './types/DefaultWidget';
 import ExampleWidget from './types/ExampleWidget';
-import ExampleWidgetDialog from './types/ExampleWidgetDialog';
 import JenkinsJobWidget from "./types/JenkinsJobWidget";
 
 const widgetTypes = {
@@ -11,12 +10,12 @@ const widgetTypes = {
   ExampleWidget: {
     name: 'Example widget',
     component: ExampleWidget,
-    dialog: ExampleWidgetDialog
+    dialogFields: ['ScheduleDelay']
   },
   JenkinsJobWidget: {
     name: 'Jenkins Job widget',
     component: JenkinsJobWidget,
-    endpoints: true
+    dialogFields: ['EndpointField', 'ScheduleDelay']
   }
 };
 

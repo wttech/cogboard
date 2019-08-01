@@ -8,8 +8,8 @@ const StyledButton = styled(Button)`
   width: 100%
 `;
 
-const JenkinsJobWidgetContent = ({content}) => {
-  const { duration, displayName = '#', url, timestamp, builtOn } = content;
+const JenkinsJobWidgetContent = props => {
+  const { duration, displayName = '#', url, timestamp, builtOn } = props;
   const ts = timestamp ? new Date(timestamp).toLocaleString() : '';
   const dur = duration ? `${duration / 1000} [s]` : '';
 

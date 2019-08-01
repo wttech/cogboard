@@ -4,13 +4,14 @@ import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/styles';
 
-import { useWidgetType, useDialogToggle } from '../hooks';
+import { useDialogToggle } from '../hooks';
 import { deleteWidget } from '../actions/actionCreators';
 
 import { Card, CardHeader, CardContent, MenuItem } from '@material-ui/core';
 import AppDialog from './AppDialog';
 import EditWidget from './EditWidget';
 import MoreMenu from './MoreMenu';
+import WidgetContent from './WidgetContent';
 
 const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
@@ -24,7 +25,6 @@ const StyledCard = styled(({ status, columns, goNewLine, theme, ...other }) => <
 const Widget = ({ widgetData, currentBoard }) => {
   const { id, disabled, contentType, status, title, content = {}, config = {} } = widgetData;
   const { columns = 1, goNewLine = false } = config;
-  const { component: WidgetContent } = useWidgetType(contentType);
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -68,7 +68,7 @@ const Widget = ({ widgetData, currentBoard }) => {
           }
         />
         <CardContent>
-          {!disabled ? <WidgetContent content={content} /> : 'Disabled'}
+          {!disabled ? <WidgetContent contentType={contentType} content={content} /> : 'Disabled'}
         </CardContent>
       </StyledCard>
       <AppDialog

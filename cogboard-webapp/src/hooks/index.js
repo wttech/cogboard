@@ -1,13 +1,4 @@
 import { useState } from 'react';
-import widgetTypes from '../components/widgets';
-
-export const useWidgetType = (contentType = 'DefaultWidget') => {
-  return {
-    name: widgetTypes[contentType].name,
-    component: widgetTypes[contentType].component,
-    dialog: widgetTypes[contentType].dialog || null
-  };
-};
 
 export const useDialogToggle = () => {
   const [dialogOpened, setDialogOpened] = useState(false);
