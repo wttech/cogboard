@@ -58,28 +58,6 @@ Comment out health-check section from `Dockerfile`
 3. Create new frontend widget as a copy of `cogboard-webapp/src/components/widgets/types/ExampleWidget.js`
 4. Update `cogboard-webapp/src/components/widgets/index.js` with new widget
 
-#### TODO
-- [ ] Cleanup example modules `./modules`
-- [ ] Implement config storage
-- [ ] Implement board routing
-- [ ] Implement board switcher
-- [ ] Implement preview mode (should be default)
-- [ ] Implement widget: World Clock (show time in different timezones)
-- [ ] Implement widget: Text (title or env. name)
-- [ ] Implement widget: Icon 
-- [ ] Implement widget: Healthcheck (configurable health-check list from specific AEM instance)
-- [ ] Implement widget: Jenkins Job Status 
-- [ ] Implement widget: Bamboo Job Status
-- [ ] Implement widget: SonarQube Status
-- [ ] Implement widget: Instance Bundle Info (bundle info from specific AEM instance)
-- [ ] Implement widget: Link List 
-- [ ] Implement widget: Todo List
-- [ ] Implement widget: Timeline (tool for TPM and dev team about project milestones)
-- [ ] Implement widget: Person Draw
-- [ ] Implement widget: Timeline
-- [ ] Implement widget: Checkbox
-- [ ] Implement widget: Easy embed (for embedding iframes)
-
 ## Stack
  * Platform: [Knot.x](http://knotx.io/)
  * Backend language: [Kotlin](https://kotlinlang.org/)
