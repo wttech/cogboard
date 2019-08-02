@@ -15,7 +15,7 @@ const widgetTypes = {
   JenkinsJobWidget: {
     name: 'Jenkins Job widget',
     component: JenkinsJobWidget,
-    dialogFields: ['EndpointField', 'ScheduleDelay']
+    dialogFields: ['EndpointField', 'ScheduleDelay', 'SchedulePeriod', 'Path']
   }
 };
 

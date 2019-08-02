@@ -3,7 +3,7 @@ import React from 'react';
 import { MenuItem } from '@material-ui/core';
 import DropdownField from '../../DropdownField';
 
-const EndpointField = props => {
+const EndpointInput = props => {
   return (
     <DropdownField {...props}>
       {endpoints => endpoints.map(({ id, label }) =>
@@ -13,4 +13,4 @@ const EndpointField = props => {
   );
 };
 
-export default EndpointField;
+export default EndpointInput;
