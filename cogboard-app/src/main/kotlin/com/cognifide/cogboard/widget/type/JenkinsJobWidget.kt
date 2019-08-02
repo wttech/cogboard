@@ -29,7 +29,7 @@ import io.vertx.core.json.JsonObject
  */
 class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
-    private val path: String = config.customProp("path")
+    private val path: String = config.getString("path")
     private val url: String = config.endpointProp("privateUrlTemplate")
 
     override fun handleResponse(responseBody: JsonObject) {

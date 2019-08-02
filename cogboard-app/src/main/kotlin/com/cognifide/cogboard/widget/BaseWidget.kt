@@ -81,10 +81,6 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
         }
     }
 
-    protected fun JsonObject.customProp(prop: String): String {
-        return this.getJsonObject("customProps")?.getString(prop) ?: ""
-    }
-
     protected fun JsonObject.endpointProp(prop: String): String {
         return this.getJsonObject(CogboardConstants.PROP_ENDPOINT)?.getString(prop) ?: ""
     }
