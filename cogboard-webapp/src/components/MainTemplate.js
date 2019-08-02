@@ -106,6 +106,6 @@ const MainTemplate = (props) => {
       </AppDialog>
     </>
   );
-}
+};
 
 export default MainTemplate;
