@@ -10,6 +10,7 @@ Thumbs.db
 ~*
 
 *.jar
+knotx/conf/endpoints.conf
 
 # Intellij           #
 ######################
@@ -45,4 +46,3 @@ cogboard-app/src/main/resources
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-endpoints.conf
