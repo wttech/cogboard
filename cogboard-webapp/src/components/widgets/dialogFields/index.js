@@ -29,15 +29,15 @@ const dialogFields = {
     name: 'path',
     label: 'Path'
   },
-  Key: {
+  IdString: {
     component: TextInput,
-    name: 'key',
-    label: 'Key'
+    name: 'idString',
+    label: 'ID'
   },
-  IdNumber: {
+  Index: {
     component: NumberInput,
-    name: 'idNumber',
-    label: 'ID',
+    name: 'index',
+    label: 'Index',
     min: 0,
     step: 1
   },
