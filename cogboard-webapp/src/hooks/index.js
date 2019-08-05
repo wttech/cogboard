@@ -18,7 +18,7 @@ export const useFormData = (data) => {
       checkbox: checked,
       number: Number(value),
     };
-    const fieldValue = valueType[type] || value;
+    const fieldValue = valueType[type] !== undefined ? valueType[type] : value;
 
     setValues({ ...values, [fieldName]: fieldValue});
   };
