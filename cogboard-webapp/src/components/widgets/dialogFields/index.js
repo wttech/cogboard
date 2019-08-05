@@ -1,13 +1,14 @@
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
+import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 
 const dialogFields = {
   EndpointField: {
     component: EndpointInput,
     name: 'endpoint',
     label: 'Endpoint',
-    itemsUrl: '/endpoints.json'
+    itemsUrl: '/api/endpoints'
   },
   ScheduleDelay: {
     component: NumberInput,
@@ -27,6 +28,22 @@ const dialogFields = {
     component: TextInput,
     name: 'path',
     label: 'Path'
+  },
+  Key: {
+    component: TextInput,
+    name: 'key',
+    label: 'Key'
+  },
+  IdNumber: {
+    component: NumberInput,
+    name: 'idNumber',
+    label: 'ID',
+    min: 0,
+    step: 1
+  },
+  SonarQubeMetricsInput: {
+    component: SonarQubeMetricsInput,
+    name: 'selectedMetrics'
   }
 };
 

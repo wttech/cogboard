@@ -22,8 +22,7 @@ class EndpointsHandler : RoutingHandlerFactory {
         val copy = config?.getJsonArray("endpoints") ?: DEFAULT_NO_BODY.copy()
         copy.stream().forEach {
             if (it is JsonObject) {
-                it.remove("publicUrlTemplate")
-                it.remove("privateUrlTemplate")
+                it.remove("url")
                 it.remove("user")
                 it.remove("password")
             }
