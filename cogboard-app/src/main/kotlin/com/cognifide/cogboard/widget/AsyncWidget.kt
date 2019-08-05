@@ -2,6 +2,7 @@ package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.CogboardConstants
 import io.vertx.core.Vertx
+import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 
 abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
@@ -9,11 +10,20 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
     val user: String = config.endpointProp("user")
     val password: String = config.endpointProp("password")
 
+    private lateinit var consumer: MessageConsumer<JsonObject>
+
     override fun start(): Widget {
-        vertx.eventBus().consumer<JsonObject>(eventBusAddress).handler {
-            handleResponse(it.body())
-        }
+        consumer = vertx.eventBus()
+                .consumer<JsonObject>(eventBusAddress)
+                .handler {
+                    handleResponse(it.body())
+                }
         return super.start()
+    }
+
+    override fun stop(): Widget {
+        consumer.unregister()
+        return super.stop()
     }
 
     /**

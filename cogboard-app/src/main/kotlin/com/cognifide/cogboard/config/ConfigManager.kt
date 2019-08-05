@@ -47,7 +47,7 @@ class ConfigManager : AbstractVerticle() {
             it.stop()
             newConfig = it.config().mergeIn(config, true)
         }
-        attachEndpoint(config)
+        attachEndpoint(newConfig)
         widgets[id] = WidgetIndex.create(newConfig, vertx).start()
     }
 
