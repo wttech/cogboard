@@ -27,7 +27,9 @@ import Checkbox from '@material-ui/core/Checkbox';
   ];
 
 const SonarQubeMetricsInput = props => {
-  const { value = ['blocker_violations','critical_violations','major_violations','minor_violations'], onChange } = props;
+  const { onChange } = props;
+  let { value } = props;
+  value = value || ['blocker_violations','critical_violations','major_violations','minor_violations'];
 
   return (
     <StyledFormControl>
