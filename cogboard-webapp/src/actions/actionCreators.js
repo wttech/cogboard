@@ -1,25 +1,18 @@
-import { REQUEST_DATA, RECEIVE_DATA, UPDATE_WIDGET, EDIT_WIDGET, ADD_WIDGET, DELETE_WIDGET } from './types';
+import { REQUEST_DATA, RECEIVE_DATA, REQUEST_UPDATE, UPDATE_WIDGET, EDIT_WIDGET, ADD_WIDGET, DELETE_WIDGET } from './types';
 
-const requestData = () => ({
+export const requestData = () => ({
   type: REQUEST_DATA
 });
 
-const receiveData = state => ({
+export const receiveData = state => ({
   type: RECEIVE_DATA,
   payload: state
 });
 
-export const fetchData = () =>
-  (dispatch) => {
-    dispatch(requestData());
-
-    return fetch('/data.json')
-      .then(
-        response => response.json(),
-        error => console.error(error)
-      )
-      .then(state => dispatch(receiveData(state)));
-  };
+export const requestUpdate = (id) => ({
+  type: REQUEST_UPDATE,
+  payload: id
+});
 
 export const updateWidget = (data) => ({
   type: UPDATE_WIDGET,

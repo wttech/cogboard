@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
-import { addWidget } from '../actions/actionCreators';
+import { addNewWidget } from '../actions/thunks';
 import { makeIdCreator, mapFormValuesToWidgetData } from './helpers';
 
 import Button from '@material-ui/core/Button';
@@ -13,7 +13,6 @@ const createWidgetId = makeIdCreator('widget');
 
 const createWidgetData = (formValues, allWidgets, currentBoard) => ({
   id: createWidgetId(allWidgets),
-  type: 'widget',
   status: 'UNKNOWN',
   boardId: currentBoard,
   ...mapFormValuesToWidgetData(formValues)
@@ -26,7 +25,7 @@ const StyledCancelButton = styled(CancelButton)`
 const AddWidget = ({ closeDialog, currentBoard }) => {
   const initialData = {
     title: 'Default widget',
-    contentType: 'DefaultWidget',
+    type: 'DefaultWidget',
   };
   const allWidgets = useSelector(
     ({ widgets }) => widgets.allWidgets
@@ -36,7 +35,7 @@ const AddWidget = ({ closeDialog, currentBoard }) => {
   const handleAddClick = (values) => () => {
     const widgetData = createWidgetData(values, allWidgets, currentBoard);
 
-    dispatch(addWidget(widgetData));
+    dispatch(addNewWidget(widgetData));
     closeDialog();
   }
 

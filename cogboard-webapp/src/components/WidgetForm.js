@@ -25,14 +25,14 @@ const WidgetForm = ({ initialData, renderActions }) => {
   const {
     title = '',
     disabled = false,
-    contentType,
+    type,
     config = {},
     ...customInitialData
   } = initialData;
   const { columns = 1, goNewLine = false } = config;
   const { values, handleChange, getFormDataProps } = useFormData({
     disabled,
-    contentType,
+    type,
     columns,
     goNewLine,
   });
@@ -41,11 +41,11 @@ const WidgetForm = ({ initialData, renderActions }) => {
     <>
       <StyledFieldset component="fieldset">
         <DropdownField
-          onChange={handleChange("contentType")}
+          onChange={handleChange("type")}
           label="Type"
           id="widget-type"
-          name="contentType"
-          value={values.contentType}
+          name="type"
+          value={values.type}
           dropdownItems={widgetTypes}
         >
           {renderWidgetTypesMenu}
@@ -101,7 +101,7 @@ const WidgetForm = ({ initialData, renderActions }) => {
         </FormControl>
       </StyledFieldset>
       <WidgetTypeForm
-        contentType={values.contentType}
+        type={values.type}
         values={values}
         handleChange={handleChange}
         initialData={customInitialData}

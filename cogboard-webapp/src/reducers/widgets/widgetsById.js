@@ -1,6 +1,15 @@
-import { RECEIVE_DATA, UPDATE_WIDGET, EDIT_WIDGET, ADD_WIDGET, DELETE_WIDGET } from '../../actions/types';
+import { RECEIVE_DATA, REQUEST_UPDATE, UPDATE_WIDGET, EDIT_WIDGET, ADD_WIDGET, DELETE_WIDGET } from '../../actions/types';
 
-const receiveState = (state, action) => {
+const requestUpdate = (state, { payload: id }) => {
+  const widget = state[id];
+
+  return {
+    ...state,
+    [id]: { ...widget, isUpdating: true }
+  };
+};
+
+const receiveData = (state, action) => {
   const { payload } = action;
   const { widgets: { widgetsById } } = payload;
 
@@ -13,7 +22,7 @@ const updateWidget = (state, { payload }) => {
 
   return {
     ...state,
-    [id]: { ...widget, ...other }
+    [id]: { ...widget, ...other, isUpdating: false }
   };
 };
 
@@ -47,8 +56,10 @@ const widgetsById = (state = {}, action) => {
   const { type } = action;
 
   switch (type) {
+    case REQUEST_UPDATE:
+      return requestUpdate(state, action);
     case RECEIVE_DATA:
-      return receiveState(state, action);
+      return receiveData(state, action);
     case UPDATE_WIDGET:
       return updateWidget(state, action);
     case EDIT_WIDGET:
