@@ -61,7 +61,7 @@ const makeWidgetUpdaterThunk = beforeUpdateActionCreator => data => {
     dispatch(beforeUpdateActionCreator(generalData));
     dispatch(requestUpdate(id));
 
-    return fetchData('/api/widgets/update', 'POST', serverData)
+    return fetchData('/api/widget/update', 'POST', serverData)
       .then(
         () => dispatch(updateWidget(serverData)),
         console.error
