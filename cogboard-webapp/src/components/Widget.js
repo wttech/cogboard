@@ -23,7 +23,7 @@ const StyledCard = styled(({ status, columns, goNewLine, theme, ...other }) => <
 `;
 
 const Widget = ({ widgetData, currentBoard }) => {
-  const { id, disabled, contentType, status, title, content = {}, config = {} } = widgetData;
+  const { id, disabled, type, status, title, content = {}, config = {} } = widgetData;
   const { columns = 1, goNewLine = false } = config;
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const Widget = ({ widgetData, currentBoard }) => {
           }
         />
         <CardContent>
-          {!disabled ? <WidgetContent contentType={contentType} content={content} /> : 'Disabled'}
+          {!disabled ? <WidgetContent type={type} content={content} /> : 'Disabled'}
         </CardContent>
       </StyledCard>
       <AppDialog
