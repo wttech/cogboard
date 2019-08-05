@@ -19,44 +19,10 @@ Any sensitive data from `endpoints.conf` file is never accessible for end-users.
 ```
 ./gradlew
 ```
-this will: `remove old docker container`, `build app`, `run tests`, `build docker image`, `run docker image`  
 
 ##### When launched go to http://localhost:8092/index.html to see your board
 
-## How to build
-```
-./gradlew build
-```
-this will: `remove old docker container`, `build app`, `run tests`, `build docker image`
-
-## How to debug
-
-#### Normal debugging
-Uncomment line in `Dockerfile`
-```dockerfile
-RUN sed -i 's/# JVM_DEBUG=/JVM_DEBUG=/g' /usr/local/knotx/bin/knotx
-```
-
-#### Startup debugging - use this when debugging `start()` methods
-Uncomment line in `Dockerfile`
-```dockerfile
-RUN sed -i 's/suspend=n/suspend=y/g' /usr/local/knotx/bin/knotx
-```
-
-Comment out health-check section from `Dockerfile`
-```dockerfile
-#HEALTHCHECK --interval=5s --timeout=2s --retries=12 \
-#  CMD curl --silent --fail localhost:8092/healthcheck || exit 1
-```
-
-**IMPORTANT !** - Make sure that `CMD [ "knotx", "run-knotx" ]` is a last command in `Dockerfile`
-
-## Create new widget
-
-1. Create new backend widget as a copy of `com.cognifide.cogboard.widget.type.ExampleWidget`
-2. Update `com.cognifide.cogboard.widget.WidgetIndex.Companion.create` method with new widget
-3. Create new frontend widget as a copy of `cogboard-webapp/src/components/widgets/types/ExampleWidget.js`
-4. Update `cogboard-webapp/src/components/widgets/index.js` with new widget
+## Go to [Wiki](https://github.com/Cognifide/cogboard/wiki) section for more details
 
 ## Stack
  * Platform: [Knot.x](http://knotx.io/)
