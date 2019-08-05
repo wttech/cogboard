@@ -2,7 +2,7 @@ import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 
-const DefaultWidgetContent = ({ content }) => {
+const DefaultWidget = () => {
   return (
     <Typography color="textSecondary" variant="subtitle2">
       Default content
@@ -10,4 +10,4 @@ const DefaultWidgetContent = ({ content }) => {
   );
 };
 
-export default DefaultWidgetContent;
+export default DefaultWidget;

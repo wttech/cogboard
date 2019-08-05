@@ -8,7 +8,7 @@ const StyledButton = styled(Button)`
   width: 100%
 `;
 
-const JenkinsJobWidgetContent = props => {
+const JenkinsJobWidget = props => {
   const { duration, displayName = '#', url = '#', timestamp = '-', builtOn = '-' } = props;
   const ts = timestamp ? new Date(timestamp).toLocaleString() : '';
   const dur = duration ? `${duration / 1000} [s]` : '';
@@ -30,4 +30,4 @@ const JenkinsJobWidgetContent = props => {
   );
 };
 
-export default JenkinsJobWidgetContent;
+export default JenkinsJobWidget;
