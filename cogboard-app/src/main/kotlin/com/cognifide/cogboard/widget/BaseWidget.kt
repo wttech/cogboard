@@ -70,12 +70,12 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     }
 
     private fun startWithSchedule() {
-        if (config.getLong(CogboardConstants.PROP_SCHEDULE_PERIOD) ?: 0L > 0) {
+        val period = config.getLong(CogboardConstants.PROP_SCHEDULE_PERIOD, 0L)
+        val delay = config.getLong(CogboardConstants.PROP_SCHEDULE_DELAY, 0L)
+
+        if (period > 0L) {
             task = timerTask { updateState() }
-            Timer().schedule(
-                    task,
-                    config.getLong(CogboardConstants.PROP_SCHEDULE_DELAY) ?: 0L,
-                    config.getLong(CogboardConstants.PROP_SCHEDULE_PERIOD))
+            Timer().schedule(task, delay, period)
         } else {
             updateState()
         }

@@ -9,7 +9,7 @@ const StyledButton = styled(Button)`
 `;
 
 const JenkinsJobWidgetContent = props => {
-  const { duration, displayName = '#', url, timestamp, builtOn } = props;
+  const { duration, displayName = '#', url = '#', timestamp = '-', builtOn = '-' } = props;
   const ts = timestamp ? new Date(timestamp).toLocaleString() : '';
   const dur = duration ? `${duration / 1000} [s]` : '';
 
