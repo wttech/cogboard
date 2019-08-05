@@ -16,12 +16,12 @@ const widgetTypes = {
   JenkinsJobWidget: {
     name: 'Jenkins Job widget',
     component: JenkinsJobWidget,
-    dialogFields: ['EndpointField', 'ScheduleDelay', 'SchedulePeriod', 'Path']
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'Path']
   },
   SonarQubeWidget: {
     name: 'SonarQube widget',
     component: SonarQubeWidget,
-    dialogFields: ['EndpointField', 'ScheduleDelay', 'SchedulePeriod', 'Key', 'IdNumber', 'SonarQubeMetricsInput']
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'Key', 'IdNumber', 'SonarQubeMetricsInput']
   }
 };
 
