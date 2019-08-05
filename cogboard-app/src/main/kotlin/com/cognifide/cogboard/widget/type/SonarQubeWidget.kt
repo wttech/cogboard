@@ -7,10 +7,6 @@ import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-/**
- * Example response
-
- */
 class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val index: Int = config.getInteger("index", 0)
@@ -30,6 +26,12 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
                 .put(CogboardConstants.PROP_ID, id)
                 .put(CogboardConstants.PROP_STATUS, extractStatus(metrics))
                 .put(CogboardConstants.PROP_CONTENT, content))
+    }
+
+    override fun updateState() {
+        if (url.isNotBlank() && idString.isNotBlank()) {
+            httpGet(url = "$url/api/resources?resource=$idString&metrics=alert_status,${selectedMetrics.joinToString(separator = ",")}")
+        }
     }
 
     private fun getData(responseBody: JsonObject): JsonObject {
@@ -60,11 +62,5 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
                 .findFirst()
                 .map { Widget.Status.from(it.getString("data")) }
                 .orElse(Widget.Status.UNKNOWN)
-    }
-
-    override fun updateState() {
-        if (url.isNotBlank() && idString.isNotBlank()) {
-            httpGet(url = "$url/api/resources?resource=$idString&metrics=alert_status,${selectedMetrics.joinToString(separator = ",")}")
-        }
     }
 }
