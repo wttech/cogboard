@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
 
-import { fetchData, updateWidget } from "./actions/actionCreators";
+import { fetchInitialData } from "./actions/thunks";
+import { updateWidget } from './actions/actionCreators';
 import { theme } from './theme';
 
 import MainTemplate from './components/MainTemplate';
@@ -15,7 +16,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchData());
+    dispatch(fetchInitialData());
   }, [dispatch]);
 
   useEffect(() => {

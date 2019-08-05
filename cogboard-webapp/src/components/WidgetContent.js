@@ -2,8 +2,8 @@ import React from 'react'
 
 import widgetTypes from './widgets';
 
-const WidgetContent = ({contentType, content}) =>  {
-  const WidgetType = widgetTypes[contentType].component;
+const WidgetContent = ({type, content}) =>  {
+  const WidgetType = widgetTypes[type].component;
 
   return <WidgetType {...content} />
 };
