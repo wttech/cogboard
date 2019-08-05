@@ -13,7 +13,7 @@ class CogboardConstants {
         const val PROP_DISABLED = "disabled"
         const val PROP_TITLE = "title"
         const val PROP_CONTENT = "content"
-        const val PROP_WIDGET_TYPE = "contentType"
+        const val PROP_WIDGET_TYPE = "type"
         const val PROP_SCHEDULE_PERIOD = "schedulePeriod"
         const val PROP_SCHEDULE_PERIOD_DEFAULT = FIVE_MINUTES_IN_MILIS
         const val PROP_SCHEDULE_DELAY = "scheduleDelay"

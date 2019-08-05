@@ -16,8 +16,8 @@ const StyledFieldset = styled(FormControl)`
   min-width: 300px;
 `;
 
-const WidgetTypeForm = ({values, contentType = 'DefaultWidget', handleChange, initialData}) => {
-  const fieldNames = widgetTypes[contentType].dialogFields || [];
+const WidgetTypeForm = ({values, type = 'DefaultWidget', handleChange, initialData}) => {
+  const fieldNames = widgetTypes[type].dialogFields || [];
   const noDialogFields = fieldNames.length === 0;
 
   return !noDialogFields && (

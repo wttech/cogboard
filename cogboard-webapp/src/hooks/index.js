@@ -14,9 +14,13 @@ export const useFormData = (data) => {
 
   const handleChange = fieldName => event => {
     const { target: { type, value, checked } } = event;
-    const fieldValue = type !== 'checkbox' ? value : checked;
+    const valueType = {
+      checkbox: checked,
+      number: Number(value),
+    };
+    const fieldValue = valueType[type] || value;
 
-    setValues({ ...values, [fieldName]: fieldValue });
+    setValues({ ...values, [fieldName]: fieldValue});
   };
 
   const getFormDataProps = (fieldName, initialValue = '') => {
