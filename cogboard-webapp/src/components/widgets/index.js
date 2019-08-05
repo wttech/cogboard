@@ -21,7 +21,7 @@ const widgetTypes = {
   SonarQubeWidget: {
     name: 'SonarQube widget',
     component: SonarQubeWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'Key', 'IdNumber', 'SonarQubeMetricsInput']
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString', 'Index', 'SonarQubeMetricsInput']
   }
 };
 

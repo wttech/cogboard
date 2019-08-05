@@ -9,29 +9,12 @@ import io.vertx.core.json.JsonObject
 
 /**
  * Example response
-{
-"_class": "hudson.maven.MavenModuleSet",
-"lastBuild": {
-"_class": "hudson.maven.MavenModuleSetBuild",
-"building": false,
-"description": null,
-"displayName": "#1071",
-"duration": 480621,
-"estimatedDuration": 443093,
-"executor": null,
-"fullDisplayName": "Project » build-name #1017",
-"id": "1071",
-"result": "SUCCESS",
-"timestamp": 1564457216813,
-"url": "http://server.com/job/Project/job/build-name/1071/",
-"builtOn": "QA-Automation-Win7-64bit-10"
-}
-}
+
  */
 class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
-    private val idNumber: Int = config.getInteger("idNumber", 0)
-    private val key: String = config.getString("key") ?: ""
+    private val index: Int = config.getInteger("index", 0)
+    private val idString: String = config.getString("idString", "")
     private val selectedMetrics: JsonArray = config.getJsonArray("selectedMetrics")
     private val url: String = config.endpointProp("url")
 
@@ -41,7 +24,7 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
         val content = data.copy()
 
         attachMetrics(content, metrics)
-        content.put(CogboardConstants.PROP_URL, "$url/dashboard/index/$idNumber")
+        content.put(CogboardConstants.PROP_URL, "$url/dashboard/index/$index")
 
         send(JsonObject()
                 .put(CogboardConstants.PROP_ID, id)
@@ -80,8 +63,8 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     }
 
     override fun updateState() {
-        if (url.isNotBlank() && key.isNotBlank()) {
-            httpGet(url = "$url/api/resources?resource=$key&metrics=alert_status,${selectedMetrics.joinToString(separator = ",")}")
+        if (url.isNotBlank() && idString.isNotBlank()) {
+            httpGet(url = "$url/api/resources?resource=$idString&metrics=alert_status,${selectedMetrics.joinToString(separator = ",")}")
         }
     }
 }
