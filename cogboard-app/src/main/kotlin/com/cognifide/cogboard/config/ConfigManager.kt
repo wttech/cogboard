@@ -1,7 +1,8 @@
 package com.cognifide.cogboard.config
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.storage.MockStorage
+import com.cognifide.cogboard.storage.Storage
+import com.cognifide.cogboard.storage.docker.VolumeStorage
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.WidgetIndex
 import io.vertx.core.AbstractVerticle
@@ -10,12 +11,13 @@ import io.vertx.core.json.JsonObject
 
 class ConfigManager : AbstractVerticle() {
 
-    private val storage = MockStorage() // TODO implement real storage
     private val widgets = mutableMapOf<String, Widget>()
+    private lateinit var storage: Storage
     private lateinit var endpoints: JsonArray
 
     override fun start() {
         endpoints = config().getJsonArray("endpoints")
+        storage = VolumeStorage(vertx)
         listenOnConfigSave()
         listenOnWidgetUpdate()
         loadConfig()

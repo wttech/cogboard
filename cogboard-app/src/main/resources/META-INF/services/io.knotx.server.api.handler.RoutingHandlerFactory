@@ -1,3 +1,4 @@
-com.cognifide.cogboard.config.handler.ConfigSaveHandler
-com.cognifide.cogboard.config.handler.EndpointsHandler
-com.cognifide.cogboard.widget.handler.WidgetUpdateHandler
+com.cognifide.cogboard.config.handler.GetEndpoints
+com.cognifide.cogboard.config.handler.GetConfig
+com.cognifide.cogboard.config.handler.SaveConfig
+com.cognifide.cogboard.widget.handler.UpdateWidget

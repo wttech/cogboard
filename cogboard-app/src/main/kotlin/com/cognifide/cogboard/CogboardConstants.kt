@@ -26,8 +26,8 @@ class CogboardConstants {
         const val PROP_ENDPOINT = "endpoint"
         const val PROP_ARRAY = "array"
 
+        const val EVENT_SEND_MESSAGE_TO_WEBSOCKET = "cogboard.websocket.message"
         const val EVENT_UPDATE_WIDGET_CONFIG = "cogboard.config.widget.update"
-        const val EVENT_UPDATE_WIDGET_STATE = "cogboard.widget.state.changed"
         const val EVENT_CONFIG_SAVE = "cogboard.config.save"
         const val EVENT_SEND_GET = "cogboard.httpclient.get"
         const val EVENT_SEND_POST = "cogboard.httpclient.post"
@@ -35,5 +35,7 @@ class CogboardConstants {
         val DEFAULT_VALUES: JsonObject = JsonObject()
                 .put(PROP_SCHEDULE_PERIOD, PROP_SCHEDULE_PERIOD_DEFAULT)
                 .put(PROP_SCHEDULE_DELAY, PROP_SCHEDULE_DELAY_DEFAULT)
+
+        fun errorResponse(message : String = "") : JsonObject = JsonObject().put("status", "failed $message")
     }
 }

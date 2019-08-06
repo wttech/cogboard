@@ -48,13 +48,16 @@ tasks.named("build") {
     dependsOn("runTest", "docker-clean")
 }
 
+val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
+logger.lifecycle("Mount Dir is: $mountDir")
+
 task("docker-run") {
     dependsOn("build")
     doLast {
         logger.lifecycle("Running docker image")
         exec {
-            commandLine("docker", "run", "--rm", "-p8092:8092", "-p18092:18092", "-p9000:9000", "--name", "cogboard", "cogboard/cogboard-app")
-            // command: `docker run --rm -p8092:8092 -p18092:18092 -p9000:9000 --name cogboard cogboard/cogboard-app`
+            commandLine("docker", "run", "--rm", "-p8092:8092", "-p18092:18092", "-p9000:9000", "--name", "cogboard", "-v", "$mountDir:/data", "cogboard/cogboard-app")
+            // command: `docker run --rm -p8092:8092 -p18092:18092 -p9000:9000 --name cogboard -v <project_dir>/mnt:/data cogboard/cogboard-app`
         }
     }
 }
