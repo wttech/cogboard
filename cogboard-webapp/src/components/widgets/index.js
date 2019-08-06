@@ -1,6 +1,7 @@
 import DefaultWidget from './types/DefaultWidget';
 import ExampleWidget from './types/ExampleWidget';
 import JenkinsJobWidget from "./types/JenkinsJobWidget";
+import SonarQubeWidget from "./types/SonarQubeWidget";
 
 const widgetTypes = {
   DefaultWidget: {
@@ -15,7 +16,12 @@ const widgetTypes = {
   JenkinsJobWidget: {
     name: 'Jenkins Job widget',
     component: JenkinsJobWidget,
-    dialogFields: ['EndpointField', 'ScheduleDelay', 'SchedulePeriod', 'Path']
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'Path']
+  },
+  SonarQubeWidget: {
+    name: 'SonarQube widget',
+    component: SonarQubeWidget,
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString', 'Index', 'SonarQubeMetricsInput']
   }
 };
 

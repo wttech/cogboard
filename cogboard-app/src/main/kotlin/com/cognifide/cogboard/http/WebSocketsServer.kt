@@ -25,7 +25,7 @@ class WebSocketsServer : AbstractVerticle() {
         LOGGER.info("Starting <{}>", this::class.java.simpleName)
 
         val sockets: MutableSet<ServerWebSocket> = hashSetOf()
-        val consumer = vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_STATE)
+        val consumer = vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET)
 
         vertx.createHttpServer().websocketHandler { socket ->
             socket.writeTextMessage(JsonObject().put("status", "CONNECTED").toString())
