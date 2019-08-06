@@ -44,7 +44,7 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
      */
     override fun send(state: JsonObject) {
         state.put(CogboardConstants.PROP_ID, id)
-        vertx.eventBus().send(CogboardConstants.EVENT_UPDATE_WIDGET_STATE, state)
+        vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
     }
 
     /**
