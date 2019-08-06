@@ -1,29 +1,5 @@
 import { requestData, receiveData, requestUpdate, updateWidget, addWidget, editWidget } from './actionCreators';
-
-const checkResponseStatus = response => {
-  const { status, statusText } = response;
-
-  if (status >= 200 && status < 300) {
-    return Promise.resolve(response);
-  } else {
-    return Promise.reject(new Error(statusText));
-  }
-};
-
-const fetchData = (url, method = 'GET', data = {}) => {
-  const postConfig = {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  const init = method !== 'GET' ? postConfig : {};
-
-  return fetch(url, init)
-    .then(checkResponseStatus)
-    .then(response => response.json());
-};
+import { fetchData, createNewWidgetData, createEditWidgetData, mapDataToState } from './helpers';
 
 export const fetchInitialData = () =>
   (dispatch) => {
@@ -36,32 +12,17 @@ export const fetchInitialData = () =>
       );
   };
 
-const mapDataToState = (data) => {
-  const {
-    id,
-    title,
-    type,
-    status,
-    config,
-    boardId,
-    ...other
-  } = data;
+const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) => data => {
+  return (dispatch, getState) => {
+    const allWidgets = getState().widgets.allWidgets;
+    const widgetData = widgetDataCreator({...data, allWidgets});
+    const { id } = widgetData;
+    const { generalData, serverData } = mapDataToState(widgetData);
 
-  return {
-    generalData: { id, boardId, title, config, type, status },
-    serverData: { id, type, ...other }
-  };
-}
-
-const makeWidgetUpdaterThunk = beforeUpdateActionCreator => data => {
-  const { id } = data;
-  const { generalData, serverData } = mapDataToState(data);
-
-  return (dispatch) => {
     dispatch(beforeUpdateActionCreator(generalData));
     dispatch(requestUpdate(id));
 
-    return fetchData('/api/widget/update', 'POST', serverData)
+    return fetchData('https://jsonplaceholder.typicode.com/posts', 'POST', serverData)
       .then(
         () => dispatch(updateWidget(serverData)),
         console.error
@@ -69,6 +30,6 @@ const makeWidgetUpdaterThunk = beforeUpdateActionCreator => data => {
   };
 };
 
-export const addNewWidget = makeWidgetUpdaterThunk(addWidget);
+export const addNewWidget = makeWidgetUpdaterThunk(addWidget, createNewWidgetData);
 
-export const saveWidget = makeWidgetUpdaterThunk(editWidget);
+export const saveWidget = makeWidgetUpdaterThunk(editWidget, createEditWidgetData);
