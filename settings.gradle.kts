@@ -17,12 +17,3 @@ rootProject.name = "cogboard"
 
 include("cogboard-app")
 include("cogboard-webapp")
-
-// TODO remove below modules
-include("example-api")
-include("health-check")
-include("example-action")
-
-project(":example-api").projectDir = file("modules/example-api")
-project(":health-check").projectDir = file("modules/health-check")
-project(":example-action").projectDir = file("modules/example-action")
