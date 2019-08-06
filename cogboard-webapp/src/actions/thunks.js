@@ -5,7 +5,7 @@ export const fetchInitialData = () =>
   (dispatch) => {
     dispatch(requestData());
 
-    return fetchData('/data.json')
+    return fetchData('/api/config')
       .then(
         data => dispatch(receiveData(data)),
         console.error
