@@ -22,7 +22,7 @@ const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) =>
     dispatch(beforeUpdateActionCreator(generalData));
     dispatch(requestUpdate(id));
 
-    return fetchData('https://jsonplaceholder.typicode.com/posts', 'POST', serverData)
+    return fetchData('/api/widget/update', 'POST', serverData)
       .then(
         () => dispatch(updateWidget(serverData)),
         console.error
