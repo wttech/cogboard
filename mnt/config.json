@@ -26,6 +26,10 @@
         "disabled": false,
         "type": "ExampleWidget",
         "scheduleDelay": 500,
+        "config": {
+          "columns": 1,
+          "goNewLine": false
+        },
         "content": {
           "serverTime": "no data"
         }
