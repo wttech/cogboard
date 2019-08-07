@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 import { useDialogToggle } from '../hooks';
@@ -53,6 +53,7 @@ const MainTemplate = (props) => {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const dispatch = useDispatch();
+  const dataChanged = useSelector(({ app }) => app.dataChanged);
 
   const handleSaveDataClick = () => {
     dispatch(saveData());
@@ -97,13 +98,15 @@ const MainTemplate = (props) => {
         <Container maxWidth="xl">
           <Board currentBoard={currentBoard} />
           <StyledActions>
-            <StyledSaveFab
-              onClick={handleSaveDataClick}
-              aria-label="Save Data"
-              color="secondary"
-            >
-              <Save />
-            </StyledSaveFab>
+            {dataChanged &&
+              <StyledSaveFab
+                onClick={handleSaveDataClick}
+                aria-label="Save Data"
+                color="secondary"
+              >
+                <Save />
+              </StyledSaveFab>
+            }
             <Fab
               onClick={handleAddWidgetClick}
               aria-label="Add Widget"
