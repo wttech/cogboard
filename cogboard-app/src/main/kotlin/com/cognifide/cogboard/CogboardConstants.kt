@@ -7,6 +7,7 @@ class CogboardConstants {
         private const val FIVE_MINUTES_IN_MILIS = 300000L
 
         const val PROP_ID = "id"
+        const val PROP_EVENT_TYPE = "eventType"
         const val PROP_WIDGETS = "widgets"
         const val PROP_WIDGETS_BY_ID = "widgetsById"
         const val PROP_STATUS = "status"
