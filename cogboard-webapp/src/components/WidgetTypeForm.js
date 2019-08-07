@@ -1,4 +1,5 @@
 import React from 'react';
+import { func, object, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import widgetTypes from './widgets';
@@ -16,31 +17,45 @@ const StyledFieldset = styled(FormControl)`
   min-width: 300px;
 `;
 
-const WidgetTypeForm = ({values, type = 'DefaultWidget', handleChange, initialData}) => {
-  const fieldNames = widgetTypes[type].dialogFields || [];
-  const noDialogFields = fieldNames.length === 0;
+const WidgetTypeForm = ({ values, type, handleChange }) => {
+  const dialogFieldNames = widgetTypes[type].dialogFields || [];
+  const hasDialogFields = dialogFieldNames.length !== 0;
 
-  return !noDialogFields && (
+  return hasDialogFields && (
     <>
       <StyledDivider />
       <StyledFieldset component="fieldset">
-        {fieldNames.map(field => {
-          const { component: Field, ...customProps } = dialogFields[field];
-          const { name } = customProps;
-          const { [name]: initialValue = '' } = initialData;
+        {dialogFieldNames.map(fieldName => {
+          const {
+            component: DialogField,
+            initialValue = '',
+            ...dialogFieldProps
+          } = dialogFields[fieldName];
+
+          const { name } = dialogFieldProps;
+
+          if (values[name] === undefined) {
+            values[name] = initialValue;
+          }
 
           return (
-            <Field
+            <DialogField
               key={name}
-              value={values[name] || initialValue}
+              value={values[name]}
               onChange={handleChange(name)}
-              {...customProps}
+              {...dialogFieldProps}
             />
           );
         })}
       </StyledFieldset>
     </>
   );
+};
+
+WidgetTypeForm.propTypes = {
+  handleChange: func.isRequired,
+  type: string.isRequired,
+  values: object.isRequired
 };
 
 export default WidgetTypeForm;

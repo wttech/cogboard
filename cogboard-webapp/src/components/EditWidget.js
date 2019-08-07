@@ -1,33 +1,30 @@
 import React from 'react';
+import { func, object, string, bool, number } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 import { saveWidget } from '../actions/thunks';
-import { mapFormValuesToWidgetData } from './helpers';
 
 import Button from '@material-ui/core/Button';
 import CancelButton from './CancelButton';
 import WidgetForm from './WidgetForm';
 
-const createWidgetData = (editData, values) => ({ ...editData, ...mapFormValuesToWidgetData(values) });
-
 const StyledCancelButton = styled(CancelButton)`
   margin-left: 20px;
 `;
 
-const EditWidget = ({ editData, closeDialog }) => {
+const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
+  const initialFormValues = { ...widgetData, ...widgetTypeData };
   const dispatch = useDispatch();
 
   const handleSaveClick = (values) => () => {
-    const widgetData = createWidgetData(editData, values);
-
-    dispatch(saveWidget(widgetData));
+    dispatch(saveWidget({ id, values }));
     closeDialog();
   }
 
   return (
     <WidgetForm
-      initialData={editData}
+      {...initialFormValues}
       renderActions={values =>
         <>
           <Button
@@ -42,6 +39,17 @@ const EditWidget = ({ editData, closeDialog }) => {
       }
     />
   );
+};
+
+EditWidget.propTypes = {
+  closeDialog: func.isRequired,
+  disabled: bool.isRequired,
+  columns: number.isRequired,
+  goNewLine: bool.isRequired,
+  id: string.isRequired,
+  title: string.isRequired,
+  type: string.isRequired,
+  widgetTypeData: object.isRequired
 };
 
 export default EditWidget;

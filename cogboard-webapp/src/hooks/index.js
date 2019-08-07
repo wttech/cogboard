@@ -23,16 +23,5 @@ export const useFormData = (data) => {
     setValues({ ...values, [fieldName]: fieldValue});
   };
 
-  const getFormDataProps = (fieldName, initialValue = '') => {
-    if (!values[fieldName]) {
-      values[fieldName] = initialValue;
-    }
-
-    return {
-      value: values[fieldName],
-      onChange: handleChange(fieldName)
-    }
-  };
-
-  return { values, handleChange, getFormDataProps };
+  return { values, handleChange };
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { func } from 'prop-types';
 
 import { Menu, MenuList, IconButton } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
@@ -33,6 +34,10 @@ const MoreMenu = ({ children }) => {
       </Menu>
     </>
   );
-}
+};
+
+MoreMenu.propTypes = {
+  children: func.isRequired
+};
 
 export default MoreMenu;

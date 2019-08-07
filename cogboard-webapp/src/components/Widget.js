@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { bool, number, object, string } from 'prop-types';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/styles';
 
@@ -15,19 +15,41 @@ import WidgetContent from './WidgetContent';
 
 const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
-const StyledCard = styled(({ status, columns, goNewLine, theme, ...other }) => <Card {...other} />)`
+const StyledCard = styled(({
+  status,
+  columns,
+  goNewLine,
+  theme,
+  ...other
+}) => <Card {...other} />)`
   background: ${({ status, theme }) => mapStatusToColor(status, theme)};
   box-shadow: none;
   grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
   grid-column-end: span ${({ columns }) => columns};
 `;
 
-const Widget = ({ widgetData, currentBoard }) => {
-  const { id, disabled, type, status, title, content = {}, config = {} } = widgetData;
-  const { columns = 1, goNewLine = false } = config;
-  const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
+const Widget = ({ id, currentBoard }) => {
+  const widgetData = useSelector(
+    state => state.widgets.widgetsById[id],
+    shallowEqual
+  );
+  const {
+    id: widgetId,
+    isUpdating,
+    disabled,
+    type,
+    status,
+    title,
+    content,
+    config: {
+      columns,
+      goNewLine
+    },
+    ...widgetTypeData
+  } = widgetData;
   const dispatch = useDispatch();
   const theme = useTheme();
+  const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
 
   const handleEditClick = (closeMenu) => () => {
     openDialog();
@@ -78,7 +100,13 @@ const Widget = ({ widgetData, currentBoard }) => {
       >
         <EditWidget
           closeDialog={handleDialogClose}
-          editData={widgetData}
+          id={id}
+          title={title}
+          disabled={disabled}
+          type={type}
+          columns={columns}
+          goNewLine={goNewLine}
+          widgetTypeData={widgetTypeData}
         />
       </AppDialog>
     </>
@@ -86,7 +114,15 @@ const Widget = ({ widgetData, currentBoard }) => {
 };
 
 Widget.propTypes = {
-  goNewLine: PropTypes.bool
+  currentBoard: string.isRequired,
+  id: string.isRequired
 };
+
+StyledCard.propTypes = {
+  columns: number.isRequired,
+  goNewLine: bool.isRequired,
+  status: string.isRequired,
+  theme: object.isRequired
+}
 
 export default Widget;
