@@ -31,7 +31,11 @@ interface Widget {
                 "SUCCESS" -> OK
                 "FAILURE" -> FAIL
                 else -> values().firstOrNull { it.name.equals(text, ignoreCase = true) } ?: UNKNOWN
-
+            }
+            fun from(number: Int): Status = when (number) {
+                in 0..299 -> OK
+                in 300..399 -> UNSTABLE
+                else -> ERROR
             }
         }
     }

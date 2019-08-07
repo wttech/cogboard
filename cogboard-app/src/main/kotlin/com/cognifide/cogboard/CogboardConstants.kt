@@ -4,7 +4,6 @@ import io.vertx.core.json.JsonObject
 
 class CogboardConstants {
     companion object {
-        private const val FIVE_MINUTES_IN_MILIS = 300000L
 
         const val PROP_ID = "id"
         const val PROP_EVENT_TYPE = "eventType"
@@ -16,8 +15,7 @@ class CogboardConstants {
         const val PROP_CONTENT = "content"
         const val PROP_WIDGET_TYPE = "type"
         const val PROP_SCHEDULE_PERIOD = "schedulePeriod"
-        const val PROP_SCHEDULE_PERIOD_DEFAULT = FIVE_MINUTES_IN_MILIS
-        const val PROP_SCHEDULE_DELAY = "scheduleDelay"
+        const val PROP_SCHEDULE_PERIOD_DEFAULT = 120L // 120 seconds
         const val PROP_SCHEDULE_DELAY_DEFAULT = 0L
         const val PROP_URL = "url"
         const val PROP_USER = "user"
@@ -30,12 +28,12 @@ class CogboardConstants {
         const val EVENT_SEND_MESSAGE_TO_WEBSOCKET = "cogboard.websocket.message"
         const val EVENT_UPDATE_WIDGET_CONFIG = "cogboard.config.widget.update"
         const val EVENT_CONFIG_SAVE = "cogboard.config.save"
-        const val EVENT_SEND_GET = "cogboard.httpclient.get"
-        const val EVENT_SEND_POST = "cogboard.httpclient.post"
+        const val EVENT_HTTP_GET = "cogboard.httpclient.get"
+        const val EVENT_HTTP_CHECK = "cogboard.httpclient.check"
+        const val EVENT_HTTP_POST = "cogboard.httpclient.post"
 
         val DEFAULT_VALUES: JsonObject = JsonObject()
                 .put(PROP_SCHEDULE_PERIOD, PROP_SCHEDULE_PERIOD_DEFAULT)
-                .put(PROP_SCHEDULE_DELAY, PROP_SCHEDULE_DELAY_DEFAULT)
 
         fun errorResponse(message : String = "") : JsonObject = JsonObject().put("status", "failed $message")
     }
