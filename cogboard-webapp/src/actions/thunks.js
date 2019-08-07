@@ -12,6 +12,18 @@ export const fetchInitialData = () =>
       );
   };
 
+export const saveData = () =>
+  (dispatch, getState) => {
+    const { boards, widgets } = getState();
+    const data = { boards, widgets };
+
+    return fetchData('/api/config/save', 'POST', data)
+      .then(
+        console.log,
+        console.error
+      );
+  };
+
 const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) => data => {
   return (dispatch, getState) => {
     const allWidgets = getState().widgets.allWidgets;
