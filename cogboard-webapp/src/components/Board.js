@@ -1,4 +1,5 @@
 import React from 'react';
+import { string } from 'prop-types';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/core/styles'
@@ -56,5 +57,9 @@ const Board = ({ currentBoard, className }) => {
     </>
   );
 }
+
+Board.propTypes = {
+  currentBoard: string.isRequired
+};
 
 export default Board;
