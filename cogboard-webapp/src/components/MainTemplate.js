@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 import { useDialogToggle } from '../hooks';
+import { saveData } from '../actions/thunks';
 
-import { Container, Drawer, Fab } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import { Box, Container, Drawer, Fab } from '@material-ui/core';
+import { Add, Save } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import AddWidget from './AddWidget';
 import Board from './Board';
@@ -12,10 +14,14 @@ import BoardList from './BoardList';
 import Logo from './Logo';
 import NavBar from './NavBar';
 
-const StyledFab = styled(Fab)`
+const StyledActions = styled(Box)`
   bottom: 50px;
   position: absolute;
   right: 50px;
+`;
+
+const StyledSaveFab = styled(Fab)`
+  margin-right: 16px;
 `;
 
 const StyledBoardList = styled(BoardList)`
@@ -46,6 +52,15 @@ const MainTemplate = (props) => {
   const [currentBoard, setCurrentBoard] = useState('board1');
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
+  const dispatch = useDispatch();
+
+  const handleSaveDataClick = () => {
+    dispatch(saveData());
+  };
+
+  const handleAddWidgetClick = () => {
+    openDialog(true);
+  };
 
   const handleBoardClick = (boardId) => () => {
     setCurrentBoard(boardId);
@@ -60,10 +75,6 @@ const MainTemplate = (props) => {
     }
 
     setDrawerOpened(opened);
-  };
-
-  const handleAddWidgetClick = () => {
-    openDialog(true);
   };
 
   return (
@@ -85,13 +96,22 @@ const MainTemplate = (props) => {
       <StyledMain>
         <Container maxWidth="xl">
           <Board currentBoard={currentBoard} />
-          <StyledFab
-            onClick={handleAddWidgetClick}
-            aria-label="Add Widget"
-            color="primary"
-          >
-            <Add />
-          </StyledFab>
+          <StyledActions>
+            <StyledSaveFab
+              onClick={handleSaveDataClick}
+              aria-label="Save Data"
+              color="secondary"
+            >
+              <Save />
+            </StyledSaveFab>
+            <Fab
+              onClick={handleAddWidgetClick}
+              aria-label="Add Widget"
+              color="primary"
+            >
+              <Add />
+            </Fab>
+          </StyledActions>
         </Container>
       </StyledMain>
       <AppDialog
