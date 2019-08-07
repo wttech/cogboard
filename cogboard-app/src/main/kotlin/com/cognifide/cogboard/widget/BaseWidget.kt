@@ -17,9 +17,6 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     val eventBusAddress: String
         get() = "event.widget.$id"
 
-    val scheduleDelay: Long
-        get() = config.getLong(CogboardConstants.PROP_SCHEDULE_DELAY)
-
     val schedulePeriod: Long
         get() = config.getLong(CogboardConstants.PROP_SCHEDULE_PERIOD) ?: CogboardConstants.PROP_SCHEDULE_PERIOD_DEFAULT
 
@@ -71,12 +68,11 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     }
 
     private fun startWithSchedule() {
-        val period = config.getLong(CogboardConstants.PROP_SCHEDULE_PERIOD, 0L)
-        val delay = config.getLong(CogboardConstants.PROP_SCHEDULE_DELAY, 0L)
+        val period = config.getLong(CogboardConstants.PROP_SCHEDULE_PERIOD, 0L) * 1000 // to milliseconds
 
         if (period > 0L) {
             task = timerTask { updateState() }
-            Timer().schedule(task, delay, period)
+            Timer().schedule(task, CogboardConstants.PROP_SCHEDULE_DELAY_DEFAULT, period)
         } else {
             updateState()
         }

@@ -10,20 +10,13 @@ const dialogFields = {
     label: 'Endpoint',
     itemsUrl: '/api/endpoints'
   },
-  ScheduleDelay: {
-    component: NumberInput,
-    name: 'scheduleDelay',
-    label: 'Schedule Delay',
-    min: 0,
-    step: 500,
-    initialValue: 500
-  },
   SchedulePeriod: {
     component: NumberInput,
     name: 'schedulePeriod',
-    label: 'Schedule Period',
-    min: 5000,
-    step: 500
+    label: 'Schedule Period [seconds]',
+    min: 1,
+    step: 10,
+    initialValue: 120
   },
   Path: {
     component: TextInput,
