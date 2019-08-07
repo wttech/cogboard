@@ -28,7 +28,6 @@ class WebSocketsServer : AbstractVerticle() {
         val consumer = vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET)
 
         vertx.createHttpServer().websocketHandler { socket ->
-            socket.writeTextMessage(JsonObject().put("status", "CONNECTED").toString())
             sockets.add(socket)
             consumer.handler { message ->
                 val iterator = sockets.iterator()
