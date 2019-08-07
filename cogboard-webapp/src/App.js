@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
 
 import { fetchInitialData } from "./actions/thunks";
-import { updateWidget } from './actions/actionCreators';
+import { updateWidget, saveDataSuccess } from './actions/actionCreators';
 import { theme } from './theme';
 
 import MainTemplate from './components/MainTemplate';
@@ -27,6 +27,8 @@ function App() {
 
         if (eventType === 'widget-update') {
           dispatch(updateWidget(data));
+        } else if (eventType === 'notification-config-save') {
+          dispatch(saveDataSuccess());
         }
       };
 

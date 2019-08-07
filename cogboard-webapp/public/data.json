@@ -28,7 +28,7 @@
         },
         "title": "Example Widget",
         "disabled": false,
-        "type": "ExampleWidget",
+        "type": "ExampleWidgett",
         "scheduleDelay": 500,
         "content": {
           "serverTime": "no data"
