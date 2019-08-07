@@ -22,9 +22,13 @@ function App() {
   useEffect(() => {
     if (appInitialized) {
       const socket = new WebSocket('ws://localhost:9000');
-      const handleMessageReceive = ({ data }) => {
-        dispatch(updateWidget(JSON.parse(data)));
-      }
+      const handleMessageReceive = ({ data: dataJson }) => {
+        const { eventType, ...data } = JSON.parse(dataJson);
+
+        if (eventType === 'widget-update') {
+          dispatch(updateWidget(data));
+        }
+      };
 
       socket.addEventListener('message', handleMessageReceive);
 
