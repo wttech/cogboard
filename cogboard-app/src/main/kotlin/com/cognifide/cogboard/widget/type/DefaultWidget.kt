@@ -3,6 +3,9 @@ package com.cognifide.cogboard.widget.type
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.json.JsonObject
 
+/**
+ * Use this for all widgets that don't require backend code
+ */
 class DefaultWidget : Widget {
 
     override val id: String
