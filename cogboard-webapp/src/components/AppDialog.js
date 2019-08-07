@@ -1,4 +1,5 @@
 import React from 'react';
+import { bool, element, func, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
@@ -19,15 +20,26 @@ const AppDialog = props => {
   return (
     <StyledDialog
       onClose={handleDialogClose}
-      aria-labelledby="widget-dialog-title"
+      aria-labelledby="app-dialog-title"
       open={open}
     >
-      <DialogTitle id="widget-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="app-dialog-title">{title}</DialogTitle>
       <StyledDialogContent>
         {children}
       </StyledDialogContent>
     </StyledDialog>
   );
+};
+
+AppDialog.propTypes = {
+  handleDialogClose: func.isRequired,
+  children: element.isRequired,
+  open: bool.isRequired,
+  title: string
+}
+
+AppDialog.defaultProps = {
+  title: ''
 };
 
 export default AppDialog;

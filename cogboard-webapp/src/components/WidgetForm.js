@@ -1,4 +1,5 @@
 import React from 'react';
+import { string, number, bool } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import widgetTypes from './widgets';
@@ -21,21 +22,8 @@ const renderWidgetTypesMenu = (widgetTypes) =>
     return <MenuItem key={type} value={type}>{formatedName}</MenuItem>;
   });
 
-const WidgetForm = ({ initialData, renderActions }) => {
-  const {
-    title = '',
-    disabled = false,
-    type,
-    config = {},
-    ...customInitialData
-  } = initialData;
-  const { columns = 1, goNewLine = false } = config;
-  const { values, handleChange, getFormDataProps } = useFormData({
-    disabled,
-    type,
-    columns,
-    goNewLine,
-  });
+const WidgetForm = ({ renderActions, ...initialFormValues }) => {
+  const { values, handleChange } = useFormData({ ...initialFormValues });
 
   return (
     <>
@@ -51,13 +39,14 @@ const WidgetForm = ({ initialData, renderActions }) => {
           {renderWidgetTypesMenu}
         </DropdownField>
         <TextField
+          onChange={handleChange('title')}
           id="title"
           InputLabelProps={{
             shrink: true
           }}
           label="Title"
           margin="normal"
-          {...getFormDataProps('title', title)}
+          value={values.title}
         />
         <TextField
           onChange={handleChange('columns')}
@@ -104,11 +93,26 @@ const WidgetForm = ({ initialData, renderActions }) => {
         type={values.type}
         values={values}
         handleChange={handleChange}
-        initialData={customInitialData}
       />
       {renderActions(values)}
     </>
   );
 };
+
+WidgetForm.propTypes = {
+  disabled: bool,
+  columns: number,
+  goNewLine: bool,
+  title: string,
+  type: string
+};
+
+WidgetForm.defaultProps = {
+  disabled: false,
+  columns: 1,
+  goNewLine: false,
+  title: 'Default Widget',
+  type: 'DefaultWidget'
+}
 
 export default WidgetForm;

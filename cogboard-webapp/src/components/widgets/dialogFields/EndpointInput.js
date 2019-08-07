@@ -1,4 +1,5 @@
 import React from 'react';
+import { string } from 'prop-types';
 
 import { MenuItem } from '@material-ui/core';
 import DropdownField from '../../DropdownField';
@@ -11,6 +12,10 @@ const EndpointInput = props => {
       )}
     </DropdownField>
   );
+};
+
+EndpointInput.propTypes = {
+  value: string.isRequired
 };
 
 export default EndpointInput;

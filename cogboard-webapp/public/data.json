@@ -22,6 +22,10 @@
     "widgetsById": {
       "widget1": {
         "id": "widget1",
+        "config": {
+          "columns": 1,
+          "goNewLine": false
+        },
         "title": "Example Widget",
         "disabled": false,
         "type": "ExampleWidget",
@@ -32,6 +36,10 @@
       },
       "widget2": {
         "id": "widget2",
+        "config": {
+          "columns": 1,
+          "goNewLine": false
+        },
         "title": "Example Widget",
         "disabled": false,
         "type": "ExampleWidget",
@@ -43,7 +51,8 @@
       "widget3": {
         "id": "widget3",
         "config": {
-          "columns": 2
+          "columns": 2,
+          "goNewLine": false
         },
         "title": "Example Widget",
         "disabled": false,
@@ -55,9 +64,11 @@
       },
       "widget4": {
         "id": "widget4",
-        "icon": "info",
+        "config": {
+          "columns": 1,
+          "goNewLine": false
+        },
         "status": "OK",
-        "footer": "Some footer text",
         "title": "Example Widget",
         "disabled": false,
         "type": "ExampleWidget",
@@ -68,8 +79,10 @@
       },
       "widget5": {
         "id": "widget5",
-        "icon": "info",
-        "footer": "Some footer text",
+        "config": {
+          "columns": 1,
+          "goNewLine": false
+        },
         "title": "Example Widget",
         "disabled": false,
         "type": "ExampleWidget",
@@ -80,22 +93,25 @@
       },
       "widget6": {
         "id": "widget6",
+        "config": {
+          "columns": 1,
+          "goNewLine": false
+        },
         "title": "Jenkins Job Widget",
         "type": "JenkinsJobWidget",
         "endpoint": "endpoint1",
         "disabled": true,
-        "schedulePeriod": 10000,
-        "customProps": {
-          "path": "path"
-        }
+        "schedulePeriod": 10000
       },
       "widget7": {
         "id": "widget7",
-        "icon": "info",
+        "config": {
+          "columns": 1,
+          "goNewLine": false
+        },
         "status": "ERROR",
         "title": "Server Time 7",
         "disabled": false,
-        "footer": "Some footer text",
         "type": "ExampleWidget",
         "content": {
           "serverTime": "no data"
@@ -103,10 +119,12 @@
       },
       "widget8": {
         "id": "widget8",
-        "icon": "info",
+        "config": {
+          "columns": 1,
+          "goNewLine": false
+        },
         "title": "Server Time 8",
         "disabled": false,
-        "footer": "Some footer text",
         "type": "ExampleWidget",
         "content": {
           "serverTime": "no data"
@@ -116,17 +134,20 @@
         "id": "widget9",
         "disabled": false,
         "config": {
+          "goNewLine": false,
           "columns": 2
         },
         "type": "DefaultWidget"
       },
       "widget10": {
         "id": "widget10",
-        "icon": "info",
+        "config": {
+          "columns": 1,
+          "goNewLine": false
+        },
         "status": "OK",
         "title": "Server Time 10",
         "disabled": false,
-        "footer": "Some footer text",
         "type": "DefaultWidget",
         "content": {
           "serverTime": "no data"
@@ -134,22 +155,19 @@
       },
       "widget11": {
         "id": "widget11",
-        "icon": "info",
         "title": "Server Time 11",
         "disabled": false,
-        "footer": "Some footer text",
         "type": "DefaultWidget",
         "content": {
           "serverTime": "no data"
         },
         "config": {
+          "columns": 2,
           "goNewLine": true
         }
       },
       "widget12": {
         "id": "widget12",
-        "icon": "info",
-        "footer": "Some footer text",
         "type": "DefaultWidget",
         "content": {
           "serverTime": "no data"
@@ -158,7 +176,8 @@
         "title": "I have 2 columns width",
         "disabled": false,
         "config": {
-          "columns": 2
+          "columns": 2,
+          "goNewLine": true
         }
       }
     },
