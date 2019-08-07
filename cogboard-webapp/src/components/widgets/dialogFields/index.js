@@ -15,7 +15,8 @@ const dialogFields = {
     name: 'scheduleDelay',
     label: 'Schedule Delay',
     min: 0,
-    step: 500
+    step: 500,
+    initialValue: 500
   },
   SchedulePeriod: {
     component: NumberInput,

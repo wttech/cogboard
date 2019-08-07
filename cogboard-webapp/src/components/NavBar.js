@@ -1,4 +1,5 @@
 import React from 'react';
+import { func } from 'prop-types';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/core/styles';
 
@@ -47,5 +48,9 @@ const NavBar = ({ handleDrawerToggle }) => {
     </StyledAppBar>
   );
 }
+
+NavBar.propTypes = {
+  handleDrawerToggle: func.isRequired
+};
 
 export default NavBar;

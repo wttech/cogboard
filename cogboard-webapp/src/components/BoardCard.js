@@ -1,4 +1,5 @@
 import React from 'react';
+import { func, object } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import { useDialogToggle } from '../hooks';
@@ -44,5 +45,10 @@ const BoardCard = ({ handleBoardClick, boardData, className }) => {
     </div>
   );
 };
+
+BoardCard.propTypes = {
+  handleBoardClick: func.isRequired,
+  boardData: object.isRequired
+}
 
 export default BoardCard;
