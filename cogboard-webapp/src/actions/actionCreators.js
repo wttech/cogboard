@@ -1,4 +1,15 @@
-import { REQUEST_DATA, RECEIVE_DATA, REQUEST_UPDATE, UPDATE_WIDGET, EDIT_WIDGET, ADD_WIDGET, DELETE_WIDGET, CHANGE_DATA, SAVE_DATA_SUCCESS } from './types';
+import {
+  REQUEST_DATA,
+  RECEIVE_DATA,
+  REQUEST_UPDATE,
+  UPDATE_WIDGET,
+  EDIT_WIDGET,
+  ADD_WIDGET,
+  DELETE_WIDGET,
+  DATA_CHANGED,
+  SAVE_DATA_START,
+  SAVE_DATA_SUCCESS
+} from './types';
 
 export const requestData = () => ({
   type: REQUEST_DATA
@@ -34,8 +45,12 @@ export const deleteWidget = (id, boardId) => ({
   payload: { id, boardId }
 });
 
-export const changeData = () => ({
-  type: CHANGE_DATA,
+export const dataChanged = () => ({
+  type: DATA_CHANGED,
+});
+
+export const saveDataStart = () => ({
+  type: SAVE_DATA_START,
 });
 
 export const saveDataSuccess = () => ({
