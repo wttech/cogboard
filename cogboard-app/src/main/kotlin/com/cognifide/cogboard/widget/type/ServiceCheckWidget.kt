@@ -13,7 +13,7 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
     private val expectedStatusCode = config.getInteger("expectedStatusCode", 0)
 
     override fun updateState() {
-        httpGetStatus(path)
+       if (path.isNotBlank()) httpGetStatus(path)
     }
 
     override fun handleResponse(responseBody: JsonObject) {
