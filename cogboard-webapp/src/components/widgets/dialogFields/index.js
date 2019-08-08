@@ -33,7 +33,8 @@ const dialogFields = {
     name: 'index',
     label: 'Index',
     min: 0,
-    step: 1
+    step: 1,
+    initialValue: 0
   },
   SonarQubeMetricsInput: {
     component: SonarQubeMetricsInput,

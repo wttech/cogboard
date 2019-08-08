@@ -2,9 +2,10 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 import { FullWidthButtonOutlined } from "../../styled";
+import { number, string, object } from "prop-types";
 
 const SonarQubeWidgetContent = props => {
-  const {metrics = {}, id = '-', url = '#', version = '-', date = ''} = props;
+  const { metrics, id, url, version, date } = props;
   const ts = date ? new Date(Date.parse(date)).toLocaleString() : '';
 
   return (
@@ -21,6 +22,22 @@ const SonarQubeWidgetContent = props => {
       </FullWidthButtonOutlined>
     </>
   );
+};
+
+SonarQubeWidgetContent.propTypes = {
+  metrics: object,
+  id: string.isRequired,
+  url: string.isRequired,
+  version: string,
+  date: string
+};
+
+SonarQubeWidgetContent.defaultProps = {
+  metrics: {},
+  id: '-',
+  url: '#',
+  version: '-',
+  date: ''
 };
 
 export default SonarQubeWidgetContent;
