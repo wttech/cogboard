@@ -4,7 +4,8 @@ import { object, string } from 'prop-types';
 import widgetTypes from './widgets';
 
 const WidgetContent = ({type, content}) =>  {
-  const WidgetType = widgetTypes[type].component;
+  const notFoundMessage = 'Widget type not found';
+  const WidgetType = widgetTypes[type] ? widgetTypes[type].component : () => notFoundMessage;
 
   return <WidgetType {...content} />
 };
