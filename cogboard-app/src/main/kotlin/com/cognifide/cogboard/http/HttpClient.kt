@@ -8,6 +8,7 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import io.vertx.ext.web.client.HttpRequest
+import io.vertx.ext.web.client.HttpResponse
 import io.vertx.ext.web.client.WebClient
 
 class HttpClient : AbstractVerticle() {
@@ -75,17 +76,27 @@ class HttpClient : AbstractVerticle() {
     private fun executeRequest(request: HttpRequest<Buffer>, address: String?) {
         request.send {
             if (it.succeeded()) {
-                val result = try {
-                    it.result().bodyAsJsonObject()
-                } catch (e: DecodeException) {
-                    JsonObject().put(CogboardConstants.PROP_ARRAY, it.result().bodyAsJsonArray())
+                toJson(it.result()).let { json ->
+                    vertx.eventBus().send(address, json)
                 }
-                vertx.eventBus().send(address, result)
             } else {
                 LOGGER.error(it.cause()?.message)
             }
         }
     }
+
+    private fun toJson(response: HttpResponse<Buffer>): JsonObject? {
+        return try {
+            response.bodyAsJsonObject()
+        } catch (e: DecodeException) {
+            try {
+                JsonObject().put(CogboardConstants.PROP_ARRAY, response.bodyAsJsonArray())
+            } catch (e: DecodeException) {
+                JsonObject().put("body", response.bodyAsString())
+            }
+        }
+    }
+
 
     private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?) {
         request.send {
