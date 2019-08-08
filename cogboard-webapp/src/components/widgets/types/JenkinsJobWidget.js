@@ -17,7 +17,7 @@ const JenkinsJobWidget = props => {
     <>
       <Typography
         variant="caption">
-        <p>Timestamp: {ts}</p>
+        <p>{ts}</p>
         <p>Duration: {dur}</p>
         <p>Executor: {builtOn}</p>
       </Typography>

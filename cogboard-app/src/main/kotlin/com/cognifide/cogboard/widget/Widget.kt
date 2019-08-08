@@ -31,8 +31,10 @@ interface Widget {
                 "SUCCESS" -> OK
                 "FAILURE" -> FAIL
                 else -> values().firstOrNull { it.name.equals(text, ignoreCase = true) } ?: UNKNOWN
-
             }
+
+            fun compare(expected: Any, actual: Any): Status = if (expected == actual) OK
+            else ERROR
         }
     }
 }
