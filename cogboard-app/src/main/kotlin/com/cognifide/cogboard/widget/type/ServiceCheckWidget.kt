@@ -20,7 +20,9 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
         val statusCode = responseBody.getInteger("statusCode", 0)
 
         responseBody.put("timestamp", Date().time)
+        responseBody.put(CogboardConstants.PROP_URL, path)
         responseBody.put("expectedStatusCode", expectedStatusCode)
+
 
         send(JsonObject()
                 .put(CogboardConstants.PROP_ID, id)

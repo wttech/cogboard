@@ -2,9 +2,10 @@ import React from 'react';
 import { string, number } from 'prop-types';
 
 import { Typography } from "@material-ui/core";
+import { FullWidthButtonOutlined } from "../../styled";
 
 const ServiceCheckWidget = props => {
-  const {statusCode, statusMessage, timestamp, expectedStatusCode } = props;
+  const {statusCode, statusMessage, timestamp, expectedStatusCode, url } = props;
   const ts = timestamp ? new Date(timestamp).toLocaleString() : '';
   const error = expectedStatusCode !== statusCode;
   const statusCodeMessage = error ? `${expectedStatusCode} expected, got ${statusCode}` : statusCode;
@@ -13,15 +14,13 @@ const ServiceCheckWidget = props => {
     <>
       <Typography variant="caption">
         <p>{ts}</p>
+        {error &&
+          <p>{statusMessage}</p>
+        }
       </Typography>
-      <Typography variant="h6">
+      <FullWidthButtonOutlined href={url}>
         {statusCodeMessage}
-      </Typography>
-      {error &&
-      <Typography variant="caption">
-        {statusMessage}
-      </Typography>
-      }
+      </FullWidthButtonOutlined>
     </>
   );
 };
