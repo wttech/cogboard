@@ -14,20 +14,34 @@ class HttpClient : AbstractVerticle() {
 
     override fun start() {
         val client = WebClient.create(vertx)
-        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_SEND_GET).handler { message ->
+        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_GET).handler { message ->
             client?.let {
                 message.body()?.let {
                     makeGet(client, it)
                 }
             }
         }
-        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_SEND_POST).handler { message ->
+        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_CHECK).handler { message ->
+            client?.let {
+                message.body()?.let {
+                    makeCheck(client, it)
+                }
+            }
+        }
+        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_POST).handler { message ->
             client?.let {
                 message.body()?.let {
                     makePost(client, it)
                 }
             }
         }
+    }
+
+    private fun makeCheck(client: WebClient, config: JsonObject) {
+        val request = initRequest(client, config)
+        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
+
+        executeCheckRequest(request, address)
     }
 
     private fun makeGet(client: WebClient, config: JsonObject) {
@@ -70,6 +84,20 @@ class HttpClient : AbstractVerticle() {
             } else {
                 LOGGER.error(it.cause()?.message)
             }
+        }
+    }
+
+    private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?) {
+        request.send {
+            val result = JsonObject()
+            if (it.succeeded()) {
+                result.put("statusCode", it.result().statusCode())
+                result.put("statusMessage", it.result().statusMessage())
+            } else {
+                result.put("statusCode", 999)
+                result.put("statusMessage", "unsuccessful")
+            }
+            vertx.eventBus().send(address, result)
         }
     }
 
