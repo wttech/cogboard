@@ -27,10 +27,8 @@ const allMetrics = [
 ];
 
 const SonarQubeMetricsInput = props => {
-  const {onChange} = props;
+  const { onChange, value } = props;
   const inputId = 'sonarqube-metrics-input';
-  let {value} = props;
-  value = value || ['blocker_violations', 'critical_violations', 'major_violations', 'minor_violations'];
 
   return (
     <StyledFormControl>
