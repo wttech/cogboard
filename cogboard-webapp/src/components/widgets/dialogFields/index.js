@@ -37,7 +37,8 @@ const dialogFields = {
   },
   SonarQubeMetricsInput: {
     component: SonarQubeMetricsInput,
-    name: 'selectedMetrics'
+    name: 'selectedMetrics',
+    initialValue: ['blocker_violations', 'critical_violations', 'major_violations', 'minor_violations']
   },
   StatusCode: {
     component: NumberInput,
