@@ -12,7 +12,7 @@ class ExampleWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config
 
     init {
         // You can override default props if you want
-        super.config.put(CogboardConstants.PROP_SCHEDULE_PERIOD, 5000L)
+        super.config.put(CogboardConstants.PROP_SCHEDULE_PERIOD, 2L)
     }
 
     override fun start(): Widget {
