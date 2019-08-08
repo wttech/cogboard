@@ -53,7 +53,7 @@ const MainTemplate = (props) => {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const dispatch = useDispatch();
-  const dataChanged = useSelector(({ app }) => app.dataChanged);
+  const isDataChanged = useSelector(({ app }) => app.isDataChanged);
 
   const handleSaveDataClick = () => {
     dispatch(saveData());
@@ -98,7 +98,7 @@ const MainTemplate = (props) => {
         <Container maxWidth="xl">
           <Board currentBoard={currentBoard} />
           <StyledActions>
-            {dataChanged &&
+            {isDataChanged &&
               <StyledSaveFab
                 onClick={handleSaveDataClick}
                 aria-label="Save Data"

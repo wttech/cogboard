@@ -28,7 +28,7 @@
         },
         "title": "Example Widget",
         "disabled": false,
-        "type": "ExampleWidget",
+        "type": "ExampleWidgett",
         "content": {
           "serverTime": "no data"
         }

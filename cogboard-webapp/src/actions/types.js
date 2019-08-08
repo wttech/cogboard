@@ -5,5 +5,6 @@ export const UPDATE_WIDGET = 'UPDATE_WIDGET';
 export const EDIT_WIDGET = 'EDIT_WIDGET';
 export const ADD_WIDGET = 'ADD_WIDGET';
 export const DELETE_WIDGET = 'DELETE_WIDGET';
-export const CHANGE_DATA = 'CHANGE_DATA';
+export const DATA_CHANGED = 'DATA_CHANGED';
+export const SAVE_DATA_START = 'SAVE_DATA_START';
 export const SAVE_DATA_SUCCESS = 'SAVE_DATA_SUCCESS';
