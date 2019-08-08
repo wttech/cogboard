@@ -4,7 +4,7 @@ import { string, number } from 'prop-types';
 import { Typography } from "@material-ui/core";
 
 const ServiceCheckWidget = props => {
-  const {statusCode, statusMessage = '', timestamp, expectedStatusCode } = props;
+  const {statusCode, statusMessage, timestamp, expectedStatusCode } = props;
   const ts = timestamp ? new Date(timestamp).toLocaleString() : '';
   const error = expectedStatusCode !== statusCode;
   const statusCodeMessage = error ? `${expectedStatusCode} expected, got ${statusCode}` : statusCode;
@@ -31,6 +31,10 @@ ServiceCheckWidget.propTypes = {
   statusMessage: string,
   timestamp: number.isRequired,
   expectedStatusCode: number.isRequired
+};
+
+ServiceCheckWidget.defaultProps = {
+  statusMessage: ''
 };
 
 export default ServiceCheckWidget;
