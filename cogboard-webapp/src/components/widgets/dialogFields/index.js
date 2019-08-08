@@ -38,7 +38,15 @@ const dialogFields = {
   SonarQubeMetricsInput: {
     component: SonarQubeMetricsInput,
     name: 'selectedMetrics'
-  }
+  },
+  StatusCode: {
+    component: NumberInput,
+    name: 'expectedStatusCode',
+    label: 'Expected Status Code',
+    min: 0,
+    step: 1,
+    initialValue: 200
+  },
 };
 
 export default dialogFields;

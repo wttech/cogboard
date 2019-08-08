@@ -32,11 +32,9 @@ interface Widget {
                 "FAILURE" -> FAIL
                 else -> values().firstOrNull { it.name.equals(text, ignoreCase = true) } ?: UNKNOWN
             }
-            fun from(number: Int): Status = when (number) {
-                in 0..299 -> OK
-                in 300..399 -> UNSTABLE
-                else -> ERROR
-            }
+
+            fun compare(expected: Any, actual: Any): Status = if (expected == actual) OK
+            else ERROR
         }
     }
 }
