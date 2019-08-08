@@ -1,12 +1,7 @@
 import React from 'react';
-import styled from '@emotion/styled/macro';
 
 import { Typography } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-
-const StyledButton = styled(Button)`
-  width: 100%
-`;
+import { FullWidthButtonOutlined } from "../../styled";
 
 const JenkinsJobWidget = props => {
   const { duration, displayName = '#', url = '#', timestamp = '-', builtOn = '-' } = props;
@@ -21,11 +16,9 @@ const JenkinsJobWidget = props => {
         <p>Duration: {dur}</p>
         <p>Executor: {builtOn}</p>
       </Typography>
-      <StyledButton
-        variant="outlined"
-        href={url}>
+      <FullWidthButtonOutlined href={url}>
         {displayName}
-      </StyledButton>
+      </FullWidthButtonOutlined>
     </>
   );
 };
