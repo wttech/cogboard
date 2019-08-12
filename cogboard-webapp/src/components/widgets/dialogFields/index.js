@@ -33,11 +33,13 @@ const dialogFields = {
     name: 'index',
     label: 'Index',
     min: 0,
-    step: 1
+    step: 1,
+    initialValue: 0
   },
   SonarQubeMetricsInput: {
     component: SonarQubeMetricsInput,
-    name: 'selectedMetrics'
+    name: 'selectedMetrics',
+    initialValue: ['blocker_violations', 'critical_violations', 'major_violations', 'minor_violations']
   },
   StatusCode: {
     component: NumberInput,
