@@ -56,14 +56,13 @@ class ConfigManager : AbstractVerticle() {
     private fun attachEndpoint(config: JsonObject) {
         val endpointId = config.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
-            endpoints.stream()
+            config.put(CogboardConstants.PROP_ENDPOINT, endpoints
+                    .stream()
                     .map { it as JsonObject }
                     .filter {
                         endpointId == it.getString("id")
                     }.findFirst()
-                    .ifPresent {
-                        config.put(CogboardConstants.PROP_ENDPOINT, it)
-                    }
+                    .orElse(JsonObject()))
         }
     }
 
