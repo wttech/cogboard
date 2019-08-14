@@ -10,8 +10,8 @@ Thumbs.db
 ~*
 
 *.jar
-knotx/conf/endpoints.conf
-/mnt/
+/knotx/conf/endpoints.conf
+/mnt/config.json
 
 # Intellij           #
 ######################
