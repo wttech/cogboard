@@ -29,19 +29,43 @@ buildscript {
     }
 }
 
-val dockerImageRef = "$buildDir/.docker/buildImage-imageId.txt"
+val dockerImageRef = File("$buildDir/.docker/buildImage-imageId.txt")
+val dockerContainerName = project.property("docker.container.name")?.toString() ?: "cogboard"
+val dockerImageName = project.property("docker.image.name")?.toString() ?: "cogboard/cogboard-app"
+val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
+logger.lifecycle(">> dockerContainerName: $dockerContainerName")
+logger.lifecycle(">> dockerImageName: $dockerImageName")
+logger.lifecycle(">> mountDir: $mountDir")
+
+
+task("docker-run") {
+    dependsOn("build")
+    doLast {
+        logger.lifecycle("Running docker image")
+        exec {
+            commandLine("docker", "run", "--rm", "-p8092:8092", "-p18092:18092", "-p9000:9000", "--name", dockerContainerName, "-v", "$mountDir:/data", dockerImageName)
+            // command: `docker run --rm -p8092:8092 -p18092:18092 -p9000:9000 --name cogboard -v <project_dir>/mnt:/data cogboard/cogboard-app`
+        }
+    }
+}
+
+task("dockerStopCogboard") {
+    doLast {
+        logger.lifecycle("Trying to stop docker container named: $dockerContainerName")
+        exec {
+            isIgnoreExitValue = true
+            commandLine("docker", "container", "stop", dockerContainerName)
+        }
+    }
+}
 
 tasks.create("removeImage", DockerRemoveImage::class) {
     group = "docker"
 
-    val spec = object : Spec<Task> {
-        override fun isSatisfiedBy(task: Task): Boolean {
-            return File(dockerImageRef).exists()
-        }
-    }
+    val spec = Spec<Task> { dockerImageRef.exists() }
     onlyIf(spec)
 
-    targetImageId(if (File(dockerImageRef).exists()) File(dockerImageRef).readText() else "")
+    targetImageId(if (dockerImageRef.exists()) dockerImageRef.readText() else "")
     onError {
         if (!this.message!!.contains("No such image"))
             throw this
@@ -51,7 +75,7 @@ tasks.create("removeImage", DockerRemoveImage::class) {
 val buildImage by tasks.creating(DockerBuildImage::class) {
     group = "docker"
     inputDir.set(file("$buildDir"))
-    tags.add("${project.property("docker.image.name")}:latest")
+    tags.add("$dockerImageName:latest")
     dependsOn("removeImage", "prepareDocker")
 }
 
@@ -64,6 +88,7 @@ val createContainer by tasks.creating(DockerCreateContainer::class) {
     portBindings.set(listOf("8092:8092"))
     exposePorts("tcp", listOf(8092))
     autoRemove.set(true)
+    containerName.set(dockerContainerName)
 }
 
 val startContainer by tasks.creating(DockerStartContainer::class) {
