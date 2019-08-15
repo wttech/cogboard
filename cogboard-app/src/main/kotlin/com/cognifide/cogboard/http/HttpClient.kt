@@ -8,26 +8,41 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import io.vertx.ext.web.client.HttpRequest
+import io.vertx.ext.web.client.HttpResponse
 import io.vertx.ext.web.client.WebClient
 
 class HttpClient : AbstractVerticle() {
 
     override fun start() {
         val client = WebClient.create(vertx)
-        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_SEND_GET).handler { message ->
+        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_GET).handler { message ->
             client?.let {
                 message.body()?.let {
                     makeGet(client, it)
                 }
             }
         }
-        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_SEND_POST).handler { message ->
+        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_CHECK).handler { message ->
+            client?.let {
+                message.body()?.let {
+                    makeCheck(client, it)
+                }
+            }
+        }
+        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_POST).handler { message ->
             client?.let {
                 message.body()?.let {
                     makePost(client, it)
                 }
             }
         }
+    }
+
+    private fun makeCheck(client: WebClient, config: JsonObject) {
+        val request = initRequest(client, config)
+        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
+
+        executeCheckRequest(request, address)
     }
 
     private fun makeGet(client: WebClient, config: JsonObject) {
@@ -61,15 +76,39 @@ class HttpClient : AbstractVerticle() {
     private fun executeRequest(request: HttpRequest<Buffer>, address: String?) {
         request.send {
             if (it.succeeded()) {
-                val result = try {
-                    it.result().bodyAsJsonObject()
-                } catch (e: DecodeException) {
-                    JsonObject().put(CogboardConstants.PROP_ARRAY, it.result().bodyAsJsonArray())
+                toJson(it.result()).let { json ->
+                    vertx.eventBus().send(address, json)
                 }
-                vertx.eventBus().send(address, result)
             } else {
                 LOGGER.error(it.cause()?.message)
             }
+        }
+    }
+
+    private fun toJson(response: HttpResponse<Buffer>): JsonObject? {
+        return try {
+            response.bodyAsJsonObject()
+        } catch (e: DecodeException) {
+            try {
+                JsonObject().put(CogboardConstants.PROP_ARRAY, response.bodyAsJsonArray())
+            } catch (e: DecodeException) {
+                JsonObject().put("body", response.bodyAsString())
+            }
+        }
+    }
+
+
+    private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?) {
+        request.send {
+            val result = JsonObject()
+            if (it.succeeded()) {
+                result.put("statusCode", it.result().statusCode())
+                result.put("statusMessage", it.result().statusMessage())
+            } else {
+                result.put("statusCode", 999)
+                result.put("statusMessage", "unsuccessful")
+            }
+            vertx.eventBus().send(address, result)
         }
     }
 

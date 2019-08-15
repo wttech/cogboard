@@ -39,7 +39,17 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
     abstract fun handleResponse(responseBody: JsonObject)
 
     protected fun httpGet(url: String) {
-        vertx.eventBus().send(CogboardConstants.EVENT_SEND_GET,
+        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_GET,
+                JsonObject()
+                        .put(CogboardConstants.PROP_URL, url)
+                        .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)
+                        .put(CogboardConstants.PROP_USER, user)
+                        .put(CogboardConstants.PROP_PASSWORD, password)
+        )
+    }
+
+    protected fun httpGetStatus(url: String) {
+        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_CHECK,
                 JsonObject()
                         .put(CogboardConstants.PROP_URL, url)
                         .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)
@@ -49,7 +59,7 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
     }
 
     protected fun httpPost(url: String, body: JsonObject) {
-        vertx.eventBus().send(CogboardConstants.EVENT_SEND_POST,
+        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_POST,
                 JsonObject()
                         .put(CogboardConstants.PROP_URL, url)
                         .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
 
 import { fetchInitialData } from "./actions/thunks";
-import { updateWidget } from './actions/actionCreators';
+import { updateWidget, saveDataSuccess } from './actions/actionCreators';
 import { theme } from './theme';
 
 import MainTemplate from './components/MainTemplate';
@@ -21,12 +21,14 @@ function App() {
 
   useEffect(() => {
     if (appInitialized) {
-      const socket = new WebSocket('ws://localhost:9000');
+      const socket = new WebSocket(`ws://${window.location.hostname}:9000`);
       const handleMessageReceive = ({ data: dataJson }) => {
         const { eventType, ...data } = JSON.parse(dataJson);
 
         if (eventType === 'widget-update') {
           dispatch(updateWidget(data));
+        } else if (eventType === 'notification-config-save') {
+          dispatch(saveDataSuccess());
         }
       };
 

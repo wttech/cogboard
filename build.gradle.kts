@@ -18,6 +18,9 @@ plugins {
     id("java")
 }
 
+val dockerContainerName = project.property("docker.container.name") ?: "cogboard"
+val dockerImageName = project.property("docker.image.name") ?: "cogboard/cogboard-app"
+
 defaultTasks("docker-run")
 
 configurations {
@@ -45,33 +48,10 @@ allprojects {
 }
 
 tasks.named("build") {
-    dependsOn("runTest", "docker-clean")
+    dependsOn("runTest", "dockerStopCogboard")
 }
 
-val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
-logger.lifecycle("Mount Dir is: $mountDir")
-
-task("docker-run") {
-    dependsOn("build")
-    doLast {
-        logger.lifecycle("Running docker image")
-        exec {
-            commandLine("docker", "run", "--rm", "-p8092:8092", "-p18092:18092", "-p9000:9000", "--name", "cogboard", "-v", "$mountDir:/data", "cogboard/cogboard-app")
-            // command: `docker run --rm -p8092:8092 -p18092:18092 -p9000:9000 --name cogboard -v <project_dir>/mnt:/data cogboard/cogboard-app`
-        }
-    }
-}
-
-task("docker-clean") {
-    doLast {
-        logger.lifecycle("Cleaning docker image")
-        exec {
-            isIgnoreExitValue = true
-            commandLine("docker", "container", "stop", "cogboard")
-        }
-    }
-}
-
+apply(from = "gradle/init.gradle.kts")
 apply(from = "gradle/distribution.gradle.kts")
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
 apply(from = "gradle/docker.gradle.kts")
