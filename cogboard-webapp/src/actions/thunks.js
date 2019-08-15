@@ -1,11 +1,28 @@
-import { requestData, receiveData, requestUpdate, deleteBoard, updateWidget, addWidget, editWidget, changeData, saveDataSuccess, setCurrentBoard, deleteMultipleWidgets } from './actionCreators';
-import { fetchData, createNewWidgetData, createEditWidgetData, mapDataToState } from './helpers';
+import {
+  requestData,
+  receiveData,
+  requestUpdate,
+  deleteBoard,
+  setCurrentBoard,
+  updateWidget,
+  addWidget,
+  editWidget,
+  deleteMultipleWidgets,
+  dataChanged,
+  saveDataStart
+} from './actionCreators';
+import {
+  fetchData,
+  createNewWidgetData,
+  createEditWidgetData,
+  mapDataToState
+} from './helpers';
 
 export const fetchInitialData = () =>
   (dispatch) => {
     dispatch(requestData());
 
-    return fetchData('/data.json')
+    return fetchData('/api/config')
       .then(
         data => dispatch(receiveData(data)),
         console.error
@@ -19,7 +36,7 @@ export const saveData = () =>
 
     return fetchData('/api/config/save', 'POST', data)
       .then(
-        () => dispatch(saveDataSuccess()),
+        () => dispatch(saveDataStart()),
         console.error
       );
   };
@@ -46,7 +63,7 @@ const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) =>
     const { generalData, serverData } = mapDataToState(widgetData);
 
     dispatch(beforeUpdateActionCreator(generalData));
-    dispatch(changeData());
+    dispatch(dataChanged());
     dispatch(requestUpdate(id));
 
     return fetchData('/api/widget/update', 'POST', serverData)

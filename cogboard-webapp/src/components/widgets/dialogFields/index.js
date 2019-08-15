@@ -10,20 +10,13 @@ const dialogFields = {
     label: 'Endpoint',
     itemsUrl: '/api/endpoints'
   },
-  ScheduleDelay: {
-    component: NumberInput,
-    name: 'scheduleDelay',
-    label: 'Schedule Delay',
-    min: 0,
-    step: 500,
-    initialValue: 500
-  },
   SchedulePeriod: {
     component: NumberInput,
     name: 'schedulePeriod',
-    label: 'Schedule Period',
-    min: 5000,
-    step: 500
+    label: 'Schedule Period [seconds]',
+    min: 1,
+    step: 10,
+    initialValue: 120
   },
   Path: {
     component: TextInput,
@@ -40,12 +33,22 @@ const dialogFields = {
     name: 'index',
     label: 'Index',
     min: 0,
-    step: 1
+    step: 1,
+    initialValue: 0
   },
   SonarQubeMetricsInput: {
     component: SonarQubeMetricsInput,
-    name: 'selectedMetrics'
-  }
+    name: 'selectedMetrics',
+    initialValue: ['blocker_violations', 'critical_violations', 'major_violations', 'minor_violations']
+  },
+  StatusCode: {
+    component: NumberInput,
+    name: 'expectedStatusCode',
+    label: 'Expected Status Code',
+    min: 0,
+    step: 1,
+    initialValue: 200
+  },
 };
 
 export default dialogFields;

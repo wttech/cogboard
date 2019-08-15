@@ -1,5 +1,21 @@
-import { REQUEST_DATA, RECEIVE_DATA, REQUEST_UPDATE, UPDATE_WIDGET, ADD_BOARD, EDIT_BOARD, DELETE_BOARD, EDIT_WIDGET, ADD_WIDGET, DELETE_WIDGET, CHANGE_DATA, SAVE_DATA_SUCCESS, SET_CURRENT_BOARD, DELETE_MULTIPLE_WIDGETS } from './types';
 import { v4 } from 'uuid';
+import {
+  REQUEST_DATA,
+  RECEIVE_DATA,
+  REQUEST_UPDATE,
+  ADD_BOARD,
+  EDIT_BOARD,
+  DELETE_BOARD,
+  SET_CURRENT_BOARD,
+  UPDATE_WIDGET,
+  EDIT_WIDGET,
+  ADD_WIDGET,
+  DELETE_WIDGET,
+  DELETE_MULTIPLE_WIDGETS,
+  DATA_CHANGED,
+  SAVE_DATA_START,
+  SAVE_DATA_SUCCESS
+} from './types';
 
 export const requestData = () => ({
   type: REQUEST_DATA
@@ -60,8 +76,12 @@ export const deleteMultipleWidgets = (widgetIds, boardId = '') => ({
   payload: { widgetIds, boardId }
 });
 
-export const changeData = () => ({
-  type: CHANGE_DATA,
+export const dataChanged = () => ({
+  type: DATA_CHANGED,
+});
+
+export const saveDataStart = () => ({
+  type: SAVE_DATA_START,
 });
 
 export const saveDataSuccess = () => ({
