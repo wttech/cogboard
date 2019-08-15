@@ -1,11 +1,11 @@
-import { requestData, receiveData, requestUpdate, updateWidget, addWidget, editWidget, changeData, saveDataSuccess } from './actionCreators';
+import { requestData, receiveData, requestUpdate, deleteBoard, updateWidget, addWidget, editWidget, changeData, saveDataSuccess, setCurrentBoard, deleteMultipleWidgets } from './actionCreators';
 import { fetchData, createNewWidgetData, createEditWidgetData, mapDataToState } from './helpers';
 
 export const fetchInitialData = () =>
   (dispatch) => {
     dispatch(requestData());
 
-    return fetchData('/api/config')
+    return fetchData('/data.json')
       .then(
         data => dispatch(receiveData(data)),
         console.error
@@ -22,6 +22,20 @@ export const saveData = () =>
         () => dispatch(saveDataSuccess()),
         console.error
       );
+  };
+
+export const deleteBoardWithWidgets = (id) =>
+  (dispatch, getState) => {
+    const { ui, boards } = getState();
+    const { widgets } = boards.boardsById[id];
+    const { currentBoard } = ui;
+
+    dispatch(deleteBoard(id));
+
+    const [firstBoardId] = getState().boards.allBoards;
+
+    (id === currentBoard) && dispatch(setCurrentBoard(firstBoardId || null));
+    dispatch(deleteMultipleWidgets(widgets));
   };
 
 const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) => data => {

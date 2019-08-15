@@ -23,7 +23,7 @@ const renderWidgetTypesMenu = (widgetTypes) =>
   });
 
 const WidgetForm = ({ renderActions, ...initialFormValues }) => {
-  const { values, handleChange } = useFormData({ ...initialFormValues });
+  const { values, handleChange } = useFormData(initialFormValues);
 
   return (
     <>
@@ -113,6 +113,6 @@ WidgetForm.defaultProps = {
   goNewLine: false,
   title: 'Default Widget',
   type: 'DefaultWidget'
-}
+};
 
 export default WidgetForm;

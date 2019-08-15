@@ -28,7 +28,8 @@ const StyledCard = styled(({
   grid-column-end: span ${({ columns }) => columns};
 `;
 
-const Widget = ({ id, currentBoard }) => {
+const Widget = ({ id }) => {
+  const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
   const widgetData = useSelector(
     state => state.widgets.widgetsById[id],
     shallowEqual
@@ -57,7 +58,7 @@ const Widget = ({ id, currentBoard }) => {
   };
 
   const handleDeleteClick = (closeMenu) => () => {
-    dispatch(deleteWidget(id, currentBoard));
+    dispatch(deleteWidget(id, currentBoardId));
     closeMenu();
   }
 
@@ -114,7 +115,6 @@ const Widget = ({ id, currentBoard }) => {
 };
 
 Widget.propTypes = {
-  currentBoard: string.isRequired,
   id: string.isRequired
 };
 
