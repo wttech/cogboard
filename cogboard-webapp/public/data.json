@@ -137,6 +137,7 @@
           "goNewLine": false,
           "columns": 2
         },
+        "title": "",
         "type": "DefaultWidget"
       },
       "widget10": {

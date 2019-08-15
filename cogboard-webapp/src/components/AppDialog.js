@@ -17,9 +17,13 @@ const StyledDialogContent = styled(DialogContent)`
 const AppDialog = props => {
   const { children, handleDialogClose, open, title } = props;
 
+  const stopEventPropagation = (event) => event.stopPropagation();
+
   return (
     <StyledDialog
+      onClick={stopEventPropagation}
       onClose={handleDialogClose}
+      onKeyDown={stopEventPropagation}
       aria-labelledby="app-dialog-title"
       open={open}
     >

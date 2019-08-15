@@ -20,7 +20,7 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
   const handleSaveClick = (values) => () => {
     dispatch(saveWidget({ id, values }));
     closeDialog();
-  }
+  };
 
   return (
     <WidgetForm
