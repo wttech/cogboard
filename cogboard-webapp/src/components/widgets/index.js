@@ -3,6 +3,7 @@ import ExampleWidget from './types/ExampleWidget';
 import JenkinsJobWidget from "./types/JenkinsJobWidget";
 import SonarQubeWidget from "./types/SonarQubeWidget";
 import ServiceCheckWidget from "./types/ServiceCheckWidget";
+import BambooPlanWidget from "./types/BambooPlanWidget";
 
 const widgetTypes = {
   DefaultWidget: {
@@ -28,6 +29,11 @@ const widgetTypes = {
     name: 'Service Check widget',
     component: ServiceCheckWidget,
     dialogFields: ['SchedulePeriod', 'Path', 'StatusCode']
+  },
+  BambooPlanWidget: {
+    name: 'Bamboo Plan widget',
+    component: BambooPlanWidget,
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString']
   }
 };
 

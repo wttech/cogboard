@@ -13,6 +13,7 @@ class WidgetIndex {
             JenkinsJobWidget::class.java.simpleName -> JenkinsJobWidget(vertx, config)
             SonarQubeWidget::class.java.simpleName -> SonarQubeWidget(vertx, config)
             ServiceCheckWidget::class.java.simpleName -> ServiceCheckWidget(vertx, config)
+            BambooPlanWidget::class.java.simpleName -> BambooPlanWidget(vertx, config)
             // register Your widgets here
             else -> DefaultWidget.INSTANCE
         }

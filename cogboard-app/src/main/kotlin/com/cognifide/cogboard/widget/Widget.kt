@@ -28,8 +28,8 @@ interface Widget {
 
         companion object {
             fun from(text: String): Status = when (text.toUpperCase()) {
-                "SUCCESS" -> OK
-                "FAILURE" -> FAIL
+                "SUCCESS", "SUCCESSFUL" -> OK
+                "FAILURE", "FAILED" -> FAIL
                 else -> values().firstOrNull { it.name.equals(text, ignoreCase = true) } ?: UNKNOWN
             }
 
