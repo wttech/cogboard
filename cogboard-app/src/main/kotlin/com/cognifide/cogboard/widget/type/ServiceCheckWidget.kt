@@ -9,20 +9,19 @@ import java.util.*
 
 class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
-    private val path = config.getString("path", "")
+    private val url = config.getString("url", "")
     private val expectedStatusCode = config.getInteger("expectedStatusCode", 0)
 
     override fun updateState() {
-       if (path.isNotBlank()) httpGetStatus(path)
+       if (url.isNotBlank()) httpGetStatus(url) else sendConfigurationError("URL is blank")
     }
 
     override fun handleResponse(responseBody: JsonObject) {
         val statusCode = responseBody.getInteger("statusCode", 0)
 
         responseBody.put("timestamp", Date().time)
-        responseBody.put(CogboardConstants.PROP_URL, path)
+        responseBody.put(CogboardConstants.PROP_URL, url)
         responseBody.put("expectedStatusCode", expectedStatusCode)
-
 
         send(JsonObject()
                 .put(CogboardConstants.PROP_ID, id)
