@@ -5,7 +5,7 @@ import { Typography } from "@material-ui/core";
 import { FullWidthButtonOutlined } from "../../styled";
 
 const ServiceCheckWidget = props => {
-  const {statusCode, statusMessage, timestamp, expectedStatusCode, url, errorMessage} = props;
+  const { statusCode, statusMessage, timestamp, expectedStatusCode, url, errorMessage } = props;
   const ts = timestamp ? new Date(timestamp).toLocaleString() : '';
   const error = expectedStatusCode !== statusCode;
   const statusCodeMessage = error ? `${expectedStatusCode} expected, got ${statusCode}` : statusCode;

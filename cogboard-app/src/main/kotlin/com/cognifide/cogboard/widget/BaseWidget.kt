@@ -45,7 +45,7 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
         vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
     }
 
-    fun sendConfigurationError(message: String) {
+    fun sendConfigurationError(message: String = "Fix configuration") {
         send(JsonObject()
                 .put(CogboardConstants.PROP_STATUS, Widget.Status.ERROR_CONFIGURATION)
                 .put(CogboardConstants.PROP_CONTENT,

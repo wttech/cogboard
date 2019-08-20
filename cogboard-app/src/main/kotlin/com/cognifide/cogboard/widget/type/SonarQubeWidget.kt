@@ -9,8 +9,8 @@ import io.vertx.core.json.JsonObject
 
 class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
-    private val index: Int = config.getInteger("index", 0)
-    private val idString: String = config.getString("idString", "")
+    private val key: String = config.getString("keyString", "")
+    private val idNumber: Int = config.getInteger("idNumber", 0)
     private val selectedMetrics: JsonArray = config.getJsonArray("selectedMetrics")
     private val url: String = config.endpointProp("url")
 
@@ -20,7 +20,7 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
         val content = data.copy()
 
         attachMetrics(content, metrics)
-        content.put(CogboardConstants.PROP_URL, "$url/dashboard/index/$index")
+        content.put(CogboardConstants.PROP_URL, "$url/dashboard/index/$idNumber")
 
         send(JsonObject()
                 .put(CogboardConstants.PROP_STATUS, extractStatus(metrics))
@@ -28,8 +28,10 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     }
 
     override fun updateState() {
-        if (url.isNotBlank() && idString.isNotBlank()) {
-            httpGet(url = "$url/api/resources?resource=$idString&metrics=alert_status,${selectedMetrics.joinToString(separator = ",")}")
+        if (url.isNotBlank() && key.isNotBlank()) {
+            httpGet(url = "$url/api/resources?resource=$key&metrics=alert_status,${selectedMetrics.joinToString(separator = ",")}")
+        } else {
+            sendConfigurationError()
         }
     }
 
