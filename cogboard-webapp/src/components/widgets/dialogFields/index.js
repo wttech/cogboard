@@ -33,13 +33,16 @@ const dialogFields = {
     name: 'idString',
     label: 'ID'
   },
-  Index: {
+  IdNumber: {
     component: NumberInput,
-    name: 'index',
-    label: 'Index',
-    min: 0,
-    step: 1,
-    initialValue: 0
+    name: 'idNumber',
+    label: 'ID',
+    step: 1
+  },
+  Key: {
+    component: TextInput,
+    name: 'keyString',
+    label: 'Key'
   },
   SonarQubeMetricsInput: {
     component: SonarQubeMetricsInput,
