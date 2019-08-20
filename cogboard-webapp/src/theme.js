@@ -17,6 +17,7 @@ export const theme = createMuiTheme({
       IN_PROGRESS: createGradient('#009faf', '#4dd0e1'),
       UNSTABLE: createGradient('#c75b39', '#ff8a65'),
       ERROR_CONNECTION: createGradient('#af4448', '#e57373'),
+      ERROR_CONFIGURATION: createGradient('#af4448', '#e57373'),
       ERROR: createGradient('#af4448', '#e57373'),
       FAIL: createGradient('#af4448', '#e57373')
     },

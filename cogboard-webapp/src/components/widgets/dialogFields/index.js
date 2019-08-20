@@ -23,6 +23,11 @@ const dialogFields = {
     name: 'path',
     label: 'Path'
   },
+  URL: {
+    component: TextInput,
+    name: 'url',
+    label: 'URL'
+  },
   IdString: {
     component: TextInput,
     name: 'idString',

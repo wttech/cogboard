@@ -45,6 +45,15 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
         vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
     }
 
+    fun sendConfigurationError(message: String) {
+        send(JsonObject()
+                .put(CogboardConstants.PROP_STATUS, Widget.Status.ERROR_CONFIGURATION)
+                .put(CogboardConstants.PROP_CONTENT,
+                        JsonObject().put(CogboardConstants.PROP_ERROR_MESSAGE, message)
+                )
+        )
+    }
+
     /**
      * Will start Schedule when schedulePeriod > 0, execute once otherwise
      */
