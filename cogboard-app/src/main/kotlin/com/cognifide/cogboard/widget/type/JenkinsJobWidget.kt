@@ -17,7 +17,6 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
             else Widget.Status.from(it.getString("result"))
 
             send(JsonObject()
-                    .put(CogboardConstants.PROP_ID, id)
                     .put(CogboardConstants.PROP_STATUS, status)
                     .put(CogboardConstants.PROP_CONTENT, it))
         }

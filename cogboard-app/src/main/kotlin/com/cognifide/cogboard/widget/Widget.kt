@@ -24,7 +24,8 @@ interface Widget {
         UNSTABLE,
         IN_PROGRESS,
         ERROR,
-        ERROR_CONNECTION;
+        ERROR_CONNECTION,
+        ERROR_CONFIGURATION;
 
         companion object {
             fun from(text: String): Status = when (text.toUpperCase()) {
@@ -35,6 +36,8 @@ interface Widget {
 
             fun compare(expected: Any, actual: Any): Status = if (expected == actual) OK
             else ERROR
+
+            fun random(): Status = values()[(0 until Widget.Status.values().size).random()]
         }
     }
 }
