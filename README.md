@@ -3,11 +3,13 @@
 ## Prerequisites - Installed Docker CE
 
 * Install Docker CE on **Windows 10** - follow instructions [here](https://docs.docker.com/docker-for-windows/install/) and execute required config steps:
+  * Make sure that `Hyper-V` is enabled  
+  ![windows enable hyper v](./docs/images/docker-windows-hyperv.png)  
   * Log-in to `Docker Desktop` in Windows tray
   * Check `Expose daemon on...` property  
-  ![windows docker config](./docs/images/docker-windows-config.png)  
+  ![docker expose daemon](./docs/images/docker-windows-config.png)  
   * Share drive where cogboard was cloned  
-  ![windows docker config](./docs/images/docker-windows-config2.png)  
+  ![docker share drive](./docs/images/docker-windows-config2.png)  
 
 * Install Docker CE on **Mac OS** - follow instructions [here](https://docs.docker.com/docker-for-mac/install/)
 * Install Docker CE on **Ubuntu Linux** - `sudo apt-get install docker-ce`, more instructions [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04)
