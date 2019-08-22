@@ -2,6 +2,7 @@ import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
+import TextSize from "./TextSize";
 
 const dialogFields = {
   EndpointField: {
@@ -57,6 +58,16 @@ const dialogFields = {
     step: 1,
     initialValue: 200
   },
+  Text: {
+    component: TextInput,
+    name: 'text',
+    label: 'Text'
+  },
+  TextSize: {
+    component: TextSize,
+    name: 'textSize',
+    label: 'Text Size'
+  }
 };
 
 export default dialogFields;
