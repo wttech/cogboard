@@ -25,6 +25,7 @@ class CogboardConstants {
         const val PROP_EVENT_ADDRESS = "event.address"
         const val PROP_ENDPOINT = "endpoint"
         const val PROP_ARRAY = "array"
+        const val PROP_TEXT = "text"
 
         const val EVENT_SEND_MESSAGE_TO_WEBSOCKET = "cogboard.websocket.message"
         const val EVENT_UPDATE_WIDGET_CONFIG = "cogboard.config.widget.update"
