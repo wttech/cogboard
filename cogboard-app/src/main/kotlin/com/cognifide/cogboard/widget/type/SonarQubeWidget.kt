@@ -12,8 +12,6 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     private val key: String = config.getString("keyString", "")
     private val idNumber: Int = config.getInteger("idNumber", 0)
     private val selectedMetrics: JsonArray = config.getJsonArray("selectedMetrics")
-    private val url: String = config.endpointProp("url")
-    private val publicUrl: String = config.endpointProp("publicUrl").ifBlank { url }
 
     override fun handleResponse(responseBody: JsonObject) {
         val data = getData(responseBody)

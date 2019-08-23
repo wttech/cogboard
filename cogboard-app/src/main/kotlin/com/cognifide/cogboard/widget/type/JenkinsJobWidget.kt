@@ -9,8 +9,6 @@ import io.vertx.core.json.JsonObject
 class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val path: String = config.getString("path", "")
-    private val url: String = config.endpointProp("url")
-    private val publicUrl: String = config.endpointProp("publicUrl").ifBlank { url }
 
     override fun handleResponse(responseBody: JsonObject) {
         responseBody.getJsonObject("lastBuild")?.let {
