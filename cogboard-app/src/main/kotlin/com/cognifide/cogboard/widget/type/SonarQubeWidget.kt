@@ -13,6 +13,7 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     private val idNumber: Int = config.getInteger("idNumber", 0)
     private val selectedMetrics: JsonArray = config.getJsonArray("selectedMetrics")
     private val url: String = config.endpointProp("url")
+    private val publicUrl: String = config.endpointProp("publicUrl").ifBlank { url }
 
     override fun handleResponse(responseBody: JsonObject) {
         val data = getData(responseBody)
@@ -20,7 +21,7 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
         val content = data.copy()
 
         attachMetrics(content, metrics)
-        content.put(CogboardConstants.PROP_URL, "$url/dashboard/index/$idNumber")
+        content.put(CogboardConstants.PROP_URL, "$publicUrl/dashboard/index/$idNumber")
 
         send(JsonObject()
                 .put(CogboardConstants.PROP_STATUS, extractStatus(metrics))

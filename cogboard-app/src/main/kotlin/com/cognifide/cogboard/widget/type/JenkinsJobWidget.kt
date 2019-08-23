@@ -17,7 +17,7 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
             val status = if (it.getBoolean("building", false)) Widget.Status.IN_PROGRESS
             else Widget.Status.from(it.getString("result", ""))
             it.put("branch", extractBranchInfo(it))
-            it.put("url", makePublic(it.getString("url", "")))
+            it.put(CogboardConstants.PROP_URL, makePublic(it.getString(CogboardConstants.PROP_URL, "")))
 
             send(JsonObject()
                     .put(CogboardConstants.PROP_STATUS, status)
