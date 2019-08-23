@@ -9,18 +9,22 @@ import io.vertx.core.json.JsonObject
 class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val path: String = config.getString("path", "")
-    private val url: String = config.endpointProp("url")
 
     override fun handleResponse(responseBody: JsonObject) {
         responseBody.getJsonObject("lastBuild")?.let {
             val status = if (it.getBoolean("building", false)) Widget.Status.IN_PROGRESS
-            else Widget.Status.from(it.getString("result"))
+            else Widget.Status.from(it.getString("result", ""))
             it.put("branch", extractBranchInfo(it))
+            it.put(CogboardConstants.PROP_URL, makePublic(it.getString(CogboardConstants.PROP_URL, "")))
 
             send(JsonObject()
                     .put(CogboardConstants.PROP_STATUS, status)
                     .put(CogboardConstants.PROP_CONTENT, it))
         }
+    }
+
+    private fun makePublic(privateUrl: String): String {
+        return privateUrl.replace(url, publicUrl)
     }
 
     private fun extractBranchInfo(data: JsonObject): String {
