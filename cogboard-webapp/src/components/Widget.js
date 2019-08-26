@@ -5,14 +5,13 @@ import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/styles';
 
 import { useDialogToggle } from '../hooks';
-import { deleteWidget } from '../actions/actionCreators';
+import { removeWidget } from '../actions/thunks';
 
 import { Card, CardHeader, CardContent, MenuItem } from '@material-ui/core';
 import AppDialog from './AppDialog';
 import EditWidget from './EditWidget';
 import MoreMenu from './MoreMenu';
 import WidgetContent from './WidgetContent';
-import { removeWidget } from '../actions/thunks';
 
 const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
