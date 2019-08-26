@@ -2,7 +2,7 @@ import React from 'react';
 import { string, number, object } from 'prop-types';
 
 import { Typography } from '@material-ui/core';
-import { FullWidthButtonOutlined } from "../../styled";
+import { FullWidthButtonOutlined } from '../../styled';
 
 const BambooPlanWidget = props => {
   const { url, number, lifeCycleState } = props;

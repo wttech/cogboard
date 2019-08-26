@@ -22,14 +22,14 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
         }
     }
 
-    private fun extractUrl(linkData: JsonObject): String    {
-        return linkData.getString("href", "")?.replace(url, publicUrl) ?: ""
-    }
-
     override fun updateState() {
         if (url.isNotBlank() && idString.isNotBlank()) {
             httpGet(url = "$url/rest/api/latest/result/$idString.json?max-results=1")
         }
+    }
+
+    private fun extractUrl(linkData: JsonObject): String    {
+        return linkData.getString("href", "")?.replace(url, publicUrl) ?: ""
     }
 
 }
