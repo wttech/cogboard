@@ -105,7 +105,6 @@ class HttpClient : AbstractVerticle() {
                 result.put("statusCode", it.result().statusCode())
                 result.put("statusMessage", it.result().statusMessage())
             } else {
-                result.put("statusCode", 999)
                 result.put("statusMessage", "unsuccessful")
             }
             vertx.eventBus().send(address, result)

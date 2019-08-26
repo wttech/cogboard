@@ -8,6 +8,8 @@ import com.cognifide.cogboard.widget.WidgetIndex
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
+import io.vertx.core.logging.Logger
+import io.vertx.core.logging.LoggerFactory
 
 class ConfigManager : AbstractVerticle() {
 
@@ -45,12 +47,16 @@ class ConfigManager : AbstractVerticle() {
         var newConfig = config
         val id = config.getString(CogboardConstants.PROP_ID)
 
-        widgets[id]?.let {
-            it.stop()
-            newConfig = it.config().mergeIn(config, true)
+        if (id != null) {
+            widgets[id]?.let {
+                it.stop()
+                newConfig = it.config().mergeIn(config, true)
+            }
+            attachEndpoint(newConfig)
+            widgets[id] = WidgetIndex.create(newConfig, vertx).start()
+        } else {
+            LOGGER.error("There is widget with no ID in configuration: $config")
         }
-        attachEndpoint(newConfig)
-        widgets[id] = WidgetIndex.create(newConfig, vertx).start()
     }
 
     private fun attachEndpoint(config: JsonObject) {
@@ -64,6 +70,10 @@ class ConfigManager : AbstractVerticle() {
                     }.findFirst()
                     .orElse(JsonObject()))
         }
+    }
+
+    companion object {
+        val LOGGER: Logger = LoggerFactory.getLogger(ConfigManager::class.java)
     }
 
 }
