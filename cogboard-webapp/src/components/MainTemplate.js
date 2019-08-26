@@ -17,7 +17,7 @@ import AddBoard from './AddBoard';
 
 const StyledActions = styled(Box)`
   bottom: 50px;
-  position: absolute;
+  position: fixed;
   right: 50px;
 `;
 
