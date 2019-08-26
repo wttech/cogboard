@@ -92,7 +92,6 @@ const BoardCard = ({ boardData, className }) => {
 };
 
 BoardCard.propTypes = {
-  handleBoardClick: func.isRequired,
   boardData: object.isRequired
 }
 
