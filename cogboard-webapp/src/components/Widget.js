@@ -12,6 +12,7 @@ import AppDialog from './AppDialog';
 import EditWidget from './EditWidget';
 import MoreMenu from './MoreMenu';
 import WidgetContent from './WidgetContent';
+import { removeWidget } from '../actions/thunks';
 
 const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
@@ -29,7 +30,6 @@ const StyledCard = styled(({
 `;
 
 const Widget = ({ id }) => {
-  const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
   const widgetData = useSelector(
     state => state.widgets.widgetsById[id],
     shallowEqual
@@ -58,9 +58,9 @@ const Widget = ({ id }) => {
   };
 
   const handleDeleteClick = (closeMenu) => () => {
-    dispatch(deleteWidget(id, currentBoardId));
+    dispatch(removeWidget(id));
     closeMenu();
-  }
+  };
 
   return (
     <>
@@ -123,6 +123,6 @@ StyledCard.propTypes = {
   goNewLine: bool.isRequired,
   status: string.isRequired,
   theme: object.isRequired
-}
+};
 
 export default Widget;
