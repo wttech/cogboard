@@ -5,8 +5,7 @@ import { Typography } from '@material-ui/core';
 import { FullWidthButtonOutlined } from "../../styled";
 
 const BambooPlanWidget = props => {
-  const { link, number, lifeCycleState } = props;
-  const { href  } = link;
+  const { url, number, lifeCycleState } = props;
   const updated = new Date().toLocaleString();
 
   return (
@@ -16,7 +15,7 @@ const BambooPlanWidget = props => {
         <p>Updated: {updated}</p>
         <p>State: {lifeCycleState}</p>
       </Typography>
-      <FullWidthButtonOutlined href={href}>
+      <FullWidthButtonOutlined href={url}>
         #{number}
       </FullWidthButtonOutlined>
     </>
@@ -24,17 +23,15 @@ const BambooPlanWidget = props => {
 };
 
 BambooPlanWidget.propTypes = {
-  link: object.isRequired,
+  url: object.isRequired,
   number: number.isRequired,
   lifeCycleState: string.isRequired
 };
 
 BambooPlanWidget.defaultProps = {
-  link: {
-    href: "#"
-  },
+  url: '#',
   number: 0,
-  lifeCycleState: "unknown"
+  lifeCycleState: 'unknown'
 };
 
 export default BambooPlanWidget;
