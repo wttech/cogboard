@@ -1,5 +1,4 @@
 import React from 'react';
-import { func } from 'prop-types';
 import styled from '@emotion/styled/macro';
 import { useSelector } from 'react-redux';
 
