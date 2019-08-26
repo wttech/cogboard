@@ -1,8 +1,8 @@
 import React from 'react';
+import { string, object } from "prop-types";
 
 import { Typography } from '@material-ui/core';
-import { FullWidthButtonOutlined } from "../../styled";
-import { string, object } from "prop-types";
+import { Caption, FullWidthButtonOutlined } from "../../styled";
 
 const SonarQubeWidgetContent = props => {
   const { metrics, id, url, version, date, errorMessage } = props;
@@ -11,13 +11,15 @@ const SonarQubeWidgetContent = props => {
   return (
     errorMessage === '' ?
       <>
-        <Typography variant="caption">
-          <p>{ts}</p>
-          <p>Version: {version}</p>
+        <Caption>
+          {ts}
+        </Caption>
+        <Caption>
+          Version: {version}
+        </Caption>
           {Object.entries(metrics).map(([metric, val]) =>
-            <p key={metric}>{metric.replace('_', ' ')}: {val}</p>
+           <Caption>{metric.replace('_', ' ')}: {val}</Caption>
           )}
-        </Typography>
         <FullWidthButtonOutlined href={url}>
           #{id}
         </FullWidthButtonOutlined>

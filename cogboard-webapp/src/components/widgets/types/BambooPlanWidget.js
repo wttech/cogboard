@@ -1,20 +1,16 @@
 import React from 'react';
-import { string, number, object } from 'prop-types';
+import { string, number } from 'prop-types';
 
-import { Typography } from '@material-ui/core';
-import { FullWidthButtonOutlined } from '../../styled';
+import { Caption, FullWidthButtonOutlined } from "../../styled";
 
 const BambooPlanWidget = props => {
   const { url, number, lifeCycleState } = props;
-  const updated = new Date().toLocaleString();
 
   return (
     <>
-      <Typography
-        variant="caption">
-        <p>Updated: {updated}</p>
-        <p>State: {lifeCycleState}</p>
-      </Typography>
+      <Caption>
+        State: {lifeCycleState}
+      </Caption>
       <FullWidthButtonOutlined href={url}>
         #{number}
       </FullWidthButtonOutlined>
@@ -23,15 +19,9 @@ const BambooPlanWidget = props => {
 };
 
 BambooPlanWidget.propTypes = {
-  url: object.isRequired,
+  url: string.isRequired,
   number: number.isRequired,
   lifeCycleState: string.isRequired
-};
-
-BambooPlanWidget.defaultProps = {
-  url: '#',
-  number: 0,
-  lifeCycleState: 'unknown'
 };
 
 export default BambooPlanWidget;

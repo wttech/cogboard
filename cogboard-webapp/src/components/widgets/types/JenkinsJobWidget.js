@@ -1,8 +1,7 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Typography } from '@material-ui/core';
-import { FullWidthButtonOutlined } from "../../styled";
+import { Caption, FullWidthButtonOutlined } from "../../styled";
 
 const JenkinsJobWidget = props => {
   const { duration, displayName, url, timestamp, branch } = props;
@@ -11,12 +10,15 @@ const JenkinsJobWidget = props => {
 
   return (
     <>
-      <Typography
-        variant="caption">
-        <p>{ts}</p>
-        <p>Duration: {dur}</p>
-        <p>Branch: {branch}</p>
-      </Typography>
+      <Caption>
+        {ts}
+      </Caption>
+      <Caption>
+        Duration: {dur}
+      </Caption>
+      <Caption>
+          {branch}
+      </Caption>
       <FullWidthButtonOutlined href={url}>
         {displayName}
       </FullWidthButtonOutlined>
@@ -25,8 +27,8 @@ const JenkinsJobWidget = props => {
 };
 
 JenkinsJobWidget.propTypes = {
-  duration: number,
-  displayName: string,
+  duration: number.isRequired,
+  displayName: string.isRequired,
   url: string.isRequired,
   timestamp: number,
   branch: string
@@ -34,7 +36,6 @@ JenkinsJobWidget.propTypes = {
 
 JenkinsJobWidget.defaultProps = {
   displayName: '#',
-  url: '#',
 };
 
 export default JenkinsJobWidget;
