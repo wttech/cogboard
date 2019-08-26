@@ -9,6 +9,8 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
 
     val user: String = config.endpointProp("user")
     val password: String = config.endpointProp("password")
+    val url: String = config.endpointProp("url")
+    val publicUrl: String = config.endpointProp("publicUrl").ifBlank { url }
 
     private lateinit var consumer: MessageConsumer<JsonObject>
 
