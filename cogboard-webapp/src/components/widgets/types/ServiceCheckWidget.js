@@ -2,7 +2,7 @@ import React from 'react';
 import { string, number } from 'prop-types';
 
 import { Typography } from "@material-ui/core";
-import { FullWidthButtonOutlined } from "../../styled";
+import { Caption, FullWidthButtonOutlined } from "../../styled";
 
 const ServiceCheckWidget = props => {
   const { statusCode, statusMessage, timestamp, expectedStatusCode, url, errorMessage } = props;
@@ -13,12 +13,14 @@ const ServiceCheckWidget = props => {
   return (
     errorMessage === '' ?
       <>
-        <Typography variant="caption">
-          <p>{ts}</p>
-          {error &&
-          <p>{statusMessage}</p>
-          }
-        </Typography>
+        <Caption>
+          {ts}
+        </Caption>
+        {error &&
+          <Caption>
+            {statusMessage}
+          </Caption>
+        }
         <FullWidthButtonOutlined href={url}>
           {statusCodeMessage}
         </FullWidthButtonOutlined>
