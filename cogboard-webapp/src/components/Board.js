@@ -1,5 +1,4 @@
 import React from 'react';
-import { string } from 'prop-types';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/core/styles'
@@ -32,14 +31,12 @@ const StyledTitle = styled(Typography)`
   }
 `;
 
-const Board = ({ currentBoard, className }) => {
-  const board = useSelector(
-    state => state.boards.boardsById[currentBoard]
-  );
+const Board = ({ className }) => {
+  const currentBoard = useSelector(({ ui, boards }) => boards.boardsById[ui.currentBoard]);
+  const { title, columns, widgets } = currentBoard || {};
   const theme = useTheme();
-  const { title, columns } = board;
 
-  return (
+  return currentBoard ? (
     <>
       <StyledTitle
         component="h2"
@@ -52,14 +49,10 @@ const Board = ({ currentBoard, className }) => {
         className={className}
         columns={columns}
       >
-        <WidgetList currentBoard={currentBoard} />
+        <WidgetList widgets={widgets} />
       </StyledContainer>
     </>
-  );
+  ) : null;
 }
-
-Board.propTypes = {
-  currentBoard: string.isRequired
-};
 
 export default Board;
