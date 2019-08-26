@@ -1,11 +1,17 @@
+import { v4 } from 'uuid';
 import {
   REQUEST_DATA,
   RECEIVE_DATA,
   REQUEST_UPDATE,
+  ADD_BOARD,
+  EDIT_BOARD,
+  DELETE_BOARD,
+  SET_CURRENT_BOARD,
   UPDATE_WIDGET,
   EDIT_WIDGET,
   ADD_WIDGET,
   DELETE_WIDGET,
+  DELETE_MULTIPLE_WIDGETS,
   DATA_CHANGED,
   SAVE_DATA_START,
   SAVE_DATA_SUCCESS
@@ -30,6 +36,26 @@ export const updateWidget = (data) => ({
   payload: data
 });
 
+export const addBoard = (data) => ({
+  type: ADD_BOARD,
+  payload: {
+    id: v4(),
+    theme: 'default',
+    widgets: [],
+    ...data
+  }
+});
+
+export const deleteBoard = (id) => ({
+  type: DELETE_BOARD,
+  payload: id
+});
+
+export const editBoard = (editData) => ({
+  type: EDIT_BOARD,
+  payload: editData
+});
+
 export const editWidget = (editData) => ({
   type: EDIT_WIDGET,
   payload: editData
@@ -45,6 +71,11 @@ export const deleteWidget = (id, boardId) => ({
   payload: { id, boardId }
 });
 
+export const deleteMultipleWidgets = (widgetIds, boardId = '') => ({
+  type: DELETE_MULTIPLE_WIDGETS,
+  payload: { widgetIds, boardId }
+});
+
 export const dataChanged = () => ({
   type: DATA_CHANGED,
 });
@@ -55,4 +86,9 @@ export const saveDataStart = () => ({
 
 export const saveDataSuccess = () => ({
   type: SAVE_DATA_SUCCESS,
+});
+
+export const setCurrentBoard = (id) => ({
+  type: SET_CURRENT_BOARD,
+  payload: id
 });

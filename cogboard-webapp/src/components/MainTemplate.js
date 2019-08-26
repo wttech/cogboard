@@ -13,6 +13,7 @@ import Board from './Board';
 import BoardList from './BoardList';
 import Logo from './Logo';
 import NavBar from './NavBar';
+import AddBoard from './AddBoard';
 
 const StyledActions = styled(Box)`
   bottom: 50px;
@@ -38,6 +39,7 @@ const StyledMain = styled.main`
 
 const StyledLogo = styled(Logo)`
   width: 40%;
+  margin-bottom: 32px;
 `;
 
 const StyledDrawerContainer = styled.div`
@@ -48,12 +50,12 @@ const StyledDrawerContainer = styled.div`
   width: 250px;
 `;
 
-const MainTemplate = (props) => {
-  const [currentBoard, setCurrentBoard] = useState('board1');
+const MainTemplate = () => {
+  const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
+  const isDataChanged = useSelector(({ app }) => app.isDataChanged);
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const dispatch = useDispatch();
-  const isDataChanged = useSelector(({ app }) => app.isDataChanged);
 
   const handleSaveDataClick = () => {
     dispatch(saveData());
@@ -61,11 +63,6 @@ const MainTemplate = (props) => {
 
   const handleAddWidgetClick = () => {
     openDialog(true);
-  };
-
-  const handleBoardClick = (boardId) => () => {
-    setCurrentBoard(boardId);
-    handleDrawerToggle(false);
   };
 
   const handleDrawerToggle = opened => event => {
@@ -91,12 +88,13 @@ const MainTemplate = (props) => {
           role="presentation"
         >
           <StyledLogo />
-          <StyledBoardList handleBoardClick={handleBoardClick} />
+          <AddBoard />
+          <StyledBoardList />
         </StyledDrawerContainer>
       </Drawer>
       <StyledMain>
         <Container maxWidth="xl">
-          <Board currentBoard={currentBoard} />
+          <Board />
           <StyledActions>
             {isDataChanged &&
               <StyledSaveFab
@@ -107,13 +105,15 @@ const MainTemplate = (props) => {
                 <Save />
               </StyledSaveFab>
             }
-            <Fab
-              onClick={handleAddWidgetClick}
-              aria-label="Add Widget"
-              color="primary"
-            >
-              <Add />
-            </Fab>
+            {currentBoardId &&
+              <Fab
+                onClick={handleAddWidgetClick}
+                aria-label="Add Widget"
+                color="primary"
+              >
+                <Add />
+              </Fab>
+            }
           </StyledActions>
         </Container>
       </StyledMain>
@@ -124,7 +124,6 @@ const MainTemplate = (props) => {
       >
         <AddWidget
           closeDialog={handleDialogClose}
-          currentBoard={currentBoard}
         />
       </AppDialog>
     </>

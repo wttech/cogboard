@@ -2,9 +2,12 @@ import {
   requestData,
   receiveData,
   requestUpdate,
+  deleteBoard,
+  setCurrentBoard,
   updateWidget,
   addWidget,
   editWidget,
+  deleteMultipleWidgets,
   dataChanged,
   saveDataStart
 } from './actionCreators';
@@ -36,6 +39,20 @@ export const saveData = () =>
         () => dispatch(saveDataStart()),
         console.error
       );
+  };
+
+export const deleteBoardWithWidgets = (id) =>
+  (dispatch, getState) => {
+    const { ui, boards } = getState();
+    const { widgets } = boards.boardsById[id];
+    const { currentBoard } = ui;
+
+    dispatch(deleteBoard(id));
+
+    const [firstBoardId] = getState().boards.allBoards;
+
+    (id === currentBoard) && dispatch(setCurrentBoard(firstBoardId || null));
+    dispatch(deleteMultipleWidgets(widgets));
   };
 
 const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) => data => {

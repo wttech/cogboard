@@ -49,10 +49,10 @@ const mapFormValuesToWidgetData = values => {
   };
 };
 
-export const createNewWidgetData = ({ values, allWidgets, currentBoard }) => ({
+export const createNewWidgetData = ({ values, allWidgets, currentBoardId }) => ({
   id: createWidgetId(allWidgets),
   status: 'UNKNOWN',
-  boardId: currentBoard,
+  boardId: currentBoardId,
   ...mapFormValuesToWidgetData(values)
 });
 

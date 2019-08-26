@@ -1,4 +1,4 @@
-import { RECEIVE_DATA, ADD_WIDGET, DELETE_WIDGET } from '../../actions/types';
+import { RECEIVE_DATA, ADD_WIDGET, DELETE_WIDGET, DELETE_MULTIPLE_WIDGETS } from '../../actions/types';
 
 const receiveData = (state, { payload }) => {
   const { widgets: { allWidgets } } = payload;
@@ -18,6 +18,12 @@ const deleteWidget = (state, { payload }) => {
   return state.filter(widgetId => widgetId !== id);
 };
 
+const deleteMultipleWidgets = (state, { payload }) => {
+  const { widgetIds } = payload;
+
+  return state.filter(widgetId => !widgetIds.includes(widgetId));
+};
+
 const allWidgets = (state = [], action) => {
   const { type } = action;
 
@@ -28,9 +34,11 @@ const allWidgets = (state = [], action) => {
       return addWidget(state, action);
     case DELETE_WIDGET:
       return deleteWidget(state, action);
+    case DELETE_MULTIPLE_WIDGETS:
+      return deleteMultipleWidgets(state, action);
     default:
       return state;
   }
-}
+};
 
 export default allWidgets;
