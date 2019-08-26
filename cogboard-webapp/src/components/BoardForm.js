@@ -5,6 +5,7 @@ import styled from '@emotion/styled/macro';
 import { useFormData } from '../hooks';
 
 import { FormControl, TextField } from '@material-ui/core';
+import { COLUMNS_MAX, COLUMNS_MIN } from '../constants';
 
 const StyledFieldset = styled(FormControl)`
   display: flex;
@@ -35,7 +36,8 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
             shrink: true
           }}
           inputProps={{
-            min: 1
+            min: COLUMNS_MIN,
+            max: COLUMNS_MAX
           }}
           label="Columns"
           margin="normal"

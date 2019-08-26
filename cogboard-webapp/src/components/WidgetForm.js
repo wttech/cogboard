@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, number, bool } from 'prop-types';
+import { useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 import widgetTypes from './widgets';
@@ -8,6 +9,7 @@ import DropdownField from './DropdownField';
 import WidgetTypeForm from './WidgetTypeForm';
 
 import { FormControlLabel, FormControl, MenuItem, TextField, Switch } from '@material-ui/core';
+import { COLUMNS_MIN } from '../constants';
 
 const StyledFieldset = styled(FormControl)`
   display: flex;
@@ -23,6 +25,9 @@ const renderWidgetTypesMenu = (widgetTypes) =>
   });
 
 const WidgetForm = ({ renderActions, ...initialFormValues }) => {
+  const boardColumns = useSelector(
+    ({ ui, boards }) => boards.boardsById[ui.currentBoard].columns
+  );
   const { values, handleChange } = useFormData(initialFormValues);
 
   return (
@@ -55,7 +60,8 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
             shrink: true
           }}
           inputProps={{
-            min: 1
+            min: COLUMNS_MIN,
+            max: boardColumns
           }}
           label="Columns"
           margin="normal"
