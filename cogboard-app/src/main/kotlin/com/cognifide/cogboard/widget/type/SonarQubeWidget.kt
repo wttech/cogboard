@@ -35,7 +35,7 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     }
 
     private fun getData(responseBody: JsonObject): JsonObject {
-        return responseBody.getJsonArray("array").list[0] as JsonObject
+        return responseBody.getJsonArray("array")?.list?.get(0) as JsonObject
     }
 
     private fun attachMetrics(content: JsonObject, metrics: JsonArray) {
