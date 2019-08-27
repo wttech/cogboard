@@ -1,3 +1,5 @@
+import { dataChanged } from './actionCreators';
+
 const checkResponseStatus = response => {
   const { status, statusText } = response;
 
@@ -84,3 +86,9 @@ export const mapDataToState = (data) => {
     serverData: { id, type, ...other }
   };
 };
+
+export const withDataChanged = (actionCallback) => (...args) =>
+  dispatch => {
+    dispatch(actionCallback.apply(null, args));
+    dispatch(dataChanged());
+  };
