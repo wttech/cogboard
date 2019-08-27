@@ -18,7 +18,8 @@ const StyledFieldset = styled(FormControl)`
 `;
 
 const WidgetTypeForm = ({ values, type, handleChange }) => {
-  const dialogFieldNames = widgetTypes[type].dialogFields || [];
+  const widgetType = widgetTypes[type];
+  const dialogFieldNames = (widgetType && widgetType.dialogFields) ? widgetType.dialogFields : [];
   const hasDialogFields = dialogFieldNames.length !== 0;
 
   return hasDialogFields && (
