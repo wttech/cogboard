@@ -19,15 +19,17 @@ const StyledCard = styled(({
   status,
   columns,
   goNewLine,
+  rows,
   theme,
   ...other
 }) => <Card {...other} />)`
   background: ${({ status, theme }) => mapStatusToColor(status, theme)};
   box-shadow: none;
-  grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
-  grid-column-end: span ${({ columns }) => columns};
   display: flex;
   flex-direction: column;
+  grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
+  grid-column-end: span ${({ columns }) => columns};
+  grid-row-end: span ${({ rows }) => rows};
 `;
 
 const StyledCardContent = styled(CardContent)`
@@ -51,7 +53,8 @@ const Widget = ({ id }) => {
     content,
     config: {
       columns,
-      goNewLine
+      goNewLine,
+      rows
     },
     ...widgetTypeData
   } = widgetData;
@@ -75,6 +78,7 @@ const Widget = ({ id }) => {
         status={status}
         columns={columns}
         goNewLine={goNewLine}
+        rows={rows}
         theme={theme}
       >
         <CardHeader
@@ -114,6 +118,7 @@ const Widget = ({ id }) => {
           type={type}
           columns={columns}
           goNewLine={goNewLine}
+          rows={rows}
           widgetTypeData={widgetTypeData}
         />
       </AppDialog>
@@ -128,6 +133,7 @@ Widget.propTypes = {
 StyledCard.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
+  rows: number.isRequired,
   status: string.isRequired,
   theme: object.isRequired
 };
