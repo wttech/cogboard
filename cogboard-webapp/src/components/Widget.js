@@ -26,6 +26,14 @@ const StyledCard = styled(({
   box-shadow: none;
   grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
   grid-column-end: span ${({ columns }) => columns};
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledCardContent = styled(CardContent)`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
 
 const Widget = ({ id }) => {
@@ -89,9 +97,9 @@ const Widget = ({ id }) => {
             </MoreMenu>
           }
         />
-        <CardContent>
+        <StyledCardContent>
           {!disabled ? <WidgetContent type={type} content={content} /> : 'Disabled'}
-        </CardContent>
+        </StyledCardContent>
       </StyledCard>
       <AppDialog
         handleDialogClose={handleDialogClose}
