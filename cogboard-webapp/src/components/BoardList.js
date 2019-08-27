@@ -1,5 +1,4 @@
 import React from 'react';
-import { func } from 'prop-types';
 import styled from '@emotion/styled/macro';
 import { useSelector } from 'react-redux';
 
@@ -10,7 +9,7 @@ const StyledBoardCard = styled(BoardCard)`
   margin-bottom: 32px;
 `;
 
-const BoardList = ({ handleBoardClick, className }) => {
+const BoardList = ({ className }) => {
   const boards = useSelector(
     ({ boards }) => {
       const { boardsById, allBoards } = boards;
@@ -23,17 +22,12 @@ const BoardList = ({ handleBoardClick, className }) => {
     <Box className={className}>
       {boards.map(boardData =>
         <StyledBoardCard
-          handleBoardClick={handleBoardClick}
           boardData={boardData}
           key={boardData.id}
         />
       )}
     </Box>
   );
-};
-
-BoardList.propTypes = {
-  handleBoardClick: func.isRequired
 };
 
 export default BoardList;

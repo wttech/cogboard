@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 import { useDialogToggle } from '../hooks';
-import { addBoard } from '../actions/actionCreators';
+import { addNewBoard } from '../actions/thunks';
 
 import { Button, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
@@ -25,7 +25,7 @@ const AddBoard = () => {
   };
 
   const handleAddActionClick = values => () => {
-    dispatch(addBoard(values));
+    dispatch(addNewBoard(values));
     handleDialogClose();
   };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, object } from 'prop-types';
+import { object } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
@@ -92,7 +92,6 @@ const BoardCard = ({ boardData, className }) => {
 };
 
 BoardCard.propTypes = {
-  handleBoardClick: func.isRequired,
   boardData: object.isRequired
 }
 

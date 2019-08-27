@@ -5,7 +5,7 @@ import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/styles';
 
 import { useDialogToggle } from '../hooks';
-import { deleteWidget } from '../actions/actionCreators';
+import { removeWidget } from '../actions/thunks';
 
 import { Card, CardHeader, CardContent, MenuItem } from '@material-ui/core';
 import AppDialog from './AppDialog';
@@ -29,7 +29,6 @@ const StyledCard = styled(({
 `;
 
 const Widget = ({ id }) => {
-  const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
   const widgetData = useSelector(
     state => state.widgets.widgetsById[id],
     shallowEqual
@@ -58,9 +57,9 @@ const Widget = ({ id }) => {
   };
 
   const handleDeleteClick = (closeMenu) => () => {
-    dispatch(deleteWidget(id, currentBoardId));
+    dispatch(removeWidget(id));
     closeMenu();
-  }
+  };
 
   return (
     <>
@@ -123,6 +122,6 @@ StyledCard.propTypes = {
   goNewLine: bool.isRequired,
   status: string.isRequired,
   theme: object.isRequired
-}
+};
 
 export default Widget;
