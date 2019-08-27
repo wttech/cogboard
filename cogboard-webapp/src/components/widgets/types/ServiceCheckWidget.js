@@ -2,7 +2,7 @@ import React from 'react';
 import { string, number } from 'prop-types';
 
 import { Typography } from "@material-ui/core";
-import { Caption, ColumnBox, WidgetButton } from "../../styled";
+import { Caption, WidgetButton } from "../../styled";
 
 const ServiceCheckWidget = props => {
   const { statusCode, statusMessage, timestamp, expectedStatusCode, url, errorMessage } = props;
@@ -10,25 +10,28 @@ const ServiceCheckWidget = props => {
   const error = expectedStatusCode !== statusCode;
   const statusCodeMessage = error ? `${expectedStatusCode} expected, got ${statusCode}` : statusCode;
 
-  return (
-    errorMessage === '' ?
-      <ColumnBox>
-        <Caption>
-          {ts}
-        </Caption>
-        {error &&
-          <Caption>
-            {statusMessage}
-          </Caption>
-        }
-        <WidgetButton href={url}>
-          {statusCodeMessage}
-        </WidgetButton>
-      </ColumnBox>
-      :
+  if (errorMessage) {
+    return (
       <Typography variant="h5">
         {errorMessage}
       </Typography>
+    );
+  }
+
+  return (
+    <>
+      <Caption>
+        {ts}
+      </Caption>
+      {error &&
+        <Caption>
+          {statusMessage}
+        </Caption>
+      }
+      <WidgetButton href={url}>
+        {statusCodeMessage}
+      </WidgetButton>
+    </>
   );
 };
 

@@ -26,15 +26,14 @@ const StyledCard = styled(({
   box-shadow: none;
   grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
   grid-column-end: span ${({ columns }) => columns};
-  height: 100%;
   display: flex;
   flex-direction: column;
 `;
 
 const StyledCardContent = styled(CardContent)`
-  height: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 const Widget = ({ id }) => {
@@ -132,6 +131,6 @@ StyledCard.propTypes = {
   goNewLine: bool.isRequired,
   status: string.isRequired,
   theme: object.isRequired
-}
+};
 
 export default Widget;

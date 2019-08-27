@@ -2,32 +2,35 @@ import React from 'react';
 import { string, object } from "prop-types";
 
 import { Typography } from '@material-ui/core';
-import { Caption, ColumnBox, WidgetButton } from "../../styled";
+import { Caption, WidgetButton } from "../../styled";
 
 const SonarQubeWidgetContent = props => {
   const { metrics, id, url, version, date, errorMessage } = props;
   const ts = date ? new Date(Date.parse(date)).toLocaleString() : '';
 
-  return (
-    errorMessage === '' ?
-      <ColumnBox>
-        <Caption>
-          {ts}
-        </Caption>
-        <Caption>
-          Version: {version}
-        </Caption>
-          {Object.entries(metrics).map(([metric, val]) =>
-           <Caption>{metric.replace('_', ' ')}: {val}</Caption>
-          )}
-        <WidgetButton href={url}>
-          #{id}
-        </WidgetButton>
-      </ColumnBox>
-      :
+  if (errorMessage) {
+    return (
       <Typography variant="h5">
         {errorMessage}
       </Typography>
+    );
+  }
+
+  return (
+    <>
+      <Caption>
+        {ts}
+      </Caption>
+      <Caption>
+        Version: {version}
+      </Caption>
+        {Object.entries(metrics).map(([metric, val]) =>
+          <Caption>{metric.replace('_', ' ')}: {val}</Caption>
+        )}
+      <WidgetButton href={url}>
+        #{id}
+      </WidgetButton>
+    </>
   );
 };
 
@@ -42,8 +45,6 @@ SonarQubeWidgetContent.propTypes = {
 
 SonarQubeWidgetContent.defaultProps = {
   metrics: {},
-  id: '-',
-  url: '#',
   version: '-',
   date: '',
   errorMessage: ''

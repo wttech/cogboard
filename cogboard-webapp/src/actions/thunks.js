@@ -22,7 +22,7 @@ export const fetchInitialData = () =>
   (dispatch) => {
     dispatch(requestData());
 
-    return fetchData('/api/config')
+    return fetchData('/data.json')
       .then(
         data => dispatch(receiveData(data)),
         console.error

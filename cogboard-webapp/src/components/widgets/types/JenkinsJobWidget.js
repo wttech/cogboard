@@ -1,8 +1,7 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Caption, ColumnBox, WidgetButton } from "../../styled";
-
+import { Caption, WidgetButton } from "../../styled";
 
 const JenkinsJobWidget = props => {
   const { duration, displayName, url, timestamp, branch } = props;
@@ -10,7 +9,7 @@ const JenkinsJobWidget = props => {
   const dur = duration ? `${duration / 1000} [s]` : '';
 
   return (
-    <ColumnBox>
+    <>
       <Caption>
         {ts}
       </Caption>
@@ -23,7 +22,7 @@ const JenkinsJobWidget = props => {
       <WidgetButton href={url}>
         {displayName}
       </WidgetButton>
-    </ColumnBox>
+    </>
   );
 };
 
@@ -31,12 +30,12 @@ JenkinsJobWidget.propTypes = {
   duration: number.isRequired,
   displayName: string.isRequired,
   url: string.isRequired,
-  timestamp: number,
+  timestamp: number.isRequired,
   branch: string
 };
 
 JenkinsJobWidget.defaultProps = {
-  displayName: '#',
+  branch: 'unknown'
 };
 
 export default JenkinsJobWidget;
