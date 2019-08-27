@@ -1,20 +1,20 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Caption, FullWidthButtonOutlined } from "../../styled";
+import { Caption, ColumnBox, WidgetButton } from "../../styled";
 
 const BambooPlanWidget = props => {
   const { url, number, lifeCycleState } = props;
 
   return (
-    <>
+    <ColumnBox>
       <Caption>
         State: {lifeCycleState}
       </Caption>
-      <FullWidthButtonOutlined href={url}>
+      <WidgetButton href={url}>
         #{number}
-      </FullWidthButtonOutlined>
-    </>
+      </WidgetButton>
+    </ColumnBox>
   );
 };
 

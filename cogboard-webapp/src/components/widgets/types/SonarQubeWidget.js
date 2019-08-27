@@ -2,7 +2,7 @@ import React from 'react';
 import { string, object } from "prop-types";
 
 import { Typography } from '@material-ui/core';
-import { Caption, FullWidthButtonOutlined } from "../../styled";
+import { Caption, ColumnBox, WidgetButton } from "../../styled";
 
 const SonarQubeWidgetContent = props => {
   const { metrics, id, url, version, date, errorMessage } = props;
@@ -10,7 +10,7 @@ const SonarQubeWidgetContent = props => {
 
   return (
     errorMessage === '' ?
-      <>
+      <ColumnBox>
         <Caption>
           {ts}
         </Caption>
@@ -20,10 +20,10 @@ const SonarQubeWidgetContent = props => {
           {Object.entries(metrics).map(([metric, val]) =>
            <Caption>{metric.replace('_', ' ')}: {val}</Caption>
           )}
-        <FullWidthButtonOutlined href={url}>
+        <WidgetButton href={url}>
           #{id}
-        </FullWidthButtonOutlined>
-      </>
+        </WidgetButton>
+      </ColumnBox>
       :
       <Typography variant="h5">
         {errorMessage}

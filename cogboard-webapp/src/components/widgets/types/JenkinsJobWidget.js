@@ -1,7 +1,8 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Caption, FullWidthButtonOutlined } from "../../styled";
+import { Caption, ColumnBox, WidgetButton } from "../../styled";
+
 
 const JenkinsJobWidget = props => {
   const { duration, displayName, url, timestamp, branch } = props;
@@ -9,7 +10,7 @@ const JenkinsJobWidget = props => {
   const dur = duration ? `${duration / 1000} [s]` : '';
 
   return (
-    <>
+    <ColumnBox>
       <Caption>
         {ts}
       </Caption>
@@ -19,10 +20,10 @@ const JenkinsJobWidget = props => {
       <Caption>
           {branch}
       </Caption>
-      <FullWidthButtonOutlined href={url}>
+      <WidgetButton href={url}>
         {displayName}
-      </FullWidthButtonOutlined>
-    </>
+      </WidgetButton>
+    </ColumnBox>
   );
 };
 

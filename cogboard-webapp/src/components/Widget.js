@@ -26,6 +26,15 @@ const StyledCard = styled(({
   box-shadow: none;
   grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
   grid-column-end: span ${({ columns }) => columns};
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledCardContent = styled(CardContent)`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Widget = ({ id }) => {
@@ -60,7 +69,7 @@ const Widget = ({ id }) => {
   const handleDeleteClick = (closeMenu) => () => {
     dispatch(deleteWidget(id, currentBoardId));
     closeMenu();
-  }
+  };
 
   return (
     <>
@@ -90,9 +99,9 @@ const Widget = ({ id }) => {
             </MoreMenu>
           }
         />
-        <CardContent>
+        <StyledCardContent>
           {!disabled ? <WidgetContent type={type} content={content} /> : 'Disabled'}
-        </CardContent>
+        </StyledCardContent>
       </StyledCard>
       <AppDialog
         handleDialogClose={handleDialogClose}
