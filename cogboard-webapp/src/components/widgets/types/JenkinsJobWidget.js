@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Caption, FullWidthButtonOutlined } from "../../styled";
+import { Caption, WidgetButton } from "../../styled";
 
 const JenkinsJobWidget = props => {
   const { duration, displayName, url, timestamp, branch } = props;
@@ -19,9 +19,9 @@ const JenkinsJobWidget = props => {
       <Caption>
           {branch}
       </Caption>
-      <FullWidthButtonOutlined href={url}>
+      <WidgetButton href={url}>
         {displayName}
-      </FullWidthButtonOutlined>
+      </WidgetButton>
     </>
   );
 };
@@ -30,12 +30,12 @@ JenkinsJobWidget.propTypes = {
   duration: number.isRequired,
   displayName: string.isRequired,
   url: string.isRequired,
-  timestamp: number,
+  timestamp: number.isRequired,
   branch: string
 };
 
 JenkinsJobWidget.defaultProps = {
-  displayName: '#',
+  branch: 'unknown'
 };
 
 export default JenkinsJobWidget;

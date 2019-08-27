@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Caption, FullWidthButtonOutlined } from "../../styled";
+import { Caption, WidgetButton } from "../../styled";
 
 const BambooPlanWidget = props => {
   const { url, number, lifeCycleState } = props;
@@ -11,9 +11,9 @@ const BambooPlanWidget = props => {
       <Caption>
         State: {lifeCycleState}
       </Caption>
-      <FullWidthButtonOutlined href={url}>
+      <WidgetButton href={url}>
         #{number}
-      </FullWidthButtonOutlined>
+      </WidgetButton>
     </>
   );
 };
