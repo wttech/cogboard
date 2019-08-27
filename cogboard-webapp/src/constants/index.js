@@ -4,4 +4,4 @@ export const URL = {
   UPDATE_WIDGET: '/api/widget/update'
 };
 export const COLUMNS_MIN = 1;
-export const COLUMNS_MAX = 8;
+export const COLUMNS_MAX = 20;
