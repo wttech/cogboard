@@ -12,6 +12,7 @@ import {
   ADD_WIDGET,
   DELETE_WIDGET,
   DELETE_MULTIPLE_WIDGETS,
+  SORT_WIDGETS,
   DATA_CHANGED,
   SAVE_DATA_START,
   SAVE_DATA_SUCCESS
@@ -74,6 +75,11 @@ export const deleteWidget = (id, boardId) => ({
 export const deleteMultipleWidgets = (widgetIds, boardId = '') => ({
   type: DELETE_MULTIPLE_WIDGETS,
   payload: { widgetIds, boardId }
+});
+
+export const sortWidgets = (payload) => ({
+  type: SORT_WIDGETS,
+  payload
 });
 
 export const dataChanged = () => ({

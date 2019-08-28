@@ -5,10 +5,11 @@ import Widget from './Widget';
 
 const WidgetList = ({ widgets: widgetIds }) => {
   return (
-    widgetIds.map(widgetId =>
+    widgetIds.map((widgetId, index) =>
       <Widget
         key={widgetId}
         id={widgetId}
+        index={index}
       />
     )
   );
