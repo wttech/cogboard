@@ -1,7 +1,7 @@
 ## **Cogboard** helps you create dashboards for your project needs.
 ![logo](./images/logo-small.png)  
 
-##### Information is a key to success, with **Cogboard** you can gather all the information about project in one place.
+#### Information is a key to success, with **Cogboard** you can gather all the information about project in one place.
 
 We designed Cogboard with these principles in mind:  
 **Easy to use** - comes with a set of ready to use Widgets that can be configured in Web browser.  
