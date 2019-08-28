@@ -12,7 +12,7 @@ We designed Cogboard with these principles in mind:
 Find out more on [GitHub](https://github.com/Cognifide/cogboard) and [Wiki](https://github.com/Cognifide/cogboard/wiki) pages.
 
 ---
-Some screenshots:
+Some screenshots:  
 ![screen1](./images/screen1.png)  
   
 ![screen2](./images/screen2.png)  
