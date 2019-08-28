@@ -1,7 +1,9 @@
+![logo](./images/logo-small.png)
 ## **Cogboard** helps you create dashboards for your project needs.
 
-![logo](./images/logo-small.png)  
+##### **Easy to use** - comes with a set of ready to use Widgets, configuration in a web browser.
+##### **Easy to deploy** - works on any machine with `Docker CE` and `JVM`.
+##### **Easy to extend** - creating new Widget is simple.
+##### **Secure** - all integrations are done on backend.
 
-##### `Easy to use` Configuration is done in a web browser. Comes with a set of ready to use Widgets.
-###### **Easy to extend** Creating new Widget is simple.
-#### _Secure_ All integrations are done on backend.
+Find out more on [GitHub](https://github.com/Cognifide/cogboard) and [Wiki pages](https://github.com/Cognifide/cogboard/wiki)
