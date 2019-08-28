@@ -12,12 +12,12 @@ class ExampleWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config
 
     init {
         // You can override default props if you want
-        super.config.put(CogboardConstants.PROP_SCHEDULE_PERIOD, 2L)
+        super.config.put(CogboardConstants.PROP_SCHEDULE_PERIOD, schedulePeriod)
     }
 
     override fun start(): Widget {
         super.start()
-        LOGGER.info("Widget started: id $id | period $schedulePeriod}")
+        LOGGER.info("Widget started: id $id | period $schedulePeriod")
         return this
     }
 
