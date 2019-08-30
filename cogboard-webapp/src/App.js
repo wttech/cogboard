@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     if (appInitialized) {
-      const socket = new WebSocket(`ws://${window.location.hostname}:9000`);
+      const socket = new WebSocket(`ws://${window.location.hostname}:9001`);
       const handleMessageReceive = ({ data: dataJson }) => {
         const { eventType, ...data } = JSON.parse(dataJson);
 
