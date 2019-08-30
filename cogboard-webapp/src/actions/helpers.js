@@ -10,7 +10,7 @@ const checkResponseStatus = response => {
   }
 };
 
-export const fetchData = (url, method = 'GET', data = {}) => {
+export const fetchData = (url, method = 'GET', data = {}, token = '') => {
   const postConfig = {
     method: 'POST',
     body: JSON.stringify(data),
@@ -18,6 +18,9 @@ export const fetchData = (url, method = 'GET', data = {}) => {
       'Content-Type': 'application/json'
     }
   };
+  if (token) {
+    postConfig.headers['Authorization'] = token;
+  }
   const init = method !== 'GET' ? postConfig : {};
 
   return fetch(url, init)

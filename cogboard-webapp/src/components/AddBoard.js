@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 import { useDialogToggle } from '../hooks';
@@ -18,6 +18,7 @@ const StyledCancelButton = styled(CancelButton)`
 const AddBoard = () => {
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const dispatch = useDispatch();
+  const isAdmin = useSelector(({app}) => app.isAdmin);
 
   const handleAddBoardClick = (event) => {
     event.stopPropagation();
@@ -29,7 +30,7 @@ const AddBoard = () => {
     handleDialogClose();
   };
 
-  return (
+  return isAdmin ? (
     <>
       <IconButton
         onClick={handleAddBoardClick}
@@ -56,7 +57,7 @@ const AddBoard = () => {
         />
       </AppDialog>
     </>
-  );
+  ) : '';
 };
 
 export default AddBoard;

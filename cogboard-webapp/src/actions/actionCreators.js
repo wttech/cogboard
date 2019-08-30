@@ -14,11 +14,23 @@ import {
   DELETE_MULTIPLE_WIDGETS,
   DATA_CHANGED,
   SAVE_DATA_START,
-  SAVE_DATA_SUCCESS
+  SAVE_DATA_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR
 } from './types';
 
 export const requestData = () => ({
   type: REQUEST_DATA
+});
+
+export const setJwToken = (jwt) => ({
+  type: LOGIN_SUCCESS,
+  payload: jwt
+});
+
+export const loginError = (data) => ({
+  type: LOGIN_ERROR,
+  payload: data
 });
 
 export const receiveData = state => ({
@@ -64,7 +76,7 @@ export const editWidget = (editData) => ({
 export const addWidget = (widgetData) => ({
   type: ADD_WIDGET,
   payload: widgetData
-})
+});
 
 export const deleteWidget = (id, boardId) => ({
   type: DELETE_WIDGET,

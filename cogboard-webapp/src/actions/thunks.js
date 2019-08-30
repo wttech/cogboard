@@ -12,7 +12,9 @@ import {
   deleteMultipleWidgets,
   dataChanged,
   saveDataStart,
-  deleteWidget
+  deleteWidget,
+  setJwToken,
+  loginError
 } from './actionCreators';
 import {
   fetchData,
@@ -36,14 +38,29 @@ export const fetchInitialData = () =>
 
 export const saveData = () =>
   (dispatch, getState) => {
-    const { boards, widgets } = getState();
+    const { boards, widgets, app } = getState();
     const data = { boards, widgets };
 
-    return fetchData(URL.SAVE_DATA, 'POST', data)
+    return fetchData(URL.SAVE_DATA, 'POST', data, app.jwToken)
       .then(
         () => dispatch(saveDataStart()),
         console.error
       );
+  };
+
+export const login = (data) =>
+  (dispatch) => {
+    return fetchData(URL.LOGIN, 'POST', data)
+      .then(
+        (data) => dispatch(setJwToken(data.token)),
+        (data) => dispatch(loginError(data.message))
+      );
+  };
+
+export const logout = () =>
+  (dispatch) => {
+    dispatch(setJwToken(''));
+    dispatch(loginError(''));
   };
 
 const deleteBoardWithWidgetsThunk = (id) =>
@@ -63,6 +80,7 @@ const deleteBoardWithWidgetsThunk = (id) =>
 const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) => data =>
   (dispatch, getState) => {
     const allWidgets = getState().widgets.allWidgets;
+    const token = getState().app.jwToken;
     const widgetData = widgetDataCreator({...data, allWidgets});
     const { id } = widgetData;
     const { generalData, serverData } = mapDataToState(widgetData);
@@ -71,7 +89,7 @@ const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) =>
     dispatch(dataChanged());
     dispatch(requestUpdate(id));
 
-    return fetchData(URL.UPDATE_WIDGET, 'POST', serverData)
+    return fetchData(URL.UPDATE_WIDGET, 'POST', serverData, token)
       .then(
         () => dispatch(updateWidget(serverData)),
         console.error
