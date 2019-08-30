@@ -25,7 +25,7 @@ Any sensitive data from `endpoints.conf` file is never accessible for end-users.
  
 Execute below command once for initial configuration. This step will create required config files.
 ```cmd
-./gradlew cogboardInitConfigs
+./gradlew cogboardInit
 ```
 
 #### Run
