@@ -16,7 +16,7 @@ class LoginHandler : RoutingHandlerFactory {
     var vertx: Vertx? = null
     var admins: MutableMap<String, String> = mutableMapOf()
 
-    override fun getName(): String = "generate-jwt-handler"
+    override fun getName(): String = "login-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> {
         this.vertx = vertx

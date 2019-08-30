@@ -1,8 +1,8 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: CogBoard
-  description: CogBoard
+  title: Cogboard
+  description: Cogboard
 
 servers:
   - url: https://{domain}:{port}
@@ -35,7 +35,7 @@ paths:
           description: Config Get Handler
   /api/login:
     post:
-      operationId: generate-jwt-handler
+      operationId: login-handler
       responses:
         default:
           description: Generate JWT Token
