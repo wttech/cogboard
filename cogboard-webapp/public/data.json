@@ -88,15 +88,18 @@
       },
       "widget6": {
         "id": "widget6",
-        "config": {
-          "columns": 1,
-          "goNewLine": false
+        "type": "WorldClockWidget",
+        "content": {
+          "timeZoneId": "Europe/Warsaw",
+          "dateFormat": "HH:mm:ss, DD MMM YYYY"
         },
-        "title": "Jenkins Job Widget",
-        "type": "JenkinsJobWidget",
-        "endpoint": "endpoint1",
-        "disabled": true,
-        "schedulePeriod": 10000
+        "status": "OK",
+        "title": "My World Clock Widget",
+        "disabled": false,
+        "config": {
+          "columns": 2,
+          "goNewLine": true
+        }
       },
       "widget7": {
         "id": "widget7",
@@ -157,20 +160,6 @@
         "content": {
           "serverTime": "no data"
         },
-        "config": {
-          "columns": 2,
-          "goNewLine": true
-        }
-      },
-      "widget12": {
-        "id": "widget12",
-        "type": "DefaultWidget",
-        "content": {
-          "serverTime": "no data"
-        },
-        "status": "OK",
-        "title": "I have 2 columns width",
-        "disabled": false,
         "config": {
           "columns": 2,
           "goNewLine": true
