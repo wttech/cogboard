@@ -10,10 +10,7 @@ import {makeStyles} from '@material-ui/core/styles/index';
 import {FormControl} from "@material-ui/core";
 
 function renderInputComponent(inputProps) {
-    const {
-        classes, inputRef = () => {
-        }, ref, ...other
-    } = inputProps;
+    const {classes, inputRef = () => {}, ref, ...other} = inputProps;
 
     return (
         <TextField
@@ -54,9 +51,7 @@ function getSuggestions(options, value) {
     const inputLength = inputValue.length;
     let count = 0;
 
-    return inputLength === 0
-        ? []
-        : options.filter(option => {
+    return inputLength === 0 ? [] : options.filter(option => {
             const keep =
                 count < 5 && option.slice(0, inputLength).toLowerCase() === inputValue;
 
