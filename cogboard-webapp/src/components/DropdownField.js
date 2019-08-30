@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { FormControl, InputLabel, Input, Select } from '@material-ui/core';
+import { useSelector } from "react-redux";
 
 const DropdownField = props => {
   const {
@@ -16,10 +17,17 @@ const DropdownField = props => {
   const initialLoaded = !itemsUrl;
   const [options, setOptions] = useState(dropdownItems);
   const [loaded, setLoaded] = useState(initialLoaded);
+  const jwToken = useSelector(({app}) => app.jwToken);
 
   useEffect(() => {
     if (itemsUrl) {
-      fetch(itemsUrl)
+      const init = jwToken ? {
+        headers: {
+          'Authorization': jwToken
+        }
+      } : undefined;
+
+      fetch(itemsUrl, init)
         .then(response => response.json())
         .then(data => {
           setOptions(data);
