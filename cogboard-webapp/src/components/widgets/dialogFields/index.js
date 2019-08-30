@@ -2,6 +2,7 @@ import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
+import LinkListField from './LinkListField';
 
 const dialogFields = {
   EndpointField: {
@@ -56,6 +57,21 @@ const dialogFields = {
     min: 0,
     step: 1,
     initialValue: 200
+  },
+  LinkListField: {
+    component: LinkListField,
+    links:[
+      {
+        nameProps: {
+          name: 'name',
+          label: 'Name',
+        },
+        pathProps: {
+          name: 'path',
+          label: 'Path',
+        }
+      }
+      ]
   },
 };
 
