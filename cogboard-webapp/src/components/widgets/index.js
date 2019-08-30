@@ -4,6 +4,7 @@ import JenkinsJobWidget from "./types/JenkinsJobWidget";
 import SonarQubeWidget from "./types/SonarQubeWidget";
 import ServiceCheckWidget from "./types/ServiceCheckWidget";
 import BambooPlanWidget from "./types/BambooPlanWidget";
+import WorldClockWidget from "./types/WorldClockWidget";
 
 const widgetTypes = {
   DefaultWidget: {
@@ -34,6 +35,11 @@ const widgetTypes = {
     name: 'Bamboo Plan widget',
     component: BambooPlanWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString']
+  },
+  WorldClockWidget: {
+    name: 'World Clock widget',
+    component: WorldClockWidget,
+    dialogFields: ['TimeZoneId', 'DateTimeFormat']
   }
 };
 
