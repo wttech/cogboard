@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 export const useDialogToggle = () => {
   const [dialogOpened, setDialogOpened] = useState(false);
@@ -25,3 +25,23 @@ export const useFormData = (data) => {
 
   return { values, handleChange };
 };
+
+export function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
