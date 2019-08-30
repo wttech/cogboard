@@ -11,6 +11,8 @@ Thumbs.db
 
 *.jar
 /knotx/conf/endpoints.conf
+/knotx/conf/jwt.conf
+/knotx/conf/admins.conf
 /mnt/config.json
 
 # Intellij           #
@@ -33,6 +35,7 @@ Thumbs.db
 .pnp.js
 cogboard-app/src/main/resources
 !cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.RoutingHandlerFactory
+!cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.AuthHandlerFactory
 
 # testing
 **/coverage
