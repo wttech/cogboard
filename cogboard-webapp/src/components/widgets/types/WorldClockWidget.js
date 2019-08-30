@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useInterval} from '../../helpers/interval'
+import {useInterval} from '../../../hooks'
 import moment from 'moment-timezone'
 import {Caption} from "../../styled";
 
