@@ -33,6 +33,7 @@ val dockerImageRef = File("$buildDir/.docker/buildImage-imageId.txt")
 val dockerContainerName = project.property("docker.container.name")?.toString() ?: "cogboard"
 val dockerImageName = project.property("docker.image.name")?.toString() ?: "cogboard/cogboard-app"
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
+val wsPort = project.property("ws.port")
 logger.lifecycle(">> dockerContainerName: $dockerContainerName")
 logger.lifecycle(">> dockerImageName: $dockerImageName")
 logger.lifecycle(">> mountDir: $mountDir")
@@ -43,7 +44,7 @@ task("docker-run") {
     doLast {
         logger.lifecycle("Running docker image")
         exec {
-            commandLine("docker", "run", "--rm", "-p8092:8092", "-p18092:18092", "-p9000:9000", "--name", dockerContainerName, "-v", "$mountDir:/data", dockerImageName)
+            commandLine("docker", "run", "--rm", "-p8092:8092", "-p18092:18092", "-p$wsPort:9000", "--name", dockerContainerName, "-v", "$mountDir:/data", dockerImageName)
             // command: `docker run --rm -p8092:8092 -p18092:18092 -p9000:9000 --name cogboard -v <project_dir>/mnt:/data cogboard/cogboard-app`
         }
     }
