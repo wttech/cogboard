@@ -52,9 +52,9 @@ const mapFormValuesToWidgetData = values => {
 };
 
 export const createNewWidgetData = ({ values, allWidgets, currentBoardId }) => ({
+  boardId: currentBoardId,
   id: createWidgetId(allWidgets),
   status: 'UNKNOWN',
-  boardId: currentBoardId,
   ...mapFormValuesToWidgetData(values)
 });
 
@@ -64,16 +64,15 @@ export const mapDataToState = (data) => {
   const {
     id,
     title,
+    content,
     type,
     disabled,
-    status,
     config,
-    boardId,
     ...other
   } = data;
 
   const newWidgetProps = ['status', 'boardId'];
-  const generalData = { id, title, config, type, disabled };
+  const generalData = { id, title, config, type, disabled, content };
 
   newWidgetProps.forEach(prop => {
     if (data[prop]) {
