@@ -10,16 +10,16 @@ We designed Cogboard with these principles in mind:
 **Secure** - all integrations are done on backend.  
 
 ##### Widgets:
-* [Jenkins Job](/widgets/jenkins-job/)
-* [Service Check](/widgets/service-check/)
-* [SonarQube](/widgets/sonarqube/)
+* [Jenkins Job](./docs/widgets/jenkins-job/)
+* [Service Check](./docs/widgets/service-check/)
+* [SonarQube](./docs/widgets/sonarqube/)
 
 ##### Config:
-* [Backup](/config/backup/)
+* [Backup](/docs/config/backup/)
 
 ##### Development:
-* [Debugging](/development/debugging/)
-* [Widget Development](/development/development/)
+* [Debugging](/docs/development/debugging/)
+* [Widget Development](/docs/development/development/)
 
 
 Code repository on [GitHub](https://github.com/Cognifide/cogboard).
