@@ -21,6 +21,13 @@ tasks {
         from("$buildDir")
         into("${rootProject.rootDir}/cogboard-app/src/main/resources")
     }
+    register<Copy>("copyEnvFile"){
+        from("${project.rootDir}/config")
+        into("${project.rootDir}")
+        expand("ws_port" to project.property("ws.port"))
+    }
 }
 
-
+tasks.named("npmInstall") {
+    dependsOn("copyEnvFile")
+}
