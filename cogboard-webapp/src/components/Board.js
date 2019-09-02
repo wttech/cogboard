@@ -14,6 +14,7 @@ const StyledContainer = styled.div`
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(${getColumns}, 1fr);
+  grid-auto-rows: 1fr;
 `;
 
 const StyledTitle = styled(Typography)`
@@ -36,7 +37,11 @@ const Board = ({ className }) => {
   const { title, columns, widgets } = currentBoard || {};
   const theme = useTheme();
 
-  return currentBoard ? (
+  if (!currentBoard) {
+    return null;
+  }
+
+  return (
     <>
       <StyledTitle
         component="h2"
@@ -52,7 +57,7 @@ const Board = ({ className }) => {
         <WidgetList widgets={widgets} />
       </StyledContainer>
     </>
-  ) : null;
-}
+  );
+};
 
 export default Board;

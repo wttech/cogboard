@@ -43,8 +43,8 @@ task("docker-run") {
     doLast {
         logger.lifecycle("Running docker image")
         exec {
-            commandLine("docker", "run", "--rm", "-p8092:8092", "-p18092:18092", "-p9000:9000", "--name", dockerContainerName, "-v", "$mountDir:/data", dockerImageName)
-            // command: `docker run --rm -p8092:8092 -p18092:18092 -p9000:9000 --name cogboard -v <project_dir>/mnt:/data cogboard/cogboard-app`
+            commandLine("docker", "run", "--rm", "-p8092:8092", "-p18092:18092", "-p9001:9001", "--name", dockerContainerName, "-v", "$mountDir:/data", dockerImageName)
+            // command: `docker run --rm -p8092:8092 -p18092:18092 -p9001:9001 --name cogboard -v <project_dir>/mnt:/data cogboard/cogboard-app`
         }
     }
 }
