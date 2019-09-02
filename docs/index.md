@@ -6,7 +6,7 @@
 #### We designed Cogboard with these principles in mind:  
 **Easy to use** - comes with a set of ready to use Widgets that can be configured in Web browser.  
 **Easy to deploy** - works on any machine with `Docker CE` and `JVM`.  
-**Easy to extend** - creating new Widget is [simple](https://github.com/Cognifide/cogboard/wiki/Widget-development).  
+**Easy to extend** - creating new Widget is [simple](./widget-development).  
 **Secure** - all integrations are done on backend.
 
 ### Widgets:
