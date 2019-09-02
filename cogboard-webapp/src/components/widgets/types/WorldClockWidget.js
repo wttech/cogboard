@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {useInterval} from '../../../hooks'
 import moment from 'moment-timezone'
-import {Caption} from "../../styled";
 
 const WorldClockWidget = props => {
     const {timeZoneId, dateFormat} = props;
@@ -18,9 +17,9 @@ const WorldClockWidget = props => {
     }, 1000);
 
     return (
-        <Caption>
-            Time in {timeZoneId} : {date}
-        </Caption>
+        <Typography>
+           {timeZoneId} : {date}
+        </Typography>
     );
 };
 
