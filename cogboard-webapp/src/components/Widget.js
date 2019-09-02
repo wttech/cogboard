@@ -145,6 +145,7 @@ const Widget = ({ id, index }) => {
       >
         <EditWidget
           closeDialog={handleDialogClose}
+          content={content}
           id={id}
           title={title}
           disabled={disabled}
