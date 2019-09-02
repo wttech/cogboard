@@ -39,7 +39,7 @@ const widgetTypes = {
   IFrameEmbedWidget: {
     name: 'IFrame Embed widget',
     component: IFrameEmbedWidget,
-    dialogFields: ['IFrameUrl']
+    dialogFields: ['UrlForContent']
   }
 };
 
