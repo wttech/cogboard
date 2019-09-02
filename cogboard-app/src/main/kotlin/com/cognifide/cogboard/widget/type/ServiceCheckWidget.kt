@@ -9,18 +9,18 @@ import java.util.*
 
 class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
-    private val url = config.getString("url", "")
+    private val serviceUrl = config.getString("url", "")
     private val expectedStatusCode = config.getInteger("expectedStatusCode", 0)
 
     override fun updateState() {
-       if (url.isNotBlank()) httpGetStatus(url) else sendConfigurationError("URL is blank")
+       if (serviceUrl.isNotBlank()) httpGetStatus(serviceUrl) else sendConfigurationError("URL is blank")
     }
 
     override fun handleResponse(responseBody: JsonObject) {
         val statusCode = responseBody.getInteger("statusCode", 0)
 
         responseBody.put("timestamp", Date().time)
-        responseBody.put(CogboardConstants.PROP_URL, url)
+        responseBody.put(CogboardConstants.PROP_URL, serviceUrl)
         responseBody.put("expectedStatusCode", expectedStatusCode)
 
         send(JsonObject()

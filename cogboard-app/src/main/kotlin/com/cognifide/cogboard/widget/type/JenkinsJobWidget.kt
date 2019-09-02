@@ -9,17 +9,37 @@ import io.vertx.core.json.JsonObject
 class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val path: String = config.getString("path", "")
-    private val url: String = config.endpointProp("url")
 
     override fun handleResponse(responseBody: JsonObject) {
         responseBody.getJsonObject("lastBuild")?.let {
             val status = if (it.getBoolean("building", false)) Widget.Status.IN_PROGRESS
-            else Widget.Status.from(it.getString("result"))
+            else Widget.Status.from(it.getString("result", ""))
+            it.put("branch", extractBranchInfo(it))
+            it.put(CogboardConstants.PROP_URL, makePublic(it.getString(CogboardConstants.PROP_URL, "")))
 
             send(JsonObject()
                     .put(CogboardConstants.PROP_STATUS, status)
                     .put(CogboardConstants.PROP_CONTENT, it))
         }
+    }
+
+    private fun makePublic(privateUrl: String): String {
+        return privateUrl.replace(url, publicUrl)
+    }
+
+    private fun extractBranchInfo(data: JsonObject): String {
+        var branch = "unknown"
+        data.getJsonArray("actions")
+                ?.stream()
+                ?.map { it as JsonObject }
+                ?.filter { it.containsKey("lastBuiltRevision") }
+                ?.findFirst()
+                ?.ifPresent { action ->
+                    action.getJsonObject("lastBuiltRevision")
+                            .getJsonArray("branch")
+                            ?.first().let { branch = (it as JsonObject).getString("name") }
+                }
+        return branch
     }
 
     override fun updateState() {
@@ -41,7 +61,8 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
                 "result",
                 "timestamp",
                 "url",
-                "builtOn"
+                "builtOn",
+                "actions[lastBuiltRevision[branch[name]]]"
         ).joinToString(separator = ",")
     }
 }

@@ -9,6 +9,8 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
 
     val user: String = config.endpointProp("user")
     val password: String = config.endpointProp("password")
+    val url: String = config.endpointProp("url")
+    val publicUrl: String = config.endpointProp("publicUrl").ifBlank { url }
 
     private lateinit var consumer: MessageConsumer<JsonObject>
 
@@ -28,13 +30,13 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
 
     /**
      * Notifies Widget that it is time to update.
-     * Use `updateStateByGet(...)` or `updateStateByPost(...)` in order to request new state from 3rd party endpoint.
+     * Use `httpGet(...)`, `httpPost(...)` or `httpGetStatus(...)` in order to request new state from 3rd party endpoint.
      * When http request is successful then 'handleResponse(responseBody: JsonObject)' will be executed
      */
     abstract override fun updateState()
 
     /**
-     * Executed after successful `updateStateByGet(...)` or `updateStateByPost(...)`
+     * Executed after successful `httpGet(...)`, `httpPost(...)` or `httpGetStatus(...)`
      */
     abstract fun handleResponse(responseBody: JsonObject)
 

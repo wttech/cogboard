@@ -1,6 +1,6 @@
 import React from 'react';
-import { func, string } from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { func } from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 import { addNewWidget } from '../actions/thunks';
@@ -13,11 +13,12 @@ const StyledCancelButton = styled(CancelButton)`
   margin-left: 20px;
 `;
 
-const AddWidget = ({ closeDialog, currentBoard }) => {
+const AddWidget = ({ closeDialog }) => {
+  const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
   const dispatch = useDispatch();
 
   const handleAddClick = (values) => () => {
-    dispatch(addNewWidget({ currentBoard, values }));
+    dispatch(addNewWidget({ currentBoardId, values }));
     closeDialog();
   }
 
@@ -41,7 +42,6 @@ const AddWidget = ({ closeDialog, currentBoard }) => {
 
 AddWidget.propTypes = {
   closeDialog: func.isRequired,
-  currentBoard: string.isRequired
-}
+};
 
 export default AddWidget;

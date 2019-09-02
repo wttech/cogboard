@@ -2,24 +2,33 @@ import {
   requestData,
   receiveData,
   requestUpdate,
+  addBoard,
+  editBoard,
+  deleteBoard,
+  setCurrentBoard,
   updateWidget,
   addWidget,
   editWidget,
+  deleteMultipleWidgets,
+  sortWidgets,
   dataChanged,
-  saveDataStart
+  saveDataStart,
+  deleteWidget
 } from './actionCreators';
 import {
   fetchData,
   createNewWidgetData,
   createEditWidgetData,
-  mapDataToState
+  mapDataToState,
+  withDataChanged
 } from './helpers';
+import { URL } from '../constants';
 
 export const fetchInitialData = () =>
   (dispatch) => {
     dispatch(requestData());
 
-    return fetchData('/api/config')
+    return fetchData(URL.LOAD_DATA)
       .then(
         data => dispatch(receiveData(data)),
         console.error
@@ -31,15 +40,29 @@ export const saveData = () =>
     const { boards, widgets } = getState();
     const data = { boards, widgets };
 
-    return fetchData('/api/config/save', 'POST', data)
+    return fetchData(URL.SAVE_DATA, 'POST', data)
       .then(
         () => dispatch(saveDataStart()),
         console.error
       );
   };
 
-const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) => data => {
-  return (dispatch, getState) => {
+const deleteBoardWithWidgetsThunk = (id) =>
+  (dispatch, getState) => {
+    const { ui, boards } = getState();
+    const { widgets } = boards.boardsById[id];
+    const { currentBoard } = ui;
+
+    dispatch(deleteBoard(id));
+
+    const [firstBoardId] = getState().boards.allBoards;
+
+    (id === currentBoard) && dispatch(setCurrentBoard(firstBoardId || null));
+    dispatch(deleteMultipleWidgets(widgets));
+  };
+
+const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) => data =>
+  (dispatch, getState) => {
     const allWidgets = getState().widgets.allWidgets;
     const widgetData = widgetDataCreator({...data, allWidgets});
     const { id } = widgetData;
@@ -49,14 +72,30 @@ const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) =>
     dispatch(dataChanged());
     dispatch(requestUpdate(id));
 
-    return fetchData('/api/widget/update', 'POST', serverData)
+    return fetchData(URL.UPDATE_WIDGET, 'POST', serverData)
       .then(
         () => dispatch(updateWidget(serverData)),
         console.error
       );
   };
-};
+
+const removeWidgetThunk = (id) =>
+  (dispatch, getState) => {
+    const { currentBoard: boardId } = getState().ui;
+
+    dispatch(deleteWidget(id, boardId));
+  };
+
+export const reorderWidgets = (sourceId, targetIndex) =>
+  (dispatch, getState) => {
+    const { currentBoard: boardId } = getState().ui;
+
+    dispatch(sortWidgets({ sourceId, targetIndex, boardId }));
+  };
 
 export const addNewWidget = makeWidgetUpdaterThunk(addWidget, createNewWidgetData);
-
 export const saveWidget = makeWidgetUpdaterThunk(editWidget, createEditWidgetData);
+export const removeWidget = withDataChanged(removeWidgetThunk);
+export const addNewBoard = withDataChanged(addBoard);
+export const saveBoard = withDataChanged(editBoard);
+export const deleteBoardWithWidgets = withDataChanged(deleteBoardWithWidgetsThunk);

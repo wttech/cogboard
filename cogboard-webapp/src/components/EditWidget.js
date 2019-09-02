@@ -20,7 +20,7 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
   const handleSaveClick = (values) => () => {
     dispatch(saveWidget({ id, values }));
     closeDialog();
-  }
+  };
 
   return (
     <WidgetForm
@@ -47,6 +47,7 @@ EditWidget.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   id: string.isRequired,
+  rows: number.isRequired,
   title: string.isRequired,
   type: string.isRequired,
   widgetTypeData: object.isRequired

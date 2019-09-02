@@ -9,6 +9,7 @@ const TextInput = props => {
         shrink: true,
       }}
       margin="normal"
+      multiline={true}
       {...props}
     />
   );
