@@ -63,14 +63,14 @@ const dialogFields = {
   },
   TimeZoneId: {
     component: AutoSuggestSelect,
-    name: 'timeZoneId',
+    name: 'content.timeZoneId',
     label: 'Timezone',
     options: moment.tz.names(),
     placeholder: 'Search...'
   },
   DateTimeFormat: {
     component: DateFormatSelect,
-    name: 'dateFormat',
+    name: 'content.dateFormat',
     label: 'Date Format',
     dropdownItems: DATE_FORMATS,
     initialValue: DATE_FORMATS[3].value
