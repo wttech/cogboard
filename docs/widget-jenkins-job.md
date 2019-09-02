@@ -1,7 +1,7 @@
 #### Configuration:
 * `Endpoint` - choose Jenkins endpoint*
-* `Schedule Period` - time interval between executions | recommended: `300000` (5min)
-* `Path` - path to the job | example: `/job/ProjectName/job/build-name`
+* `Schedule Period` - time interval between executions >>> recommended: `300000` (5min)
+* `Path` - path to the job >>> example: `/job/ProjectName/job/build-name`
 
 
 `*` example Jenkins Endpoint props:
