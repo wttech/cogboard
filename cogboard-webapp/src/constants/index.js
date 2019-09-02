@@ -24,3 +24,8 @@ export const DATE_FORMATS = [
         value: "HH:mm:ss, DD MMM YYYY"
     }
 ];
+
+export const ROWS_MIN = 1;
+export const ItemTypes = {
+  WIDGET: 'widget'
+};

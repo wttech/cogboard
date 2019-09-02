@@ -30,13 +30,13 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
 
     /**
      * Notifies Widget that it is time to update.
-     * Use `updateStateByGet(...)` or `updateStateByPost(...)` in order to request new state from 3rd party endpoint.
+     * Use `httpGet(...)`, `httpPost(...)` or `httpGetStatus(...)` in order to request new state from 3rd party endpoint.
      * When http request is successful then 'handleResponse(responseBody: JsonObject)' will be executed
      */
     abstract override fun updateState()
 
     /**
-     * Executed after successful `updateStateByGet(...)` or `updateStateByPost(...)`
+     * Executed after successful `httpGet(...)`, `httpPost(...)` or `httpGetStatus(...)`
      */
     abstract fun handleResponse(responseBody: JsonObject)
 
