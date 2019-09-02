@@ -28,6 +28,11 @@ const dialogFields = {
     name: 'url',
     label: 'URL'
   },
+  UrlForContent: {
+    component: TextInput,
+    name: 'content.url',
+    label: 'URL'
+  },
   IdString: {
     component: TextInput,
     name: 'idString',
@@ -56,11 +61,6 @@ const dialogFields = {
     min: 0,
     step: 1,
     initialValue: 200
-  },
-  UrlForContent: {
-    component: TextInput,
-    name: 'content.url',
-    label: 'URL'
   },
 };
 
