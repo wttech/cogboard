@@ -7,7 +7,7 @@ const WidgetContent = ({ type, content }) =>  {
   const notFoundMessage = 'Widget type not found';
   const WidgetType = widgetTypes[type] ? widgetTypes[type].component : () => notFoundMessage;
 
-  return <WidgetType { ...content } />;
+  return <WidgetType {...content} />;
 };
 
 WidgetContent.propTypes = {
