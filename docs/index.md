@@ -9,7 +9,20 @@ We designed Cogboard with these principles in mind:
 **Easy to extend** - creating new Widget is [simple](https://github.com/Cognifide/cogboard/wiki/Widget-development).  
 **Secure** - all integrations are done on backend.  
 
-Find out more on [GitHub](https://github.com/Cognifide/cogboard) and [Wiki](https://github.com/Cognifide/cogboard/wiki) pages.
+##### Widgets:
+* [Jenkins Job](/widgets/jenkins-job/)
+* [Service Check](/widgets/service-check/)
+* [SonarQube](/widgets/sonarqube/)
+
+##### Config:
+* [Backup](/config/backup/)
+
+##### Development:
+* [Debugging](/development/debugging/)
+* [Widget Development](/development/development/)
+
+
+Code repository on [GitHub](https://github.com/Cognifide/cogboard).
 
 ---
 Some screenshots:  
