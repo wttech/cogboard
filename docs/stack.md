@@ -7,4 +7,4 @@
  * Webapp: [React JS](https://reactjs.org/)
  * Webapp UI: [Material UI](https://material-ui.com/)
  * Webapp model: [Redux](https://redux.js.org/)
- * Build with: [Gradle](https://gradle.org/)o to http://localhost:8092/index.html to see your board
+ * Build with: [Gradle](https://gradle.org/)
