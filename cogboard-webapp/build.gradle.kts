@@ -12,6 +12,10 @@ configure<NodeExtension> {
 }
 
 tasks {
+    named("npmInstall"){
+        dependsOn("copyEnvFile")
+    }
+
     register<NpmTask>("buildReactApp") {
         dependsOn("npmInstall")
         setArgs(listOf("run", "build"))
@@ -22,12 +26,15 @@ tasks {
         into("${rootProject.rootDir}/cogboard-app/src/main/resources")
     }
     register<Copy>("copyEnvFile"){
-        from("${project.rootDir}/config")
-        into("${project.rootDir}")
-        expand("ws_port" to project.property("ws.port"))
+        dependsOn("clearEnvFile")
+        from("${project.projectDir}/config")
+        into("${project.projectDir}")
+
+        expand("ws_port" to rootProject.property("ws.port"))
+    }
+
+    register<Delete>("clearEnvFile"){
+        delete("${project.projectDir}/.env")
     }
 }
 
-tasks.named("npmInstall") {
-    dependsOn("copyEnvFile")
-}
