@@ -1,4 +1,4 @@
-# SonarQube widget
+# [Home](/cogboard/) >> SonarQube widget
 
 #### Configuration:
 * `Endpoint` - choose Jenkins endpoint*

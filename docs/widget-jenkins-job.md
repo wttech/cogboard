@@ -1,4 +1,4 @@
-# Jenkins Job widget
+# [Home](/cogboard/) >> Jenkins Job widget
 
 #### Configuration:
 * `Endpoint` - choose Jenkins endpoint*

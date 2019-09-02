@@ -1,4 +1,4 @@
-# Service Check widget
+# [Home](/cogboard/) >> Service Check widget
 
 #### Configuration:
 * `Schedule Period` - time interval between executions >> recommended: `300000` (5min)

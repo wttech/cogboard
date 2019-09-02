@@ -1,4 +1,4 @@
-# Config backup
+# [Home](/cogboard/) >> Config backup
 
 Configuration persistence is achieved with [Docker Volume](https://docs.docker.com/storage/volumes/) feature.  
 * Config is stored under `<project_root>/mnt/config.json`.  
