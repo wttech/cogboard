@@ -41,12 +41,19 @@ const makeIdCreator = (prefix) => (allIds) => {
 const createWidgetId = makeIdCreator('widget');
 
 const mapFormValuesToWidgetData = values => {
-  const { columns, goNewLine, ...other } = values;
+  const {
+    columns,
+    goNewLine,
+    rows,
+    ...other
+  } = values;
+
   return {
     ...other,
     config: {
       columns,
-      goNewLine
+      goNewLine,
+      rows
     }
   };
 };
