@@ -11,16 +11,16 @@ We designed Cogboard with these principles in mind:
 # 2
 
 #### Widgets:
-* [Jenkins Job](/widget-jenkins-job/)
-* [Service Check](/widget-service-check/)
-* [SonarQube](/widget-sonarqube/)
+* [Jenkins Job](./widget-jenkins-job/)
+* [Service Check](./widget-service-check/)
+* [SonarQube](./widget-sonarqube/)
 
 #### Config:
-* [Backup](/config-backup/)
+* [Backup](./config-backup/)
 
 #### Development:
-* [Debugging](/debugging/)
-* [Widget Development](/widget-development/)
+* [Debugging](./debugging/)
+* [Widget Development](./widget-development/)
 
 
 Code repository on [GitHub](https://github.com/Cognifide/cogboard).
