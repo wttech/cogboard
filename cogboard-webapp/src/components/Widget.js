@@ -98,7 +98,7 @@ const Widget = ({ id }) => {
           }
         />
         <StyledCardContent>
-          {!disabled ? <WidgetContent type={type} content={content} widgetTypeData={widgetTypeData} /> : 'Disabled'}
+          {!disabled ? <WidgetContent type={type} content={content} /> : 'Disabled'}
         </StyledCardContent>
       </StyledCard>
       <AppDialog
