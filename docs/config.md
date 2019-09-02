@@ -1,4 +1,4 @@
-# Config
+# [Home](/cogboard/) >> Config
 
 ## Ports setup
 Edit file `./gradle.properties` and change:
