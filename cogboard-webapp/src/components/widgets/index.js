@@ -4,6 +4,7 @@ import JenkinsJobWidget from "./types/JenkinsJobWidget";
 import SonarQubeWidget from "./types/SonarQubeWidget";
 import ServiceCheckWidget from "./types/ServiceCheckWidget";
 import TextWidget from "./types/TextWidget";
+import BambooPlanWidget from "./types/BambooPlanWidget";
 
 const widgetTypes = {
   DefaultWidget: {
@@ -33,7 +34,12 @@ const widgetTypes = {
   TextWidget: {
     name: 'Text Widget',
     component: TextWidget,
-    dialogFields: ['Text']
+    dialogFields: ['Text', 'TextSize']
+  },
+  BambooPlanWidget: {
+    name: 'Bamboo Plan widget',
+    component: BambooPlanWidget,
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString']
   }
 };
 

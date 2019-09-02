@@ -1,5 +1,16 @@
 import React from 'react';
+import styled from '@emotion/styled/macro';
 
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
-export const FullWidthButtonOutlined = (props) => <Button {...props} fullWidth="true" variant="outlined" target="_blank"/>;
+const StyledTypography = styled(Typography)`
+  margin-bottom: 5px;
+`;
+
+const FullWidthButtonOutlined = (props) => <Button {...props} fullWidth variant="outlined" target="_blank" />;
+
+export const WidgetButton = styled(FullWidthButtonOutlined)`
+  margin-top: auto;
+`;
+
+export const Caption = (props) => <StyledTypography {...props} variant="caption" paragraph />;

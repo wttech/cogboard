@@ -1,40 +1,41 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Typography } from '@material-ui/core';
-import { FullWidthButtonOutlined } from "../../styled";
+import { Caption, WidgetButton } from "../../styled";
 
 const JenkinsJobWidget = props => {
-  const { duration, displayName, url, timestamp, builtOn } = props;
+  const { duration, displayName, url, timestamp, branch } = props;
   const ts = timestamp ? new Date(timestamp).toLocaleString() : '';
   const dur = duration ? `${duration / 1000} [s]` : '';
 
   return (
     <>
-      <Typography
-        variant="caption">
-        <p>{ts}</p>
-        <p>Duration: {dur}</p>
-        <p>Executor: {builtOn}</p>
-      </Typography>
-      <FullWidthButtonOutlined href={url}>
+      <Caption>
+        {ts}
+      </Caption>
+      <Caption>
+        Duration: {dur}
+      </Caption>
+      <Caption>
+          {branch}
+      </Caption>
+      <WidgetButton href={url}>
         {displayName}
-      </FullWidthButtonOutlined>
+      </WidgetButton>
     </>
   );
 };
 
 JenkinsJobWidget.propTypes = {
-  duration: number,
-  displayName: string,
+  duration: number.isRequired,
+  displayName: string.isRequired,
   url: string.isRequired,
-  timestamp: number,
-  builtOn: string
+  timestamp: number.isRequired,
+  branch: string
 };
 
 JenkinsJobWidget.defaultProps = {
-  displayName: '#',
-  url: '#',
+  branch: 'unknown'
 };
 
 export default JenkinsJobWidget;

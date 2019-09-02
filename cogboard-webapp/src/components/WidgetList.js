@@ -1,28 +1,22 @@
 import React from 'react';
-import { string } from 'prop-types';
-import { shallowEqual, useSelector } from 'react-redux';
+import { array } from 'prop-types';
 
 import Widget from './Widget';
 
-const WidgetList = ({ currentBoard }) => {
-  const widgetIds = useSelector(
-    state => state.boards.boardsById[currentBoard].widgets,
-    shallowEqual
-  );
-
+const WidgetList = ({ widgets: widgetIds }) => {
   return (
-    widgetIds.map(widgetId =>
+    widgetIds.map((widgetId, index) =>
       <Widget
         key={widgetId}
         id={widgetId}
-        currentBoard={currentBoard}
+        index={index}
       />
     )
   );
-}
+};
 
 WidgetList.propTypes = {
-  currentBoard: string.isRequired
-}
+  widgets: array.isRequired
+};
 
 export default WidgetList;

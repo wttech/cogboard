@@ -1,31 +1,36 @@
 import React from 'react';
+import { string, object } from "prop-types";
 
 import { Typography } from '@material-ui/core';
-import { FullWidthButtonOutlined } from "../../styled";
-import { string, object } from "prop-types";
+import { Caption, WidgetButton } from "../../styled";
 
 const SonarQubeWidgetContent = props => {
   const { metrics, id, url, version, date, errorMessage } = props;
   const ts = date ? new Date(Date.parse(date)).toLocaleString() : '';
 
-  return (
-    errorMessage === '' ?
-      <>
-        <Typography variant="caption">
-          <p>{ts}</p>
-          <p>Version: {version}</p>
-          {Object.entries(metrics).map(([metric, val]) =>
-            <p key={metric}>{metric.replace('_', ' ')}: {val}</p>
-          )}
-        </Typography>
-        <FullWidthButtonOutlined href={url}>
-          #{id}
-        </FullWidthButtonOutlined>
-      </>
-      :
+  if (errorMessage) {
+    return (
       <Typography variant="h5">
         {errorMessage}
       </Typography>
+    );
+  }
+
+  return (
+    <>
+      <Caption>
+        {ts}
+      </Caption>
+      <Caption>
+        Version: {version}
+      </Caption>
+        {Object.entries(metrics).map(([metric, val]) =>
+          <Caption>{metric.replace('_', ' ')}: {val}</Caption>
+        )}
+      <WidgetButton href={url}>
+        #{id}
+      </WidgetButton>
+    </>
   );
 };
 
@@ -40,8 +45,6 @@ SonarQubeWidgetContent.propTypes = {
 
 SonarQubeWidgetContent.defaultProps = {
   metrics: {},
-  id: '-',
-  url: '#',
   version: '-',
   date: '',
   errorMessage: ''

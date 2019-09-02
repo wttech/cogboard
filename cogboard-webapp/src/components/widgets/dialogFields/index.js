@@ -2,7 +2,7 @@ import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
-import TextSize from "./TextSize";
+import TextSizeInput from "./TextSizeInput";
 
 const dialogFields = {
   EndpointField: {
@@ -64,9 +64,18 @@ const dialogFields = {
     label: 'Text'
   },
   TextSize: {
-    component: TextSize,
+    component: TextSizeInput,
     name: 'textSize',
-    label: 'Text Size'
+    label: 'Text Size',
+    dropdownItems: {
+      XXL : 'h1',
+      XL : 'h2',
+      L : 'h3',
+      M : 'h4',
+      S : 'h5',
+      XS : 'h6'
+    },
+    initialValue: 'h4'
   }
 };
 

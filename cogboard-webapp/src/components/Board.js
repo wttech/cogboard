@@ -1,5 +1,4 @@
 import React from 'react';
-import { string } from 'prop-types';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/core/styles'
@@ -15,6 +14,7 @@ const StyledContainer = styled.div`
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(${getColumns}, 1fr);
+  grid-auto-rows: 1fr;
 `;
 
 const StyledTitle = styled(Typography)`
@@ -32,12 +32,14 @@ const StyledTitle = styled(Typography)`
   }
 `;
 
-const Board = ({ currentBoard, className }) => {
-  const board = useSelector(
-    state => state.boards.boardsById[currentBoard]
-  );
+const Board = ({ className }) => {
+  const currentBoard = useSelector(({ ui, boards }) => boards.boardsById[ui.currentBoard]);
+  const { title, columns, widgets } = currentBoard || {};
   const theme = useTheme();
-  const { title, columns } = board;
+
+  if (!currentBoard) {
+    return null;
+  }
 
   return (
     <>
@@ -52,14 +54,10 @@ const Board = ({ currentBoard, className }) => {
         className={className}
         columns={columns}
       >
-        <WidgetList currentBoard={currentBoard} />
+        <WidgetList widgets={widgets} />
       </StyledContainer>
     </>
   );
-}
-
-Board.propTypes = {
-  currentBoard: string.isRequired
 };
 
 export default Board;
