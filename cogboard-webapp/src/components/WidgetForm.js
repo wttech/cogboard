@@ -10,6 +10,7 @@ import WidgetTypeForm from './WidgetTypeForm';
 
 import { Box, FormControlLabel, FormControl, MenuItem, TextField, Switch } from '@material-ui/core';
 import { COLUMNS_MIN, ROWS_MIN } from '../constants';
+import {sortObjects} from "./helpers";
 
 const StyledFieldset = styled(FormControl)`
   display: flex;
@@ -34,6 +35,8 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
   );
   const { values, handleChange } = useFormData(initialFormValues);
 
+  let sortedWidgetTypes = sortObjects(widgetTypes, 'name', false);
+
   return (
     <>
       <StyledFieldset component="fieldset">
@@ -43,7 +46,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
           id="widget-type"
           name="type"
           value={values.type}
-          dropdownItems={widgetTypes}
+          dropdownItems={sortedWidgetTypes}
         >
           {renderWidgetTypesMenu}
         </DropdownField>
