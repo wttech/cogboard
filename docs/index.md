@@ -23,4 +23,5 @@
 * [Widget Development](./widget-development)
 
 ### Other
+* [Stack](./stack)
 * [Screen Shots](./screens)
