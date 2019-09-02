@@ -98,7 +98,7 @@ const Widget = ({ id }) => {
           }
         />
         <StyledCardContent>
-          {!disabled ? <WidgetContent type={type} content={content} /> : 'Disabled'}
+          {!disabled ? <WidgetContent type={type} content={content} widgetTypeData={widgetTypeData} /> : 'Disabled'}
         </StyledCardContent>
       </StyledCard>
       <AppDialog
@@ -108,6 +108,7 @@ const Widget = ({ id }) => {
       >
         <EditWidget
           closeDialog={handleDialogClose}
+          content={content}
           id={id}
           title={title}
           disabled={disabled}
