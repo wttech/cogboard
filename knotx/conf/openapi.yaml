@@ -23,8 +23,8 @@ servers:
         description: websockets
       port:
         enum:
-          - '9001'
-        default: '9001'
+          - '$ws_port'
+        default: '$ws_port'
 
 paths:
   /api/config:
