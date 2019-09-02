@@ -8,7 +8,7 @@ We designed Cogboard with these principles in mind:
 **Easy to deploy** - works on any machine with `Docker CE` and `JVM`.  
 **Easy to extend** - creating new Widget is [simple](https://github.com/Cognifide/cogboard/wiki/Widget-development).  
 **Secure** - all integrations are done on backend.  
-# 1
+# 2
 
 #### Widgets:
 * [Jenkins Job](/widget-jenkins-job/)
