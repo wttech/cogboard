@@ -57,6 +57,11 @@ const dialogFields = {
     step: 1,
     initialValue: 200
   },
+  IFrameUrl: {
+    component: TextInput,
+    name: 'url',
+    label: 'URL'
+  },
 };
 
 export default dialogFields;
