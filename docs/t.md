@@ -1,0 +1,1 @@
+| ![logo](https://cognifide.github.io/cogboard/images/logo-small.png) | [Documentation on GitHub Pages](https://cognifide.github.io/cogboard/) |
