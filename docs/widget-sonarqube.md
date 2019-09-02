@@ -11,7 +11,7 @@
 1. Go to `<sonarqube_host>/dashboard/index`
 2. Click on project from list
 3. Project page opens:  
-   * In URL you will find `ID` number >> <sonarqube_host>/overview?id=`316488`  
+   * In URL you will find `ID` number >> `<sonarqube_host>/overview?id=`316488`  
    * On a page (upper-right corner) you will find `Key`
 
 `*` example SonarQube Endpoint props:
