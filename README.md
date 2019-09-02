@@ -1,1 +1,1 @@
-| ![logo](https://cognifide.github.io/cogboard/images/logo.png) | Go to our [Cogboard GitHub Pages](https://cognifide.github.io/cogboard/) for more info. |
+![logo](https://cognifide.github.io/cogboard/images/logo.png) go to our [Cogboard GitHub Pages](https://cognifide.github.io/cogboard/) for more info.
