@@ -10,6 +10,7 @@ import {
   addWidget,
   editWidget,
   deleteMultipleWidgets,
+  sortWidgets,
   dataChanged,
   saveDataStart,
   deleteWidget,
@@ -98,9 +99,16 @@ const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) =>
 
 const removeWidgetThunk = (id) =>
   (dispatch, getState) => {
-    const { currentBoard } = getState().ui;
+    const { currentBoard: boardId } = getState().ui;
 
-    dispatch(deleteWidget(id, currentBoard));
+    dispatch(deleteWidget(id, boardId));
+  };
+
+export const reorderWidgets = (sourceId, targetIndex) =>
+  (dispatch, getState) => {
+    const { currentBoard: boardId } = getState().ui;
+
+    dispatch(sortWidgets({ sourceId, targetIndex, boardId }));
   };
 
 export const addNewWidget = makeWidgetUpdaterThunk(addWidget, createNewWidgetData);

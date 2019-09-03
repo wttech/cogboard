@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
+import { DndProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import { fetchInitialData } from "./actions/thunks";
 import { updateWidget, saveDataSuccess } from './actions/actionCreators';
@@ -21,7 +23,7 @@ function App() {
 
   useEffect(() => {
     if (appInitialized) {
-      const socket = new WebSocket(`ws://${window.location.hostname}:9001`);
+      const socket = new WebSocket(`ws://${window.location.hostname}:${process.env.REACT_APP_WS_PORT}`);
       const handleMessageReceive = ({ data: dataJson }) => {
         const { eventType, ...data } = JSON.parse(dataJson);
 
@@ -42,10 +44,12 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {appInitialized &&
-        <MainTemplate />
-      }
+      <DndProvider backend={HTML5Backend}>
+        <CssBaseline />
+        {appInitialized &&
+          <MainTemplate />
+        }
+      </DndProvider>
     </ThemeProvider>
   );
 }
