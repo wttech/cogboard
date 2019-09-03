@@ -10,8 +10,8 @@ const WorldClockWidget = props => {
         return moment.tz(new Date(), timezone).format(format);
     };
 
-    let datetime = getDate(timeZoneId, dateFormat);
-    let [date, setDateTime] = useState(datetime);
+    let date = getDate(timeZoneId, dateFormat);
+    let [datetime, setDateTime] = useState(date);
 
     useInterval(() => {
         setDateTime(getDate(timeZoneId, dateFormat));
@@ -19,7 +19,7 @@ const WorldClockWidget = props => {
 
     return (
         <Typography>
-           {date}
+           {datetime}
         </Typography>
     );
 };
