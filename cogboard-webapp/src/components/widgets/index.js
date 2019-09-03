@@ -5,6 +5,7 @@ import SonarQubeWidget from "./types/SonarQubeWidget";
 import ServiceCheckWidget from "./types/ServiceCheckWidget";
 import TextWidget from "./types/TextWidget";
 import BambooPlanWidget from "./types/BambooPlanWidget";
+import IFrameEmbedWidget from "./types/IFrameEmbedWidget";
 
 const widgetTypes = {
   DefaultWidget: {
@@ -40,6 +41,11 @@ const widgetTypes = {
     name: 'Bamboo Plan widget',
     component: BambooPlanWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString']
+  },
+  IFrameEmbedWidget: {
+    name: 'IFrame Embed widget',
+    component: IFrameEmbedWidget,
+    dialogFields: ['UrlForContent']
   }
 };
 

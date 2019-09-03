@@ -10,6 +10,7 @@
 **Secure** - all integrations are done on backend.
 
 ### Widgets:
+* [IFrame Embed](./widget-iframe-embed)
 * [Jenkins Job](./widget-jenkins-job)
 * [Service Check](./widget-service-check)
 * [SonarQube](./widget-sonarqube)
@@ -24,4 +25,4 @@
 
 ### Other
 * [Stack](./stack)
-* [Screen Shots](./screens)
+* [Screenshots](./screens)
