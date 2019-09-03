@@ -19,14 +19,14 @@ const receiveData = (state, action) => {
 const updateWidget = (state, { payload }) => {
   const { id, content, ...other } = payload;
   const widget = state[id];
-  const currentContent = widget.content;
+  const prevContent = widget.content;
 
   return {
     ...state,
     [id]: {
       ...widget,
       ...other,
-      content: { ...currentContent, ...content },
+      content: { ...prevContent, ...content },
       isUpdating: false
     }
   };
@@ -35,7 +35,7 @@ const updateWidget = (state, { payload }) => {
 const editWidget = (state, { payload }) => {
   const { id, content, ...other } = payload;
   const widget = state[id];
-  const currentContent = widget.content;
+  const prevContent = widget.content;
 
 
   return {
@@ -43,7 +43,7 @@ const editWidget = (state, { payload }) => {
     [id]: {
       ...widget,
       ...other,
-      content: { ...currentContent, ...content }
+      content: { ...prevContent, ...content }
     }
   };
 };
