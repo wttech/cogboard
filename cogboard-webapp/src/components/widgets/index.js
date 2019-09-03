@@ -35,7 +35,7 @@ const widgetTypes = {
   TextWidget: {
     name: 'Text Widget',
     component: TextWidget,
-    dialogFields: ['Text', 'TextSize']
+    dialogFields: ['Text', 'TextSize', 'TextOrientation']
   },
   BambooPlanWidget: {
     name: 'Bamboo Plan widget',
