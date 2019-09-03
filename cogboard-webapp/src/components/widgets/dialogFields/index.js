@@ -3,9 +3,9 @@ import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 import DateFormatSelect from "./DateFormatSelect";
-import AutoSuggestSelect from "./AutoSuggestSelect";
 import {DATE_FORMATS} from "../../../constants";
-import moment from 'moment-timezone';
+import TimeZoneSelect from "./TimeZoneSelect";
+import React from "react";
 
 const dialogFields = {
   EndpointField: {
@@ -62,11 +62,10 @@ const dialogFields = {
     initialValue: 200
   },
   TimeZoneId: {
-    component: AutoSuggestSelect,
+    component: TimeZoneSelect,
     name: 'content.timeZoneId',
     label: 'Timezone',
-    options: moment.tz.names(),
-    placeholder: 'Search...'
+    initialValue: 'Etc/GMT-2' //timezone for Poland
   },
   DateTimeFormat: {
     component: DateFormatSelect,
