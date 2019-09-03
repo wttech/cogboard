@@ -98,11 +98,12 @@
           "goNewLine": false,
           "rows": 1
         },
-        "title": "Jenkins Job Widget",
-        "type": "JenkinsJobWidget",
-        "endpoint": "endpoint1",
-        "disabled": true,
-        "schedulePeriod": 10000
+        "content": {
+          "url": "https://www.youtube.com/embed/IiwGbcd8S7I"
+        },
+        "title": "IFrame Widget",
+        "type": "IFrameEmbedWidget",
+        "disabled": false
       },
       "widget7": {
         "id": "widget7",
