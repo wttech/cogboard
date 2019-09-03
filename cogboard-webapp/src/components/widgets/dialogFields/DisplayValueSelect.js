@@ -18,7 +18,6 @@ import styled from "@emotion/styled/macro";
  * ]
  */
 const DisplayValueSelect = props => {
-    const {dropdownItems} = props;
 
     const StyledDropdown = styled(FormControl)`
       display: flex;
@@ -28,9 +27,9 @@ const DisplayValueSelect = props => {
 
     return (
         <StyledDropdown>
-            <DropdownField dropdownItems={dropdownItems} {...props}>
-                {dateFormats => dateFormats.map(dateFormat =>
-                    <MenuItem key={dateFormat.value} value={dateFormat.value}>{dateFormat.display}</MenuItem>
+            <DropdownField {...props}>
+                {items => items.map(item=>
+                    <MenuItem key={item.value} value={item.value}>{item.display}</MenuItem>
                 )}
             </DropdownField>
         </StyledDropdown>
