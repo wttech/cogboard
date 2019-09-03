@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useInterval} from '../../../hooks'
 import moment from 'moment-timezone'
+import Typography from "@material-ui/core/Typography";
 
 const WorldClockWidget = props => {
     const {timeZoneId, dateFormat} = props;
@@ -18,7 +19,7 @@ const WorldClockWidget = props => {
 
     return (
         <Typography>
-           {timeZoneId} : {date}
+           {date}
         </Typography>
     );
 };
