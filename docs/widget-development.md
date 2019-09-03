@@ -1,4 +1,6 @@
-# Frontend
+# [Home](/cogboard/) >> Widget Development
+
+## Frontend
 
 ### Add new widget file
 
@@ -30,7 +32,7 @@ Also you must update `cogboard-webapp/src/components/widgets/index.js` and regis
 `// TODO`
 
 ---
-# Backend (optional)
+## Backend (optional)
 When widget doesn't do anything on backed and just displays fields given in configuration then backend part is not required.
 
 ### Add new Widget Class
