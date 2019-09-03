@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, IconButton } from '@material-ui/core';
 import IFrameEmbed from "../IFrameEmbed";
 
 const StyledTypography = styled(Typography)`
@@ -12,6 +12,17 @@ const FullWidthButtonOutlined = (props) => <Button {...props} fullWidth variant=
 
 export const WidgetButton = styled(FullWidthButtonOutlined)`
   margin-top: auto;
+`;
+
+export const WidgetIconButton = styled(IconButton)`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-50%);
+  padding: 0;
+  border-radius: 0;
 `;
 
 export const Caption = (props) => <StyledTypography {...props} variant="caption" paragraph />;

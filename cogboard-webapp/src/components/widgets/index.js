@@ -5,6 +5,7 @@ import SonarQubeWidget from "./types/SonarQubeWidget";
 import ServiceCheckWidget from "./types/ServiceCheckWidget";
 import BambooPlanWidget from "./types/BambooPlanWidget";
 import IFrameEmbedWidget from "./types/IFrameEmbedWidget";
+import CheckboxWidget from './types/CheckboxWidget';
 
 const widgetTypes = {
   DefaultWidget: {
@@ -40,6 +41,10 @@ const widgetTypes = {
     name: 'IFrame Embed widget',
     component: IFrameEmbedWidget,
     dialogFields: ['UrlForContent']
+  },
+  CheckboxWidget: {
+    name: 'Checkbox widget',
+    component: CheckboxWidget
   }
 };
 
