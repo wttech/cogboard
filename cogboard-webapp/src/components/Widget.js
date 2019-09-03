@@ -41,6 +41,7 @@ const StyledCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
   flex: 1;
+  position: relative;
 `;
 
 const Widget = ({ id, index }) => {
@@ -135,7 +136,7 @@ const Widget = ({ id, index }) => {
           }
         />
         <StyledCardContent>
-          {!disabled ? <WidgetContent type={type} content={content} /> : 'Disabled'}
+          {!disabled ? <WidgetContent id={id} type={type} content={content} /> : 'Disabled'}
         </StyledCardContent>
       </StyledCard>
       <AppDialog

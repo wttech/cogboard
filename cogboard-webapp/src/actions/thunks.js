@@ -99,3 +99,4 @@ export const removeWidget = withDataChanged(removeWidgetThunk);
 export const addNewBoard = withDataChanged(addBoard);
 export const saveBoard = withDataChanged(editBoard);
 export const deleteBoardWithWidgets = withDataChanged(deleteBoardWithWidgetsThunk);
+export const setWidgetState = withDataChanged(editWidget);
