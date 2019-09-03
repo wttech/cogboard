@@ -25,4 +25,4 @@
 
 ### Other
 * [Stack](./stack)
-* [Screen Shots](./screens)
+* [Screenshots](./screens)
