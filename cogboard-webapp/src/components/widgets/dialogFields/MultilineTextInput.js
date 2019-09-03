@@ -2,16 +2,17 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 
-const TextInput = props => {
+const MultilineTextInput = props => {
   return (
     <TextField
       InputLabelProps={{
         shrink: true,
       }}
       margin="normal"
+      multiline={true}
       {...props}
     />
   );
 };
 
-export default TextInput;
+export default MultilineTextInput;

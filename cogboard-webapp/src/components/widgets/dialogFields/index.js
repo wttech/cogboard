@@ -3,6 +3,8 @@ import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 import TextSizeInput from "./TextSizeInput";
+import MultilineTextInput from "./MultilineTextInput";
+import CheckboxInput from "./CheckboxInput";
 
 const dialogFields = {
   EndpointField: {
@@ -64,13 +66,13 @@ const dialogFields = {
     initialValue: 200
   },
   Text: {
-    component: TextInput,
-    name: 'text',
+    component: MultilineTextInput,
+    name: 'content.text',
     label: 'Text'
   },
   TextSize: {
     component: TextSizeInput,
-    name: 'textSize',
+    name: 'content.textSize',
     label: 'Text Size',
     dropdownItems: {
       XXL : 'h1',
@@ -81,6 +83,11 @@ const dialogFields = {
       XS : 'h6'
     },
     initialValue: 'h4'
+  },
+  TextOrientation: {
+    component: CheckboxInput,
+    name: 'content.isVertical',
+    label: 'Vertical Text'
   }
 };
 
