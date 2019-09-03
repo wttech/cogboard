@@ -6,17 +6,17 @@ import io.vertx.core.json.JsonObject
 import io.vertx.reactivex.core.Vertx
 import io.vertx.reactivex.ext.web.RoutingContext
 
-class RedirectToHome : RoutingHandlerFactory {
+class HomePage : RoutingHandlerFactory {
 
-    override fun getName(): String = "cogboard-redirect-home-handler"
+    override fun getName(): String = "home-page-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> {
         val homePath = config?.getString("homePath") ?: "/index.html"
+        val homePageContent = HomePage::class.java.getResource(homePath).readText()
+
         return Handler {
             it.response()
-                    .putHeader("location", homePath)
-                    .setStatusCode(302)
-                    .end()
+                    .end(homePageContent)
         }
     }
 
