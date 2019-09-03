@@ -8,7 +8,7 @@ const renderTextSize = (textSizes) =>
     <MenuItem key={size} value={attr}>{size}</MenuItem>
   ));
 
-const TextSizeInput = (props) => {
+const TextSizeInput = props => {
   return (
       <DropdownField {...props}>
         {renderTextSize}
