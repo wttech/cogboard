@@ -14,6 +14,23 @@ export const useDialogToggle = () => {
 export const useFormData = (data) => {
   const [values, setValues] = useState(data);
 
+  const setFieldValue = (fieldName, fieldValue) => {
+    const [groupName, propName] = splitPropsGroupName(fieldName);
+
+    if (groupName) {
+      const groupValues = values[groupName];
+
+      setValues({
+        ...values,
+        [groupName]: { ...groupValues, [propName]: fieldValue }
+      });
+
+      return;
+    }
+
+    setValues({ ...values, [propName]: fieldValue});
+  };
+
   const handleChange = fieldName => event => {
     const { target: { type, value, checked } } = event;
     const valueType = {
@@ -22,16 +39,7 @@ export const useFormData = (data) => {
     };
     const fieldValue = valueType[type] !== undefined ? valueType[type] : value;
 
-    const [groupName, propName] = splitPropsGroupName(fieldName);
-
-    if (groupName) {
-      const val = values[groupName];
-      setValues({ ...values, [groupName]: { ...val, [propName]: fieldValue } });
-
-      return;
-    }
-
-    setValues({ ...values, [propName]: fieldValue});
+    setFieldValue(fieldName, fieldValue);
   };
 
   return { values, handleChange };

@@ -5,6 +5,7 @@ import SonarQubeWidget from "./types/SonarQubeWidget";
 import ServiceCheckWidget from "./types/ServiceCheckWidget";
 import BambooPlanWidget from "./types/BambooPlanWidget";
 import WorldClockWidget from "./types/WorldClockWidget";
+import IFrameEmbedWidget from "./types/IFrameEmbedWidget";
 
 const widgetTypes = {
   DefaultWidget: {
@@ -40,7 +41,12 @@ const widgetTypes = {
     name: 'World Clock widget',
     component: WorldClockWidget,
     dialogFields: ['TimeZoneId', 'DateTimeFormat']
-  }
+  },
+  IFrameEmbedWidget: {
+    name: 'IFrame Embed widget',
+    component: IFrameEmbedWidget,
+    dialogFields: ['UrlForContent']
+  },
 };
 
 export default widgetTypes;
