@@ -8,13 +8,17 @@ import { useFormData } from '../hooks';
 import DropdownField from './DropdownField';
 import WidgetTypeForm from './WidgetTypeForm';
 
-import { FormControlLabel, FormControl, MenuItem, TextField, Switch } from '@material-ui/core';
-import { COLUMNS_MIN } from '../constants';
+import { Box, FormControlLabel, FormControl, MenuItem, TextField, Switch } from '@material-ui/core';
+import { COLUMNS_MIN, ROWS_MIN } from '../constants';
 
 const StyledFieldset = styled(FormControl)`
   display: flex;
   margin-bottom: 32px;
   min-width: 300px;
+`;
+
+const StyledNumberField = styled(TextField)`
+  flex-basis: calc(50% - 18px);
 `;
 
 const renderWidgetTypesMenu = (widgetTypes) =>
@@ -53,21 +57,41 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
           margin="normal"
           value={values.title}
         />
-        <TextField
-          onChange={handleChange('columns')}
-          id="columns"
-          InputLabelProps={{
-            shrink: true
-          }}
-          inputProps={{
-            min: COLUMNS_MIN,
-            max: boardColumns
-          }}
-          label="Columns"
-          margin="normal"
-          value={values.columns}
-          type="number"
-        />
+        <Box
+          display="flex"
+          justifyContent="space-between"
+        >
+          <StyledNumberField
+            onChange={handleChange('columns')}
+            id="columns"
+            InputLabelProps={{
+              shrink: true
+            }}
+            inputProps={{
+              min: COLUMNS_MIN,
+              max: boardColumns
+            }}
+            label="Columns"
+            margin="normal"
+            value={values.columns}
+            type="number"
+          />
+          <StyledNumberField
+            onChange={handleChange('rows')}
+            id="rows"
+            InputLabelProps={{
+              shrink: true
+            }}
+            inputProps={{
+              min: ROWS_MIN,
+              max: 4
+            }}
+            label="Rows"
+            margin="normal"
+            value={values.rows}
+            type="number"
+          />
+        </Box>
         <FormControl margin="normal">
           <FormControlLabel
             control={
@@ -109,6 +133,7 @@ WidgetForm.propTypes = {
   disabled: bool,
   columns: number,
   goNewLine: bool,
+  rows: number,
   title: string,
   type: string
 };
@@ -117,6 +142,7 @@ WidgetForm.defaultProps = {
   disabled: false,
   columns: 1,
   goNewLine: false,
+  rows: 1,
   title: 'Default Widget',
   type: 'DefaultWidget'
 };

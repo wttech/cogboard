@@ -1,4 +1,12 @@
-import { RECEIVE_DATA, EDIT_BOARD, DELETE_BOARD, ADD_WIDGET, DELETE_WIDGET, ADD_BOARD } from '../../actions/types';
+import {
+  RECEIVE_DATA,
+  ADD_BOARD,
+  EDIT_BOARD,
+  DELETE_BOARD,
+  ADD_WIDGET,
+  DELETE_WIDGET,
+  SORT_WIDGETS
+} from '../../actions/types';
 
 const receiveData = (state, { payload }) => {
   const { boards: { boardsById } } = payload;
@@ -31,7 +39,7 @@ const deleteBoard = (state, { payload: id }) => {
 const addWidget = (state, { payload }) => {
   const { id, boardId } = payload;
   const board = state[boardId];
-  const widgets = board.widgets;
+  const { widgets } = board;
 
   return {
     ...state,
@@ -45,13 +53,33 @@ const addWidget = (state, { payload }) => {
 const deleteWidget = (state, { payload }) => {
   const { id, boardId } = payload;
   const board = state[boardId];
-  const widgets = board.widgets;
+  const { widgets } = board;
 
   return {
     ...state,
     [boardId]: {
       ...board,
       widgets: widgets.filter(widgetId => widgetId !== id)
+    }
+  };
+};
+
+const sortWidgets = (state, { payload }) => {
+  const { sourceId, targetIndex, boardId } = payload;
+  const board = state[boardId];
+  const { widgets } = board;
+  const withoutSource = widgets.filter(widgetId => widgetId !== sourceId);
+  const sortedWidgets = [
+    ...withoutSource.slice(0, targetIndex),
+    sourceId,
+    ...withoutSource.slice(targetIndex)
+  ];
+
+  return {
+    ...state,
+    [boardId]: {
+      ...board,
+      widgets: sortedWidgets
     }
   };
 };
@@ -72,6 +100,8 @@ const boardsById = (state = {}, action) => {
       return addWidget(state, action);
     case DELETE_WIDGET:
       return deleteWidget(state, action);
+    case SORT_WIDGETS:
+      return sortWidgets(state, action);
     default:
       return state;
   }
