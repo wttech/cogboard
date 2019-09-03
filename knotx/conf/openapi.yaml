@@ -51,6 +51,12 @@ paths:
       responses:
         default:
           description: Widget Update Handler
+  /:
+    get:
+      operationId: cogboard-redirect-home
+      responses:
+        default:
+          description: Cogboard Home
   /*:
     get:
       operationId: cogboard-react-app

@@ -1,4 +1,5 @@
 com.cognifide.cogboard.config.handler.GetEndpoints
 com.cognifide.cogboard.config.handler.GetConfig
 com.cognifide.cogboard.config.handler.SaveConfig
+com.cognifide.cogboard.config.handler.RedirectToHome
 com.cognifide.cogboard.widget.handler.UpdateWidget
