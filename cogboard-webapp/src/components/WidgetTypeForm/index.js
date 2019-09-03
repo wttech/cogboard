@@ -2,8 +2,9 @@ import React from 'react';
 import { func, object, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
-import widgetTypes from './widgets';
-import dialogFields from './widgets/dialogFields';
+import { getValueRef } from './helpers';
+import widgetTypes from '../widgets';
+import dialogFields from '../widgets/dialogFields';
 
 import { Divider, FormControl } from '@material-ui/core';
 
@@ -34,15 +35,12 @@ const WidgetTypeForm = ({ values, type, handleChange }) => {
           } = dialogFields[fieldName];
 
           const { name } = dialogFieldProps;
-
-          if (values[name] === undefined) {
-            values[name] = initialValue;
-          }
+          const valueRef = getValueRef(values, initialValue, name);
 
           return (
             <DialogField
               key={name}
-              value={values[name]}
+              value={valueRef}
               onChange={handleChange(name)}
               {...dialogFieldProps}
             />
