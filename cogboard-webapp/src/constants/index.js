@@ -1,5 +1,5 @@
 export const URL = {
-  LOAD_DATA: '/data.json',
+  LOAD_DATA: '/api/config',
   SAVE_DATA: '/api/config/save',
   UPDATE_WIDGET: '/api/widget/update'
 };
