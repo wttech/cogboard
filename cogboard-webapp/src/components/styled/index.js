@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-import {Button, FormControl, Typography} from '@material-ui/core';
+import { Button, FormControl, Typography } from '@material-ui/core';
+import IFrameEmbed from "../IFrameEmbed";
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;
@@ -20,3 +21,5 @@ export const StyledFieldset = styled(FormControl)`
   margin-bottom: 32px;
   min-width: 300px;
 `;
+
+export const StyledIFrame = (props) => <IFrameEmbed {...props} frameBorder={0} allowFullScreen/>;

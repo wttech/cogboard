@@ -5,23 +5,28 @@ import styled from '@emotion/styled/macro';
 
 import widgetTypes from './widgets';
 import { useFormData } from '../hooks';
+import { sortByKey } from "./helpers";
+import { COLUMNS_MIN, ROWS_MIN } from '../constants';
+
+import { Box, FormControlLabel, FormControl, MenuItem, TextField, Switch } from '@material-ui/core';
 import DropdownField from './DropdownField';
 import WidgetTypeForm from './WidgetTypeForm';
 import { StyledFieldset } from './styled';
 
-import { Box, FormControlLabel, FormControl, MenuItem, TextField, Switch } from '@material-ui/core';
-import { COLUMNS_MIN, ROWS_MIN } from '../constants';
+const StyledFieldset = styled(FormControl)`
+  display: flex;
+  margin-bottom: 32px;
+  min-width: 300px;
+`;
 
 const StyledNumberField = styled(TextField)`
   flex-basis: calc(50% - 18px);
 `;
 
 const renderWidgetTypesMenu = (widgetTypes) =>
-  Object.entries(widgetTypes).map(([type, { name }]) => {
-    const formatedName = type === 'DefaultWidget' ? <em>{name}</em> : name;
-
-    return <MenuItem key={type} value={type}>{formatedName}</MenuItem>;
-  });
+  Object.entries(widgetTypes).map(([type, { name }]) => (
+    <MenuItem key={type} value={type}>{name}</MenuItem>
+  ));
 
 const WidgetForm = ({ renderActions, ...initialFormValues }) => {
   const boardColumns = useSelector(
@@ -38,7 +43,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
           id="widget-type"
           name="type"
           value={values.type}
-          dropdownItems={widgetTypes}
+          dropdownItems={sortByKey(widgetTypes, 'name')}
         >
           {renderWidgetTypesMenu}
         </DropdownField>
