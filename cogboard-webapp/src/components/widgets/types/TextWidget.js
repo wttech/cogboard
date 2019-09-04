@@ -17,13 +17,17 @@ const TextWidget = props => {
   if (isVertical) {
     return (
         <VerticalText variant={textSize}>
-          {text}
+          <pre style={{ fontFamily: 'inherit' }}>
+            {text}
+          </pre>
         </VerticalText>
     );
   } else {
     return (
-        <Typography variant={textSize}>
-          {text}
+        <Typography variant={textSize} noWrap={true}>
+          <pre style={{ fontFamily: 'inherit' }}>
+            {text}
+          </pre>
         </Typography>
     );
   }
