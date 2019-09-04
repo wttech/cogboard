@@ -14,6 +14,7 @@
 * [Jenkins Job](./widget-jenkins-job)
 * [Service Check](./widget-service-check)
 * [SonarQube](./widget-sonarqube)
+* [World Clock](./widget-world-clock)
 
 ### Config:
 * [Configuration](./config)
