@@ -8,6 +8,7 @@ import { setSize } from './helpers';
 import { AppBar, Container, Toolbar, IconButton } from '@material-ui/core';
 import { DashboardRounded } from '@material-ui/icons';
 import BoardSwitcher from './BoardSwitcher';
+import UserLogin from "./UserLogin";
 
 const StyledBoardSwitcher = styled(BoardSwitcher)`
   align-items: center;
@@ -42,12 +43,13 @@ const NavBar = ({ handleDrawerToggle }) => {
           >
             <DashboardRounded />
           </IconButton>
+          <UserLogin/>
           <StyledBoardSwitcher />
         </StyledToolbar>
       </Container>
     </StyledAppBar>
   );
-}
+};
 
 NavBar.propTypes = {
   handleDrawerToggle: func.isRequired

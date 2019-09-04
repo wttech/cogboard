@@ -14,17 +14,9 @@
         "type": "file",
         "format": "conf",
         "config": {
-          "path": "${KNOTX_HOME}/conf/widgets.conf"
+          "path": "${KNOTX_HOME}/conf/cogboard.conf"
         },
-        "optional": true
-      },
-      {
-        "type": "file",
-        "format": "conf",
-        "config": {
-          "path": "${KNOTX_HOME}/conf/websockets.conf"
-        },
-        "optional": true
+        "optional": false
       }
     ]
   }

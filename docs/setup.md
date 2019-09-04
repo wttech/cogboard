@@ -25,7 +25,7 @@ Any sensitive data from `endpoints.conf` file is never accessible for end-users.
  
 Execute below command once for initial configuration. This step will create required config files.
 ```cmd
-./gradlew cogboardInitConfigs
+./gradlew cogboardInit
 ```
 
 #### Run
@@ -34,4 +34,6 @@ Use below command to assemble and deploy Cogboard docker app.
 ./gradlew
 ```
 
-##### When launched go to http://localhost:8092/index.html to see your board
+##### When launched go to [http://localhost:8092](http://localhost:8092) to see your board
+
+##### Login to manage boards >> default credentials: `admin` : `admin`
