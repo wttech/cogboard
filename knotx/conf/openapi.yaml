@@ -51,9 +51,15 @@ paths:
       responses:
         default:
           description: Widget Update Handler
+  /:
+    get:
+      operationId: home-page
+      responses:
+        default:
+          description: Cogboard Home
   /*:
     get:
       operationId: cogboard-react-app
       responses:
         default:
-          description: Cogboard Home
+          description: Cogboard App Sources
