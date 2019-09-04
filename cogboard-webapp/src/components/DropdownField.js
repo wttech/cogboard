@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 
 import { FormControl, InputLabel, Input, Select } from '@material-ui/core';
-import { useSelector } from "react-redux";
 
 const DropdownField = props => {
   const {

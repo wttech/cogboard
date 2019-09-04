@@ -1,22 +1,22 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { useDialogToggle, useFormData } from '../hooks';
+import { login, logout } from '../actions/thunks';
+
 import { TextField, Button, IconButton, Typography } from '@material-ui/core';
 import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
-import { useDialogToggle, useFormData } from '../hooks';
 import { StyledFieldset } from './styled';
-import { login, logout } from '../actions/thunks';
 import AppDialog from './AppDialog';
 
 const UserLogin = () => {
-
   const dispatch = useDispatch();
   const {values, handleChange} = useFormData({});
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
   const jwToken = useSelector(({app}) => app.jwToken);
 
-  const submitCredentials = (credentials) => () => {
+  const handleLoginButtonClick = (credentials) => () => {
     dispatch(login(credentials))
   };
 
@@ -82,7 +82,7 @@ const UserLogin = () => {
           />
           <Button
             color="primary"
-            onClick={submitCredentials(values)}
+            onClick={handleLoginButtonClick(values)}
             variant="contained">
             Login
           </Button>

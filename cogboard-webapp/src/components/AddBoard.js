@@ -30,7 +30,11 @@ const AddBoard = () => {
     handleDialogClose();
   };
 
-  return isAdmin ? (
+  if (!isAdmin) {
+    return null;
+  }
+
+  return (
     <>
       <IconButton
         onClick={handleAddBoardClick}
@@ -57,7 +61,7 @@ const AddBoard = () => {
         />
       </AppDialog>
     </>
-  ) : '';
+  );
 };
 
 export default AddBoard;
