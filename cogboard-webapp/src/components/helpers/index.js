@@ -31,3 +31,12 @@ export const getGmtTimezones = () => {
         };
       });
 };
+
+export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
+  .sort(([, { [key]: keyA }], [, { [key]: keyB }]) => (
+    asc ? keyA.localeCompare(keyB) : keyB.localeCompare(keyA)))
+  .reduce((newObj, [key, value]) => {
+    newObj[key] = value;
+
+    return newObj;
+  }, {});

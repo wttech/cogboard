@@ -1,1 +1,1 @@
-![logo](https://cognifide.github.io/cogboard/images/logo.png) go to our [Cogboard GitHub Pages](https://cognifide.github.io/cogboard/) for more info.
+## Please go to our [Cogboard GitHub pages](https://cognifide.github.io/cogboard/) for more info and documentation.
