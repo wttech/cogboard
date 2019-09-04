@@ -22,7 +22,7 @@ export const StyledFieldset = styled(FormControl)`
   min-width: 300px;
 `;
 
-export const StyledIFrame = (props) => <IFrameEmbed {...props} frameBorder={0} allowFullScreen/>;
+export const StyledIFrame = (props) => <IFrameEmbed {...props} frameBorder={0} allowFullScreen height="100%"/>;
 
 export const StyledFormControlForDropdown = styled(FormControl)`
       display: flex;
