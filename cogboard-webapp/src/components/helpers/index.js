@@ -8,29 +8,26 @@ export const splitPropsGroupName = (propName) => {
 
 export const getGmtTimezones = () => {
   let allTimezones = moment.tz.names();
-  const duplicatedTimezones = ['Etc/GMT', 'Etc/GMT+0', 'Etc/GMT0']; //duplicated timezones to be removed
+  const duplicatedTimezones = ['Etc/GMT', 'Etc/GMT+0', 'Etc/GMT0'];
 
   const gmtSort = (a, b) => {
-    let parts = {
+    const parts = {
       a: a.split('T'),
       b: b.split('T')
     };
-    return parseInt(parts.a[1]) < parseInt(parts.b[1]) ? 1 : -1; //sorts by GMT number value
+    return parseInt(parts.b[1]) - parseInt(parts.a[1]);
   };
 
-  let gmtTimezones = allTimezones
-      .filter(timezone => {
-        return timezone.includes("Etc/GMT") && !duplicatedTimezones.includes(timezone); //filters out only GMT timezones and removes duplicates
-      })
+  return allTimezones
+      .filter(timezone => timezone.includes("Etc/GMT") && !duplicatedTimezones.includes(timezone))
       .sort(gmtSort)
       .map(timezone => {
         const displayName = timezone
-            .replace('Etc/', '') //removes 'ETC/' prefix and leaves only GMT+{} format
+            .replace('Etc/', '')
             .replace(/[+-]/g, c => c == '+' ? '-' : '+'); //swap '+' sign with '-' sign to preserve correct time
         return {
           display: displayName,
           value: timezone
         };
       });
-  return gmtTimezones;
 };
