@@ -7,6 +7,7 @@
     "@emotion/styled": "^10.0.14",
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
+    "moment-timezone": "^0.5.26",
     "react": "^16.8.6",
     "react-dnd": "^9.3.4",
     "react-dnd-html5-backend": "^9.3.4",
@@ -15,7 +16,8 @@
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "react-iframe": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

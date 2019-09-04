@@ -17,7 +17,7 @@ class ExampleWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config
 
     override fun start(): Widget {
         super.start()
-        LOGGER.info("Widget started: id $id | period $schedulePeriod}")
+        LOGGER.info("Widget started: id $id | period $schedulePeriod")
         return this
     }
 

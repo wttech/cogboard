@@ -1,7 +1,12 @@
+import React from "react";
+
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
+import DisplayValueSelect from "./DisplayValueSelect";
+import {DATE_FORMATS, GMT_TIMEZONES} from "../../../constants";
+
 
 const dialogFields = {
   EndpointField: {
@@ -26,6 +31,11 @@ const dialogFields = {
   URL: {
     component: TextInput,
     name: 'url',
+    label: 'URL'
+  },
+  UrlForContent: {
+    component: TextInput,
+    name: 'content.url',
     label: 'URL'
   },
   IdString: {
@@ -56,6 +66,20 @@ const dialogFields = {
     min: 0,
     step: 1,
     initialValue: 200
+  },
+  TimeZoneId: {
+    component: DisplayValueSelect,
+    name: 'content.timeZoneId',
+    label: 'Timezone',
+    dropdownItems: GMT_TIMEZONES,
+    initialValue: 'Etc/GMT-2' //timezone for Poland
+  },
+  DateTimeFormat: {
+    component: DisplayValueSelect,
+    name: 'content.dateFormat',
+    label: 'Date Format',
+    dropdownItems: DATE_FORMATS,
+    initialValue: DATE_FORMATS[3].value
   },
 };
 

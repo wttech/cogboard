@@ -6,6 +6,7 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import { useDialogToggle } from '../../hooks';
 import { removeWidget, reorderWidgets } from '../../actions/thunks';
+import widgetTypes from "./widgets";
 import { ItemTypes } from '../../constants';
 
 import { CardHeader, MenuItem } from '@material-ui/core';
@@ -14,6 +15,7 @@ import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import WidgetContent from '../WidgetContent';
+import LastUpdate from "./LastUpdate";
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -35,6 +37,7 @@ const Widget = ({ id, index }) => {
     },
     ...widgetTypeData
   } = widgetData;
+  const showUpdateTime = widgetTypes[type] ? widgetTypes[type].showUpdateTime : false;
   const dispatch = useDispatch();
   const theme = useTheme();
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
@@ -91,6 +94,7 @@ const Widget = ({ id, index }) => {
     closeMenu();
   };
 
+
   return (
     <>
       <StyledCard
@@ -125,6 +129,7 @@ const Widget = ({ id, index }) => {
         />
         <StyledCardContent>
           {!disabled ? <WidgetContent type={type} content={content} /> : 'Disabled'}
+          {showUpdateTime && <LastUpdate lastUpdateTime={new Date().toLocaleString()} />}
         </StyledCardContent>
       </StyledCard>
       <AppDialog
@@ -134,6 +139,7 @@ const Widget = ({ id, index }) => {
       >
         <EditWidget
           closeDialog={handleDialogClose}
+          content={content}
           id={id}
           title={title}
           disabled={disabled}
