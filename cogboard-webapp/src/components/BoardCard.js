@@ -1,6 +1,6 @@
 import React from 'react';
 import { object } from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 import { useDialogToggle } from '../hooks';
@@ -28,6 +28,7 @@ const BoardCard = ({ boardData, className }) => {
   } = boardData;
   const [open, openDialog, handleDialogClose] = useDialogToggle();
   const dispatch = useDispatch();
+  const isAdmin = useSelector(({app}) => app.isAdmin);
 
   const handleBoardClick = (boardId) => () => {
     dispatch(setCurrentBoard(boardId));
@@ -58,22 +59,24 @@ const BoardCard = ({ boardData, className }) => {
         />
         <CardContent>
         </CardContent>
-        <StyledCardActions>
-          <IconButton
-            onClick={handleEditClick}
-            aria-label="edit"
-            size="small"
-          >
-            <Edit />
-          </IconButton>
-          <IconButton
-            onClick={handleDeleteClick}
-            aria-label="delete"
-            size="small"
-          >
-            <Delete />
-          </IconButton>
-        </StyledCardActions>
+        {isAdmin &&
+          <StyledCardActions>
+            <IconButton
+              onClick={handleEditClick}
+              aria-label="edit"
+              size="small"
+            >
+              <Edit />
+            </IconButton>
+            <IconButton
+              onClick={handleDeleteClick}
+              aria-label="delete"
+              size="small"
+            >
+              <Delete />
+            </IconButton>
+          </StyledCardActions>
+        }
       </StyledCard>
       <AppDialog
         handleDialogClose={handleDialogClose}

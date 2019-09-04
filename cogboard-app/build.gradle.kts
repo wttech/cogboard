@@ -16,6 +16,7 @@ dependencies {
     }
     "io.vertx:vertx".let { v ->
         implementation("$v-web")
+        implementation("$v-auth-jwt")
         implementation("$v-web-client")
         implementation("$v-rx-java2")
     }
