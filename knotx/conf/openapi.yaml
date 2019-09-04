@@ -1,8 +1,8 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: CogBoard
-  description: CogBoard
+  title: Cogboard
+  description: Cogboard
 
 servers:
   - url: https://{domain}:{port}
@@ -33,21 +33,33 @@ paths:
       responses:
         default:
           description: Config Get Handler
-  /api/config/save:
+  /api/login:
     post:
-      operationId: config-save-handler
+      operationId: login-handler
       responses:
         default:
-          description: Config Save Handler
+          description: Generate JWT Token
   /api/endpoints:
     get:
       operationId: endpoints-handler
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Endpoint list
+  /api/config/save:
+    post:
+      operationId: config-save-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: Config Save Handler
   /api/widget/update:
     post:
       operationId: widget-update-handler
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Widget Update Handler
@@ -63,3 +75,10 @@ paths:
       responses:
         default:
           description: Cogboard App Sources
+
+components:
+  securitySchemes:
+    cogboardAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

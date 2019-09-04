@@ -1,4 +1,6 @@
 val initEndpoints = !File("$projectDir/knotx/conf/endpoints.conf").exists()
+val initAdmins = !File("$projectDir/knotx/conf/admins.conf").exists()
+val initJwt = !File("$projectDir/knotx/conf/jwt.conf").exists()
 val initConfig = !File("$projectDir/mnt/config.json").exists()
 
 tasks {
@@ -8,6 +10,26 @@ tasks {
         if (initEndpoints) {
             logger.lifecycle(">> creating './knotx/conf/endpoints.conf' file")
             from("$projectDir/knotx/conf/initial/endpoints.conf")
+            into("$projectDir/knotx/conf")
+        }
+    }
+
+    register<Copy>("cogboardCopyAdmins") {
+        group = "distribution"
+
+        if (initAdmins) {
+            logger.lifecycle(">> creating './knotx/conf/admins.conf' file")
+            from("$projectDir/knotx/conf/initial/admins.conf")
+            into("$projectDir/knotx/conf")
+        }
+    }
+
+    register<Copy>("cogboardCopyJwt") {
+        group = "distribution"
+
+        if (initJwt) {
+            logger.lifecycle(">> creating './knotx/conf/jwt.conf' file")
+            from("$projectDir/knotx/conf/initial/jwt.conf")
             into("$projectDir/knotx/conf")
         }
     }
@@ -22,7 +44,7 @@ tasks {
         }
     }
 
-    register("cogboardInitConfigs") {
-        dependsOn("cogboardCopyEndpoints", "cogboardCopyConfig")
+    register("cogboardInit") {
+        dependsOn("cogboardCopyEndpoints", "cogboardCopyAdmins", "cogboardCopyJwt", "cogboardCopyConfig")
     }
 }
