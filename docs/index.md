@@ -8,6 +8,8 @@
 **Secure** - all integrations are done on backend.
 
  ---
+### Setup
+* [Setup](./setup)
 
 ### Widgets:
 * [IFrame Embed](./widget-iframe-embed)
