@@ -15,14 +15,14 @@ export const WidgetButton = styled(FullWidthButtonOutlined)`
 `;
 
 export const WidgetIconButton = styled(IconButton)`
+  border-radius: 0;
+  height: 100%;
+  left: 0;
+  padding: 0;
   position: absolute;
   top: 50%;
-  left: 0;
-  width: 100%;
-  height: 100%;
   transform: translateY(-50%);
-  padding: 0;
-  border-radius: 0;
+  width: 100%;
 `;
 
 export const Caption = (props) => <StyledTypography {...props} variant="caption" paragraph />;
