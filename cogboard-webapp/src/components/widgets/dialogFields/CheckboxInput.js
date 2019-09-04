@@ -10,7 +10,6 @@ const CheckboxInput = props => {
           control={
             <Checkbox
                 checked={value}
-                {...props}
             />
           }
           {...props}
