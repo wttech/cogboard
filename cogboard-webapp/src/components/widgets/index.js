@@ -14,7 +14,8 @@ const widgetTypes = {
   ExampleWidget: {
     name: 'Example widget',
     component: ExampleWidget,
-    dialogFields: ['SchedulePeriod']
+    dialogFields: ['SchedulePeriod'],
+    showUpdateTime : true
   },
   JenkinsJobWidget: {
     name: 'Jenkins Job widget',

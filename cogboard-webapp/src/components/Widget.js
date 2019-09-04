@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react';
+import React, {forwardRef, useRef, useState} from 'react';
 import { bool, number, object, string } from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
@@ -15,6 +15,7 @@ import EditWidget from './EditWidget';
 import MoreMenu from './MoreMenu';
 import WidgetContent from './WidgetContent';
 import LastUpdateField from "./LastUpdateField";
+import widgetTypes from "./widgets";
 
 const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
@@ -54,8 +55,6 @@ const Widget = ({ id, index }) => {
     isUpdating,
     disabled,
     type,
-    lastUpdateTime,
-    showUpdateTime,
     status,
     title,
     content,
@@ -106,6 +105,8 @@ const Widget = ({ id, index }) => {
     closeMenu();
   };
 
+  let showUpdateTime = widgetTypes[type] ? widgetTypes[type].showUpdateTime : false;
+
   return (
     <>
       <StyledCard
@@ -139,7 +140,7 @@ const Widget = ({ id, index }) => {
         />
         <StyledCardContent>
           {!disabled ? <WidgetContent type={type} content={content} /> : 'Disabled'}
-          <LastUpdateField lastUpdateTime={new Date().toLocaleString()} />
+          {showUpdateTime ? <LastUpdateField lastUpdateTime={new Date().toLocaleString()} /> : null}
         </StyledCardContent>
       </StyledCard>
       <AppDialog
