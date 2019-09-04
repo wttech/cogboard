@@ -1,47 +1,19 @@
-import React, { forwardRef, useRef } from 'react';
-import { bool, number, object, string } from 'prop-types';
+import React, { useRef } from 'react';
+import { string } from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/styles';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { useDialogToggle } from '../hooks';
-import { removeWidget, reorderWidgets } from '../actions/thunks';
-import { ItemTypes } from '../constants';
+import { useDialogToggle } from '../../hooks';
+import { removeWidget, reorderWidgets } from '../../actions/thunks';
+import { ItemTypes } from '../../constants';
 
-import { Card, CardHeader, CardContent, MenuItem } from '@material-ui/core';
-import AppDialog from './AppDialog';
-import EditWidget from './EditWidget';
-import MoreMenu from './MoreMenu';
-import WidgetContent from './WidgetContent';
-
-const mapStatusToColor = (status, theme) => theme.palette.status[status];
-
-const StyledCard = styled(forwardRef(({
-  status,
-  columns,
-  goNewLine,
-  isDragging,
-  rows,
-  theme,
-  ...other
-}, ref) => <Card {...other} ref={ref} />))`
-  background: ${({ status, theme }) => mapStatusToColor(status, theme)};
-  box-shadow: none;
-  cursor: move;
-  display: flex;
-  flex-direction: column;
-  grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
-  grid-column-end: span ${({ columns }) => columns};
-  grid-row-end: span ${({ rows }) => rows};
-  opacity: ${({ isDragging }) => isDragging && 0};
-`;
-
-const StyledCardContent = styled(CardContent)`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`;
+import { CardHeader, MenuItem } from '@material-ui/core';
+import { StyledCard, StyledCardContent } from './styled';
+import AppDialog from '../AppDialog';
+import EditWidget from '../EditWidget';
+import MoreMenu from '../MoreMenu';
+import WidgetContent from '../WidgetContent';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -73,9 +45,9 @@ const Widget = ({ id, index }) => {
       isDragging: monitor.isDragging()
     })
   });
-  const [, drop] = useDrop({
+  const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.WIDGET,
-    drop(item) {
+    hover(item, monitor) {
       if (!ref.current) {
         return;
       }
@@ -87,8 +59,24 @@ const Widget = ({ id, index }) => {
         return;
       }
 
+      const { left, right } = ref.current.getBoundingClientRect();
+      const dropTargetMiddleX = right - (right - left) / 2;
+      const { x: dragSourceMouseX } = monitor.getClientOffset();
+
+      if (
+        (sourceIndex < targetIndex && dragSourceMouseX < dropTargetMiddleX) ||
+        (sourceIndex > targetIndex && dragSourceMouseX > dropTargetMiddleX)
+      ) {
+        return;
+      }
+
       dispatch(reorderWidgets(sourceId, targetIndex));
-    }
+      item.index = targetIndex;
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      dropResult: monitor.getSourceClientOffset()
+    })
   });
 
   drag(drop(ref));
@@ -112,6 +100,7 @@ const Widget = ({ id, index }) => {
         rows={rows}
         theme={theme}
         isDragging={isDragging}
+        isOver={isOver}
         ref={ref}
       >
         <CardHeader
@@ -161,14 +150,6 @@ const Widget = ({ id, index }) => {
 
 Widget.propTypes = {
   id: string.isRequired
-};
-
-StyledCard.propTypes = {
-  columns: number.isRequired,
-  goNewLine: bool.isRequired,
-  rows: number.isRequired,
-  status: string.isRequired,
-  theme: object.isRequired
 };
 
 export default Widget;
