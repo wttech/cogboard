@@ -1,7 +1,7 @@
 import React from 'react';
+import { bool, string } from "prop-types";
 
 import Typography from '@material-ui/core/Typography';
-import {bool, string} from "prop-types";
 import styled from '@emotion/styled/macro';
 
 const VerticalText = styled(Typography)`
@@ -13,24 +13,15 @@ const VerticalText = styled(Typography)`
 
 const TextWidget = props => {
   const {text, textSize, isVertical} = props;
+  const TextVariant = isVertical ? VerticalText : Typography;
 
-  if (isVertical) {
-    return (
-        <VerticalText variant={textSize}>
-          <pre style={{ fontFamily: 'inherit' }}>
+  return (
+      <TextVariant variant={textSize}>
+          <pre style={{fontFamily: 'inherit'}}>
             {text}
           </pre>
-        </VerticalText>
-    );
-  } else {
-    return (
-        <Typography variant={textSize} noWrap={true}>
-          <pre style={{ fontFamily: 'inherit' }}>
-            {text}
-          </pre>
-        </Typography>
-    );
-  }
+      </TextVariant>
+  );
 };
 
 TextWidget.propTypes = {
