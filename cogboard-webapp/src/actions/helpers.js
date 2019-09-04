@@ -10,7 +10,7 @@ const checkResponseStatus = response => {
   }
 };
 
-export const fetchData = (url, method = 'GET', data = {}) => {
+export const fetchData = (url, method = 'GET', data = {}, token = '') => {
   const postConfig = {
     method: 'POST',
     body: JSON.stringify(data),
@@ -18,6 +18,9 @@ export const fetchData = (url, method = 'GET', data = {}) => {
       'Content-Type': 'application/json'
     }
   };
+  if (token) {
+    postConfig.headers['Authorization'] = token;
+  }
   const init = method !== 'GET' ? postConfig : {};
 
   return fetch(url, init)
@@ -59,9 +62,9 @@ const mapFormValuesToWidgetData = values => {
 };
 
 export const createNewWidgetData = ({ values, allWidgets, currentBoardId }) => ({
+  boardId: currentBoardId,
   id: createWidgetId(allWidgets),
   status: 'UNKNOWN',
-  boardId: currentBoardId,
   ...mapFormValuesToWidgetData(values)
 });
 
@@ -71,16 +74,15 @@ export const mapDataToState = (data) => {
   const {
     id,
     title,
+    content,
     type,
     disabled,
-    status,
     config,
-    boardId,
     ...other
   } = data;
 
   const newWidgetProps = ['status', 'boardId'];
-  const generalData = { id, title, config, type, disabled };
+  const generalData = { id, title, config, type, disabled, content };
 
   newWidgetProps.forEach(prop => {
     if (data[prop]) {

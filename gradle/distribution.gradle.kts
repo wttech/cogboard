@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+val wsConfigFiles = listOf("openapi.yaml", "cogboard.conf")
 tasks.register<Copy>("copyModulesWithDeps") {
     group = "distribution"
 
@@ -27,6 +28,19 @@ tasks.register<Copy>("copyConfigs") {
 
     from("knotx/conf")
     into("$buildDir/knotx/conf")
+    exclude(wsConfigFiles)
+
+    mustRunAfter("cleanDistribution")
+}
+
+
+tasks.register<Copy>("copyWsConf") {
+    group = "distribution"
+
+    from("knotx/conf")
+    include(wsConfigFiles)
+    into("$buildDir/knotx/conf")
+    expand("ws_port" to project.property("ws.port"))
 
     mustRunAfter("cleanDistribution")
 }
@@ -59,5 +73,5 @@ tasks.register<Delete>("cleanDistribution") {
 }
 
 tasks.register("prepareDocker") {
-    dependsOn("cleanDistribution", "copyModulesWithDeps", "copyBin", "copyConfigs", "copyDockerfile")
+    dependsOn("cleanDistribution", "copyModulesWithDeps", "copyBin", "copyConfigs", "copyDockerfile", "copyWsConf")
 }
