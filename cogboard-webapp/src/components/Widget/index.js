@@ -6,7 +6,7 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import { useDialogToggle } from '../../hooks';
 import { removeWidget, reorderWidgets } from '../../actions/thunks';
-import widgetTypes from "./widgets";
+import widgetTypes from "../widgets";
 import { ItemTypes } from '../../constants';
 
 import { CardHeader, MenuItem } from '@material-ui/core';
@@ -15,7 +15,7 @@ import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import WidgetContent from '../WidgetContent';
-import LastUpdate from "./LastUpdate";
+import LastUpdate from "../LastUpdate";
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
