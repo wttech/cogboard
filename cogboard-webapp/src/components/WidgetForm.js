@@ -13,12 +13,6 @@ import DropdownField from './DropdownField';
 import WidgetTypeForm from './WidgetTypeForm';
 import { StyledFieldset } from './styled';
 
-const StyledFieldset = styled(FormControl)`
-  display: flex;
-  margin-bottom: 32px;
-  min-width: 300px;
-`;
-
 const StyledNumberField = styled(TextField)`
   flex-basis: calc(50% - 18px);
 `;
