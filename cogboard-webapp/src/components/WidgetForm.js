@@ -11,12 +11,7 @@ import { COLUMNS_MIN, ROWS_MIN } from '../constants';
 import { Box, FormControlLabel, FormControl, MenuItem, TextField, Switch } from '@material-ui/core';
 import DropdownField from './DropdownField';
 import WidgetTypeForm from './WidgetTypeForm';
-
-const StyledFieldset = styled(FormControl)`
-  display: flex;
-  margin-bottom: 32px;
-  min-width: 300px;
-`;
+import { StyledFieldset } from './styled';
 
 const StyledNumberField = styled(TextField)`
   flex-basis: calc(50% - 18px);

@@ -1,7 +1,11 @@
+import React from "react";
+
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
+import DisplayValueSelect from "./DisplayValueSelect";
+import { DATE_FORMATS, GMT_TIMEZONES } from "../../../constants";
 import TextSizeInput from "./TextSizeInput";
 import MultilineTextInput from "./MultilineTextInput";
 import CheckboxInput from "./CheckboxInput";
@@ -65,6 +69,20 @@ const dialogFields = {
     step: 1,
     initialValue: 200
   },
+  TimeZoneId: {
+    component: DisplayValueSelect,
+    name: 'content.timeZoneId',
+    label: 'Timezone',
+    dropdownItems: GMT_TIMEZONES,
+    initialValue: 'Etc/GMT-2' //timezone for Poland
+  },
+  DateTimeFormat: {
+    component: DisplayValueSelect,
+    name: 'content.dateFormat',
+    label: 'Date Format',
+    dropdownItems: DATE_FORMATS,
+    initialValue: DATE_FORMATS[3].value
+  },
   Text: {
     component: MultilineTextInput,
     name: 'content.text',
@@ -75,12 +93,12 @@ const dialogFields = {
     name: 'content.textSize',
     label: 'Text Size',
     dropdownItems: {
-      XXL : 'h1',
-      XL : 'h2',
-      L : 'h3',
-      M : 'h4',
-      S : 'h5',
-      XS : 'h6'
+      XXL: 'h1',
+      XL: 'h2',
+      L: 'h3',
+      M: 'h4',
+      S: 'h5',
+      XS: 'h6'
     },
     initialValue: 'h4'
   },

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from "react-redux";
 import { func } from 'prop-types';
 
 import { Menu, MenuList, IconButton } from '@material-ui/core';
@@ -6,10 +7,15 @@ import { MoreVert } from '@material-ui/icons';
 
 const MoreMenu = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const isAdmin = useSelector(({app}) => app.isAdmin);
 
   const handleMoreButtonClick = ({ currentTarget }) => setAnchorEl(currentTarget);
 
   const handleMoreMenuClose = () => setAnchorEl(null);
+
+  if (!isAdmin) {
+    return null;
+  }
 
   return (
     <>
