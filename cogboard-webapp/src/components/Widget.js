@@ -1,4 +1,4 @@
-import React, {forwardRef, useRef, useState} from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { bool, number, object, string } from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
