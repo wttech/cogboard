@@ -7,7 +7,7 @@ export const splitPropsGroupName = (propName) => {
 };
 
 export const getGmtTimezones = () => {
-  let allTimezones = moment.tz.names();
+  const allTimezones = moment.tz.names();
   const duplicatedTimezones = ['Etc/GMT', 'Etc/GMT+0', 'Etc/GMT0'];
 
   const gmtSort = (a, b) => {
