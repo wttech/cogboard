@@ -7,7 +7,11 @@ export const createValueRef = (values, initialValue, name) => {
     if (!values[groupName]) {
       values[groupName] = {};
     }
-    values[groupName][propName] = initialValue;
+
+    if(values[groupName][propName] === undefined) {
+      values[groupName][propName] = initialValue;
+    }
+
     return values[groupName][propName];
   }
 

@@ -1,10 +1,12 @@
+import React from "react";
+
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 import DisplayValueSelect from "./DisplayValueSelect";
 import {DATE_FORMATS, GMT_TIMEZONES} from "../../../constants";
-import React from "react";
+
 
 const dialogFields = {
   EndpointField: {
