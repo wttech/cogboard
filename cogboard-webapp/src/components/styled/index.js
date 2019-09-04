@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-import { Button, FormControl, Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import IFrameEmbed from "../IFrameEmbed";
 
 const StyledTypography = styled(Typography)`
@@ -23,3 +23,9 @@ export const StyledFieldset = styled(FormControl)`
 `;
 
 export const StyledIFrame = (props) => <IFrameEmbed {...props} frameBorder={0} allowFullScreen/>;
+
+export const StyledFormControlForDropdown = styled(FormControl)`
+      display: flex;
+      margin-bottom: 12px;
+      min-width: 300px;
+    `;
