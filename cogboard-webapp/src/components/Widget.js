@@ -14,6 +14,8 @@ import AppDialog from './AppDialog';
 import EditWidget from './EditWidget';
 import MoreMenu from './MoreMenu';
 import WidgetContent from './WidgetContent';
+import LastUpdate from "./LastUpdate";
+import widgetTypes from "./widgets";
 
 const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
@@ -104,6 +106,8 @@ const Widget = ({ id, index }) => {
     closeMenu();
   };
 
+  const showUpdateTime = widgetTypes[type] ? widgetTypes[type].showUpdateTime : false;
+
   return (
     <>
       <StyledCard
@@ -138,6 +142,9 @@ const Widget = ({ id, index }) => {
         <StyledCardContent>
           {!disabled ? <WidgetContent id={id} type={type} content={content} /> : 'Disabled'}
         </StyledCardContent>
+        {showUpdateTime && <CardContent>
+          <LastUpdate lastUpdateTime={new Date().toLocaleString()} />
+        </CardContent>}
       </StyledCard>
       <AppDialog
         handleDialogClose={handleDialogClose}

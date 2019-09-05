@@ -7,7 +7,7 @@
 * `ID` - dashboard id >> example: `68496`
 * `Metrics` - choose metrics which you would like to show
 
-#### Where to find `Key` and `Index` ?
+#### Where to find `Key` and `ID` ?
 1. Go to `<sonarqube_host>/dashboard/index`
 2. Click on project from list
 3. Project page opens:  

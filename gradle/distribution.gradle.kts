@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-val wsConfigFiles = listOf("openapi.yaml", "websockets.conf")
+val wsConfigFiles = listOf("openapi.yaml", "cogboard.conf")
 tasks.register<Copy>("copyModulesWithDeps") {
     group = "distribution"
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { func, object, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
-import { getValueRef } from './helpers';
+import { createValueRef } from './helpers';
 import widgetTypes from '../widgets';
 import dialogFields from '../widgets/dialogFields';
 
@@ -35,7 +35,7 @@ const WidgetTypeForm = ({ values, type, handleChange }) => {
           } = dialogFields[fieldName];
 
           const { name } = dialogFieldProps;
-          const valueRef = getValueRef(values, initialValue, name);
+          const valueRef = createValueRef(values, initialValue, name);
 
           return (
             <DialogField
