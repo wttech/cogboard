@@ -7,6 +7,7 @@ import TextWidget from "./types/TextWidget";
 import BambooPlanWidget from "./types/BambooPlanWidget";
 import WorldClockWidget from "./types/WorldClockWidget";
 import IFrameEmbedWidget from "./types/IFrameEmbedWidget";
+import CheckboxWidget from './types/CheckboxWidget';
 
 const widgetTypes = {
   DefaultWidget: {
@@ -58,6 +59,10 @@ const widgetTypes = {
     component: IFrameEmbedWidget,
     dialogFields: ['UrlForContent']
   },
+  CheckboxWidget: {
+    name: 'Checkbox widget',
+    component: CheckboxWidget
+  }
 };
 
 export default widgetTypes;
