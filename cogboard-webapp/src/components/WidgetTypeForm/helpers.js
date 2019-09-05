@@ -1,18 +1,22 @@
 import { splitPropsGroupName } from '../helpers';
 
-export const getValueRef = (values, initialValue, name) => {
+export const createValueRef = (values, initialValue, name) => {
   const [groupName, propName] = splitPropsGroupName(name);
 
   if (groupName) {
-    if (values[groupName] && values[groupName][propName] !== undefined) {
-      return values[groupName][propName];
+    if (!values[groupName]) {
+      values[groupName] = {};
     }
 
-    return initialValue;
+    if(values[groupName][propName] === undefined) {
+      values[groupName][propName] = initialValue;
+    }
+
+    return values[groupName][propName];
   }
 
   if (values[propName] === undefined) {
-    return initialValue;
+    values[propName] = initialValue;
   }
 
   return values[propName];

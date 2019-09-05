@@ -1,4 +1,4 @@
-# [Home](/cogboard/) >> Screens
+# [Home](/cogboard/) >> Screenshots
 
 ![screen1](./images/screen1.png)
 
