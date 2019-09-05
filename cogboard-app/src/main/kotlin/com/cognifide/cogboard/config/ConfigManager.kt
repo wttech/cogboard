@@ -10,15 +10,18 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
+import java.util.*
 
 class ConfigManager : AbstractVerticle() {
 
     private val widgets = mutableMapOf<String, Widget>()
     private lateinit var storage: Storage
     private lateinit var endpoints: JsonArray
+    private lateinit var credentials: JsonArray
 
     override fun start() {
-        endpoints = config().getJsonArray("endpoints")
+        endpoints = config().getJsonArray(ENDPOINTS)
+        credentials = config().getJsonArray(CREDENTIALS)
         storage = VolumeStorage(vertx)
         listenOnConfigSave()
         listenOnWidgetUpdate()
@@ -62,18 +65,38 @@ class ConfigManager : AbstractVerticle() {
     private fun attachEndpoint(config: JsonObject) {
         val endpointId = config.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
-            config.put(CogboardConstants.PROP_ENDPOINT, endpoints
-                    .stream()
-                    .map { it as JsonObject }
-                    .filter {
-                        endpointId == it.getString("id")
-                    }.findFirst()
-                    .orElse(JsonObject()))
+            config.put(CogboardConstants.PROP_ENDPOINT,
+                    findJsonObjectById(endpointId, endpoints)
+                            .map { attachCredentials(it) }
+                            .orElse(JsonObject()))
         }
+    }
+
+    private fun attachCredentials(endpoint: JsonObject): JsonObject {
+        endpoint.remove(CREDENTIALS).toString().let {
+            val credentials = findJsonObjectById(it, credentials)
+                    .orElse(JsonObject())
+            endpoint.put(USER, credentials.getString(USER))
+            endpoint.put(PASSWORD, credentials.getString(PASSWORD))
+        }
+        return endpoint
+    }
+
+    private fun findJsonObjectById(id: String?, array: JsonArray): Optional<JsonObject> {
+        return array.stream()
+                .map { it as JsonObject }
+                .filter {
+                    id == it.getString(ID)
+                }.findFirst()
     }
 
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(ConfigManager::class.java)
+        const val ID = "id";
+        const val USER = "user";
+        const val PASSWORD = "password";
+        const val CREDENTIALS = "credentials";
+        const val ENDPOINTS = "endpoints";
     }
 
 }
