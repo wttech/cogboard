@@ -3,6 +3,7 @@ import ExampleWidget from './types/ExampleWidget';
 import JenkinsJobWidget from "./types/JenkinsJobWidget";
 import SonarQubeWidget from "./types/SonarQubeWidget";
 import ServiceCheckWidget from "./types/ServiceCheckWidget";
+import TextWidget from "./types/TextWidget";
 import BambooPlanWidget from "./types/BambooPlanWidget";
 import WorldClockWidget from "./types/WorldClockWidget";
 import IFrameEmbedWidget from "./types/IFrameEmbedWidget";
@@ -35,6 +36,11 @@ const widgetTypes = {
     component: ServiceCheckWidget,
     dialogFields: ['SchedulePeriod', 'URL', 'StatusCode'],
     showUpdateTime : true
+  },
+  TextWidget: {
+    name: 'Text Widget',
+    component: TextWidget,
+    dialogFields: ['Text', 'TextSize', 'TextOrientation']
   },
   BambooPlanWidget: {
     name: 'Bamboo Plan widget',

@@ -17,6 +17,7 @@
 * [Service Check](./widget-service-check)
 * [SonarQube](./widget-sonarqube)
 * [World Clock](./widget-world-clock)
+* [Text](./widget-text)
 
 ### Config:
 * [Configuration](./config)
