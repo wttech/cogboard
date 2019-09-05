@@ -1,17 +1,11 @@
 import React from 'react';
-import { func } from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from '@emotion/styled/macro';
-
-import { addNewWidget } from '../actions/thunks';
-
+import {func} from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import Button from '@material-ui/core/Button';
-import CancelButton from './CancelButton';
-import WidgetForm from './WidgetForm';
 
-const StyledCancelButton = styled(CancelButton)`
-  margin-left: 20px;
-`;
+import {addNewWidget} from '../actions/thunks';
+import WidgetForm from './WidgetForm';
+import {StyledCancelButton} from "./styled";
 
 const AddWidget = ({ closeDialog }) => {
   const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
@@ -20,7 +14,7 @@ const AddWidget = ({ closeDialog }) => {
   const handleAddClick = (values) => () => {
     dispatch(addNewWidget({ currentBoardId, values }));
     closeDialog();
-  }
+  };
 
   return (
     <WidgetForm

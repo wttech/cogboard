@@ -40,7 +40,7 @@ AppDialog.propTypes = {
   children: element.isRequired,
   open: bool.isRequired,
   title: string
-}
+};
 
 AppDialog.defaultProps = {
   title: ''

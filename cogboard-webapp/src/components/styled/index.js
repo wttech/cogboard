@@ -4,6 +4,7 @@ import styled from '@emotion/styled/macro';
 import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
 
 import IFrameEmbed from "../IFrameEmbed";
+import CancelButton from "../CancelButton";
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;
@@ -41,3 +42,7 @@ export const StyledFormControlForDropdown = styled(FormControl)`
       margin-bottom: 12px;
       min-width: 300px;
     `;
+
+export const StyledCancelButton = styled(CancelButton)`
+  margin-left: 20px;
+`;

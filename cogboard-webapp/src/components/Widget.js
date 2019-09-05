@@ -16,6 +16,7 @@ import MoreMenu from './MoreMenu';
 import WidgetContent from './WidgetContent';
 import LastUpdate from "./LastUpdate";
 import widgetTypes from "./widgets";
+import ConfirmationDialog from "./ConfirmationDialog";
 
 const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
@@ -69,6 +70,7 @@ const Widget = ({ id, index }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
+  const [confirmationDialogOpened, openConfirmationDialog, handleConfirmationDialogClose] = useDialogToggle();
   const ref = useRef(null);
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
@@ -102,8 +104,12 @@ const Widget = ({ id, index }) => {
   };
 
   const handleDeleteClick = (closeMenu) => () => {
-    dispatch(removeWidget(id));
+    openConfirmationDialog();
     closeMenu();
+  };
+
+  const deleteWidget = () => {
+    dispatch(removeWidget(id));
   };
 
   const showUpdateTime = widgetTypes[type] ? widgetTypes[type].showUpdateTime : false;
@@ -164,6 +170,15 @@ const Widget = ({ id, index }) => {
           widgetTypeData={widgetTypeData}
         />
       </AppDialog>
+      <ConfirmationDialog
+          open={confirmationDialogOpened}
+          labelOk={`Delete`}
+          handleOk={deleteWidget}
+          labelCancel={`Cancel`}
+          handleCancel={handleConfirmationDialogClose}
+          title={`Delete ${title}?`}
+          content={`Are you sure you want to delete ${title}?`}
+      />
     </>
   );
 };
