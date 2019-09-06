@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, object } from "prop-types";
+import { number, string, object } from "prop-types";
 
 import { Typography } from '@material-ui/core';
 import { Caption, WidgetButton } from "../../styled";
@@ -25,7 +25,7 @@ const SonarQubeWidgetContent = props => {
         Version: {version}
       </Caption>
         {Object.entries(metrics).map(([metric, val]) =>
-          <Caption>{metric.replace('_', ' ')}: {val}</Caption>
+          <Caption key={metric}>{metric.replace('_', ' ')}: {val}</Caption>
         )}
       <WidgetButton href={url}>
         #{id}
@@ -36,7 +36,7 @@ const SonarQubeWidgetContent = props => {
 
 SonarQubeWidgetContent.propTypes = {
   metrics: object,
-  id: string.isRequired,
+  id: number.isRequired,
   url: string.isRequired,
   version: string,
   date: string,
