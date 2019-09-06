@@ -122,6 +122,7 @@ const MainTemplate = () => {
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title="Add new widget"
+        styled={true}
       >
         <AddWidget
           closeDialog={handleDialogClose}

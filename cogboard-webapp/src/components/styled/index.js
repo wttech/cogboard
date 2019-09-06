@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
+import {Button, FormControl, Typography, IconButton, Dialog, DialogContent, createStyles} from '@material-ui/core';
 
 import IFrameEmbed from "../IFrameEmbed";
 import CancelButton from "../CancelButton";
+import AppDialog from "../AppDialog";
+import AppDialogContent from "../AppDialogContent";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;

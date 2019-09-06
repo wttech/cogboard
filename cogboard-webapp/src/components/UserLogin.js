@@ -53,7 +53,9 @@ const UserLogin = () => {
       <AppDialog
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
-        title='User Login'>
+        title='User Login'
+        styled={true}
+      >
         <StyledFieldset component="fieldset">
           {errorMsg &&
           <Typography color="error">

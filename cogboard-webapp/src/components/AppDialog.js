@@ -1,37 +1,41 @@
 import React from 'react';
-import { bool, element, func, string } from 'prop-types';
-import styled from '@emotion/styled/macro';
+import {bool, element, func, string} from 'prop-types';
+import {Dialog, DialogContent, DialogTitle} from '@material-ui/core';
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
-import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
+const dialogStyles = makeStyles({
+  paper: {
+    padding: '15px'
+  },
+});
 
-const StyledDialog = styled(props => <Dialog classes={{ paper: 'paper' }} {...props} />)`
-  .paper {
-    padding: 15px;
-  }
-`;
-
-const StyledDialogContent = styled(DialogContent)`
-  padding-bottom: 16px;
-`;
+const dialogContentStyles = makeStyles({
+  root: {
+    paddingBottom: '16px'
+  },
+});
 
 const AppDialog = props => {
-  const { children, handleDialogClose, open, title } = props;
+  const { children, handleDialogClose, open, title, styled } = props;
+  const dialogClasses = dialogStyles();
+  const dialogContentClasses = dialogContentStyles();
 
   const stopEventPropagation = (event) => event.stopPropagation();
 
   return (
-    <StyledDialog
+    <Dialog
       onClick={stopEventPropagation}
       onClose={handleDialogClose}
       onKeyDown={stopEventPropagation}
       aria-labelledby="app-dialog-title"
       open={open}
+      classes={styled? dialogClasses : null}
     >
       <DialogTitle id="app-dialog-title">{title}</DialogTitle>
-      <StyledDialogContent>
+      <DialogContent classes={styled? dialogContentClasses: null}>
         {children}
-      </StyledDialogContent>
-    </StyledDialog>
+      </DialogContent>
+    </Dialog>
   );
 };
 

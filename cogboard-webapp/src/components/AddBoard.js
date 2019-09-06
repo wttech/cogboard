@@ -45,6 +45,7 @@ const AddBoard = () => {
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title="Add new board"
+        styled={true}
       >
         <BoardForm renderActions={values => (
             <>

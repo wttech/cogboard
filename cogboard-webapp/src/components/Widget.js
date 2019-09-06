@@ -3,20 +3,19 @@ import { bool, number, object, string } from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/styles';
+import {Card, CardContent, CardHeader, MenuItem} from '@material-ui/core';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { useDialogToggle } from '../hooks';
 import { removeWidget, reorderWidgets } from '../actions/thunks';
 import { ItemTypes } from '../constants';
-
-import { Card, CardHeader, CardContent, MenuItem } from '@material-ui/core';
 import AppDialog from './AppDialog';
 import EditWidget from './EditWidget';
 import MoreMenu from './MoreMenu';
 import WidgetContent from './WidgetContent';
 import LastUpdate from "./LastUpdate";
 import widgetTypes from "./widgets";
-import ConfirmationDialog from "./ConfirmationDialog";
+import AppDialogContent from "./AppDialogContent";
 
 const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
@@ -156,6 +155,7 @@ const Widget = ({ id, index }) => {
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title={`Edit ${title}`}
+        styled={true}
       >
         <EditWidget
           closeDialog={handleDialogClose}
@@ -170,15 +170,20 @@ const Widget = ({ id, index }) => {
           widgetTypeData={widgetTypeData}
         />
       </AppDialog>
-      <ConfirmationDialog
+      <AppDialog
+          handleDialogClose={handleConfirmationDialogClose}
           open={confirmationDialogOpened}
+          title={`Delete ${title}?`}
+          styled={true}
+      >
+          <AppDialogContent
           labelOk={`Delete`}
           handleOk={deleteWidget}
           labelCancel={`Cancel`}
           handleCancel={handleConfirmationDialogClose}
-          title={`Delete ${title}?`}
           content={`Are you sure you want to delete ${title}?`}
-      />
+          />
+      </AppDialog>
     </>
   );
 };

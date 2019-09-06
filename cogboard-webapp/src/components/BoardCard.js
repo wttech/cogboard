@@ -82,6 +82,7 @@ const BoardCard = ({ boardData, className }) => {
         handleDialogClose={handleDialogClose}
         open={open}
         title={`Edit ${title}`}
+        styled={true}
       >
         <EditBoard
           closeDialog={handleDialogClose}
