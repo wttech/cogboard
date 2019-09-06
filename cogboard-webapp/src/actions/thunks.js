@@ -102,7 +102,7 @@ const removeWidgetThunk = (id) =>
     const { currentBoard: boardId } = getState().ui;
     const token = getState().app.jwToken;
 
-    return fetchData(URL.DELETE_WIDGET, 'POST', {id: id}, token)
+    return fetchData(URL.DELETE_WIDGET, 'POST', { id }, token)
       .then(
         () => dispatch(deleteWidget(id, boardId)),
         console.error
