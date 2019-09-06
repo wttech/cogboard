@@ -1,54 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from '@emotion/styled/macro';
+import { Router } from "@reach/router";
 
-import { useDialogToggle } from '../hooks';
-import { saveData } from '../actions/thunks';
+import { useDialogToggle } from '../../hooks';
+import { saveData } from '../../actions/thunks';
 
-import { Box, Container, Drawer, Fab } from '@material-ui/core';
+import { Container, Drawer, Fab } from '@material-ui/core';
 import { Add, Save } from '@material-ui/icons';
-import AppDialog from './AppDialog';
-import AddWidget from './AddWidget';
-import Board from './Board';
-import BoardList from './BoardList';
-import Logo from './Logo';
-import NavBar from './NavBar';
-import AddBoard from './AddBoard';
-
-const StyledActions = styled(Box)`
-  bottom: 50px;
-  position: fixed;
-  right: 50px;
-`;
-
-const StyledSaveFab = styled(Fab)`
-  margin-right: 16px;
-`;
-
-const StyledBoardList = styled(BoardList)`
-  padding: 32px;
-  width: 100%;
-`;
-
-const StyledMain = styled.main`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  padding-top: 110px;
-`;
-
-const StyledLogo = styled(Logo)`
-  width: 40%;
-  margin-bottom: 32px;
-`;
-
-const StyledDrawerContainer = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  padding-top: 32px;
-  width: 250px;
-`;
+import AppDialog from '../AppDialog';
+import AddWidget from '../AddWidget';
+import BoardIndex from '../BoardIndex';
+import Board from '../Board';
+import NavBar from '../NavBar';
+import AddBoard from '../AddBoard';
+import { StyledActions,
+  StyledBoardList,
+  StyledDrawerContainer,
+  StyledLogo,
+  StyledMain,
+  StyledSaveFab
+} from './styled';
 
 const MainTemplate = () => {
   const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
@@ -95,7 +66,10 @@ const MainTemplate = () => {
       </Drawer>
       <StyledMain>
         <Container maxWidth="xl">
-          <Board />
+          <Router>
+            <BoardIndex path="/" />
+            <Board path="/:boardId" />
+          </Router>
           <StyledActions>
             {isAdmin && isDataChanged &&
               <StyledSaveFab
