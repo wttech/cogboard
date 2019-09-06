@@ -1,0 +1,15 @@
+[
+  {
+    "id": "validEndpoint",
+    "label": "Valid Endpoint",
+    "url": "url",
+    "publicUrl": "Public Url",
+    "credentials": "credentials1"
+  },
+  {
+    "id": "invalidEndpoint",
+    "label": "Invalid Endpoint",
+    "url": "url",
+    "credentials": "nonExistingCredentials"
+  }
+]
