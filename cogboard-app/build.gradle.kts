@@ -4,6 +4,8 @@ plugins {
     kotlin("jvm")
 }
 
+sourceSets["test"].java.srcDir("src/test/kotlin")
+
 tasks.named("processResources") {
     dependsOn(":cogboard-webapp:copyReactAppToAppClasspath")
 }
@@ -22,7 +24,11 @@ dependencies {
     }
     implementation(kotlin("stdlib-jdk8"))
 
-    testCompile("org.junit.jupiter:junit-jupiter-api:5.3.1")
+    testImplementation(
+            "org.assertj:assertj-core:3.12.2",
+            "org.junit.jupiter:junit-jupiter-api:5.4.2"
+    )
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.2")
 }
 
 repositories {
