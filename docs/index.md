@@ -29,4 +29,5 @@
 
 ### Other
 * [Stack](./stack)
+* [Tips & Tricks](./tips)
 * [Screenshots](./screens)

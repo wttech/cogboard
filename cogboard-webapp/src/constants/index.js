@@ -4,6 +4,7 @@ export const URL = {
   LOAD_DATA: '/api/config', // for front dev change to '/data.json'
   SAVE_DATA: '/api/config/save',
   UPDATE_WIDGET: '/api/widget/update',
+  DELETE_WIDGET: '/api/widget/delete',
   LOGIN: '/api/login'
 };
 export const COLUMNS_MIN = 1;
