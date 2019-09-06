@@ -105,7 +105,8 @@ const dialogFields = {
   TextOrientation: {
     component: CheckboxInput,
     name: 'content.isVertical',
-    label: 'Vertical Text'
+    label: 'Vertical Text',
+    initialValue: false
   }
 };
 
