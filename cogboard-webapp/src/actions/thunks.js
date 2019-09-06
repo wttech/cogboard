@@ -1,3 +1,5 @@
+import { navigate } from '@reach/router';
+
 import {
   requestData,
   receiveData,
@@ -74,7 +76,11 @@ const deleteBoardWithWidgetsThunk = (id) =>
 
     const [firstBoardId] = getState().boards.allBoards;
 
-    (id === currentBoard) && dispatch(setCurrentBoard(firstBoardId || null));
+    if (id === currentBoard) {
+      dispatch(setCurrentBoard(firstBoardId || null));
+      navigate(firstBoardId || '/');
+    }
+
     dispatch(deleteMultipleWidgets(widgets));
   };
 
