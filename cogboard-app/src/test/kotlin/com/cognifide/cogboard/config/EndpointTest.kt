@@ -1,6 +1,5 @@
-package com.cognifide.cogboard.test.config
+package com.cognifide.cogboard.config
 
-import com.cognifide.cogboard.config.Endpoint
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -9,42 +8,8 @@ import org.junit.jupiter.api.Test
 
 internal class EndpointTest {
 
-    private val endpoints: JsonArray = JsonArray(
-            """
-                [
-                  {
-                    "id": "validEndpoint",
-                    "label": "Valid Endpoint",
-                    "url": "url",
-                    "publicUrl": "Public Url",
-                    "credentials": "credentials1"
-                  },
-                  {
-                    "id": "invalidEndpoint",
-                    "label": "Invalid Endpoint",
-                    "url": "url",
-                    "credentials": "nonExistingCredentials"
-                  }
-                ]
-            """.trimIndent())
-
-    private val credentials: JsonArray = JsonArray(
-            """
-                [
-                  {
-                    "id": "credentials1",
-                    "label": "My Credentials 1",
-                    "user": "user1",
-                    "password": "password1"
-                  },
-                  {
-                    "id": "credentials2",
-                    "label": "My Credentials 2",
-                    "user": "user2",
-                    "password": "password2"
-                  }
-                ]
-            """.trimIndent())
+    private val endpoints: JsonArray = readJsonArrayFromResource("/com/cognifide/cogboard/config/endpoints-test.json")
+    private val credentials: JsonArray = readJsonArrayFromResource("/com/cognifide/cogboard/config/credentials-test.json")
 
     @Test
     fun shouldRemoveCredentialsProp() {
@@ -111,5 +76,12 @@ internal class EndpointTest {
                     """)
 
         assertEquals(invalidEndpoint, endpoint)
+    }
+
+    companion object {
+        fun readJsonArrayFromResource(path: String) : JsonArray {
+            val endpointsContent = EndpointTest::class.java.getResource(path).readText()
+            return JsonArray(endpointsContent.trimIndent())
+        }
     }
 }
