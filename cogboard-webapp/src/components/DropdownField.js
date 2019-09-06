@@ -17,7 +17,7 @@ const DropdownField = props => {
   const initialLoaded = !itemsUrl;
   const [options, setOptions] = useState(dropdownItems);
   const [loaded, setLoaded] = useState(initialLoaded);
-  const jwToken = useSelector(({app}) => app.jwToken);
+  const jwToken = useSelector(({ app }) => app.jwToken);
 
   useEffect(() => {
     if (itemsUrl) {
@@ -35,7 +35,7 @@ const DropdownField = props => {
         })
         .catch(console.error);
     }
-  }, [itemsUrl]);
+  }, [itemsUrl, jwToken]);
 
   return (
     <FormControl>
