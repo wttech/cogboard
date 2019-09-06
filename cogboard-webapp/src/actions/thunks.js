@@ -100,8 +100,13 @@ const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) =>
 const removeWidgetThunk = (id) =>
   (dispatch, getState) => {
     const { currentBoard: boardId } = getState().ui;
+    const token = getState().app.jwToken;
 
-    dispatch(deleteWidget(id, boardId));
+    return fetchData(URL.DELETE_WIDGET, 'POST', { id }, token)
+      .then(
+        () => dispatch(deleteWidget(id, boardId)),
+        console.error
+      );
   };
 
 export const reorderWidgets = (sourceId, targetIndex) =>
