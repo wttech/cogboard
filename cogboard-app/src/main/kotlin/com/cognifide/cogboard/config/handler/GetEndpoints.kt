@@ -24,8 +24,8 @@ class GetEndpoints : RoutingHandlerFactory {
         copy.stream().forEach {
             if (it is JsonObject) {
                 it.remove("url")
-                it.remove("user")
-                it.remove("password")
+                it.remove("publicUrl")
+                it.remove("credentials")
             }
         }
         return copy
