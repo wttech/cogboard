@@ -24,7 +24,7 @@ export const getGmtTimezones = () => {
       .map(timezone => {
         const displayName = timezone
             .replace('Etc/', '')
-            .replace(/[+-]/g, c => c == '+' ? '-' : '+'); //swap '+' sign with '-' sign to preserve correct time
+            .replace(/[+-]/g, c => c === '+' ? '-' : '+'); //swap '+' sign with '-' sign to preserve correct time
         return {
           display: displayName,
           value: timezone

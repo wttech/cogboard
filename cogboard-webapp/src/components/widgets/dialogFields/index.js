@@ -1,5 +1,3 @@
-import React from "react";
-
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
