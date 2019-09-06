@@ -140,6 +140,7 @@ const Widget = ({ id, index }) => {
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title={`Edit ${title}`}
+        styled={true}
       >
         <EditWidget
           closeDialog={handleDialogClose}
