@@ -30,7 +30,10 @@ tasks {
         from("${project.projectDir}/config")
         into("${project.projectDir}")
 
-        expand("ws_port" to rootProject.property("ws.port"))
+        expand(
+            "ws_port" to rootProject.property("ws.port"),
+            "app_port" to rootProject.property("app.port")
+        )
     }
 
     register<Delete>("clearEnvFile"){

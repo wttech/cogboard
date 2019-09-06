@@ -11,7 +11,7 @@ import AppDialog from './AppDialog';
 
 const UserLogin = () => {
   const dispatch = useDispatch();
-  const {values, handleChange} = useFormData({});
+  const { values, handleChange } = useFormData({ username: '', password: ''});
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
   const jwToken = useSelector(({app}) => app.jwToken);

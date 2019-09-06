@@ -1,5 +1,3 @@
-import React from "react";
-
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
@@ -105,7 +103,8 @@ const dialogFields = {
   TextOrientation: {
     component: CheckboxInput,
     name: 'content.isVertical',
-    label: 'Vertical Text'
+    label: 'Vertical Text',
+    initialValue: false
   }
 };
 
