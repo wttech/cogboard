@@ -16,9 +16,10 @@ class Endpoint(val endpoints: JsonArray, val credentials: JsonArray) {
         endpoint.remove(CREDENTIALS).toString().let {
             val credentials = findJsonObjectById(it, credentials)
                     .orElse(JsonObject())
-            endpoint.put(USER, credentials.getString(USER))
-            endpoint.put(PASSWORD, credentials.getString(PASSWORD))
+            endpoint.put(USER, credentials.getString(USER)?: "")
+            endpoint.put(PASSWORD, credentials.getString(PASSWORD)?: "")
         }
+
         return endpoint
     }
 

@@ -18,7 +18,7 @@ class ConfigManager : AbstractVerticle() {
     private lateinit var storage: Storage
     private lateinit var endpoints: JsonArray
     private lateinit var credentials: JsonArray
-    private lateinit var endpoint: Endpoint;
+    private lateinit var endpoint: Endpoint
 
     override fun start() {
         endpoints = config().getJsonArray(ENDPOINTS)
