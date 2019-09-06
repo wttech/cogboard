@@ -21,6 +21,8 @@ dependencies {
         implementation("$v-rx-java2")
     }
     implementation(kotlin("stdlib-jdk8"))
+
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.3.1")
 }
 
 repositories {
