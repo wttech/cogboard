@@ -27,6 +27,7 @@ class ConfigManager : AbstractVerticle() {
         storage = VolumeStorage(vertx)
         listenOnConfigSave()
         listenOnWidgetUpdate()
+        listenOnWidgetDelete()
         loadConfig()
     }
 
@@ -39,6 +40,11 @@ class ConfigManager : AbstractVerticle() {
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONFIG)
             .handler { createOrUpdate(it.body()) }
+
+    private fun listenOnWidgetDelete() = vertx
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_WIDGET_CONFIG)
+            .handler { delete(it.body()) }
 
     private fun loadConfig() = storage
             .loadConfig()
@@ -60,7 +66,17 @@ class ConfigManager : AbstractVerticle() {
             attachEndpoint(newConfig)
             widgets[id] = WidgetIndex.create(newConfig, vertx).start()
         } else {
-            LOGGER.error("There is widget with no ID in configuration: $config")
+            LOGGER.error("Widget Update / Create | There is widget with no ID in configuration: $config")
+        }
+    }
+
+    private fun delete(config: JsonObject) {
+        val id = config.getString(CogboardConstants.PROP_ID)
+
+        if (id != null) {
+            widgets.remove(id)?.stop()
+        } else {
+            LOGGER.error("Widget Delete | There is widget with no ID in configuration: $config")
         }
     }
 

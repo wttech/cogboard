@@ -63,6 +63,14 @@ paths:
       responses:
         default:
           description: Widget Update Handler
+  /api/widget/delete:
+    post:
+      operationId: widget-delete-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: Widget Delete Handler
   /:
     get:
       operationId: home-page

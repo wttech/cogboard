@@ -1,3 +1,5 @@
+import { navigate } from '@reach/router';
+
 import {
   requestData,
   receiveData,
@@ -74,7 +76,11 @@ const deleteBoardWithWidgetsThunk = (id) =>
 
     const [firstBoardId] = getState().boards.allBoards;
 
-    (id === currentBoard) && dispatch(setCurrentBoard(firstBoardId || null));
+    if (id === currentBoard) {
+      dispatch(setCurrentBoard(firstBoardId || null));
+      navigate(firstBoardId || '/');
+    }
+
     dispatch(deleteMultipleWidgets(widgets));
   };
 
@@ -100,8 +106,13 @@ const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) =>
 const removeWidgetThunk = (id) =>
   (dispatch, getState) => {
     const { currentBoard: boardId } = getState().ui;
+    const token = getState().app.jwToken;
 
-    dispatch(deleteWidget(id, boardId));
+    return fetchData(URL.DELETE_WIDGET, 'POST', { id }, token)
+      .then(
+        () => dispatch(deleteWidget(id, boardId)),
+        console.error
+      );
   };
 
 export const reorderWidgets = (sourceId, targetIndex) =>

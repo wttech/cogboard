@@ -3,4 +3,5 @@ com.cognifide.cogboard.config.handler.GetConfig
 com.cognifide.cogboard.config.handler.SaveConfig
 com.cognifide.cogboard.config.handler.HomePage
 com.cognifide.cogboard.widget.handler.UpdateWidget
+com.cognifide.cogboard.widget.handler.DeleteWidget
 com.cognifide.cogboard.security.LoginHandler
