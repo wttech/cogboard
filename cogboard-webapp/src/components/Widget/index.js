@@ -128,7 +128,7 @@ const Widget = ({ id, index }) => {
           }
         />
         <StyledCardContent>
-          {!disabled ? <WidgetContent type={type} content={content} /> : 'Disabled'}
+          {!disabled ? <WidgetContent id={id} type={type} content={content} /> : 'Disabled'}
           {showUpdateTime && <LastUpdate lastUpdateTime={new Date().toLocaleString()} />}
         </StyledCardContent>
       </StyledCard>
