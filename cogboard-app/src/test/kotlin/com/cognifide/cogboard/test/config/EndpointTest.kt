@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 
-internal class ExampleTest {
+internal class EndpointTest {
 
     private val endpoints: JsonArray = JsonArray(
             """
@@ -81,7 +81,7 @@ internal class ExampleTest {
     }
 
     @Test
-    fun checkEndpoint() {
+    fun checkValidEndpoint() {
         val endpoint = Endpoint(endpoints, credentials).readById("validEndpoint")
         val validEndpoint = JsonObject("""
                     {
@@ -95,5 +95,21 @@ internal class ExampleTest {
                     """)
 
         assertEquals(validEndpoint, endpoint)
+    }
+
+    @Test
+    fun checkInvalidEndpoint() {
+        val endpoint = Endpoint(endpoints, credentials).readById("invalidEndpoint")
+        val invalidEndpoint = JsonObject("""
+                    {
+                      "id" : "invalidEndpoint",
+                      "label" : "Invalid Endpoint",
+                      "url" : "url",
+                      "user" : "",
+                      "password" : ""
+                    }
+                    """)
+
+        assertEquals(invalidEndpoint, endpoint)
     }
 }
