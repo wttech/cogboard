@@ -40,6 +40,8 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
                             ?.first().let { branch = (it as JsonObject).getString("name") }
                 }
         return branch
+                .replace("refs/remotes/origin/", "")
+                .replace("refs/", "")
     }
 
     override fun updateState() {
