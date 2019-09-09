@@ -39,14 +39,14 @@ internal class EndpointTest {
     }
 
     @Test
-    fun shouldReturnEmptyCredentialsForInvalidId() {
+    fun checkIfUserAndPasswordAreEmptyForInvalidId() {
         val endpoint = Endpoint(endpoints, credentials, "invalidEndpoint").asJson()
         assertEquals("", endpoint.getString("user"))
         assertEquals("", endpoint.getString("password"))
     }
 
     @Test
-    fun checkValidEndpoint() {
+    fun shouldReturnValidCredentials() {
         val endpoint = Endpoint(endpoints, credentials,"validEndpoint").asJson()
         val validEndpoint = JsonObject("""
                     {
@@ -63,7 +63,7 @@ internal class EndpointTest {
     }
 
     @Test
-    fun checkInvalidEndpoint() {
+    fun shouldReturnEmptyCredentials() {
         val endpoint = Endpoint(endpoints, credentials, "invalidEndpoint").asJson()
         val invalidEndpoint = JsonObject("""
                     {
@@ -79,7 +79,7 @@ internal class EndpointTest {
     }
 
     companion object {
-        private const val ENDPOINTS :String = "endpoints"
+        private const val ENDPOINTS = "endpoints"
         private const val CREDENTIALS = "credentials"
 
         fun readJsonArrayFromResource(pathToJsonResource: String, jsonArrayId: String) : JsonArray {
