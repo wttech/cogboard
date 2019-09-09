@@ -1,15 +1,31 @@
-[
-  {
-    "id": "validEndpoint",
-    "label": "Valid Endpoint",
-    "url": "url",
-    "publicUrl": "Public Url",
-    "credentials": "credentials1"
-  },
-  {
-    "id": "invalidEndpoint",
-    "label": "Invalid Endpoint",
-    "url": "url",
-    "credentials": "nonExistingCredentials"
-  }
-]
+{
+  "endpoints": [
+    {
+      "id": "validEndpoint",
+      "label": "Valid Endpoint",
+      "url": "url",
+      "publicUrl": "Public Url",
+      "credentials": "credentials1"
+    },
+    {
+      "id": "invalidEndpoint",
+      "label": "Invalid Endpoint",
+      "url": "url",
+      "credentials": "nonExistingCredentials"
+    }
+  ],
+  "credentials": [
+    {
+      "id": "credentials1",
+      "label": "My Credentials 1",
+      "user": "user1",
+      "password": "password1"
+    },
+    {
+      "id": "credentials2",
+      "label": "My Credentials 2",
+      "user": "user2",
+      "password": "password2"
+    }
+  ]
+}
