@@ -6,6 +6,10 @@ import io.vertx.core.json.JsonObject
 import java.util.*
 import kotlin.concurrent.timerTask
 
+/**
+ * Base widget class for extending - use this class if your new widget needs to do some computations on backend.
+ * This widget is meant for tasks that are not requesting 3rd party endpoints.
+ */
 abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
 
     override val id: String
@@ -32,12 +36,14 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     }
 
     /**
-     * Notifies Widget that it is time to update and `send(state: JsonObject)` new state
+     * This method will be executed each time when widget needs to be updated.
+     * When implementing this method execute your business logic, create state object and lastly use `send` method
      */
     abstract override fun updateState()
 
     /**
-     * sends given state on event bus, adds required `id`
+     * Use this method for sending widget updated to user.
+     * This method will add some required fields for you: `id`, `eventType`
      */
     override fun send(state: JsonObject) {
         state.put(CogboardConstants.PROP_ID, id)
@@ -45,6 +51,9 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
         vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
     }
 
+    /**
+     * Use this method for sending configuration error back to user
+     */
     fun sendConfigurationError(message: String = "Fix configuration") {
         send(JsonObject()
                 .put(CogboardConstants.PROP_STATUS, Widget.Status.ERROR_CONFIGURATION)
