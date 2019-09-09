@@ -1,17 +1,11 @@
 import React from 'react';
-import { string, number } from 'prop-types';
-import styled from '@emotion/styled/macro';
+import { string, number, bool } from 'prop-types';
 
-import { useFormData } from '../hooks';
+import { useFormData } from '../../hooks';
+import { COLUMNS_MAX, COLUMNS_MIN } from '../../constants';
 
-import { FormControl, TextField } from '@material-ui/core';
-import { COLUMNS_MAX, COLUMNS_MIN } from '../constants';
-
-const StyledFieldset = styled(FormControl)`
-  display: flex;
-  margin-bottom: 32px;
-  min-width: 300px;
-`;
+import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/core';
+import { StyledFieldset } from './styled';
 
 const BoardForm = ({ renderActions, ...initialFormValues }) => {
   const { values, handleChange } = useFormData(initialFormValues);
@@ -44,6 +38,19 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
           value={values.columns}
           type="number"
         />
+        <FormControl margin="normal">
+          <FormControlLabel
+            control={
+              <Switch
+                onChange={handleChange('autoSwitch')}
+                checked={values.autoSwitch}
+                color="primary"
+                value="autoSwitch"
+              />
+            }
+            label="Auto switch"
+          />
+        </FormControl>
       </StyledFieldset>
       {renderActions(values)}
     </>
@@ -51,11 +58,13 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
 };
 
 BoardForm.propTypes = {
+  autoSwitch: bool,
   columns: number,
   title: string,
 };
 
 BoardForm.defaultProps = {
+  autoSwitch: true,
   columns: 8,
   title: 'Board',
 };
