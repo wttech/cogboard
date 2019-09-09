@@ -48,7 +48,7 @@ ConfirmationDialog.propTypes = {
   title: string,
   content: string,
   labelOk: string,
-  labelCancel: string,
+  labelCancel: string
   };
 
 ConfirmationDialog.defaultProps = {
@@ -56,7 +56,6 @@ ConfirmationDialog.defaultProps = {
   content: '',
   labelOk: 'OK',
   labelCancel: 'Cancel'
-
 };
 
 export default ConfirmationDialog;
