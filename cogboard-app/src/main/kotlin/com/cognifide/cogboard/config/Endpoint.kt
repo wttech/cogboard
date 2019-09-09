@@ -39,8 +39,8 @@ class Endpoint(val endpoints: JsonArray, val credentials: JsonArray, val endpoin
         private const val PASSWORD = "password"
 
         fun from(config: JsonObject, endpointId: String): Endpoint {
-            val endpoints = Optional.ofNullable(config.getJsonArray(ENDPOINTS)).orElse(JsonArray())
-            val credentials = Optional.ofNullable(config.getJsonArray(CREDENTIALS)).orElse(JsonArray())
+            val endpoints = config.getJsonArray(ENDPOINTS) ?: JsonArray()
+            val credentials = config.getJsonArray(CREDENTIALS) ?: JsonArray()
             return Endpoint(endpoints, credentials, endpointId)
         }
     }
