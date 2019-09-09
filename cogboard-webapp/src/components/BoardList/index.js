@@ -1,13 +1,8 @@
 import React from 'react';
-import styled from '@emotion/styled/macro';
 import { useSelector } from 'react-redux';
 
-import BoardCard from './BoardCard';
 import Box from '@material-ui/core/Box';
-
-const StyledBoardCard = styled(BoardCard)`
-  margin-bottom: 32px;
-`;
+import { StyledBoardCard } from './styled';
 
 const BoardList = ({ className }) => {
   const boards = useSelector(
@@ -20,12 +15,12 @@ const BoardList = ({ className }) => {
 
   return (
     <Box className={className}>
-      {boards.map(boardData =>
+      {boards.map(boardData => (
         <StyledBoardCard
           boardData={boardData}
           key={boardData.id}
         />
-      )}
+      ))}
     </Box>
   );
 };
