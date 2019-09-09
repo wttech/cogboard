@@ -16,6 +16,7 @@ import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import WidgetContent from '../WidgetContent';
 import LastUpdate from "../LastUpdate";
+import ConfirmationDialog from "../ConfirmationDialog";
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -41,6 +42,7 @@ const Widget = ({ id, index }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
+  const [confirmationDialogOpened, openConfirmationDialog, handleConfirmationDialogClose] = useDialogToggle();
   const ref = useRef(null);
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
@@ -90,10 +92,13 @@ const Widget = ({ id, index }) => {
   };
 
   const handleDeleteClick = (closeMenu) => () => {
-    dispatch(removeWidget(id));
+    openConfirmationDialog();
     closeMenu();
   };
 
+  const deleteWidget = () => {
+    dispatch(removeWidget(id));
+  };
 
   return (
     <>
@@ -150,6 +155,14 @@ const Widget = ({ id, index }) => {
           widgetTypeData={widgetTypeData}
         />
       </AppDialog>
+      <ConfirmationDialog
+          open={confirmationDialogOpened}
+          title={`Delete ${title}`}
+          content={`Are you sure you want to delete ${title}?`}
+          handleOk={deleteWidget}
+          labelOk={`Delete`}
+          handleCancel={handleConfirmationDialogClose}
+      />
     </>
   );
 };
