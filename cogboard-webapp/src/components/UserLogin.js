@@ -1,11 +1,11 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Button, IconButton, TextField, Typography} from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, IconButton, TextField, Typography } from '@material-ui/core';
 import {AccountCircle, PowerSettingsNew} from '@material-ui/icons';
 
-import {useDialogToggle, useFormData, useSnackbarToggle} from '../hooks';
-import {login, logout} from '../actions/thunks';
-import {StyledFieldset} from './styled';
+import { useDialogToggle, useFormData, useSnackbarToggle } from '../hooks';
+import { login, logout } from '../actions/thunks';
+import { StyledFieldset } from './styled';
 import AppDialog from './AppDialog';
 import SnackbarWithVariant from "./SnackbarWithVariant";
 
