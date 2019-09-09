@@ -4,10 +4,10 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import java.util.*
 
-class Endpoint(val endpoints: JsonArray, val credentials: JsonArray) {
+class Endpoint(val endpoints: JsonArray, val credentials: JsonArray, val endpointId: String) {
 
-    fun readById(endpointId: String) : JsonObject {
-      return findJsonObjectById(endpointId, endpoints)
+    fun asJson(): JsonObject {
+        return findJsonObjectById(endpointId, endpoints)
                 .map { attachCredentials(it) }
                 .orElse(JsonObject())
     }
@@ -16,8 +16,8 @@ class Endpoint(val endpoints: JsonArray, val credentials: JsonArray) {
         endpoint.remove(CREDENTIALS).toString().let {
             val credentials = findJsonObjectById(it, credentials)
                     .orElse(JsonObject())
-            endpoint.put(USER, credentials.getString(USER)?: "")
-            endpoint.put(PASSWORD, credentials.getString(PASSWORD)?: "")
+            endpoint.put(USER, credentials.getString(USER) ?: "")
+            endpoint.put(PASSWORD, credentials.getString(PASSWORD) ?: "")
         }
 
         return endpoint
@@ -32,9 +32,16 @@ class Endpoint(val endpoints: JsonArray, val credentials: JsonArray) {
     }
 
     companion object {
-        const val ID = "id"
-        const val CREDENTIALS = "credentials"
-        const val USER = "user"
-        const val PASSWORD = "password"
+        private const val ID = "id"
+        private const val CREDENTIALS = "credentials"
+        private const val ENDPOINTS = "endpoints"
+        private const val USER = "user"
+        private const val PASSWORD = "password"
+
+        fun from(config: JsonObject, endpointId: String): Endpoint {
+            val endpoints = Optional.ofNullable(config.getJsonArray(ENDPOINTS)).orElse(JsonArray())
+            val credentials = Optional.ofNullable(config.getJsonArray(CREDENTIALS)).orElse(JsonArray())
+            return Endpoint(endpoints, credentials, endpointId)
+        }
     }
 }

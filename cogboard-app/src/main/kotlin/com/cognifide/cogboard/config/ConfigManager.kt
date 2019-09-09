@@ -6,24 +6,16 @@ import com.cognifide.cogboard.storage.docker.VolumeStorage
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.WidgetIndex
 import io.vertx.core.AbstractVerticle
-import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
-import java.util.*
 
 class ConfigManager : AbstractVerticle() {
 
     private val widgets = mutableMapOf<String, Widget>()
     private lateinit var storage: Storage
-    private lateinit var endpoints: JsonArray
-    private lateinit var credentials: JsonArray
-    private lateinit var endpoint: Endpoint
 
     override fun start() {
-        endpoints = config().getJsonArray(ENDPOINTS)
-        credentials = config().getJsonArray(CREDENTIALS)
-        endpoint = Endpoint(endpoints, credentials)
         storage = VolumeStorage(vertx)
         listenOnConfigSave()
         listenOnWidgetUpdate()
@@ -83,12 +75,11 @@ class ConfigManager : AbstractVerticle() {
     private fun attachEndpoint(config: JsonObject) {
         val endpointId = config.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
-            config.put(CogboardConstants.PROP_ENDPOINT, endpoint.readById(endpointId))}
+            val endpoint = Endpoint.from(config(), endpointId)
+            config.put(CogboardConstants.PROP_ENDPOINT, endpoint.asJson())}
         }
 
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(ConfigManager::class.java)
-        const val CREDENTIALS = "credentials"
-        const val ENDPOINTS = "endpoints"
     }
 }

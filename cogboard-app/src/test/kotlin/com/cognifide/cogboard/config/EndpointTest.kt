@@ -8,46 +8,46 @@ import org.junit.jupiter.api.Test
 
 internal class EndpointTest {
 
-    private val endpoints: JsonArray = readJsonArrayFromResource("/com/cognifide/cogboard/config/endpoints-test.json")
-    private val credentials: JsonArray = readJsonArrayFromResource("/com/cognifide/cogboard/config/credentials-test.json")
+    private val endpoints: JsonArray = readJsonArrayFromResource("/com/cognifide/cogboard/config/endpoints-test.json", ENDPOINTS)
+    private val credentials: JsonArray = readJsonArrayFromResource("/com/cognifide/cogboard/config/endpoints-test.json", CREDENTIALS)
 
     @Test
     fun shouldRemoveCredentialsProp() {
-        val validEndpoint = Endpoint(endpoints, credentials).readById("validEndpoint")
+        val validEndpoint = Endpoint(endpoints, credentials,"validEndpoint").asJson()
         assertFalse(validEndpoint.containsKey("credentials"))
 
-        val invalidEndpoint = Endpoint(endpoints, credentials).readById("invalidEndpoint")
+        val invalidEndpoint = Endpoint(endpoints, credentials, "invalidEndpoint").asJson()
         assertFalse(invalidEndpoint.containsKey("credentials"))
     }
 
     @Test
     fun shouldAddUserAndPasswordProp() {
-        val validEndpoint = Endpoint(endpoints, credentials).readById("validEndpoint")
+        val validEndpoint = Endpoint(endpoints, credentials,"validEndpoint").asJson()
         assert(validEndpoint.containsKey("user"))
         assert(validEndpoint.containsKey("password"))
 
-        val invalidEndpoint = Endpoint(endpoints, credentials).readById("invalidEndpoint")
+        val invalidEndpoint = Endpoint(endpoints, credentials, "invalidEndpoint").asJson()
         assert(invalidEndpoint.containsKey("user"))
         assert(invalidEndpoint.containsKey("password"))
     }
 
     @Test
     fun checkIfUserAndPasswordAreCorrect() {
-        val endpoint = Endpoint(endpoints, credentials).readById("validEndpoint")
+        val endpoint = Endpoint(endpoints, credentials,"validEndpoint").asJson()
         assertEquals("user1", endpoint.getString("user"))
         assertEquals("password1", endpoint.getString("password"))
     }
 
     @Test
     fun shouldReturnEmptyCredentialsForInvalidId() {
-        val endpoint = Endpoint(endpoints, credentials).readById("invalidEndpoint")
+        val endpoint = Endpoint(endpoints, credentials, "invalidEndpoint").asJson()
         assertEquals("", endpoint.getString("user"))
         assertEquals("", endpoint.getString("password"))
     }
 
     @Test
     fun checkValidEndpoint() {
-        val endpoint = Endpoint(endpoints, credentials).readById("validEndpoint")
+        val endpoint = Endpoint(endpoints, credentials,"validEndpoint").asJson()
         val validEndpoint = JsonObject("""
                     {
                       "id" : "validEndpoint",
@@ -64,7 +64,7 @@ internal class EndpointTest {
 
     @Test
     fun checkInvalidEndpoint() {
-        val endpoint = Endpoint(endpoints, credentials).readById("invalidEndpoint")
+        val endpoint = Endpoint(endpoints, credentials, "invalidEndpoint").asJson()
         val invalidEndpoint = JsonObject("""
                     {
                       "id" : "invalidEndpoint",
@@ -79,9 +79,13 @@ internal class EndpointTest {
     }
 
     companion object {
-        fun readJsonArrayFromResource(path: String) : JsonArray {
-            val endpointsContent = EndpointTest::class.java.getResource(path).readText()
-            return JsonArray(endpointsContent.trimIndent())
+        private const val ENDPOINTS :String = "endpoints"
+        private const val CREDENTIALS = "credentials"
+
+        fun readJsonArrayFromResource(pathToJsonResource: String, jsonArrayId: String) : JsonArray {
+            val endpointsContent = EndpointTest::class.java.getResource(pathToJsonResource).readText()
+            val endpointsJson = JsonObject(endpointsContent.trimIndent())
+            return endpointsJson.getJsonArray(jsonArrayId)
         }
     }
 }
