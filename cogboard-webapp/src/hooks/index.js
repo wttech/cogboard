@@ -11,6 +11,15 @@ export const useDialogToggle = () => {
   return [dialogOpened, openDialog, handleDialogClose];
 };
 
+export const useSnackbarToggle = () => {
+  const [snackbarState, setSnackbarState] = useState({open: false});
+
+  const openSnackbar = () => setSnackbarState({open: true});
+  const handleSnackbarClose = () => setSnackbarState({open: false});
+
+  return [snackbarState, openSnackbar, handleSnackbarClose];
+};
+
 export const useFormData = (data) => {
   const [values, setValues] = useState(data);
 
