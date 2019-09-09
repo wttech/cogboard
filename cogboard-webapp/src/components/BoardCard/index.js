@@ -1,24 +1,16 @@
 import React from 'react';
 import { object } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from '@emotion/styled/macro';
+import { navigate } from '@reach/router';
 
-import { useDialogToggle } from '../hooks';
-import { setCurrentBoard} from '../actions/actionCreators';
-import { deleteBoardWithWidgets } from '../actions/thunks';
+import { useDialogToggle } from '../../hooks';
+import { deleteBoardWithWidgets } from '../../actions/thunks';
 
-import { Card, CardActions, CardHeader, CardContent, IconButton } from '@material-ui/core';
+import { CardHeader, CardContent, IconButton } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons'
-import AppDialog from './AppDialog';
-import EditBoard from './EditBoard';
-
-const StyledCard = styled(Card)`
-  background-color: #5c6bc0;
-`;
-
-const StyledCardActions = styled(CardActions)`
-  justify-content: flex-end;
-`;
+import AppDialog from '../AppDialog';
+import EditBoard from '../EditBoard';
+import { StyledCard, StyledCardActions } from './styled';
 
 const BoardCard = ({ boardData, className }) => {
   const {
@@ -31,7 +23,7 @@ const BoardCard = ({ boardData, className }) => {
   const isAdmin = useSelector(({app}) => app.isAdmin);
 
   const handleBoardClick = (boardId) => () => {
-    dispatch(setCurrentBoard(boardId));
+    navigate(boardId);
   };
 
   const handleEditClick = (event) => {
