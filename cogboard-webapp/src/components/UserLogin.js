@@ -18,10 +18,13 @@ const UserLogin = () => {
   const [loginSnackbar, openLoginSnackbar, handleLoginSnackbarClose] = useSnackbarToggle();
   const [logoutSnackbar, openLogoutSnackbar, handleLogoutSnackbarClose] = useSnackbarToggle();
 
+  const onLoginSuccess =() => {
+        handleDialogClose();
+        openLoginSnackbar();
+  };
+
   const handleLoginButtonClick = (credentials) => () => {
-    dispatch(login(credentials));
-    handleDialogClose();
-    openLoginSnackbar();
+    dispatch(login(credentials, onLoginSuccess))
   };
 
   const handleLoginDialogOpen = () => {
