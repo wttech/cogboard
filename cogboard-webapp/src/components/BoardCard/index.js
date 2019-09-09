@@ -14,6 +14,7 @@ import { StyledCard, StyledCardActions } from './styled';
 
 const BoardCard = ({ boardData, className }) => {
   const {
+    autoSwitch,
     columns,
     id,
     title
@@ -80,6 +81,7 @@ const BoardCard = ({ boardData, className }) => {
           id={id}
           title={title}
           columns={columns}
+          autoSwitch={autoSwitch}
         />
       </AppDialog>
     </div>
@@ -88,6 +90,6 @@ const BoardCard = ({ boardData, className }) => {
 
 BoardCard.propTypes = {
   boardData: object.isRequired
-}
+};
 
 export default BoardCard;
