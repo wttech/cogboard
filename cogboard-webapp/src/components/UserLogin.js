@@ -1,13 +1,14 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
-import { useDialogToggle, useFormData } from '../hooks';
-import { login, logout } from '../actions/thunks';
+import {useDialogToggle, useFormData, useSnackbarToggle} from '../hooks';
+import {login, logout} from '../actions/thunks';
 
-import { TextField, Button, IconButton, Typography } from '@material-ui/core';
-import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
-import { StyledFieldset } from './styled';
+import {Button, IconButton, TextField, Typography} from '@material-ui/core';
+import {AccountCircle, PowerSettingsNew} from '@material-ui/icons';
+import {StyledFieldset} from './styled';
 import AppDialog from './AppDialog';
+import SnackbarWithVariant from "./SnackbarWithVariant";
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,13 @@ const UserLogin = () => {
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
   const jwToken = useSelector(({app}) => app.jwToken);
+  const [loginSnackbar, openLoginSnackbar, handleLoginSnackbarClose] = useSnackbarToggle();
+  const [logoutSnackbar, openLogoutSnackbar, handleLogoutSnackbarClose] = useSnackbarToggle();
 
   const handleLoginButtonClick = (credentials) => () => {
-    dispatch(login(credentials))
+    dispatch(login(credentials));
+    handleDialogClose();
+    openLoginSnackbar();
   };
 
   const handleLoginDialogOpen = () => {
@@ -25,7 +30,8 @@ const UserLogin = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logout())
+    dispatch(logout());
+    openLogoutSnackbar();
   };
 
   return (
@@ -88,6 +94,24 @@ const UserLogin = () => {
           </Button>
         </StyledFieldset>
       </AppDialog>
+      <SnackbarWithVariant
+        open={loginSnackbar.open}
+        handleClose={handleLoginSnackbarClose}
+        hideAfter={3000}
+        message={`Logged in as ${values.username}`}
+        vertical={'top'}
+        horizontal={'center'}
+        variant={'success'}
+      />
+      <SnackbarWithVariant
+        open={logoutSnackbar.open}
+        handleClose={handleLogoutSnackbarClose}
+        hideAfter={3000}
+        message={`${values.username} was logged out successfully`}
+        vertical={'top'}
+        horizontal={'center'}
+        variant={'info'}
+      />
     </>
   );
 };
