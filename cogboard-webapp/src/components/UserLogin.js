@@ -1,30 +1,34 @@
-import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Button, IconButton, TextField, Typography} from '@material-ui/core';
-import {AccountCircle, PowerSettingsNew} from '@material-ui/icons';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, IconButton, TextField, Typography } from '@material-ui/core';
+import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
 
-import {useToggle, useFormData, useSnackbarToggle} from '../hooks';
-import {login, logout} from '../actions/thunks';
-import {StyledFieldset} from './styled';
+import { useFormData, useToggle } from '../hooks';
+import { login, logout } from '../actions/thunks';
+import { StyledFieldset } from './styled';
 import AppDialog from './AppDialog';
 import SnackbarWithVariant from "./SnackbarWithVariant";
 
 const UserLogin = () => {
   const dispatch = useDispatch();
   const {values, handleChange} = useFormData({username: '', password: ''});
-  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
   const jwToken = useSelector(({app}) => app.jwToken);
+  const isUserLogged = !!jwToken;
+  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const [loginSnackbarOpened, openLoginSnackbar, handleLoginSnackbarClose] = useToggle();
   const [logoutSnackbarOpened, openLogoutSnackbar, handleLogoutSnackbarClose] = useToggle();
-
-  const onLoginSuccess = () => {
-    handleDialogClose();
-    openLoginSnackbar();
+  const onLoginButtonClick = () => {
+    if(isUserLogged) {
+      handleDialogClose();
+      openLoginSnackbar();
+    }
   };
 
+  useEffect(onLoginButtonClick, [isUserLogged]);
+
   const handleLoginButtonClick = (credentials) => () => {
-    dispatch(login(credentials, onLoginSuccess))
+    dispatch(login(credentials))
   };
 
   const handleLoginDialogOpen = () => {
