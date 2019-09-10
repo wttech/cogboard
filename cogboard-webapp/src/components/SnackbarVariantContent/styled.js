@@ -1,6 +1,7 @@
-import styled from "@emotion/styled/macro";
 import React from "react";
+import styled from "@emotion/styled/macro";
 import {SnackbarContent} from "@material-ui/core";
+
 import {mapVariantToColor} from "./helpers";
 
 export const SpanIcon = styled.span`

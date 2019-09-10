@@ -1,5 +1,6 @@
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar/index';
+
 import SnackbarVariantContent from "./SnackbarVariantContent";
 
 const SnackbarWithVariant = props => {
