@@ -156,12 +156,12 @@ const Widget = ({ id, index }) => {
         />
       </AppDialog>
       <ConfirmationDialog
-          open={confirmationDialogOpened}
-          title={`Delete ${title}`}
-          content={`Are you sure you want to delete ${title}?`}
-          handleOk={deleteWidget}
-          labelOk={`Delete`}
-          handleCancel={handleConfirmationDialogClose}
+        open={confirmationDialogOpened}
+        title={`Delete ${title}`}
+        content={`Are you sure you want to delete ${title}?`}
+        handleOk={deleteWidget}
+        labelOk="Delete"
+        handleCancel={handleConfirmationDialogClose}
       />
     </>
   );
