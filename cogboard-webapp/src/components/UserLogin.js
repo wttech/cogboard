@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Button, IconButton, TextField, Typography} from '@material-ui/core';
 import {AccountCircle, PowerSettingsNew} from '@material-ui/icons';
 
-import {useDialogToggle, useFormData, useSnackbarToggle} from '../hooks';
+import {useToggle, useFormData, useSnackbarToggle} from '../hooks';
 import {login, logout} from '../actions/thunks';
 import {StyledFieldset} from './styled';
 import AppDialog from './AppDialog';
@@ -12,11 +12,11 @@ import SnackbarWithVariant from "./SnackbarWithVariant";
 const UserLogin = () => {
   const dispatch = useDispatch();
   const {values, handleChange} = useFormData({username: '', password: ''});
-  const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
+  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
   const jwToken = useSelector(({app}) => app.jwToken);
-  const [loginSnackbar, openLoginSnackbar, handleLoginSnackbarClose] = useSnackbarToggle();
-  const [logoutSnackbar, openLogoutSnackbar, handleLogoutSnackbarClose] = useSnackbarToggle();
+  const [loginSnackbarOpened, openLoginSnackbar, handleLoginSnackbarClose] = useToggle();
+  const [logoutSnackbarOpened, openLogoutSnackbar, handleLogoutSnackbarClose] = useToggle();
 
   const onLoginSuccess = () => {
     handleDialogClose();
@@ -97,7 +97,7 @@ const UserLogin = () => {
         </StyledFieldset>
       </AppDialog>
       <SnackbarWithVariant
-        open={loginSnackbar.open}
+        open={loginSnackbarOpened}
         handleClose={handleLoginSnackbarClose}
         hideAfter={3000}
         message={`Logged in as ${values.username}`}
@@ -106,7 +106,7 @@ const UserLogin = () => {
         variant="success"
       />
       <SnackbarWithVariant
-        open={logoutSnackbar.open}
+        open={logoutSnackbarOpened}
         handleClose={handleLogoutSnackbarClose}
         hideAfter={3000}
         message={`${values.username} was logged out successfully`}
