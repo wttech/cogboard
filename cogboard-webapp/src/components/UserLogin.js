@@ -101,18 +101,18 @@ const UserLogin = () => {
         handleClose={handleLoginSnackbarClose}
         hideAfter={3000}
         message={`Logged in as ${values.username}`}
-        vertical={'top'}
-        horizontal={'center'}
-        variant={'success'}
+        vertical="top"
+        horizontal="center"
+        variant="success"
       />
       <SnackbarWithVariant
         open={logoutSnackbar.open}
         handleClose={handleLogoutSnackbarClose}
         hideAfter={3000}
         message={`${values.username} was logged out successfully`}
-        vertical={'top'}
-        horizontal={'center'}
-        variant={'info'}
+        vertical="top"
+        horizontal="center"
+        variant="info"
       />
     </>
   );
