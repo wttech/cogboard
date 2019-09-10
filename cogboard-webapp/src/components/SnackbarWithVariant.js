@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
-import CloseIcon from '@material-ui/icons/Close';
-import WarningIcon from '@material-ui/icons/Warning';
+import { CheckCircle, Error, Info, Warning } from '@material-ui/icons';
 import {amber, blue, green, red} from '@material-ui/core/colors';
-import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import {makeStyles} from '@material-ui/core/styles';
@@ -39,10 +34,10 @@ const useVariantStyles = makeStyles(theme => ({
 }));
 
 const variantIcon = {
-  success: CheckCircleIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
-  info: InfoIcon,
+  success: CheckCircle,
+  warning: Warning,
+  error: Error,
+  info: Info,
 };
 
 const SnackbarVariantContent = props => {
@@ -60,11 +55,6 @@ const SnackbarVariantContent = props => {
           {message}
         </span>
       }
-      action={[
-        <IconButton key="close" aria-label="close" color="inherit" onClick={onClose}>
-          <CloseIcon className={classes.icon}/>
-        </IconButton>,
-      ]}
       {...other}
     />
   );
