@@ -1,17 +1,14 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useTheme } from '@material-ui/core/styles'
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { setCurrentBoard } from '../../actions/actionCreators';
+import { setCurrentBoard } from "../../actions/actionCreators";
 
-import WidgetList from '../WidgetList';
-import { StyledContainer, StyledTitle } from './styled';
+import WidgetList from "../WidgetList";
+import { StyledContainer } from "./styled";
 
 const Board = ({ boardId, className }) => {
   const currentBoard = useSelector(({ boards }) => boards.boardsById[boardId]);
-  const { title, columns, widgets } = currentBoard || {};
-  const theme = useTheme();
+  const { columns, widgets } = currentBoard || {};
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,21 +20,12 @@ const Board = ({ boardId, className }) => {
   }
 
   return (
-    <>
-      <StyledTitle
-        component="h2"
-        variant="h3"
-        theme={theme}
-      >
-        {title}
-      </StyledTitle>
-      <StyledContainer
-        className={className}
-        columns={columns}
-      >
-        <WidgetList widgets={widgets} />
-      </StyledContainer>
-    </>
+    <StyledContainer
+      className={className}
+      columns={columns}
+    >
+      <WidgetList widgets={widgets}/>
+    </StyledContainer>
   );
 };
 
