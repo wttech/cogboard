@@ -6,13 +6,13 @@ import java.util.*
 
 class Endpoint(val endpoints: JsonArray, val credentials: JsonArray, val endpointId: String) {
 
-    fun asJson(): JsonObject {
-        return findJsonObjectById(endpointId, endpoints)
-                .map { attachCredentials(it) }
-                .orElse(JsonObject())
+    fun asJson(withUserPassword: Boolean): JsonObject {
+        val endpointJson = findJsonObjectById(endpointId, endpoints)
+        if (withUserPassword) endpointJson.map { attachUserPassword(it) }
+        return endpointJson.orElse(JsonObject())
     }
 
-    private fun attachCredentials(endpoint: JsonObject): JsonObject {
+    private fun attachUserPassword(endpoint: JsonObject): JsonObject {
         endpoint.remove(CREDENTIALS).toString().let {
             val credentials = findJsonObjectById(it, credentials)
                     .orElse(JsonObject())
@@ -42,6 +42,15 @@ class Endpoint(val endpoints: JsonArray, val credentials: JsonArray, val endpoin
             val endpoints = config.getJsonArray(ENDPOINTS) ?: JsonArray()
             val credentials = config.getJsonArray(CREDENTIALS) ?: JsonArray()
             return Endpoint(endpoints, credentials, endpointId)
+        }
+
+        fun exists(config: JsonObject, endpointId: String?): Boolean {
+            val endpoints = config.getJsonArray(ENDPOINTS) ?: JsonArray()
+            return endpoints.stream()
+                    .map { it as JsonObject }
+                    .anyMatch {
+                        endpointId == it.getString(ID)
+                    }
         }
     }
 }

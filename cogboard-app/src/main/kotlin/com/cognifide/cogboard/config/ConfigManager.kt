@@ -20,6 +20,7 @@ class ConfigManager : AbstractVerticle() {
         listenOnConfigSave()
         listenOnWidgetUpdate()
         listenOnWidgetDelete()
+        listenOnEndpointsUpdate()
         loadConfig()
     }
 
@@ -37,6 +38,14 @@ class ConfigManager : AbstractVerticle() {
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_WIDGET_CONFIG)
             .handler { delete(it.body()) }
+
+    private fun listenOnEndpointsUpdate() = vertx
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS_CONFIG)
+            .handler {
+                updateEndpointsConfig(it.body())
+                storage.saveEndpointsConfig(config())
+            }
 
     private fun loadConfig() = storage
             .loadConfig()
@@ -76,8 +85,20 @@ class ConfigManager : AbstractVerticle() {
         val endpointId = config.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
             val endpoint = Endpoint.from(config(), endpointId)
-            config.put(CogboardConstants.PROP_ENDPOINT, endpoint.asJson())}
+            config.put(CogboardConstants.PROP_ENDPOINT, endpoint.asJson(true))
         }
+    }
+
+    private fun updateEndpointsConfig(endpoint: JsonObject) {
+        val endpointId = endpoint.getString(CogboardConstants.PROP_ID)
+        if (Endpoint.exists(config(), endpointId)) {
+            Endpoint.from(config(), endpointId)
+                    .asJson(false)
+                    .mergeIn(endpoint, true)
+        } else {
+            config().getJsonArray("endpoints").add(endpoint)
+        }
+    }
 
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(ConfigManager::class.java)

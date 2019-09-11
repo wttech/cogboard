@@ -1,4 +1,4 @@
-val initEndpoints = !File("$projectDir/knotx/conf/endpoints.conf").exists()
+val initEndpoints = !File("$projectDir/mnt/endpoints.conf").exists()
 val initAdmins = !File("$projectDir/knotx/conf/admins.conf").exists()
 val initJwt = !File("$projectDir/knotx/conf/jwt.conf").exists()
 val initConfig = !File("$projectDir/mnt/config.json").exists()
@@ -8,9 +8,9 @@ tasks {
         group = "distribution"
 
         if (initEndpoints) {
-            logger.lifecycle(">> creating './knotx/conf/endpoints.conf' file")
+            logger.lifecycle(">> creating './mnt/endpoints.conf' file")
             from("$projectDir/knotx/conf/initial/endpoints.conf")
-            into("$projectDir/knotx/conf")
+              into("$projectDir/mnt")
         }
     }
 

@@ -9,7 +9,6 @@ import io.vertx.core.logging.LoggerFactory
 import java.io.File
 
 class VolumeStorage(val vertx: Vertx) : Storage {
-
     private val loader = Loader()
 
     override fun loadConfig(): JsonObject {
@@ -24,6 +23,15 @@ class VolumeStorage(val vertx: Vertx) : Storage {
             vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET, JsonObject().message(ERROR_MESSAGE))
             LOGGER.error("$ERROR_MESSAGE \nconfig:\n$config")
         }
+    }
+
+    override fun loadEndpointsConfig(): JsonObject {
+        return loader.loadEndpointsConfig()
+    }
+
+    override fun saveEndpointsConfig(config: JsonObject) {
+            File("/data/endpoints.conf").writeText(config.toString())
+            vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET, JsonObject().message(OK_MESSAGE))
     }
 
     private fun JsonObject.message(message: String): JsonObject {
@@ -41,6 +49,16 @@ class VolumeStorage(val vertx: Vertx) : Storage {
         }
 
         override fun saveConfig(config: JsonObject) {
+            throw NotImplementedError()
+        }
+
+        override fun loadEndpointsConfig(): JsonObject {
+            val conf = File("/data/endpoints.conf").readText()
+            val configJson = JsonObject(conf)
+            return if (validate(configJson)) configJson else CogboardConstants.errorResponse("Endpoints config not valid")
+        }
+
+        override fun saveEndpointsConfig(config: JsonObject) {
             throw NotImplementedError()
         }
     }

@@ -47,11 +47,15 @@ paths:
       responses:
         default:
           description: Endpoint list
+  /api/endpoints/add:
+    post:
+      operationId: endpoints-update-handler
+      responses:
+        default:
+          description: Added new endpoint
   /api/config/save:
     post:
       operationId: config-save-handler
-      security:
-        - cogboardAuth: []
       responses:
         default:
           description: Config Save Handler

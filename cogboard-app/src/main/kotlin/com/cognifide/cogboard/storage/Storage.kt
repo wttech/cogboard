@@ -7,4 +7,8 @@ interface Storage {
     fun loadConfig(): JsonObject
 
     fun saveConfig(config: JsonObject)
+
+    fun loadEndpointsConfig(): JsonObject
+
+    fun saveEndpointsConfig(config: JsonObject)
 }
