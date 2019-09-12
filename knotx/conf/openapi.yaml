@@ -77,6 +77,12 @@ paths:
       responses:
         default:
           description: Cogboard Home
+  /board*:
+    get:
+      operationId: home-page
+      responses:
+        default:
+          description: Cogboard Home
   /*:
     get:
       operationId: cogboard-react-app
