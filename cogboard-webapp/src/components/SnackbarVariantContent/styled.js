@@ -10,6 +10,6 @@ export const SpanIcon = styled.span`
   justify-content: center;
 `;
 
-export const StyledSnackbarContent = styled(({ variant, ...other }) => <SnackbarContent {...other} />)`
-  background: ${({ variant }) => mapVariantToColor(variant)};
+export const StyledSnackbarContent = styled(({ theme, variant, ...other }) => <SnackbarContent {...other} />)`
+  background: ${({ theme, variant }) => mapVariantToColor(theme, variant)};
 `;
