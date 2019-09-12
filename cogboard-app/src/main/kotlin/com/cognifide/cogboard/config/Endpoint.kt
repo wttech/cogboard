@@ -52,5 +52,20 @@ class Endpoint(val endpoints: JsonArray, val credentials: JsonArray, val endpoin
                         endpointId == it.getString(ID)
                     }
         }
+
+        fun add(config: JsonObject, endpoint: JsonObject) {
+            if (!config.containsKey(ENDPOINTS)) {
+                config.put(ENDPOINTS, JsonArray())
+            }
+            config.getJsonArray(ENDPOINTS).add(endpoint)
+        }
+
+        fun update(config: JsonObject, endpoint: JsonObject) {
+            val endpointId = endpoint.getString(ID)
+            val endpointToUpdate = Endpoint.from(config, endpointId)
+                    .asJson(false)
+
+            endpointToUpdate.mergeIn(endpoint, true)
+        }
     }
 }

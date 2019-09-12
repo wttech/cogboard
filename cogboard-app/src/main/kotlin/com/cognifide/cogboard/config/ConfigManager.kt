@@ -43,7 +43,7 @@ class ConfigManager : AbstractVerticle() {
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS_CONFIG)
             .handler {
-                updateEndpointsConfig(it.body())
+                updateEndpointsConfig(config(), it.body())
                 storage.saveEndpointsConfig(config())
             }
 
@@ -89,15 +89,10 @@ class ConfigManager : AbstractVerticle() {
         }
     }
 
-    private fun updateEndpointsConfig(endpoint: JsonObject) {
+    private fun updateEndpointsConfig(config: JsonObject, endpoint: JsonObject) {
         val endpointId = endpoint.getString(CogboardConstants.PROP_ID)
-        if (Endpoint.exists(config(), endpointId)) {
-            Endpoint.from(config(), endpointId)
-                    .asJson(false)
-                    .mergeIn(endpoint, true)
-        } else {
-            config().getJsonArray("endpoints").add(endpoint)
-        }
+        val endpointExistsInConfig = Endpoint.exists(config, endpointId)
+        if (endpointExistsInConfig) Endpoint.update(config, endpoint) else Endpoint.add(config, endpoint)
     }
 
     companion object {

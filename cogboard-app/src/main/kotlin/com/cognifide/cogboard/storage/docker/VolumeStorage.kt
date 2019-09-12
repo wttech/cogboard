@@ -83,7 +83,6 @@ class VolumeStorage(val vertx: Vertx) : Storage {
 
         private fun validateEndpoints(config: JsonObject): Boolean {
             return config.getJsonArray("endpoints") != null
-                    && config.getJsonArray("credentials") != null
         }
     }
 }
