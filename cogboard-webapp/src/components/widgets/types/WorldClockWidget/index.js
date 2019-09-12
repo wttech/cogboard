@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import Typography from "@material-ui/core/Typography/index";
+import {Typography} from "@material-ui/core";
 
 import {useInterval} from '../../../../hooks'
 import {getDate} from "./helpers";
+import {StyledPre} from "../TextWidget/styled";
+
 
 const WorldClockWidget = props => {
-    const {timeZoneId, dateFormat} = props;
+    const { timeZoneId, dateFormat, textSize } = props;
 
     let date = getDate(timeZoneId, dateFormat);
     let [datetime, setDateTime] = useState(date);
@@ -15,9 +17,9 @@ const WorldClockWidget = props => {
     }, 1000);
 
     return (
-        <Typography>
-           {datetime}
-        </Typography>
+      <Typography variant={textSize}>
+          <StyledPre>{datetime}</StyledPre>
+      </Typography>
     );
 };
 

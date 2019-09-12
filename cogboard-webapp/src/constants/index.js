@@ -13,22 +13,34 @@ export const COLUMNS_MAX = 20;
 export const GMT_TIMEZONES = getGmtTimezones();
 
 export const DATE_FORMATS = [
-    {
-        display: '29-08-2019, 15:43:12',
-        value: 'DD-MM-YYYY, HH:mm:ss'
-    },
-    {
-        display: '29 Aug 2019, 15:43:12',
-        value: 'DD MMM YYYY, HH:mm:ss'
-    },
-    {
-        display: '15:43:12, 29-08-2019',
-        value: 'HH:mm:ss, DD-MM-YYYY'
-    },
-    {
-        display: '15:43:12, 29 Aug 2019',
-        value: 'HH:mm:ss, DD MMM YYYY'
-    }
+  {
+    display: '15:43:12 (Time only)',
+    value: 'HH:mm:ss'
+  },
+  {
+    display: '29/08/2019 (Date only)',
+    value: 'DD/MM/YYYY'
+  },
+  {
+    display: '29 Aug 2019 (Date only)',
+    value: 'DD MMM YYYY'
+  },
+  {
+    display: '29/08/2019, 15:43:12',
+    value: 'DD/MM/YYYY, HH:mm:ss'
+  },
+  {
+    display: '29 Aug 2019, 15:43:12',
+    value: 'DD MMM YYYY, HH:mm:ss'
+  },
+  {
+    display: '15:43:12, 29/08/2019',
+    value: 'HH:mm:ss, DD/MM/YYYY'
+  },
+  {
+    display: '15:43:12, 29 Aug 2019',
+    value: 'HH:mm:ss, DD MMM YYYY'
+  }
 ];
 
 export const ROWS_MIN = 1;
