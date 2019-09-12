@@ -48,6 +48,7 @@ export const StyledTitle = styled(Typography)`
   flex-grow: 1;
   font-size: 2rem;
   margin-left: 1rem;
+  margin-top: 1rem;
   overflow: hidden;
   padding-right: 2rem;
   text-overflow: ellipsis;
