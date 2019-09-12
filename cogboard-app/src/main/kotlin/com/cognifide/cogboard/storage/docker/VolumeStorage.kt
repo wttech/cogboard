@@ -73,7 +73,7 @@ class VolumeStorage(val vertx: Vertx) : Storage {
         const val ERROR_MESSAGE = "Configuration not saved - wrong configuration"
         const val PROP_EVENT_TYPE_NOTIFICATION_CONFIG_SAVE = "notification-config-save"
         private const val BOARD_CONFIG_FILE_PATH = "/data/config.json"
-        private const val ENDPOINTS_CONFIG_FILE_PATH = "/data/endpoints.conf"
+        private const val ENDPOINTS_CONFIG_FILE_PATH = "/data/endpoints.json"
         private val LOGGER: Logger = LoggerFactory.getLogger(VolumeStorage::class.java)
 
         private fun validate(config: JsonObject): Boolean {

@@ -52,10 +52,12 @@ paths:
       operationId: endpoints-update-handler
       responses:
         default:
-          description: Added new endpoint
+          description: Endpoints Config Update Handler
   /api/config/save:
     post:
       operationId: config-save-handler
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Config Save Handler
