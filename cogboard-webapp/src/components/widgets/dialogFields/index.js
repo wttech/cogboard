@@ -90,12 +90,24 @@ const dialogFields = {
     name: 'content.text',
     label: 'Text'
   },
+  RequestBody: {
+    component: MultilineTextInput,
+    name: 'content.requestBody',
+    label: 'Request Body'
+  },
   TextSize: {
     component: DisplayValueSelect,
     name: 'content.textSize',
     label: 'Text Size',
     dropdownItems: TEXT_SIZES,
     initialValue: TEXT_SIZES[3].value
+  },
+  RequestMethod: {
+    component: DisplayValueSelect,
+    name: 'content.requestMethod',
+    label: 'Request Method',
+    dropdownItems: REQUEST_METHODS,
+    initialValue: REQUEST_METHODS[0].value
   },
   TextOrientation: {
     component: CheckboxInput,

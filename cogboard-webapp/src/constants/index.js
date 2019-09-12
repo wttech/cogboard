@@ -57,6 +57,26 @@ export const TEXT_SIZES = [
     value: 'h6'
   }
 ];
+
+export const REQUEST_METHODS = [
+  {
+    display: 'GET',
+    value: 'get'
+  },
+  {
+    display: 'POST',
+    value: 'post'
+  },
+  {
+    display: 'PUT',
+    value: 'put'
+  },
+  {
+    display: 'DELETE',
+    value: 'delete'
+  }
+];
+
 export const ROWS_MIN = 1;
 export const ItemTypes = {
   WIDGET: 'widget'

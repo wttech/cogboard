@@ -35,7 +35,7 @@ const widgetTypes = {
   ServiceCheckWidget: {
     name: 'Service Check widget',
     component: ServiceCheckWidget,
-    dialogFields: ['SchedulePeriod', 'URL', 'StatusCode'],
+    dialogFields: ['SchedulePeriod', 'RequestMethod', 'EndpointField', 'RequestBody', 'StatusCode'],
     showUpdateTime : true
   },
   TextWidget: {
