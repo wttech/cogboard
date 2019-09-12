@@ -5,13 +5,6 @@ const gradientAngle = 45;
 
 const createGradient = (start, end) => `linear-gradient(${gradientAngle}deg, ${start}, ${end})`;
 
-export const colorByVariant = {
-  info: blue[100],
-  success: green[300],
-  warning: amber[700],
-  error: red[800]
-};
-
 export const theme = createMuiTheme({
   palette: {
     type: 'dark',
@@ -28,6 +21,12 @@ export const theme = createMuiTheme({
       ERROR_CONFIGURATION: createGradient('#af4448', '#e57373'),
       ERROR: createGradient('#af4448', '#e57373'),
       FAIL: createGradient('#af4448', '#e57373')
+    },
+    variant : {
+      info: blue[100],
+      success: green[300],
+      warning: amber[700],
+      error: red[800]
     }
   },
   shape: {

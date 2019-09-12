@@ -1,3 +1,1 @@
-import {colorByVariant} from "../../theme";
-
-export const mapVariantToColor = (variant) => colorByVariant[variant];
+export const mapVariantToColor = (theme, variant) => theme.palette.variant[variant];
