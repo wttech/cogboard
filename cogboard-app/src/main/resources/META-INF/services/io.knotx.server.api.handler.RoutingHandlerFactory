@@ -1,8 +1,8 @@
-com.cognifide.cogboard.config.handler.GetEndpoints
+com.cognifide.cogboard.config.handler.endpoints.GetEndpoints
 com.cognifide.cogboard.config.handler.GetConfig
 com.cognifide.cogboard.config.handler.SaveConfig
 com.cognifide.cogboard.config.handler.HomePage
 com.cognifide.cogboard.widget.handler.UpdateWidget
 com.cognifide.cogboard.widget.handler.DeleteWidget
-com.cognifide.cogboard.config.handler.UpdateEndpoints
+com.cognifide.cogboard.config.handler.endpoints.UpdateEndpoints
 com.cognifide.cogboard.security.LoginHandler

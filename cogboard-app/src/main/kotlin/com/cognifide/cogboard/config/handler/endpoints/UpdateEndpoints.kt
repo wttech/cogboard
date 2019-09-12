@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.config.handler
+package com.cognifide.cogboard.config.handler.endpoints
 
 import com.cognifide.cogboard.CogboardConstants
 import io.knotx.server.api.handler.RoutingHandlerFactory
