@@ -1,26 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {CheckCircle, Error, Info, Warning} from "@material-ui/icons";
-
-import {IconStyles, SpanIcon, StyledSnackbarContent} from "./styled";
-
-const variantIcon = {
-  success: CheckCircle,
-  warning: Warning,
-  error: Error,
-  info: Info,
-};
+import { SpanIcon, StyledSnackbarContent } from "./styled";
+import IconVariant from "../IconVariant";
 
 const SnackbarVariantContent = props => {
   const { message, variant } = props;
-  const Icon = variantIcon[variant];
 
   return (
     <StyledSnackbarContent
       variant={variant}
       message={
         <SpanIcon>
-          <Icon style={IconStyles}/>
+          <IconVariant variant={variant}/>
           {message}
         </SpanIcon>
       }
