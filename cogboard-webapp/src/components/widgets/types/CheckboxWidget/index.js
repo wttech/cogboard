@@ -22,7 +22,7 @@ const CheckboxWidget = props => {
 
   return (
     <WidgetIconButton aria-label="Toggle status" onClick={handleChangeStatus}>
-      <StatusIcon size="large" status={status}/>
+      <StatusIcon size="large" status={status} />
     </WidgetIconButton>
   );
 };

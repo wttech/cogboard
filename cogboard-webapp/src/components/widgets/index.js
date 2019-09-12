@@ -61,7 +61,8 @@ const widgetTypes = {
   },
   CheckboxWidget: {
     name: 'Checkbox widget',
-    component: CheckboxWidget
+    component: CheckboxWidget,
+    showUpdateTime : true
   }
 };
 
