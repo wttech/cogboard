@@ -18,14 +18,13 @@ const UserLogin = () => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const [loginSnackbarOpened, openLoginSnackbar, handleLoginSnackbarClose] = useToggle();
   const [logoutSnackbarOpened, openLogoutSnackbar, handleLogoutSnackbarClose] = useToggle();
-  const onLoginButtonClick = () => {
+
+  useEffect(() => {
     if(isUserLogged) {
       handleDialogClose();
       openLoginSnackbar();
     }
-  };
-
-  useEffect(onLoginButtonClick, [isUserLogged]);
+  }, [isUserLogged]);
 
   const handleLoginButtonClick = (credentials) => () => {
     dispatch(login(credentials))
