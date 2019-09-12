@@ -31,6 +31,32 @@ export const DATE_FORMATS = [
     }
 ];
 
+export const TEXT_SIZES = [
+  {
+    display: 'XXL',
+    value: 'h1'
+  },
+  {
+    display: 'XL',
+    value: 'h2'
+  },
+  {
+    display: 'L',
+    value: 'h3'
+  },
+  {
+    display: 'M',
+    value: 'h4'
+  },
+  {
+    display: 'S',
+    value: 'h5'
+  },
+  {
+    display: 'XS',
+    value: 'h6'
+  }
+];
 export const ROWS_MIN = 1;
 export const ItemTypes = {
   WIDGET: 'widget'

@@ -3,8 +3,12 @@ import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 import DisplayValueSelect from "./DisplayValueSelect";
-import { DATE_FORMATS, GMT_TIMEZONES } from "../../../constants";
-import TextSizeInput from "./TextSizeInput";
+import {
+  DATE_FORMATS,
+  GMT_TIMEZONES,
+  REQUEST_METHODS,
+  TEXT_SIZES
+} from "../../../constants";
 import MultilineTextInput from "./MultilineTextInput";
 import CheckboxInput from "./CheckboxInput";
 
@@ -87,18 +91,11 @@ const dialogFields = {
     label: 'Text'
   },
   TextSize: {
-    component: TextSizeInput,
+    component: DisplayValueSelect,
     name: 'content.textSize',
     label: 'Text Size',
-    dropdownItems: {
-      XXL: 'h1',
-      XL: 'h2',
-      L: 'h3',
-      M: 'h4',
-      S: 'h5',
-      XS: 'h6'
-    },
-    initialValue: 'h4'
+    dropdownItems: TEXT_SIZES,
+    initialValue: TEXT_SIZES[3].value
   },
   TextOrientation: {
     component: CheckboxInput,
