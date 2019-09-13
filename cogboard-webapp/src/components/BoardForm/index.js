@@ -1,59 +1,87 @@
 import React from 'react';
+import useForm from 'react-hook-form';
 import { string, number, bool } from 'prop-types';
+import styled from '@emotion/styled/macro';
 
-import { useFormData } from '../../hooks';
 import { COLUMNS_MAX, COLUMNS_MIN } from '../../constants';
 
-import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/core';
+import { FormControl, FormControlLabel, Switch, TextField, Button } from '@material-ui/core';
 import { StyledFieldset } from './styled';
+import CancelButton from '../CancelButton';
 
-const BoardForm = ({ renderActions, ...initialFormValues }) => {
-  const { values, handleChange } = useFormData(initialFormValues);
+const StyledCancelButton = styled(CancelButton)`
+  margin-left: 20px;
+`;
+
+const BoardForm = ({ onSubmit, onCancel, ...initialFormValues }) => {
+  const { register, handleSubmit, watch, errors } = useForm({
+    defaultValues: initialFormValues
+  });
+
+  watch(errors.columns)
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <StyledFieldset component="fieldset">
         <TextField
-          onChange={handleChange('title')}
-          id="title"
+          name="title"
           InputLabelProps={{
             shrink: true
           }}
           label="Title"
           margin="normal"
-          value={values.title}
+          inputRef={register({
+            required: 'This field is required.', 
+            pattern: /^[^A\s].*$/iu
+          })}
+          error={errors.title ? true : false}
+          helperText={errors.title ? errors.title.message : ''}
         />
         <TextField
-          onChange={handleChange('columns')}
-          id="columns"
+          name="columns"
           InputLabelProps={{
             shrink: true
           }}
-          inputProps={{
-            min: COLUMNS_MIN,
-            max: COLUMNS_MAX
-          }}
+
           label="Columns"
           margin="normal"
-          value={values.columns}
           type="number"
+          inputRef={register({
+            required: 'This field is required.', 
+            min: {
+              value: COLUMNS_MIN,
+              message: `The board should have at least ${COLUMNS_MIN} column.`
+            }, 
+            max: {
+              value: COLUMNS_MAX,
+              message: `The board should have at most ${COLUMNS_MAX} columns.`
+            }
+          })}
+          error={errors.columns ? true : false}
+          helperText={errors.columns ? errors.columns.message : ''}
         />
         <FormControl margin="normal">
           <FormControlLabel
             control={
               <Switch
-                onChange={handleChange('autoSwitch')}
-                checked={values.autoSwitch}
+                name="autoSwitch"
+                inputRef={register}
                 color="primary"
-                value="autoSwitch"
               />
             }
             label="Auto switch"
           />
         </FormControl>
       </StyledFieldset>
-      {renderActions(values)}
-    </>
+      <Button
+        color="primary"
+        variant="contained"
+        type="submit"
+      >
+        Add
+      </Button>
+      <StyledCancelButton handleCancelClick={onCancel} />
+    </form>
   );
 };
 
@@ -64,7 +92,7 @@ BoardForm.propTypes = {
 };
 
 BoardForm.defaultProps = {
-  autoSwitch: true,
+  autoSwitch: false,
   columns: 8,
   title: 'Board',
 };
