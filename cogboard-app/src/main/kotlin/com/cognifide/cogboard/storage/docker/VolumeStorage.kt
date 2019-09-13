@@ -1,6 +1,8 @@
 package com.cognifide.cogboard.storage.docker
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_BOARD_COLUMN_MAX
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_BOARD_COLUMN_MIN
 import com.cognifide.cogboard.storage.Storage
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
@@ -52,8 +54,21 @@ class VolumeStorage(val vertx: Vertx) : Storage {
         const val PROP_EVENT_TYPE_NOTIFICATION_CONFIG_SAVE = "notification-config-save"
 
         private fun validate(config: JsonObject): Boolean {
-            return config.getJsonObject("boards")?.getJsonObject("boardsById") != null
+            val boards = config.getJsonObject("boards")?.getJsonObject("boardsById")
+            return boards != null && validateBoards(boards)
                     && config.getJsonObject("widgets")?.getJsonObject("widgetsById") != null
+        }
+
+        private fun validateBoards(boards: JsonObject): Boolean {
+            var result = true
+            boards.fieldNames().stream().forEach {
+                val board = boards.getJsonObject(it)
+                val columns = board.getInteger("columns")
+                result = result && (columns in PROP_BOARD_COLUMN_MIN..PROP_BOARD_COLUMN_MAX)
+                val title = board.getString("title")
+                result = result && title.isNotBlank()
+            }
+            return result
         }
     }
 }
