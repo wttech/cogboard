@@ -16,5 +16,4 @@ IFrameEmbedWidget.propTypes = {
     url: string.isRequired
 };
 
-
 export default IFrameEmbedWidget;

@@ -11,35 +11,40 @@ export const COLUMNS_MIN = 1;
 export const COLUMNS_MAX = 20;
 
 export const GMT_TIMEZONES = getGmtTimezones();
-
 export const DATE_FORMATS = [
   {
-    display: '15:43:12 (Time only)',
-    value: 'HH:mm:ss'
-  },
-  {
-    display: '29/08/2019 (Date only)',
+    display: '29/08/2019',
     value: 'DD/MM/YYYY'
   },
   {
-    display: '29 Aug 2019 (Date only)',
+    display: 'Friday, 29/08/2019',
+    value: 'dddd, DD/MM/YYYY'
+  },
+  {
+    display: '29 Aug 2019',
     value: 'DD MMM YYYY'
   },
   {
-    display: '29/08/2019, 15:43:12',
-    value: 'DD/MM/YYYY, HH:mm:ss'
+    display: 'Friday, 29 Aug 2019',
+    value: 'dddd, DD MMM YYYY'
   },
   {
-    display: '29 Aug 2019, 15:43:12',
-    value: 'DD MMM YYYY, HH:mm:ss'
+    display: '29th August 2019',
+    value: 'Do MMMM YYYY'
   },
   {
-    display: '15:43:12, 29/08/2019',
-    value: 'HH:mm:ss, DD/MM/YYYY'
+    display: 'Friday, 29th August 2019',
+    value: 'dddd, Do MMMM YYYY'
+  }
+];
+export const TIME_FORMATS = [
+  {
+    display: '12-hour (AM/PM)',
+    value: 'LTS'
   },
   {
-    display: '15:43:12, 29 Aug 2019',
-    value: 'HH:mm:ss, DD MMM YYYY'
+    display: '24-hour',
+    value: 'HH:MM:ss'
   }
 ];
 

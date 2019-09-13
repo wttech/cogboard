@@ -52,7 +52,7 @@ const widgetTypes = {
   WorldClockWidget: {
     name: 'World Clock widget',
     component: WorldClockWidget,
-    dialogFields: ['TimeZoneId', 'DateTimeFormat', 'TextSize']
+    dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DateTimeSize']
   },
   IFrameEmbedWidget: {
     name: 'IFrame Embed widget',
