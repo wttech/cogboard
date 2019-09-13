@@ -133,6 +133,12 @@ const dialogFields = {
       XS: 'h6'
     },
     initialValue: 'h4'
+  },
+  TextOrientation: {
+    component: CheckboxInput,
+    name: 'content.isVertical',
+    label: 'Vertical Text',
+    initialValue: false
   }
 };
 
