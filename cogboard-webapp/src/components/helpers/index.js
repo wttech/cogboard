@@ -12,3 +12,7 @@ export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
 
     return newObj;
   }, {});
+
+Array.prototype.insert = function ( index, item ) {
+  this.splice( index, 0, item );
+};
