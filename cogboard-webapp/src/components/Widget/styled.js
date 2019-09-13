@@ -10,6 +10,7 @@ export const StyledCard = styled(forwardRef(({
   status,
   columns,
   goNewLine,
+  isAuthenticated,
   isDragging,
   isOver,
   rows,
@@ -18,7 +19,7 @@ export const StyledCard = styled(forwardRef(({
 }, ref) => <Card {...other} ref={ref} />))`
   background: ${({ isDragging, status, theme }) => !isDragging ? mapStatusToColor(status, theme) : theme.palette.background.paper};
   box-shadow: none;
-  cursor: move;
+  cursor: ${({ isAuthenticated }) => isAuthenticated ? 'move' : 'default'};
   display: flex;
   flex-direction: column;
   grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
