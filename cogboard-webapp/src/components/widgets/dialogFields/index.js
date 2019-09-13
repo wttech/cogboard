@@ -1,3 +1,5 @@
+import moment from 'moment-timezone'
+
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
@@ -72,7 +74,7 @@ const dialogFields = {
     name: 'content.timeZoneId',
     label: 'Timezone',
     dropdownItems: GMT_TIMEZONES,
-    initialValue: 'Etc/GMT-2' //timezone for Poland
+    initialValue: moment.tz.guess()
   },
   DateFormat: {
     component: DisplayValueSelect,
