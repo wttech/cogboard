@@ -3,10 +3,10 @@ import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 import DisplayValueSelect from "./DisplayValueSelect";
-import {DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS} from "../../../constants";
 import TextSizeInput from "./TextSizeInput";
 import MultilineTextInput from "./MultilineTextInput";
 import CheckboxInput from "./CheckboxInput";
+import {DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS} from "../types/WorldClockWidget/helpers";
 
 const dialogFields = {
   EndpointField: {
