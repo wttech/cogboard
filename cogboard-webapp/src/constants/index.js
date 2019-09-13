@@ -8,7 +8,7 @@ export const URL = {
   LOGIN: '/api/login'
 };
 export const COLUMNS_MIN = 1;
-export const COLUMNS_MAX = 20;
+export const COLUMNS_MAX = 12;
 
 export const GMT_TIMEZONES = getGmtTimezones();
 

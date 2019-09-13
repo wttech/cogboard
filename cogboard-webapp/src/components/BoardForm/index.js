@@ -42,7 +42,6 @@ const BoardForm = ({ onSubmit, onCancel, ...initialFormValues }) => {
           InputLabelProps={{
             shrink: true
           }}
-
           label="Columns"
           margin="normal"
           type="number"

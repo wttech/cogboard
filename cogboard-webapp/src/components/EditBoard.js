@@ -10,6 +10,8 @@ const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
   const dispatch = useDispatch()
 
   const handleSaveClick = (values) => {
+    const { columns } = values;
+    values.columns = parseInt(columns);
     dispatch(saveBoard({ id, ...values }));
     closeDialog();
   };

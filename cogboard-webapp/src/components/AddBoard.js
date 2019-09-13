@@ -21,6 +21,8 @@ const AddBoard = () => {
   };
 
   const handleAddActionClick = values => {
+    const { columns } = values;
+    values.columns = parseInt(columns);
     dispatch(addNewBoard(values));
     handleDialogClose();
   };
