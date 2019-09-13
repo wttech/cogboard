@@ -45,6 +45,7 @@ const Widget = ({ id, index }) => {
   const isAuthenticated = useSelector(({app}) => !!app.jwToken);
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
+    canDrag: isAuthenticated,
     collect: monitor => ({
       isDragging: monitor.isDragging()
     })
@@ -83,9 +84,7 @@ const Widget = ({ id, index }) => {
     })
   });
 
-  if(isAuthenticated){
-    drag(drop(ref));
-  }
+  drag(drop(ref));
 
   const handleEditClick = (closeMenu) => () => {
     openDialog();
