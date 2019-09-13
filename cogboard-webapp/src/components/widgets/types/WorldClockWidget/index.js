@@ -8,7 +8,7 @@ import {DatePre, TimePre} from "./styled";
 
 
 const WorldClockWidget = props => {
-  const {timeZoneId, dateFormat, timeFormat, textSize} = props;
+  const {timeZoneId, dateFormat, timeFormat, displayDate, displayTime, textSize} = props;
 
   const date = getDateTime(timeZoneId, dateFormat);
 
@@ -21,8 +21,8 @@ const WorldClockWidget = props => {
 
   return (
     <Typography variant={textSize}>
-      <TimePre>{time}</TimePre>
-      <DatePre>{date}</DatePre>
+      {displayTime && <TimePre>{time}</TimePre>}
+      {displayDate && <DatePre>{date}</DatePre>}
     </Typography>
   );
 };

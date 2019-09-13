@@ -88,6 +88,18 @@ const dialogFields = {
     dropdownItems: TIME_FORMATS,
     initialValue: TIME_FORMATS[1].value
   },
+  DisplayDate: {
+    component: CheckboxInput,
+    name: 'content.displayDate',
+    label: 'Display date',
+    initialValue: true
+  },
+  DisplayTime: {
+    component: CheckboxInput,
+    name: 'content.displayTime',
+    label: 'Display time',
+    initialValue: true
+  },
   DateTimeSize: {
     component: TextSizeInput,
     name: 'content.textSize',
@@ -121,12 +133,6 @@ const dialogFields = {
       XS: 'h6'
     },
     initialValue: 'h4'
-  },
-  TextOrientation: {
-    component: CheckboxInput,
-    name: 'content.isVertical',
-    label: 'Vertical Text',
-    initialValue: false
   }
 };
 

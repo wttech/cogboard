@@ -9,5 +9,5 @@ export const TimePre = styled.pre`
 
 export const DatePre = styled.pre`
   font-family: inherit;
-    margin: 10px 0 auto;
+  margin: 0.25em 0 auto;
 `;
