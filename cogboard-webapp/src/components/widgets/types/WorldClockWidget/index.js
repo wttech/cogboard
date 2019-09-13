@@ -1,26 +1,41 @@
 import React, {useState} from 'react';
+import {string} from "prop-types";
 import {Typography} from "@material-ui/core";
 
 import {useInterval} from '../../../../hooks'
-import {getDate} from "./helpers";
-import {StyledPre} from "../TextWidget/styled";
+import {getDateTime} from "./helpers";
+import {DatePre, TimePre} from "./styled";
 
 
 const WorldClockWidget = props => {
-    const { timeZoneId, dateFormat, textSize } = props;
+  const {timeZoneId, dateFormat, timeFormat, textSize} = props;
 
-    let date = getDate(timeZoneId, dateFormat);
-    let [datetime, setDateTime] = useState(date);
+  const date = getDateTime(timeZoneId, dateFormat);
 
-    useInterval(() => {
-        setDateTime(getDate(timeZoneId, dateFormat));
-    }, 1000);
+  const initTime = getDateTime(timeZoneId, timeFormat);
+  let [time, setTime] = useState(initTime);
 
-    return (
-      <Typography variant={textSize}>
-          <StyledPre>{datetime}</StyledPre>
-      </Typography>
-    );
+  useInterval(() => {
+    setTime(getDateTime(timeZoneId, timeFormat));
+  }, 1000);
+
+  return (
+    <Typography variant={textSize}>
+      <TimePre>{time}</TimePre>
+      <DatePre>{date}</DatePre>
+    </Typography>
+  );
+};
+
+WorldClockWidget.propTypes = {
+  timeZoneId: string.isRequired,
+  dateFormat: string.isRequired,
+  timeFormat: string.isRequired,
+  textSize: string
+};
+
+WorldClockWidget.defaultProps = {
+  textSize: 'h5'
 };
 
 export default WorldClockWidget;
