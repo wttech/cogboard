@@ -16,7 +16,7 @@ const getGmtTimezones = () => {
     return parseInt(parts.b[1]) - parseInt(parts.a[1]);
   };
 
-  return allTimezones
+  const gmtTimezones = allTimezones
     .filter(timezone => timezone.includes("Etc/GMT") && !duplicatedTimezones.includes(timezone))
     .sort(gmtSort)
     .map(timezone => {
@@ -28,18 +28,16 @@ const getGmtTimezones = () => {
         value: timezone
       };
     });
-};
 
-const addCurrentTimezone = (timezones) => {
-  timezones.insert(0, {
+  gmtTimezones.insert(0, {
     display: "Current time zone",
     value: moment.tz.guess()
   });
 
-  return timezones;
+  return gmtTimezones;
 };
 
-export const GMT_TIMEZONES = addCurrentTimezone(getGmtTimezones());
+export const GMT_TIMEZONES = getGmtTimezones();
 
 export const DATE_FORMATS = [
   {
