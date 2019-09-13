@@ -4,7 +4,7 @@ export const getDateTime = (timezone, format) => {
     return moment.tz(new Date(), timezone).format(format);
 };
 
-export const getGmtTimezones = () => {
+const getGmtTimezones = () => {
     const allTimezones = moment.tz.names();
     const duplicatedTimezones = ['Etc/GMT', 'Etc/GMT+0', 'Etc/GMT0'];
 
