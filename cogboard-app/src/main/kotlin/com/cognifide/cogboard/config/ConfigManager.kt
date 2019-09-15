@@ -90,7 +90,7 @@ class ConfigManager : AbstractVerticle() {
     }
 
     private fun updateEndpointsConfig(config: JsonObject, endpoint: JsonObject) {
-        val endpointId = endpoint.getString(CogboardConstants.PROP_ID)
+        val endpointId = endpoint.getString(CogboardConstants.PROP_ID) ?: "0"
         val endpointExistsInConfig = Endpoint.exists(config, endpointId)
         if (endpointExistsInConfig) Endpoint.update(config, endpoint) else Endpoint.add(config, endpoint)
     }

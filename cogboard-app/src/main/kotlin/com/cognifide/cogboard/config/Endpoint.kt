@@ -33,6 +33,10 @@ class Endpoint(val endpoints: JsonArray, val credentials: JsonArray, val endpoin
 
     companion object {
         private const val ID = "id"
+        private const val ID_PREFIX = "endpoint"
+        private const val LABEL = "label"
+        private const val URL = "url"
+        private const val PUBLIC_URL = "publicUrl"
         private const val CREDENTIALS = "credentials"
         private const val ENDPOINTS = "endpoints"
         private const val USER = "user"
@@ -57,7 +61,25 @@ class Endpoint(val endpoints: JsonArray, val credentials: JsonArray, val endpoin
             if (!config.containsKey(ENDPOINTS)) {
                 config.put(ENDPOINTS, JsonArray())
             }
+            endpoint.let {
+                it.put(ID, generateId(config))
+                it.put(LABEL, it.getValue(LABEL, ""))
+                it.put(URL, it.getValue(URL, ""))
+                it.put(PUBLIC_URL, it.getValue(PUBLIC_URL, ""))
+                it.put(CREDENTIALS, it.getValue(CREDENTIALS, ""))
+            }
             config.getJsonArray(ENDPOINTS).add(endpoint)
+        }
+
+        private fun generateId(config: JsonObject): String {
+            val endpoints = config.getJsonArray(ENDPOINTS)
+            val lastId: Long = endpoints.stream()
+                    .map { it as JsonObject }
+                    .mapToLong { it.getString(ID).replace(ID_PREFIX, "").toLong() }
+                    .max()
+                    .asLong
+
+            return ID_PREFIX + (lastId + 1)
         }
 
         fun update(config: JsonObject, endpoint: JsonObject) {
