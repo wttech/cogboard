@@ -11,7 +11,5 @@ export const getPrevAndNextIndex = (array, currentIndex) => {
   const nextIndex = currentIndex < lastIndex ? currentIndex + 1 : 0;
   const prevIndex = currentIndex > 0 ? currentIndex - 1 : lastIndex;
 
-  console.log({nextIndex, prevIndex});
-
   return [prevIndex, nextIndex];
 };
