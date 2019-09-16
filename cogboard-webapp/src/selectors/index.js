@@ -20,12 +20,12 @@ const getBoard = createSelector(
 
 export const getBoardTitle = createSelector(
   [getBoard],
-  (board) => board.title
+  (board) => board && board.title
 );
 
 export const getSwitchInterval = createSelector(
   [getBoard],
-  (board) => board.switchInterval
+  (board) => board && board.switchInterval
 );
 
 export const getSwitcherBoards = createSelector(
