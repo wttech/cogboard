@@ -12,7 +12,3 @@ export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
 
     return newObj;
   }, {});
-
-export const insert = ( array, index, item ) => {
-  array.splice( index, 1, item );
-};
