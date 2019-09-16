@@ -4,7 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { useDialogToggle } from '../../hooks';
+import { useToggle } from '../../hooks';
 import { removeWidget, reorderWidgets } from '../../actions/thunks';
 import widgetTypes from "../widgets";
 import { ItemTypes } from '../../constants';
@@ -40,7 +40,7 @@ const Widget = ({ id, index }) => {
   const showUpdateTime = widgetTypes[type] ? widgetTypes[type].showUpdateTime : false;
   const dispatch = useDispatch();
   const theme = useTheme();
-  const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
+  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const ref = useRef(null);
   const isLoggedIn = useSelector(({ app }) => !!app.jwToken);
   const [{ isDragging }, drag] = useDrag({

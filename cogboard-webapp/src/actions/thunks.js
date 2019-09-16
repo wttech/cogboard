@@ -51,13 +51,12 @@ export const saveData = () =>
       );
   };
 
-export const login = (data) =>
+export const login = (credentials) =>
   (dispatch) => {
-    return fetchData(URL.LOGIN, 'POST', data)
+    return fetchData(URL.LOGIN, 'POST', credentials)
       .then(
         (data) => dispatch(setJwToken(data.token)),
-        (data) => dispatch(loginError(data.message))
-      );
+        (data) => dispatch(loginError(data.message)))
   };
 
 export const logout = () =>

@@ -1,0 +1,1 @@
+export const mapVariantToColor = (theme, variant) => theme.palette.variant[variant];
