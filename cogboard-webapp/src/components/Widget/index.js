@@ -4,7 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { useDialogToggle } from '../../hooks';
+import { useToggle } from '../../hooks';
 import { removeWidget, reorderWidgets } from '../../actions/thunks';
 import widgetTypes from "../widgets";
 import { ItemTypes } from '../../constants';
@@ -41,11 +41,13 @@ const Widget = ({ id, index }) => {
   const showUpdateTime = widgetTypes[type] ? widgetTypes[type].showUpdateTime : false;
   const dispatch = useDispatch();
   const theme = useTheme();
-  const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
-  const [confirmationDialogOpened, openConfirmationDialog, handleConfirmationDialogClose] = useDialogToggle();
+  const [confirmationDialogOpened, openConfirmationDialog, handleConfirmationDialogClose] = useToggle();
+  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const ref = useRef(null);
+  const isLoggedIn = useSelector(({ app }) => !!app.jwToken);
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
+    canDrag: isLoggedIn,
     collect: monitor => ({
       isDragging: monitor.isDragging()
     })
@@ -108,6 +110,7 @@ const Widget = ({ id, index }) => {
         goNewLine={goNewLine}
         rows={rows}
         theme={theme}
+        isLoggedIn={isLoggedIn}
         isDragging={isDragging}
         isOver={isOver}
         ref={ref}

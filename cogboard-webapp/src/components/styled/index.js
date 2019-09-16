@@ -4,6 +4,7 @@ import styled from '@emotion/styled/macro';
 import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
 
 import IFrameEmbed from "../IFrameEmbed";
+import { setSize } from "../helpers";
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;
@@ -41,3 +42,25 @@ export const StyledFormControlForDropdown = styled(FormControl)`
       margin-bottom: 12px;
       min-width: 300px;
     `;
+
+export const StyledTitle = styled(Typography)`
+  align-self: center;
+  flex-grow: 1;
+  font-size: 2rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  overflow: hidden;
+  padding-right: 2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &::after {
+    background-color: #ff8a65;
+    content: '';
+    display: block;
+    height: 2px;
+    margin-top: ${setSize(2)};
+    margin-left: 3px;
+    width: ${setSize(10)};
+  }
+`;
