@@ -1,5 +1,4 @@
 import moment from 'moment-timezone'
-import {insert} from '../../../helpers'
 
 export const getDateTime = (timezone, format) => {
   return moment.tz(new Date(), timezone).format(format);
