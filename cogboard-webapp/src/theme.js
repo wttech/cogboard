@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import { amber, blue, green, red } from "@material-ui/core/colors/index";
 
 const gradientAngle = 45;
 
@@ -21,6 +22,12 @@ export const theme = createMuiTheme({
       ERROR: createGradient('#af4448', '#e57373'),
       FAIL: createGradient('#af4448', '#e57373')
     },
+    variant : {
+      info: blue[100],
+      success: green[300],
+      warning: amber[700],
+      error: red[800]
+    }
   },
   shape: {
     borderRadius: 10
