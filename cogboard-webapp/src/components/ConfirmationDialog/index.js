@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, string } from 'prop-types';
-import { Button, Typography } from "@material-ui/core/index";
 
+import { Button, Typography } from "@material-ui/core/index";
 import AppDialog from "../AppDialog";
 import { StyledButtonBox, StyledCancelButton } from "./styled";
 
