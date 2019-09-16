@@ -1,17 +1,9 @@
 import React from 'react';
 import { func, string } from 'prop-types';
-import { Box, Button, Typography } from "@material-ui/core";
-import styled from "@emotion/styled/macro";
+import { Button, Typography } from "@material-ui/core/index";
 
-import AppDialog from "./AppDialog";
-
-const StyledCancelButton = styled(Button)`
-  margin-left: 1em;
-`;
-
-const StyledButtonBox = styled(Box)`
-  margin-top: 1em;
-`;
+import AppDialog from "../AppDialog";
+import { StyledButtonBox, StyledCancelButton } from "./styled";
 
 const ConfirmationDialog = props => {
   const { open, title, content, handleOk, labelOk, handleCancel, labelCancel } = props;
