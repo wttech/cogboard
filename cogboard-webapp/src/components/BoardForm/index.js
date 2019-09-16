@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import useForm from 'react-hook-form';
 import { string, number, bool } from 'prop-types';
-import styled from '@emotion/styled/macro';
 
 import { COLUMNS_MAX, COLUMNS_MIN } from '../../constants';
 
-import { FormControl, FormControlLabel, Switch, TextField, Button } from '@material-ui/core';
+import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import { StyledFieldset } from './styled';
-import CancelButton from '../CancelButton';
 
-const StyledCancelButton = styled(CancelButton)`
-  margin-left: 20px;
-`;
-
-const BoardForm = ({ onSubmit, onCancel, ...initialFormValues }) => {
-  const { register, handleSubmit, watch, errors } = useForm({
+const BoardForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
+  const { register, handleSubmit, errors, setValue } = useForm({
     defaultValues: initialFormValues
   });
 
-  watch(errors.columns)
+  const [values, setSwitchValue] = useState({ autoSwitch: initialFormValues.autoSwitch });
+
+  const handleSwitchChange = (event) => {
+    const checked = event.target.checked
+    setValue("autoSwitch", checked);
+    setSwitchValue({ autoSwitch: checked })
+  }
+
+  useEffect(() => {
+    register({ name: "autoSwitch" })
+  }, [register])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -32,7 +36,7 @@ const BoardForm = ({ onSubmit, onCancel, ...initialFormValues }) => {
           margin="normal"
           inputRef={register({
             required: 'This field is required.', 
-            pattern: /^[^A\s].*$/iu
+            pattern: /^[^A\s].*$/i
           })}
           error={errors.title ? true : false}
           helperText={errors.title ? errors.title.message : ''}
@@ -41,6 +45,10 @@ const BoardForm = ({ onSubmit, onCancel, ...initialFormValues }) => {
           name="columns"
           InputLabelProps={{
             shrink: true
+          }}
+          inputProps={{
+            min: COLUMNS_MIN,
+            max: COLUMNS_MAX
           }}
           label="Columns"
           margin="normal"
@@ -64,22 +72,16 @@ const BoardForm = ({ onSubmit, onCancel, ...initialFormValues }) => {
             control={
               <Switch
                 name="autoSwitch"
-                inputRef={register}
                 color="primary"
+                checked={ values.autoSwitch }
+                onChange={ handleSwitchChange }
               />
             }
             label="Auto switch"
           />
         </FormControl>
       </StyledFieldset>
-      <Button
-        color="primary"
-        variant="contained"
-        type="submit"
-      >
-        Add
-      </Button>
-      <StyledCancelButton handleCancelClick={onCancel} />
+      {renderActions()}
     </form>
   );
 };
@@ -91,7 +93,7 @@ BoardForm.propTypes = {
 };
 
 BoardForm.defaultProps = {
-  autoSwitch: false,
+  autoSwitch: true,
   columns: 8,
   title: 'Board',
 };
