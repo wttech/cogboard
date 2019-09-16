@@ -74,7 +74,7 @@ const dialogFields = {
     name: 'content.timeZoneId',
     label: 'Timezone',
     dropdownItems: GMT_TIMEZONES,
-    initialValue: moment.tz.guess()
+    initialValue: GMT_TIMEZONES[0].value
   },
   DateFormat: {
     component: DisplayValueSelect,

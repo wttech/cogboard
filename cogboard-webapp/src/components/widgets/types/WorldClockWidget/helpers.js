@@ -1,4 +1,5 @@
 import moment from 'moment-timezone'
+import { insert } from '../../../helpers'
 
 export const getDateTime = (timezone, format) => {
   return moment.tz(new Date(), timezone).format(format);
@@ -29,7 +30,7 @@ const getGmtTimezones = () => {
       };
     });
 
-  gmtTimezones.insert(0, {
+  insert(gmtTimezones, 0, {
     display: "Current time zone",
     value: moment.tz.guess()
   });
