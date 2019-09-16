@@ -1,9 +1,10 @@
+import { DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS } from "../types/WorldClockWidget/helpers";
+
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 import DisplayValueSelect from "./DisplayValueSelect";
-import { DATE_FORMATS, GMT_TIMEZONES } from "../../../constants";
 import TextSizeInput from "./TextSizeInput";
 import MultilineTextInput from "./MultilineTextInput";
 import CheckboxInput from "./CheckboxInput";
@@ -72,14 +73,48 @@ const dialogFields = {
     name: 'content.timeZoneId',
     label: 'Timezone',
     dropdownItems: GMT_TIMEZONES,
-    initialValue: 'Etc/GMT-2' //timezone for Poland
+    initialValue: GMT_TIMEZONES[0].value
   },
-  DateTimeFormat: {
+  DateFormat: {
     component: DisplayValueSelect,
     name: 'content.dateFormat',
     label: 'Date Format',
     dropdownItems: DATE_FORMATS,
-    initialValue: DATE_FORMATS[3].value
+    initialValue: DATE_FORMATS[1].value
+  },
+  TimeFormat: {
+    component: DisplayValueSelect,
+    name: 'content.timeFormat',
+    label: 'Time Format',
+    dropdownItems: TIME_FORMATS,
+    initialValue: TIME_FORMATS[1].value
+  },
+  DisplayDate: {
+    component: CheckboxInput,
+    name: 'content.displayDate',
+    label: 'Display date',
+    initialValue: true
+  },
+  DisplayTime: {
+    component: CheckboxInput,
+    name: 'content.displayTime',
+    label: 'Display time',
+    initialValue: true
+  },
+  DateTimeSize: {
+    component: TextSizeInput,
+    name: 'content.textSize',
+    label: 'Text Size',
+    dropdownItems: {
+      XXL: 'h2',
+      XL: 'h3',
+      L: 'h4',
+      M: 'h5',
+      S: 'h6',
+      XS: 'subtitle1',
+      XXS: 'subtitle2'
+    },
+    initialValue: 'h5'
   },
   Text: {
     component: MultilineTextInput,
