@@ -42,10 +42,10 @@ const Widget = ({ id, index }) => {
   const theme = useTheme();
   const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
   const ref = useRef(null);
-  const isAuthenticated = useSelector(({app}) => !!app.jwToken);
+  const isLoggedIn = useSelector(({ app }) => !!app.jwToken);
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
-    canDrag: isAuthenticated,
+    canDrag: isLoggedIn,
     collect: monitor => ({
       isDragging: monitor.isDragging()
     })
@@ -105,7 +105,7 @@ const Widget = ({ id, index }) => {
         goNewLine={goNewLine}
         rows={rows}
         theme={theme}
-        isAuthenticated={isAuthenticated}
+        isLoggedIn={isLoggedIn}
         isDragging={isDragging}
         isOver={isOver}
         ref={ref}
