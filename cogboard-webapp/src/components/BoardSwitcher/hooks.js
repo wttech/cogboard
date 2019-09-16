@@ -8,6 +8,7 @@ import { getPrevAndNextIndex } from './helpers';
 export const useBoardSwitching = () => {
   const switcherBoards = useSelector(getSwitcherBoards);
   const currentBoardId = useSelector(getCurrentBoardId);
+  const hasBoardsToSwitch = switcherBoards.length > 1;
   const initialBoardIndex = switcherBoards.includes(currentBoardId) ? switcherBoards.indexOf(currentBoardId) : 0;
   const [boardIndex, setIndex] = useState(initialBoardIndex);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -31,7 +32,7 @@ export const useBoardSwitching = () => {
   );
 
   const handleBoardsSwitch = (direction) => () => {
-    if (switcherBoards.length <= 1) {
+    if (!hasBoardsToSwitch) {
       return;
     }
 
@@ -45,7 +46,7 @@ export const useBoardSwitching = () => {
 
   useEffect(
     () => {
-      navigate(switcherBoards[boardIndex]);
+      navigate(switcherBoards[boardIndex] || switcherBoards[0]);
     },
     [boardIndex, switcherBoards]
   );
@@ -68,5 +69,14 @@ export const useBoardSwitching = () => {
     [isPlaying, timeElapsed, switchInterval, switchBoard]
   );
 
-  return { handleBoardsSwitch, handlePlayToggle, timeElapsed, switchInterval, isPlaying, prevBoardTitle, nextBoardTitle };
+  return {
+    handleBoardsSwitch,
+    handlePlayToggle,
+    hasBoardsToSwitch,
+    isPlaying,
+    nextBoardTitle,
+    prevBoardTitle,
+    switchInterval,
+    timeElapsed
+  };
 };
