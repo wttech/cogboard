@@ -114,7 +114,7 @@ const removeWidgetThunk = (id) =>
       );
   };
 
-export const reorderWidgets = (sourceId, targetIndex) =>
+const reorderWidgetsThunk = (sourceId, targetIndex) =>
   (dispatch, getState) => {
     const { currentBoard: boardId } = getState().ui;
 
@@ -124,6 +124,7 @@ export const reorderWidgets = (sourceId, targetIndex) =>
 export const addNewWidget = makeWidgetUpdaterThunk(addWidget, createNewWidgetData);
 export const saveWidget = makeWidgetUpdaterThunk(editWidget, createEditWidgetData);
 export const removeWidget = withDataChanged(removeWidgetThunk);
+export const reorderWidgets = withDataChanged(reorderWidgetsThunk);
 export const addNewBoard = withDataChanged(addBoard);
 export const saveBoard = withDataChanged(editBoard);
 export const deleteBoardWithWidgets = withDataChanged(deleteBoardWithWidgetsThunk);
