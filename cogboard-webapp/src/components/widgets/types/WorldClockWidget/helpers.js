@@ -30,7 +30,7 @@ const getGmtTimezones = () => {
       };
     });
 
-  insert(gmtTimezones, 0, {
+  gmtTimezones.splice(0, 0, {
     display: "Current time zone",
     value: moment.tz.guess()
   });
