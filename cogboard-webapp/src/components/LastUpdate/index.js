@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
-import { Typography } from "@material-ui/core";
 
-const StyledTypography = styled(Typography)`
-  display: flex;
-  flex: 1;
-  align-items: flex-end;
-`;
+import { StyledTypography } from './styled';
 
 const LastUpdate = ({ lastUpdateTime }) => {
   return (
