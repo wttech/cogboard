@@ -4,7 +4,7 @@ import styled from '@emotion/styled/macro';
 
 import { mapStatusToColor } from './helpers';
 
-import { Card, CardContent } from '@material-ui/core';
+import { Card, CardHeader, CardContent } from '@material-ui/core';
 
 export const StyledCard = styled(forwardRef(({
   status,
@@ -50,6 +50,10 @@ StyledCard.propTypes = {
   status: string.isRequired,
   theme: object.isRequired
 };
+
+export const StyledCardHeader = styled(CardHeader)`
+  z-index: 1;
+`;
 
 export const StyledCardContent = styled(CardContent)`
   display: flex;

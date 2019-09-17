@@ -9,8 +9,8 @@ import { removeWidget, reorderWidgets } from '../../actions/thunks';
 import widgetTypes from "../widgets";
 import { ItemTypes } from '../../constants';
 
-import { CardHeader, MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardContent } from './styled';
+import { MenuItem } from '@material-ui/core';
+import { StyledCard, StyledCardHeader, StyledCardContent } from './styled';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
@@ -115,7 +115,7 @@ const Widget = ({ id, index }) => {
         isOver={isOver}
         ref={ref}
       >
-        <CardHeader
+        <StyledCardHeader
           title={title}
           titleTypographyProps={
             {
