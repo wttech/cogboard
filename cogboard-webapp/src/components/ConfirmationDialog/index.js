@@ -15,18 +15,20 @@ const ConfirmationDialog = props => {
       open={open}
       title={title}
     >
-      <Typography id="confirmation-dialog-content">
-        {content}
-      </Typography>
-      <StyledButtonBox display="flex" justifyContent="flex-end">
-        <Button onClick={handleOk} variant="contained" color="primary" autoFocus>
-          {labelOk}
-        </Button>
-        {handleCancel &&
-        <StyledCancelButton onClick={handleCancel} variant="outlined" color="primary">
-          {labelCancel}
-        </StyledCancelButton>}
-      </StyledButtonBox>
+      <>
+        <Typography id="confirmation-dialog-content">
+          {content}
+        </Typography>
+        <StyledButtonBox display="flex" justifyContent="flex-end">
+          <Button onClick={handleOk} variant="contained" color="primary" autoFocus>
+            {labelOk}
+          </Button>
+          {handleCancel &&
+          <StyledCancelButton onClick={handleCancel} variant="outlined" color="primary">
+            {labelCancel}
+          </StyledCancelButton>}
+        </StyledButtonBox>
+      </>
     </AppDialog>
   );
 };
