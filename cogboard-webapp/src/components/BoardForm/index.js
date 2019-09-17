@@ -9,6 +9,7 @@ import { StyledFieldset } from './styled';
 
 const BoardForm = ({ renderActions, ...initialFormValues }) => {
   const { values, handleChange } = useFormData(initialFormValues);
+  const { autoSwitch } = values;
 
   return (
     <>
@@ -51,6 +52,19 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
             label="Auto switch"
           />
         </FormControl>
+        {autoSwitch &&
+          <TextField
+            onChange={handleChange('switchInterval')}
+            id="switchInterval"
+            InputLabelProps={{
+              shrink: true
+            }}
+            label="Switch interval [s]"
+            margin="normal"
+            value={values.switchInterval}
+            type="number"
+          />
+        }
       </StyledFieldset>
       {renderActions(values)}
     </>
@@ -60,12 +74,14 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
 BoardForm.propTypes = {
   autoSwitch: bool,
   columns: number,
+  switchInterval: number,
   title: string,
 };
 
 BoardForm.defaultProps = {
   autoSwitch: true,
   columns: 8,
+  switchInterval: 60,
   title: 'Board',
 };
 

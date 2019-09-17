@@ -17,6 +17,7 @@ const BoardCard = ({ boardData, className }) => {
     autoSwitch,
     columns,
     id,
+    switchInterval,
     title
   } = boardData;
   const [open, openDialog, handleDialogClose] = useToggle();
@@ -78,10 +79,11 @@ const BoardCard = ({ boardData, className }) => {
       >
         <EditBoard
           closeDialog={handleDialogClose}
-          id={id}
-          title={title}
-          columns={columns}
           autoSwitch={autoSwitch}
+          columns={columns}
+          id={id}
+          switchInterval={switchInterval}
+          title={title}
         />
       </AppDialog>
     </div>
