@@ -7,8 +7,9 @@ export const URL = {
   DELETE_WIDGET: '/api/widget/delete',
   LOGIN: '/api/login'
 };
-export const COLUMNS_MIN = 1;
-export const COLUMNS_MAX = 12;
+export const COLUMNS_MIN = 4;
+export const COLUMNS_MAX = 20;
+export const BOARD_TITLE_LENGTH_LIMIT = 25;
 
 export const GMT_TIMEZONES = getGmtTimezones();
 

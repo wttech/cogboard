@@ -16,7 +16,8 @@ const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
   const dispatch = useDispatch()
 
   const handleSaveClick = (values) => {
-    const { columns } = values;
+    const { title, columns } = values;
+    values.title = title.trim().replace(/\s+/g,' ');
     values.columns = parseInt(columns);
     dispatch(saveBoard({ id, ...values }));
     closeDialog();
@@ -26,16 +27,21 @@ const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
     <BoardForm
       {...initialFormValues}
       onSubmit={handleSaveClick}
+      boardId={id}
       renderActions={() => (
         <>
           <Button
             color="primary"
             variant="contained"
             type="submit"
+            data-cy="board-form-submit-button"
           >
             Save
           </Button>
-          <StyledCancelButton handleCancelClick={closeDialog} />
+          <StyledCancelButton 
+            handleCancelClick={closeDialog} 
+            data-cy="board-form-cancel-button"
+          />
         </>
       )}
     />

@@ -61,12 +61,18 @@ class VolumeStorage(val vertx: Vertx) : Storage {
 
         private fun validateBoards(boards: JsonObject): Boolean {
             var result = true
+            val titles = mutableSetOf<String>()
             boards.fieldNames().stream().forEach {
                 val board = boards.getJsonObject(it)
                 val columns = board.getInteger("columns")
                 result = result && (columns in PROP_BOARD_COLUMN_MIN..PROP_BOARD_COLUMN_MAX)
-                val title = board.getString("title")
-                result = result && title.isNotBlank()
+                val title = board.getString("title").trim().replace("\\s+", " ")
+                result = if (title.isNotBlank()) {
+                    result && titles.add(title)
+                } else {
+                    false
+                }
+
             }
             return result
         }

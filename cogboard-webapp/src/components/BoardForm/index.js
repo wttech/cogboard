@@ -1,31 +1,42 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import useForm from 'react-hook-form';
 import { string, number, bool } from 'prop-types';
 
-import { COLUMNS_MAX, COLUMNS_MIN } from '../../constants';
+import { COLUMNS_MAX, COLUMNS_MIN, BOARD_TITLE_LENGTH_LIMIT } from '../../constants';
 
 import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import { StyledFieldset } from './styled';
 
-const BoardForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
+const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) => {
   const { register, handleSubmit, errors, setValue } = useForm({
     defaultValues: initialFormValues
   });
 
+  const boards = useSelector(({boards}) => Object.values(boards.boardsById));
+
   const [values, setSwitchValue] = useState({ autoSwitch: initialFormValues.autoSwitch });
 
   const handleSwitchChange = (event) => {
-    const checked = event.target.checked
+    const checked = event.target.checked;
     setValue("autoSwitch", checked);
-    setSwitchValue({ autoSwitch: checked })
+    setSwitchValue({ autoSwitch: checked });
   }
 
   useEffect(() => {
-    register({ name: "autoSwitch" })
+    register({ name: "autoSwitch" });
   }, [register])
 
+  const validateTitle = (id) => (value) => {
+    const title = value.trim().replace(/\s+/g,' ');
+    if (title.length < 1) {
+      return 'Title cannot be blank';
+    }
+    return boards.every((board) => board.title !== title || board.id === id) || 'Title already in use.';
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} novalidate="novalidate">
       <StyledFieldset component="fieldset">
         <TextField
           name="title"
@@ -34,12 +45,22 @@ const BoardForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
           }}
           label="Title"
           margin="normal"
+          inputProps={{
+            'data-cy': "board-form-title"
+          }}
           inputRef={register({
             required: 'This field is required.', 
-            pattern: /^[^A\s].*$/i
+            maxLength: {
+              value: BOARD_TITLE_LENGTH_LIMIT,
+              message: `Board title field is limited to ${BOARD_TITLE_LENGTH_LIMIT} characters.`
+            },
+            validate: validateTitle(boardId)
           })}
           error={errors.title ? true : false}
-          helperText={errors.title ? errors.title.message : ''}
+          helperText={errors.title ? errors.title.message : 'Title must be unique, and contains max 25 characters.'}
+          FormHelperTextProps={{
+            'data-cy': "board-form-title-error"
+          }}
         />
         <TextField
           name="columns"
@@ -48,7 +69,8 @@ const BoardForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
           }}
           inputProps={{
             min: COLUMNS_MIN,
-            max: COLUMNS_MAX
+            max: COLUMNS_MAX,
+            'data-cy': "board-form-columns"
           }}
           label="Columns"
           margin="normal"
@@ -65,7 +87,10 @@ const BoardForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
             }
           })}
           error={errors.columns ? true : false}
-          helperText={errors.columns ? errors.columns.message : ''}
+          helperText={`Colums number must be between ${COLUMNS_MIN}-${COLUMNS_MAX}`}
+          FormHelperTextProps={{
+            'data-cy': "board-form-columns-error"
+          }}
         />
         <FormControl margin="normal">
           <FormControlLabel
@@ -75,6 +100,9 @@ const BoardForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
                 color="primary"
                 checked={ values.autoSwitch }
                 onChange={ handleSwitchChange }
+                inputProps={{
+                  'data-cy': "board-form-auto-switch"
+                }}
               />
             }
             label="Auto switch"

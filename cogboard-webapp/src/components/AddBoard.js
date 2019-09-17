@@ -26,7 +26,8 @@ const AddBoard = () => {
   };
 
   const handleAddActionClick = values => {
-    const { columns } = values;
+    const { title, columns } = values;
+    values.title = title.trim().replace(/\s+/g,' ');
     values.columns = parseInt(columns);
     dispatch(addNewBoard(values));
     handleDialogClose();
@@ -40,7 +41,8 @@ const AddBoard = () => {
     <>
       <IconButton
         onClick={handleAddBoardClick}
-        color="primary">
+        color="primary"
+        data-cy="add-board-button">
         <Add />
       </IconButton>
       <AppDialog
@@ -56,10 +58,14 @@ const AddBoard = () => {
                 color="primary"
                 variant="contained"
                 type="submit"
+                data-cy="board-form-submit-button"
               >
                 Add
               </Button>
-              <StyledCancelButton handleCancelClick={handleDialogClose} />
+              <StyledCancelButton 
+                handleCancelClick={handleDialogClose} 
+                data-cy="board-form-cancel-button"
+              />
             </>
           )}
         />
