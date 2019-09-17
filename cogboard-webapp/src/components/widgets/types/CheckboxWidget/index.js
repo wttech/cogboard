@@ -12,6 +12,12 @@ const CheckboxWidget = props => {
   const { status } = useSelector(({ widgets }) => widgets.widgetsById[id]);
   const dispatch = useDispatch();
 
+  const ariaCheckedStatusMap = {
+    OK: true,
+    FAIL: false,
+    UNKNOWN: 'mixed'
+  };
+
   const handleChangeStatus = () => {
     dispatch(setWidgetState({
       id,
@@ -20,7 +26,11 @@ const CheckboxWidget = props => {
   };
 
   return (
-    <WidgetIconButton aria-label="Toggle status" data-cy={`checkbox-${status}`} onClick={handleChangeStatus}>
+    <WidgetIconButton 
+      aria-label="Toggle status"
+      aria-checked={ariaCheckedStatusMap[status]}
+      data-cy="checkbox" onClick={handleChangeStatus}
+    >
       <StatusIcon size="large" status={status} />
     </WidgetIconButton>
   );
