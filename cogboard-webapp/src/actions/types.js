@@ -1,3 +1,4 @@
+export const INIT_BOARD_PROPS = 'INIT_BOARD_PROPS';
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_DATA = 'RECEIVE_DATA';
 export const REQUEST_UPDATE = 'REQUEST_UPDATE';
