@@ -29,7 +29,8 @@ const CheckboxWidget = props => {
     <WidgetIconButton 
       aria-label="Toggle status"
       aria-checked={ariaCheckedStatusMap[status]}
-      data-cy="checkbox" onClick={handleChangeStatus}
+      data-cy="checkbox"
+      onClick={handleChangeStatus}
     >
       <StatusIcon size="large" status={status} />
     </WidgetIconButton>
