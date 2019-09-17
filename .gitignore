@@ -13,7 +13,7 @@ Thumbs.db
 /knotx/conf/endpoints.conf
 /knotx/conf/jwt.conf
 /knotx/conf/admins.conf
-/mnt/config.json
+/mnt/config.*
 
 # Intellij           #
 ######################

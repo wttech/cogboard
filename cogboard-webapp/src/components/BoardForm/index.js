@@ -13,7 +13,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
     defaultValues: initialFormValues
   });
 
-  const boards = useSelector(({boards}) => Object.values(boards.boardsById));
+  const allBoards = useSelector(({boards}) => Object.values(boards.boardsById));
 
   const [values, setSwitchValue] = useState({ autoSwitch: initialFormValues.autoSwitch });
 
@@ -32,7 +32,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
     if (title.length < 1) {
       return 'Title cannot be blank';
     }
-    return boards.every((board) => board.title !== title || board.id === id) || 'Title already in use.';
+    return allBoards.every((board) => board.title !== title || board.id === id) || 'Title already in use.';
   }
 
   return (
@@ -49,7 +49,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             'data-cy': "board-form-title"
           }}
           inputRef={register({
-            required: 'This field is required.', 
+            required: 'This field is required.',
             maxLength: {
               value: BOARD_TITLE_LENGTH_LIMIT,
               message: `Board title field is limited to ${BOARD_TITLE_LENGTH_LIMIT} characters.`
@@ -76,11 +76,11 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           margin="normal"
           type="number"
           inputRef={register({
-            required: 'This field is required.', 
+            required: 'This field is required.',
             min: {
               value: COLUMNS_MIN,
               message: `The board should have at least ${COLUMNS_MIN} column.`
-            }, 
+            },
             max: {
               value: COLUMNS_MAX,
               message: `The board should have at most ${COLUMNS_MAX} columns.`
@@ -108,6 +108,33 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             label="Auto switch"
           />
         </FormControl>
+        {values.autoSwitch &&
+          <TextField
+            id="switchInterval"
+            name="switchInterval"
+            InputLabelProps={{
+              shrink: true
+            }}
+            label="Switch interval [s]"
+            margin="normal"
+            type="number"
+            inputRef={register({
+              min: {
+                value: 1,
+                message: 'Interval cannot be negative number'
+              }
+            })}
+            inputProps={{
+              min: 1,
+              'data-cy': "board-form-switch-interval"
+            }}
+            error={errors.switchInterval ? true : false}
+            helperText={errors.switchInterval ? errors.switchInterval.message : ''}
+            FormHelperTextProps={{
+              'data-cy': "board-form-switch-interval-error"
+            }}
+          />
+        }
       </StyledFieldset>
       {renderActions()}
     </form>
@@ -117,12 +144,14 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
 BoardForm.propTypes = {
   autoSwitch: bool,
   columns: number,
+  switchInterval: number,
   title: string,
 };
 
 BoardForm.defaultProps = {
   autoSwitch: true,
   columns: 8,
+  switchInterval: 60,
   title: 'Board',
 };
 
