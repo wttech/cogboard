@@ -16,9 +16,12 @@ const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
   const dispatch = useDispatch()
 
   const handleSaveClick = (values) => {
-    const { title, columns } = values;
+    const { title, columns, switchInterval } = values;
     values.title = title.trim().replace(/\s+/g,' ');
     values.columns = parseInt(columns);
+    if (switchInterval !== undefined) {
+      values.switchInterval = parseInt(switchInterval)
+    }
     dispatch(saveBoard({ id, ...values }));
     closeDialog();
   };

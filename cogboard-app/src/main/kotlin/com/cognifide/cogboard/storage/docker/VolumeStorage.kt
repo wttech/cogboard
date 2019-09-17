@@ -72,7 +72,6 @@ class VolumeStorage(val vertx: Vertx) : Storage {
                 } else {
                     false
                 }
-
             }
             return result
         }

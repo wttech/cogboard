@@ -26,9 +26,12 @@ const AddBoard = () => {
   };
 
   const handleAddActionClick = values => {
-    const { title, columns } = values;
+    const { title, columns, switchInterval } = values;
     values.title = title.trim().replace(/\s+/g,' ');
     values.columns = parseInt(columns);
+    if (switchInterval !== undefined) {
+      values.switchInterval = parseInt(switchInterval)
+    }
     dispatch(addNewBoard(values));
     handleDialogClose();
   };

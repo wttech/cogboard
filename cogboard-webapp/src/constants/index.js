@@ -8,6 +8,7 @@ export const URL = {
 export const COLUMNS_MIN = 4;
 export const COLUMNS_MAX = 20;
 export const BOARD_TITLE_LENGTH_LIMIT = 25;
+export const SWITCH_INTERVAL_MIN = 3;
 
 export const ROWS_MIN = 1;
 export const ItemTypes = {

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import useForm from 'react-hook-form';
 import { string, number, bool } from 'prop-types';
 
-import { COLUMNS_MAX, COLUMNS_MIN, BOARD_TITLE_LENGTH_LIMIT } from '../../constants';
+import { COLUMNS_MAX, COLUMNS_MIN, BOARD_TITLE_LENGTH_LIMIT, SWITCH_INTERVAL_MIN } from '../../constants';
 
 import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import { StyledFieldset } from './styled';
@@ -119,17 +119,14 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             margin="normal"
             type="number"
             inputRef={register({
-              min: {
-                value: 1,
-                message: 'Interval cannot be negative number'
-              }
+              min: SWITCH_INTERVAL_MIN
             })}
             inputProps={{
-              min: 1,
+              min: SWITCH_INTERVAL_MIN,
               'data-cy': "board-form-switch-interval"
             }}
             error={errors.switchInterval ? true : false}
-            helperText={errors.switchInterval ? errors.switchInterval.message : ''}
+            helperText={`Interval cannot be smaller than ${SWITCH_INTERVAL_MIN}s.`}
             FormHelperTextProps={{
               'data-cy': "board-form-switch-interval-error"
             }}
