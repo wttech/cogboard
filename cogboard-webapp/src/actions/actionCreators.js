@@ -17,8 +17,10 @@ import {
   SAVE_DATA_START,
   SAVE_DATA_SUCCESS,
   LOGIN_SUCCESS,
-  LOGIN_ERROR
+  LOGIN_ERROR,
+  INIT_BOARD_PROPS
 } from './types';
+import { INITIAL_BOARD_PROPS } from '../constants';
 
 export const requestData = () => ({
   type: REQUEST_DATA
@@ -109,4 +111,9 @@ export const saveDataSuccess = () => ({
 export const setCurrentBoard = (id) => ({
   type: SET_CURRENT_BOARD,
   payload: id
+});
+
+export const initBoardProps = () => ({
+  type: INIT_BOARD_PROPS,
+  payload: { ...INITIAL_BOARD_PROPS }
 });
