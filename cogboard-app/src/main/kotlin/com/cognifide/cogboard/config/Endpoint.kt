@@ -13,8 +13,8 @@ class Endpoint(val endpoints: JsonArray, val credentials: JsonArray, val endpoin
     }
 
     private fun attachCredentials(endpoint: JsonObject): JsonObject {
-        endpoint.remove(CREDENTIALS).toString().let {
-            val credentials = findJsonObjectById(it, credentials)
+        endpoint.remove(CREDENTIALS)?.let {
+            val credentials = findJsonObjectById(it as String, credentials)
                     .orElse(JsonObject())
             endpoint.put(USER, credentials.getString(USER) ?: "")
             endpoint.put(PASSWORD, credentials.getString(PASSWORD) ?: "")
