@@ -55,7 +55,7 @@ const widgetTypes = {
     dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'DateTimeSize']
   },
   IFrameEmbedWidget: {
-    name: 'IFrame Embed widget',
+    name: 'Iframe Embed widget',
     component: IFrameEmbedWidget,
     dialogFields: ['UrlForContent']
   },
