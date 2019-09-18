@@ -5,6 +5,7 @@ export const UPDATE_WIDGET = 'UPDATE_WIDGET';
 export const ADD_BOARD = 'ADD_BOARD';
 export const EDIT_BOARD = 'EDIT_BOARD';
 export const DELETE_BOARD = 'DELETE_BOARD';
+export const REORDER_BOARDS = 'REORDER_BOARDS';
 export const SET_CURRENT_BOARD = 'SET_CURRENT_BOARD';
 export const ADD_WIDGET = 'ADD_WIDGET';
 export const EDIT_WIDGET = 'EDIT_WIDGET';

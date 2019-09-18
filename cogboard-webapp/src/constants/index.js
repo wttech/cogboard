@@ -10,5 +10,6 @@ export const COLUMNS_MAX = 20;
 
 export const ROWS_MIN = 1;
 export const ItemTypes = {
-  WIDGET: 'widget'
+  WIDGET: 'widget',
+  BOARD: 'board'
 };
