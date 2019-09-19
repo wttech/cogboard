@@ -29,3 +29,10 @@ export const AEM_HEALTH_CHECKS = {
   slingDiscoveryOakSynchronizedClocks: 'Synchronized Clocks',
   systemchecks: 'System Maintenance',
 };
+
+// props will be added to old configs on app init
+
+export const INITIAL_BOARD_PROPS = {
+  autoSwitch: false,
+  switchInterval: 0
+};
