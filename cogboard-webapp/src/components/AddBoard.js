@@ -38,7 +38,8 @@ const AddBoard = () => {
     <>
       <IconButton
         onClick={handleAddBoardClick}
-        color="primary">
+        color="primary"
+        data-cy="add-board-button">
         <Add />
       </IconButton>
       <AppDialog

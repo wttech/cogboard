@@ -13,6 +13,7 @@ import { CardHeader, CardContent, IconButton } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons'
 import AppDialog from '../AppDialog';
 import EditBoard from '../EditBoard';
+import DragCover from '../DragCover';
 import { StyledCard, StyledCardActions } from './styled';
 
 const BoardCard = ({ boardData, index, className }) => {
@@ -94,6 +95,7 @@ const BoardCard = ({ boardData, index, className }) => {
         isOver={isOver}
         ref={ref}
       >
+        {isDragging ? <DragCover/>: null}
         <CardHeader
           title={title}
           titleTypographyProps={
@@ -112,6 +114,7 @@ const BoardCard = ({ boardData, index, className }) => {
               onClick={handleEditClick}
               aria-label="edit"
               size="small"
+              data-cy="board-card-edit-button"
             >
               <Edit />
             </IconButton>
@@ -119,6 +122,7 @@ const BoardCard = ({ boardData, index, className }) => {
               onClick={handleDeleteClick}
               aria-label="delete"
               size="small"
+              data-cy="board-card-delete-button"
             >
               <Delete />
             </IconButton>
