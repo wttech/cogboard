@@ -50,6 +50,8 @@ paths:
   /api/endpoints/update:
     post:
       operationId: endpoints-update-handler
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Endpoint Update Handler

@@ -1,6 +1,8 @@
 package com.cognifide.cogboard.config
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.config.endpoints.EndpointLoader
+import com.cognifide.cogboard.config.endpoints.EndpointsManager
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.docker.VolumeStorage
 import com.cognifide.cogboard.widget.Widget
@@ -84,15 +86,14 @@ class ConfigManager : AbstractVerticle() {
     private fun attachEndpoint(config: JsonObject) {
         val endpointId = config.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
-            val endpoint = Endpoint.from(config(), endpointId)
+            val endpoint = EndpointLoader.from(config(), endpointId)
             config.put(CogboardConstants.PROP_ENDPOINT, endpoint.asJson(true))
         }
     }
 
     private fun updateEndpointsConfig(config: JsonObject, endpoint: JsonObject) {
-        val endpointId = endpoint.getString(CogboardConstants.PROP_ID) ?: "0"
-        val endpointExistsInConfig = Endpoint.exists(config, endpointId)
-        if (endpointExistsInConfig) Endpoint.update(config, endpoint) else Endpoint.add(config, endpoint)
+        val endpointsManager = EndpointsManager(config)
+        endpointsManager.save(endpoint)
     }
 
     companion object {

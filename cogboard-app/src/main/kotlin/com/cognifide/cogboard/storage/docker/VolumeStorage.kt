@@ -58,9 +58,9 @@ class VolumeStorage(val vertx: Vertx) : Storage {
         }
 
         override fun loadEndpointsConfig(): JsonObject {
-            val conf = File(ENDPOINTS_CONFIG_FILE_PATH).readText()
+            val conf = File(ENDPOINTS_CONFIG_FILE_PATH).readText().trimIndent()
             val configJson = JsonObject(conf)
-            return if (validate(configJson)) configJson else CogboardConstants.errorResponse("Endpoints config not valid")
+            return if (validateEndpoints(configJson)) configJson else CogboardConstants.errorResponse("Endpoints config not valid")
         }
 
         override fun saveEndpointsConfig(config: JsonObject) {
