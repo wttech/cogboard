@@ -29,15 +29,16 @@ interface Widget {
 
         companion object {
             fun from(text: String): Status = when (text.toUpperCase()) {
-                "SUCCESS", "SUCCESSFUL" -> OK
-                "FAILURE", "FAILED" -> FAIL
+                "SUCCESS", "SUCCESSFUL", "OK" -> OK
+                "WARN" -> UNSTABLE
+                "FAILURE", "FAILED", "CRITICAL" -> FAIL
                 else -> values().firstOrNull { it.name.equals(text, ignoreCase = true) } ?: UNKNOWN
             }
 
             fun compare(expected: Any, actual: Any): Status = if (expected == actual) OK
             else ERROR
 
-            fun random(): Status = values()[(0 until Widget.Status.values().size).random()]
+            fun random(): Status = values()[(values().indices).random()]
         }
     }
 }

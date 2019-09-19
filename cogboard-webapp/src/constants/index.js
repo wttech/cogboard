@@ -12,3 +12,20 @@ export const ROWS_MIN = 1;
 export const ItemTypes = {
   WIDGET: 'widget'
 };
+
+export const AEM_HEALTH_CHECKS = {
+  inactiveBundles: 'Active Bundles',
+  asyncIndexHealthCheck: 'Async Index Health Check',
+  codeCacheHealthCheck: 'Code Cache Health Check',
+  DiskSpaceHealthCheck: 'Disk Space',
+  logErrorHealthCheck: 'Log Errors',
+  ObservationQueueLengthHealthCheck: 'Observation Queue Length',
+  resourceSearchPathErrorHealthCheck: 'Resource Search Path Errors',
+  requestsStatus: 'Request Performance',
+  queriesStatus: 'Query Performance',
+  queryTraversalLimitsBundle: 'Query Traversal Limits',
+  securitychecks: 'Security Checks',
+  slingJobs: 'Sling Jobs',
+  slingDiscoveryOakSynchronizedClocks: 'Synchronized Clocks',
+  systemchecks: 'System Maintenance',
+};
