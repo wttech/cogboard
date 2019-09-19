@@ -36,7 +36,7 @@ export const StyledCard = styled(forwardRef(({
       display: block;
       height: 100%;
       position: absolute;
-      z-index: 1;
+      z-index: 2;
       opacity: ${isDragging ? 1 : 0};
       width: 100%;
     }
