@@ -7,14 +7,14 @@ import io.vertx.core.json.JsonObject
 import io.vertx.reactivex.core.Vertx
 import io.vertx.reactivex.ext.web.RoutingContext
 
-class UpdateEndpoints : RoutingHandlerFactory {
+class DeleteEndpoints : RoutingHandlerFactory {
 
-    override fun getName(): String = "endpoints-update-handler"
+    override fun getName(): String = "endpoints-delete-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         vertx
                 ?.eventBus()
-                ?.publish(CogboardConstants.EVENT_UPDATE_ENDPOINTS_CONFIG, event.bodyAsJson)
+                ?.publish(CogboardConstants.EVENT_DELETE_ENDPOINTS_CONFIG, event.bodyAsJson)
         event
                 .response()
                 .end(config?.getJsonObject("body", CogboardConstants.errorResponse())?.encode())

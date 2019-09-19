@@ -55,6 +55,14 @@ paths:
       responses:
         default:
           description: Endpoint Update Handler
+  /api/endpoints/delete:
+    post:
+      operationId: endpoints-delete-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: Endpoint Delete Handler
   /api/config/save:
     post:
       operationId: config-save-handler

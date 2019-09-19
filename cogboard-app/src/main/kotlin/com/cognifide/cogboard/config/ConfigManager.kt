@@ -23,6 +23,7 @@ class ConfigManager : AbstractVerticle() {
         listenOnWidgetUpdate()
         listenOnWidgetDelete()
         listenOnEndpointsUpdate()
+        listenOnEndpointsDelete()
         loadConfig()
     }
 
@@ -46,6 +47,14 @@ class ConfigManager : AbstractVerticle() {
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS_CONFIG)
             .handler {
                 updateEndpointsConfig(config(), it.body())
+                storage.saveEndpointsConfig(config())
+            }
+
+    private fun listenOnEndpointsDelete() = vertx
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_ENDPOINTS_CONFIG)
+            .handler {
+                deleteEndpoint(config(), it.body())
                 storage.saveEndpointsConfig(config())
             }
 
@@ -94,6 +103,11 @@ class ConfigManager : AbstractVerticle() {
     private fun updateEndpointsConfig(config: JsonObject, endpoint: JsonObject) {
         val endpointsManager = EndpointsManager(config)
         endpointsManager.save(endpoint)
+    }
+
+    private fun deleteEndpoint(config: JsonObject, endpoint: JsonObject) {
+        val endpointsManager = EndpointsManager(config)
+        endpointsManager.delete(endpoint)
     }
 
     companion object {

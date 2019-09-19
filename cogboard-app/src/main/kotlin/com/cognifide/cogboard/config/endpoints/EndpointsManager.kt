@@ -5,6 +5,32 @@ import io.vertx.core.json.JsonObject
 
 class EndpointsManager(val config: JsonObject) {
 
+    fun delete(endpoint: JsonObject) {
+        val endpointId = endpoint.getString(ID)
+        val endpoints = config.getJsonArray(ENDPOINTS) ?: JsonArray()
+        endpoints.stream()
+                .map { it as JsonObject }
+                .map { it.getString(ID) }
+                .filter { it == endpointId }
+                .findFirst()
+                .ifPresent {
+                    val endpointPosition = getEndpointPosition(endpoints, it)
+                    endpoints.remove(endpointPosition)
+                }
+    }
+
+    private fun getEndpointPosition(endpoints: JsonArray, endpointId: String): Int {
+        var index = 0
+        while (index <= endpoints.size()) {
+            val endpoint = endpoints.getJsonObject(index)
+            if (endpoint.getString(ID) == endpointId) {
+                break
+            }
+            index++
+        }
+        return index;
+    }
+
     fun save(endpoint: JsonObject) {
         val endpointId = endpoint.getString(ID) ?: "0"
         val endpointExists = existsById(endpointId)
@@ -33,8 +59,8 @@ class EndpointsManager(val config: JsonObject) {
             config.put(ENDPOINTS, JsonArray())
         }
         endpoint.let {
-         it.put(ID, generateId())
-         it.put(LABEL, it.getString(LABEL) ?: it.getString(ID))
+            it.put(ID, generateId())
+            it.put(LABEL, it.getString(LABEL) ?: it.getString(ID))
         }
         config.getJsonArray(ENDPOINTS).add(endpoint)
     }
