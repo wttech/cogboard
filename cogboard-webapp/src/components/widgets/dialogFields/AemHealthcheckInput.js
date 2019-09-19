@@ -1,21 +1,9 @@
 import React from 'react';
-import styled from '@emotion/styled/macro';
 
-import { Input } from '@material-ui/core';
-import { InputLabel } from '@material-ui/core';
-import { MenuItem } from '@material-ui/core';
-import { FormControl } from '@material-ui/core';
-import { ListItemText } from '@material-ui/core';
-import { Select } from '@material-ui/core';
-import { Checkbox } from '@material-ui/core';
+import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select } from '@material-ui/core';
 
+import { StyledFormControl } from './../../styled';
 import { AEM_HEALTH_CHECKS } from '../../../constants';
-
-const StyledFormControl = styled(FormControl)`
-      margin: theme.spacing(1),
-      minWidth: 120,
-      maxWidth: 300,
-  `;
 
 const AemHealthcheckInput = props => {
   const { onChange, value } = props;

@@ -1,5 +1,5 @@
 export const URL = {
-  LOAD_DATA: '/api/config', // for front dev change to '/data.json'
+  LOAD_DATA: '/api/config',
   SAVE_DATA: '/api/config/save',
   UPDATE_WIDGET: '/api/widget/update',
   DELETE_WIDGET: '/api/widget/delete',
@@ -29,6 +29,17 @@ export const AEM_HEALTH_CHECKS = {
   slingDiscoveryOakSynchronizedClocks: 'Synchronized Clocks',
   systemchecks: 'System Maintenance',
 };
+
+export const ALL_SONARQUBE_METRICS = [
+  "blocker_violations",
+  "critical_violations",
+  "major_violations",
+  "minor_violations",
+  "info_violations",
+  "bugs",
+  "code_smells",
+  "vulnerabilities"
+];
 
 // props will be added to old configs on app init
 
