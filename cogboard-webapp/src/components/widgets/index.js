@@ -8,6 +8,7 @@ import BambooPlanWidget from "./types/BambooPlanWidget";
 import WorldClockWidget from "./types/WorldClockWidget";
 import IFrameEmbedWidget from "./types/IFrameEmbedWidget";
 import CheckboxWidget from './types/CheckboxWidget';
+import AemHealthcheckWidget from "./types/AemHealthcheckWidget";
 
 const widgetTypes = {
   DefaultWidget: {
@@ -62,6 +63,12 @@ const widgetTypes = {
   CheckboxWidget: {
     name: 'Checkbox widget',
     component: CheckboxWidget,
+    showUpdateTime : true
+  },
+  AemHealthcheckWidget: {
+    name: 'AEM Healthcheck widget',
+    component: AemHealthcheckWidget,
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'AemHealthcheckInput'],
     showUpdateTime : true
   }
 };
