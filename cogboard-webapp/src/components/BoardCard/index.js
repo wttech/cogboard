@@ -91,8 +91,6 @@ const BoardCard = ({ boardData, index, className }) => {
     <div className={className}>
       <StyledCard 
         onClick={handleBoardClick(id)}
-        isDragging={isDragging}
-        isOver={isOver}
         ref={ref}
       >
         {isDragging ? <DragCover/>: null}
