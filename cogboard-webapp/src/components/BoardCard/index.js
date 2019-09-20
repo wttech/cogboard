@@ -6,7 +6,7 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import { useToggle } from '../../hooks';
 import { deleteBoardWithWidgets } from '../../actions/thunks';
-import { reorderBoards } from '../../actions/actionCreators';
+import { reorderBoard } from '../../actions/thunks';
 import { ItemTypes } from '../../constants';
 
 import { CardHeader, CardContent, IconButton } from '@material-ui/core';
@@ -62,7 +62,7 @@ const BoardCard = ({ boardData, index, className }) => {
         return;
       }
 
-      dispatch(reorderBoards(sourceId, targetIndex));
+      dispatch(reorderBoard(sourceId, targetIndex));
       item.index = targetIndex;
     },
     collect: monitor => ({
