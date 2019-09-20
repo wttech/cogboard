@@ -73,6 +73,7 @@ const BoardCard = ({ boardData, className }) => {
         }
       </StyledCard>
       <AppDialog
+        disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={open}
         title={`Edit ${title}`}

@@ -15,12 +15,13 @@ const StyledDialogContent = styled(DialogContent)`
 `;
 
 const AppDialog = props => {
-  const { children, handleDialogClose, open, title } = props;
+  const { children, handleDialogClose, open, title, disableBackdropClick } = props;
 
   const stopEventPropagation = (event) => event.stopPropagation();
 
   return (
     <StyledDialog
+      disableBackdropClick={disableBackdropClick}
       onClick={stopEventPropagation}
       onClose={handleDialogClose}
       onKeyDown={stopEventPropagation}
@@ -43,7 +44,8 @@ AppDialog.propTypes = {
 }
 
 AppDialog.defaultProps = {
-  title: ''
+  title: '',
+  disableBackdropClick: false
 };
 
 export default AppDialog;
