@@ -37,33 +37,31 @@ const BoardCard = ({ boardData, index, className }) => {
       isDragging: monitor.isDragging()
     })
   });
-  const [{ isOver }, drop] = useDrop({
+
+  const checkIfPointerPassedMiddle = (sourceIndex, targetIndex, dragSourceMouseY, dropTargetMiddleY) => {
+    return (sourceIndex < targetIndex && dragSourceMouseY >= dropTargetMiddleY) ||
+          (sourceIndex > targetIndex && dragSourceMouseY <= dropTargetMiddleY)
+  }
+
+  const [{}, drop] = useDrop({
     accept: ItemTypes.BOARD,
     hover(item, monitor) {
-      if (!ref.current) {
-        return;
+      if (ref.current) {
+        const { id: sourceId, index: sourceIndex } = item;
+        const targetIndex = index;
+
+        if (sourceIndex !== targetIndex) {
+            
+          const { top, bottom } = ref.current.getBoundingClientRect();
+          const dropTargetMiddleY = bottom - (bottom - top) / 2;
+          const { y: dragSourceMouseY } = monitor.getClientOffset();
+
+          if (checkIfPointerPassedMiddle(sourceIndex, targetIndex, dragSourceMouseY, dropTargetMiddleY)) {
+            dispatch(reorderBoard(sourceId, targetIndex));
+            item.index = targetIndex;
+          }
+        }
       }
-
-      const { id: sourceId, index: sourceIndex } = item;
-      const targetIndex = index;
-
-      if (sourceIndex === targetIndex) {
-        return;
-      }
-
-      const { top, bottom } = ref.current.getBoundingClientRect();
-      const dropTargetMiddleY = bottom - (bottom - top) / 2;
-      const { y: dragSourceMouseY } = monitor.getClientOffset();
-
-      if (
-        (sourceIndex < targetIndex && dragSourceMouseY < dropTargetMiddleY) ||
-        (sourceIndex > targetIndex && dragSourceMouseY > dropTargetMiddleY)
-      ) {
-        return;
-      }
-
-      dispatch(reorderBoard(sourceId, targetIndex));
-      item.index = targetIndex;
     },
     collect: monitor => ({
       isOver: monitor.isOver(),
