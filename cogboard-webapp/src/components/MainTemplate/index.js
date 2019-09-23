@@ -93,6 +93,7 @@ const MainTemplate = () => {
         </Container>
       </StyledMain>
       <AppDialog
+        disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title="Add new widget"
