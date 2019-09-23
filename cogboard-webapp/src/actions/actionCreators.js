@@ -54,7 +54,7 @@ export const updateWidget = (data) => ({
 export const addBoard = (data) => ({
   type: ADD_BOARD,
   payload: {
-    id: v4(),
+    id: `board${v4()}`,
     theme: 'default',
     widgets: [],
     ...data
