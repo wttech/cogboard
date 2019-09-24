@@ -12,6 +12,7 @@ import { Box, FormControlLabel, FormControl, MenuItem, TextField, Switch } from 
 import DropdownField from './DropdownField';
 import WidgetTypeForm from './WidgetTypeForm';
 import { StyledFieldset } from './styled';
+import { handleNumberInput } from './helpers'
 
 const StyledNumberField = styled(TextField)`
   flex-basis: calc(50% - 18px);
@@ -61,10 +62,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
             InputLabelProps={{
               shrink: true
             }}
-            inputProps={{
-              min: COLUMNS_MIN,
-              max: boardColumns
-            }}
+            onInput={handleNumberInput(COLUMNS_MIN, boardColumns)}
             label="Columns"
             margin="normal"
             value={values.columns}
@@ -76,10 +74,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
             InputLabelProps={{
               shrink: true
             }}
-            inputProps={{
-              min: ROWS_MIN,
-              max: 4
-            }}
+            onInput={handleNumberInput(ROWS_MIN, 10)}
             label="Rows"
             margin="normal"
             value={values.rows}

@@ -12,3 +12,12 @@ export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
 
     return newObj;
   }, {});
+
+export const handleNumberInput = (minValue, maxValue) => (event) => {
+    const inputValue = event.target.value;
+    let parsedValue = parseInt(inputValue);
+    parsedValue = isNaN(parsedValue) ? minValue : parsedValue;
+    parsedValue = parsedValue > maxValue ? maxValue : parsedValue;
+    parsedValue = parsedValue < minValue ? minValue : parsedValue;
+    event.target.value = parsedValue.toString();
+  }
