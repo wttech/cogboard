@@ -44,8 +44,7 @@ AppDialog.propTypes = {
 }
 
 AppDialog.defaultProps = {
-  title: '',
-  disableBackdropClick: false
+  title: ''
 };
 
 export default AppDialog;
