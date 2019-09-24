@@ -15,7 +15,7 @@ export const useToggle = () => {
 export const useFormData = (data) => {
   // const [values, setValues] = useState(data);
 
-  const { register, setValues, values, errors } = useForm;
+  const { register, setValues, values, errors } = useForm();
 
   for (const key in Object.keys(data)) {
     register({name: key});
