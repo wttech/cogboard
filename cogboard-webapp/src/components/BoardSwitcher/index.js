@@ -1,62 +1,66 @@
 import React from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
-import { navigate } from '@reach/router';
 
-import { IconButton } from '@material-ui/core';
-import { SkipPrevious, PlayArrow, SkipNext } from '@material-ui/icons';
+import { useBoardSwitching } from './hooks';
+import { formatTime } from './helpers';
+
+import { IconButton, Tooltip } from '@material-ui/core';
+import { SkipPrevious, PlayArrow, SkipNext, Pause } from '@material-ui/icons';
 import { StyledTimer } from './styled';
 
 const BoardSwitcher = ({ className }) => {
-  const switcherBoards = useSelector(
-    ({ boards }) => boards.allBoards.filter(boardId => boards.boardsById[boardId].autoSwitch),
-    shallowEqual
-  );
-  const { currentBoard } = useSelector(({ ui }) => ui);
-  const currentBoardIndex = switcherBoards.includes(currentBoard) ? switcherBoards.indexOf(currentBoard) : 0;
-  const lastBoardIndex = switcherBoards.length - 1;
+  const {
+    handleBoardsSwitch,
+    handlePlayToggle,
+    hasBoardsToSwitch,
+    isPlaying,
+    nextBoardTitle,
+    prevBoardTitle,
+    switchInterval,
+    timeElapsed
+  } = useBoardSwitching();
+  const timeLeft = switchInterval - timeElapsed;
 
-  const handleBoardsSwitch = (direction) => () => {
-    if (switcherBoards.length <= 1) {
-      return;
-    }
-
-    const switchDirection = {
-      next: currentBoardIndex < lastBoardIndex ? currentBoardIndex + 1 : 0,
-      prev: currentBoardIndex > 0 ? currentBoardIndex - 1 : lastBoardIndex,
-    };
-    const boardIndex = switchDirection[direction];
-
-    navigate(switcherBoards[boardIndex]);
-  };
+  if (!hasBoardsToSwitch) {
+    return null;
+  }
 
   return (
     <div className={className}>
-      <StyledTimer>
-        0:48
-      </StyledTimer>
+      <StyledTimer>{formatTime(timeLeft)}</StyledTimer>
+      <Tooltip
+        title={prevBoardTitle}
+        placement="bottom-end"
+      >
+        <IconButton
+          onClick={handleBoardsSwitch('prev')}
+          color="inherit"
+          aria-label="Next board"
+          edge="start"
+        >
+          <SkipPrevious />
+        </IconButton>
+      </Tooltip>
       <IconButton
-        onClick={handleBoardsSwitch('prev')}
+        onClick={handlePlayToggle}
         color="inherit"
-        aria-label="Open drawer"
+        aria-label="Auto switch boards"
         edge="start"
       >
-        <SkipPrevious />
+        {isPlaying ? <Pause /> : <PlayArrow />}
       </IconButton>
-      <IconButton
-        color="inherit"
-        aria-label="Open drawer"
-        edge="start"
+      <Tooltip
+        title={nextBoardTitle}
+        placement="bottom-end"
       >
-        <PlayArrow />
-      </IconButton>
-      <IconButton
-        onClick={handleBoardsSwitch('next')}
-        color="inherit"
-        aria-label="Open drawer"
-        edge="start"
-      >
-        <SkipNext />
-      </IconButton>
+        <IconButton
+          onClick={handleBoardsSwitch('next')}
+          color="inherit"
+          aria-label="Next board"
+          edge="start"
+        >
+          <SkipNext />
+        </IconButton>
+      </Tooltip>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import BambooPlanWidget from "./types/BambooPlanWidget";
 import WorldClockWidget from "./types/WorldClockWidget";
 import IFrameEmbedWidget from "./types/IFrameEmbedWidget";
 import CheckboxWidget from './types/CheckboxWidget';
+import AemHealthcheckWidget from "./types/AemHealthcheckWidget";
 
 const widgetTypes = {
   DefaultWidget: {
@@ -52,7 +53,7 @@ const widgetTypes = {
   WorldClockWidget: {
     name: 'World Clock widget',
     component: WorldClockWidget,
-    dialogFields: ['TimeZoneId', 'DateTimeFormat']
+    dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'TextSize']
   },
   IFrameEmbedWidget: {
     name: 'IFrame Embed widget',
@@ -61,7 +62,14 @@ const widgetTypes = {
   },
   CheckboxWidget: {
     name: 'Checkbox widget',
-    component: CheckboxWidget
+    component: CheckboxWidget,
+    showUpdateTime : true
+  },
+  AemHealthcheckWidget: {
+    name: 'AEM Healthcheck widget',
+    component: AemHealthcheckWidget,
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'AemHealthcheckInput'],
+    showUpdateTime : true
   }
 };
 

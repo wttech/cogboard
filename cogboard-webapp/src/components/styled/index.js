@@ -64,3 +64,9 @@ export const StyledTitle = styled(Typography)`
     width: ${setSize(10)};
   }
 `;
+
+export const StyledFormControl = styled(FormControl)`
+      margin: theme.spacing(1),
+      minWidth: 120,
+      maxWidth: 300,
+  `;

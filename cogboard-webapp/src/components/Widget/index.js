@@ -4,18 +4,19 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { useDialogToggle } from '../../hooks';
+import { useToggle } from '../../hooks';
 import { removeWidget, reorderWidgets } from '../../actions/thunks';
 import widgetTypes from "../widgets";
 import { ItemTypes } from '../../constants';
 
-import { CardHeader, MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardContent } from './styled';
+import { MenuItem } from '@material-ui/core';
+import { StyledCard, StyledCardHeader, StyledCardContent } from './styled';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import WidgetContent from '../WidgetContent';
 import LastUpdate from "../LastUpdate";
+import ConfirmationDialog from "../ConfirmationDialog";
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -40,10 +41,13 @@ const Widget = ({ id, index }) => {
   const showUpdateTime = widgetTypes[type] ? widgetTypes[type].showUpdateTime : false;
   const dispatch = useDispatch();
   const theme = useTheme();
-  const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
+  const [confirmationDialogOpened, openConfirmationDialog, handleConfirmationDialogClose] = useToggle();
+  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const ref = useRef(null);
+  const isLoggedIn = useSelector(({ app }) => !!app.jwToken);
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
+    canDrag: isLoggedIn,
     collect: monitor => ({
       isDragging: monitor.isDragging()
     })
@@ -90,10 +94,13 @@ const Widget = ({ id, index }) => {
   };
 
   const handleDeleteClick = (closeMenu) => () => {
-    dispatch(removeWidget(id));
+    openConfirmationDialog();
     closeMenu();
   };
 
+  const deleteWidget = () => {
+    dispatch(removeWidget(id));
+  };
 
   return (
     <>
@@ -103,11 +110,12 @@ const Widget = ({ id, index }) => {
         goNewLine={goNewLine}
         rows={rows}
         theme={theme}
+        isLoggedIn={isLoggedIn}
         isDragging={isDragging}
         isOver={isOver}
         ref={ref}
       >
-        <CardHeader
+        <StyledCardHeader
           title={title}
           titleTypographyProps={
             {
@@ -150,6 +158,14 @@ const Widget = ({ id, index }) => {
           widgetTypeData={widgetTypeData}
         />
       </AppDialog>
+      <ConfirmationDialog
+        open={confirmationDialogOpened}
+        title={`Delete ${title}`}
+        content={`Are you sure you want to delete ${title}?`}
+        handleOk={deleteWidget}
+        labelOk="Delete"
+        handleCancel={handleConfirmationDialogClose}
+      />
     </>
   );
 };

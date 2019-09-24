@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 
 import { splitPropsGroupName } from '../components/helpers';
 
-export const useDialogToggle = () => {
-  const [dialogOpened, setDialogOpened] = useState(false);
+export const useToggle = () => {
+  const [isOpened, setOpened] = useState(false);
 
-  const openDialog = () => setDialogOpened(true);
-  const handleDialogClose = () => setDialogOpened(false);
+  const handleOpen = () => setOpened(true);
+  const handleClose = () => setOpened(false);
 
-  return [dialogOpened, openDialog, handleDialogClose];
+  return [isOpened, handleOpen, handleClose];
 };
 
 export const useFormData = (data) => {

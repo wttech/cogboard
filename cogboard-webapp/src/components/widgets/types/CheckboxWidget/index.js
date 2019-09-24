@@ -1,5 +1,4 @@
 import React from 'react';
-import { string } from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setWidgetState } from '../../../../actions/thunks';
@@ -13,6 +12,12 @@ const CheckboxWidget = props => {
   const { status } = useSelector(({ widgets }) => widgets.widgetsById[id]);
   const dispatch = useDispatch();
 
+  const ariaCheckedStatusMap = {
+    OK: true,
+    FAIL: false,
+    UNKNOWN: 'mixed'
+  };
+
   const handleChangeStatus = () => {
     dispatch(setWidgetState({
       id,
@@ -21,14 +26,15 @@ const CheckboxWidget = props => {
   };
 
   return (
-    <WidgetIconButton aria-label="Toggle status" onClick={handleChangeStatus}>
-      <StatusIcon size="large" status={status}/>
+    <WidgetIconButton 
+      aria-label="Toggle status"
+      aria-checked={ariaCheckedStatusMap[status]}
+      data-cy="checkbox"
+      onClick={handleChangeStatus}
+    >
+      <StatusIcon size="large" status={status} />
     </WidgetIconButton>
   );
-};
-
-CheckboxWidget.propTypes = {
-  status: string.isRequired
 };
 
 export default CheckboxWidget;

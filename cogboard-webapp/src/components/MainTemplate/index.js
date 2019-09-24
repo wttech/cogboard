@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Router } from "@reach/router";
 
-import { useDialogToggle } from '../../hooks';
+import { useToggle } from '../../hooks';
 import { saveData } from '../../actions/thunks';
 
 import { Container, Drawer, Fab } from '@material-ui/core';
@@ -26,7 +26,7 @@ const MainTemplate = () => {
   const isDataChanged = useSelector(({ app }) => app.isDataChanged);
   const isAdmin = useSelector(({app}) => app.isAdmin);
   const [drawerOpened, setDrawerOpened] = useState(false);
-  const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
+  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
 
   const handleSaveDataClick = () => {

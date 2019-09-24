@@ -1,7 +1,5 @@
-import {getGmtTimezones} from "../components/helpers";
-
 export const URL = {
-  LOAD_DATA: '/api/config', // for front dev change to '/data.json'
+  LOAD_DATA: '/api/config',
   SAVE_DATA: '/api/config/save',
   UPDATE_WIDGET: '/api/widget/update',
   DELETE_WIDGET: '/api/widget/delete',
@@ -10,51 +8,34 @@ export const URL = {
 export const COLUMNS_MIN = 1;
 export const COLUMNS_MAX = 20;
 
-export const GMT_TIMEZONES = getGmtTimezones();
-
-export const DATE_FORMATS = [
-    {
-        display: '29-08-2019, 15:43:12',
-        value: 'DD-MM-YYYY, HH:mm:ss'
-    },
-    {
-        display: '29 Aug 2019, 15:43:12',
-        value: 'DD MMM YYYY, HH:mm:ss'
-    },
-    {
-        display: '15:43:12, 29-08-2019',
-        value: 'HH:mm:ss, DD-MM-YYYY'
-    },
-    {
-        display: '15:43:12, 29 Aug 2019',
-        value: 'HH:mm:ss, DD MMM YYYY'
-    }
-];
-
 export const TEXT_SIZES = [
   {
     display: 'XXL',
-    value: 'h1'
-  },
-  {
-    display: 'XL',
     value: 'h2'
   },
   {
-    display: 'L',
+    display: 'XL',
     value: 'h3'
   },
   {
-    display: 'M',
+    display: 'L',
     value: 'h4'
   },
   {
-    display: 'S',
+    display: 'M',
     value: 'h5'
   },
   {
-    display: 'XS',
+    display: 'S',
     value: 'h6'
+  },
+  {
+    display: 'XS',
+    value: 'subtitle1'
+  },
+  {
+    display: 'XXS',
+    value: 'subtitle2'
   }
 ];
 
@@ -80,4 +61,39 @@ export const REQUEST_METHODS = [
 export const ROWS_MIN = 1;
 export const ItemTypes = {
   WIDGET: 'widget'
+};
+
+export const AEM_HEALTH_CHECKS = {
+  inactiveBundles: 'Active Bundles',
+  asyncIndexHealthCheck: 'Async Index Health Check',
+  codeCacheHealthCheck: 'Code Cache Health Check',
+  DiskSpaceHealthCheck: 'Disk Space',
+  logErrorHealthCheck: 'Log Errors',
+  ObservationQueueLengthHealthCheck: 'Observation Queue Length',
+  resourceSearchPathErrorHealthCheck: 'Resource Search Path Errors',
+  requestsStatus: 'Request Performance',
+  queriesStatus: 'Query Performance',
+  queryTraversalLimitsBundle: 'Query Traversal Limits',
+  securitychecks: 'Security Checks',
+  slingJobs: 'Sling Jobs',
+  slingDiscoveryOakSynchronizedClocks: 'Synchronized Clocks',
+  systemchecks: 'System Maintenance',
+};
+
+export const ALL_SONARQUBE_METRICS = [
+  "blocker_violations",
+  "critical_violations",
+  "major_violations",
+  "minor_violations",
+  "info_violations",
+  "bugs",
+  "code_smells",
+  "vulnerabilities"
+];
+
+// props will be added to old configs on app init
+
+export const INITIAL_BOARD_PROPS = {
+  autoSwitch: false,
+  switchInterval: 0
 };

@@ -4,12 +4,13 @@ import styled from '@emotion/styled/macro';
 
 import { mapStatusToColor } from './helpers';
 
-import { Card, CardContent } from '@material-ui/core';
+import { Card, CardHeader, CardContent } from '@material-ui/core';
 
 export const StyledCard = styled(forwardRef(({
   status,
   columns,
   goNewLine,
+  isLoggedIn,
   isDragging,
   isOver,
   rows,
@@ -18,7 +19,7 @@ export const StyledCard = styled(forwardRef(({
 }, ref) => <Card {...other} ref={ref} />))`
   background: ${({ isDragging, status, theme }) => !isDragging ? mapStatusToColor(status, theme) : theme.palette.background.paper};
   box-shadow: none;
-  cursor: move;
+  cursor: ${({ isLoggedIn }) => isLoggedIn ? 'move' : 'default'};
   display: flex;
   flex-direction: column;
   grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
@@ -35,7 +36,7 @@ export const StyledCard = styled(forwardRef(({
       display: block;
       height: 100%;
       position: absolute;
-      z-index: 1;
+      z-index: 2;
       opacity: ${isDragging ? 1 : 0};
       width: 100%;
     }
@@ -49,6 +50,10 @@ StyledCard.propTypes = {
   status: string.isRequired,
   theme: object.isRequired
 };
+
+export const StyledCardHeader = styled(CardHeader)`
+  z-index: 1;
+`;
 
 export const StyledCardContent = styled(CardContent)`
   display: flex;
