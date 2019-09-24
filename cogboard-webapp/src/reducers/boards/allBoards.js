@@ -1,4 +1,5 @@
 import { RECEIVE_DATA, DELETE_BOARD, ADD_BOARD, REORDER_BOARDS } from '../../actions/types';
+import { reorderItems } from '../shared';
 
 const receiveData = (state, { payload }) => {
   const { boards: { allBoards } } = payload;
@@ -18,12 +19,7 @@ const deleteBoard = (state, { payload: id }) =>
 const reorderBoards = (state, { payload }) => {
   const { sourceId, targetIndex } = payload;
   const boards = [...state];
-  const withoutSource = boards.filter(boardId => boardId !== sourceId);
-  const sortedBoards = [
-    ...withoutSource.slice(0, targetIndex),
-    sourceId,
-    ...withoutSource.slice(targetIndex)
-  ];
+  const sortedBoards = reorderItems(boards, sourceId, targetIndex);
 
   return sortedBoards
 };
