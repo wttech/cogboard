@@ -114,7 +114,7 @@ const dialogFields = {
   },
   RequestBody: {
     component: MultilineTextInput,
-    name: 'content.requestBody',
+    name: 'requestBody',
     label: 'Request Body'
   },
   TextSize: {
@@ -126,7 +126,7 @@ const dialogFields = {
   },
   RequestMethod: {
     component: DisplayValueSelect,
-    name: 'content.requestMethod',
+    name: 'requestMethod',
     label: 'Request Method',
     dropdownItems: REQUEST_METHODS,
     initialValue: REQUEST_METHODS[0].value

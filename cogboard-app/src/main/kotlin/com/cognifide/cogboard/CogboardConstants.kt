@@ -35,6 +35,8 @@ class CogboardConstants {
         const val EVENT_HTTP_GET = "cogboard.httpclient.get"
         const val EVENT_HTTP_CHECK = "cogboard.httpclient.check"
         const val EVENT_HTTP_POST = "cogboard.httpclient.post"
+        const val EVENT_HTTP_PUT = "cogboard.httpclient.put"
+        const val EVENT_HTTP_DELETE = "cogboard.httpclient.delete"
 
         val DEFAULT_VALUES: JsonObject = JsonObject()
                 .put(PROP_SCHEDULE_PERIOD, PROP_SCHEDULE_PERIOD_DEFAULT)

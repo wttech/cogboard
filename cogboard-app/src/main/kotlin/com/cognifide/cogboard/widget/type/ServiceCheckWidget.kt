@@ -10,9 +10,15 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
 
     private val serviceUrl = config.getString("url", "")
     private val expectedStatusCode = config.getInteger("expectedStatusCode", 0)
+    private val requestMethod = config.getString("requestMethod", "")
+    private val requestBody = config.getString("requestBody", "")
 
     override fun updateState() {
-       if (serviceUrl.isNotBlank()) httpGetStatus(serviceUrl) else sendConfigurationError("URL is blank")
+        if (serviceUrl.isNotBlank()) {
+            httpGetStatus(serviceUrl)
+        } else {
+            sendConfigurationError("URL is blank")
+        }
     }
 
     override fun handleResponse(responseBody: JsonObject) {

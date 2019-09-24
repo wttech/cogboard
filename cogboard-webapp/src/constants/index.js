@@ -45,12 +45,12 @@ export const REQUEST_METHODS = [
     value: 'get'
   },
   {
-    display: 'POST',
-    value: 'post'
-  },
-  {
     display: 'PUT',
     value: 'put'
+  },
+  {
+    display: 'POST',
+    value: 'post'
   },
   {
     display: 'DELETE',
