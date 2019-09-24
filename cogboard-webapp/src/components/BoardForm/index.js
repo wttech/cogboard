@@ -11,6 +11,14 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
   const { values, handleChange } = useFormData(initialFormValues);
   const { autoSwitch } = values;
 
+  const handleInput = (e) => {
+    const inputValue = e.target.value;
+    let intValue = isNaN(parseInt(inputValue)) ? 0 : parseInt(inputValue);
+    intValue = intValue > COLUMNS_MAX ? COLUMNS_MAX : intValue;
+    intValue = intValue < COLUMNS_MIN ? COLUMNS_MIN : intValue;
+    e.target.value = intValue.toString();
+  };
+
   return (
     <>
       <StyledFieldset component="fieldset">
@@ -30,14 +38,12 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
           InputLabelProps={{
             shrink: true
           }}
-          inputProps={{
-            min: COLUMNS_MIN,
-            max: COLUMNS_MAX
-          }}
+          onInput={handleInput}
           label="Columns"
           margin="normal"
           value={values.columns}
           type="number"
+          placeholder="1"
         />
         <FormControl margin="normal">
           <FormControlLabel
