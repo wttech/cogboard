@@ -6,6 +6,7 @@ export const URL = {
   LOGIN: '/api/login'
 };
 export const COLUMNS_MIN = 1;
+export const COLUMNS_DEFAULT = 8;
 export const COLUMNS_MAX = 20;
 
 export const ROWS_MIN = 1;

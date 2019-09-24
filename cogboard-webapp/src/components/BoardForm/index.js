@@ -2,7 +2,7 @@ import React from 'react';
 import { string, number, bool } from 'prop-types';
 
 import { useFormData } from '../../hooks';
-import { COLUMNS_MAX, COLUMNS_MIN } from '../../constants';
+import { COLUMNS_MAX, COLUMNS_MIN, COLUMNS_DEFAULT } from '../../constants';
 
 import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/core';
 import { StyledFieldset } from './styled';
@@ -13,11 +13,15 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
 
   const handleInput = (e) => {
     const inputValue = e.target.value;
-    let intValue = isNaN(parseInt(inputValue)) ? 0 : parseInt(inputValue);
+    let intValue = isNaN(parseInt(inputValue)) ? COLUMNS_MIN : parseInt(inputValue);
     intValue = intValue > COLUMNS_MAX ? COLUMNS_MAX : intValue;
     intValue = intValue < COLUMNS_MIN ? COLUMNS_MIN : intValue;
     e.target.value = intValue.toString();
   };
+
+  const columnsPlaceholder = () => {
+    return COLUMNS_DEFAULT.toString();
+  }
 
   return (
     <>
@@ -43,7 +47,7 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
           margin="normal"
           value={values.columns}
           type="number"
-          placeholder="1"
+          placeholder={columnsPlaceholder}
         />
         <FormControl margin="normal">
           <FormControlLabel
