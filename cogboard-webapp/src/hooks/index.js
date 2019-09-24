@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { splitPropsGroupName } from '../components/helpers';
+import useForm from 'react-hook-form';
 
 export const useToggle = () => {
   const [isOpened, setOpened] = useState(false);
@@ -12,24 +13,31 @@ export const useToggle = () => {
 };
 
 export const useFormData = (data) => {
-  const [values, setValues] = useState(data);
+  // const [values, setValues] = useState(data);
 
-  const setFieldValue = (fieldName, fieldValue) => {
-    const [groupName, propName] = splitPropsGroupName(fieldName);
+  const { register, setValues, values, errors } = useForm;
 
-    if (groupName) {
-      const groupValues = values[groupName];
+  for (const key in Object.keys(data)) {
+    register({name: key});
+    setValues(key, data[key]);
+  }
 
-      setValues({
-        ...values,
-        [groupName]: { ...groupValues, [propName]: fieldValue }
-      });
+  // const setFieldValue = (fieldName, fieldValue) => {
+  //   const [groupName, propName] = splitPropsGroupName(fieldName);
 
-      return;
-    }
+  //   if (groupName) {
+  //     const groupValues = values[groupName];
 
-    setValues({ ...values, [propName]: fieldValue});
-  };
+  //     setValues({
+  //       ...values,
+  //       [groupName]: { ...groupValues, [propName]: fieldValue }
+  //     });
+
+  //     return;
+  //   }
+
+  //   setValues({ ...values, [propName]: fieldValue});
+  // };
 
   const handleChange = fieldName => event => {
     const { target: { type, value, checked } } = event;
@@ -39,7 +47,7 @@ export const useFormData = (data) => {
     };
     const fieldValue = valueType[type] !== undefined ? valueType[type] : value;
 
-    setFieldValue(fieldName, fieldValue);
+    setValues(fieldName, fieldValue)
   };
 
   return { values, handleChange };

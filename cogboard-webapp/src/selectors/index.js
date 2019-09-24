@@ -32,3 +32,8 @@ export const getSwitcherBoards = createSelector(
   [getAllBoards, getBoardsById],
   (allBoards, boardsById) => allBoards.filter(boardId => boardsById[boardId].autoSwitch)
 );
+
+export const getBoards = createSelector(
+  [getBoardsById],
+  (allBoards) => Object.values(allBoards)
+);

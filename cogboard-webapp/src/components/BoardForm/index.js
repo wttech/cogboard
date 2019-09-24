@@ -63,7 +63,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           }}
         />
         <TextField
-          name="columns"
+          name="test.columns.value"
           InputLabelProps={{
             shrink: true
           }}

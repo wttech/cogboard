@@ -27,6 +27,7 @@ const AddBoard = () => {
 
   const handleAddActionClick = values => {
     const { title, columns, switchInterval } = values;
+    console.log(values)
     values.title = title.trim().replace(/\s+/g,' ');
     values.columns = parseInt(columns);
     if (switchInterval !== undefined) {
