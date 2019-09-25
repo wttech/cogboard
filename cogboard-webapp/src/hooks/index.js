@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { splitPropsGroupName } from '../components/helpers';
+import { splitPropsGroupName, parseYupErrors } from '../components/helpers';
 
 export const useToggle = () => {
   const [isOpened, setOpened] = useState(false);
@@ -11,8 +11,15 @@ export const useToggle = () => {
   return [isOpened, handleOpen, handleClose];
 };
 
-export const useFormData = (data) => {
+export const useFormData = (data, validationSchema=null) => {
   const [values, setValues] = useState(data);
+
+  const [status, setStatus] = useState({
+    submited: false,
+    onChange: false,
+  })
+
+  const [errors, setErrors] = useState({});
 
   const setFieldValue = (fieldName, fieldValue) => {
     const [groupName, propName] = splitPropsGroupName(fieldName);
@@ -28,7 +35,10 @@ export const useFormData = (data) => {
       return;
     }
 
-    setValues({ ...values, [propName]: fieldValue});
+    const newValues = { ...values, [propName]: fieldValue};
+    validateField(fieldName, newValues);
+
+    setValues(newValues);
   };
 
   const handleChange = fieldName => event => {
@@ -42,7 +52,38 @@ export const useFormData = (data) => {
     setFieldValue(fieldName, fieldValue);
   };
 
-  return { values, handleChange };
+  const validateField = (fieldName, fieldsValues) => {
+    if (status.submited || status.onChange) {
+      validationSchema.validateAt(fieldName, fieldsValues, {abortEarly: false})
+        .then(() => {
+          if (fieldName in errors) {
+            const errorsTmp = {...errors}
+            delete errorsTmp[fieldName]
+            setErrors(errorsTmp)
+          }
+        }).catch(e => {
+          setErrors({...errors, ...parseYupErrors(e)})
+        })
+    }
+  }
+
+  const handleSubmit = func => event => {
+    event.preventDefault();
+    setStatus({...status, submited: true})
+    if(validationSchema) {
+      validationSchema.validate(values, {abortEarly: false})
+        .then(value => {
+          func(value);
+        })
+        .catch(errors => {
+          setErrors(parseYupErrors(errors))
+        })
+    } else {
+      func(values);
+    }
+  }
+
+  return { values, handleChange, handleSubmit, errors };
 };
 
 export function useInterval(callback, delay) {
