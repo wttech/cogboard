@@ -13,7 +13,7 @@ import io.vertx.core.logging.LoggerFactory
 
 internal open class BoardsController : AbstractVerticle() {
 
-    internal lateinit var storage: Storage
+    private lateinit var storage: Storage
     internal val widgets = mutableMapOf<String, Widget>()
 
     override fun start() {
