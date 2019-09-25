@@ -1,33 +1,35 @@
 package com.cognifide.cogboard.config
 
+import com.cognifide.cogboard.CogboardConstants
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
-import java.util.*
 
 class EndpointLoader(private val endpointsConfig: JsonArray, private val credentialsConfig: JsonArray, private val endpointId: String) {
 
-    fun asJson(withSensitiveData: Boolean): JsonObject {
-        val endpoint = findEndpointById(endpointId, endpointsConfig)
-        if (withSensitiveData) endpoint.map { attachUserPassword(it) }
-        return endpoint.orElse(JsonObject())
+    fun load(): JsonObject {
+       return endpointsConfig.findById(endpointId)
     }
 
-    private fun attachUserPassword(endpoint: JsonObject): JsonObject {
-        endpoint.remove(CREDENTIALS)?.let {
-            val credentials = findEndpointById(it as String, credentialsConfig)
-                    .orElse(JsonObject())
-            endpoint.put(USER, credentials.getString(USER) ?: "")
-            endpoint.put(PASSWORD, credentials.getString(PASSWORD) ?: "")
+    fun loadWithSensitiveData(): JsonObject {
+        return load().attachUserPassword()
+    }
+
+    private fun JsonObject.attachUserPassword(): JsonObject {
+        this.remove(CREDENTIALS)?.let {credId ->
+            credentialsConfig.findById(credId as String).let { credentials ->
+                this.put(USER, credentials.getString(USER) ?: "")
+                this.put(PASSWORD, credentials.getString(PASSWORD) ?: "")
+            }
         }
-
-        return endpoint
+        return this
     }
 
-    private fun findEndpointById(endpointId: String, endpoints: JsonArray): Optional<JsonObject> {
-        return endpoints.stream()
+    private fun JsonArray.findById(id: String): JsonObject {
+        return this.stream()
                 .map { it as JsonObject }
-                .filter { it.getString(ENDPOINT_ID_PROP) == endpointId }
+                .filter { it.getString(CogboardConstants.PROP_ID) == id }
                 .findFirst()
+                .orElse(JsonObject())
     }
 
     companion object {

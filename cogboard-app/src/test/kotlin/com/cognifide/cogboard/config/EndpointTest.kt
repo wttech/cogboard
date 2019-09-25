@@ -17,8 +17,8 @@ internal class EndpointTest {
     @BeforeAll
     fun init() {
         config = readConfigFromResource("/com/cognifide/cogboard/config/endpoints-test.json")
-        validEndpoint = EndpointLoader.from(config, "validEndpoint").asJson(true)
-        invalidEndpoint = EndpointLoader.from(config, "invalidEndpoint").asJson(true)
+        validEndpoint = EndpointLoader.from(config, "validEndpoint").loadWithSensitiveData()
+        invalidEndpoint = EndpointLoader.from(config, "invalidEndpoint").loadWithSensitiveData()
     }
 
     @Test

@@ -44,18 +44,18 @@ internal open class BoardsController : AbstractVerticle() {
                 it.stop()
                 newConfig = it.config().mergeIn(config, true)
             }
-            attachEndpoint(newConfig)
+            newConfig.attachEndpoint()
             widgets[id] = WidgetIndex.create(newConfig, vertx).start()
         } else {
             LOGGER.error("Widget Update / Create | There is widget with no ID in configuration: $config")
         }
     }
 
-    private fun attachEndpoint(config: JsonObject) {
-        val endpointId = config.getString(CogboardConstants.PROP_ENDPOINT)
+    private fun JsonObject.attachEndpoint() {
+        val endpointId = this.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
-            val endpoint = EndpointLoader.from(config(), endpointId).asJson(true)
-            config.put(CogboardConstants.PROP_ENDPOINT, endpoint)
+            val endpoint = EndpointLoader.from(config(), endpointId).loadWithSensitiveData()
+            this.put(CogboardConstants.PROP_ENDPOINT, endpoint)
         }
     }
 

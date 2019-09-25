@@ -38,10 +38,7 @@ class EndpointsController : AbstractVerticle() {
                 storage.saveEndpointsConfig(config())
             }
 
-    fun save(endpoint: JsonObject) {
-        val endpointExists = exists(endpoint)
-        if (endpointExists) update(endpoint) else add(endpoint)
-    }
+    fun save(endpoint: JsonObject) = if (exists(endpoint)) update(endpoint) else add(endpoint)
 
     fun exists(endpoint: JsonObject): Boolean {
         val endpointId = endpoint.getString(ENDPOINT_ID_PROP) ?: return false
@@ -55,21 +52,27 @@ class EndpointsController : AbstractVerticle() {
 
     private fun update(endpoint: JsonObject) {
         val endpointId = endpoint.getString(ENDPOINT_ID_PROP)
-        val endpointToUpdate = EndpointLoader.from(config(), endpointId)
-                .asJson(false)
-
+        val endpointToUpdate = EndpointLoader.from(config(), endpointId).load()
         endpointToUpdate.mergeIn(endpoint, true)
     }
 
     private fun add(endpoint: JsonObject) {
-        if (!config().containsKey(ENDPOINTS)) {
-            config().put(ENDPOINTS, JsonArray())
-        }
         endpoint.let {
             it.put(ENDPOINT_ID_PROP, generateId())
             it.put(ENDPOINT_LABEL_PROP, it.getString(ENDPOINT_LABEL_PROP) ?: it.getString(ENDPOINT_ID_PROP))
         }
-        config().getJsonArray(ENDPOINTS).add(endpoint)
+
+        config()
+                .putIfNotExist(ENDPOINTS, JsonArray())
+                .getJsonArray(ENDPOINTS)
+                .add(endpoint)
+    }
+
+    private fun JsonObject.putIfNotExist(key: String, value: Any): JsonObject {
+        if (!this.containsKey(key)) {
+            config().put(key, value)
+        }
+        return this
     }
 
     private fun generateId(): String {
