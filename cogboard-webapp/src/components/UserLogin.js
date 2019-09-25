@@ -30,6 +30,12 @@ const UserLogin = () => {
     dispatch(login(credentials))
   };
 
+  const handleLoginOnEnterPress = (event, credentials) => {
+    if (event.key === 'Enter') {
+      dispatch(login(credentials))
+    }
+  };
+
   const handleLoginDialogOpen = () => {
     openDialog(true);
   };
@@ -79,6 +85,7 @@ const UserLogin = () => {
             label="Username"
             margin="normal"
             value={values.username}
+            onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
           />
           <TextField
             onChange={handleChange('password')}
@@ -90,6 +97,7 @@ const UserLogin = () => {
             label="Password"
             margin="normal"
             value={values.password}
+            onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
           />
           <Button
             color="primary"
