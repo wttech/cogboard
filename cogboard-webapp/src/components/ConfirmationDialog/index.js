@@ -20,11 +20,11 @@ const ConfirmationDialog = props => {
           {content}
         </Typography>
         <StyledButtonBox display="flex" justifyContent="flex-end">
-          <Button onClick={handleOk} variant="contained" color="primary" autoFocus>
+          <Button onClick={handleOk} variant="contained" color="primary" autoFocus data-cy="confirmation-dialog-ok">
             {labelOk}
           </Button>
           {handleCancel &&
-          <StyledCancelButton onClick={handleCancel} variant="outlined" color="primary">
+          <StyledCancelButton onClick={handleCancel} variant="outlined" color="primary" data-cy="confirmation-dialog-cancel">
             {labelCancel}
           </StyledCancelButton>}
         </StyledButtonBox>
