@@ -1,7 +1,7 @@
 package com.cognifide.cogboard.config.handler.endpoints
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.endpoints.EndpointLoader
+import com.cognifide.cogboard.config.EndpointLoader
 import com.cognifide.cogboard.storage.docker.VolumeStorage
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
@@ -14,7 +14,7 @@ class GetEndpoints : RoutingHandlerFactory {
 
     private lateinit var endpoints: JsonArray
 
-    override fun getName(): String = "endpoints-handler"
+    override fun getName(): String = "endpoints-get-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         val endpointsConfig = VolumeStorage.Loader()

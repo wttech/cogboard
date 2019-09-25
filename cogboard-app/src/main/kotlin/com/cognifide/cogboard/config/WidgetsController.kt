@@ -1,8 +1,6 @@
 package com.cognifide.cogboard.config
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.endpoints.EndpointLoader
-import com.cognifide.cogboard.config.endpoints.EndpointsManager
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.docker.VolumeStorage
 import com.cognifide.cogboard.widget.Widget
@@ -12,25 +10,23 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
-class ConfigManager : AbstractVerticle() {
+class WidgetsController : AbstractVerticle() {
 
     private val widgets = mutableMapOf<String, Widget>()
     private lateinit var storage: Storage
 
     override fun start() {
         storage = VolumeStorage(vertx)
-        listenOnConfigSave()
+        listenOnBoardsConfigSave()
         listenOnWidgetUpdate()
         listenOnWidgetDelete()
-        listenOnEndpointsUpdate()
-        listenOnEndpointsDelete()
-        loadConfig()
+        loadBoardsConfig()
     }
 
-    private fun listenOnConfigSave() = vertx
+    private fun listenOnBoardsConfigSave() = vertx
             .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_CONFIG_SAVE)
-            .handler { storage.saveConfig(it.body()) }
+            .consumer<JsonObject>(CogboardConstants.EVENT_SAVE_BOARDS_CONFIG)
+            .handler { storage.saveBoardsConfig(it.body()) }
 
     private fun listenOnWidgetUpdate() = vertx
             .eventBus()
@@ -42,24 +38,9 @@ class ConfigManager : AbstractVerticle() {
             .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_WIDGET_CONFIG)
             .handler { delete(it.body()) }
 
-    private fun listenOnEndpointsUpdate() = vertx
-            .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS_CONFIG)
-            .handler {
-                updateEndpointsConfig(config(), it.body())
-                storage.saveEndpointsConfig(config())
-            }
 
-    private fun listenOnEndpointsDelete() = vertx
-            .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_ENDPOINTS_CONFIG)
-            .handler {
-                deleteEndpoint(config(), it.body())
-                storage.saveEndpointsConfig(config())
-            }
-
-    private fun loadConfig() = storage
-            .loadConfig()
+    private fun loadBoardsConfig() = storage
+            .loadBoardsConfig()
             .getJsonObject(CogboardConstants.PROP_WIDGETS)
             .getJsonObject(CogboardConstants.PROP_WIDGETS_BY_ID)
             .forEach {
@@ -95,22 +76,12 @@ class ConfigManager : AbstractVerticle() {
     private fun attachEndpoint(config: JsonObject) {
         val endpointId = config.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
-            val endpoint = EndpointLoader.from(config(), endpointId)
-            config.put(CogboardConstants.PROP_ENDPOINT, endpoint.asJson(true))
+            val endpoint = EndpointLoader.from(config(), endpointId).asJson(true)
+            config.put(CogboardConstants.PROP_ENDPOINT, endpoint)
         }
     }
 
-    private fun updateEndpointsConfig(config: JsonObject, endpoint: JsonObject) {
-        val endpointsManager = EndpointsManager(config)
-        endpointsManager.save(endpoint)
-    }
-
-    private fun deleteEndpoint(config: JsonObject, endpoint: JsonObject) {
-        val endpointsManager = EndpointsManager(config)
-        endpointsManager.delete(endpoint)
-    }
-
     companion object {
-        val LOGGER: Logger = LoggerFactory.getLogger(ConfigManager::class.java)
+        val LOGGER: Logger = LoggerFactory.getLogger(WidgetsController::class.java)
     }
 }

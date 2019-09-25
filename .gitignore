@@ -10,7 +10,6 @@ Thumbs.db
 ~*
 
 *.jar
-/knotx/conf/endpoints.*
 /knotx/conf/jwt.conf
 /knotx/conf/admins.conf
 /mnt/config.json

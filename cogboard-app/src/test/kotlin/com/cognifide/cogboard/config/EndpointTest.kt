@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.config
 
-import com.cognifide.cogboard.config.endpoints.EndpointLoader
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
