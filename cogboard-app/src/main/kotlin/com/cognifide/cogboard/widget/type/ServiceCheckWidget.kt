@@ -5,7 +5,6 @@ import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
-import java.util.*
 
 class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
@@ -19,7 +18,6 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
     override fun handleResponse(responseBody: JsonObject) {
         val statusCode = responseBody.getInteger("statusCode", 0)
 
-        responseBody.put("timestamp", Date().time)
         responseBody.put(CogboardConstants.PROP_URL, serviceUrl)
         responseBody.put("expectedStatusCode", expectedStatusCode)
 

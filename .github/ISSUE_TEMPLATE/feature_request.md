@@ -7,14 +7,16 @@ assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+### Short Description
+A clear and concise description of what the problem is. Ex. I'm missing widget for [...]
 
-**Describe the solution you'd like**
+#### Solution (optional)
 A clear and concise description of what you want to happen.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+### Acceptance Criteria
+ - [ ] Admin can set [...]
+ - [ ] User can see [...]
+ - [ ] Widget will [...]
 
-**Additional context**
+#### Additional context (optional)
 Add any other context or screenshots about the feature request here.

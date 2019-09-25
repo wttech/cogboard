@@ -3,7 +3,7 @@ import { object } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
 
-import { useDialogToggle } from '../../hooks';
+import { useToggle } from '../../hooks';
 import { deleteBoardWithWidgets } from '../../actions/thunks';
 
 import { CardHeader, CardContent, IconButton } from '@material-ui/core';
@@ -17,9 +17,10 @@ const BoardCard = ({ boardData, className }) => {
     autoSwitch,
     columns,
     id,
+    switchInterval,
     title
   } = boardData;
-  const [open, openDialog, handleDialogClose] = useDialogToggle();
+  const [open, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
   const isAdmin = useSelector(({app}) => app.isAdmin);
 
@@ -72,16 +73,18 @@ const BoardCard = ({ boardData, className }) => {
         }
       </StyledCard>
       <AppDialog
+        disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={open}
         title={`Edit ${title}`}
       >
         <EditBoard
           closeDialog={handleDialogClose}
-          id={id}
-          title={title}
-          columns={columns}
           autoSwitch={autoSwitch}
+          columns={columns}
+          id={id}
+          switchInterval={switchInterval}
+          title={title}
         />
       </AppDialog>
     </div>

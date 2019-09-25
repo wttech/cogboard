@@ -1,7 +1,7 @@
 # [Home](/cogboard/) >> SonarQube widget
 
 #### Configuration:
-* `Endpoint` - choose Jenkins endpoint*
+* `Endpoint` - choose SonarQube endpoint*
 * `Schedule Period` - time interval between executions >> recommended: `300000` (5min)
 * `Key` - project key >> example: `com.cognifide.zg:com.cognifide.zg:stable`
 * `ID` - dashboard id >> example: `68496`

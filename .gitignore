@@ -12,8 +12,8 @@ Thumbs.db
 *.jar
 /knotx/conf/jwt.conf
 /knotx/conf/admins.conf
-/mnt/config.json
 /mnt/endpoints.*
+/mnt/config.*
 
 # Intellij           #
 ######################

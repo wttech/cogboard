@@ -17,7 +17,8 @@ import {
   saveDataStart,
   deleteWidget,
   setJwToken,
-  loginError
+  loginError,
+  initBoardProps
 } from './actionCreators';
 import {
   fetchData,
@@ -34,7 +35,10 @@ export const fetchInitialData = () =>
 
     return fetchData(URL.LOAD_DATA)
       .then(
-        data => dispatch(receiveData(data)),
+        data => {
+          dispatch(receiveData(data));
+          dispatch(initBoardProps());
+        },
         console.error
       );
   };
@@ -51,13 +55,12 @@ export const saveData = () =>
       );
   };
 
-export const login = (data) =>
+export const login = (credentials) =>
   (dispatch) => {
-    return fetchData(URL.LOGIN, 'POST', data)
+    return fetchData(URL.LOGIN, 'POST', credentials)
       .then(
         (data) => dispatch(setJwToken(data.token)),
-        (data) => dispatch(loginError(data.message))
-      );
+        (data) => dispatch(loginError(data.message)))
   };
 
 export const logout = () =>
@@ -115,7 +118,7 @@ const removeWidgetThunk = (id) =>
       );
   };
 
-export const reorderWidgets = (sourceId, targetIndex) =>
+const reorderWidgetsThunk = (sourceId, targetIndex) =>
   (dispatch, getState) => {
     const { currentBoard: boardId } = getState().ui;
 
@@ -125,6 +128,7 @@ export const reorderWidgets = (sourceId, targetIndex) =>
 export const addNewWidget = makeWidgetUpdaterThunk(addWidget, createNewWidgetData);
 export const saveWidget = makeWidgetUpdaterThunk(editWidget, createEditWidgetData);
 export const removeWidget = withDataChanged(removeWidgetThunk);
+export const reorderWidgets = withDataChanged(reorderWidgetsThunk);
 export const addNewBoard = withDataChanged(addBoard);
 export const saveBoard = withDataChanged(editBoard);
 export const deleteBoardWithWidgets = withDataChanged(deleteBoardWithWidgetsThunk);
