@@ -9,7 +9,7 @@ import { login, logout } from '../actions/thunks';
 import { StyledFieldset } from './styled';
 import AppDialog from './AppDialog';
 import SnackbarWithVariant from "./SnackbarWithVariant";
-import StyledValidationMessages from './FormMessages';
+import StyledFormMessages from './FormMessages';
 
 const loginSchema = yup.object().shape({
   username: yup.string()
@@ -91,7 +91,7 @@ const UserLogin = () => {
             margin="normal"
             value={values.username}
             error={errors.username}
-            helperText={errors.username && <StyledValidationMessages messages={errors.username}/>}
+            helperText={errors.username && <StyledFormMessages messages={errors.username}/>}
           />
           <TextField
             onChange={handleChange('password')}
@@ -104,7 +104,7 @@ const UserLogin = () => {
             margin="normal"
             value={values.password}
             error={errors.password}
-            helperText={errors.password && <StyledValidationMessages messages={errors.password}/>}
+            helperText={errors.password && <StyledFormMessages messages={errors.password}/>}
           />
           <Button
             color="primary"
