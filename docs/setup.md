@@ -16,7 +16,7 @@
 
 ## Endpoints setup
 In order to use widgets that communicate with third party software you must first configure endpoints.  
-Edit this file `knotx/conf/endpoints.json`.  
+Edit this file `mnt/endpoints.json`.  
 Any sensitive data from `endpoints.json` file is never accessible for end-users. Only `id` and `title` can be requested.
 
 ## How to run
