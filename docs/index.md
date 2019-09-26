@@ -14,7 +14,7 @@
 ### Widgets:
 * [AEM Healthcheck](./widget-aem-healtcheck)
 * [Bamboo Plan](./widget-bamboo-plan)
-* [IFrame Embed](./widget-iframe-embed)
+* [Iframe Embed](./widget-iframe-embed)
 * [Jenkins Job](./widget-jenkins-job)
 * [Service Check](./widget-service-check)
 * [SonarQube](./widget-sonarqube)
