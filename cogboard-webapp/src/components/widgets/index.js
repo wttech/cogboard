@@ -6,9 +6,9 @@ import ServiceCheckWidget from "./types/ServiceCheckWidget";
 import TextWidget from "./types/TextWidget";
 import BambooPlanWidget from "./types/BambooPlanWidget";
 import WorldClockWidget from "./types/WorldClockWidget";
-import IFrameEmbedWidget from "./types/IFrameEmbedWidget";
 import CheckboxWidget from './types/CheckboxWidget';
 import AemHealthcheckWidget from "./types/AemHealthcheckWidget";
+import IframeEmbedWidget from "./types/IframeEmbedWidget";
 
 const widgetTypes = {
   DefaultWidget: {
@@ -55,9 +55,9 @@ const widgetTypes = {
     component: WorldClockWidget,
     dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'DateTimeSize']
   },
-  IFrameEmbedWidget: {
-    name: 'IFrame Embed widget',
-    component: IFrameEmbedWidget,
+  IframeEmbedWidget: {
+    name: 'Iframe Embed widget',
+    component: IframeEmbedWidget,
     dialogFields: ['UrlForContent']
   },
   CheckboxWidget: {
