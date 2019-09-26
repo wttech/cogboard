@@ -2,15 +2,20 @@ import React from 'react';
 import styled from '@emotion/styled/macro';
 
 
-const FormMessages = ({className, messages}) => {
-  return (
-    <ul className={className}>
-      {
-        messages.map(message => 
-            <li>{message}</li>)
-      }
-    </ul>
-  )
+const FormMessages = ({className, messages, ...others}) => {
+
+  if (messages) {
+    return (
+      <ul className={className} {...others}>
+        {
+          messages.map(message => 
+              <li>{message}</li>)
+        }
+      </ul> 
+    );
+  } else {
+    return null;
+  }
 }
 
 const StyledFormMessages = styled(FormMessages)`

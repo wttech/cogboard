@@ -2,27 +2,16 @@ import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, IconButton, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
-import * as yup from 'yup';
 
 import { useFormData, useToggle } from '../hooks';
 import { login, logout } from '../actions/thunks';
 import { StyledFieldset } from './styled';
 import AppDialog from './AppDialog';
 import SnackbarWithVariant from "./SnackbarWithVariant";
-import StyledFormMessages from './FormMessages';
-
-const loginSchema = yup.object().shape({
-  username: yup.string()
-    .min(3)
-    .required(),
-  password: yup.string()
-    .min(3)
-    .required()
-})
 
 const UserLogin = () => {
   const dispatch = useDispatch();
-  const {values, handleChange, handleSubmit, errors} = useFormData({username: '', password: ''}, loginSchema);
+  const {values, handleChange} = useFormData({username: '', password: ''});
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
   const jwToken = useSelector(({app}) => app.jwToken);
   const isUserLogged = !!jwToken;
@@ -37,7 +26,7 @@ const UserLogin = () => {
     }
   }, [isUserLogged, handleDialogClose, openLoginSnackbar]);
 
-  const handleLoginButtonClick = (credentials) => {
+  const handleLoginButtonClick = (credentials) => () => {
     dispatch(login(credentials))
   };
 
@@ -90,8 +79,6 @@ const UserLogin = () => {
             label="Username"
             margin="normal"
             value={values.username}
-            error={errors.username}
-            helperText={errors.username && <StyledFormMessages messages={errors.username}/>}
           />
           <TextField
             onChange={handleChange('password')}
@@ -103,12 +90,10 @@ const UserLogin = () => {
             label="Password"
             margin="normal"
             value={values.password}
-            error={errors.password}
-            helperText={errors.password && <StyledFormMessages messages={errors.password}/>}
           />
           <Button
             color="primary"
-            onClick={handleSubmit(handleLoginButtonClick)}
+            onClick={handleLoginButtonClick(values)}
             variant="contained">
             Login
           </Button>

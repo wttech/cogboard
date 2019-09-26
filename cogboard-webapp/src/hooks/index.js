@@ -11,12 +11,12 @@ export const useToggle = () => {
   return [isOpened, handleOpen, handleClose];
 };
 
-export const useFormData = (data, validationSchema=null) => {
+export const useFormData = (data, validationSchema=null, onChange=false) => {
   const [values, setValues] = useState(data);
 
   const [status, setStatus] = useState({
     submited: false,
-    onChange: false,
+    onChange: onChange,
   })
 
   const [errors, setErrors] = useState({});

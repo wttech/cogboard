@@ -6,13 +6,13 @@ import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/c
 import { StyledFieldset } from './styled';
 import { useFormData } from '../../hooks';
 import { getBoards } from '../../selectors';
-import { createValidationSchema, TITLE_MESSAGES, COLUMNS_MESSAGES, SWITCH_INTERVAL_MESSAGES } from './validators';
+import { createValidationSchema } from './validators';
 import StyledFormMessages from '../FormMessages';
 
 const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) => {
   const boards = useSelector(getBoards);
   const validationSchema = createValidationSchema(boardId, boards)
-  const {values, handleChange, handleSubmit, errors} = useFormData(initialFormValues, validationSchema);
+  const {values, handleChange, handleSubmit, errors} = useFormData(initialFormValues, validationSchema, true);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} novalidate="novalidate">
@@ -28,8 +28,11 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           value={values.title}
           inputProps={{'data-cy': "board-form-title"}}
           error={errors.title}
-          helperText={<StyledFormMessages messages={errors.title ? errors.title : TITLE_MESSAGES}/>}
-          FormHelperTextProps={{'data-cy': "board-form-title-error"}}
+          helperText={
+            <StyledFormMessages 
+              messages={errors.title} 
+              data-cy={'board-form-title-error'}
+            />}
         />
         <TextField
           onChange={handleChange('columns')}
@@ -43,8 +46,11 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           value={values.columns}
           type="number"
           error={errors.columns}
-          helperText={<StyledFormMessages messages={errors.columns ? errors.columns : COLUMNS_MESSAGES}/>}
-          FormHelperTextProps={{'data-cy': "board-form-columns-error"}}
+          helperText={
+            <StyledFormMessages 
+              messages={errors.columns}
+              data-cy='board-form-columns-error'
+            />}
         />
         <FormControl margin="normal">
           <FormControlLabel
@@ -73,8 +79,11 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             type="number"
             inputProps={{'data-cy': "board-form-switch-interval"}}
             error={errors.switchInterval}
-            helperText={<StyledFormMessages messages={errors.switchInterval ? errors.switchInterval : SWITCH_INTERVAL_MESSAGES}/>}
-            FormHelperTextProps={{'data-cy': "board-form-switch-interval-error"}}
+            helperText={
+              <StyledFormMessages 
+                messages={errors.switchInterval}
+                data-cy='board-form-switch-interval-error'
+              />}
           />
         }
       </StyledFieldset>
