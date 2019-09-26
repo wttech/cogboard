@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 
-import TextField from '@material-ui/core/TextField';
-import {IconButton} from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Divider from '@material-ui/core/Divider'
+import { TextField, IconButton, Divider } from '@material-ui/core';
+import { Add, Delete } from '@material-ui/icons';
 
 const LinkListField = props => {
   const {links} = props;
-  const [dialogLinks, setDialogsLinks] = useState(links)
+  const [dialogLinks, setDialogsLinks] = useState(links);
 
   const handleAddButtonClick = () => {
     setDialogsLinks([...dialogLinks,
@@ -23,23 +20,23 @@ const LinkListField = props => {
           label: 'Path',
         },
       }])
-  }
+  };
 
   const handleDeleteButtonClick = (index) => () => {
-    dialogLinks.splice(index,1)
+    dialogLinks.splice(index,1);
     setDialogsLinks([...dialogLinks])
-  }
+  };
 
   const onInputChange = (event, index) => {
     dialogLinks[index][event.target.name+'Props'].value = event.target.value;
     setDialogsLinks([...dialogLinks])
-  }
+  };
 
   return (
       <>
         {
           dialogLinks.map((properties, index) => {
-            const {nameProps, pathProps} = properties
+            const {nameProps, pathProps} = properties;
             return (
                 <>
                   <TextField
@@ -65,7 +62,7 @@ const LinkListField = props => {
                       label='delete'
                       myProp={index}
                   >
-                    <DeleteIcon edge="start"/>
+                    <Delete edge="start"/>
                   </IconButton>
                   <Divider/>
 
@@ -76,7 +73,7 @@ const LinkListField = props => {
             color='primary'
             label='Add'
         >
-          <AddIcon/>
+          <Add/>
         </IconButton>
       </>
   );
