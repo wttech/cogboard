@@ -1,8 +1,5 @@
-import React from 'react';
-
-
 const DefaultWidget = () => {
-  return '';
+  return null;
 };
 
 export default DefaultWidget;

@@ -1,30 +1,9 @@
 import React from 'react';
-import styled from '@emotion/styled/macro';
 
-import { Input } from '@material-ui/core';
-import { InputLabel } from '@material-ui/core';
-import { MenuItem } from '@material-ui/core';
-import { FormControl } from '@material-ui/core';
-import { ListItemText } from '@material-ui/core';
-import { Select } from '@material-ui/core';
-import { Checkbox } from '@material-ui/core';
+import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select } from '@material-ui/core';
 
-const StyledFormControl = styled(FormControl)`
-      margin: theme.spacing(1),
-      minWidth: 120,
-      maxWidth: 300,
-  `;
-
-const allMetrics = [
-  "blocker_violations",
-  "critical_violations",
-  "major_violations",
-  "minor_violations",
-  "info_violations",
-  "bugs",
-  "code_smells",
-  "vulnerabilities"
-];
+import { StyledFormControl } from './../../styled';
+import {ALL_SONARQUBE_METRICS} from "../../../constants";
 
 const SonarQubeMetricsInput = props => {
   const { onChange, value } = props;
@@ -40,7 +19,7 @@ const SonarQubeMetricsInput = props => {
         input={<Input id={inputId}/>}
         renderValue={value => `${value.length} selected`}
       >
-        {allMetrics.map(name => (
+        {ALL_SONARQUBE_METRICS.map(name => (
           <MenuItem key={name} value={name}>
             <Checkbox checked={value.includes(name)}/>
             <ListItemText primary={name}/>

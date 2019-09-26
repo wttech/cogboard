@@ -1,3 +1,5 @@
+import { navigate } from '@reach/router';
+
 import {
   requestData,
   receiveData,
@@ -10,9 +12,13 @@ import {
   addWidget,
   editWidget,
   deleteMultipleWidgets,
+  sortWidgets,
   dataChanged,
   saveDataStart,
-  deleteWidget
+  deleteWidget,
+  setJwToken,
+  loginError,
+  initBoardProps
 } from './actionCreators';
 import {
   fetchData,
@@ -29,21 +35,38 @@ export const fetchInitialData = () =>
 
     return fetchData(URL.LOAD_DATA)
       .then(
-        data => dispatch(receiveData(data)),
+        data => {
+          dispatch(receiveData(data));
+          dispatch(initBoardProps());
+        },
         console.error
       );
   };
 
 export const saveData = () =>
   (dispatch, getState) => {
-    const { boards, widgets } = getState();
+    const { boards, widgets, app } = getState();
     const data = { boards, widgets };
 
-    return fetchData(URL.SAVE_DATA, 'POST', data)
+    return fetchData(URL.SAVE_DATA, 'POST', data, app.jwToken)
       .then(
         () => dispatch(saveDataStart()),
         console.error
       );
+  };
+
+export const login = (credentials) =>
+  (dispatch) => {
+    return fetchData(URL.LOGIN, 'POST', credentials)
+      .then(
+        (data) => dispatch(setJwToken(data.token)),
+        (data) => dispatch(loginError(data.message)))
+  };
+
+export const logout = () =>
+  (dispatch) => {
+    dispatch(setJwToken(''));
+    dispatch(loginError(''));
   };
 
 const deleteBoardWithWidgetsThunk = (id) =>
@@ -56,13 +79,18 @@ const deleteBoardWithWidgetsThunk = (id) =>
 
     const [firstBoardId] = getState().boards.allBoards;
 
-    (id === currentBoard) && dispatch(setCurrentBoard(firstBoardId || null));
+    if (id === currentBoard) {
+      dispatch(setCurrentBoard(firstBoardId || null));
+      navigate(firstBoardId || '/');
+    }
+
     dispatch(deleteMultipleWidgets(widgets));
   };
 
 const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) => data =>
   (dispatch, getState) => {
     const allWidgets = getState().widgets.allWidgets;
+    const token = getState().app.jwToken;
     const widgetData = widgetDataCreator({...data, allWidgets});
     const { id } = widgetData;
     const { generalData, serverData } = mapDataToState(widgetData);
@@ -71,7 +99,7 @@ const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) =>
     dispatch(dataChanged());
     dispatch(requestUpdate(id));
 
-    return fetchData(URL.UPDATE_WIDGET, 'POST', serverData)
+    return fetchData(URL.UPDATE_WIDGET, 'POST', serverData, token)
       .then(
         () => dispatch(updateWidget(serverData)),
         console.error
@@ -80,14 +108,28 @@ const makeWidgetUpdaterThunk = (beforeUpdateActionCreator, widgetDataCreator) =>
 
 const removeWidgetThunk = (id) =>
   (dispatch, getState) => {
-    const { currentBoard } = getState().ui;
+    const { currentBoard: boardId } = getState().ui;
+    const token = getState().app.jwToken;
 
-    dispatch(deleteWidget(id, currentBoard));
+    return fetchData(URL.DELETE_WIDGET, 'POST', { id }, token)
+      .then(
+        () => dispatch(deleteWidget(id, boardId)),
+        console.error
+      );
+  };
+
+const reorderWidgetsThunk = (sourceId, targetIndex) =>
+  (dispatch, getState) => {
+    const { currentBoard: boardId } = getState().ui;
+
+    dispatch(sortWidgets({ sourceId, targetIndex, boardId }));
   };
 
 export const addNewWidget = makeWidgetUpdaterThunk(addWidget, createNewWidgetData);
 export const saveWidget = makeWidgetUpdaterThunk(editWidget, createEditWidgetData);
 export const removeWidget = withDataChanged(removeWidgetThunk);
+export const reorderWidgets = withDataChanged(reorderWidgetsThunk);
 export const addNewBoard = withDataChanged(addBoard);
 export const saveBoard = withDataChanged(editBoard);
 export const deleteBoardWithWidgets = withDataChanged(deleteBoardWithWidgetsThunk);
+export const setWidgetState = withDataChanged(editWidget);

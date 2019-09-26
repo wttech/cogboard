@@ -31,10 +31,11 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
             onClick={handleSaveClick(values)}
             color="primary"
             variant="contained"
+            data-cy="edit-widget-edit-button"
           >
             Save
           </Button>
-          <StyledCancelButton handleCancelClick={closeDialog} />
+          <StyledCancelButton handleCancelClick={closeDialog} data-cy="edit-widget-cancel-button"/>
         </>
       }
     />
@@ -47,6 +48,7 @@ EditWidget.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   id: string.isRequired,
+  rows: number.isRequired,
   title: string.isRequired,
   type: string.isRequired,
   widgetTypeData: object.isRequired

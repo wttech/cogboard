@@ -1,16 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export const useDialogToggle = () => {
-  const [dialogOpened, setDialogOpened] = useState(false);
+import { splitPropsGroupName } from '../components/helpers';
 
-  const openDialog = () => setDialogOpened(true);
-  const handleDialogClose = () => setDialogOpened(false);
+export const useToggle = () => {
+  const [isOpened, setOpened] = useState(false);
 
-  return [dialogOpened, openDialog, handleDialogClose];
+  const handleOpen = () => setOpened(true);
+  const handleClose = () => setOpened(false);
+
+  return [isOpened, handleOpen, handleClose];
 };
 
 export const useFormData = (data) => {
   const [values, setValues] = useState(data);
+
+  const setFieldValue = (fieldName, fieldValue) => {
+    const [groupName, propName] = splitPropsGroupName(fieldName);
+
+    if (groupName) {
+      const groupValues = values[groupName];
+
+      setValues({
+        ...values,
+        [groupName]: { ...groupValues, [propName]: fieldValue }
+      });
+
+      return;
+    }
+
+    setValues({ ...values, [propName]: fieldValue});
+  };
 
   const handleChange = fieldName => event => {
     const { target: { type, value, checked } } = event;
@@ -20,8 +39,28 @@ export const useFormData = (data) => {
     };
     const fieldValue = valueType[type] !== undefined ? valueType[type] : value;
 
-    setValues({ ...values, [fieldName]: fieldValue});
+    setFieldValue(fieldName, fieldValue);
   };
 
   return { values, handleChange };
+};
+
+export function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 };

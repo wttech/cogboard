@@ -1,8 +1,8 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: CogBoard
-  description: CogBoard
+  title: Cogboard
+  description: Cogboard
 
 servers:
   - url: https://{domain}:{port}
@@ -23,37 +23,92 @@ servers:
         description: websockets
       port:
         enum:
-          - '9000'
-        default: '9000'
+          - '$ws_port'
+        default: '$ws_port'
 
 paths:
   /api/config:
     get:
-      operationId: config-get-handler
+      operationId: boards-get-handler
       responses:
         default:
-          description: Config Get Handler
+          description: Boards Get Handler
   /api/config/save:
     post:
-      operationId: config-save-handler
+      operationId: boards-save-handler
+      security:
+        - cogboardAuth: []
       responses:
         default:
-          description: Config Save Handler
+          description: Boards Save Handler
+  /api/login:
+    post:
+      operationId: login-handler
+      responses:
+        default:
+          description: Generate JWT Token
   /api/endpoints:
     get:
-      operationId: endpoints-handler
+      operationId: endpoints-get-handler
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Endpoint list
+  /api/endpoints/update:
+    post:
+      operationId: endpoints-update-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: Endpoint Update Handler
+  /api/endpoints/delete:
+    post:
+      operationId: endpoints-delete-handler
+#      security:
+#        - cogboardAuth: []
+      responses:
+        default:
+          description: Endpoint Delete Handler
   /api/widget/update:
     post:
       operationId: widget-update-handler
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Widget Update Handler
+  /api/widget/delete:
+    post:
+      operationId: widget-delete-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: Widget Delete Handler
+  /:
+    get:
+      operationId: home-page
+      responses:
+        default:
+          description: Cogboard Home
+  /board*:
+    get:
+      operationId: home-page-board
+      responses:
+        default:
+          description: Cogboard Home
   /*:
     get:
       operationId: cogboard-react-app
       responses:
         default:
-          description: Cogboard Home
+          description: Cogboard App Sources
+
+components:
+  securitySchemes:
+    cogboardAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

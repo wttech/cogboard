@@ -12,13 +12,28 @@ import {
   ADD_WIDGET,
   DELETE_WIDGET,
   DELETE_MULTIPLE_WIDGETS,
+  SORT_WIDGETS,
   DATA_CHANGED,
   SAVE_DATA_START,
-  SAVE_DATA_SUCCESS
+  SAVE_DATA_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  INIT_BOARD_PROPS
 } from './types';
+import { INITIAL_BOARD_PROPS } from '../constants';
 
 export const requestData = () => ({
   type: REQUEST_DATA
+});
+
+export const setJwToken = (jwt) => ({
+  type: LOGIN_SUCCESS,
+  payload: jwt
+});
+
+export const loginError = (data) => ({
+  type: LOGIN_ERROR,
+  payload: data
 });
 
 export const receiveData = state => ({
@@ -39,7 +54,7 @@ export const updateWidget = (data) => ({
 export const addBoard = (data) => ({
   type: ADD_BOARD,
   payload: {
-    id: v4(),
+    id: `board-${v4()}`,
     theme: 'default',
     widgets: [],
     ...data
@@ -64,7 +79,7 @@ export const editWidget = (editData) => ({
 export const addWidget = (widgetData) => ({
   type: ADD_WIDGET,
   payload: widgetData
-})
+});
 
 export const deleteWidget = (id, boardId) => ({
   type: DELETE_WIDGET,
@@ -74,6 +89,11 @@ export const deleteWidget = (id, boardId) => ({
 export const deleteMultipleWidgets = (widgetIds, boardId = '') => ({
   type: DELETE_MULTIPLE_WIDGETS,
   payload: { widgetIds, boardId }
+});
+
+export const sortWidgets = (payload) => ({
+  type: SORT_WIDGETS,
+  payload
 });
 
 export const dataChanged = () => ({
@@ -91,4 +111,9 @@ export const saveDataSuccess = () => ({
 export const setCurrentBoard = (id) => ({
   type: SET_CURRENT_BOARD,
   payload: id
+});
+
+export const initBoardProps = () => ({
+  type: INIT_BOARD_PROPS,
+  payload: { ...INITIAL_BOARD_PROPS }
 });

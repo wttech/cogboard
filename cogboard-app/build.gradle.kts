@@ -8,6 +8,10 @@ tasks.named("processResources") {
     dependsOn(":cogboard-webapp:copyReactAppToAppClasspath")
 }
 
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+}
+
 dependencies {
 
     "io.knotx:knotx".let { v ->
@@ -16,10 +20,17 @@ dependencies {
     }
     "io.vertx:vertx".let { v ->
         implementation("$v-web")
+        implementation("$v-auth-jwt")
         implementation("$v-web-client")
         implementation("$v-rx-java2")
     }
     implementation(kotlin("stdlib-jdk8"))
+
+    testImplementation("org.assertj:assertj-core:3.12.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.1")
+    testImplementation(gradleTestKit())
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.2")
 }
 
 repositories {

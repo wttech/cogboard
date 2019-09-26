@@ -1,8 +1,8 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
-import { useDialogToggle } from '../hooks';
+import { useToggle } from '../hooks';
 import { addNewBoard } from '../actions/thunks';
 
 import { Button, IconButton } from '@material-ui/core';
@@ -16,8 +16,9 @@ const StyledCancelButton = styled(CancelButton)`
 `;
 
 const AddBoard = () => {
-  const [dialogOpened, openDialog, handleDialogClose] = useDialogToggle();
+  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
+  const isAdmin = useSelector(({app}) => app.isAdmin);
 
   const handleAddBoardClick = (event) => {
     event.stopPropagation();
@@ -29,6 +30,10 @@ const AddBoard = () => {
     handleDialogClose();
   };
 
+  if (!isAdmin) {
+    return null;
+  }
+
   return (
     <>
       <IconButton
@@ -37,6 +42,7 @@ const AddBoard = () => {
         <Add />
       </IconButton>
       <AppDialog
+        disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title="Add new board"
