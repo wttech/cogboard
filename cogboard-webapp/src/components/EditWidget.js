@@ -1,9 +1,9 @@
 import React from 'react';
-import { func, object, string, bool, number } from 'prop-types';
-import { useDispatch } from 'react-redux';
+import {bool, func, number, object, string} from 'prop-types';
+import {useDispatch} from 'react-redux';
 import styled from '@emotion/styled/macro';
 
-import { saveWidget } from '../actions/thunks';
+import {saveWidget} from '../actions/thunks';
 
 import Button from '@material-ui/core/Button';
 import CancelButton from './CancelButton';
@@ -31,7 +31,7 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
             onClick={handleSaveClick(values)}
             color="primary"
             variant="contained"
-            data-cy="edit-widget-edit-button"
+            data-cy="edit-widget-save-button"
           >
             Save
           </Button>

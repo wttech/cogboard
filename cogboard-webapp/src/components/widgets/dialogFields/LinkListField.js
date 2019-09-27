@@ -17,14 +17,11 @@ const blankProps = {
   }
 };
 
-const LinkListField = ({ links }) => {
-  if (!links || !links.length) {
-    links.push(JSON.parse(JSON.stringify(blankProps)))
-  }
-  const [dialogLinks, setDialogsLinks] = useState(links);
+const LinkListField = () => {
+  const [dialogLinks, setDialogsLinks] = useState([blankProps]);
 
   const handleAddButtonClick = () => {
-    setDialogsLinks([...dialogLinks, JSON.parse(JSON.stringify(blankProps))])
+    setDialogsLinks([...dialogLinks, blankProps]);
   };
 
   const handleDeleteButtonClick = (index) => () => {

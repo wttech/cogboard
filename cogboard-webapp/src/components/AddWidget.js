@@ -1,9 +1,9 @@
 import React from 'react';
-import { func } from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import {func} from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import styled from '@emotion/styled/macro';
 
-import { addNewWidget } from '../actions/thunks';
+import {addNewWidget} from '../actions/thunks';
 
 import Button from '@material-ui/core/Button';
 import CancelButton from './CancelButton';
@@ -20,7 +20,7 @@ const AddWidget = ({ closeDialog }) => {
   const handleAddClick = (values) => () => {
     dispatch(addNewWidget({ currentBoardId, values }));
     closeDialog();
-  }
+  };
 
   return (
     <WidgetForm

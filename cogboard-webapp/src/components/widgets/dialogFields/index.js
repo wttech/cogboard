@@ -78,7 +78,18 @@ const dialogFields = {
   LinkListField: {
     component: LinkListField,
     name: 'content.links',
-    links:[]
+    initialValue: [{
+      nameProps: {
+        name: 'name',
+        label: 'Name',
+        value: "",
+      },
+      pathProps: {
+        name: 'path',
+        label: 'Path',
+        value: "",
+      }
+    }]
   },
   TimeZoneId: {
     component: DisplayValueSelect,
