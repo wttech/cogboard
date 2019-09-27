@@ -1,4 +1,4 @@
-import {DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS} from "../types/WorldClockWidget/helpers";
+import { DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS } from "../types/WorldClockWidget/helpers";
 
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';

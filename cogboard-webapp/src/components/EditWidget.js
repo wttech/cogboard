@@ -1,9 +1,9 @@
 import React from 'react';
-import {bool, func, number, object, string} from 'prop-types';
-import {useDispatch} from 'react-redux';
+import { bool, func, number, object, string } from 'prop-types';
+import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
-import {saveWidget} from '../actions/thunks';
+import { saveWidget } from '../actions/thunks';
 
 import Button from '@material-ui/core/Button';
 import CancelButton from './CancelButton';

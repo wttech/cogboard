@@ -1,4 +1,4 @@
-import {ADD_WIDGET, DELETE_WIDGET, EDIT_WIDGET, RECEIVE_DATA, REQUEST_UPDATE, UPDATE_WIDGET} from '../../actions/types';
+import { ADD_WIDGET, DELETE_WIDGET, EDIT_WIDGET, RECEIVE_DATA, REQUEST_UPDATE, UPDATE_WIDGET } from '../../actions/types';
 
 const requestUpdate = (state, { payload: id }) => {
   const widget = state[id];
