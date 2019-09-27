@@ -1,14 +1,12 @@
 import React from 'react';
 
-import { Caption } from "../../styled";
+import {Caption} from "../../styled";
 
-const LinkListWidget = ({ serverTime }) => {
-  const ts = serverTime ? new Date(serverTime).toLocaleString() : '';
-
+const LinkListWidget = ( props ) => {
   //TODO
   return (
     <Caption>
-      {ts}
+      Link list
     </Caption>
   );
 };

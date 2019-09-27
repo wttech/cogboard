@@ -1,81 +1,79 @@
 import React, {useState} from 'react';
 
-import { TextField, IconButton, Divider } from '@material-ui/core';
-import { Add, Delete } from '@material-ui/icons';
+import {Divider, IconButton} from '@material-ui/core';
+import {Add, Delete} from '@material-ui/icons';
+import TextInput from "./TextInput";
 
-const LinkListField = props => {
-  const {links} = props;
+const blankProps = {
+  nameProps: {
+    name: 'name',
+    label: 'Name',
+    value: "",
+  },
+  pathProps: {
+    name: 'path',
+    label: 'Path',
+    value: "",
+  }
+};
+
+const LinkListField = ({ links }) => {
+  if (!links || !links.length) {
+    links.push(JSON.parse(JSON.stringify(blankProps)))
+  }
   const [dialogLinks, setDialogsLinks] = useState(links);
 
   const handleAddButtonClick = () => {
-    setDialogsLinks([...dialogLinks,
-      {
-        nameProps: {
-          name: 'name',
-          label: 'Name',
-
-        },
-        pathProps: {
-          name: 'path',
-          label: 'Path',
-        },
-      }])
+    setDialogsLinks([...dialogLinks, JSON.parse(JSON.stringify(blankProps))])
   };
 
   const handleDeleteButtonClick = (index) => () => {
-    dialogLinks.splice(index,1);
+    dialogLinks.splice(index, 1);
     setDialogsLinks([...dialogLinks])
   };
 
   const onInputChange = (event, index) => {
-    dialogLinks[index][event.target.name+'Props'].value = event.target.value;
+    const targetName = event.target.name + 'Props';
+    dialogLinks[index][targetName].value = event.target.value;
     setDialogsLinks([...dialogLinks])
   };
 
   return (
-      <>
-        {
-          dialogLinks.map((properties, index) => {
-            const {nameProps, pathProps} = properties;
-            return (
-                <>
-                  <TextField
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      onChange={(event) => onInputChange(event, index)}
-                      margin="normal"
-                      {...nameProps}
-                  />
-                  <TextField
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      onChange={(event) => onInputChange(event, index)}
-                      margin="normal"
-                      {...pathProps}
-                  />
-                  <IconButton
-                      onClick={handleDeleteButtonClick(index)}
-                      color='primary'
-                      alignItems="right"
-                      label='delete'
-                      myProp={index}
-                  >
-                    <Delete edge="start"/>
-                  </IconButton>
-                  <Divider/>
+    <>
+      {
+        dialogLinks.map((properties, index) => {
+          const {nameProps, pathProps} = properties;
+          return (
+            <>
+              <TextInput
+                onChange={(event) => onInputChange(event, index)}
+                {...nameProps}
+              />
+              <TextInput
+                onChange={(event) => onInputChange(event, index)}
+                {...pathProps}
+              />
+              <IconButton
+                onClick={handleDeleteButtonClick(index)}
+                color='primary'
+                label='delete'
+                data-cy={'button-delete-link-' + index}
+              >
+                <Delete edge="start"/>
+              </IconButton>
+              <Divider/>
 
-                </>)
-          })}
-        <IconButton
-            onClick={handleAddButtonClick}
-            color='primary'
-            label='Add'
-        >
-          <Add/>
-        </IconButton>
-      </>
+            </>)
+        })}
+      <IconButton
+        onClick={handleAddButtonClick}
+        color='primary'
+        label='Add'
+        data-cy='button-add-link'
+      >
+        <Add/>
+      </IconButton>
+    </>
   );
 };
 

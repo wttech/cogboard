@@ -52,7 +52,7 @@ const widgetTypes = {
     showUpdateTime : true
   },
   LinkListWidget: {
-    name: 'Link list widget',
+    name: 'Link List widget',
     component: LinkListWidget,
     dialogFields: ['LinkListField']
   },

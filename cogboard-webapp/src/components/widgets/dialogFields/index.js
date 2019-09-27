@@ -1,4 +1,4 @@
-import { DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS } from "../types/WorldClockWidget/helpers";
+import {DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS} from "../types/WorldClockWidget/helpers";
 
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
@@ -77,18 +77,8 @@ const dialogFields = {
   },
   LinkListField: {
     component: LinkListField,
-    links:[
-      {
-        nameProps: {
-          name: 'name',
-          label: 'Name',
-        },
-        pathProps: {
-          name: 'path',
-          label: 'Path',
-        }
-      }
-      ]
+    name: 'content.links',
+    links:[]
   },
   TimeZoneId: {
     component: DisplayValueSelect,
