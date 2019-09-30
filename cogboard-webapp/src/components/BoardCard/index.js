@@ -5,6 +5,7 @@ import { navigate } from '@reach/router';
 
 import { useToggle } from '../../hooks';
 import { deleteBoardWithWidgets } from '../../actions/thunks';
+import { getIsAuthenticated } from '../../selectors';
 
 import { CardHeader, CardContent, IconButton } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons'
@@ -22,7 +23,7 @@ const BoardCard = ({ boardData, className }) => {
   } = boardData;
   const [open, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
-  const isAdmin = useSelector(({app}) => app.isAdmin);
+  const isAuthenticated = useSelector(getIsAuthenticated);
 
   const handleBoardClick = (boardId) => () => {
     navigate(boardId);
@@ -53,7 +54,7 @@ const BoardCard = ({ boardData, className }) => {
         />
         <CardContent>
         </CardContent>
-        {isAdmin &&
+        {isAuthenticated &&
           <StyledCardActions>
             <IconButton
               onClick={handleEditClick}

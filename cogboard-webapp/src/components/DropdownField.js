@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 
 import { FormControl, InputLabel, Input, Select } from '@material-ui/core';
+import { getToken } from '../utils/auth';
+import { getIsAuthenticated } from '../selectors';
 
 const DropdownField = props => {
   const {
@@ -17,13 +19,13 @@ const DropdownField = props => {
   const initialLoaded = !itemsUrl;
   const [options, setOptions] = useState(dropdownItems);
   const [loaded, setLoaded] = useState(initialLoaded);
-  const jwToken = useSelector(({ app }) => app.jwToken);
+  const isAuthenticated = useSelector(getIsAuthenticated);
 
   useEffect(() => {
     if (itemsUrl) {
-      const init = jwToken ? {
+      const init = isAuthenticated ? {
         headers: {
-          'Authorization': jwToken
+          'Authorization': getToken()
         }
       } : undefined;
 
@@ -35,7 +37,7 @@ const DropdownField = props => {
         })
         .catch(console.error);
     }
-  }, [itemsUrl, jwToken]);
+  }, [itemsUrl, isAuthenticated]);
 
   return (
     <FormControl>

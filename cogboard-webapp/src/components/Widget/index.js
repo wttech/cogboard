@@ -8,6 +8,7 @@ import { useToggle } from '../../hooks';
 import { removeWidget, reorderWidgets } from '../../actions/thunks';
 import widgetTypes from "../widgets";
 import { ItemTypes } from '../../constants';
+import { getIsAuthenticated } from '../../selectors';
 
 import { MenuItem } from '@material-ui/core';
 import { StyledCard, StyledCardHeader, StyledCardContent } from './styled';
@@ -41,13 +42,13 @@ const Widget = ({ id, index }) => {
   const showUpdateTime = widgetTypes[type] ? widgetTypes[type].showUpdateTime : false;
   const dispatch = useDispatch();
   const theme = useTheme();
-  const [confirmationDialogOpened, openConfirmationDialog, handleConfirmationDialogClose] = useToggle();
+  const [confirmationDialogOpened, openConfirmationDialog, closeConfirmationDialog] = useToggle();
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const ref = useRef(null);
-  const isLoggedIn = useSelector(({ app }) => !!app.jwToken);
+  const isAuthenticated = useSelector(getIsAuthenticated);
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
-    canDrag: isLoggedIn,
+    canDrag: isAuthenticated,
     collect: monitor => ({
       isDragging: monitor.isDragging()
     })
@@ -100,6 +101,7 @@ const Widget = ({ id, index }) => {
 
   const deleteWidget = () => {
     dispatch(removeWidget(id));
+    closeConfirmationDialog();
   };
 
   return (
@@ -110,7 +112,7 @@ const Widget = ({ id, index }) => {
         goNewLine={goNewLine}
         rows={rows}
         theme={theme}
-        isLoggedIn={isLoggedIn}
+        isLoggedIn={isAuthenticated}
         isDragging={isDragging}
         isOver={isOver}
         ref={ref}
@@ -164,7 +166,7 @@ const Widget = ({ id, index }) => {
         content={`Are you sure you want to delete ${title}?`}
         handleOk={deleteWidget}
         labelOk="Delete"
-        handleCancel={handleConfirmationDialogClose}
+        handleCancel={closeConfirmationDialog}
       />
     </>
   );

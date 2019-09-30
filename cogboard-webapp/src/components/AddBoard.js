@@ -4,6 +4,7 @@ import styled from '@emotion/styled/macro';
 
 import { useToggle } from '../hooks';
 import { addNewBoard } from '../actions/thunks';
+import { getIsAuthenticated } from '../selectors';
 
 import { Button, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
@@ -18,7 +19,7 @@ const StyledCancelButton = styled(CancelButton)`
 const AddBoard = () => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
-  const isAdmin = useSelector(({app}) => app.isAdmin);
+  const isAuthenticated = useSelector(getIsAuthenticated);
 
   const handleAddBoardClick = (event) => {
     event.stopPropagation();
@@ -30,7 +31,7 @@ const AddBoard = () => {
     handleDialogClose();
   };
 
-  if (!isAdmin) {
+  if (!isAuthenticated) {
     return null;
   }
 
