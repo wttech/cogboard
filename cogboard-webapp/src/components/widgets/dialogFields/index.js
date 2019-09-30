@@ -8,6 +8,7 @@ import DisplayValueSelect from "./DisplayValueSelect";
 import TextSizeInput from "./TextSizeInput";
 import MultilineTextInput from "./MultilineTextInput";
 import CheckboxInput from "./CheckboxInput";
+import AemHealthcheckInput from "./AemHealthcheckInput";
 
 const dialogFields = {
   EndpointField: {
@@ -59,6 +60,11 @@ const dialogFields = {
     component: SonarQubeMetricsInput,
     name: 'selectedMetrics',
     initialValue: ['blocker_violations', 'critical_violations', 'major_violations', 'minor_violations']
+  },
+  AemHealthcheckInput: {
+    component: AemHealthcheckInput,
+    name: 'selectedHealthChecks',
+    initialValue: ['slingJobs', 'systemchecks', 'inactiveBundles', 'DiskSpaceHealthCheck']
   },
   StatusCode: {
     component: NumberInput,

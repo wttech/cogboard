@@ -130,8 +130,8 @@ const Widget = ({ id, index }) => {
             <MoreMenu>
               {closeMenu =>
                 <>
-                  <MenuItem onClick={handleEditClick(closeMenu)}>Edit</MenuItem>
-                  <MenuItem onClick={handleDeleteClick(closeMenu)}>Delete</MenuItem>
+                  <MenuItem onClick={handleEditClick(closeMenu)} data-cy="widget-edit">Edit</MenuItem>
+                  <MenuItem onClick={handleDeleteClick(closeMenu)} data-cy="widget-delete">Delete</MenuItem>
                 </>
               }
             </MoreMenu>
@@ -143,6 +143,7 @@ const Widget = ({ id, index }) => {
         </StyledCardContent>
       </StyledCard>
       <AppDialog
+        disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title={`Edit ${title}`}

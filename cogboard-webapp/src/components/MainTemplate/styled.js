@@ -8,6 +8,7 @@ export const StyledActions = styled(Box)`
   bottom: 50px;
   position: fixed;
   right: 50px;
+  z-index: 10000;
 `;
 
 export const StyledSaveFab = styled(Fab)`
