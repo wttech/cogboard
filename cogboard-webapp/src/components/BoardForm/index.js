@@ -26,7 +26,6 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           label="Title"
           margin="normal"
           value={values.title}
-          inputProps={{'data-cy': "board-form-title"}}
           error={errors.title}
           helperText={
             <StyledFormMessages 
@@ -40,7 +39,6 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           InputLabelProps={{
             shrink: true
           }}
-          inputProps={{'data-cy': "board-form-columns"}}
           label="Columns"
           margin="normal"
           value={values.columns}
@@ -60,7 +58,6 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
                 checked={values.autoSwitch}
                 color="primary"
                 value="autoSwitch"
-                inputProps={{'data-cy': "board-form-auto-switch"}}
               />
             }
             label="Auto switch"
@@ -77,7 +74,6 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             margin="normal"
             value={values.switchInterval}
             type="number"
-            inputProps={{'data-cy': "board-form-switch-interval"}}
             error={errors.switchInterval}
             helperText={
               <StyledFormMessages 
