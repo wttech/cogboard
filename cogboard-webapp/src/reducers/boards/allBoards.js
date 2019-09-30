@@ -1,5 +1,5 @@
 import { RECEIVE_DATA, DELETE_BOARD, ADD_BOARD, REORDER_BOARDS } from '../../actions/types';
-import { reorderItems } from '../shared';
+import { reorderItems } from '../helpers';
 
 const receiveData = (state, { payload }) => {
   const { boards: { allBoards } } = payload;

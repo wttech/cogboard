@@ -9,7 +9,7 @@ import {
   INIT_BOARD_PROPS
 } from '../../actions/types';
 
-import { reorderItems } from '../shared';
+import { reorderItems } from '../helpers';
 
 const receiveData = (state, { payload }) => {
   const { boards: { boardsById } } = payload;
