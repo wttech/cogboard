@@ -59,6 +59,7 @@ const BoardCard = ({ boardData, className }) => {
               onClick={handleEditClick}
               aria-label="edit"
               size="small"
+              data-cy="board-card-edit-button"
             >
               <Edit />
             </IconButton>
@@ -66,6 +67,7 @@ const BoardCard = ({ boardData, className }) => {
               onClick={handleDeleteClick}
               aria-label="delete"
               size="small"
+              data-cy="board-card-delete-button"
             >
               <Delete />
             </IconButton>

@@ -44,6 +44,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             aria-label="Open boards drawer"
             color="inherit"
             edge="start"
+            data-cy="navbar-boards-drawer-icon"
           >
             <DashboardRounded />
           </IconButton>
@@ -52,6 +53,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             component="h2"
             variant="h3"
             theme={theme}
+            data-cy="navbar-title-header"
           >
             {title}
           </StyledTitle>

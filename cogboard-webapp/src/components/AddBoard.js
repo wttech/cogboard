@@ -38,7 +38,8 @@ const AddBoard = () => {
     <>
       <IconButton
         onClick={handleAddBoardClick}
-        color="primary">
+        color="primary"
+        data-cy="add-board-add-button">
         <Add />
       </IconButton>
       <AppDialog
@@ -53,10 +54,14 @@ const AddBoard = () => {
                 onClick={handleAddActionClick(values)}
                 color="primary"
                 variant="contained"
+                data-cy="board-form-submit-button"
               >
                 Add
               </Button>
-              <StyledCancelButton handleCancelClick={handleDialogClose} />
+              <StyledCancelButton 
+                handleCancelClick={handleDialogClose} 
+                data-cy="board-form-cancel-button"
+              />
             </>
           )}
         />

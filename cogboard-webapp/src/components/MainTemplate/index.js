@@ -76,6 +76,7 @@ const MainTemplate = () => {
                 onClick={handleSaveDataClick}
                 aria-label="Save Data"
                 color="secondary"
+                data-cy="main-template-save-data-button"
               >
                 <Save />
               </StyledSaveFab>
@@ -85,6 +86,7 @@ const MainTemplate = () => {
                 onClick={handleAddWidgetClick}
                 aria-label="Add Widget"
                 color="primary"
+                data-cy="main-template-add-widget-button"
               >
                 <Add />
               </Fab>
