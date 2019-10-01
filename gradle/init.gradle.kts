@@ -5,11 +5,6 @@ val configsToCopy = mapOf(
         "jwt.conf" to "/knotx/conf"
 )
 
-val configFilesPaths = mapOf("endpoints.conf" to "$projectDir/knotx/conf/",
-        "admins.conf" to "$projectDir/knotx/conf/",
-        "jwt.conf" to "$projectDir/knotx/conf/",
-        "config.json" to "$projectDir/mnt/")
-
 tasks {
     val registeredTasks = mutableSetOf<String>()
 
@@ -38,10 +33,12 @@ tasks {
 
     register("checkInited") {
         doLast {
-            configFilesPaths.forEach { (fileName, to) ->
-                if(!File(to + fileName).exists()) {
-                    logger.error("Cannot find file: $fileName. Please execute task cogboardInit first")
-                    throw GradleException("Cannot find file: $fileName in $to directory.")
+            configsToCopy.forEach { (fileName, to) ->
+                if(!File("$projectDir$to/$fileName").exists()) {
+                    val errorMessage = "Cannot find file: $fileName in $to directory. " +
+                            "Please check your config, or execute task cogboardInit."
+                    logger.error(errorMessage)
+                    throw GradleException(errorMessage)
                 }
             }
         }
