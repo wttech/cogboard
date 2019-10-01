@@ -5,11 +5,12 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import { fetchInitialData } from "./actions/thunks";
-import { updateWidget, saveDataSuccess } from './actions/actionCreators';
+import { updateWidget, saveDataSuccess, loginSuccess } from './actions/actionCreators';
 import { theme } from './theme';
 
 import MainTemplate from './components/MainTemplate';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { isAuthenticated } from './utils/auth';
 
 function App() {
   const appInitialized = useSelector(
@@ -18,6 +19,10 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (isAuthenticated()) {
+      dispatch(loginSuccess());
+    }
+
     dispatch(fetchInitialData());
   }, [dispatch]);
 

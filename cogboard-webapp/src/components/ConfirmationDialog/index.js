@@ -7,11 +7,10 @@ import { StyledButtonBox, StyledCancelButton } from "./styled";
 
 const ConfirmationDialog = props => {
   const { open, title, content, handleOk, labelOk, handleCancel, labelCancel } = props;
-  const handleDialogClose = handleCancel || handleOk;
 
   return (
     <AppDialog
-      handleDialogClose={handleDialogClose}
+      handleDialogClose={handleCancel}
       open={open}
       title={title}
     >
@@ -20,11 +19,11 @@ const ConfirmationDialog = props => {
           {content}
         </Typography>
         <StyledButtonBox display="flex" justifyContent="flex-end">
-          <Button onClick={handleOk} variant="contained" color="primary" autoFocus>
+          <Button onClick={handleOk} variant="contained" color="primary" autoFocus data-cy="confirmation-dialog-ok">
             {labelOk}
           </Button>
           {handleCancel &&
-          <StyledCancelButton onClick={handleCancel} variant="outlined" color="primary">
+          <StyledCancelButton onClick={handleCancel} variant="outlined" color="primary" data-cy="confirmation-dialog-cancel">
             {labelCancel}
           </StyledCancelButton>}
         </StyledButtonBox>

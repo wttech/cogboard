@@ -1,33 +1,40 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, IconButton, TextField, Typography } from '@material-ui/core';
-import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
 
 import { useFormData, useToggle } from '../hooks';
 import { login, logout } from '../actions/thunks';
-import { StyledFieldset } from './styled';
+import { getIsAuthenticated } from '../selectors';
+
+import { Button, IconButton, TextField, Typography } from '@material-ui/core';
+import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import SnackbarWithVariant from "./SnackbarWithVariant";
+import { StyledFieldset } from './styled';
 
 const UserLogin = () => {
   const dispatch = useDispatch();
   const {values, handleChange} = useFormData({username: '', password: ''});
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
-  const jwToken = useSelector(({app}) => app.jwToken);
-  const isUserLogged = !!jwToken;
+  const isAuthenticated = useSelector(getIsAuthenticated);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const [loginSnackbarOpened, openLoginSnackbar, handleLoginSnackbarClose] = useToggle();
   const [logoutSnackbarOpened, openLogoutSnackbar, handleLogoutSnackbarClose] = useToggle();
 
   useEffect(() => {
-    if(isUserLogged) {
+    if(isAuthenticated) {
       handleDialogClose();
       openLoginSnackbar();
     }
-  }, [isUserLogged]);
+  }, [isAuthenticated, handleDialogClose, openLoginSnackbar]);
 
   const handleLoginButtonClick = (credentials) => () => {
     dispatch(login(credentials))
+  };
+
+  const handleLoginOnEnterPress = (event, credentials) => {
+    if (event.key === 'Enter') {
+      dispatch(login(credentials))
+    }
   };
 
   const handleLoginDialogOpen = () => {
@@ -41,7 +48,7 @@ const UserLogin = () => {
 
   return (
     <>
-      {!jwToken &&
+      {!isAuthenticated &&
         <IconButton
           onClick={handleLoginDialogOpen}
           aria-label="Login"
@@ -51,7 +58,7 @@ const UserLogin = () => {
           <AccountCircle/>
         </IconButton>
       }
-      {jwToken &&
+      {isAuthenticated &&
         <IconButton
           onClick={handleLogout}
           aria-label="Logout"
@@ -79,6 +86,7 @@ const UserLogin = () => {
             label="Username"
             margin="normal"
             value={values.username}
+            onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
           />
           <TextField
             onChange={handleChange('password')}
@@ -90,6 +98,7 @@ const UserLogin = () => {
             label="Password"
             margin="normal"
             value={values.password}
+            onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
           />
           <Button
             color="primary"
