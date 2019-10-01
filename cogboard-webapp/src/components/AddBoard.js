@@ -42,6 +42,7 @@ const AddBoard = () => {
         <Add />
       </IconButton>
       <AppDialog
+        disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title="Add new board"

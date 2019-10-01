@@ -20,7 +20,7 @@ const StyledBoardSwitcher = styled(BoardSwitcher)`
 `;
 
 const StyledAppBar = styled(AppBar)`
-  background-color: transparent;
+  background-color: #211f39;
   box-shadow: none;
 `;
 

@@ -12,12 +12,14 @@
 * [Setup](./setup)
 
 ### Widgets:
-* [IFrame Embed](./widget-iframe-embed)
+* [AEM Healthcheck](./widget-aem-healtcheck)
+* [Bamboo Plan](./widget-bamboo-plan)
+* [Iframe Embed](./widget-iframe-embed)
 * [Jenkins Job](./widget-jenkins-job)
 * [Service Check](./widget-service-check)
 * [SonarQube](./widget-sonarqube)
-* [World Clock](./widget-world-clock)
 * [Text](./widget-text)
+* [World Clock](./widget-world-clock)
 
 ### Config:
 * [Configuration](./config)

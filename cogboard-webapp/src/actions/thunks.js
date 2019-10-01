@@ -17,7 +17,8 @@ import {
   saveDataStart,
   deleteWidget,
   setJwToken,
-  loginError
+  loginError,
+  initBoardProps
 } from './actionCreators';
 import {
   fetchData,
@@ -34,7 +35,10 @@ export const fetchInitialData = () =>
 
     return fetchData(URL.LOAD_DATA)
       .then(
-        data => dispatch(receiveData(data)),
+        data => {
+          dispatch(receiveData(data));
+          dispatch(initBoardProps());
+        },
         console.error
       );
   };

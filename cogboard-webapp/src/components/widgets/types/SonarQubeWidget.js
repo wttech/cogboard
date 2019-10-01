@@ -4,7 +4,7 @@ import { number, string, object } from "prop-types";
 import { Typography } from '@material-ui/core';
 import { Caption, WidgetButton } from "../../styled";
 
-const SonarQubeWidgetContent = props => {
+const SonarQubeWidget = props => {
   const { metrics, id, url, version, date, errorMessage } = props;
   const ts = date ? new Date(Date.parse(date)).toLocaleString() : '';
 
@@ -34,7 +34,7 @@ const SonarQubeWidgetContent = props => {
   );
 };
 
-SonarQubeWidgetContent.propTypes = {
+SonarQubeWidget.propTypes = {
   metrics: object,
   id: number.isRequired,
   url: string.isRequired,
@@ -43,11 +43,11 @@ SonarQubeWidgetContent.propTypes = {
   errorMessage: string
 };
 
-SonarQubeWidgetContent.defaultProps = {
+SonarQubeWidget.defaultProps = {
   metrics: {},
   version: '-',
   date: '',
   errorMessage: ''
 };
 
-export default SonarQubeWidgetContent;
+export default SonarQubeWidget;

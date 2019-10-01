@@ -4,5 +4,9 @@
 Widget displays current time and date of the specific timezone
 
 #### Configuration:
-* `Timezone` - choose specific GMT timezone
-* `Date Format` - format of the date that will be displayed
+* `Timezone` - choose GMT timezone
+* `Date Format` - choose date display format
+* `Time Format` - choose between 12- and 24-hour time format 
+* `Display date` - check if date should be displayed
+* `Display time` - check if time should be displayed
+* `Text Size` - choose size of date and time
