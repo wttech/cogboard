@@ -3,6 +3,11 @@ val initAdmins = !File("$projectDir/knotx/conf/admins.conf").exists()
 val initJwt = !File("$projectDir/knotx/conf/jwt.conf").exists()
 val initConfig = !File("$projectDir/mnt/config.json").exists()
 
+val configFilesPaths = mapOf("endpoints.conf" to "$projectDir/knotx/conf/",
+        "admins.conf" to "$projectDir/knotx/conf/",
+        "jwt.conf" to "$projectDir/knotx/conf/",
+        "config.json" to "$projectDir/mnt/")
+
 tasks {
     register<Copy>("cogboardCopyEndpoints") {
         group = "distribution"
@@ -46,5 +51,16 @@ tasks {
 
     register("cogboardInit") {
         dependsOn("cogboardCopyEndpoints", "cogboardCopyAdmins", "cogboardCopyJwt", "cogboardCopyConfig")
+    }
+
+    register("checkInited") {
+        doLast {
+            configFilesPaths.forEach { (fileName, to) ->
+                if(!File(to + fileName).exists()) {
+                    logger.error("Cannot find file: $fileName. Please execute task cogboardInit first")
+                    throw GradleException("Cannot find file: $fileName in $to directory.")
+                }
+            }
+        }
     }
 }
