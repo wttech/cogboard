@@ -5,8 +5,7 @@ import dataFetching from './dataFetching';
 import isDataChanged from './isDataChanged';
 import isDataSaving from './isDataSaving';
 import loginErrorMessage from './loginErrorMessage';
-import jwToken from './jwToken';
-import isAdmin from './isAdmin';
+import isAuthenticated from './isAuthenticated';
 
 const app = combineReducers({
   initialized,
@@ -14,8 +13,7 @@ const app = combineReducers({
   isDataChanged,
   isDataSaving,
   loginErrorMessage,
-  jwToken,
-  isAdmin
+  isAuthenticated
 });
 
 export default app;
