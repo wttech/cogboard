@@ -32,14 +32,12 @@ tasks {
     }
 
     register("checkInited") {
-        doLast {
-            configsToCopy.forEach { (fileName, to) ->
-                if(!File("$projectDir$to/$fileName").exists()) {
-                    val errorMessage = "Cannot find file: $fileName in $to directory. " +
-                            "Please check your config, or execute task cogboardInit."
-                    logger.error(errorMessage)
-                    throw GradleException(errorMessage)
-                }
+        configsToCopy.forEach { (fileName, to) ->
+            if(!File("$projectDir$to/$fileName").exists()) {
+                val errorMessage = "Cannot find file: $fileName in $to directory. " +
+                        "Please check your config, or execute task cogboardInit."
+                logger.error(errorMessage)
+                throw GradleException(errorMessage)
             }
         }
     }
