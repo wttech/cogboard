@@ -54,6 +54,7 @@ const UserLogin = () => {
           aria-label="Login"
           color="inherit"
           edge="start"
+          data-cy="user-login-login-icon"
         >
           <AccountCircle/>
         </IconButton>
@@ -64,6 +65,7 @@ const UserLogin = () => {
           aria-label="Logout"
           color="inherit"
           edge="start"
+          data-cy="user-login-logout-icon"
         >
           <PowerSettingsNew/>
         </IconButton>
@@ -87,6 +89,7 @@ const UserLogin = () => {
             margin="normal"
             value={values.username}
             onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
+            inputProps={{'data-cy': 'user-login-username-input'}}
           />
           <TextField
             onChange={handleChange('password')}
@@ -99,11 +102,13 @@ const UserLogin = () => {
             margin="normal"
             value={values.password}
             onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
+            inputProps={{'data-cy': 'user-login-password-input'}}
           />
           <Button
             color="primary"
             onClick={handleLoginButtonClick(values)}
-            variant="contained">
+            variant="contained"
+            data-cy='user-login-submit-button'>
             Login
           </Button>
         </StyledFieldset>

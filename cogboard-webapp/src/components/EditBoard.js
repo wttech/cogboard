@@ -29,10 +29,14 @@ const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
             onClick={handleSaveClick(values)}
             color="primary"
             variant="contained"
+            data-cy="board-form-submit-button"
           >
             Save
           </Button>
-          <StyledCancelButton handleCancelClick={closeDialog} />
+          <StyledCancelButton 
+            handleCancelClick={closeDialog} 
+            data-cy="board-form-cancel-button"
+          />
         </>
       }
     />

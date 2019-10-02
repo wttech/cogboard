@@ -38,6 +38,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
           name="type"
           value={values.type}
           dropdownItems={sortByKey(widgetTypes, 'name')}
+          data-cy="widget-form-type-select"
         >
           {renderWidgetTypesMenu}
         </DropdownField>
@@ -50,6 +51,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
           label="Title"
           margin="normal"
           value={values.title}
+          inputProps={{'data-cy': 'widget-form-title-input'}}
         />
         <Box
           display="flex"
@@ -63,7 +65,8 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
             }}
             inputProps={{
               min: COLUMNS_MIN,
-              max: boardColumns
+              max: boardColumns,
+              'data-cy': 'widget-form-columns-input'
             }}
             label="Columns"
             margin="normal"
@@ -78,7 +81,8 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
             }}
             inputProps={{
               min: ROWS_MIN,
-              max: 4
+              max: 4,
+              'data-cy': 'widget-form-rows-input'
             }}
             label="Rows"
             margin="normal"
@@ -94,6 +98,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
                 checked={values.goNewLine}
                 color="primary"
                 value="goNewLine"
+                inputProps={{'data-cy': 'widget-form-go-new-line-checkbox'}}
               />
             }
             label="Go to new line"
@@ -107,6 +112,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
                 checked={values.disabled}
                 color="primary"
                 value="disabled"
+                inputProps={{'data-cy': 'widget-form-disable-checkbox'}}
               />
             }
             label="Disable"

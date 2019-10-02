@@ -26,6 +26,7 @@ const MoreMenu = ({ children }) => {
         aria-label="More"
         aria-controls="more-menu"
         aria-haspopup="true"
+        data-cy="more-menu-button"
       >
         <MoreVert />
       </IconButton>

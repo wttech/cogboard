@@ -14,7 +14,8 @@ const DropdownField = props => {
     name,
     children,
     dropdownItems,
-    itemsUrl
+    itemsUrl,
+    ...other
   } = props;
   const initialLoaded = !itemsUrl;
   const [options, setOptions] = useState(dropdownItems);
@@ -52,6 +53,7 @@ const DropdownField = props => {
         value={value}
         input={<Input name={name} id={id} />}
         name={name}
+        inputProps={other}
       >
         {loaded && children(options)}
       </Select>
