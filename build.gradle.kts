@@ -48,7 +48,7 @@ allprojects {
 }
 
 tasks.named("build") {
-    dependsOn("runTest", "dockerStopCogboard")
+    dependsOn("runTest", "dockerStopCogboard", "checkInited")
 }
 
 apply(from = "gradle/init.gradle.kts")
