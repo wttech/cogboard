@@ -1,12 +1,12 @@
 import React from 'react';
-import { func, object, string } from 'prop-types';
+import {func, object, string} from 'prop-types';
 import styled from '@emotion/styled/macro';
 
-import { createValueRef } from './helpers';
+import {createValueRef} from './helpers';
 import widgetTypes from '../widgets';
 import dialogFields from '../widgets/dialogFields';
 
-import { Divider, FormControl } from '@material-ui/core';
+import {Divider, FormControl} from '@material-ui/core';
 
 const StyledDivider = styled(Divider)`
   margin-bottom: 24px;
@@ -18,7 +18,7 @@ const StyledFieldset = styled(FormControl)`
   min-width: 300px;
 `;
 
-const WidgetTypeForm = ({ values, type, handleChange }) => {
+const WidgetTypeForm = ({ values, type, handleChange, handleChangeWithValue }) => {
   const widgetType = widgetTypes[type];
   const dialogFieldNames = (widgetType && widgetType.dialogFields) ? widgetType.dialogFields : [];
   const hasDialogFields = dialogFieldNames.length !== 0;
@@ -42,6 +42,7 @@ const WidgetTypeForm = ({ values, type, handleChange }) => {
               key={name}
               value={valueRef}
               onChange={handleChange(name)}
+              handleChangeWithValue={handleChangeWithValue(name)}
               {...dialogFieldProps}
             />
           );

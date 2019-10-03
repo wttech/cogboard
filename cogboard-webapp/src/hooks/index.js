@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 
-import { splitPropsGroupName } from '../components/helpers';
+import {splitPropsGroupName} from '../components/helpers';
 
 export const useToggle = () => {
   const [isOpened, setOpened] = useState(false);
@@ -42,7 +42,11 @@ export const useFormData = (data) => {
     setFieldValue(fieldName, fieldValue);
   };
 
-  return { values, handleChange };
+  const handleChangeWithValue = fieldName => value => {
+    setFieldValue(fieldName, value);
+  };
+
+  return { values, handleChange, handleChangeWithValue };
 };
 
 export function useInterval(callback, delay) {

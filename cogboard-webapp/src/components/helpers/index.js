@@ -12,3 +12,7 @@ export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
 
     return newObj;
   }, {});
+
+export const deepCopy = (obj) => {
+  return JSON.parse(JSON.stringify(obj));
+};
