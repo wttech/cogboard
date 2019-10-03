@@ -24,7 +24,7 @@ const UserLogin = () => {
       handleDialogClose();
       openLoginSnackbar();
     }
-  }, [isUserLogged]);
+  });
 
   const handleLoginButtonClick = (credentials) => () => {
     dispatch(login(credentials))

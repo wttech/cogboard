@@ -1,12 +1,12 @@
 import React from 'react';
-import {func, object, string} from 'prop-types';
+import { func, object, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
-import {createValueRef} from './helpers';
+import { createValueRef } from './helpers';
 import widgetTypes from '../widgets';
 import dialogFields from '../widgets/dialogFields';
 
-import {Divider, FormControl} from '@material-ui/core';
+import { Divider, FormControl } from '@material-ui/core';
 
 const StyledDivider = styled(Divider)`
   margin-bottom: 24px;

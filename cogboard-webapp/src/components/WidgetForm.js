@@ -1,17 +1,17 @@
 import React from 'react';
-import {bool, number, string} from 'prop-types';
-import {useSelector} from 'react-redux';
+import { bool, number, string } from 'prop-types';
+import { useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 import widgetTypes from './widgets';
-import {useFormData} from '../hooks';
-import {sortByKey} from "./helpers";
-import {COLUMNS_MIN, ROWS_MIN} from '../constants';
+import { useFormData } from '../hooks';
+import { sortByKey } from "./helpers";
+import { COLUMNS_MIN, ROWS_MIN } from '../constants';
 
-import {Box, FormControl, FormControlLabel, MenuItem, Switch, TextField} from '@material-ui/core';
+import { Box, FormControl, FormControlLabel, MenuItem, Switch, TextField } from '@material-ui/core';
 import DropdownField from './DropdownField';
 import WidgetTypeForm from './WidgetTypeForm';
-import {StyledFieldset} from './styled';
+import { StyledFieldset } from './styled';
 
 const StyledNumberField = styled(TextField)`
   flex-basis: calc(50% - 18px);

@@ -5,11 +5,11 @@ import SonarQubeWidget from "./types/SonarQubeWidget";
 import ServiceCheckWidget from "./types/ServiceCheckWidget";
 import TextWidget from "./types/TextWidget";
 import BambooPlanWidget from "./types/BambooPlanWidget";
-import LinkListWidget from "./types/LinkListWidget";
 import WorldClockWidget from "./types/WorldClockWidget";
 import CheckboxWidget from './types/CheckboxWidget';
 import AemHealthcheckWidget from "./types/AemHealthcheckWidget";
 import IframeEmbedWidget from "./types/IframeEmbedWidget";
+import LinkListWidget from "./types/LinkListWidget";
 
 const widgetTypes = {
   DefaultWidget: {

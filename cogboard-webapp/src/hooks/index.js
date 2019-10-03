@@ -1,6 +1,6 @@
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import {splitPropsGroupName} from '../components/helpers';
+import { splitPropsGroupName } from '../components/helpers';
 
 export const useToggle = () => {
   const [isOpened, setOpened] = useState(false);
