@@ -10,11 +10,13 @@ const blankProps = {
     name: 'name',
     label: 'Name',
     value: "",
+    placeholder: "Link name..."
   },
   pathProps: {
     name: 'path',
     label: 'Path',
     value: "",
+    placeholder: "Example: www.google.com"
   }
 };
 
