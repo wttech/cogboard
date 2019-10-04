@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useFormData, useToggle } from '../hooks';
+import { useToggle } from '../hooks';
 import { login, logout } from '../actions/thunks';
+import { clearLoginErrorMessage } from "../actions/actionCreators";
 import { getIsAuthenticated } from '../selectors';
 
 import { Button, IconButton, TextField, Typography } from '@material-ui/core';
@@ -13,7 +14,6 @@ import { StyledFieldset } from './styled';
 
 const UserLogin = () => {
   const dispatch = useDispatch();
-  const {values, handleChange} = useFormData({username: '', password: ''});
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
@@ -27,13 +27,14 @@ const UserLogin = () => {
     }
   }, [isAuthenticated, handleDialogClose, openLoginSnackbar]);
 
-  const handleLoginButtonClick = (credentials) => () => {
+  const handleLoginButtonClick = () => {
+    const credentials = getCredentials();
     dispatch(login(credentials))
   };
 
-  const handleLoginOnEnterPress = (event, credentials) => {
+  const handleLoginOnEnterPress = event => {
     if (event.key === 'Enter') {
-      dispatch(login(credentials))
+      handleLoginButtonClick();
     }
   };
 
@@ -45,6 +46,20 @@ const UserLogin = () => {
     dispatch(logout());
     openLogoutSnackbar();
   };
+
+  const getCredentials = () => {
+    const usernameField = document.getElementById("username");
+    const passwordField = document.getElementById("password");
+    return {
+      username: usernameField ? usernameField.value : "",
+      password: passwordField ? passwordField.value : "",
+    };
+  };
+
+  function closeDialog() {
+    handleDialogClose();
+    dispatch(clearLoginErrorMessage());
+  }
 
   return (
     <>
@@ -71,7 +86,7 @@ const UserLogin = () => {
         </IconButton>
       }
       <AppDialog
-        handleDialogClose={handleDialogClose}
+        handleDialogClose={closeDialog}
         open={dialogOpened}
         title='User Login'>
         <StyledFieldset component="fieldset">
@@ -80,19 +95,16 @@ const UserLogin = () => {
             {errorMsg}
           </Typography>}
           <TextField
-            onChange={handleChange('username')}
             id="username"
             InputLabelProps={{
               shrink: true
             }}
             label="Username"
             margin="normal"
-            value={values.username}
-            onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
+            onKeyPress={handleLoginOnEnterPress}
             inputProps={{'data-cy': 'user-login-username-input'}}
           />
           <TextField
-            onChange={handleChange('password')}
             id="password"
             InputLabelProps={{
               shrink: true
@@ -100,13 +112,12 @@ const UserLogin = () => {
             type="password"
             label="Password"
             margin="normal"
-            value={values.password}
-            onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
+            onKeyPress={handleLoginOnEnterPress}
             inputProps={{'data-cy': 'user-login-password-input'}}
           />
           <Button
             color="primary"
-            onClick={handleLoginButtonClick(values)}
+            onClick={handleLoginButtonClick}
             variant="contained"
             data-cy='user-login-submit-button'>
             Login
@@ -117,7 +128,7 @@ const UserLogin = () => {
         open={loginSnackbarOpened}
         handleClose={handleLoginSnackbarClose}
         hideAfter={3000}
-        message={`Logged in as ${values.username}`}
+        message={`Logged in as ${getCredentials().username}`}
         vertical="top"
         horizontal="center"
         variant="success"
@@ -126,7 +137,7 @@ const UserLogin = () => {
         open={logoutSnackbarOpened}
         handleClose={handleLogoutSnackbarClose}
         hideAfter={3000}
-        message={`${values.username} was logged out successfully`}
+        message={`Logged out successfully`}
         vertical="top"
         horizontal="center"
         variant="info"
