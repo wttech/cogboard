@@ -20,7 +20,7 @@ const AddWidget = ({ closeDialog }) => {
   const handleAddClick = (values) => () => {
     dispatch(addNewWidget({ currentBoardId, values }));
     closeDialog();
-  }
+  };
 
   return (
     <WidgetForm
