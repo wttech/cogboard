@@ -5,6 +5,7 @@ import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
 
 import IframeEmbed from "../IframeEmbed";
 import { setSize } from "../helpers";
+import ValidationMessages from "../ValidationMessages";
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;
@@ -70,3 +71,9 @@ export const StyledFormControl = styled(FormControl)`
       minWidth: 120,
       maxWidth: 300,
   `;
+
+export const StyledValidationMessages = styled(ValidationMessages)`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;

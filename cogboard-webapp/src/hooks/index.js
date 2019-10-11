@@ -11,7 +11,7 @@ export const useToggle = () => {
   return [isOpened, handleOpen, handleClose];
 };
 
-export const useFormData = (data, validationSchema=null, onChange=false) => {
+export const useFormData = (data, validationSchema=null, onChange=null) => {
   const [values, setValues] = useState(data);
 
   const [status, setStatus] = useState({
@@ -24,18 +24,17 @@ export const useFormData = (data, validationSchema=null, onChange=false) => {
   const setFieldValue = (fieldName, fieldValue) => {
     const [groupName, propName] = splitPropsGroupName(fieldName);
 
+    let newValues;
     if (groupName) {
       const groupValues = values[groupName];
-
-      setValues({
-        ...values,
-        [groupName]: { ...groupValues, [propName]: fieldValue }
-      });
-
-      return;
+      newValues = {
+          ...values,
+          [groupName]: { ...groupValues, [propName]: fieldValue }
+        }
+    } else {
+      newValues = { ...values, [propName]: fieldValue};
     }
 
-    const newValues = { ...values, [propName]: fieldValue};
     validateField(fieldName, newValues);
 
     setValues(newValues);
@@ -53,6 +52,7 @@ export const useFormData = (data, validationSchema=null, onChange=false) => {
   };
 
   const validateField = (fieldName, fieldsValues) => {
+
     if (status.submited || status.onChange) {
       validationSchema.validateAt(fieldName, fieldsValues, {abortEarly: false})
         .then(() => {
@@ -61,23 +61,18 @@ export const useFormData = (data, validationSchema=null, onChange=false) => {
             delete errorsTmp[fieldName]
             setErrors(errorsTmp)
           }
-        }).catch(e => {
-          setErrors({...errors, ...parseYupErrors(e)})
-        })
+        }).catch(error => setErrors({...errors, ...parseYupErrors(error)}))
     }
   }
 
   const handleSubmit = func => event => {
     event.preventDefault();
     setStatus({...status, submited: true})
+
     if(validationSchema) {
       validationSchema.validate(values, {abortEarly: false})
-        .then(value => {
-          func(value);
-        })
-        .catch(errors => {
-          setErrors(parseYupErrors(errors))
-        })
+        .then(value => func(value))
+        .catch(errors => setErrors(parseYupErrors(errors)))
     } else {
       func(values);
     }

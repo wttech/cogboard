@@ -13,15 +13,17 @@ export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
     return newObj;
   }, {});
 
+export const parseYupErrors = (errors) => {
+  let result = {};
+  errors.inner.forEach(error => {
+    const { path, message } = error;
 
-  export const parseYupErrors = (errors) => {
-    let result = {};
-    errors.inner.forEach(error => {
-      if (error.path in result) {
-        result[error.path].push(error.message)
-      } else {
-        result[error.path] = [error.message]
-      }
-    });
-    return result;
-  }
+    if (path in result) {
+      result[path].push(message)
+    } else {
+      result[path] = [message]
+    }
+  });
+  
+  return result;
+}

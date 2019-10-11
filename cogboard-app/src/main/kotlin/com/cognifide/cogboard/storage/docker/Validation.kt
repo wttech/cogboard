@@ -47,7 +47,7 @@ class Validation {
         private fun checkAutoSwitchInterval(board: JsonObject): Boolean {
             val autoSwitch = board.getBoolean("autoSwitch")
             return when {
-                autoSwitch == null -> false
+                autoSwitch == null -> true
                 autoSwitch -> {
                     val autoSwitchInterval = board.getInteger("switchInterval")
                     autoSwitchInterval != null && autoSwitchInterval >= 3

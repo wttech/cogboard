@@ -7,7 +7,7 @@ import { StyledFieldset } from './styled';
 import { useFormData } from '../../hooks';
 import { getBoards } from '../../selectors';
 import { createValidationSchema } from './validators';
-import StyledFormMessages from '../FormMessages';
+import { StyledValidationMessages } from '../styled';
 
 const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) => {
   const boards = useSelector(getBoards);
@@ -28,7 +28,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           value={values.title}
           error={errors.title}
           helperText={
-            <StyledFormMessages
+            <StyledValidationMessages
               messages={errors.title}
               data-cy={'board-form-title-error'}
             />}
@@ -47,7 +47,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           type="number"
           error={errors.columns}
           helperText={
-            <StyledFormMessages
+            <StyledValidationMessages
               messages={errors.columns}
               data-cy='board-form-columns-error'
             />}
@@ -79,7 +79,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             type="number"
             error={errors.switchInterval}
             helperText={
-              <StyledFormMessages
+              <StyledValidationMessages
                 messages={errors.switchInterval}
                 data-cy='board-form-switch-interval-error'
               />}
