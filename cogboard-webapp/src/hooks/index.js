@@ -23,10 +23,11 @@ export const useFormData = (data, validationSchema=null, onChange=null) => {
 
   const setFieldValue = (fieldName, fieldValue) => {
     const [groupName, propName] = splitPropsGroupName(fieldName);
-
     let newValues;
+
     if (groupName) {
       const groupValues = values[groupName];
+
       newValues = {
           ...values,
           [groupName]: { ...groupValues, [propName]: fieldValue }
@@ -52,16 +53,18 @@ export const useFormData = (data, validationSchema=null, onChange=null) => {
   };
 
   const validateField = (fieldName, fieldsValues) => {
-
     if (status.submited || status.onChange) {
+
       validationSchema.validateAt(fieldName, fieldsValues, {abortEarly: false})
         .then(() => {
           if (fieldName in errors) {
             const errorsTmp = {...errors}
+            
             delete errorsTmp[fieldName]
             setErrors(errorsTmp)
           }
-        }).catch(error => setErrors({...errors, ...parseYupErrors(error)}))
+        })
+        .catch(error => setErrors({...errors, ...parseYupErrors(error)}))
     }
   }
 
