@@ -1,50 +1,44 @@
-val initEndpoints = !File("$projectDir/knotx/conf/endpoints.conf").exists()
-val initAdmins = !File("$projectDir/knotx/conf/admins.conf").exists()
-val initJwt = !File("$projectDir/knotx/conf/jwt.conf").exists()
-val initConfig = !File("$projectDir/mnt/config.json").exists()
+val configsToCopy = mapOf(
+        "config.json" to "/mnt",
+        "endpoints.json" to "/mnt",
+        "admins.conf" to "/knotx/conf",
+        "jwt.conf" to "/knotx/conf"
+)
 
 tasks {
-    register<Copy>("cogboardCopyEndpoints") {
-        group = "distribution"
+    val registeredTasks = mutableSetOf<String>()
 
-        if (initEndpoints) {
-            logger.lifecycle(">> creating './knotx/conf/endpoints.conf' file")
-            from("$projectDir/knotx/conf/initial/endpoints.conf")
-            into("$projectDir/knotx/conf")
-        }
-    }
+    configsToCopy.forEach { (fileName, to) ->
+        val taskName = "cogboardInit-$fileName"
+        val sourceFile = "$projectDir/knotx/conf/initial/$fileName"
+        val destinationPath = "$projectDir$to"
+        val fileNotExists = !File("$destinationPath/$fileName").exists()
 
-    register<Copy>("cogboardCopyAdmins") {
-        group = "distribution"
+        if (fileNotExists) {
+            registeredTasks.add(taskName)
 
-        if (initAdmins) {
-            logger.lifecycle(">> creating './knotx/conf/admins.conf' file")
-            from("$projectDir/knotx/conf/initial/admins.conf")
-            into("$projectDir/knotx/conf")
-        }
-    }
+            register<Copy>(taskName) {
+                group = "distribution"
 
-    register<Copy>("cogboardCopyJwt") {
-        group = "distribution"
-
-        if (initJwt) {
-            logger.lifecycle(">> creating './knotx/conf/jwt.conf' file")
-            from("$projectDir/knotx/conf/initial/jwt.conf")
-            into("$projectDir/knotx/conf")
-        }
-    }
-
-    register<Copy>("cogboardCopyConfig") {
-        group = "distribution"
-
-        if (initConfig) {
-            logger.lifecycle(">> creating './mnt/config.json' file")
-            from("$projectDir/knotx/conf/initial/config.json")
-            into("$projectDir/mnt")
+                logger.lifecycle(">> creating $destinationPath/$fileName")
+                from(sourceFile)
+                into(destinationPath)
+            }
         }
     }
 
     register("cogboardInit") {
-        dependsOn("cogboardCopyEndpoints", "cogboardCopyAdmins", "cogboardCopyJwt", "cogboardCopyConfig")
+        setDependsOn(registeredTasks)
+    }
+
+    register("checkInited") {
+        configsToCopy.forEach { (fileName, to) ->
+            if(!File("$projectDir$to/$fileName").exists()) {
+                val errorMessage = "Cannot find file: $fileName in $to directory. " +
+                        "Please check your config, or execute task cogboardInit."
+                logger.error(errorMessage)
+                throw GradleException(errorMessage)
+            }
+        }
     }
 }

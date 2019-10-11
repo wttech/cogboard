@@ -17,4 +17,5 @@ export const DATA_CHANGED = 'DATA_CHANGED';
 export const SAVE_DATA_START = 'SAVE_DATA_START';
 export const SAVE_DATA_SUCCESS = 'SAVE_DATA_SUCCESS';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';

@@ -20,7 +20,7 @@ const StyledBoardSwitcher = styled(BoardSwitcher)`
 `;
 
 const StyledAppBar = styled(AppBar)`
-  background-color: transparent;
+  background-color: #211f39;
   box-shadow: none;
 `;
 
@@ -44,6 +44,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             aria-label="Open boards drawer"
             color="inherit"
             edge="start"
+            data-cy="navbar-show-drawer-button"
           >
             <DashboardRounded />
           </IconButton>
@@ -52,6 +53,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             component="h2"
             variant="h3"
             theme={theme}
+            data-cy="navbar-title-header"
           >
             {title}
           </StyledTitle>

@@ -15,9 +15,10 @@
 * Install Docker CE on **Ubuntu Linux** - `sudo apt-get install docker-ce`, more instructions [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04)
 
 ## Endpoints setup
+##### This configuration will soon be managed fom UI directly
 In order to use widgets that communicate with third party software you must first configure endpoints.  
-Edit this file `knotx/conf/endpoints.conf`.  
-Any sensitive data from `endpoints.conf` file is never accessible for end-users. Only `id` and `title` can be requested.
+Edit this file `mnt/endpoints.json`.  
+Any sensitive data from `endpoints.json` file is never accessible for end-users. Only `id` and `title` can be requested.
 
 ## How to run
 

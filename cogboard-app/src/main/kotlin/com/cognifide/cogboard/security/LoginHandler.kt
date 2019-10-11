@@ -21,15 +21,17 @@ class LoginHandler : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> {
         this.vertx = vertx
         loadAdmins(config?.getJsonArray("admins") ?: JsonArray())
+        val wrongUserMsg = config?.getString("wrongUserMsg") ?: "Please, enter correct Username"
+        val wrongPassMsg = config?.getString("wrongPassMsg") ?: "Please, enter correct Password"
 
         return Handler { ctx ->
             ctx.bodyAsJson?.let {
                 val user = it.getString("username", "")
                 val password = it.getString("password", "")
-                if (isAuthorized(user, password)) {
-                    ctx.response().end(generateJWT(user))
-                } else {
-                    ctx.response().setStatusCode(401).end()
+                when {
+                    isNotExisting(user) -> sendUnauthorized(ctx, wrongUserMsg)
+                    isNotAuthorized(user, password) -> sendUnauthorized(ctx, wrongPassMsg)
+                    else -> sendJWT(ctx, user)
                 }
             }
         }
@@ -43,8 +45,20 @@ class LoginHandler : RoutingHandlerFactory {
                 }
     }
 
-    private fun isAuthorized(user: String, password: String): Boolean {
-        return password.isNotBlank() && admins[user] == password
+    private fun sendJWT(ctx: RoutingContext, user: String) {
+        ctx.response().end(generateJWT(user))
+    }
+
+    private fun sendUnauthorized(ctx: RoutingContext, message: String) {
+        ctx.response().setStatusMessage(message).setStatusCode(401).end()
+    }
+
+    private fun isNotExisting(user: String): Boolean {
+        return admins[user] == null
+    }
+
+    private fun isNotAuthorized(user: String, password: String): Boolean {
+        return password.isBlank() || admins[user] != password
     }
 
     private fun generateJWT(username: String): String {
@@ -57,9 +71,13 @@ class LoginHandler : RoutingHandlerFactory {
 
         val token = jwtAuth?.generateToken(
                 JsonObject().put("name", username),
-                JWTOptions().setExpiresInSeconds(600)
+                JWTOptions().setExpiresInSeconds(SESSION_DURATION_IN_SECONDS)
         ) ?: "no data"
         return "{\"token\":\"Bearer $token\"}"
+    }
+
+    companion object {
+        private const val SESSION_DURATION_IN_SECONDS = 30 * 60
     }
 
 }

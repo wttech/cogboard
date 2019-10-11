@@ -9,6 +9,7 @@ import { useToggle } from '../../hooks';
 import { deleteBoardWithWidgets } from '../../actions/thunks';
 import { reorderBoard } from '../../actions/thunks';
 import { ItemTypes } from '../../constants';
+import { getIsAuthenticated } from '../../selectors';
 
 import { CardHeader, CardContent, IconButton } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons'
@@ -27,13 +28,12 @@ const BoardCard = ({ boardData, index, className }) => {
   const [open, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
   const theme = useTheme();
-  const isAdmin = useSelector(({app}) => app.isAdmin);
+  const isAuthenticated = useSelector(getIsAuthenticated);
 
   const ref = useRef(null);
-  const isLoggedIn = useSelector(({ app }) => !!app.jwToken);
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.BOARD, id, index },
-    canDrag: isLoggedIn,
+    canDrag: isAuthenticated,
     collect: monitor => ({
       isDragging: monitor.isDragging()
     })
@@ -52,7 +52,7 @@ const BoardCard = ({ boardData, index, className }) => {
       if (sourceIndex === targetIndex) {
         return
       }
-          
+
       const { top, bottom } = ref.current.getBoundingClientRect();
       const dropTargetMiddleY = bottom - (bottom - top) / 2;
       const { y: dragSourceMouseY } = monitor.getClientOffset();
@@ -91,10 +91,10 @@ const BoardCard = ({ boardData, index, className }) => {
 
   return (
     <div className={className}>
-      <StyledCard 
+      <StyledCard
         onClick={handleBoardClick(id)}
         theme={theme}
-        isLoggedIn={isLoggedIn}
+        isLoggedIn={isAuthenticated}
         isDragging={isDragging}
         isOver={isOver}
         ref={ref}
@@ -111,12 +111,13 @@ const BoardCard = ({ boardData, index, className }) => {
         />
         <CardContent>
         </CardContent>
-        {isAdmin &&
+        {isAuthenticated &&
           <StyledCardActions>
             <IconButton
               onClick={handleEditClick}
               aria-label="edit"
               size="small"
+              data-cy="board-card-edit-button"
             >
               <Edit />
             </IconButton>
@@ -124,6 +125,7 @@ const BoardCard = ({ boardData, index, className }) => {
               onClick={handleDeleteClick}
               aria-label="delete"
               size="small"
+              data-cy="board-card-delete-button"
             >
               <Delete />
             </IconButton>
@@ -131,6 +133,7 @@ const BoardCard = ({ boardData, index, className }) => {
         }
       </StyledCard>
       <AppDialog
+        disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={open}
         title={`Edit ${title}`}

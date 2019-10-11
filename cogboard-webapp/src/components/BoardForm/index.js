@@ -23,6 +23,7 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
           label="Title"
           margin="normal"
           value={values.title}
+          inputProps={{'data-cy': 'board-form-title-input'}}
         />
         <TextField
           onChange={handleChange('columns')}
@@ -32,7 +33,8 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
           }}
           inputProps={{
             min: COLUMNS_MIN,
-            max: COLUMNS_MAX
+            max: COLUMNS_MAX,
+            'data-cy': 'board-form-columns-input'
           }}
           label="Columns"
           margin="normal"
@@ -47,6 +49,7 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
                 checked={values.autoSwitch}
                 color="primary"
                 value="autoSwitch"
+                inputProps={{'data-cy': 'board-form-auto-switch-checkbox'}}
               />
             }
             label="Auto switch"
@@ -63,6 +66,7 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
             margin="normal"
             value={values.switchInterval}
             type="number"
+            inputProps={{'data-cy': 'board-form-switch-interval-input'}}
           />
         }
       </StyledFieldset>

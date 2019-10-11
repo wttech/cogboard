@@ -1,4 +1,6 @@
 import { dataChanged } from './actionCreators';
+import { logout } from './thunks';
+import { isAuthenticated } from '../utils/auth';
 
 const checkResponseStatus = response => {
   const { status, statusText } = response;
@@ -95,6 +97,17 @@ export const mapDataToState = (data) => {
     serverData: { id, type, ...other }
   };
 };
+
+export const withAuthentication = (actionCallback) => (...args) =>
+  dispatch => {
+    if (!isAuthenticated()) {
+      dispatch(logout());
+
+      return;
+    }
+
+    dispatch(actionCallback.apply(null, args));
+  };
 
 export const withDataChanged = (actionCallback) => (...args) =>
   dispatch => {

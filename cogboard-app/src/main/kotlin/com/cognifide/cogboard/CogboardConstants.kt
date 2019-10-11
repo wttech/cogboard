@@ -29,9 +29,11 @@ class CogboardConstants {
         const val PROP_TEXT_SIZE = "textSize"
 
         const val EVENT_SEND_MESSAGE_TO_WEBSOCKET = "cogboard.websocket.message"
+        const val EVENT_SAVE_BOARDS_CONFIG = "cogboard.config.boards.save"
         const val EVENT_UPDATE_WIDGET_CONFIG = "cogboard.config.widget.update"
         const val EVENT_DELETE_WIDGET_CONFIG = "cogboard.config.widget.delete"
-        const val EVENT_CONFIG_SAVE = "cogboard.config.save"
+        const val EVENT_UPDATE_ENDPOINTS_CONFIG = "cogboard.config.endpoints.update"
+        const val EVENT_DELETE_ENDPOINTS_CONFIG = "cogboard.config.endpoints.delete"
         const val EVENT_HTTP_GET = "cogboard.httpclient.get"
         const val EVENT_HTTP_CHECK = "cogboard.httpclient.check"
         const val EVENT_HTTP_POST = "cogboard.httpclient.post"
