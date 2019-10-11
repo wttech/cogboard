@@ -13,6 +13,7 @@ import {
   DELETE_WIDGET,
   DELETE_MULTIPLE_WIDGETS,
   SORT_WIDGETS,
+  REORDER_BOARDS,
   DATA_CHANGED,
   SAVE_DATA_START,
   SAVE_DATA_SUCCESS,
@@ -73,6 +74,11 @@ export const deleteBoard = (id) => ({
 export const editBoard = (editData) => ({
   type: EDIT_BOARD,
   payload: editData
+});
+
+export const reorderBoards = (sourceId, targetIndex) => ({
+  type: REORDER_BOARDS,
+  payload: { sourceId, targetIndex }
 });
 
 export const editWidget = (editData) => ({

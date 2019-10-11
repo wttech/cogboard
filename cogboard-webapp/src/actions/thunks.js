@@ -7,6 +7,7 @@ import {
   addBoard,
   editBoard,
   deleteBoard,
+  reorderBoards,
   setCurrentBoard,
   updateWidget,
   addWidget,
@@ -136,6 +137,7 @@ export const addNewWidget = withAuthentication(makeWidgetUpdaterThunk(addWidget,
 export const saveWidget = withAuthentication(makeWidgetUpdaterThunk(editWidget, createEditWidgetData));
 export const removeWidget = withAuthentication(withDataChanged(removeWidgetThunk));
 export const reorderWidgets = withDataChanged(reorderWidgetsThunk);
+export const reorderBoard = withDataChanged(reorderBoards);
 export const addNewBoard = withDataChanged(addBoard);
 export const saveBoard = withDataChanged(editBoard);
 export const deleteBoardWithWidgets = withDataChanged(deleteBoardWithWidgetsThunk);

@@ -15,10 +15,11 @@ const BoardList = ({ className }) => {
 
   return (
     <Box className={className}>
-      {boards.map(boardData => (
+      {boards.map((boardData, index) => (
         <StyledBoardCard
           boardData={boardData}
           key={boardData.id}
+          index={index}
         />
       ))}
     </Box>
