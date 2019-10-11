@@ -99,7 +99,6 @@ const BoardCard = ({ boardData, index, className }) => {
         isOver={isOver}
         ref={ref}
       >
-        {/* {isDragging ? <DragCover/>: null} */}
         <CardHeader
           title={title}
           titleTypographyProps={
