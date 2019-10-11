@@ -19,8 +19,7 @@ const uniqueTitleTestCreator = (boardId, boards) =>
     exclusive: true,
     test: (title) => 
       boards.every(
-        (board) => board.title !== title || 
-        (board.title === title && board.id === boardId))
+        (board) => board.title !== title || board.id === boardId)
   })
 
 
