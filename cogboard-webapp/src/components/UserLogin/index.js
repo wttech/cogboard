@@ -1,16 +1,17 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useToggle } from '../hooks';
-import { login, logout } from '../actions/thunks';
-import { clearLoginErrorMessage } from "../actions/actionCreators";
-import { getIsAuthenticated } from '../selectors';
+import { useToggle } from '../../hooks';
+import { login, logout } from '../../actions/thunks';
+import { clearLoginErrorMessage } from "../../actions/actionCreators";
+import { getIsAuthenticated } from '../../selectors';
 
 import { Button, IconButton, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
-import AppDialog from './AppDialog';
-import SnackbarWithVariant from "./SnackbarWithVariant";
-import { StyledFieldset } from './styled';
+import AppDialog from './../AppDialog';
+import SnackbarWithVariant from "../SnackbarWithVariant";
+import { StyledFieldset } from '../styled';
+import { getCredentials } from "./helpers";
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -45,15 +46,6 @@ const UserLogin = () => {
   const handleLogout = () => {
     dispatch(logout());
     openLogoutSnackbar();
-  };
-
-  const getCredentials = () => {
-    const usernameField = document.getElementById("username");
-    const passwordField = document.getElementById("password");
-    return {
-      username: usernameField ? usernameField.value : "",
-      password: passwordField ? passwordField.value : "",
-    };
   };
 
   function closeDialog() {
@@ -95,6 +87,7 @@ const UserLogin = () => {
             {errorMsg}
           </Typography>}
           <TextField
+            autoFocus
             id="username"
             InputLabelProps={{
               shrink: true
