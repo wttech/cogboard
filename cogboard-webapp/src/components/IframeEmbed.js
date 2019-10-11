@@ -2,7 +2,7 @@ import React from 'react';
 import Iframe from 'react-iframe'
 import {string} from "prop-types";
 
-const IFrameEmbed = (props) => {
+const IframeEmbed = (props) => {
     const {url} = props;
 
     return (
@@ -13,8 +13,8 @@ const IFrameEmbed = (props) => {
     );
 };
 
-IFrameEmbed.propTypes = {
+IframeEmbed.propTypes = {
     url: string.isRequired
 };
 
-export default IFrameEmbed;
+export default IframeEmbed;

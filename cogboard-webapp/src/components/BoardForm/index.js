@@ -28,10 +28,11 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           value={values.title}
           error={errors.title}
           helperText={
-            <StyledFormMessages 
-              messages={errors.title} 
+            <StyledFormMessages
+              messages={errors.title}
               data-cy={'board-form-title-error'}
             />}
+          inputProps={{'data-cy': 'board-form-title-input'}}
         />
         <TextField
           onChange={handleChange('columns')}
@@ -39,13 +40,14 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           InputLabelProps={{
             shrink: true
           }}
+          inputProps={{'data-cy': 'board-form-columns-input'}}
           label="Columns"
           margin="normal"
           value={values.columns}
           type="number"
           error={errors.columns}
           helperText={
-            <StyledFormMessages 
+            <StyledFormMessages
               messages={errors.columns}
               data-cy='board-form-columns-error'
             />}
@@ -58,6 +60,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
                 checked={values.autoSwitch}
                 color="primary"
                 value="autoSwitch"
+                inputProps={{'data-cy': 'board-form-auto-switch-checkbox'}}
               />
             }
             label="Auto switch"
@@ -76,10 +79,11 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             type="number"
             error={errors.switchInterval}
             helperText={
-              <StyledFormMessages 
+              <StyledFormMessages
                 messages={errors.switchInterval}
                 data-cy='board-form-switch-interval-error'
               />}
+            inputProps={{'data-cy': 'board-form-switch-interval-input'}}
           />
         }
       </StyledFieldset>

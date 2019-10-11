@@ -1,8 +1,10 @@
 # [Home](/cogboard/) >> Config backup
 
 Configuration persistence is achieved with [Docker Volume](https://docs.docker.com/storage/volumes/) feature.  
-* Config is stored under `<project_root>/mnt/config.json`.  
-* Config can be backed-up or even versioned with git - in order to backup `config.json` make a git repository from `mnt` folder and backup it like any other file in a project.
+* Config files are stored under `<project_root>/mnt/` folder.  
+* `mnt` folder contains:  
+  * `config.json` - in this file setup of boards and widgets is held
+  * `endpoints.json` - in this file setup of endpoints and credentials is held
+* In order to backup files copy files from `mnt` folder somewhere safe.
 
-#### `config.json` will be persistent even after new docker container was created.
-#### No automatic feature for backup config is currently implemented.
+#### All files in `mnt` folder will be persistent even after new docker container was created.

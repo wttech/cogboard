@@ -31,10 +31,14 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
             onClick={handleSaveClick(values)}
             color="primary"
             variant="contained"
+            data-cy="widget-form-submit-button"
           >
             Save
           </Button>
-          <StyledCancelButton handleCancelClick={closeDialog} />
+          <StyledCancelButton 
+            handleCancelClick={closeDialog} 
+            data-cy="widget-form-cancel-button"
+          />
         </>
       }
     />

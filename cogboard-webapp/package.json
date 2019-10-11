@@ -9,6 +9,7 @@
     "@material-ui/icons": "^4.2.1",
     "@reach/router": "^1.2.1",
     "http-proxy-middleware": "^0.20.0",
+    "jwt-decode": "^2.2.0",
     "moment-timezone": "^0.5.26",
     "react": "^16.8.6",
     "react-dnd": "^9.3.4",

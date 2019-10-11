@@ -3,7 +3,7 @@ import styled from '@emotion/styled/macro';
 
 import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
 
-import IFrameEmbed from "../IFrameEmbed";
+import IframeEmbed from "../IframeEmbed";
 import { setSize } from "../helpers";
 
 const StyledTypography = styled(Typography)`
@@ -35,7 +35,7 @@ export const StyledFieldset = styled(FormControl)`
   min-width: 300px;
 `;
 
-export const StyledIFrame = (props) => <IFrameEmbed {...props} frameBorder={0} allowFullScreen height="100%"/>;
+export const StyledIframe = (props) => <IframeEmbed {...props} frameBorder={0} allowFullScreen height="100%"/>;
 
 export const StyledFormControlForDropdown = styled(FormControl)`
       display: flex;
@@ -64,3 +64,9 @@ export const StyledTitle = styled(Typography)`
     width: ${setSize(10)};
   }
 `;
+
+export const StyledFormControl = styled(FormControl)`
+      margin: theme.spacing(1),
+      minWidth: 120,
+      maxWidth: 300,
+  `;

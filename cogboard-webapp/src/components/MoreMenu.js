@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import { func } from 'prop-types';
 
+import { getIsAuthenticated } from '../selectors';
+
 import { Menu, MenuList, IconButton } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 
 const MoreMenu = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const isAdmin = useSelector(({app}) => app.isAdmin);
+  const isAuthenticated = useSelector(getIsAuthenticated);
 
   const handleMoreButtonClick = ({ currentTarget }) => setAnchorEl(currentTarget);
 
   const handleMoreMenuClose = () => setAnchorEl(null);
 
-  if (!isAdmin) {
+  if (!isAuthenticated) {
     return null;
   }
 
@@ -24,6 +26,7 @@ const MoreMenu = ({ children }) => {
         aria-label="More"
         aria-controls="more-menu"
         aria-haspopup="true"
+        data-cy="more-menu-button"
       >
         <MoreVert />
       </IconButton>

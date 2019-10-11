@@ -4,6 +4,7 @@ import { Router } from "@reach/router";
 
 import { useToggle } from '../../hooks';
 import { saveData } from '../../actions/thunks';
+import { getIsAuthenticated } from '../../selectors';
 
 import { Container, Drawer, Fab } from '@material-ui/core';
 import { Add, Save } from '@material-ui/icons';
@@ -24,7 +25,7 @@ import { StyledActions,
 const MainTemplate = () => {
   const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
   const isDataChanged = useSelector(({ app }) => app.isDataChanged);
-  const isAdmin = useSelector(({app}) => app.isAdmin);
+  const isAuthenticated = useSelector(getIsAuthenticated);
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
@@ -71,20 +72,22 @@ const MainTemplate = () => {
             <Board path="/:boardId" />
           </Router>
           <StyledActions>
-            {isAdmin && isDataChanged &&
+            {isAuthenticated && isDataChanged &&
               <StyledSaveFab
                 onClick={handleSaveDataClick}
                 aria-label="Save Data"
                 color="secondary"
+                data-cy="main-template-save-data-button"
               >
                 <Save />
               </StyledSaveFab>
             }
-            {isAdmin && currentBoardId &&
+            {isAuthenticated && currentBoardId &&
               <Fab
                 onClick={handleAddWidgetClick}
                 aria-label="Add Widget"
                 color="primary"
+                data-cy="main-template-add-widget-button"
               >
                 <Add />
               </Fab>
@@ -93,6 +96,7 @@ const MainTemplate = () => {
         </Container>
       </StyledMain>
       <AppDialog
+        disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title="Add new widget"

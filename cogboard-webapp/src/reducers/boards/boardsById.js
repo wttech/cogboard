@@ -5,13 +5,25 @@ import {
   DELETE_BOARD,
   ADD_WIDGET,
   DELETE_WIDGET,
-  SORT_WIDGETS
+  SORT_WIDGETS,
+  INIT_BOARD_PROPS
 } from '../../actions/types';
+
+import { reorderItems } from '../helpers';
 
 const receiveData = (state, { payload }) => {
   const { boards: { boardsById } } = payload;
 
   return { ...state, ...boardsById };
+};
+
+const initBoardProps = (state, { payload }) => {
+  return Object.entries(state)
+    .reduce((newState, [boardId, boardProps]) => {
+      newState[boardId] = { ...payload, ...boardProps };
+
+      return newState;
+    }, {});
 };
 
 const addBoard = (state, { payload }) => {
@@ -68,12 +80,7 @@ const sortWidgets = (state, { payload }) => {
   const { sourceId, targetIndex, boardId } = payload;
   const board = state[boardId];
   const { widgets } = board;
-  const withoutSource = widgets.filter(widgetId => widgetId !== sourceId);
-  const sortedWidgets = [
-    ...withoutSource.slice(0, targetIndex),
-    sourceId,
-    ...withoutSource.slice(targetIndex)
-  ];
+  const sortedWidgets = reorderItems(widgets, sourceId, targetIndex);
 
   return {
     ...state,
@@ -90,6 +97,8 @@ const boardsById = (state = {}, action) => {
   switch (type) {
     case RECEIVE_DATA:
       return receiveData(state, action);
+    case INIT_BOARD_PROPS:
+      return initBoardProps(state, action);
     case ADD_BOARD:
       return addBoard(state, action);
     case EDIT_BOARD:

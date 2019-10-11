@@ -8,7 +8,7 @@ const CancelButton = ({ handleCancelClick, className, ...other }) => (
     className={className}
     variant="contained"
     color="secondary"
-    {...other}
+    { ...other }
   >
     Cancel
   </Button>

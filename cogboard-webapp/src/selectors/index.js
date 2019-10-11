@@ -1,16 +1,23 @@
 import { createSelector } from 'reselect';
 
+const getApp = ({ app }) => app;
+
+const getUi = ({ ui }) => ui;
+
 const getBoardsById = ({ boards }) => boards.boardsById;
 
 const getAllBoards = ({ boards }) => boards.allBoards;
 
-const getUi = ({ ui }) => ui;
-
 const getBoardId = (_, boardId) => boardId;
+
+export const getIsAuthenticated = createSelector(
+  [getApp],
+  ({ isAuthenticated }) => isAuthenticated
+)
 
 export const getCurrentBoardId = createSelector(
   [getUi],
-  ui => ui.currentBoard
+  ({ currentBoard }) => currentBoard
 );
 
 const getBoard = createSelector(

@@ -19,6 +19,7 @@ class WidgetIndex {
             SonarQubeWidget::class.java.simpleName -> SonarQubeWidget(vertx, config)
             ServiceCheckWidget::class.java.simpleName -> ServiceCheckWidget(vertx, config)
             BambooPlanWidget::class.java.simpleName -> BambooPlanWidget(vertx, config)
+            AemHealthcheckWidget::class.java.simpleName -> AemHealthcheckWidget(vertx, config)
             // add here
             else -> DefaultWidget.INSTANCE
         }

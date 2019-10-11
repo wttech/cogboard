@@ -35,8 +35,8 @@ const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
           >
             Save
           </Button>
-          <StyledCancelButton 
-            handleCancelClick={closeDialog} 
+          <StyledCancelButton
+            handleCancelClick={closeDialog}
             data-cy="board-form-cancel-button"
           />
         </>
