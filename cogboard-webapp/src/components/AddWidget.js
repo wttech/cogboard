@@ -20,7 +20,7 @@ const AddWidget = ({ closeDialog }) => {
   const handleAddClick = (values) => () => {
     dispatch(addNewWidget({ currentBoardId, values }));
     closeDialog();
-  }
+  };
 
   return (
     <WidgetForm
@@ -30,10 +30,14 @@ const AddWidget = ({ closeDialog }) => {
             onClick={handleAddClick(values)}
             color="primary"
             variant="contained"
+            data-cy="widget-form-submit-button"
           >
             Add
           </Button>
-          <StyledCancelButton handleCancelClick={closeDialog} />
+          <StyledCancelButton 
+            handleCancelClick={closeDialog} 
+            data-cy="widget-form-cancel-button"
+          />
         </>
       }
     />

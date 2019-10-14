@@ -9,14 +9,14 @@ export const useBoardSwitching = () => {
   const switcherBoards = useSelector(getSwitcherBoards);
   const currentBoardId = useSelector(getCurrentBoardId);
   const hasBoardsToSwitch = switcherBoards.length > 1;
-  const initialBoardIndex = switcherBoards.includes(currentBoardId) ? switcherBoards.indexOf(currentBoardId) : 0;
-  const [boardIndex, setIndex] = useState(initialBoardIndex);
+  const boardIndex = switcherBoards.includes(currentBoardId) ? switcherBoards.indexOf(currentBoardId) : 0;
   const [isPlaying, setIsPlaying] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [prevBoardIndex, nextBoardIndex] = getPrevAndNextIndex(switcherBoards, boardIndex);
   const switchInterval = useSelector(state => getSwitchInterval(state, switcherBoards[boardIndex]));
   const prevBoardTitle = useSelector(state => getBoardTitle(state, switcherBoards[prevBoardIndex]));
   const nextBoardTitle = useSelector(state => getBoardTitle(state, switcherBoards[nextBoardIndex]));
+  const isDisable = !switcherBoards.includes(currentBoardId);
 
   const switchBoard = useCallback(
     (direction) => {
@@ -26,9 +26,9 @@ export const useBoardSwitching = () => {
       };
       const currentBoardIndex = switchDirection[direction];
 
-      setIndex(currentBoardIndex);
+      navigate(switcherBoards[currentBoardIndex] || switcherBoards[0]);
     },
-    [nextBoardIndex, prevBoardIndex]
+    [nextBoardIndex, prevBoardIndex, switcherBoards]
   );
 
   const handleBoardsSwitch = (direction) => () => {
@@ -43,13 +43,6 @@ export const useBoardSwitching = () => {
   const handlePlayToggle = () => {
     setIsPlaying(prevState => !prevState);
   };
-
-  useEffect(
-    () => {
-      navigate(switcherBoards[boardIndex] || switcherBoards[0]);
-    },
-    [boardIndex, switcherBoards]
-  );
 
   useEffect(
     () => {
@@ -74,6 +67,7 @@ export const useBoardSwitching = () => {
     handlePlayToggle,
     hasBoardsToSwitch,
     isPlaying,
+    isDisable,
     nextBoardTitle,
     prevBoardTitle,
     switchInterval,

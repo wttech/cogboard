@@ -1,33 +1,42 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { useToggle } from '../../hooks';
+import { login, logout } from '../../actions/thunks';
+import { clearLoginErrorMessage } from "../../actions/actionCreators";
+import { getIsAuthenticated } from '../../selectors';
+
 import { Button, IconButton, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
-
-import { useFormData, useToggle } from '../hooks';
-import { login, logout } from '../actions/thunks';
-import { StyledFieldset } from './styled';
-import AppDialog from './AppDialog';
-import SnackbarWithVariant from "./SnackbarWithVariant";
+import AppDialog from './../AppDialog';
+import SnackbarWithVariant from "../SnackbarWithVariant";
+import { StyledFieldset } from '../styled';
+import { getCredentials } from "./helpers";
 
 const UserLogin = () => {
   const dispatch = useDispatch();
-  const {values, handleChange} = useFormData({username: '', password: ''});
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
-  const jwToken = useSelector(({app}) => app.jwToken);
-  const isUserLogged = !!jwToken;
+  const isAuthenticated = useSelector(getIsAuthenticated);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const [loginSnackbarOpened, openLoginSnackbar, handleLoginSnackbarClose] = useToggle();
   const [logoutSnackbarOpened, openLogoutSnackbar, handleLogoutSnackbarClose] = useToggle();
 
   useEffect(() => {
-    if(isUserLogged) {
+    if(isAuthenticated) {
       handleDialogClose();
       openLoginSnackbar();
     }
-  }, [isUserLogged]);
+  }, [isAuthenticated, handleDialogClose, openLoginSnackbar]);
 
-  const handleLoginButtonClick = (credentials) => () => {
+  const handleLoginButtonClick = () => {
+    const credentials = getCredentials();
     dispatch(login(credentials))
+  };
+
+  const handleLoginOnEnterPress = event => {
+    if (event.key === 'Enter') {
+      handleLoginButtonClick();
+    }
   };
 
   const handleLoginDialogOpen = () => {
@@ -39,30 +48,37 @@ const UserLogin = () => {
     openLogoutSnackbar();
   };
 
+  function closeDialog() {
+    handleDialogClose();
+    dispatch(clearLoginErrorMessage());
+  }
+
   return (
     <>
-      {!jwToken &&
+      {!isAuthenticated &&
         <IconButton
           onClick={handleLoginDialogOpen}
           aria-label="Login"
           color="inherit"
           edge="start"
+          data-cy="user-login-login-icon"
         >
           <AccountCircle/>
         </IconButton>
       }
-      {jwToken &&
+      {isAuthenticated &&
         <IconButton
           onClick={handleLogout}
           aria-label="Logout"
           color="inherit"
           edge="start"
+          data-cy="user-login-logout-icon"
         >
           <PowerSettingsNew/>
         </IconButton>
       }
       <AppDialog
-        handleDialogClose={handleDialogClose}
+        handleDialogClose={closeDialog}
         open={dialogOpened}
         title='User Login'>
         <StyledFieldset component="fieldset">
@@ -71,17 +87,17 @@ const UserLogin = () => {
             {errorMsg}
           </Typography>}
           <TextField
-            onChange={handleChange('username')}
+            autoFocus
             id="username"
             InputLabelProps={{
               shrink: true
             }}
             label="Username"
             margin="normal"
-            value={values.username}
+            onKeyPress={handleLoginOnEnterPress}
+            inputProps={{'data-cy': 'user-login-username-input'}}
           />
           <TextField
-            onChange={handleChange('password')}
             id="password"
             InputLabelProps={{
               shrink: true
@@ -89,12 +105,14 @@ const UserLogin = () => {
             type="password"
             label="Password"
             margin="normal"
-            value={values.password}
+            onKeyPress={handleLoginOnEnterPress}
+            inputProps={{'data-cy': 'user-login-password-input'}}
           />
           <Button
             color="primary"
-            onClick={handleLoginButtonClick(values)}
-            variant="contained">
+            onClick={handleLoginButtonClick}
+            variant="contained"
+            data-cy='user-login-submit-button'>
             Login
           </Button>
         </StyledFieldset>
@@ -103,7 +121,7 @@ const UserLogin = () => {
         open={loginSnackbarOpened}
         handleClose={handleLoginSnackbarClose}
         hideAfter={3000}
-        message={`Logged in as ${values.username}`}
+        message={`Logged in as ${getCredentials().username}`}
         vertical="top"
         horizontal="center"
         variant="success"
@@ -112,7 +130,7 @@ const UserLogin = () => {
         open={logoutSnackbarOpened}
         handleClose={handleLogoutSnackbarClose}
         hideAfter={3000}
-        message={`${values.username} was logged out successfully`}
+        message={`Logged out successfully`}
         vertical="top"
         horizontal="center"
         variant="info"

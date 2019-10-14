@@ -10,7 +10,11 @@ export const theme = createMuiTheme({
     type: 'dark',
     background: {
       default: '#211F39',
-      paper: '#26243E'
+      paper: '#26243E',
+      board: {
+        card: '#5c6bc0', 
+        dragged: '#353b61'
+      }
     },
     status: {
       UNKNOWN: '#26243E',

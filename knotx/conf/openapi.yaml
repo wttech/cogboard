@@ -29,10 +29,18 @@ servers:
 paths:
   /api/config:
     get:
-      operationId: config-get-handler
+      operationId: boards-get-handler
       responses:
         default:
-          description: Config Get Handler
+          description: Boards Get Handler
+  /api/config/save:
+    post:
+      operationId: boards-save-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: Boards Save Handler
   /api/login:
     post:
       operationId: login-handler
@@ -41,20 +49,28 @@ paths:
           description: Generate JWT Token
   /api/endpoints:
     get:
-      operationId: endpoints-handler
+      operationId: endpoints-get-handler
       security:
         - cogboardAuth: []
       responses:
         default:
           description: Endpoint list
-  /api/config/save:
+  /api/endpoints/update:
     post:
-      operationId: config-save-handler
+      operationId: endpoints-update-handler
       security:
         - cogboardAuth: []
       responses:
         default:
-          description: Config Save Handler
+          description: Endpoint Update Handler
+  /api/endpoints/delete:
+    post:
+      operationId: endpoints-delete-handler
+#      security:
+#        - cogboardAuth: []
+      responses:
+        default:
+          description: Endpoint Delete Handler
   /api/widget/update:
     post:
       operationId: widget-update-handler
