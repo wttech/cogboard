@@ -114,7 +114,7 @@ const dialogFields = {
   },
   RequestBody: {
     component: MultilineTextInput,
-    name: 'requestBody',
+    name: 'body',
     label: 'Request Body'
   },
   TextSize: {

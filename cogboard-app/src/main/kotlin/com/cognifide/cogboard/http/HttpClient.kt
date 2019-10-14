@@ -1,7 +1,10 @@
 package com.cognifide.cogboard.http
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_MESSAGE
 import io.vertx.core.AbstractVerticle
+import io.vertx.core.Handler
 import io.vertx.core.buffer.Buffer
 import io.vertx.core.json.DecodeException
 import io.vertx.core.json.JsonObject
@@ -29,6 +32,13 @@ class HttpClient : AbstractVerticle() {
                 }
             }
         }
+        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_PUT).handler { message ->
+            client?.let {
+                message.body()?.let {
+                    makePut(client, it)
+                }
+            }
+        }
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_POST).handler { message ->
             client?.let {
                 message.body()?.let {
@@ -36,39 +46,68 @@ class HttpClient : AbstractVerticle() {
                 }
             }
         }
-    }
-
-    private fun makeCheck(client: WebClient, config: JsonObject) {
-        val request = initRequest(client, config)
-        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
-
-        executeCheckRequest(request, address)
+        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_DELETE).handler { message ->
+            client?.let {
+                message.body()?.let {
+                    makeDelete(client, it)
+                }
+            }
+        }
     }
 
     private fun makeGet(client: WebClient, config: JsonObject) {
-        val request = initRequest(client, config)
+        val httpRequest = client.getAbs(config.getString(CogboardConstants.PROP_URL))
+        val request = initRequest(httpRequest, config)
         val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
 
         executeRequest(request, address)
     }
 
-    private fun makePost(client: WebClient, config: JsonObject) {
-        val request = initRequest(client, config)
+    private fun makeCheck(client: WebClient, config: JsonObject) {
+        val httpRequest = client.getAbs(config.getString(CogboardConstants.PROP_URL))
+        val request = initRequest(httpRequest, config)
+        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
+
+        executeCheckRequest(request, address)
+    }
+
+    private fun makePut(client: WebClient, config: JsonObject) {
+        val httpRequest = client.putAbs(config.getString(CogboardConstants.PROP_URL))
+        val request = initRequest(httpRequest, config)
         val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
         val body = config.getJsonObject(CogboardConstants.PROP_BODY)
 
         body?.let {
-            executeRequest(request, address)
+            executeRequest(request, address, body)
         }
     }
 
-    private fun initRequest(client: WebClient, config: JsonObject): HttpRequest<Buffer> {
-        val request = client.getAbs(config.getString(CogboardConstants.PROP_URL))
+    private fun makePost(client: WebClient, config: JsonObject) {
+        val httpRequest = client.postAbs(config.getString(CogboardConstants.PROP_URL))
+        val request = initRequest(httpRequest, config)
+        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
+        val body = config.getJsonObject(CogboardConstants.PROP_BODY)
+
+        body?.let {
+            executeRequest(request, address, body)
+        }
+    }
+
+    private fun makeDelete(client: WebClient, config: JsonObject) {
+        val httpRequest = client.deleteAbs(config.getString(CogboardConstants.PROP_URL))
+        val request = initRequest(httpRequest, config)
+        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
+
+        executeCheckRequest(request, address)
+    }
+
+    private fun initRequest(request: HttpRequest<Buffer>, config: JsonObject): HttpRequest<Buffer> {
         val user = config.getString(CogboardConstants.PROP_USER)
         val pass = config.getString(CogboardConstants.PROP_PASSWORD)
 
         if (user.isNotBlank() && pass.isNotBlank()) {
             request.basicAuthentication(user, pass)
+            request.putHeader("Content-Type", "application/json")
         }
         return request
     }
@@ -92,20 +131,33 @@ class HttpClient : AbstractVerticle() {
             try {
                 JsonObject().put(CogboardConstants.PROP_ARRAY, response.bodyAsJsonArray())
             } catch (e: DecodeException) {
-                JsonObject().put("body", response.bodyAsString())
+                JsonObject().put(CogboardConstants.PROP_BODY, response.bodyAsString())
             }
         }
     }
 
+    private fun executeRequest(request: HttpRequest<Buffer>, address: String?, body: JsonObject?) {
+        request.sendJsonObject(body, Handler {
+            val result = JsonObject()
+            if (it.succeeded()) {
+                result.put(PROP_STATUS_CODE, it.result().statusCode())
+                result.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
+            } else {
+                result.put(PROP_STATUS_MESSAGE, "unsuccessful")
+                LOGGER.error(it.cause()?.message)
+            }
+            vertx.eventBus().send(address, result)
+        })
+    }
 
     private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?) {
         request.send {
             val result = JsonObject()
             if (it.succeeded()) {
-                result.put("statusCode", it.result().statusCode())
-                result.put("statusMessage", it.result().statusMessage())
+                result.put(PROP_STATUS_CODE, it.result().statusCode())
+                result.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
             } else {
-                result.put("statusMessage", "unsuccessful")
+                result.put(PROP_STATUS_MESSAGE, "unsuccessful")
             }
             vertx.eventBus().send(address, result)
         }
