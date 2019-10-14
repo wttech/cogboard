@@ -59,8 +59,8 @@ const AddBoard = () => {
               >
                 Add
               </Button>
-              <StyledCancelButton 
-                handleCancelClick={handleDialogClose} 
+              <StyledCancelButton
+                handleCancelClick={handleDialogClose}
                 data-cy="board-form-cancel-button"
               />
             </>

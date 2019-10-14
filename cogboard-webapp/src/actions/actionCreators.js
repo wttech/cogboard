@@ -13,11 +13,13 @@ import {
   DELETE_WIDGET,
   DELETE_MULTIPLE_WIDGETS,
   SORT_WIDGETS,
+  REORDER_BOARDS,
   DATA_CHANGED,
   SAVE_DATA_START,
   SAVE_DATA_SUCCESS,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  CLEAR_LOGIN_ERROR_MESSAGE,
   LOGOUT,
   INIT_BOARD_PROPS
 } from './types';
@@ -34,6 +36,10 @@ export const loginSuccess = () => ({
 export const loginFailure = (data) => ({
   type: LOGIN_FAILURE,
   payload: data
+});
+
+export const clearLoginErrorMessage = () => ({
+  type: CLEAR_LOGIN_ERROR_MESSAGE,
 });
 
 export const logout = () => ({
@@ -73,6 +79,11 @@ export const deleteBoard = (id) => ({
 export const editBoard = (editData) => ({
   type: EDIT_BOARD,
   payload: editData
+});
+
+export const reorderBoards = (sourceId, targetIndex) => ({
+  type: REORDER_BOARDS,
+  payload: { sourceId, targetIndex }
 });
 
 export const editWidget = (editData) => ({
