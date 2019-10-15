@@ -2,5 +2,8 @@
 
 #### Configuration:
 * `Schedule Period` - time interval between executions >> recommended: `300000` (5min)
-* `Path` - service url >> example: `http://service.com/login`
+* `Request Method` - choose request method >> `GET | PUT | POST | DELETE`
+* `Endpoint` - choose service endpoint
+* `Path` - service url >> example: `/login`
+* `Request Body` - Required field for `PUT` and `POST` requests (format: `json`) >> example: `{ "user": "test", "password": "test" }`
 * `Expected Status Code` - status code that is expected for this service >> default: `200`
