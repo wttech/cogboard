@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux';
 import { string, number, bool } from 'prop-types';
 
 import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/core';
-import { StyledFieldset } from './styled';
+import { StyledFieldset, StyledValidationMessages } from './styled';
 import { useFormData } from '../../hooks';
 import { getBoards } from '../../selectors';
 import { createValidationSchema } from './validators';
-import { StyledValidationMessages } from '../styled';
 
 const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) => {
   const boards = useSelector(getBoards);
