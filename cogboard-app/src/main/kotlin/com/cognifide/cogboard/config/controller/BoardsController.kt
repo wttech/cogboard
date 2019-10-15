@@ -3,6 +3,7 @@ package com.cognifide.cogboard.config.controller
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.EndpointLoader
 import com.cognifide.cogboard.storage.Storage
+import com.cognifide.cogboard.storage.docker.Validation
 import com.cognifide.cogboard.storage.docker.VolumeStorage
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.WidgetIndex
@@ -27,13 +28,19 @@ internal open class BoardsController : AbstractVerticle() {
             .consumer<JsonObject>(CogboardConstants.EVENT_SAVE_BOARDS_CONFIG)
             .handler { storage.saveBoardsConfig(it.body()) }
 
-    private fun loadBoardsConfig() = storage
-            .loadBoardsConfig()
-            .getJsonObject(CogboardConstants.PROP_WIDGETS)
-            .getJsonObject(CogboardConstants.PROP_WIDGETS_BY_ID)
-            .forEach {
-                createOrUpdate(JsonObject(it.value.toString()))
-            }
+    private fun loadBoardsConfig() {
+        val config = storage.loadBoardsConfig()
+        if (config != CogboardConstants.errorResponse("Config not valid")) {
+            return config.getJsonObject(CogboardConstants.PROP_WIDGETS)
+                    .getJsonObject(CogboardConstants.PROP_WIDGETS_BY_ID)
+                    .forEach {
+                        createOrUpdate(JsonObject(it.value.toString()))
+                    }
+        } else {
+            LOGGER.error("Boards config is invalid")
+            throw Validation.ValidationException("Boards config is invalid")
+        }
+    }
 
     fun createOrUpdate(config: JsonObject) {
         var newConfig = config
