@@ -13,6 +13,7 @@ const BoardSwitcher = ({ className }) => {
     handlePlayToggle,
     hasBoardsToSwitch,
     isPlaying,
+    isDisable,
     nextBoardTitle,
     prevBoardTitle,
     switchInterval,
@@ -20,7 +21,7 @@ const BoardSwitcher = ({ className }) => {
   } = useBoardSwitching();
   const timeLeft = switchInterval - timeElapsed;
 
-  if (!hasBoardsToSwitch) {
+  if (!hasBoardsToSwitch || isDisable) {
     return null;
   }
 
