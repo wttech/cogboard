@@ -7,16 +7,12 @@ import { useFormData } from '../../hooks';
 import { sortByKey } from "../helpers";
 import { COLUMNS_MIN, ROWS_MIN } from '../../constants';
 
-import { Box, FormControlLabel, FormControl, MenuItem, TextField, Switch, Tab } from '@material-ui/core';
+import { Box, FormControlLabel, FormControl, TextField, Switch, Tab } from '@material-ui/core';
 import DropdownField from '../DropdownField';
 import WidgetTypeForm from '../WidgetTypeForm';
 import { StyledNumberField, StyledTabPanel, StyledTabs } from './styled';
+import { renderWidgetTypesMenu } from './helpers';
 import { StyledFieldset } from '../styled';
-
-const renderWidgetTypesMenu = (widgetTypes) =>
-  Object.entries(widgetTypes).map(([type, { name }]) => (
-    <MenuItem key={type} value={type}>{name}</MenuItem>
-  ));
 
 const WidgetForm = ({ renderActions, ...initialFormValues }) => {
   const boardColumns = useSelector(
