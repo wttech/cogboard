@@ -6,11 +6,7 @@ import { createValueRef } from './helpers';
 import widgetTypes from '../widgets';
 import dialogFields from '../widgets/dialogFields';
 
-import { Divider, FormControl } from '@material-ui/core';
-
-const StyledDivider = styled(Divider)`
-  margin-bottom: 24px;
-`;
+import { FormControl } from '@material-ui/core';
 
 const StyledFieldset = styled(FormControl)`
   display: flex;
@@ -25,7 +21,6 @@ const WidgetTypeForm = ({ values, type, handleChange }) => {
 
   return hasDialogFields && (
     <>
-      <StyledDivider />
       <StyledFieldset component="fieldset">
         {dialogFieldNames.map(fieldName => {
           const {
