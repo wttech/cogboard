@@ -6,4 +6,4 @@ Widget displays one of three status icons:
 * failure (red cancel icon)
 * indeterminate (indeterminate checkbox icon)
 
-Authenticated user can toggle widget state by clicking its area.
+User can toggle widget state by clicking its area.
