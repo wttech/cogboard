@@ -1,11 +1,11 @@
 package com.cognifide.cogboard.storage.model
 
-data class Board(
-        var id: String,
-        var title: String,
-        var columns: Int,
-        var autoSwitch: Boolean = false,
-        var switchInterval: Int,
-        var widgets: Array<String>,
-        var theme: String
+class Board(
+        val id: String,
+        val title: String,
+        val columns: Int,
+        val autoSwitch: Boolean = false,
+        val switchInterval: Int,
+        val widgets: List<String>,
+        val theme: String
 )
