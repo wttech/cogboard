@@ -30,16 +30,15 @@ internal open class BoardsController : AbstractVerticle() {
 
     private fun loadBoardsConfig() {
         val config = storage.loadBoardsConfig()
-        if (config != CogboardConstants.errorResponse("Config not valid")) {
-            return config.getJsonObject(CogboardConstants.PROP_WIDGETS)
-                    .getJsonObject(CogboardConstants.PROP_WIDGETS_BY_ID)
-                    .forEach {
-                        createOrUpdate(JsonObject(it.value.toString()))
-                    }
-        } else {
+        if (config == CogboardConstants.errorResponse("Config not valid")) {
             LOGGER.error("Boards config is invalid")
             throw Validation.ValidationException("Boards config is invalid")
         }
+        return config.getJsonObject(CogboardConstants.PROP_WIDGETS)
+                .getJsonObject(CogboardConstants.PROP_WIDGETS_BY_ID)
+                .forEach {
+                    createOrUpdate(JsonObject(it.value.toString()))
+                }
     }
 
     fun createOrUpdate(config: JsonObject) {
