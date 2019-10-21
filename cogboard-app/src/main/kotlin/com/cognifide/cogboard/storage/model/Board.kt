@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.storage.model
 
-class Board(
+data class Board(
         val id: String,
         val title: String,
         val columns: Int,
