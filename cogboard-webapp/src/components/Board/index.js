@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrentBoard } from "../../actions/actionCreators";
 
 import WidgetList from "../WidgetList";
-import { StyledContainer } from "./styled";
+import { StyledContainer, StyledNotFound } from "./styled";
 
 const Board = ({ boardId, className }) => {
   const currentBoard = useSelector(({ boards }) => boards.boardsById[boardId]);
@@ -16,7 +16,7 @@ const Board = ({ boardId, className }) => {
   }, [dispatch, boardId]);
 
   if (!currentBoard) {
-    return null;
+    return <StyledNotFound/>;
   }
 
   return (
