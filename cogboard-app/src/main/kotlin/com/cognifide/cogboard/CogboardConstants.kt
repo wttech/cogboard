@@ -29,6 +29,7 @@ class CogboardConstants {
         const val PROP_STATUS_MESSAGE = "statusMessage"
         const val PROP_EXPECTED_STATUS_CODE = "expectedStatusCode"
         const val PROP_REQUEST_METHOD = "requestMethod"
+        const val PROP_RESPONSE_BODY = "expectedResponseBody"
         const val PROP_PATH = "path"
 
         const val EVENT_SEND_MESSAGE_TO_WEBSOCKET = "cogboard.websocket.message"
@@ -50,6 +51,6 @@ class CogboardConstants {
         val DEFAULT_VALUES: JsonObject = JsonObject()
                 .put(PROP_SCHEDULE_PERIOD, PROP_SCHEDULE_PERIOD_DEFAULT)
 
-        fun errorResponse(message : String = "") : JsonObject = JsonObject().put("status", "failed $message")
+        fun errorResponse(message: String = ""): JsonObject = JsonObject().put("status", "failed $message")
     }
 }
