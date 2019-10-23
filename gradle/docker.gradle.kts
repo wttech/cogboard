@@ -57,6 +57,20 @@ task("docker-run") {
             )
         }
     }
+    finalizedBy("print-message")
+}
+
+task("print-message") {
+    doLast {
+        logger.lifecycle(
+                """
+                    ******************************************
+                    **     Cogboard build ended !!!         **
+                    **     Go to http://localhost:8092/     **
+                    ******************************************
+            """.trimIndent()
+        )
+    }
 }
 
 task("dockerStopCogboard") {
