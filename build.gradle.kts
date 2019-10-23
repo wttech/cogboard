@@ -21,7 +21,7 @@ plugins {
 val dockerContainerName = project.property("docker.container.name") ?: "cogboard"
 val dockerImageName = project.property("docker.image.name") ?: "cogboard/cogboard-app"
 
-defaultTasks("docker-run")
+defaultTasks("cogboard-is-running")
 
 configurations {
     register("dist")

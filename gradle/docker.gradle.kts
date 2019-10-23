@@ -41,7 +41,7 @@ logger.lifecycle(">> dockerImageName: $dockerImageName")
 logger.lifecycle(">> mountDir: $mountDir")
 
 
-task("docker-run") {
+task("cogboard-is-running") {
     dependsOn("build")
     doLast {
         logger.lifecycle("Running docker image")
@@ -56,20 +56,6 @@ task("docker-run") {
                     dockerImageName
             )
         }
-    }
-    finalizedBy("print-message")
-}
-
-task("print-message") {
-    doLast {
-        logger.lifecycle(
-                """
-                    ******************************************
-                    **     Cogboard build ended !!!         **
-                    **     Go to http://localhost:8092/     **
-                    ******************************************
-            """.trimIndent()
-        )
     }
 }
 
