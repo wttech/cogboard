@@ -24,6 +24,7 @@ dependencies {
         implementation("$v-web-client")
         implementation("$v-rx-java2")
     }
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0")
     implementation(kotlin("stdlib-jdk8"))
 
     testImplementation("org.assertj:assertj-core:3.12.2")

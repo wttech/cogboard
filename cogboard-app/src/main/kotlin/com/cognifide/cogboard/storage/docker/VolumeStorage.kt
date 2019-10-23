@@ -16,7 +16,7 @@ class VolumeStorage(val vertx: Vertx) : Storage {
     }
 
     override fun saveBoardsConfig(config: JsonObject) {
-        if (validateBoards(config)) {
+        if (Validation.validate(config)) {
             File(BOARDS_CONFIG_FILE_PATH).writeText(config.toString())
             vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET, JsonObject().message(OK_MESSAGE))
         } else {
@@ -50,7 +50,7 @@ class VolumeStorage(val vertx: Vertx) : Storage {
         override fun loadBoardsConfig(): JsonObject {
             val conf = File(BOARDS_CONFIG_FILE_PATH).readText()
             val configJson = JsonObject(conf)
-            return if (validateBoards(configJson)) configJson
+            return if (Validation.validate(configJson)) configJson
                    else CogboardConstants.errorResponse("Config not valid")
         }
 
@@ -77,11 +77,6 @@ class VolumeStorage(val vertx: Vertx) : Storage {
         private const val BOARDS_CONFIG_FILE_PATH = "/data/config.json"
         private const val ENDPOINTS_CONFIG_FILE_PATH = "/data/endpoints.json"
         private val LOGGER: Logger = LoggerFactory.getLogger(VolumeStorage::class.java)
-
-        private fun validateBoards(config: JsonObject): Boolean {
-            return config.getJsonObject("boards")?.getJsonObject("boardsById") != null
-                    && config.getJsonObject("widgets")?.getJsonObject("widgetsById") != null
-        }
 
         private fun validateEndpoints(config: JsonObject): Boolean {
             return config.getJsonArray("endpoints") != null

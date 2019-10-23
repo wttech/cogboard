@@ -15,7 +15,7 @@ const StyledCancelButton = styled(CancelButton)`
 const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
   const dispatch = useDispatch()
 
-  const handleSaveClick = (values) => () => {
+  const handleSaveClick = (values) => {
     dispatch(saveBoard({ id, ...values }));
     closeDialog();
   };
@@ -23,22 +23,24 @@ const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
   return (
     <BoardForm
       {...initialFormValues}
-      renderActions={values =>
+      onSubmit={handleSaveClick}
+      boardId={id}
+      renderActions={() => (
         <>
           <Button
-            onClick={handleSaveClick(values)}
             color="primary"
             variant="contained"
+            type="submit"
             data-cy="board-form-submit-button"
           >
             Save
           </Button>
-          <StyledCancelButton 
-            handleCancelClick={closeDialog} 
+          <StyledCancelButton
+            handleCancelClick={closeDialog}
             data-cy="board-form-cancel-button"
           />
         </>
-      }
+      )}
     />
   );
 };

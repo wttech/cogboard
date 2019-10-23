@@ -27,6 +27,8 @@ class CogboardConstants {
         const val PROP_ARRAY = "array"
         const val PROP_TEXT = "text"
         const val PROP_TEXT_SIZE = "textSize"
+        const val PROP_BOARD_COLUMN_MAX = 20
+        const val PROP_BOARD_COLUMN_MIN = 4
 
         const val EVENT_SEND_MESSAGE_TO_WEBSOCKET = "cogboard.websocket.message"
         const val EVENT_SAVE_BOARDS_CONFIG = "cogboard.config.boards.save"
