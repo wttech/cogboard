@@ -18,84 +18,55 @@ class HttpClient : AbstractVerticle() {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_GET).handler { message ->
             client?.let {
                 message.body()?.let {
-                    makeGet(client, it)
+                    val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
+                    makeRequest(httpRequest, it)
                 }
             }
         }
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_CHECK).handler { message ->
             client?.let {
                 message.body()?.let {
-                    makeCheck(client, it)
+                    val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
+                    makeRequest(httpRequest, it)
                 }
             }
         }
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_PUT).handler { message ->
             client?.let {
                 message.body()?.let {
-                    makePut(client, it)
+                    val httpRequest = client.putAbs(it.getString(CogboardConstants.PROP_URL))
+                    makeRequest(httpRequest, it)
                 }
             }
         }
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_POST).handler { message ->
             client?.let {
                 message.body()?.let {
-                    makePost(client, it)
+                    val httpRequest = client.postAbs(it.getString(CogboardConstants.PROP_URL))
+                    makeRequest(httpRequest, it)
                 }
             }
         }
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_DELETE).handler { message ->
             client?.let {
                 message.body()?.let {
-                    makeDelete(client, it)
+                    val httpRequest = client.deleteAbs(it.getString(CogboardConstants.PROP_URL))
+                    makeRequest(httpRequest, it)
                 }
             }
         }
     }
 
-    private fun makeGet(client: WebClient, config: JsonObject) {
-        val httpRequest = client.getAbs(config.getString(CogboardConstants.PROP_URL))
-        val request = initRequest(httpRequest, config)
-        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
-
-        executeRequest(request, address, JsonObject())
-    }
-
-    private fun makeCheck(client: WebClient, config: JsonObject) {
-        val httpRequest = client.getAbs(config.getString(CogboardConstants.PROP_URL))
-        val request = initRequest(httpRequest, config)
-        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
-
-        executeRequest(request, address, JsonObject())
-    }
-
-    private fun makePut(client: WebClient, config: JsonObject) {
-        val httpRequest = client.putAbs(config.getString(CogboardConstants.PROP_URL))
+    private fun makeRequest(httpRequest: HttpRequest<Buffer>, config: JsonObject) {
         val request = initRequest(httpRequest, config)
         val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
         val body = config.getJsonObject(CogboardConstants.PROP_BODY)
 
         body?.let {
             executeRequest(request, address, body)
+        } ?: run {
+            executeRequest(request, address, JsonObject())
         }
-    }
-
-    private fun makePost(client: WebClient, config: JsonObject) {
-        val httpRequest = client.postAbs(config.getString(CogboardConstants.PROP_URL))
-        val request = initRequest(httpRequest, config)
-        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
-        val body = config.getJsonObject(CogboardConstants.PROP_BODY)
-
-        body?.let {
-            executeRequest(request, address, body)
-        }
-    }
-
-    private fun makeDelete(client: WebClient, config: JsonObject) {
-        val httpRequest = client.deleteAbs(config.getString(CogboardConstants.PROP_URL))
-        val request = initRequest(httpRequest, config)
-        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
-
-        executeRequest(request, address, JsonObject())
     }
 
     private fun initRequest(request: HttpRequest<Buffer>, config: JsonObject): HttpRequest<Buffer> {
