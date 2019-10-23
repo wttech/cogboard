@@ -4,14 +4,11 @@ import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_MESSAGE
 import io.vertx.core.AbstractVerticle
-import io.vertx.core.Handler
 import io.vertx.core.buffer.Buffer
-import io.vertx.core.json.DecodeException
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import io.vertx.ext.web.client.HttpRequest
-import io.vertx.ext.web.client.HttpResponse
 import io.vertx.ext.web.client.WebClient
 
 class HttpClient : AbstractVerticle() {
@@ -60,7 +57,7 @@ class HttpClient : AbstractVerticle() {
         val request = initRequest(httpRequest, config)
         val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
 
-        executeRequest(request, address)
+        executeRequest(request, address, JsonObject())
     }
 
     private fun makeCheck(client: WebClient, config: JsonObject) {
@@ -68,7 +65,7 @@ class HttpClient : AbstractVerticle() {
         val request = initRequest(httpRequest, config)
         val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
 
-        executeCheckRequest(request, address)
+        executeRequest(request, address, JsonObject())
     }
 
     private fun makePut(client: WebClient, config: JsonObject) {
@@ -98,7 +95,7 @@ class HttpClient : AbstractVerticle() {
         val request = initRequest(httpRequest, config)
         val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
 
-        executeCheckRequest(request, address)
+        executeRequest(request, address, JsonObject())
     }
 
     private fun initRequest(request: HttpRequest<Buffer>, config: JsonObject): HttpRequest<Buffer> {
@@ -112,52 +109,16 @@ class HttpClient : AbstractVerticle() {
         return request
     }
 
-    private fun executeRequest(request: HttpRequest<Buffer>, address: String?) {
-        request.send {
-            if (it.succeeded()) {
-                toJson(it.result()).let { json ->
-                    vertx.eventBus().send(address, json)
-                }
-            } else {
-                LOGGER.error(it.cause()?.message)
-            }
-        }
-    }
-
-    private fun toJson(response: HttpResponse<Buffer>): JsonObject? {
-        return try {
-            response.bodyAsJsonObject()
-        } catch (e: DecodeException) {
-            try {
-                JsonObject().put(CogboardConstants.PROP_ARRAY, response.bodyAsJsonArray())
-            } catch (e: DecodeException) {
-                JsonObject().put(CogboardConstants.PROP_BODY, response.bodyAsString())
-            }
-        }
-    }
-
     private fun executeRequest(request: HttpRequest<Buffer>, address: String?, body: JsonObject?) {
-        request.sendJsonObject(body, Handler {
+        request.sendJsonObject(body) {
             val result = JsonObject()
             if (it.succeeded()) {
                 result.put(PROP_STATUS_CODE, it.result().statusCode())
                 result.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
+                result.put(CogboardConstants.PROP_BODY, it.result().bodyAsString())
             } else {
                 result.put(PROP_STATUS_MESSAGE, "unsuccessful")
                 LOGGER.error(it.cause()?.message)
-            }
-            vertx.eventBus().send(address, result)
-        })
-    }
-
-    private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?) {
-        request.send {
-            val result = JsonObject()
-            if (it.succeeded()) {
-                result.put(PROP_STATUS_CODE, it.result().statusCode())
-                result.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
-            } else {
-                result.put(PROP_STATUS_MESSAGE, "unsuccessful")
             }
             vertx.eventBus().send(address, result)
         }
