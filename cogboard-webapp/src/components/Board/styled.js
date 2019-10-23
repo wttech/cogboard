@@ -10,11 +10,19 @@ export const StyledContainer = styled.div`
 `;
 
 export const StyledNotFound = styled(NotFound)`
-  position: absolute;
-  z-index: 2000;
-  left: 0px;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
   background: #211f39;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2000;
+  
+  > div {
+    padding: 0 15px;
+    text-align: center;
+  }
 `;
