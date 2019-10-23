@@ -100,6 +100,7 @@ const MainTemplate = () => {
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title="Add new widget"
+        data-cy="main-template-add-widget-dialog"
       >
         <AddWidget
           closeDialog={handleDialogClose}

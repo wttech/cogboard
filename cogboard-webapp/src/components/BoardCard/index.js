@@ -90,7 +90,7 @@ const BoardCard = ({ boardData, index, className }) => {
   };
 
   return (
-    <div className={className}>
+    <div className={className} data-cy="board-card">
       <StyledCard
         onClick={handleBoardClick(id)}
         theme={theme}
@@ -108,6 +108,7 @@ const BoardCard = ({ boardData, index, className }) => {
               color: 'textPrimary'
             }
           }
+          data-cy="board-card-header"
         />
         <CardContent>
         </CardContent>
@@ -137,6 +138,7 @@ const BoardCard = ({ boardData, index, className }) => {
         handleDialogClose={handleDialogClose}
         open={open}
         title={`Edit ${title}`}
+        data-cy="board-card-edit-dialog"
       >
         <EditBoard
           closeDialog={handleDialogClose}
