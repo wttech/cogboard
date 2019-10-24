@@ -5,7 +5,7 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
-private class WidgetsController : BoardsController() {
+internal class WidgetsController : BoardsController() {
 
     override fun start() {
         super.start()
@@ -28,6 +28,7 @@ private class WidgetsController : BoardsController() {
 
         if (id != null) {
             widgets.remove(id)?.stop()
+            LOGGER.info("Widget Deleted: $config")
         } else {
             LOGGER.error("Widget Delete | There is widget with no ID in configuration: $config")
         }
