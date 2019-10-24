@@ -6,8 +6,8 @@ import { Caption, WidgetButton } from "../../styled";
 import Loader from '../../Loader';
 
 const ServiceCheckWidget = props => {
-  const { statusCode, statusMessage, expectedStatusCode, expectedResponseBody, url, errorMessage } = props;
-  const error = expectedStatusCode !== statusCode;
+  const { statusCode, statusMessage, expectedStatusCode, body, expectedResponseBody, url, errorMessage } = props;
+  const error =  expectedStatusCode !== statusCode;
   const statusCodeMessage = error ? `${expectedStatusCode} expected, got ${statusCode}` : statusCode;
 
   if (errorMessage) {
@@ -37,6 +37,7 @@ ServiceCheckWidget.propTypes = {
   statusMessage: string,
   timestamp: number,
   expectedStatusCode: number,
+  body: string,
   expectedResponseBody: string,
   errorMessage: string
 };
@@ -46,6 +47,7 @@ ServiceCheckWidget.defaultProps = {
   statusMessage: '',
   errorMessage: '',
   expectedStatusCode: 200,
+  body: '',
   expectedResponseBody: '',
   timestamp: 0,
 };
