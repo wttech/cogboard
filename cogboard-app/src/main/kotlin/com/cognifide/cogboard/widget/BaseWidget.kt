@@ -86,11 +86,9 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     }
 
     private fun startWithSchedule() {
-        val period = config.getLong(CogboardConstants.PROP_SCHEDULE_PERIOD, 0L) * 1000 // to milliseconds
-
-        if (period > 0L) {
+        if (schedulePeriod > 0L) {
             task = timerTask { updateState() }
-            Timer().schedule(task, CogboardConstants.PROP_SCHEDULE_DELAY_DEFAULT, period)
+            Timer().schedule(task, CogboardConstants.PROP_SCHEDULE_DELAY_DEFAULT, schedulePeriod * 1000)
         } else {
             updateState()
         }

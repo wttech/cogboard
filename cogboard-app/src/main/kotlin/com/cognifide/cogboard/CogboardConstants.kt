@@ -19,6 +19,7 @@ class CogboardConstants {
         const val PROP_SCHEDULE_PERIOD_DEFAULT = 120L // 120 seconds
         const val PROP_SCHEDULE_DELAY_DEFAULT = 10L // 10 seconds
         const val PROP_URL = "url"
+        const val PROP_PUBLIC_URL = "publicUrl"
         const val PROP_USER = "user"
         const val PROP_PASSWORD = "password"
         const val PROP_BODY = "body"
