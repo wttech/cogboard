@@ -23,10 +23,10 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
     private val requestMethod = config.getString(PROP_REQUEST_METHOD, EMPTY_STRING)
     private val path = config.getString(PROP_PATH, EMPTY_STRING)
     private val requestBody = config.getString(PROP_BODY, EMPTY_STRING)
-    private val expectedResponseBody = config.getJsonObject(PROP_EXPECTED_RESPONSE_BODY, JsonObject())
+    private val expectedResponseBody = config.getString(PROP_EXPECTED_RESPONSE_BODY, EMPTY_STRING)
 
     override fun updateState() {
-        if (publicUrl.isNotBlank() && path.isNotBlank()) {
+        if (publicUrl.isNotBlank()) {
             when (requestMethod) {
                 REQUEST_METHOD_GET -> httpGet(url = "$publicUrl$path")
                 REQUEST_METHOD_PUT -> httpPut(url = "$publicUrl$path", body = JsonObject(requestBody))
