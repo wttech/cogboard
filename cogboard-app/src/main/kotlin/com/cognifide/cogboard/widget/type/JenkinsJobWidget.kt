@@ -54,7 +54,7 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
         if (url.isNotBlank() && path.isNotBlank()) {
             httpGet(url = "$url$path/api/json?tree=lastBuild[$LAST_BUILD_PROPS]")
         } else {
-            sendConfigurationError("Config error: URL or Path is blank.")
+            sendConfigurationError("Config error: Endpoint URL or Path is blank.")
         }
     }
 
