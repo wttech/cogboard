@@ -16,57 +16,57 @@ const widgetTypes = {
     component: DefaultWidget
   },
   ExampleWidget: {
-    name: 'Example widget',
+    name: 'Example',
     component: ExampleWidget,
     dialogFields: ['SchedulePeriod'],
     showUpdateTime : true
   },
   JenkinsJobWidget: {
-    name: 'Jenkins Job widget',
+    name: 'Jenkins Job',
     component: JenkinsJobWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'Path'],
     showUpdateTime : true
   },
   SonarQubeWidget: {
-    name: 'SonarQube widget',
+    name: 'SonarQube',
     component: SonarQubeWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'Key', 'IdNumber', 'SonarQubeMetricsInput'],
     showUpdateTime : true
   },
   ServiceCheckWidget: {
-    name: 'Service Check widget',
+    name: 'Service Check',
     component: ServiceCheckWidget,
     dialogFields: ['SchedulePeriod', 'URL', 'StatusCode'],
     showUpdateTime : true
   },
   TextWidget: {
-    name: 'Text Widget',
+    name: 'Text',
     component: TextWidget,
     dialogFields: ['Text', 'TextSize', 'TextOrientation']
   },
   BambooPlanWidget: {
-    name: 'Bamboo Plan widget',
+    name: 'Bamboo Plan',
     component: BambooPlanWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
     showUpdateTime : true
   },
   WorldClockWidget: {
-    name: 'World Clock widget',
+    name: 'World Clock',
     component: WorldClockWidget,
     dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'DateTimeSize']
   },
   IframeEmbedWidget: {
-    name: 'Iframe Embed widget',
+    name: 'Iframe Embed',
     component: IframeEmbedWidget,
     dialogFields: ['UrlForContent']
   },
   CheckboxWidget: {
-    name: 'Checkbox widget',
+    name: 'Checkbox',
     component: CheckboxWidget,
     showUpdateTime : true
   },
   AemHealthcheckWidget: {
-    name: 'AEM Healthcheck widget',
+    name: 'AEM Healthcheck',
     component: AemHealthcheckWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'AemHealthcheckInput'],
     showUpdateTime : true
