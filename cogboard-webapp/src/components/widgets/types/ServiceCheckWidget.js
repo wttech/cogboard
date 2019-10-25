@@ -6,7 +6,7 @@ import { Caption, WidgetButton } from "../../styled";
 import Loader from '../../Loader';
 
 const ServiceCheckWidget = props => {
-  const { statusCode, statusMessage, expectedStatusCode, url, errorMessage } = props;
+  const { statusCode, statusMessage, expectedStatusCode, body, expectedResponseBody, url, errorMessage } = props;
   const error =  expectedStatusCode !== statusCode;
   const statusCodeMessage = error ? `${expectedStatusCode} expected, got ${statusCode}` : statusCode;
 
