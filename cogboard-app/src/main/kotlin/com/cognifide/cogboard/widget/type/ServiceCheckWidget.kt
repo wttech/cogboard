@@ -44,6 +44,7 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
     override fun handleResponse(responseBody: JsonObject) {
         responseBody.put(PROP_URL, publicUrl)
         responseBody.put(PROP_STATUS, getStatusResponse(responseBody))
+        responseBody.put(PROP_EXPECTED_RESPONSE_BODY, expectedResponseBody)
 
         send(JsonObject()
                 .put(PROP_ID, id)
