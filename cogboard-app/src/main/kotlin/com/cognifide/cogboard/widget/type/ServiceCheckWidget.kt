@@ -7,12 +7,15 @@ import com.cognifide.cogboard.CogboardConstants.Companion.PROP_EXPECTED_STATUS_C
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_ID
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PATH
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_REQUEST_METHOD
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_URL
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_DELETE
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_GET
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_POST
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_PUT
 import com.cognifide.cogboard.widget.AsyncWidget
+import com.cognifide.cogboard.widget.Widget
 import io.netty.util.internal.StringUtil.EMPTY_STRING
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
@@ -40,11 +43,22 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
 
     override fun handleResponse(responseBody: JsonObject) {
         responseBody.put(PROP_URL, publicUrl)
-        responseBody.put(PROP_EXPECTED_STATUS_CODE, expectedStatusCode)
-        responseBody.put(PROP_EXPECTED_RESPONSE_BODY, expectedResponseBody)
+        responseBody.put(PROP_STATUS, getStatusResponse(responseBody))
 
         send(JsonObject()
                 .put(PROP_ID, id)
                 .put(PROP_CONTENT, responseBody))
+    }
+
+    private fun getStatusResponse(responseBody: JsonObject): Widget.Status {
+        val statusCode = responseBody.getInteger(PROP_STATUS_CODE, 0)
+        var responseStatus = Widget.Status.compare(expectedStatusCode, statusCode)
+        when (requestMethod) {
+            REQUEST_METHOD_GET -> {
+                val body = responseBody.getString(PROP_BODY, EMPTY_STRING)
+                responseStatus = Widget.Status.compare(expectedResponseBody, body)
+            }
+        }
+        return responseStatus
     }
 }
