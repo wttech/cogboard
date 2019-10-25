@@ -31,5 +31,6 @@ export const parseYupErrors = (errors) => {
 export const trimLeadingZeros = (event) => {
   const inputValue = event.target.value;
   const parsedValue = parseInt(inputValue);
+  
   event.target.value = parsedValue.toString();
 }
