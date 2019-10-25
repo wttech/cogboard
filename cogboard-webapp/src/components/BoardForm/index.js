@@ -8,10 +8,11 @@ import { useFormData } from '../../hooks';
 import { getBoards } from '../../selectors';
 import { createValidationSchema } from './validators';
 import { trimLeadingZeros } from '../helpers';
+import NumberInput from "../widgets/dialogFields/NumberInput";
 
 const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) => {
   const boards = useSelector(getBoards);
-  const validationSchema = createValidationSchema(boardId, boards)
+  const validationSchema = createValidationSchema(boardId, boards);
   const {values, handleChange, handleSubmit, errors} = useFormData(initialFormValues, validationSchema, true);
 
   return (
@@ -34,7 +35,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             />}
           inputProps={{'data-cy': 'board-form-title-input'}}
         />
-        <TextField
+        <NumberInput
           onChange={handleChange('columns')}
           onInput={trimLeadingZeros}
           id="columns"
@@ -45,7 +46,6 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           label="Columns"
           margin="normal"
           value={values.columns}
-          type="number"
           error={errors.columns}
           helperText={
             <StyledValidationMessages
@@ -68,7 +68,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           />
         </FormControl>
         {values.autoSwitch &&
-          <TextField
+          <NumberInput
             onChange={handleChange('switchInterval')}
             onInput={trimLeadingZeros}
             id="switchInterval"
@@ -78,7 +78,6 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             label="Switch interval [s]"
             margin="normal"
             value={values.switchInterval}
-            type="number"
             error={errors.switchInterval}
             helperText={
               <StyledValidationMessages

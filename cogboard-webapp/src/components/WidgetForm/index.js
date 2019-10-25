@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import widgetTypes from '../widgets';
 import { useFormData } from '../../hooks';
 import { sortByKey } from "../helpers";
-import { COLUMNS_MIN, ROWS_MIN } from '../../constants';
+import { WIDGET_ROWS_MIN, WIDGET_COLUMNS_MIN} from '../../constants';
 
 import { Box, FormControlLabel, FormControl, TextField, Switch, Tab } from '@material-ui/core';
 import DropdownField from '../DropdownField';
@@ -74,7 +74,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
                 shrink: true
               }}
               inputProps={{
-                min: COLUMNS_MIN,
+                min: WIDGET_COLUMNS_MIN,
                 max: boardColumns,
                 'data-cy': 'widget-form-columns-input'
               }}
@@ -90,7 +90,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
                 shrink: true
               }}
               inputProps={{
-                min: ROWS_MIN,
+                min: WIDGET_ROWS_MIN,
                 max: 4,
                 'data-cy': 'widget-form-rows-input'
               }}

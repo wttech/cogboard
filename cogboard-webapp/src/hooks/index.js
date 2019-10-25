@@ -13,12 +13,10 @@ export const useToggle = () => {
 
 export const useFormData = (data, validationSchema=null, onChange=null) => {
   const [values, setValues] = useState(data);
-
   const [status, setStatus] = useState({
     submited: false,
     onChange: onChange,
-  })
-
+  });
   const [errors, setErrors] = useState({});
 
   const setFieldValue = (fieldName, fieldValue) => {
@@ -58,19 +56,19 @@ export const useFormData = (data, validationSchema=null, onChange=null) => {
       validationSchema.validateAt(fieldName, fieldsValues, {abortEarly: false})
         .then(() => {
           if (fieldName in errors) {
-            const errorsTmp = {...errors}
+            const errorsTmp = {...errors};
             
-            delete errorsTmp[fieldName]
+            delete errorsTmp[fieldName];
             setErrors(errorsTmp)
           }
         })
         .catch(error => setErrors({...errors, ...parseYupErrors(error)}))
     }
-  }
+  };
 
   const handleSubmit = func => event => {
     event.preventDefault();
-    setStatus({...status, submited: true})
+    setStatus({...status, submited: true});
 
     if(validationSchema) {
       validationSchema.validate(values, {abortEarly: false})
@@ -79,7 +77,7 @@ export const useFormData = (data, validationSchema=null, onChange=null) => {
     } else {
       func(values);
     }
-  }
+  };
 
   return { values, handleChange, handleSubmit, errors };
 };
