@@ -1,8 +1,8 @@
-package com.cognifide.cogboard.storage.docker
+package com.cognifide.cogboard.config.validation
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.storage.model.Board
-import com.cognifide.cogboard.storage.model.Config
+import com.cognifide.cogboard.config.model.Board
+import com.cognifide.cogboard.config.model.Config
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -11,10 +11,10 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
-class Validation {
+class BoardsValidation {
     companion object {
 
-        private val LOGGER: Logger = LoggerFactory.getLogger(Validation::class.java)
+        private val LOGGER: Logger = LoggerFactory.getLogger(BoardsValidation::class.java)
 
         private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 

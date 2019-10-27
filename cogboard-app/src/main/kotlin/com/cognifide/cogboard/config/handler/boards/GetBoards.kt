@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.config.handler.boards
 
-import com.cognifide.cogboard.storage.docker.VolumeStorage
+import com.cognifide.cogboard.config.ConfigLoader
+import com.cognifide.cogboard.config.ConfigType
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonObject
@@ -12,6 +13,7 @@ class GetBoards : RoutingHandlerFactory {
     override fun getName(): String = "boards-get-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler {
-        it.response().end(VolumeStorage.Loader().loadBoardsConfig().toString())
+        val boardsConfig = ConfigLoader(ConfigType.BOARDS).loadConfig()
+        it.response().end(boardsConfig.toString())
     }
 }

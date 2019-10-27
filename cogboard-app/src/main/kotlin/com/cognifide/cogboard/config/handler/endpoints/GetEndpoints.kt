@@ -1,8 +1,14 @@
 package com.cognifide.cogboard.config.handler.endpoints
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.EndpointLoader
-import com.cognifide.cogboard.storage.docker.VolumeStorage
+import com.cognifide.cogboard.config.ConfigLoader
+import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.config.EndpointLoader.Companion.CREDENTIALS
+import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINTS_ARRAY
+import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINT_PUBLIC_URL_PROP
+import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINT_URL_PROP
+import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.PASSWORD
+import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.USER
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -17,22 +23,22 @@ class GetEndpoints : RoutingHandlerFactory {
     override fun getName(): String = "endpoints-get-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
-        val endpointsConfig = VolumeStorage.Loader()
-                .loadEndpointsConfig()
+        val endpointsConfig = ConfigLoader(ConfigType.ENDPOINTS).loadConfig()
         endpoints = filterSensitiveData(endpointsConfig)
 
         event.response().end(endpoints.encode())
     }
 
     private fun filterSensitiveData(config: JsonObject?): JsonArray {
-        val copy = config?.getJsonArray(EndpointLoader.ENDPOINTS) ?: JsonArray().add(CogboardConstants.errorResponse("No endpoints array found, $config"))
+        val copy = config?.getJsonArray(ENDPOINTS_ARRAY)
+                ?: JsonArray().add(CogboardConstants.errorResponse("No endpoints array found, $config"))
         copy.stream().forEach {
             if (it is JsonObject) {
-                it.remove("url")
-                it.remove("publicUrl")
-                it.remove("credentials")
-                it.remove("user")
-                it.remove("password")
+                it.remove(ENDPOINT_URL_PROP)
+                it.remove(ENDPOINT_PUBLIC_URL_PROP)
+                it.remove(CREDENTIALS)
+                it.remove(USER)
+                it.remove(PASSWORD)
             }
         }
         return copy
