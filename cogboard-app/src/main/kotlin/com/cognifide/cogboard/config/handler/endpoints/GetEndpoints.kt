@@ -4,11 +4,11 @@ import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.ConfigLoader
 import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.EndpointLoader.Companion.CREDENTIALS
-import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINTS_ARRAY
-import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINT_PUBLIC_URL_PROP
-import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINT_URL_PROP
-import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.PASSWORD
-import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.USER
+import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINTS_ARRAY
+import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINT_PUBLIC_URL_PROP
+import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINT_URL_PROP
+import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.PASSWORD
+import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.USER
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray

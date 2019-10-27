@@ -3,8 +3,8 @@ package com.cognifide.cogboard.storage
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.ConfigLoader
 import com.cognifide.cogboard.config.ConfigType
-import com.cognifide.cogboard.config.strategy.Config
-import com.cognifide.cogboard.config.strategy.ConfigFactory
+import com.cognifide.cogboard.config.type.Config
+import com.cognifide.cogboard.config.type.ConfigFactory
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
@@ -13,7 +13,7 @@ import java.io.File
 
 class VolumeStorage(private val configType: ConfigType, val vertx: Vertx) : Storage {
 
-    private var config: Config = ConfigFactory.resolveStrategy(configType)
+    private var config: Config = ConfigFactory.resolveByType(configType)
 
     override fun loadConfig(): JsonObject {
         return ConfigLoader(configType).loadConfig()

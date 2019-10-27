@@ -1,10 +1,10 @@
 package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.config.EndpointLoader
-import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINTS_ARRAY
-import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINT_ID_PREFIX
-import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINT_ID_PROP
-import com.cognifide.cogboard.config.strategy.EndpointsConfig.Companion.ENDPOINT_LABEL_PROP
+import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINTS_ARRAY
+import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINT_ID_PREFIX
+import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINT_ID_PROP
+import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINT_LABEL_PROP
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 

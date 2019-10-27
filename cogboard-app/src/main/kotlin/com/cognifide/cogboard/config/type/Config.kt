@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.config.strategy
+package com.cognifide.cogboard.config.type
 
 import io.vertx.core.json.JsonObject
 
