@@ -23,7 +23,7 @@ class GetEndpoints : RoutingHandlerFactory {
     override fun getName(): String = "endpoints-get-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
-        val endpointsConfig = ConfigLoader(ConfigType.ENDPOINTS).loadConfig()
+        val endpointsConfig = ConfigLoader.loadConfig(ConfigType.ENDPOINTS)
         endpoints = filterSensitiveData(endpointsConfig)
 
         event.response().end(endpoints.encode())

@@ -13,7 +13,7 @@ class GetBoards : RoutingHandlerFactory {
     override fun getName(): String = "boards-get-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler {
-        val boardsConfig = ConfigLoader(ConfigType.BOARDS).loadConfig()
+        val boardsConfig = ConfigLoader.loadConfig(ConfigType.BOARDS)
         it.response().end(boardsConfig.toString())
     }
 }
