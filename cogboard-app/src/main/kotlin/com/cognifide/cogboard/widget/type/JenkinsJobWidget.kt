@@ -11,15 +11,20 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
     private val path: String = config.getString("path", "")
 
     override fun handleResponse(responseBody: JsonObject) {
-        responseBody.getJsonObject("lastBuild")?.let {
-            val status = if (it.getBoolean("building", false)) Widget.Status.IN_PROGRESS
-            else Widget.Status.from(it.getString("result", ""))
-            it.put("branch", extractBranchInfo(it))
-            it.put(CogboardConstants.PROP_URL, makePublic(it.getString(CogboardConstants.PROP_URL, "")))
+        val lastBuild = responseBody.getJsonObject("lastBuild")
+
+        if (lastBuild != null) {
+            val status = if (lastBuild.getBoolean("building", false)) Widget.Status.IN_PROGRESS
+            else Widget.Status.from(lastBuild.getString("result", ""))
+            lastBuild.put(CogboardConstants.PROP_ERROR_MESSAGE, "")
+            lastBuild.put("branch", extractBranchInfo(lastBuild))
+            lastBuild.put(CogboardConstants.PROP_URL, makePublic(lastBuild.getString(CogboardConstants.PROP_URL, "")))
 
             send(JsonObject()
                     .put(CogboardConstants.PROP_STATUS, status)
-                    .put(CogboardConstants.PROP_CONTENT, it))
+                    .put(CogboardConstants.PROP_CONTENT, lastBuild))
+        } else {
+            sendConfigurationError("Config error: Wrong response.")
         }
     }
 
@@ -48,6 +53,8 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
     override fun updateState() {
         if (url.isNotBlank() && path.isNotBlank()) {
             httpGet(url = "$url$path/api/json?tree=lastBuild[$LAST_BUILD_PROPS]")
+        } else {
+            sendConfigurationError("Config error: Endpoint URL or Path is blank.")
         }
     }
 

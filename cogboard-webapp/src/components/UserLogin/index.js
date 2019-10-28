@@ -1,18 +1,19 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useFormData, useToggle } from '../hooks';
-import { login, logout } from '../actions/thunks';
-import { getIsAuthenticated } from '../selectors';
+import { useToggle } from '../../hooks';
+import { login, logout } from '../../actions/thunks';
+import { clearLoginErrorMessage } from "../../actions/actionCreators";
+import { getIsAuthenticated } from '../../selectors';
 
 import { Button, IconButton, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
-import AppDialog from './AppDialog';
-import { StyledFieldset } from './styled';
+import AppDialog from './../AppDialog';
+import { StyledFieldset } from '../styled';
+import { getCredentials } from "./helpers";
 
 const UserLogin = () => {
   const dispatch = useDispatch();
-  const {values, handleChange} = useFormData({username: '', password: ''});
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
@@ -23,13 +24,14 @@ const UserLogin = () => {
     }
   }, [isAuthenticated, handleDialogClose]);
 
-  const handleLoginButtonClick = (credentials) => () => {
+  const handleLoginButtonClick = () => {
+    const credentials = getCredentials();
     dispatch(login(credentials))
   };
 
-  const handleLoginOnEnterPress = (event, credentials) => {
+  const handleLoginOnEnterPress = event => {
     if (event.key === 'Enter') {
-      dispatch(login(credentials))
+      handleLoginButtonClick();
     }
   };
 
@@ -40,6 +42,11 @@ const UserLogin = () => {
   const handleLogout = () => {
     dispatch(logout());
   };
+
+  function closeDialog() {
+    handleDialogClose();
+    dispatch(clearLoginErrorMessage());
+  }
 
   return (
     <>
@@ -66,28 +73,26 @@ const UserLogin = () => {
         </IconButton>
       }
       <AppDialog
-        handleDialogClose={handleDialogClose}
+        handleDialogClose={closeDialog}
         open={dialogOpened}
         title='User Login'>
         <StyledFieldset component="fieldset">
           {errorMsg &&
-          <Typography color="error">
+          <Typography color="error" data-cy="user-login-error-messages">
             {errorMsg}
           </Typography>}
           <TextField
-            onChange={handleChange('username')}
+            autoFocus
             id="username"
             InputLabelProps={{
               shrink: true
             }}
             label="Username"
             margin="normal"
-            value={values.username}
-            onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
+            onKeyPress={handleLoginOnEnterPress}
             inputProps={{'data-cy': 'user-login-username-input'}}
           />
           <TextField
-            onChange={handleChange('password')}
             id="password"
             InputLabelProps={{
               shrink: true
@@ -95,13 +100,12 @@ const UserLogin = () => {
             type="password"
             label="Password"
             margin="normal"
-            value={values.password}
-            onKeyPress={(ev) => handleLoginOnEnterPress(ev, values)}
+            onKeyPress={handleLoginOnEnterPress}
             inputProps={{'data-cy': 'user-login-password-input'}}
           />
           <Button
             color="primary"
-            onClick={handleLoginButtonClick(values)}
+            onClick={handleLoginButtonClick}
             variant="contained"
             data-cy='user-login-submit-button'>
             Login

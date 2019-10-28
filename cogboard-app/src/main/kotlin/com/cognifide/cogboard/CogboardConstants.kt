@@ -17,8 +17,9 @@ class CogboardConstants {
         const val PROP_WIDGET_TYPE = "type"
         const val PROP_SCHEDULE_PERIOD = "schedulePeriod"
         const val PROP_SCHEDULE_PERIOD_DEFAULT = 120L // 120 seconds
-        const val PROP_SCHEDULE_DELAY_DEFAULT = 0L
+        const val PROP_SCHEDULE_DELAY_DEFAULT = 10L // 10 seconds
         const val PROP_URL = "url"
+        const val PROP_PUBLIC_URL = "publicUrl"
         const val PROP_USER = "user"
         const val PROP_PASSWORD = "password"
         const val PROP_BODY = "body"
@@ -27,6 +28,8 @@ class CogboardConstants {
         const val PROP_ARRAY = "array"
         const val PROP_TEXT = "text"
         const val PROP_TEXT_SIZE = "textSize"
+        const val PROP_BOARD_COLUMN_MAX = 20
+        const val PROP_BOARD_COLUMN_MIN = 4
 
         const val EVENT_SEND_MESSAGE_TO_WEBSOCKET = "cogboard.websocket.message"
         const val EVENT_SAVE_BOARDS_CONFIG = "cogboard.config.boards.save"

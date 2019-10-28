@@ -1,7 +1,7 @@
 # [Home](/cogboard/) >> Bamboo Plan widget
 
 #### Configuration:
-* `Endpoint` - choose AEM endpoint
+* `Endpoint` - choose Bamboo endpoint
 * `Schedule Period` - time interval between executions >> recommended: `300000` (5min)
 * `ID` - choose health checks which you would like to show
 

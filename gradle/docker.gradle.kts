@@ -41,7 +41,7 @@ logger.lifecycle(">> dockerImageName: $dockerImageName")
 logger.lifecycle(">> mountDir: $mountDir")
 
 
-task("docker-run") {
+task("cogboard-is-running") {
     dependsOn("build")
     doLast {
         logger.lifecycle("Running docker image")

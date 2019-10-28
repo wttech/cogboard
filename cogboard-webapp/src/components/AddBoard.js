@@ -26,7 +26,7 @@ const AddBoard = () => {
     openDialog();
   };
 
-  const handleAddActionClick = values => () => {
+  const handleAddActionClick = (values) => {
     dispatch(addNewBoard(values));
     handleDialogClose();
   };
@@ -49,12 +49,14 @@ const AddBoard = () => {
         open={dialogOpened}
         title="Add new board"
       >
-        <BoardForm renderActions={values => (
+        <BoardForm
+          onSubmit={handleAddActionClick}
+          renderActions={() => (
             <>
               <Button
-                onClick={handleAddActionClick(values)}
                 color="primary"
                 variant="contained"
+                type="submit"
                 data-cy="board-form-submit-button"
               >
                 Add

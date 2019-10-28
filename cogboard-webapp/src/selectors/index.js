@@ -60,3 +60,8 @@ export const getAllNotifications = createSelector(
   [getNotifications],
   ({ allNotifications }) => allNotifications
 );
+
+export const getBoards = createSelector(
+  [getBoardsById],
+  (boardsById) => Object.values(boardsById)
+);
