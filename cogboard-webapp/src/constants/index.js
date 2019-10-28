@@ -10,8 +10,9 @@ export const COLUMNS_DEFAULT = 8;
 export const COLUMNS_MAX = 20;
 export const BOARD_TITLE_LENGTH_LIMIT = 25;
 export const SWITCH_INTERVAL_MIN = 3;
-
-export const ROWS_MIN = 1;
+export const WIDGET_COLUMNS_MIN = 1;
+export const WIDGET_ROWS_MIN = 1;
+export const WIDGET_ROWS_MAX = 4;
 export const ItemTypes = {
   WIDGET: 'widget',
   BOARD: 'board'
