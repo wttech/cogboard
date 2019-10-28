@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { splitPropsGroupName } from '../components/helpers';
+import { splitPropsGroupName } from '../helpers';
 
-export const useToggle = () => {
-  const [isOpened, setOpened] = useState(false);
+export const useToggle = (initialState = false) => {
+  const [isOpened, setOpened] = useState(initialState);
 
   const handleOpen = () => setOpened(true);
   const handleClose = () => setOpened(false);

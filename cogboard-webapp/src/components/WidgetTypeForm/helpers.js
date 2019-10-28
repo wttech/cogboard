@@ -1,4 +1,4 @@
-import { splitPropsGroupName } from '../helpers';
+import { splitPropsGroupName } from '../../helpers';
 
 export const createValueRef = (values, initialValue, name) => {
   const [groupName, propName] = splitPropsGroupName(name);

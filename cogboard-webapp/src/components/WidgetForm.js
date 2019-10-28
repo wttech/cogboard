@@ -5,7 +5,7 @@ import styled from '@emotion/styled/macro';
 
 import widgetTypes from './widgets';
 import { useFormData } from '../hooks';
-import { sortByKey } from "./helpers";
+import { sortByKey } from "../helpers";
 import { COLUMNS_MIN, ROWS_MIN } from '../constants';
 
 import { Box, FormControlLabel, FormControl, MenuItem, TextField, Switch } from '@material-ui/core';

@@ -12,3 +12,5 @@ export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
 
     return newObj;
   }, {});
+
+export const capitalize = ([firstLetter, ...rest]) => [firstLetter.toUpperCase(), ...rest].join('');

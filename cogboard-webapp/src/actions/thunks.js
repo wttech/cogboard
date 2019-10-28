@@ -20,7 +20,8 @@ import {
   loginSuccess,
   loginFailure,
   logout as logoutUser,
-  initBoardProps
+  initBoardProps,
+  pushNotification
 } from './actionCreators';
 import {
   fetchData,
@@ -30,8 +31,8 @@ import {
   withAuthentication,
   withDataChanged
 } from './helpers';
-import { URL } from '../constants';
-import { setToken, removeToken, getToken } from '../utils/auth';
+import { URL, NOTIFICATIONS } from '../constants';
+import { setToken, removeToken, getToken, getUserRole } from '../utils/auth';
 
 export const fetchInitialData = () =>
   (dispatch) => {
@@ -67,14 +68,18 @@ export const login = (credentials) =>
         ({ token }) => {
           setToken(token);
           dispatch(loginSuccess());
+          dispatch(pushNotification(NOTIFICATIONS.LOGIN(getUserRole())));
         },
         ({ message }) => dispatch(loginFailure(message)))
   };
 
 export const logout = () =>
   (dispatch) => {
+    const userRole = getUserRole();
+
     removeToken();
     dispatch(logoutUser());
+    dispatch(pushNotification(NOTIFICATIONS.LOGOUT(userRole)));
   };
 
 const deleteBoardWithWidgetsThunk = (id) =>

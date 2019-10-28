@@ -1,3 +1,5 @@
+import { capitalize } from "../helpers";
+
 export const URL = {
   LOAD_DATA: '/api/config',
   SAVE_DATA: '/api/config/save',
@@ -47,4 +49,17 @@ export const ALL_SONARQUBE_METRICS = [
 export const INITIAL_BOARD_PROPS = {
   autoSwitch: false,
   switchInterval: 0
+};
+
+export const NOTIFICATIONS = {
+  LOGIN: userRole => ({
+    type: 'success',
+    message: `Logged in as ${userRole}`,
+    duration: 3000
+  }),
+  LOGOUT: userRole => ({
+    type: 'info',
+    message: `${capitalize(userRole)} logged out`,
+    duration: 3000
+  })
 };
