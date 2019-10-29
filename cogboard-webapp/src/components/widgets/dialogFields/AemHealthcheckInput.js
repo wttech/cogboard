@@ -5,8 +5,7 @@ import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select, FormHelper
 import { StyledFormControl } from './../../styled';
 import { AEM_HEALTH_CHECKS } from '../../../constants';
 
-const AemHealthcheckInput = props => {
-  const { onChange, value, error } = props;
+const AemHealthcheckInput = ({ onChange, value, error }) => {
   const inputId = 'aemhealthcheck-metrics-input';
   const hasError = error !== undefined;
 

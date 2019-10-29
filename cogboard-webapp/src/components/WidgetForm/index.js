@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { string, number, bool } from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import widgetTypes from '../widgets';
 import { useFormData } from '../../hooks';
 import { sortByKey } from "../helpers";
-import { COLUMNS_MIN, ROWS_MIN } from '../../constants';
+
 import { createValidationSchema, validationSchemaModificator } from './validators';
 
 import { Box, FormControlLabel, FormControl, TextField, Switch, Tab } from '@material-ui/core';
@@ -20,9 +20,10 @@ const WidgetForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
     ({ ui, boards }) => boards.boardsById[ui.currentBoard].columns
   );
 
-  const initialValidationSchema = createValidationSchema();
+  const initialValidationSchema = createValidationSchema(boardColumns);
+  const typedValidationSchema = validationSchemaModificator(initialFormValues.type, initialValidationSchema)
 
-  const { values, handleChange, handleSubmit, errors, setValidationSchema } = useFormData(initialFormValues, initialValidationSchema, true);
+  const { values, handleChange, handleSubmit, errors, setValidationSchema } = useFormData(initialFormValues, typedValidationSchema, true);
   const [tabValue, setTabValue] = useState(0);
 
   const widgetType = widgetTypes[values.type];
@@ -93,11 +94,7 @@ const WidgetForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
               InputLabelProps={{
                 shrink: true
               }}
-              inputProps={{
-                min: COLUMNS_MIN,
-                max: boardColumns,
-                'data-cy': 'widget-form-columns-input'
-              }}
+              inputProps={{ 'data-cy': 'widget-form-columns-input' }}
               label="Columns"
               margin="normal"
               value={values.columns}
@@ -116,11 +113,7 @@ const WidgetForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
               InputLabelProps={{
                 shrink: true
               }}
-              inputProps={{
-                min: ROWS_MIN,
-                max: 4,
-                'data-cy': 'widget-form-rows-input'
-              }}
+              inputProps={{ 'data-cy': 'widget-form-rows-input' }}
               label="Rows"
               margin="normal"
               value={values.rows}

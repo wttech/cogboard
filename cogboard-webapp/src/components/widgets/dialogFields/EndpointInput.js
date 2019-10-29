@@ -5,6 +5,7 @@ import { MenuItem } from '@material-ui/core';
 import DropdownField from '../../DropdownField';
 
 const EndpointInput = props => {
+  console.log(props)
   return (
     <DropdownField {...props}>
       {endpoints => endpoints.map(({ id, label }) =>

@@ -1,8 +1,9 @@
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
+import { StyledValidationMessages } from '../../WidgetForm/styled';
 
-const MultilineTextInput = props => {
+const MultilineTextInput = ({error, ...other}) => {
   return (
     <TextField
       InputLabelProps={{
@@ -10,7 +11,14 @@ const MultilineTextInput = props => {
       }}
       margin="normal"
       multiline={true}
-      {...props}
+      {...other}
+      error={error !== undefined}
+      FormHelperTextProps={{component: 'div'}}
+      helperText={
+        <StyledValidationMessages
+          messages={error}
+          data-cy={'widget-form-rows-error'}
+        />}
     />
   );
 };

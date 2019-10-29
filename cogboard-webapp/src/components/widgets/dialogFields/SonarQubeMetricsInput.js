@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select } from '@material-ui/core';
+import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select, FormHelperText } from '@material-ui/core';
 
 import { StyledFormControl } from './../../styled';
 import {ALL_SONARQUBE_METRICS} from "../../../constants";
 
-const SonarQubeMetricsInput = props => {
-  const { onChange, value } = props;
+const SonarQubeMetricsInput = ({ onChange, value, error }) => {
   const inputId = 'sonarqube-metrics-input';
+  const hasError = error !== undefined;
 
   return (
-    <StyledFormControl>
+    <StyledFormControl error={hasError}>
       <InputLabel htmlFor={inputId}>Metrics</InputLabel>
       <Select
         multiple
@@ -26,6 +26,7 @@ const SonarQubeMetricsInput = props => {
           </MenuItem>
         ))}
       </Select>
+      {hasError && <FormHelperText>{error}</FormHelperText>}
     </StyledFormControl>
   );
 };

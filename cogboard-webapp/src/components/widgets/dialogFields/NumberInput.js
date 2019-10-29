@@ -1,9 +1,9 @@
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
+import { StyledValidationMessages } from '../../WidgetForm/styled';
 
-const NumberInput = (props) => {
-  const { min, step, ...other } = props;
+const NumberInput = ({ min, step, error, ...other }) => {
 
   return (
     <TextField
@@ -14,6 +14,13 @@ const NumberInput = (props) => {
       }}
       margin="normal"
       {...other}
+      error={error !== undefined}
+      FormHelperTextProps={{component: 'div'}}
+      helperText={
+        <StyledValidationMessages
+          messages={error}
+          data-cy={'widget-form-rows-error'}
+        />}
     />
   );
 };
