@@ -147,6 +147,7 @@ const Widget = ({ id, index }) => {
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title={`Edit ${title}`}
+        data-cy="widget-edit-dialog"
       >
         <EditWidget
           closeDialog={handleDialogClose}

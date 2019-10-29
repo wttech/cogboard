@@ -27,9 +27,10 @@ const AppDialog = props => {
       onKeyDown={stopEventPropagation}
       aria-labelledby="app-dialog-title"
       open={open}
+      PaperProps={{'data-cy': props['data-cy']}}
     >
-      <DialogTitle id="app-dialog-title">{title}</DialogTitle>
-      <StyledDialogContent>
+      <DialogTitle id="app-dialog-title" data-cy="app-dialog-title">{title}</DialogTitle>
+      <StyledDialogContent data-cy="app-dialog-content">
         {children}
       </StyledDialogContent>
     </StyledDialog>

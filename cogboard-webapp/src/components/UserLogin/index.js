@@ -83,7 +83,7 @@ const UserLogin = () => {
         title='User Login'>
         <StyledFieldset component="fieldset">
           {errorMsg &&
-          <Typography color="error">
+          <Typography color="error" data-cy="user-login-error-messages">
             {errorMsg}
           </Typography>}
           <TextField

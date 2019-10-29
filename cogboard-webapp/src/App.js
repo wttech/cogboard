@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { Router } from "@reach/router";
 
 import { fetchInitialData } from "./actions/thunks";
 import { updateWidget, saveDataSuccess, loginSuccess } from './actions/actionCreators';
@@ -11,6 +12,7 @@ import { theme } from './theme';
 import MainTemplate from './components/MainTemplate';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { isAuthenticated } from './utils/auth';
+import ServerErrorPage from './components/ServerErrorPage';
 
 function App() {
   const appInitialized = useSelector(
@@ -51,9 +53,12 @@ function App() {
     <ThemeProvider theme={theme}>
       <DndProvider backend={HTML5Backend}>
         <CssBaseline />
-        {appInitialized &&
-          <MainTemplate />
-        }
+        <Router>
+          <ServerErrorPage path="error-page" />
+          {appInitialized &&
+            <MainTemplate path="/*" />
+          }
+        </Router>
       </DndProvider>
     </ThemeProvider>
   );

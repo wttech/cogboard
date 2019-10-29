@@ -1,18 +1,23 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { string, number, bool } from 'prop-types';
 
-import { useFormData } from '../../hooks';
-import { COLUMNS_MAX, COLUMNS_MIN } from '../../constants';
-
 import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/core';
-import { StyledFieldset } from './styled';
+import { StyledFieldset, StyledValidationMessages } from './styled';
+import { useFormData } from '../../hooks';
+import { getBoards } from '../../selectors';
+import { createValidationSchema } from './validators';
+import { trimLeadingZeros } from '../helpers';
 
-const BoardForm = ({ renderActions, ...initialFormValues }) => {
-  const { values, handleChange } = useFormData(initialFormValues);
-  const { autoSwitch } = values;
+import NumberInput from "../widgets/dialogFields/NumberInput";
+
+const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) => {
+  const boards = useSelector(getBoards);
+  const validationSchema = createValidationSchema(boardId, boards);
+  const {values, handleChange, handleSubmit, errors} = useFormData(initialFormValues, validationSchema, true);
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)} novalidate="novalidate">
       <StyledFieldset component="fieldset">
         <TextField
           onChange={handleChange('title')}
@@ -23,23 +28,31 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
           label="Title"
           margin="normal"
           value={values.title}
+          error={errors.title}
+          helperText={
+            <StyledValidationMessages
+              messages={errors.title}
+              data-cy={'board-form-title-error'}
+            />}
           inputProps={{'data-cy': 'board-form-title-input'}}
         />
-        <TextField
+        <NumberInput
           onChange={handleChange('columns')}
+          onInput={trimLeadingZeros}
           id="columns"
           InputLabelProps={{
             shrink: true
           }}
-          inputProps={{
-            min: COLUMNS_MIN,
-            max: COLUMNS_MAX,
-            'data-cy': 'board-form-columns-input'
-          }}
+          inputProps={{'data-cy': 'board-form-columns-input'}}
           label="Columns"
           margin="normal"
           value={values.columns}
-          type="number"
+          error={errors.columns}
+          helperText={
+            <StyledValidationMessages
+              messages={errors.columns}
+              data-cy='board-form-columns-error'
+            />}
         />
         <FormControl margin="normal">
           <FormControlLabel
@@ -55,9 +68,10 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
             label="Auto switch"
           />
         </FormControl>
-        {autoSwitch &&
-          <TextField
+        {values.autoSwitch &&
+          <NumberInput
             onChange={handleChange('switchInterval')}
+            onInput={trimLeadingZeros}
             id="switchInterval"
             InputLabelProps={{
               shrink: true
@@ -65,13 +79,18 @@ const BoardForm = ({ renderActions, ...initialFormValues }) => {
             label="Switch interval [s]"
             margin="normal"
             value={values.switchInterval}
-            type="number"
+            error={errors.switchInterval}
+            helperText={
+              <StyledValidationMessages
+                messages={errors.switchInterval}
+                data-cy='board-form-switch-interval-error'
+              />}
             inputProps={{'data-cy': 'board-form-switch-interval-input'}}
           />
         }
       </StyledFieldset>
-      {renderActions(values)}
-    </>
+      {renderActions()}
+    </form>
   );
 };
 

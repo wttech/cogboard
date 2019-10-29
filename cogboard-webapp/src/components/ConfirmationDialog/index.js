@@ -13,6 +13,7 @@ const ConfirmationDialog = props => {
       handleDialogClose={handleCancel}
       open={open}
       title={title}
+      data-cy="confirmation-dialog"
     >
       <>
         <Typography id="confirmation-dialog-content">
