@@ -18,6 +18,7 @@ import MoreMenu from '../MoreMenu';
 import WidgetContent from '../WidgetContent';
 import LastUpdate from "../LastUpdate";
 import ConfirmationDialog from "../ConfirmationDialog";
+import WarningIcon from "@material-ui/icons/Warning";
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -118,6 +119,7 @@ const Widget = ({ id, index }) => {
         ref={ref}
       >
         <StyledCardHeader
+          avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon/>}
           title={title}
           titleTypographyProps={
             {
