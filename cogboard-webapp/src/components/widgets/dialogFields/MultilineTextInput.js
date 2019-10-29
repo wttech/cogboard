@@ -3,7 +3,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { StyledValidationMessages } from '../../WidgetForm/styled';
 
-const MultilineTextInput = ({error, ...other}) => {
+const MultilineTextInput = ({ error, ...other }) => {
   return (
     <TextField
       InputLabelProps={{

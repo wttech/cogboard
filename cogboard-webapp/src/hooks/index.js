@@ -23,11 +23,6 @@ export const useFormData = (data, initialValidationSchema=null, onChange=null) =
 
   const [errors, setErrors] = useState({});
 
-  const clearState = ( initialState ) => {
-    setValues({ ...initialState })
-    setErrors({})
-  }
-
   const handleChange = fieldName => event => {
     const { target: { type, value, checked } } = event;
     const valueType = {
@@ -91,7 +86,7 @@ export const useFormData = (data, initialValidationSchema=null, onChange=null) =
     }
   }
 
-  return { values, handleChange, handleSubmit, errors, validationSchema, setValidationSchema, clearState };
+  return { values, handleChange, handleSubmit, errors, validationSchema, setValidationSchema };
 };
 
 export function useInterval(callback, delay) {
