@@ -7,6 +7,7 @@ import { StyledFieldset, StyledValidationMessages } from './styled';
 import { useFormData } from '../../hooks';
 import { getBoards } from '../../selectors';
 import { createValidationSchema } from './validators';
+import { trimLeadingZeros } from '../helpers';
 
 const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) => {
   const boards = useSelector(getBoards);
@@ -35,6 +36,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
         />
         <TextField
           onChange={handleChange('columns')}
+          onInput={trimLeadingZeros}
           id="columns"
           InputLabelProps={{
             shrink: true
@@ -68,6 +70,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
         {values.autoSwitch &&
           <TextField
             onChange={handleChange('switchInterval')}
+            onInput={trimLeadingZeros}
             id="switchInterval"
             InputLabelProps={{
               shrink: true

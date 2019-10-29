@@ -30,7 +30,7 @@ const StyledToolbar = styled(Toolbar)`
 
 const NavBar = ({ handleDrawerToggle }) => {
   const theme = useTheme();
-  const title = useSelector(({ ui, boards }) => ui.currentBoard ? boards.boardsById[ui.currentBoard].title : '');
+  const title = useSelector(({ ui, boards }) => ui.currentBoard && boards.boardsById[ui.currentBoard] ? boards.boardsById[ui.currentBoard].title : '');
 
   return (
     <StyledAppBar position="fixed">
