@@ -29,6 +29,10 @@ export const WidgetIconButton = styled(IconButton)`
 
 export const Caption = (props) => <StyledTypography {...props} variant="caption" paragraph />;
 
+export const CaptionWithPointer = styled(Caption)`
+  cursor: pointer;
+`;
+
 export const StyledFieldset = styled(FormControl)`
   display: flex;
   margin-bottom: 32px;
@@ -70,3 +74,9 @@ export const StyledFormControl = styled(FormControl)`
       minWidth: 120,
       maxWidth: 300,
   `;
+
+export const StyledPopoverText = styled(Typography)`
+  background: #fff;
+  color: #000;
+  padding: 1rem;
+`;
