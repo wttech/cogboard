@@ -120,7 +120,7 @@ const dialogFields = {
   ResponseBody: {
     component: MultilineTextInput,
     name: 'expectedResponseBody',
-    label: 'Response Body'
+    label: 'Response Body Fragment'
   },
   TextSize: {
     component: DisplayValueSelect,
