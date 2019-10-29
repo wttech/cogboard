@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { string, number, bool } from 'prop-types';
 import { useSelector } from 'react-redux';
 
@@ -6,19 +6,23 @@ import widgetTypes from '../widgets';
 import { useFormData } from '../../hooks';
 import { sortByKey } from "../helpers";
 import { COLUMNS_MIN, ROWS_MIN } from '../../constants';
+import { createValidationSchema, validationSchemaModificator } from './validators';
 
 import { Box, FormControlLabel, FormControl, TextField, Switch, Tab } from '@material-ui/core';
 import DropdownField from '../DropdownField';
 import WidgetTypeForm from '../WidgetTypeForm';
-import { StyledNumberField, StyledTabPanel, StyledTabs } from './styled';
+import { StyledNumberField, StyledTabPanel, StyledTabs, StyledValidationMessages } from './styled';
 import { renderWidgetTypesMenu } from './helpers';
 import { StyledFieldset } from '../styled';
 
-const WidgetForm = ({ renderActions, ...initialFormValues }) => {
+const WidgetForm = ({ onSubmit, renderActions, ...initialFormValues }) => {
   const boardColumns = useSelector(
     ({ ui, boards }) => boards.boardsById[ui.currentBoard].columns
   );
-  const { values, handleChange } = useFormData(initialFormValues);
+
+  const initialValidationSchema = createValidationSchema();
+
+  const { values, handleChange, handleSubmit, errors, setValidationSchema } = useFormData(initialFormValues, initialValidationSchema, true);
   const [tabValue, setTabValue] = useState(0);
 
   const widgetType = widgetTypes[values.type];
@@ -29,8 +33,17 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
     setTabValue(newValue);
   };
 
+  const handleTypeChange = (handler) => (event) => {
+    const { target: {value} } = event;
+
+    const validationSchemaModified = validationSchemaModificator(value, initialValidationSchema)
+    setValidationSchema(validationSchemaModified)
+
+    handler(event);
+  }
+
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
       <StyledTabs 
         value={tabValue} 
         onChange={handleTabChange}
@@ -42,7 +55,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
       <StyledTabPanel value={tabValue} index={0}>
         <StyledFieldset component="fieldset">
           <DropdownField
-            onChange={handleChange("type")}
+            onChange={handleTypeChange(handleChange("type"))}
             label="Type"
             id="widget-type"
             name="type"
@@ -61,6 +74,13 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
             label="Title"
             margin="normal"
             value={values.title}
+            error={errors.title !== undefined}
+            FormHelperTextProps={{component: 'div'}}
+            helperText={
+              <StyledValidationMessages
+                messages={errors.title}
+                data-cy={'widget-form-title-error'}
+              />}
             inputProps={{'data-cy': 'widget-form-title-input'}}
           />
           <Box
@@ -82,6 +102,13 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
               margin="normal"
               value={values.columns}
               type="number"
+              error={errors.columns !== undefined}
+              FormHelperTextProps={{component: 'div'}}
+              helperText={
+                <StyledValidationMessages
+                  messages={errors.columns}
+                  data-cy={'widget-form-columns-error'}
+                />}
             />
             <StyledNumberField
               onChange={handleChange('rows')}
@@ -98,6 +125,13 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
               margin="normal"
               value={values.rows}
               type="number"
+              error={errors.rows !== undefined}
+              FormHelperTextProps={{component: 'div'}}
+              helperText={
+                <StyledValidationMessages
+                  messages={errors.rows}
+                  data-cy={'widget-form-rows-error'}
+                />}
             />
           </Box>
           <FormControl margin="normal">
@@ -135,12 +169,13 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
           <WidgetTypeForm
             type={values.type}
             values={values}
+            errors={errors}
             handleChange={handleChange}
           />
         </StyledTabPanel>
       }
-      {renderActions(values)}
-    </>
+      {renderActions()}
+    </form>
   );
 };
 

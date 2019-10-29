@@ -11,7 +11,7 @@ export const useToggle = () => {
   return [isOpened, handleOpen, handleClose];
 };
 
-export const useFormData = (data, validationSchema=null, onChange=null) => {
+export const useFormData = (data, initialValidationSchema=null, onChange=null) => {
   const [values, setValues] = useState(data);
 
   const [status, setStatus] = useState({
@@ -19,7 +19,25 @@ export const useFormData = (data, validationSchema=null, onChange=null) => {
     onChange: onChange,
   })
 
+  const [validationSchema, setValidationSchema] = useState(initialValidationSchema)
+
   const [errors, setErrors] = useState({});
+
+  const clearState = ( initialState ) => {
+    setValues({ ...initialState })
+    setErrors({})
+  }
+
+  const handleChange = fieldName => event => {
+    const { target: { type, value, checked } } = event;
+    const valueType = {
+      checkbox: checked,
+      number: Number(value),
+    };
+    const fieldValue = valueType[type] !== undefined ? valueType[type] : value;
+
+    setFieldValue(fieldName, fieldValue);
+  };
 
   const setFieldValue = (fieldName, fieldValue) => {
     const [groupName, propName] = splitPropsGroupName(fieldName);
@@ -39,17 +57,6 @@ export const useFormData = (data, validationSchema=null, onChange=null) => {
     validateField(fieldName, newValues);
 
     setValues(newValues);
-  };
-
-  const handleChange = fieldName => event => {
-    const { target: { type, value, checked } } = event;
-    const valueType = {
-      checkbox: checked,
-      number: Number(value),
-    };
-    const fieldValue = valueType[type] !== undefined ? valueType[type] : value;
-
-    setFieldValue(fieldName, fieldValue);
   };
 
   const validateField = (fieldName, fieldsValues) => {
@@ -73,15 +80,18 @@ export const useFormData = (data, validationSchema=null, onChange=null) => {
     setStatus({...status, submited: true})
 
     if(validationSchema) {
-      validationSchema.validate(values, {abortEarly: false})
-        .then(value => func(value))
+      validationSchema.validate(values, {abortEarly: false, stripUnknown: true})
+        .then(value => {
+          console.log(value)
+          func(value)
+        })
         .catch(errors => setErrors(parseYupErrors(errors)))
     } else {
       func(values);
     }
   }
 
-  return { values, handleChange, handleSubmit, errors };
+  return { values, handleChange, handleSubmit, errors, validationSchema, setValidationSchema, clearState };
 };
 
 export function useInterval(callback, delay) {

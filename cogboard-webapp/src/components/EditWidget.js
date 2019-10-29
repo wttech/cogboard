@@ -17,18 +17,19 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
   const initialFormValues = { ...widgetData, ...widgetTypeData };
   const dispatch = useDispatch();
 
-  const handleSaveClick = (values) => () => {
+  const handleSubmit = (values) => {
     dispatch(saveWidget({ id, values }));
     closeDialog();
   };
 
   return (
     <WidgetForm
+      onSubmit={handleSubmit}
       {...initialFormValues}
-      renderActions={values =>
+      renderActions={() =>
         <>
           <Button
-            onClick={handleSaveClick(values)}
+            type="submit"
             color="primary"
             variant="contained"
             data-cy="widget-form-submit-button"

@@ -14,7 +14,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
   const {values, handleChange, handleSubmit, errors} = useFormData(initialFormValues, validationSchema, true);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} novalidate="novalidate">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
       <StyledFieldset component="fieldset">
         <TextField
           onChange={handleChange('title')}

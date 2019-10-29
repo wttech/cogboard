@@ -17,17 +17,18 @@ const AddWidget = ({ closeDialog }) => {
   const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
   const dispatch = useDispatch();
 
-  const handleAddClick = (values) => () => {
+  const handleSubmit = (values) => {
     dispatch(addNewWidget({ currentBoardId, values }));
     closeDialog();
   };
 
   return (
     <WidgetForm
-      renderActions={values =>
+      onSubmit={handleSubmit}
+      renderActions={() =>
         <>
           <Button
-            onClick={handleAddClick(values)}
+            type="submit"
             color="primary"
             variant="contained"
             data-cy="widget-form-submit-button"

@@ -10,8 +10,8 @@ const ValidationMessages = ({className, messages, ...others}) => {
   return (
     <ul className={className} {...others}>
       {
-        messages.map(message => 
-            <li>{message}</li>)
+        messages.map((message, index) => 
+            <li key={index}>{message}</li>)
       }
     </ul> 
   );

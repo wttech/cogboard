@@ -14,7 +14,7 @@ const StyledFieldset = styled(FormControl)`
   min-width: 300px;
 `;
 
-const WidgetTypeForm = ({ values, type, handleChange }) => {
+const WidgetTypeForm = ({ values, type, handleChange, errors }) => {
   const widgetType = widgetTypes[type];
   const dialogFieldNames = (widgetType && widgetType.dialogFields) ? widgetType.dialogFields : [];
   const hasDialogFields = dialogFieldNames.length !== 0;
@@ -37,6 +37,7 @@ const WidgetTypeForm = ({ values, type, handleChange }) => {
               key={name}
               value={valueRef}
               onChange={handleChange(name)}
+              error={errors[name]}
               {...dialogFieldProps}
             />
           );

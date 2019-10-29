@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select } from '@material-ui/core';
+import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select, FormHelperText } from '@material-ui/core';
 
 import { StyledFormControl } from './../../styled';
 import { AEM_HEALTH_CHECKS } from '../../../constants';
 
 const AemHealthcheckInput = props => {
-  const { onChange, value } = props;
+  const { onChange, value, error } = props;
   const inputId = 'aemhealthcheck-metrics-input';
+  const hasError = error !== undefined;
 
   return (
-    <StyledFormControl>
+    <StyledFormControl error={ hasError }>
       <InputLabel htmlFor={inputId}>Health Checks</InputLabel>
       <Select
         multiple
@@ -26,6 +27,7 @@ const AemHealthcheckInput = props => {
           </MenuItem>
         )}
       </Select>
+      {hasError && <FormHelperText>{error}</FormHelperText>}
     </StyledFormControl>
   );
 };
