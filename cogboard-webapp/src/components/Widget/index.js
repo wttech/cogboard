@@ -11,7 +11,7 @@ import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
 
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardHeader, StyledCardContent } from './styled';
+import { ErrorMessage, StyledCard, StyledCardHeader, StyledCardContent } from './styled';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
@@ -138,7 +138,10 @@ const Widget = ({ id, index }) => {
           }
         />
         <StyledCardContent>
-          {!disabled ? <WidgetContent id={id} type={type} content={content} /> : 'Disabled'}
+          {content && content.errorMessage && content.errorMessage !== ''
+            ? <ErrorMessage {...content}/>
+            : !disabled ? <WidgetContent id={id} type={type} content={content} /> : 'Disabled'
+          }
           {showUpdateTime && <LastUpdate lastUpdateTime={new Date().toLocaleString()} />}
         </StyledCardContent>
       </StyledCard>

@@ -11,6 +11,7 @@ class CogboardConstants {
         const val PROP_WIDGETS_BY_ID = "widgetsById"
         const val PROP_STATUS = "status"
         const val PROP_ERROR_MESSAGE = "errorMessage"
+        const val PROP_ERROR_CAUSE = "errorCause"
         const val PROP_DISABLED = "disabled"
         const val PROP_TITLE = "title"
         const val PROP_CONTENT = "content"

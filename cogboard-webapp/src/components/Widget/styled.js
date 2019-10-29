@@ -4,7 +4,7 @@ import styled from '@emotion/styled/macro';
 
 import { mapStatusToColor } from './helpers';
 
-import { Card, CardHeader, CardContent } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
 
 export const StyledCard = styled(forwardRef(({
   status,
@@ -49,6 +49,17 @@ StyledCard.propTypes = {
   rows: number.isRequired,
   status: string.isRequired,
   theme: object.isRequired
+};
+
+export const ErrorMessage = (props) => {
+  const { errorMessage, errorCause } = props;
+
+  return (
+  <>
+    <Typography paragraph>{errorMessage}</Typography>
+    <Typography variant="caption" paragraph>{errorCause}</Typography>
+  </>
+  );
 };
 
 export const StyledCardHeader = styled(CardHeader)`

@@ -80,6 +80,9 @@ class HttpClient : AbstractVerticle() {
                     vertx.eventBus().send(address, json)
                 }
             } else {
+                vertx.eventBus().send(address, JsonObject()
+                        .put(CogboardConstants.PROP_ERROR_MESSAGE, "Http Error")
+                        .put(CogboardConstants.PROP_ERROR_CAUSE, it.cause()?.message))
                 LOGGER.error(it.cause()?.message)
             }
         }
