@@ -5,7 +5,7 @@ import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 import DisplayValueSelect from "./DisplayValueSelect";
-import TextSizeInput from "./TextSizeInput";
+import { REQUEST_METHODS, TEXT_SIZES } from "../../../constants";
 import MultilineTextInput from "./MultilineTextInput";
 import CheckboxInput from "./CheckboxInput";
 import AemHealthcheckInput from "./AemHealthcheckInput";
@@ -107,39 +107,34 @@ const dialogFields = {
     label: 'Display time',
     initialValue: true
   },
-  DateTimeSize: {
-    component: TextSizeInput,
-    name: 'content.textSize',
-    label: 'Text Size',
-    dropdownItems: {
-      XXL: 'h2',
-      XL: 'h3',
-      L: 'h4',
-      M: 'h5',
-      S: 'h6',
-      XS: 'subtitle1',
-      XXS: 'subtitle2'
-    },
-    initialValue: 'h5'
-  },
   Text: {
     component: MultilineTextInput,
     name: 'content.text',
     label: 'Text'
   },
+  RequestBody: {
+    component: MultilineTextInput,
+    name: 'body',
+    label: 'Request Body'
+  },
+  ResponseBody: {
+    component: MultilineTextInput,
+    name: 'expectedResponseBody',
+    label: 'Response Body'
+  },
   TextSize: {
-    component: TextSizeInput,
+    component: DisplayValueSelect,
     name: 'content.textSize',
     label: 'Text Size',
-    dropdownItems: {
-      XXL: 'h1',
-      XL: 'h2',
-      L: 'h3',
-      M: 'h4',
-      S: 'h5',
-      XS: 'h6'
-    },
-    initialValue: 'h4'
+    dropdownItems: TEXT_SIZES,
+    initialValue: TEXT_SIZES[3].value
+  },
+  RequestMethod: {
+    component: DisplayValueSelect,
+    name: 'requestMethod',
+    label: 'Request Method',
+    dropdownItems: REQUEST_METHODS,
+    initialValue: REQUEST_METHODS[0].value
   },
   TextOrientation: {
     component: CheckboxInput,
