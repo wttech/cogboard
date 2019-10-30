@@ -9,15 +9,13 @@ import { removeWidget, reorderWidgets } from '../../actions/thunks';
 import widgetTypes from "../widgets";
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
+import { renderCardContent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardHeader, StyledCardContent } from './styled';
+import { StyledCard, StyledCardHeader } from './styled';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
-import ErrorMessage from '../ErrorMessage';
 import MoreMenu from '../MoreMenu';
-import WidgetContent from '../WidgetContent';
-import LastUpdate from "../LastUpdate";
 import ConfirmationDialog from "../ConfirmationDialog";
 import WarningIcon from "@material-ui/icons/Warning";
 
@@ -106,18 +104,6 @@ const Widget = ({ id, index }) => {
     closeConfirmationDialog();
   };
 
-  const renderCardContent = (content, showUpdateTime) => {
-    return (
-      <StyledCardContent>
-        {content && content.errorMessage
-          ? <ErrorMessage {...content}/>
-          : !disabled ? <WidgetContent id={id} type={type} content={content} /> : 'Disabled'
-        }
-        {showUpdateTime && <LastUpdate lastUpdateTime={new Date().toLocaleString()} />}
-      </StyledCardContent>
-    );
-  };
-
   return (
     <>
       <StyledCard
@@ -152,7 +138,7 @@ const Widget = ({ id, index }) => {
             </MoreMenu>
           }
         />
-        {renderCardContent(content, showUpdateTime)}
+        {renderCardContent(content, showUpdateTime, disabled, id, type)}
       </StyledCard>
       <AppDialog
         disableBackdropClick={true}
