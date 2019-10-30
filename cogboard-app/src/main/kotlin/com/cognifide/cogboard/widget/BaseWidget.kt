@@ -54,13 +54,19 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     /**
      * Use this method for sending configuration error back to user
      */
-    fun sendConfigurationError(message: String = "Fix configuration") {
+    fun sendConfigurationError(cause: String = "") {
         send(JsonObject()
                 .put(CogboardConstants.PROP_STATUS, Widget.Status.ERROR_CONFIGURATION)
                 .put(CogboardConstants.PROP_CONTENT,
-                        JsonObject().put(CogboardConstants.PROP_ERROR_MESSAGE, message)
+                        JsonObject()
+                                .put(CogboardConstants.PROP_ERROR_MESSAGE, "Configuration Error")
+                                .put(CogboardConstants.PROP_ERROR_CAUSE, cause)
                 )
         )
+    }
+
+    fun sendUnknownResponceError() {
+        sendConfigurationError("Unknown Response")
     }
 
     /**

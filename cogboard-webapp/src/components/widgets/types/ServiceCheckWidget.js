@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import { string, number } from 'prop-types';
 
-import { Typography, Popover } from "@material-ui/core";
+import { Popover } from "@material-ui/core";
 import { Caption, CaptionWithPointer, WidgetButton, StyledPopoverText } from "../../styled";
 import Loader from '../../Loader';
 
 const ServiceCheckWidget = props => {
-  const { statusCode, statusMessage, expectedStatusCode, body, expectedResponseBody, url, errorMessage } = props;
+  const { statusCode, statusMessage, expectedStatusCode, body, expectedResponseBody, url } = props;
   const [anchorEl, setAnchorEl] = useState(null);
 
   const errorStatus =  expectedStatusCode !== statusCode;
   const statusCodeMessage = errorStatus ? `${expectedStatusCode} expected, got ${statusCode}` : statusCode;
-  const errorBody = expectedResponseBody !== body;
+  const errorBody = !expectedResponseBody && expectedResponseBody !== body;
   const bodyMessage = errorBody ? 'FAIL' : 'OK';
 
   const handleClick = event => {
@@ -21,15 +21,6 @@ const ServiceCheckWidget = props => {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-
-  if (errorMessage) {
-    return (
-      <Typography variant="h5">
-        {errorMessage}
-      </Typography>
-    );
-  }
-
   const popoverOpen = Boolean(anchorEl);
 
   return (
@@ -76,14 +67,12 @@ ServiceCheckWidget.propTypes = {
   timestamp: number,
   expectedStatusCode: number,
   body: string,
-  expectedResponseBody: string,
-  errorMessage: string
+  expectedResponseBody: string
 };
 
 ServiceCheckWidget.defaultProps = {
   statusCode: 0,
   statusMessage: '',
-  errorMessage: '',
   expectedStatusCode: 200,
   body: '',
   expectedResponseBody: '',

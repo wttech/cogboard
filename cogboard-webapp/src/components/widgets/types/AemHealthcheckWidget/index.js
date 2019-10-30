@@ -1,21 +1,12 @@
 import React from 'react';
-import { string, object } from "prop-types";
+import { object } from "prop-types";
 
-import { Link, Typography } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 import { Caption } from "../../../styled";
 
 import { AEM_HEALTH_CHECKS } from '../../../../constants';
 
-const AemHealthcheckWidget = props => {
-  const { healthChecks, errorMessage } = props;
-
-  if (errorMessage) {
-    return (
-      <Typography variant="h5">
-        {errorMessage}
-      </Typography>
-    );
-  }
+const AemHealthcheckWidget = ({ healthChecks }) => {
 
   return (
     <>
@@ -29,13 +20,11 @@ const AemHealthcheckWidget = props => {
 };
 
 AemHealthcheckWidget.propTypes = {
-  healthChecks: object,
-  errorMessage: string
+  healthChecks: object
 };
 
 AemHealthcheckWidget.defaultProps = {
-  healthChecks: {},
-  errorMessage: ''
+  healthChecks: {}
 };
 
 export default AemHealthcheckWidget;

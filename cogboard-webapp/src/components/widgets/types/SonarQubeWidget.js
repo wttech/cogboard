@@ -1,20 +1,11 @@
 import React from 'react';
 import { number, string, object } from "prop-types";
 
-import { Typography } from '@material-ui/core';
 import { Caption, WidgetButton } from "../../styled";
 
 const SonarQubeWidget = props => {
-  const { metrics, id, url, version, date, errorMessage } = props;
+  const { metrics, id, url, version, date } = props;
   const ts = date ? new Date(Date.parse(date)).toLocaleString() : '';
-
-  if (errorMessage) {
-    return (
-      <Typography variant="h5">
-        {errorMessage}
-      </Typography>
-    );
-  }
 
   return (
     <>
@@ -39,15 +30,13 @@ SonarQubeWidget.propTypes = {
   id: number.isRequired,
   url: string.isRequired,
   version: string,
-  date: string,
-  errorMessage: string
+  date: string
 };
 
 SonarQubeWidget.defaultProps = {
   metrics: {},
   version: '-',
-  date: '',
-  errorMessage: ''
+  date: ''
 };
 
 export default SonarQubeWidget;
