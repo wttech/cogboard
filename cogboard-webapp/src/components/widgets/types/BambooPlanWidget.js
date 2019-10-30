@@ -3,8 +3,7 @@ import { string, number } from 'prop-types';
 
 import { Caption, WidgetButton } from "../../styled";
 
-const BambooPlanWidget = props => {
-  const { url, number, lifeCycleState } = props;
+const BambooPlanWidget = ({ url, number, lifeCycleState }) => {
 
   return (
     <>

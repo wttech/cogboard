@@ -6,8 +6,7 @@ import { Caption } from "../../../styled";
 
 import { AEM_HEALTH_CHECKS } from '../../../../constants';
 
-const AemHealthcheckWidget = props => {
-  const { healthChecks } = props;
+const AemHealthcheckWidget = ({ healthChecks }) => {
 
   return (
     <>
