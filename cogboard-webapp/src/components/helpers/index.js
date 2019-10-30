@@ -26,11 +26,10 @@ export const parseYupErrors = (errors) => {
   });
   
   return result;
-}
+};
 
-export const trimLeadingZeros = (event) => {
-  const inputValue = event.target.value;
+export const trimLeadingZeros = (inputValue) => {
   const parsedValue = parseInt(inputValue);
   
-  event.target.value = parsedValue.toString();
-}
+  return parsedValue.toString();
+};
