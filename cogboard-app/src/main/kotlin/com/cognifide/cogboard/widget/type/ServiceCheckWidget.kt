@@ -48,6 +48,7 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
         responseBody.put(PROP_URL, urlToCheck)
         responseBody.put(CogboardConstants.PROP_ERROR_MESSAGE, "")
         responseBody.put(PROP_EXPECTED_RESPONSE_BODY, expectedResponseBody)
+        responseBody.put(PROP_EXPECTED_STATUS_CODE, expectedStatusCode)
 
         send(JsonObject()
                 .put(PROP_ID, id)
