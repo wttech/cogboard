@@ -19,41 +19,61 @@ const widgetTypes = {
     name: 'Example',
     component: ExampleWidget,
     dialogFields: ['SchedulePeriod'],
-    showUpdateTime : true
+    showUpdateTime : true,
+    validationConstraints: {
+      'SchedulePeriod': { min: 3 },
+    }
   },
   JenkinsJobWidget: {
     name: 'Jenkins Job',
     component: JenkinsJobWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'Path'],
-    showUpdateTime : true
+    showUpdateTime : true,
+    validationConstraints: {
+      'SchedulePeriod': { min: 3 },
+    }
   },
   SonarQubeWidget: {
     name: 'SonarQube',
     component: SonarQubeWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'Key', 'IdNumber', 'SonarQubeMetricsInput'],
-    showUpdateTime : true
+    showUpdateTime : true,
+    validationConstraints: {
+      'SchedulePeriod': { min: 3 },
+      'SonarQubeMetricsInput': { minArrayLength: 1 },
+    }
   },
   ServiceCheckWidget: {
     name: 'Service Check',
     component: ServiceCheckWidget,
     dialogFields: ['SchedulePeriod', 'URL', 'StatusCode'],
-    showUpdateTime : true
+    showUpdateTime : true,
+    validationConstraints: {
+      'SchedulePeriod': { min: 3 },
+    }
   },
   TextWidget: {
     name: 'Text',
     component: TextWidget,
-    dialogFields: ['Text', 'TextSize', 'TextOrientation']
+    dialogFields: ['Text', 'TextSize', 'TextOrientation'],
+    validationConstraints: {
+      'Text': { max: 240 },
+    }
   },
   BambooPlanWidget: {
     name: 'Bamboo Plan',
     component: BambooPlanWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
-    showUpdateTime : true
+    showUpdateTime : true,
+    validationConstraints: {
+      'SchedulePeriod': { min: 3 }
+    }
   },
   WorldClockWidget: {
     name: 'World Clock',
     component: WorldClockWidget,
     dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'DateTimeSize']
+
   },
   IframeEmbedWidget: {
     name: 'Iframe Embed',
@@ -69,7 +89,11 @@ const widgetTypes = {
     name: 'AEM Healthcheck',
     component: AemHealthcheckWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'AemHealthcheckInput'],
-    showUpdateTime : true
+    showUpdateTime : true,
+    validationConstraints: {
+      'SchedulePeriod': { min: 3 },
+      'AemHealthcheckInput': { minArrayLength: 1 }
+    }
   }
 };
 

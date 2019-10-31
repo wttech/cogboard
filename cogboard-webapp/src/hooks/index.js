@@ -11,15 +11,17 @@ export const useToggle = () => {
   return [isOpened, handleOpen, handleClose];
 };
 
-export const useFormData = (data, initialValidationSchema=null, onChange=null) => {
+export const useFormData = (data, config={}) => {
   const [values, setValues] = useState(data);
+
+  const { onChange=null, initialSchema=null } = config;
 
   const [status, setStatus] = useState({
     submited: false,
     onChange: onChange,
   })
 
-  const [validationSchema, setValidationSchema] = useState(initialValidationSchema)
+  const [validationSchema, setValidationSchema] = useState(initialSchema)
 
   const [errors, setErrors] = useState({});
 
@@ -70,7 +72,7 @@ export const useFormData = (data, initialValidationSchema=null, onChange=null) =
     }
   }
 
-  const handleSubmit = func => event => {
+  const withValidation = func => event => {
     event.preventDefault();
     setStatus({...status, submited: true})
 
@@ -85,7 +87,7 @@ export const useFormData = (data, initialValidationSchema=null, onChange=null) =
     }
   }
 
-  return { values, handleChange, handleSubmit, errors, validationSchema, setValidationSchema };
+  return { values, handleChange, withValidation, errors, validationSchema, setValidationSchema };
 };
 
 export function useInterval(callback, delay) {

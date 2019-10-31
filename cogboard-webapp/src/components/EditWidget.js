@@ -17,14 +17,14 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
   const initialFormValues = { ...widgetData, ...widgetTypeData };
   const dispatch = useDispatch();
 
-  const handleSubmit = (values) => {
+  const handleEditWidget = (values) => {
     dispatch(saveWidget({ id, values }));
     closeDialog();
   };
 
   return (
     <WidgetForm
-      onSubmit={handleSubmit}
+      handleSubmit={handleEditWidget}
       {...initialFormValues}
       renderActions={() =>
         <>

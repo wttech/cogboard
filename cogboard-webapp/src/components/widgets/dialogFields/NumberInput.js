@@ -3,24 +3,24 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { StyledValidationMessages } from '../../WidgetForm/styled';
 
-const NumberInput = ({ min, step, error, ...other }) => {
+const NumberInput = ({ min, step, error, dataCy, ...other }) => {
 
   return (
     <TextField
       type="number"
-      inputProps={{ min, step }}
+      inputProps={{ min, step, 'data-cy': dataCy }}
       InputLabelProps={{
         shrink: true,
       }}
       margin="normal"
-      {...other}
       error={error !== undefined}
       FormHelperTextProps={{component: 'div'}}
       helperText={
         <StyledValidationMessages
           messages={error}
-          data-cy={'widget-form-rows-error'}
+          data-cy={`${dataCy}-error`}
         />}
+      {...other}
     />
   );
 };

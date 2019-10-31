@@ -17,14 +17,14 @@ const AddWidget = ({ closeDialog }) => {
   const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
   const dispatch = useDispatch();
 
-  const handleSubmit = (values) => {
+  const handleAddWidget = (values) => {
     dispatch(addNewWidget({ currentBoardId, values }));
     closeDialog();
   };
 
   return (
     <WidgetForm
-      onSubmit={handleSubmit}
+      handleSubmit={handleAddWidget}
       renderActions={() =>
         <>
           <Button

@@ -4,6 +4,28 @@ export const splitPropsGroupName = (propName) => {
   return propName.includes('.') ? propName.split('.') : [undefined, propName];
 };
 
+export const createValueRef = (values, initialValue, name) => {
+  const [groupName, propName] = splitPropsGroupName(name);
+
+  if (groupName) {
+    if (!values[groupName]) {
+      values[groupName] = {};
+    }
+
+    if(values[groupName][propName] === undefined) {
+      values[groupName][propName] = initialValue;
+    }
+
+    return values[groupName][propName];
+  }
+
+  if (values[propName] === undefined) {
+    values[propName] = initialValue;
+  }
+
+  return values[propName];
+};
+
 export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
   .sort(([, { [key]: keyA }], [, { [key]: keyB }]) => (
     asc ? keyA.localeCompare(keyB) : keyB.localeCompare(keyA)))
