@@ -1,16 +1,18 @@
 import React from 'react';
+import { useTheme } from '@material-ui/styles';
+
+import {ALL_SONARQUBE_METRICS} from "../../../constants";
 
 import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select } from '@material-ui/core';
-
 import { StyledFormControl } from './../../styled';
-import {ALL_SONARQUBE_METRICS} from "../../../constants";
 
 const SonarQubeMetricsInput = props => {
   const { onChange, value } = props;
+  const theme = useTheme();
   const inputId = 'sonarqube-metrics-input';
 
   return (
-    <StyledFormControl>
+    <StyledFormControl theme={theme}>
       <InputLabel htmlFor={inputId}>Metrics</InputLabel>
       <Select
         multiple
