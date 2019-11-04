@@ -1,8 +1,10 @@
 import React from 'react';
-import {StyledIframe} from "../../../styled";
-import {string} from "prop-types";
-import {Typography} from "@material-ui/core/index";
-import {attachHttp} from "./helpers";
+import { string } from "prop-types";
+
+import { attachHttp } from "./helpers";
+
+import { StyledIframe } from "../../../styled";
+import { Typography } from "@material-ui/core";
 
 const IframeEmbedWidget = ({ url }) => {
   if (url) {

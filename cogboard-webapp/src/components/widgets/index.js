@@ -36,7 +36,7 @@ const widgetTypes = {
   ServiceCheckWidget: {
     name: 'Service Check',
     component: ServiceCheckWidget,
-    dialogFields: ['SchedulePeriod', 'URL', 'StatusCode'],
+    dialogFields: ['SchedulePeriod', 'RequestMethod', 'EndpointField', 'Path', 'RequestBody', 'ResponseBody', 'StatusCode'],
     showUpdateTime : true
   },
   TextWidget: {
@@ -53,7 +53,7 @@ const widgetTypes = {
   WorldClockWidget: {
     name: 'World Clock',
     component: WorldClockWidget,
-    dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'DateTimeSize']
+    dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'TextSize']
   },
   IframeEmbedWidget: {
     name: 'Iframe Embed',

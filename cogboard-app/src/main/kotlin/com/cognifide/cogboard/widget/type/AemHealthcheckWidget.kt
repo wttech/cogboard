@@ -13,20 +13,24 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
     private val selectedHealthChecks: JsonArray = config.getJsonArray("selectedHealthChecks")
 
     override fun handleResponse(responseBody: JsonObject) {
-        val healthChecksResponse = getData(responseBody)
-        val content = JsonObject()
-        val status = attachHealthChecks(content, healthChecksResponse)
+        if (responseBody.containsKey("HealthCheck")) {
+            val healthChecksResponse = getData(responseBody)
+            val content = JsonObject()
+            val status = attachHealthChecks(content, healthChecksResponse)
 
-        send(JsonObject()
-                .put(CogboardConstants.PROP_STATUS, status)
-                .put(CogboardConstants.PROP_CONTENT, content))
+            send(JsonObject()
+                    .put(CogboardConstants.PROP_STATUS, status)
+                    .put(CogboardConstants.PROP_CONTENT, content))
+        } else {
+            sendUnknownResponceError()
+        }
     }
 
     override fun updateState() {
         if (url.isNotBlank()) {
             httpGet(url = "$url/system/sling/monitoring/mbeans/org/apache/sling/healthcheck.2.json")
         } else {
-            sendConfigurationError()
+            sendConfigurationError("Endpoint URL is blank")
         }
     }
 

@@ -63,6 +63,17 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
         )
     }
 
+    protected fun httpPut(url: String, body: JsonObject) {
+        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_PUT,
+                JsonObject()
+                        .put(CogboardConstants.PROP_URL, url)
+                        .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)
+                        .put(CogboardConstants.PROP_USER, user)
+                        .put(CogboardConstants.PROP_PASSWORD, password)
+                        .put(CogboardConstants.PROP_BODY, body)
+        )
+    }
+
     protected fun httpPost(url: String, body: JsonObject) {
         vertx.eventBus().send(CogboardConstants.EVENT_HTTP_POST,
                 JsonObject()
@@ -71,6 +82,16 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
                         .put(CogboardConstants.PROP_USER, user)
                         .put(CogboardConstants.PROP_PASSWORD, password)
                         .put(CogboardConstants.PROP_BODY, body)
+        )
+    }
+
+    protected fun httpDelete(url: String) {
+        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_DELETE,
+                JsonObject()
+                        .put(CogboardConstants.PROP_URL, url)
+                        .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)
+                        .put(CogboardConstants.PROP_USER, user)
+                        .put(CogboardConstants.PROP_PASSWORD, password)
         )
     }
 }
