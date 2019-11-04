@@ -5,11 +5,14 @@ import { string, number, bool } from 'prop-types';
 import { useFormData } from '../../hooks';
 import { getBoards } from '../../selectors';
 import { createValidationSchema } from '../validation';
+
+import { Button } from '@material-ui/core';
 import DynamicForm from '../DynamicForm';
+import { StyledCancelButton } from './styled';
 
 import { BOARD_TITLE_LENGTH_LIMIT, BOARD_COLUMNS_MIN, BOARD_COLUMNS_MAX, SWITCH_INTERVAL_MIN } from '../../constants';
 
-const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) => {
+const BoardForm = ({ handleSubmit, handleCancel, boardId, ...initialFormValues }) => {
   const boards = useSelector(getBoards);
   const formFields = ['UniqueTitleField', 'ColumnField', 'AutoSwitchField', 'SwitchInterval'];
   const constraints = {
@@ -26,11 +29,12 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
       min: SWITCH_INTERVAL_MIN,
     }
   };
+
   const validationSchema = createValidationSchema(formFields, constraints);
   const {values, handleChange, withValidation, errors} = useFormData(initialFormValues, {initialSchema: validationSchema, onChange: true});
 
   return (
-    <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
+    <form onSubmit={withValidation(handleSubmit)} noValidate="novalidate">
       <DynamicForm 
         fields={formFields} 
         values={values} 
@@ -38,7 +42,18 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
         errors={errors}
         rootName='board-form'
       />
-      {renderActions()}
+      <Button
+        color="primary"
+        variant="contained"
+        type="submit"
+        data-cy="board-form-submit-button"
+      >
+        Save
+      </Button>
+      <StyledCancelButton
+        handleCancelClick={handleCancel}
+        data-cy="board-form-cancel-button"
+      />
     </form>
   );
 };

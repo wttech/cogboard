@@ -4,13 +4,13 @@ import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select, FormHelper
 
 import { StyledFormControl } from './../../styled';
 import { AEM_HEALTH_CHECKS } from '../../../constants';
+import { hasError } from '../../helpers';
 
-const AemHealthcheckInput = ({ onChange, value, error }) => {
+const AemHealthcheckInput = ({ onChange, value, error, dataCy }) => {
   const inputId = 'aemhealthcheck-metrics-input';
-  const hasError = error !== undefined;
 
   return (
-    <StyledFormControl error={ hasError }>
+    <StyledFormControl error={ hasError(error) }>
       <InputLabel htmlFor={inputId}>Health Checks</InputLabel>
       <Select
         multiple
@@ -18,6 +18,7 @@ const AemHealthcheckInput = ({ onChange, value, error }) => {
         onChange={onChange}
         input={<Input id={inputId}/>}
         renderValue={value => `${value.length} selected`}
+        data-cy={dataCy}
       >
         {Object.entries(AEM_HEALTH_CHECKS).map(([name, label]) =>
           <MenuItem key={name} value={name}>
@@ -26,7 +27,7 @@ const AemHealthcheckInput = ({ onChange, value, error }) => {
           </MenuItem>
         )}
       </Select>
-      {hasError && <FormHelperText>{error}</FormHelperText>}
+      {hasError(error) && <FormHelperText data-cy={`${dataCy}-error`}>{error}</FormHelperText>}
     </StyledFormControl>
   );
 };

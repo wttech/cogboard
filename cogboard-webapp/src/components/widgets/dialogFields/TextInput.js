@@ -2,16 +2,16 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import { StyledValidationMessages } from '../../WidgetForm/styled';
+import { hasError } from '../../helpers';
 
 const TextInput = ({ error, dataCy, values, ...other }) => {
-  console.log(other)
   return (
     <TextField
       InputLabelProps={{
         shrink: true,
       }}
       margin="normal"
-      error={error !== undefined}
+      error={hasError(error)}
       FormHelperTextProps={{component: 'div'}}
       helperText={
         <StyledValidationMessages

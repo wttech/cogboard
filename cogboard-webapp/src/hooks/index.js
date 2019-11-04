@@ -78,9 +78,7 @@ export const useFormData = (data, config={}) => {
 
     if(validationSchema) {
       validationSchema.validate(values, {abortEarly: false, stripUnknown: true})
-        .then(value => {
-          func(value)
-        })
+        .then(value => func(value))
         .catch(errors => setErrors(parseYupErrors(errors)))
     } else {
       func(values);

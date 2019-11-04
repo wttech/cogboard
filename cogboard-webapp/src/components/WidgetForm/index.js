@@ -6,14 +6,14 @@ import widgetTypes from '../widgets';
 import { useFormData } from '../../hooks';
 
 import { createWidgetValidationSchema } from './validators';
-
-import { Tab } from '@material-ui/core';
-import DynamicForm from "../DynamicForm";
-import WidgetTypeForm from '../WidgetTypeForm';
-import { StyledTabPanel, StyledTabs } from './styled';
 import { WIDGET_TITLE_LENGTH_LIMIT, WIDGET_COLUMNS_MIN, WIDGET_ROWS_MIN, WIDGET_ROWS_MAX } from '../../constants';
 
-const WidgetForm = ({ handleSubmit, renderActions, ...initialFormValues }) => {
+import { Tab, Button } from '@material-ui/core';
+import DynamicForm from "../DynamicForm";
+import WidgetTypeForm from '../WidgetTypeForm';
+import { StyledTabPanel, StyledTabs, StyledCancelButton } from './styled';
+
+const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
   const boardColumns = useSelector(
     ({ ui, boards }) => boards.boardsById[ui.currentBoard].columns
   );
@@ -42,8 +42,7 @@ const WidgetForm = ({ handleSubmit, renderActions, ...initialFormValues }) => {
   useEffect(() => {
     const validationSchema = createWidgetValidationSchema(values.type, generalFields, constraints)
     setValidationSchema(validationSchema)
-    // eslint-disable-next-line
-  }, [values.type])
+  }, [values, generalFields, constraints, setValidationSchema])
 
   return (
     <form onSubmit={withValidation(handleSubmit)} noValidate="novalidate">
@@ -75,7 +74,18 @@ const WidgetForm = ({ handleSubmit, renderActions, ...initialFormValues }) => {
           />
         </StyledTabPanel>
       }
-      {renderActions()}
+      <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            data-cy="widget-form-submit-button"
+          >
+        Save
+      </Button>
+      <StyledCancelButton 
+        handleCancelClick={handleCancel} 
+        data-cy="widget-form-cancel-button"
+      />
     </form>
   );
 };

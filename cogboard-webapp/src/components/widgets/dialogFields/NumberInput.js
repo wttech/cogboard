@@ -2,6 +2,7 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import { StyledValidationMessages } from '../../WidgetForm/styled';
+import { hasError } from '../../helpers';
 
 const NumberInput = ({ min, step, error, dataCy, ...other }) => {
 
@@ -13,7 +14,7 @@ const NumberInput = ({ min, step, error, dataCy, ...other }) => {
         shrink: true,
       }}
       margin="normal"
-      error={error !== undefined}
+      error={hasError(error)}
       FormHelperTextProps={{component: 'div'}}
       helperText={
         <StyledValidationMessages

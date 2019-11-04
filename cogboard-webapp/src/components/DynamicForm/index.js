@@ -1,11 +1,10 @@
 import React from 'react';
 
-import {createValueRef} from './helpers';
+import { camelToKebab, createValueRef } from './helpers';
 
-import { StyledFieldset } from './styled';
+import { StyledFieldset } from '../styled';
 import { Box } from '@material-ui/core';
-import dialogFields from './widgets/dialogFields';
-
+import dialogFields from '../widgets/dialogFields';
 
 const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
 
@@ -19,7 +18,6 @@ const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
     } = dialogFields[field];
 
     const valueRef = createValueRef(values, initialValue, name);
-    const dataCy = `${rootName}-${name}-input`;
 
     return (
       <DialogField
@@ -28,7 +26,7 @@ const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
         value={valueRef}
         onChange={handleChange(name)}
         error={errors[name]}
-        dataCy={dataCy}
+        dataCy={`${rootName}-${camelToKebab(name)}-input`}
         {...dialogFieldProps}
       />
     );

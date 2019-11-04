@@ -1,7 +1,7 @@
 import React from 'react';
-import { node } from 'prop-types';
+import { node, func, string } from 'prop-types';
 
-const conditionallyHidden = (Component, conditionField, condition) => ({values, ...other }) => {
+const conditionallyHidden = ( Component, conditionField, condition ) => ({ values, ...other }) => {
   if (values[conditionField] === undefined) {
     return null;
   }
@@ -13,7 +13,9 @@ const conditionallyHidden = (Component, conditionField, condition) => ({values, 
 }
 
 conditionallyHidden.propTypes = {
-  component: node
+  Component: node,
+  condition: func,
+  conditionField: string
 }
 
 export default conditionallyHidden;

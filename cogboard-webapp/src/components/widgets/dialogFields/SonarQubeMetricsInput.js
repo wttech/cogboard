@@ -3,14 +3,14 @@ import React from 'react';
 import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select, FormHelperText } from '@material-ui/core';
 
 import { StyledFormControl } from './../../styled';
-import {ALL_SONARQUBE_METRICS} from "../../../constants";
+import { ALL_SONARQUBE_METRICS } from "../../../constants";
+import { hasError } from '../../helpers';
 
-const SonarQubeMetricsInput = ({ onChange, value, error }) => {
+const SonarQubeMetricsInput = ({ onChange, value, error, dataCy }) => {
   const inputId = 'sonarqube-metrics-input';
-  const hasError = error !== undefined;
 
   return (
-    <StyledFormControl error={hasError}>
+    <StyledFormControl error={hasError(error)}>
       <InputLabel htmlFor={inputId}>Metrics</InputLabel>
       <Select
         multiple
@@ -18,6 +18,7 @@ const SonarQubeMetricsInput = ({ onChange, value, error }) => {
         onChange={onChange}
         input={<Input id={inputId}/>}
         renderValue={value => `${value.length} selected`}
+        data-cy={dataCy}
       >
         {ALL_SONARQUBE_METRICS.map(name => (
           <MenuItem key={name} value={name}>
@@ -26,7 +27,7 @@ const SonarQubeMetricsInput = ({ onChange, value, error }) => {
           </MenuItem>
         ))}
       </Select>
-      {hasError && <FormHelperText>{error}</FormHelperText>}
+      {hasError(error) && <FormHelperText>{error}</FormHelperText>}
     </StyledFormControl>
   );
 };
