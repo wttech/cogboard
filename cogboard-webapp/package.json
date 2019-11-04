@@ -9,7 +9,9 @@
     "@material-ui/icons": "^4.2.1",
     "@reach/router": "^1.2.1",
     "http-proxy-middleware": "^0.20.0",
+    "husky": "^3.0.9",
     "jwt-decode": "^2.2.0",
+    "lint-staged": "^9.4.2",
     "moment-timezone": "^0.5.26",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
@@ -49,5 +51,16 @@
   "devDependencies": {
     "prettier": "^1.18.2",
     "redux-devtools-extension": "^2.13.8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
