@@ -69,6 +69,14 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
         sendConfigurationError("Unknown Response")
     }
 
+    fun checkAuthorized(responseBody: JsonObject): Boolean {
+        val statusCode = responseBody.getInteger(CogboardConstants.PROP_STATUS_CODE, 200)
+        return if (statusCode == 401) {
+            sendConfigurationError("Unauthorized")
+            false
+        } else true
+    }
+
     /**
      * Will start Schedule when schedulePeriod > 0, execute once otherwise
      */

@@ -14,23 +14,30 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     private val selectedMetrics: JsonArray = config.getJsonArray("selectedMetrics")
 
     override fun handleResponse(responseBody: JsonObject) {
-        val data = getData(responseBody)
-        if (data.containsKey("msr")) {
-            data.getJsonArray("msr")?.let {
-                data.remove("msr")
-                val content = data.copy()
-
-                attachMetrics(content, it)
-                content.put(CogboardConstants.PROP_URL, "$publicUrl/dashboard/index/$idNumber")
-
-                send(JsonObject()
-                        .put(CogboardConstants.PROP_STATUS, extractStatus(it))
-                        .put(CogboardConstants.PROP_CONTENT, content))
+        if (checkAuthorized(responseBody)) {
+            val data = getData(responseBody)
+            if (data.containsKey("msr")) {
+                sendSuccess(data)
+            } else {
+                sendUnknownResponceError()
             }
-        } else {
-            sendUnknownResponceError()
         }
     }
+
+    private fun sendSuccess(data: JsonObject) {
+        data.getJsonArray("msr")?.let {
+            data.remove("msr")
+            val content = data.copy()
+
+            attachMetrics(content, it)
+            content.put(CogboardConstants.PROP_URL, "$publicUrl/dashboard/index/$idNumber")
+
+            send(JsonObject()
+                    .put(CogboardConstants.PROP_STATUS, extractStatus(it))
+                    .put(CogboardConstants.PROP_CONTENT, content))
+        }
+    }
+
 
     override fun updateState() {
         if (url.isNotBlank() && key.isNotBlank()) {

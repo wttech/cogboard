@@ -82,7 +82,7 @@ class HttpClient : AbstractVerticle() {
         return request
     }
 
-    private fun toJson(response: HttpResponse<Buffer>): JsonObject? {
+    private fun toJson(response: HttpResponse<Buffer>): JsonObject {
         return try {
             response.bodyAsJsonObject()
         } catch (e: DecodeException) {
@@ -97,14 +97,17 @@ class HttpClient : AbstractVerticle() {
     private fun executeRequest(request: HttpRequest<Buffer>, address: String?) {
         request.send {
             val statusCode = it.result().statusCode()
-            if (!it.succeeded() || statusCode == 401) {
+            val statusMessage = it.result().statusMessage()
+
+            if (!it.succeeded()) {
                 vertx.eventBus().send(address, JsonObject()
                         .put(CogboardConstants.PROP_ERROR_MESSAGE, "Http Error")
                         .put(CogboardConstants.PROP_ERROR_CAUSE, it.cause()?.message))
                 LOGGER.error(it.cause()?.message)
             } else {
                 toJson(it.result()).let { json ->
-                    json?.put(PROP_STATUS_CODE, statusCode)
+                    json.put(PROP_STATUS_CODE, statusCode)
+                    json.put(PROP_STATUS_MESSAGE, statusMessage)
                     vertx.eventBus().send(address, json)
                 }
             }
