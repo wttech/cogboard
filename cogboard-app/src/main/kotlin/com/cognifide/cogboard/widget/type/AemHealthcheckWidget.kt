@@ -13,17 +13,22 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
     private val selectedHealthChecks: JsonArray = config.getJsonArray("selectedHealthChecks")
 
     override fun handleResponse(responseBody: JsonObject) {
-        if (responseBody.containsKey("HealthCheck")) {
-            val healthChecksResponse = getData(responseBody)
-            val content = JsonObject()
-            val status = attachHealthChecks(content, healthChecksResponse)
+        if (checkAuthorized(responseBody)) {
+            if (responseBody.containsKey("HealthCheck")) {
+                sendSuccess(responseBody)
 
-            send(JsonObject()
-                    .put(CogboardConstants.PROP_STATUS, status)
-                    .put(CogboardConstants.PROP_CONTENT, content))
-        } else {
-            sendUnknownResponceError()
+            } else sendUnknownResponceError()
         }
+    }
+
+    private fun sendSuccess(responseBody: JsonObject) {
+        val healthChecksResponse = getData(responseBody)
+        val content = JsonObject()
+        val status = attachHealthChecks(content, healthChecksResponse)
+
+        send(JsonObject()
+                .put(CogboardConstants.PROP_STATUS, status)
+                .put(CogboardConstants.PROP_CONTENT, content))
     }
 
     override fun updateState() {

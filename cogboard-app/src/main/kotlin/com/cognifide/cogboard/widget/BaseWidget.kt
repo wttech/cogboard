@@ -74,6 +74,7 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
         return if (statusCode == 401) {
             sendConfigurationError("Unauthorized")
             false
+
         } else true
     }
 

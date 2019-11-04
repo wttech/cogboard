@@ -11,21 +11,27 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
     private val path: String = config.getString("path", "")
 
     override fun handleResponse(responseBody: JsonObject) {
-        val lastBuild = responseBody.getJsonObject("lastBuild")
+        if (checkAuthorized(responseBody)) {
+            val lastBuild = responseBody.getJsonObject("lastBuild")
 
-        if (lastBuild != null) {
-            val status = if (lastBuild.getBoolean("building", false)) Widget.Status.IN_PROGRESS
-            else Widget.Status.from(lastBuild.getString("result", ""))
-            lastBuild.put(CC.PROP_ERROR_MESSAGE, "")
-            lastBuild.put("branch", extractBranchInfo(lastBuild))
-            lastBuild.put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
+            if (lastBuild != null) {
+                sendSuccess(lastBuild)
 
-            send(JsonObject()
-                    .put(CC.PROP_STATUS, status)
-                    .put(CC.PROP_CONTENT, lastBuild))
-        } else {
-            sendUnknownResponceError()
+            } else sendUnknownResponceError()
         }
+    }
+
+    private fun sendSuccess(lastBuild: JsonObject) {
+        val status = if (lastBuild.getBoolean("building", false)) Widget.Status.IN_PROGRESS
+        else Widget.Status.from(lastBuild.getString("result", ""))
+        lastBuild.put(CC.PROP_ERROR_MESSAGE, "")
+        lastBuild.put("branch", extractBranchInfo(lastBuild))
+        lastBuild.put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
+
+        send(JsonObject()
+                .put(CC.PROP_STATUS, status)
+                .put(CC.PROP_CONTENT, lastBuild))
+
     }
 
     private fun makePublic(privateUrl: String): String {
