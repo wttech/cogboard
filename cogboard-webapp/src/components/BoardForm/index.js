@@ -16,7 +16,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
   const validationSchema = createValidationSchema(boardId, boards);
   const {values, handleChange, handleSubmit, errors} = useFormData(initialFormValues, validationSchema, true);
 
-  const numberInputHandler = (event) => {
+  const handleNumberInput = (event) => {
     const { target: { value } } = event;
 
     event.target.value = trimLeadingZeros(value);
@@ -44,7 +44,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
         />
         <NumberInput
           onChange={handleChange('columns')}
-          onInput={numberInputHandler}
+          onInput={handleNumberInput}
           id="columns"
           InputLabelProps={{
             shrink: true
@@ -78,7 +78,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
         {values.autoSwitch &&
           <NumberInput
             onChange={handleChange('switchInterval')}
-            onInput={numberInputHandler}
+            onInput={handleNumberInput}
             id="switchInterval"
             InputLabelProps={{
               shrink: true

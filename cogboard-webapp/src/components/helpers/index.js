@@ -28,8 +28,4 @@ export const parseYupErrors = (errors) => {
   return result;
 };
 
-export const trimLeadingZeros = (inputValue) => {
-  const parsedValue = parseInt(inputValue);
-  
-  return parsedValue.toString();
-};
+export const trimLeadingZeros = (inputValue) => String(parseInt(inputValue));
