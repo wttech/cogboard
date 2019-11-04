@@ -21,7 +21,9 @@ import {
   LOGIN_FAILURE,
   CLEAR_LOGIN_ERROR_MESSAGE,
   LOGOUT,
-  INIT_BOARD_PROPS
+  INIT_BOARD_PROPS,
+  PUSH_NOTIFICATION,
+  DELETE_NOTIFICATION
 } from './types';
 import { INITIAL_BOARD_PROPS } from '../constants';
 
@@ -131,4 +133,17 @@ export const setCurrentBoard = (id) => ({
 export const initBoardProps = () => ({
   type: INIT_BOARD_PROPS,
   payload: { ...INITIAL_BOARD_PROPS }
+});
+
+export const pushNotification = (notification) => ({
+  type: PUSH_NOTIFICATION,
+  payload: {
+    id: v4(),
+    ...notification
+  }
+});
+
+export const deleteNotification = (id) => ({
+  type: DELETE_NOTIFICATION,
+  payload: id
 });

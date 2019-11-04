@@ -4,11 +4,15 @@ const getApp = ({ app }) => app;
 
 const getUi = ({ ui }) => ui;
 
+const getNotifications = ({ notifications }) => notifications;
+
 const getBoardsById = ({ boards }) => boards.boardsById;
 
 const getAllBoards = ({ boards }) => boards.allBoards;
 
 const getBoardId = (_, boardId) => boardId;
+
+const getNotificationId = (_, notificationId) => notificationId;
 
 export const getIsAuthenticated = createSelector(
   [getApp],
@@ -38,6 +42,23 @@ export const getSwitchInterval = createSelector(
 export const getSwitcherBoards = createSelector(
   [getAllBoards, getBoardsById],
   (allBoards, boardsById) => allBoards.filter(boardId => boardsById[boardId].autoSwitch)
+);
+
+export const getNotificationsById = createSelector(
+  [getNotifications],
+  ({ notificationsById }) => notificationsById
+);
+
+export const createGetNotification = () => (
+  createSelector(
+    [getNotificationsById, getNotificationId],
+    (notificationsById, notificationId) => notificationsById[notificationId]
+  )
+);
+
+export const getAllNotifications = createSelector(
+  [getNotifications],
+  ({ allNotifications }) => allNotifications
 );
 
 export const getBoards = createSelector(
