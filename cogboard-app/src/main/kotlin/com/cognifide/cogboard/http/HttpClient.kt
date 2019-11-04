@@ -96,16 +96,17 @@ class HttpClient : AbstractVerticle() {
 
     private fun executeRequest(request: HttpRequest<Buffer>, address: String?) {
         request.send {
-            if (it.succeeded()) {
-                toJson(it.result()).let { json ->
-                    json?.put(PROP_STATUS_CODE, it.result().statusCode())
-                    vertx.eventBus().send(address, json)
-                }
-            } else {
+            val statusCode = it.result().statusCode()
+            if (!it.succeeded() || statusCode == 401) {
                 vertx.eventBus().send(address, JsonObject()
                         .put(CogboardConstants.PROP_ERROR_MESSAGE, "Http Error")
                         .put(CogboardConstants.PROP_ERROR_CAUSE, it.cause()?.message))
                 LOGGER.error(it.cause()?.message)
+            } else {
+                toJson(it.result()).let { json ->
+                    json?.put(PROP_STATUS_CODE, statusCode)
+                    vertx.eventBus().send(address, json)
+                }
             }
         }
     }
