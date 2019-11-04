@@ -4,7 +4,8 @@ import { Typography } from '@material-ui/core';
 
 export const VerticalText = styled(Typography)`
   margin-top: auto;
-  transform: rotate(-90deg);
+  transform: rotate(-180deg);
+  writing-mode: vertical-rl;
 `;
 
 export const StyledPre = styled.pre`
