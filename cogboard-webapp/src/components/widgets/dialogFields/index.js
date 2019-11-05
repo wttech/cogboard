@@ -20,8 +20,8 @@ const dialogFields = {
   SchedulePeriod: {
     component: NumberInput,
     name: 'schedulePeriod',
-    label: 'Schedule Period [seconds]',
-    min: 1,
+    label: 'Schedule Period [sec] (if 0 will run once)',
+    min: 0,
     step: 10,
     initialValue: 120
   },
