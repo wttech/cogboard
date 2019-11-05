@@ -1,7 +1,13 @@
 package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.widget.type.*
+import com.cognifide.cogboard.widget.type.AemHealthcheckWidget
+import com.cognifide.cogboard.widget.type.ExampleWidget
+import com.cognifide.cogboard.widget.type.BambooPlanWidget
+import com.cognifide.cogboard.widget.type.DefaultWidget
+import com.cognifide.cogboard.widget.type.JenkinsJobWidget
+import com.cognifide.cogboard.widget.type.ServiceCheckWidget
+import com.cognifide.cogboard.widget.type.SonarQubeWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 
@@ -13,7 +19,7 @@ class WidgetIndex {
          * If widget does not do anything on backend no changes on backend are required.
          * @return new widget instance or default widget instance for all widgets that don't require any backend logic.
          */
-        fun create(config: JsonObject, vertx: Vertx)  = when (config.getString(CogboardConstants.PROP_WIDGET_TYPE)) {
+        fun create(config: JsonObject, vertx: Vertx) = when (config.getString(CogboardConstants.PROP_WIDGET_TYPE)) {
             ExampleWidget::class.java.simpleName -> ExampleWidget(vertx, config)
             JenkinsJobWidget::class.java.simpleName -> JenkinsJobWidget(vertx, config)
             SonarQubeWidget::class.java.simpleName -> SonarQubeWidget(vertx, config)

@@ -16,6 +16,7 @@
 plugins {
     id("com.bmuschko.docker-remote-api") version "4.9.0"
     id("java")
+    id("io.gitlab.arturbosch.detekt") version "1.1.0"
 }
 
 val dockerContainerName = project.property("docker.container.name") ?: "cogboard"
@@ -29,6 +30,7 @@ configurations {
 
 dependencies {
     subprojects.forEach { "dist"(project(":${it.name}")) }
+    "detektPlugins"("io.gitlab.arturbosch.detekt:detekt-formatting:1.1.0")
 }
 
 sourceSets.named("test") {
@@ -49,6 +51,14 @@ allprojects {
 
 tasks.named("build") {
     dependsOn("runTest", "dockerStopCogboard", "checkInited")
+}
+
+detekt {
+    input = files("cogboard-app/src/main/kotlin")
+    config.from(file("detekt.yml"))
+    parallel = true
+    autoCorrect = true
+    failFast = true
 }
 
 apply(from = "gradle/init.gradle.kts")

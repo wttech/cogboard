@@ -16,45 +16,56 @@ import io.vertx.ext.web.client.WebClient
 class HttpClient : AbstractVerticle() {
 
     override fun start() {
-        val client = WebClient.create(vertx)
+        WebClient.create(vertx)?.let {
+            registerGET(it)
+            registerCHECK(it)
+            registerPUT(it)
+            registerPOST(it)
+            registerDELETE(it)
+        }
+    }
+
+    private fun registerGET(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_GET).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
+    }
+
+    private fun registerCHECK(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_CHECK).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
+    }
+
+    private fun registerPUT(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_PUT).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.putAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.putAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
+    }
+
+    private fun registerPOST(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_POST).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.postAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.postAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
+    }
+
+    private fun registerDELETE(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_DELETE).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.deleteAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.deleteAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
     }
@@ -113,7 +124,6 @@ class HttpClient : AbstractVerticle() {
             }
         }
     }
-
 
     private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?, body: JsonObject?) {
         request.sendJsonObject(body) {

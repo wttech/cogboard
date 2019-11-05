@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.storage.docker
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.storage.model.Board
 import com.cognifide.cogboard.storage.model.Config
 import com.fasterxml.jackson.databind.JsonMappingException
@@ -10,6 +9,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
+import com.cognifide.cogboard.CogboardConstants as CC
 
 class Validation {
     companion object {
@@ -42,37 +42,36 @@ class Validation {
         private fun validateBoard(board: Board, titles: MutableSet<String>): List<ValidationError> {
             val errors = mutableListOf<ValidationError>()
 
-            if (!checkColumnsRange(board))
+            if (!checkColumnsRange(board)) {
                 errors.add(ValidationError(board,
-                        "Columns number should be between ${CogboardConstants.PROP_BOARD_COLUMN_MIN} and " +
-                                "${CogboardConstants.PROP_BOARD_COLUMN_MAX}"))
-            if (!checkTitleLength(board))
+                        "Columns number should be between ${CC.PROP_BOARD_COLUMN_MIN} and " +
+                                "${CC.PROP_BOARD_COLUMN_MAX}"))
+            }
+            if (!checkTitleLength(board)) {
                 errors.add(ValidationError(board,
                         "Title length must be less than or equal to 25, and should not be empty"))
-            if (!checkTitleUnique(board, titles))
+            }
+            if (!checkTitleUnique(board, titles)) {
                 errors.add(ValidationError(board, "Title must be unique"))
-            if (!checkAutoSwitchInterval(board))
+            }
+            if (!checkAutoSwitchInterval(board)) {
                 errors.add(ValidationError(board, "Interval cannot be smaller than 3s."))
+            }
 
             return errors
         }
 
         private fun checkColumnsRange(board: Board) =
-                board.columns in CogboardConstants.PROP_BOARD_COLUMN_MIN..CogboardConstants.PROP_BOARD_COLUMN_MAX
+                board.columns in CC.PROP_BOARD_COLUMN_MIN..CC.PROP_BOARD_COLUMN_MAX
 
-        private fun checkTitleLength(board: Board) =
-                board.title.length in 1..25
+        private fun checkTitleLength(board: Board) = board.title.length in 1..25
 
-        private fun checkTitleUnique(board: Board, titles: MutableSet<String>) =
-                titles.add(board.title)
+        private fun checkTitleUnique(board: Board, titles: MutableSet<String>) = titles.add(board.title)
 
         private fun checkAutoSwitchInterval(board: Board) =
-                when {
-                    board.autoSwitch -> {
-                        board.switchInterval >= 3
-                    }
-                    else -> true
-                }
+                if (board.autoSwitch) {
+                    board.switchInterval >= 3
+                } else true
     }
 
     data class ValidationError(val board: Board, val message: String)

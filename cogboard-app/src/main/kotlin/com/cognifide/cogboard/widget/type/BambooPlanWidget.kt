@@ -19,7 +19,6 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
             } else if (results != null && results.getInteger("size") == 1) {
                 sendSuccess(results)
             }
-
         } else sendUnknownResponceError()
     }
 
@@ -39,7 +38,6 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
             send(JsonObject()
                     .put(CC.PROP_STATUS, Widget.Status.from(result.getString("state")))
                     .put(CC.PROP_CONTENT, result))
-
         }
     }
 
@@ -54,5 +52,4 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
     private fun extractUrl(buildResultKey: String): String {
         return "$publicUrl/browse/$buildResultKey"
     }
-
 }

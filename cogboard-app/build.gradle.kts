@@ -12,6 +12,8 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
+
+
 dependencies {
 
     "io.knotx:knotx".let { v ->

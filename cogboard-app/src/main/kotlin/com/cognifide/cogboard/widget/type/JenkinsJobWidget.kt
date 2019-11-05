@@ -16,7 +16,6 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
 
             if (lastBuild != null) {
                 sendSuccess(lastBuild)
-
             } else sendUnknownResponceError()
         }
     }
@@ -31,7 +30,6 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
         send(JsonObject()
                 .put(CC.PROP_STATUS, status)
                 .put(CC.PROP_CONTENT, lastBuild))
-
     }
 
     private fun makePublic(privateUrl: String): String {

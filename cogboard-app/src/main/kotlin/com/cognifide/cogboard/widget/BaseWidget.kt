@@ -1,10 +1,11 @@
 package com.cognifide.cogboard.widget
 
-import com.cognifide.cogboard.CogboardConstants
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
-import java.util.*
+import java.util.Timer
+import java.util.TimerTask
 import kotlin.concurrent.timerTask
+import com.cognifide.cogboard.CogboardConstants as CC
 
 /**
  * Base widget class for extending - use this class if your new widget needs to do some computations on backend.
@@ -13,16 +14,16 @@ import kotlin.concurrent.timerTask
 abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
 
     override val id: String
-        get() = config.getString(CogboardConstants.PROP_ID)
+        get() = config.getString(CC.PROP_ID)
 
     override val type: String
-        get() = config.getString(CogboardConstants.PROP_WIDGET_TYPE)
+        get() = config.getString(CC.PROP_WIDGET_TYPE)
 
     val eventBusAddress: String
         get() = "event.widget.$id"
 
     val schedulePeriod: Long
-        get() = config.getLong(CogboardConstants.PROP_SCHEDULE_PERIOD) ?: CogboardConstants.PROP_SCHEDULE_PERIOD_DEFAULT
+        get() = config.getLong(CC.PROP_SCHEDULE_PERIOD) ?: CC.PROP_SCHEDULE_PERIOD_DEFAULT
 
     var task: TimerTask? = null
 
@@ -30,7 +31,7 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
      * Attach all default values to config
      */
     init {
-        CogboardConstants.DEFAULT_VALUES.forEach {
+        CC.DEFAULT_VALUES.forEach {
             if (!config.containsKey(it.key)) with(config) { put(it.key, it.value) }
         }
     }
@@ -46,9 +47,9 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
      * This method will add some required fields for you: `id`, `eventType`
      */
     override fun send(state: JsonObject) {
-        state.put(CogboardConstants.PROP_ID, id)
-        state.put(CogboardConstants.PROP_EVENT_TYPE, PROP_EVENT_TYPE_WIDGET_UPDATE)
-        vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
+        state.put(CC.PROP_ID, id)
+        state.put(CC.PROP_EVENT_TYPE, PROP_EVENT_TYPE_WIDGET_UPDATE)
+        vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
     }
 
     /**
@@ -56,11 +57,11 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
      */
     fun sendConfigurationError(cause: String = "") {
         send(JsonObject()
-                .put(CogboardConstants.PROP_STATUS, Widget.Status.ERROR_CONFIGURATION)
-                .put(CogboardConstants.PROP_CONTENT,
+                .put(CC.PROP_STATUS, Widget.Status.ERROR_CONFIGURATION)
+                .put(CC.PROP_CONTENT,
                         JsonObject()
-                                .put(CogboardConstants.PROP_ERROR_MESSAGE, "Configuration Error")
-                                .put(CogboardConstants.PROP_ERROR_CAUSE, cause)
+                                .put(CC.PROP_ERROR_MESSAGE, "Configuration Error")
+                                .put(CC.PROP_ERROR_CAUSE, cause)
                 )
         )
     }
@@ -70,11 +71,10 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     }
 
     fun checkAuthorized(responseBody: JsonObject): Boolean {
-        val statusCode = responseBody.getInteger(CogboardConstants.PROP_STATUS_CODE, 200)
+        val statusCode = responseBody.getInteger(CC.PROP_STATUS_CODE, CC.STATUS_CODE_200)
         return if (statusCode == 401) {
             sendConfigurationError("Unauthorized")
             false
-
         } else true
     }
 
@@ -82,7 +82,7 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
      * Will start Schedule when schedulePeriod > 0, execute once otherwise
      */
     override fun start(): Widget {
-        if (config.getBoolean(CogboardConstants.PROP_DISABLED) != true) {
+        if (config.getBoolean(CC.PROP_DISABLED) != true) {
             startWithSchedule()
         }
         return this
@@ -103,14 +103,14 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     private fun startWithSchedule() {
         if (schedulePeriod > 0L) {
             task = timerTask { updateState() }
-            Timer().schedule(task, CogboardConstants.PROP_SCHEDULE_DELAY_DEFAULT, schedulePeriod * 1000)
+            Timer().schedule(task, CC.PROP_SCHEDULE_DELAY_DEFAULT, schedulePeriod * 1000)
         } else {
             updateState()
         }
     }
 
     protected fun JsonObject.endpointProp(prop: String): String {
-        return this.getJsonObject(CogboardConstants.PROP_ENDPOINT)?.getString(prop) ?: ""
+        return this.getJsonObject(CC.PROP_ENDPOINT)?.getString(prop) ?: ""
     }
 
     companion object {

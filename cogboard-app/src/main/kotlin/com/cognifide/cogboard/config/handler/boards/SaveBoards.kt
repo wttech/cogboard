@@ -19,5 +19,4 @@ class SaveBoards : RoutingHandlerFactory {
                 .response()
                 .end(config?.getJsonObject("body", CogboardConstants.errorResponse())?.encode())
     }
-
 }
