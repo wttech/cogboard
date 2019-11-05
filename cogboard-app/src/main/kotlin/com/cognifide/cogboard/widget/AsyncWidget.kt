@@ -6,7 +6,8 @@ import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 
 /**
- * Async widget class for extending - use this class if your new widget needs to call some 3rd party endpoints to gather data.
+ * Async widget class for extending - use this class if your new widget needs to call
+ * some 3rd party endpoints to gather data.
  */
 abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
 
@@ -33,7 +34,7 @@ abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx,
 
     /**
      * Notifies Widget that it is time to update.
-     * Use `httpGet(...)`, `httpPost(...)` or `httpGetStatus(...)` in order to request new state from 3rd party endpoint.
+     * Use `httpGet(..)`, `httpPost(..)` or `httpGetStatus(..)` in order to request new state from 3rd party endpoint.
      * When http request is successful then 'handleResponse(responseBody: JsonObject)' will be executed
      */
     abstract override fun updateState()

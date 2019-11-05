@@ -3,7 +3,9 @@ package com.cognifide.cogboard.widget.type
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
-import com.cognifide.cogboard.widget.Widget.Status.*
+import com.cognifide.cogboard.widget.Widget.Status.OK
+import com.cognifide.cogboard.widget.Widget.Status.FAIL
+import com.cognifide.cogboard.widget.Widget.Status.UNSTABLE
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
@@ -13,17 +15,21 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
     private val selectedHealthChecks: JsonArray = config.getJsonArray("selectedHealthChecks")
 
     override fun handleResponse(responseBody: JsonObject) {
-        if (responseBody.containsKey("HealthCheck")) {
-            val healthChecksResponse = getData(responseBody)
-            val content = JsonObject()
-            val status = attachHealthChecks(content, healthChecksResponse)
-
-            send(JsonObject()
-                    .put(CogboardConstants.PROP_STATUS, status)
-                    .put(CogboardConstants.PROP_CONTENT, content))
-        } else {
-            sendUnknownResponceError()
+        if (checkAuthorized(responseBody)) {
+            if (responseBody.containsKey("HealthCheck")) {
+                sendSuccess(responseBody)
+            } else sendUnknownResponceError()
         }
+    }
+
+    private fun sendSuccess(responseBody: JsonObject) {
+        val healthChecksResponse = getData(responseBody)
+        val content = JsonObject()
+        val status = attachHealthChecks(content, healthChecksResponse)
+
+        send(JsonObject()
+                .put(CogboardConstants.PROP_STATUS, status)
+                .put(CogboardConstants.PROP_CONTENT, content))
     }
 
     override fun updateState() {

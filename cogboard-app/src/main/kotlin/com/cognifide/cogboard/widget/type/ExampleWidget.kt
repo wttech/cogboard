@@ -6,7 +6,7 @@ import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.LoggerFactory
-import java.util.*
+import java.util.Date
 
 class ExampleWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
 
@@ -36,5 +36,4 @@ class ExampleWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config
     companion object {
         private val LOGGER = LoggerFactory.getLogger(ExampleWidget::class.java)
     }
-
 }

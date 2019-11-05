@@ -20,16 +20,7 @@ import com.bmuschko.gradle.docker.tasks.container.extras.DockerWaitHealthyContai
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
 
-buildscript {
-    repositories {
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath("com.bmuschko:gradle-docker-plugin:4.9.0")
-    }
-}
-
-val dockerImageRef = File("$buildDir/.docker/buildImage-imageId.txt")
+val dockerImageRef = "$buildDir/.docker/buildImage-imageId.txt"
 val dockerContainerName = project.property("docker.container.name")?.toString() ?: "cogboard"
 val dockerImageName = project.property("docker.image.name")?.toString() ?: "cogboard/cogboard-app"
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
@@ -69,59 +60,63 @@ task("dockerStopCogboard") {
     }
 }
 
-tasks.create("removeImage", DockerRemoveImage::class) {
+tasks.register<DockerRemoveImage>("removeImage") {
     group = "docker"
 
-    val spec = Spec<Task> { dockerImageRef.exists() }
-    onlyIf(spec)
+    onlyIf { File(dockerImageRef).exists() }
 
-    targetImageId(if (dockerImageRef.exists()) dockerImageRef.readText() else "")
+    targetImageId(if (File(dockerImageRef).exists()) File(dockerImageRef).readText() else "")
     onError {
         if (!this.message!!.contains("No such image"))
             throw this
     }
 }
 
-val buildImage by tasks.creating(DockerBuildImage::class) {
+tasks.register<DockerBuildImage> ("buildImage") {
     group = "docker"
     inputDir.set(file("$buildDir"))
-    tags.add("$dockerImageName:latest")
+    tags.add("${project.property("docker.image.name")}:latest")
     dependsOn("removeImage", "prepareDocker")
 }
+val buildImage = tasks.named<DockerBuildImage>("buildImage")
 
 // FUNCTIONAL TESTS
 
-val createContainer by tasks.creating(DockerCreateContainer::class) {
+tasks.register<DockerCreateContainer>("createContainer") {
     group = "docker-functional-tests"
     dependsOn(buildImage)
-    targetImageId(buildImage.getImageId())
+    targetImageId(buildImage.get().imageId)
     portBindings.set(listOf("8092:8092"))
     exposePorts("tcp", listOf(8092))
     autoRemove.set(true)
-    containerName.set(dockerContainerName)
 }
+val createContainer = tasks.named<DockerCreateContainer>("createContainer")
 
-val startContainer by tasks.creating(DockerStartContainer::class) {
+tasks.register<DockerStartContainer>("startContainer") {
     group = "docker-functional-tests"
     dependsOn(createContainer)
-    targetContainerId(createContainer.containerId)
+    targetContainerId(createContainer.get().containerId)
 }
 
-val waitContainer by tasks.creating(DockerWaitHealthyContainer::class) {
+tasks.register<DockerWaitHealthyContainer>("waitContainer") {
     group = "docker-functional-tests"
-    dependsOn(startContainer)
-    targetContainerId(createContainer.containerId)
+    dependsOn(tasks.named("startContainer"))
+    targetContainerId(createContainer.get().containerId)
 }
 
-val stopContainer by tasks.creating(DockerStopContainer::class) {
+tasks.register<DockerStopContainer>("stopContainer") {
     group = "docker-functional-tests"
-    targetContainerId(createContainer.containerId)
+    targetContainerId(createContainer.get().containerId)
 }
 
-tasks.create("runTest", Test::class) {
-    group = "docker-functional-tests"
-    dependsOn(waitContainer)
-    finalizedBy(stopContainer)
+/** Deprecated */
+tasks.register("runTest", Test::class) {
+    dependsOn(tasks.named("runFunctionalTest"))
+}
 
+tasks.register("runFunctionalTest", Test::class) {
+    group = "docker-functional-tests"
+    dependsOn(tasks.named("waitContainer"))
+    finalizedBy(tasks.named("stopContainer"))
     include("**/*ITCase*")
 }

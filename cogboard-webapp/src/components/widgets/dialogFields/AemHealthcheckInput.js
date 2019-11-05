@@ -1,4 +1,7 @@
 import React from 'react';
+import { useTheme } from '@material-ui/styles';
+
+import { AEM_HEALTH_CHECKS } from '../../../constants';
 
 import {
   Input,
@@ -8,16 +11,15 @@ import {
   ListItemText,
   Select
 } from '@material-ui/core';
-
 import { StyledFormControl } from './../../styled';
-import { AEM_HEALTH_CHECKS } from '../../../constants';
 
 const AemHealthcheckInput = props => {
   const { onChange, value } = props;
+  const theme = useTheme();
   const inputId = 'aemhealthcheck-metrics-input';
 
   return (
-    <StyledFormControl>
+    <StyledFormControl theme={theme}>
       <InputLabel htmlFor={inputId}>Health Checks</InputLabel>
       <Select
         multiple

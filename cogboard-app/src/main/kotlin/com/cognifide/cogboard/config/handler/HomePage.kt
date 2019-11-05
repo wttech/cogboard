@@ -19,5 +19,4 @@ class HomePage : RoutingHandlerFactory {
                     .end(homePageContent)
         }
     }
-
 }
