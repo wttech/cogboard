@@ -72,7 +72,7 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
 
     fun checkAuthorized(responseBody: JsonObject): Boolean {
         val statusCode = responseBody.getInteger(CC.PROP_STATUS_CODE, CC.STATUS_CODE_200)
-        return if (statusCode == 401) {
+        return if (statusCode == CC.STATUS_CODE_401) {
             sendConfigurationError("Unauthorized")
             false
         } else true
@@ -103,7 +103,7 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     private fun startWithSchedule() {
         if (schedulePeriod > 0L) {
             task = timerTask { updateState() }
-            Timer().schedule(task, CC.PROP_SCHEDULE_DELAY_DEFAULT, schedulePeriod * 1000)
+            Timer().schedule(task, CC.PROP_SCHEDULE_DELAY_DEFAULT, schedulePeriod * TO_SECONDS)
         } else {
             updateState()
         }
@@ -115,5 +115,6 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
 
     companion object {
         const val PROP_EVENT_TYPE_WIDGET_UPDATE = "widget-update"
+        const val TO_SECONDS = 1000
     }
 }

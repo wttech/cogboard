@@ -15,6 +15,8 @@ class Validation {
     companion object {
 
         private val LOGGER: Logger = LoggerFactory.getLogger(Validation::class.java)
+        private val EXPECTED_TITLE_LENGTH = 1..25
+        private const val MIN_SWITCH_INTERVAL = 3
 
         private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 
@@ -64,13 +66,13 @@ class Validation {
         private fun checkColumnsRange(board: Board) =
                 board.columns in CC.PROP_BOARD_COLUMN_MIN..CC.PROP_BOARD_COLUMN_MAX
 
-        private fun checkTitleLength(board: Board) = board.title.length in 1..25
+        private fun checkTitleLength(board: Board) = board.title.length in EXPECTED_TITLE_LENGTH
 
         private fun checkTitleUnique(board: Board, titles: MutableSet<String>) = titles.add(board.title)
 
         private fun checkAutoSwitchInterval(board: Board) =
                 if (board.autoSwitch) {
-                    board.switchInterval >= 3
+                    board.switchInterval >= MIN_SWITCH_INTERVAL
                 } else true
     }
 
