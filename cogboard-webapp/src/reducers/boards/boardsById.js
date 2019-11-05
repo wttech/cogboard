@@ -12,18 +12,19 @@ import {
 import { reorderItems } from '../helpers';
 
 const receiveData = (state, { payload }) => {
-  const { boards: { boardsById } } = payload;
+  const {
+    boards: { boardsById }
+  } = payload;
 
   return { ...state, ...boardsById };
 };
 
 const initBoardProps = (state, { payload }) => {
-  return Object.entries(state)
-    .reduce((newState, [boardId, boardProps]) => {
-      newState[boardId] = { ...payload, ...boardProps };
+  return Object.entries(state).reduce((newState, [boardId, boardProps]) => {
+    newState[boardId] = { ...payload, ...boardProps };
 
-      return newState;
-    }, {});
+    return newState;
+  }, {});
 };
 
 const addBoard = (state, { payload }) => {
@@ -39,7 +40,7 @@ const editBoard = (state, { payload }) => {
   return {
     ...state,
     [id]: { ...board, ...other }
-  }
+  };
 };
 
 const deleteBoard = (state, { payload: id }) => {

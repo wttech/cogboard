@@ -1,4 +1,11 @@
-import { RECEIVE_DATA, REQUEST_UPDATE, UPDATE_WIDGET, EDIT_WIDGET, ADD_WIDGET, DELETE_WIDGET } from '../../actions/types';
+import {
+  RECEIVE_DATA,
+  REQUEST_UPDATE,
+  UPDATE_WIDGET,
+  EDIT_WIDGET,
+  ADD_WIDGET,
+  DELETE_WIDGET
+} from '../../actions/types';
 
 const requestUpdate = (state, { payload: id }) => {
   const widget = state[id];
@@ -11,7 +18,9 @@ const requestUpdate = (state, { payload: id }) => {
 
 const receiveData = (state, action) => {
   const { payload } = action;
-  const { widgets: { widgetsById } } = payload;
+  const {
+    widgets: { widgetsById }
+  } = payload;
 
   return { ...state, ...widgetsById };
 };
@@ -37,7 +46,6 @@ const editWidget = (state, { payload }) => {
   const widget = state[id];
   const prevContent = widget.content;
 
-
   return {
     ...state,
     [id]: {
@@ -55,7 +63,7 @@ const addWidget = (state, { payload }) => {
     ...state,
     [id]: { id, ...other }
   };
-}
+};
 
 const deleteWidget = (state, { payload }) => {
   const { id } = payload;

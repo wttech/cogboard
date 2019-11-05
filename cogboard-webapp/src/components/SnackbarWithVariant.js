@@ -6,39 +6,40 @@ import { createGetNotification } from '../selectors';
 import { deleteNotification } from '../actions/actionCreators';
 
 import Snackbar from '@material-ui/core/Snackbar/index';
-import SnackbarVariantContent from "./SnackbarVariantContent";
+import SnackbarVariantContent from './SnackbarVariantContent';
 
-const SnackbarWithVariant = React.memo(({ notificationId, vertical, horizontal }) => {
-  const getNotification = useMemo(createGetNotification, []);
-  const { type, message, duration } = useSelector(state => getNotification(state, notificationId))
-  const dispatch = useDispatch();
-  const [isOpened, , closeSnackbar] = useToggle(true);
+const SnackbarWithVariant = React.memo(
+  ({ notificationId, vertical, horizontal }) => {
+    const getNotification = useMemo(createGetNotification, []);
+    const { type, message, duration } = useSelector(state =>
+      getNotification(state, notificationId)
+    );
+    const dispatch = useDispatch();
+    const [isOpened, , closeSnackbar] = useToggle(true);
 
-  const handleClose = (event, reason) => {
-    if (reason !== 'timeout') {
-      return;
-    }
+    const handleClose = (event, reason) => {
+      if (reason !== 'timeout') {
+        return;
+      }
 
-    closeSnackbar();
-  };
+      closeSnackbar();
+    };
 
-  const handleExited = () => dispatch(deleteNotification(notificationId));
+    const handleExited = () => dispatch(deleteNotification(notificationId));
 
-  return (
-    <Snackbar
-      onClose={handleClose}
-      onExited={handleExited}
-      anchorOrigin={{ vertical, horizontal }}
-      autoHideDuration={duration}
-      disableWindowBlurListener
-      open={isOpened}
-    >
-      <SnackbarVariantContent
-        variant={type}
-        message={message}
-      />
-    </Snackbar>
-  );
-});
+    return (
+      <Snackbar
+        onClose={handleClose}
+        onExited={handleExited}
+        anchorOrigin={{ vertical, horizontal }}
+        autoHideDuration={duration}
+        disableWindowBlurListener
+        open={isOpened}
+      >
+        <SnackbarVariantContent variant={type} message={message} />
+      </Snackbar>
+    );
+  }
+);
 
 export default SnackbarWithVariant;

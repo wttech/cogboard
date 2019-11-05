@@ -1,4 +1,4 @@
-import { PUSH_NOTIFICATION, DELETE_NOTIFICATION } from "../../actions/types";
+import { PUSH_NOTIFICATION, DELETE_NOTIFICATION } from '../../actions/types';
 import { assoc, dissoc } from 'ramda';
 
 const pushNotification = (state, payload) => {

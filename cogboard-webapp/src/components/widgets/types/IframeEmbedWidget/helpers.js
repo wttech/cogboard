@@ -1,5 +1,5 @@
-const HTTP = "http://";
-const WWW = "www";
+const HTTP = 'http://';
+const WWW = 'www';
 
 export const attachHttp = url => {
   if (url.startsWith(WWW)) {

@@ -1,6 +1,11 @@
 import { object, string, number, boolean } from 'yup';
 
-import { COLUMNS_MAX, COLUMNS_MIN, BOARD_TITLE_LENGTH_LIMIT, SWITCH_INTERVAL_MIN } from '../../constants';
+import {
+  COLUMNS_MAX,
+  COLUMNS_MIN,
+  BOARD_TITLE_LENGTH_LIMIT,
+  SWITCH_INTERVAL_MIN
+} from '../../constants';
 
 const MAX_TITLE_LENGTH = `Title length must be less than or equal to ${BOARD_TITLE_LENGTH_LIMIT}`;
 const MIN_TITLE_LENGTH = 'Title cannot be empty';
@@ -11,19 +16,16 @@ const COLUMNS_NUMBER = `Columns number should be between ${COLUMNS_MIN} and ${CO
 
 const MIN_SWITCH_INTERVAL = `Interval cannot be smaller than ${SWITCH_INTERVAL_MIN}s.`;
 
-const uniqueTitleTestCreator = (boardId, boards) => 
-  ({
-    name: 'uniqueTitle',
-    params: { boards, boardId },
-    message: UNIQUE_MESSAGE,
-    exclusive: true,
-    test: (title) => 
-      boards.every(
-        (board) => board.title !== title || board.id === boardId)
-  })
+const uniqueTitleTestCreator = (boardId, boards) => ({
+  name: 'uniqueTitle',
+  params: { boards, boardId },
+  message: UNIQUE_MESSAGE,
+  exclusive: true,
+  test: title =>
+    boards.every(board => board.title !== title || board.id === boardId)
+});
 
-
-export const createValidationSchema = (boardId, boards) => 
+export const createValidationSchema = (boardId, boards) =>
   object().shape({
     title: string()
       .trim()
@@ -35,17 +37,12 @@ export const createValidationSchema = (boardId, boards) =>
       .min(COLUMNS_MIN, COLUMNS_NUMBER)
       .max(COLUMNS_MAX, COLUMNS_NUMBER)
       .required(),
-    autoSwitch: boolean()
-      .required(),
-    switchInterval: number()
-      .when(
-        'autoSwitch', {
-          is: true,
-          then: number()
-            .min(SWITCH_INTERVAL_MIN, MIN_SWITCH_INTERVAL)
-            .required(),
-          otherwise: number()
-            .notRequired()
-        }
-      )
-  })
+    autoSwitch: boolean().required(),
+    switchInterval: number().when('autoSwitch', {
+      is: true,
+      then: number()
+        .min(SWITCH_INTERVAL_MIN, MIN_SWITCH_INTERVAL)
+        .required(),
+      otherwise: number().notRequired()
+    })
+  });

@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select } from '@material-ui/core';
+import {
+  Input,
+  InputLabel,
+  Checkbox,
+  MenuItem,
+  ListItemText,
+  Select
+} from '@material-ui/core';
 
 import { StyledFormControl } from './../../styled';
 import { AEM_HEALTH_CHECKS } from '../../../constants';
@@ -16,19 +23,18 @@ const AemHealthcheckInput = props => {
         multiple
         value={value}
         onChange={onChange}
-        input={<Input id={inputId}/>}
+        input={<Input id={inputId} />}
         renderValue={value => `${value.length} selected`}
       >
-        {Object.entries(AEM_HEALTH_CHECKS).map(([name, label]) =>
+        {Object.entries(AEM_HEALTH_CHECKS).map(([name, label]) => (
           <MenuItem key={name} value={name}>
-            <Checkbox checked={value.includes(name)}/>
-            <ListItemText primary={label}/>
+            <Checkbox checked={value.includes(name)} />
+            <ListItemText primary={label} />
           </MenuItem>
-        )}
+        ))}
       </Select>
     </StyledFormControl>
   );
 };
 
 export default AemHealthcheckInput;
-

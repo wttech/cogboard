@@ -1,8 +1,15 @@
-import { RECEIVE_DATA, DELETE_BOARD, ADD_BOARD, REORDER_BOARDS } from '../../actions/types';
+import {
+  RECEIVE_DATA,
+  DELETE_BOARD,
+  ADD_BOARD,
+  REORDER_BOARDS
+} from '../../actions/types';
 import { reorderItems } from '../helpers';
 
 const receiveData = (state, { payload }) => {
-  const { boards: { allBoards } } = payload;
+  const {
+    boards: { allBoards }
+  } = payload;
 
   return [...state, ...allBoards];
 };
@@ -21,7 +28,7 @@ const reorderBoards = (state, { payload }) => {
   const boards = [...state];
   const sortedBoards = reorderItems(boards, sourceId, targetIndex);
 
-  return sortedBoards
+  return sortedBoards;
 };
 
 const allBoards = (state = [], action) => {

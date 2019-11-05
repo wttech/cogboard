@@ -9,9 +9,7 @@
     "@material-ui/icons": "^4.2.1",
     "@reach/router": "^1.2.1",
     "http-proxy-middleware": "^0.20.0",
-    "husky": "^3.0.9",
     "jwt-decode": "^2.2.0",
-    "lint-staged": "^9.4.2",
     "moment-timezone": "^0.5.26",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
@@ -31,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -49,7 +48,10 @@
     ]
   },
   "devDependencies": {
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
     "redux-devtools-extension": "^2.13.8"
   },
   "husky": {
@@ -59,7 +61,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write",
+      "pretty-quick --staged",
       "git add"
     ]
   }

@@ -4,7 +4,7 @@ import styled from '@emotion/styled/macro';
 
 import { saveBoard } from '../actions/thunks';
 
-import { Button } from '@material-ui/core'
+import { Button } from '@material-ui/core';
 import BoardForm from './BoardForm';
 import CancelButton from './CancelButton';
 
@@ -13,9 +13,9 @@ const StyledCancelButton = styled(CancelButton)`
 `;
 
 const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const handleSaveClick = (values) => {
+  const handleSaveClick = values => {
     dispatch(saveBoard({ id, ...values }));
     closeDialog();
   };
