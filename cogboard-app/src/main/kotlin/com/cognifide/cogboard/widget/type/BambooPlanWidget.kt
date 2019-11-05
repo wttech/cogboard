@@ -18,15 +18,16 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
                 sendNeverBuilt()
             } else if (results != null && results.getInteger("size") == 1) {
                 sendSuccess(results)
-            }
-        } else sendUnknownResponceError()
+            } else sendUnknownResponceError()
+        }
     }
 
     private fun sendNeverBuilt() {
         send(JsonObject()
                 .put(CC.PROP_STATUS, Widget.Status.UNKNOWN)
                 .put(CC.PROP_CONTENT, JsonObject()
-                        .put(CC.PROP_ERROR_MESSAGE, "Never Built")))
+                        .put(CC.PROP_ERROR_MESSAGE, "Never Built")
+                        .put(CC.PROP_ERROR_CAUSE, "")))
     }
 
     private fun sendSuccess(results: JsonObject) {
