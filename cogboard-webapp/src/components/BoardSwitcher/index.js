@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useBoardSwitching } from './hooks';
+import { useBoardSwitching, usePrevious } from './hooks';
 import { formatTime } from './helpers';
 
 import { IconButton, Tooltip } from '@material-ui/core';
@@ -11,6 +11,7 @@ const BoardSwitcher = ({ className }) => {
   const {
     handleBoardsSwitch,
     handlePlayToggle,
+    handleResetTimeElapsed,
     hasBoardsToSwitch,
     isPlaying,
     isDisable,
@@ -20,6 +21,13 @@ const BoardSwitcher = ({ className }) => {
     timeElapsed
   } = useBoardSwitching();
   const timeLeft = switchInterval - timeElapsed;
+  const previousSwitchInterval = usePrevious(switchInterval);
+
+  useEffect(() => {
+    if (previousSwitchInterval !== switchInterval) {
+      handleResetTimeElapsed();
+    }
+  })
 
   if (!hasBoardsToSwitch || isDisable) {
     return null;
