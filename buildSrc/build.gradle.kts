@@ -16,5 +16,4 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.31")
     implementation("com.bmuschko:gradle-docker-plugin:4.10.0")
     implementation("io.knotx:knotx-gradle-plugins:0.1.2")
-    implementation("net.researchgate.release:gradle-release:2.6.0")
 }

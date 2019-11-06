@@ -12,8 +12,6 @@ deploy:
   script: bash scripts/release.sh
   on:
     branch: master
-script:
-- "./gradlew build --info"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
