@@ -1,7 +1,6 @@
 package com.cognifide.cogboard.storage
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.ConfigLoader
 import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.Config
 import com.cognifide.cogboard.config.ConfigFactory
@@ -11,11 +10,11 @@ import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import java.io.File
 
-class VolumeStorage(private val configType: ConfigType, val vertx: Vertx) : Storage {
+class VolumeStorage(configType: ConfigType, val vertx: Vertx) : Storage {
 
-    private var config: Config = ConfigFactory.resolveByType(configType)
+    private var config: Config = ConfigFactory.getByType(configType)
 
-    override fun loadConfig(): JsonObject = ConfigLoader.loadByType(configType)
+    override fun loadConfig(): JsonObject = config.load()
 
     override fun saveConfig(configJson: JsonObject) {
         if (config.validate(configJson)) {

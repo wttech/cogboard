@@ -70,8 +70,7 @@ class EndpointsService(private val config: JsonObject, vertx: Vertx) {
         return ENDPOINT_ID_PREFIX + (lastId + 1)
     }
 
-    fun delete(endpoint: JsonObject) {
-        val endpointId = endpoint.getString(ENDPOINT_ID_PROP)
+    fun delete(endpointId: String) {
         val endpoints = config.getJsonArray(ENDPOINTS_ARRAY) ?: JsonArray()
         endpoints.stream()
                 .map { it as JsonObject }

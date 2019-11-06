@@ -4,7 +4,7 @@ import com.cognifide.cogboard.config.ConfigType.*
 
 object ConfigFactory {
 
-    fun resolveByType(configType: ConfigType): Config {
+    fun getByType(configType: ConfigType): Config {
         return when (configType) {
             BOARDS -> BoardsConfig()
             ENDPOINTS -> EndpointsConfig()

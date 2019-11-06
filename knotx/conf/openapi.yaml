@@ -55,7 +55,6 @@ paths:
       responses:
         default:
           description: Endpoint list
-  /api/endpoints/update:
     post:
       operationId: endpoints-update-handler
       security:
@@ -63,11 +62,25 @@ paths:
       responses:
         default:
           description: Endpoint Update Handler
-  /api/endpoints/delete:
-    post:
+  /api/endpoints/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: endpoint to be fetched, updated or deleted
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: endpoint-by-id-get-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: Endpoint list
+    delete:
       operationId: endpoints-delete-handler
-#      security:
-#        - cogboardAuth: []
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Endpoint Delete Handler

@@ -1,12 +1,11 @@
 package com.cognifide.cogboard.config.handler.endpoints
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.ConfigLoader
+import com.cognifide.cogboard.config.Config
+import com.cognifide.cogboard.config.ConfigFactory
 import com.cognifide.cogboard.config.ConfigType
-import com.cognifide.cogboard.config.EndpointLoader.Companion.CREDENTIALS
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
-import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_PUBLIC_URL_PROP
-import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_URL_PROP
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER
 import io.knotx.server.api.handler.RoutingHandlerFactory
@@ -18,30 +17,53 @@ import io.vertx.reactivex.ext.web.RoutingContext
 
 class GetEndpoints : RoutingHandlerFactory {
 
-    private lateinit var endpoints: JsonArray
+    private val config: Config = ConfigFactory.getByType(ConfigType.ENDPOINTS)
 
     override fun getName(): String = "endpoints-get-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
-        val endpointsConfig = ConfigLoader.loadByType(ConfigType.ENDPOINTS)
-        endpoints = filterSensitiveData(endpointsConfig)
-
-        event.response().end(endpoints.encode())
+        val endpointId = event.request().getParam(PARAM_ENDPOINT_ID)
+        val response = if(endpointId != null) getEndpointById(endpointId) else getAllEndpoints()
+        event.response().end(response)
     }
 
-    private fun filterSensitiveData(config: JsonObject?): JsonArray {
-        val copy = config?.getJsonArray(ENDPOINTS_ARRAY)
+    private fun getEndpointById(endpointId: String): String {
+        val endpoint: JsonObject =
+                JsonArray(getAllEndpoints()).getById(endpointId)
+                        ?: JsonObject().put(ERROR_MESSAGE, "Endpoint with ID $endpointId doesn't exist")
+        return endpoint.encode()
+    }
+
+    private fun JsonArray.getById(id: String): JsonObject? {
+        return this.map { it as JsonObject }
+                .filter { it.getValue(ENDPOINT_ID_PROP) == id }
+                .getOrNull(0)
+    }
+
+    private fun getAllEndpoints(): String {
+        val endpointsConfig = config.load()
+        val endpointsWithoutSensitiveData = filterSensitiveData(endpointsConfig)
+        return endpointsWithoutSensitiveData.encode()
+    }
+
+    private fun filterSensitiveData(config: JsonObject): JsonArray {
+        val copy = config.getJsonArray(ENDPOINTS_ARRAY)
                 ?: JsonArray().add(CogboardConstants.errorResponse("No endpoints array found, $config"))
         copy.stream().forEach {
             if (it is JsonObject) {
-                it.remove(ENDPOINT_URL_PROP)
-                it.remove(ENDPOINT_PUBLIC_URL_PROP)
-                it.remove(CREDENTIALS)
-                it.remove(USER)
-                it.remove(PASSWORD)
+                it.filterSensitiveData()
             }
         }
         return copy
     }
 
+    private fun JsonObject.filterSensitiveData() {
+        this.remove(USER)
+        this.remove(PASSWORD)
+    }
+
+    companion object {
+        private const val ERROR_MESSAGE: String = "error"
+        internal const val PARAM_ENDPOINT_ID: String = "id"
+    }
 }

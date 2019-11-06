@@ -2,15 +2,15 @@ package com.cognifide.cogboard.config
 
 import io.vertx.core.json.JsonObject
 
-class EndpointsConfig: Config {
+class EndpointsConfig: Config() {
 
     override fun validate(configJson: JsonObject): Boolean {
         return configJson.getJsonArray(ENDPOINTS_ARRAY) != null
     }
 
-    override fun filePath() : String {
-        return ENDPOINTS_CONFIG_FILE_PATH
-    }
+    override fun filePath() : String = ENDPOINTS_CONFIG_FILE_PATH
+
+    override fun type(): ConfigType = ConfigType.ENDPOINTS
 
     companion object {
         private const val ENDPOINTS_CONFIG_FILE_PATH = "/data/endpoints.json"
