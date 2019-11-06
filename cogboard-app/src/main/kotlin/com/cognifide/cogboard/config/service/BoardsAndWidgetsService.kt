@@ -15,6 +15,7 @@ import io.vertx.core.logging.LoggerFactory
 class BoardsAndWidgetsService(private val config: JsonObject, private val vertx: Vertx) {
 
     private val storage: Storage = VolumeStorage(ConfigType.BOARDS, vertx)
+
     private val widgets = mutableMapOf<String, Widget>()
 
     fun saveBoardsConfig(boardsConfig: JsonObject) = storage.saveConfig(boardsConfig)

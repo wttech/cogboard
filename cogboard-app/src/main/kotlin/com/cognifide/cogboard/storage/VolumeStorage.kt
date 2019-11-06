@@ -15,9 +15,7 @@ class VolumeStorage(private val configType: ConfigType, val vertx: Vertx) : Stor
 
     private var config: Config = ConfigFactory.resolveByType(configType)
 
-    override fun loadConfig(): JsonObject {
-        return ConfigLoader.loadByType(configType)
-    }
+    override fun loadConfig(): JsonObject = ConfigLoader.loadByType(configType)
 
     override fun saveConfig(configJson: JsonObject) {
         if (config.validate(configJson)) {

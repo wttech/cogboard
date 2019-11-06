@@ -5,6 +5,7 @@ import io.vertx.core.json.JsonObject
 import java.io.File
 
 object ConfigLoader {
+
     fun loadByType(configType: ConfigType): JsonObject {
         val config = ConfigFactory.resolveByType(configType)
         val conf = File(config.filePath()).readText()
