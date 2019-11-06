@@ -8,7 +8,7 @@ import { deleteNotification } from '../actions/actionCreators';
 import Snackbar from '@material-ui/core/Snackbar/index';
 import SnackbarVariantContent from "./SnackbarVariantContent";
 
-const SnackbarWithVariant = React.memo(({ notificationId, vertical, horizontal }) => {
+const SnackbarWithVariant = React.memo(({ notificationId, vertical, horizontal, 'data-cy': dataCy }) => {
   const getNotification = useMemo(createGetNotification, []);
   const { type, message, duration } = useSelector(state => getNotification(state, notificationId))
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ const SnackbarWithVariant = React.memo(({ notificationId, vertical, horizontal }
       autoHideDuration={duration}
       disableWindowBlurListener
       open={isOpened}
+      data-cy={dataCy}
     >
       <SnackbarVariantContent
         variant={type}

@@ -14,6 +14,7 @@ const Notifications = () => {
       key={id}
       notificationId={id}
       vertical="top"
+      data-cy="notification-snackbar"
     />
   ));
 };
