@@ -12,6 +12,7 @@ import { StyledTitle } from "./styled";
 
 import BoardSwitcher from './BoardSwitcher';
 import UserLogin from "./UserLogin";
+import { EndpointsMenu } from './EndpointsMenu';
 
 const StyledBoardSwitcher = styled(BoardSwitcher)`
   align-items: center;
@@ -48,6 +49,7 @@ const NavBar = ({ handleDrawerToggle }) => {
           >
             <DashboardRounded />
           </IconButton>
+          <EndpointsMenu/>
           <UserLogin/>
           <StyledTitle
             component="h2"

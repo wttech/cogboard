@@ -33,6 +33,7 @@ const DropdownField = props => {
       fetch(itemsUrl, init)
         .then(response => response.json())
         .then(data => {
+          console.log(data)
           setOptions(data);
           setLoaded(true);
         })

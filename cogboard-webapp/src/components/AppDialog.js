@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 
 const StyledDialog = styled(props => <Dialog classes={{ paper: 'paper' }} {...props} />)`
   .paper {
+    max-width: 800px;
     padding: 15px;
   }
 `;
