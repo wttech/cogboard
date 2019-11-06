@@ -18,7 +18,7 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
         if (checkAuthorized(responseBody)) {
             if (responseBody.containsKey("HealthCheck")) {
                 sendSuccess(responseBody)
-            } else sendUnknownResponceError()
+            } else sendConfigurationError(responseBody.getString(CogboardConstants.PROP_ERROR_CAUSE))
         }
     }
 
