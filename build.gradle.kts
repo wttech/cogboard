@@ -17,6 +17,7 @@ plugins {
     id("com.bmuschko.docker-remote-api")
     id("java")
     id("io.gitlab.arturbosch.detekt") version "1.1.0"
+    id("net.researchgate.release") version "2.6.0"
 }
 
 val dockerContainerName = project.property("docker.container.name") ?: "cogboard"

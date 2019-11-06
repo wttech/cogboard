@@ -1,20 +1,26 @@
 language: java
 install: true
-
 services:
-  - docker
-
+- docker
 jdk:
-  - oraclejdk8
-
+- oraclejdk11
 script:
-  - ./gradlew build --info
-
+- if [ "$TRAVIS_BRANCH" = "master" ]; then ./gradlew cogboardInit && ./gradlew build
+  --info && echo -e "\n\n RELEASE from MASTER Succeeded.\n\n" && docker images; fi
+deploy:
+- provider: script
+  script: bash scripts/release.sh
+  on:
+    branch: master
+script:
+- "./gradlew build --info"
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - "$HOME/.gradle/caches/"
-    - "$HOME/.gradle/wrapper/"
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+env:
+  global:
+    secure: Am67p/tzwtBKjUYnVjNrLI9prTLr1Bq6TeuaQYM6YxBpijvBa/XXveJT6m6xfaCCxk8XmKUvmhBoVfug896GBE+TCIVqUbARb06x9gmqH6qQa5b9yPHmkeesxgAObDrasbTCRDQj2ADVQaaya3WH2w4QkKTknNF/XDMiSD2b0cJ6iTLHAy7OY+iIOCLFXRtWqUNyKSBmF9ZFBexs6SENJ0TJggawP5ZyZpVqTsDUB3mbfB9ZegVTWaqr2Plf8/3pk5c/f3pamP4YACgc/Pak71TAwwBaDGlHggnQexgIeluHmABHkt7IBtXOLXQCme3WWL4we7B49Y7QlxhRyLGfMIwZF99mEozOTynW2i8aYQSrRpik7GB882AJxmumAh+FVSzxAZNSFSTrFrFz3+zumxiyALVOgwzg1cI4SAxuOxc2/dYAANzrLJt4WyaVNjEzum19C52Is/fKzPqNQNu5lFlkmsAblXxLYePQi4jxzdj+AyLk7NvGortoCUWZLxmedpRrGaVZ0xqCqLtcDjQqes5umGAlN5Mt4b2zdKXkUmf/uVRgo5PRQwC+WxqWt00ePgfi5cQIGX4Cs5Gt6JcRmvzZT7dXvujJS4ykjH4V7GoSW7z9s3gKRp9QqRonEpV3uh/Z2J6uNxjUhQO36ZrVoecaQFvZaQh4OedQv/r3vi8=
