@@ -1,9 +1,9 @@
 package com.cognifide.cogboard.config
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINTS_ARRAY
-import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.PASSWORD
-import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.USER
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 

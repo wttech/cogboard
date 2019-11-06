@@ -1,16 +1,27 @@
 package com.cognifide.cogboard.config.service
 
+import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.EndpointLoader
-import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINTS_ARRAY
-import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINT_ID_PREFIX
-import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINT_ID_PROP
-import com.cognifide.cogboard.config.type.EndpointsConfig.Companion.ENDPOINT_LABEL_PROP
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PREFIX
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_LABEL_PROP
+import com.cognifide.cogboard.storage.Storage
+import com.cognifide.cogboard.storage.VolumeStorage
+import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-internal class EndpointsService(private val config: JsonObject) {
+class EndpointsService(private val config: JsonObject, vertx: Vertx) {
 
-    fun save(endpoint: JsonObject) = if (exists(endpoint)) update(endpoint) else add(endpoint)
+    private var storage: Storage = VolumeStorage(ConfigType.ENDPOINTS, vertx)
+
+    fun loadConfig(): JsonObject = storage.loadConfig()
+
+    fun save(endpoint: JsonObject) {
+        if (exists(endpoint)) update(endpoint) else add(endpoint)
+        storage.saveConfig(config)
+    }
 
     fun exists(endpoint: JsonObject): Boolean {
         val endpointId = endpoint.getString(ENDPOINT_ID_PROP) ?: return false
@@ -71,6 +82,8 @@ internal class EndpointsService(private val config: JsonObject) {
                     val endpointPosition = getEndpointPosition(endpoints, it)
                     endpoints.remove(endpointPosition)
                 }
+
+        storage.saveConfig(config)
     }
 
     private fun getEndpointPosition(endpoints: JsonArray, endpointId: String): Int {

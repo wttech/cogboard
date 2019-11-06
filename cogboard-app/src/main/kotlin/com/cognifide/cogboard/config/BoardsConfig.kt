@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.config.type
+package com.cognifide.cogboard.config
 
 import com.cognifide.cogboard.config.validation.BoardsValidation
 import io.vertx.core.json.JsonObject

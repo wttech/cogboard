@@ -10,10 +10,10 @@ import io.vertx.core.json.JsonObject
 
 class EndpointsController : AbstractVerticle() {
 
-    private lateinit var storage: Storage
+    private lateinit var endpointsService: EndpointsService
 
     override fun start() {
-        storage = VolumeStorage(ConfigType.ENDPOINTS, vertx)
+        endpointsService = EndpointsService(config(), vertx)
         listenOnEndpointsUpdate()
         listenOnEndpointsDelete()
     }
@@ -22,15 +22,13 @@ class EndpointsController : AbstractVerticle() {
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS_CONFIG)
             .handler {
-                EndpointsService(config()).save(it.body())
-                storage.saveConfig(config())
+                endpointsService.save(it.body())
             }
 
     private fun listenOnEndpointsDelete() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_ENDPOINTS_CONFIG)
             .handler {
-                EndpointsService(config()).delete(it.body())
-                storage.saveConfig(config())
+                endpointsService.delete(it.body())
             }
 }
