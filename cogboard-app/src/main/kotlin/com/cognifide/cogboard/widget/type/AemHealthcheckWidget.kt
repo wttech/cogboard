@@ -47,6 +47,7 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
     private fun attachHealthChecks(content: JsonObject, healthChecksResponse: JsonObject): Widget.Status {
         var widgetStatus = OK
         val result = JsonObject()
+        content.put(CogboardConstants.PROP_ERROR_MESSAGE, "")
         content.put("healthChecks", result)
 
         selectedHealthChecks
