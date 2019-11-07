@@ -12,7 +12,7 @@ import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 import DisplayValueSelect from "./DisplayValueSelect";
-import TextSizeInput from "./TextSizeInput";
+import { REQUEST_METHODS, TEXT_SIZES } from "../../../constants";
 import MultilineTextInput from "./MultilineTextInput";
 import CheckboxInput from "./CheckboxInput";
 import AemHealthcheckInput from "./AemHealthcheckInput";
@@ -126,8 +126,8 @@ const dialogFields = {
   SchedulePeriod: {
     component: NumberInput,
     name: 'schedulePeriod',
-    label: 'Schedule Period [seconds]',
-    min: 1,
+    label: 'Schedule Period [sec] (if 0 will run once)',
+    min: 0,
     step: 10,
     initialValue: 120,
     validator: ({ min }) => number()
@@ -143,7 +143,7 @@ const dialogFields = {
     component: TextInput,
     name: 'url',
     label: 'URL',
-    validator: () => string().url(vm.INVALID_URL())     
+    validator: () => string().url(vm.INVALID_URL())
   },
   UrlForContent: {
     component: TextInput,
@@ -177,7 +177,7 @@ const dialogFields = {
     validator: ({ minArrayLength = 0 }) => array()
       .ensure()
       .min(minArrayLength, vm.FIELD_MIN_ITEMS())
-      .of(string()) 
+      .of(string())
   },
   AemHealthcheckInput: {
     component: AemHealthcheckInput,
@@ -260,20 +260,30 @@ const dialogFields = {
     label: 'Text',
     validator: () => string()
   },
+  RequestBody: {
+    component: MultilineTextInput,
+    name: 'body',
+    label: 'Request Body'
+  },
+  ResponseBody: {
+    component: MultilineTextInput,
+    name: 'expectedResponseBody',
+    label: 'Response Body Fragment'
+  },
   TextSize: {
-    component: TextSizeInput,
+    component: DisplayValueSelect,
     name: 'content.textSize',
     label: 'Text Size',
-    dropdownItems: {
-      XXL: 'h1',
-      XL: 'h2',
-      L: 'h3',
-      M: 'h4',
-      S: 'h5',
-      XS: 'h6'
-    },
-    initialValue: 'h4',
-    validator: () => string()
+    dropdownItems: TEXT_SIZES,
+    initialValue: TEXT_SIZES[3].value,
+    validator: () => string(),
+  },
+  RequestMethod: {
+    component: DisplayValueSelect,
+    name: 'requestMethod',
+    label: 'Request Method',
+    dropdownItems: REQUEST_METHODS,
+    initialValue: REQUEST_METHODS[0].value
   },
   TextOrientation: {
     component: CheckboxInput,

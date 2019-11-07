@@ -20,6 +20,7 @@
 * [SonarQube](./widget-sonarqube)
 * [Text](./widget-text)
 * [World Clock](./widget-world-clock)
+* [Checkbox](./widget-checkbox)
 
 ### Config:
 * [Configuration](./config)

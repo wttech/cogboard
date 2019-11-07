@@ -14,7 +14,15 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     private val selectedMetrics: JsonArray = config.getJsonArray("selectedMetrics")
 
     override fun handleResponse(responseBody: JsonObject) {
-        val data = getData(responseBody)
+        if (checkAuthorized(responseBody)) {
+            val data = getData(responseBody)
+            if (data.containsKey("msr")) {
+                sendSuccess(data)
+            } else sendUnknownResponceError()
+        }
+    }
+
+    private fun sendSuccess(data: JsonObject) {
         data.getJsonArray("msr")?.let {
             data.remove("msr")
             val content = data.copy()
@@ -30,9 +38,10 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
 
     override fun updateState() {
         if (url.isNotBlank() && key.isNotBlank()) {
-            httpGet(url = "$url/api/resources?resource=$key&metrics=alert_status,${selectedMetrics.joinToString(separator = ",")}")
+            val joinedMetrics = selectedMetrics.joinToString(separator = ",")
+            httpGet(url = "$url/api/resources?resource=$key&metrics=alert_status,$joinedMetrics")
         } else {
-            sendConfigurationError()
+            sendConfigurationError("Endpoint URL or Key is blank.")
         }
     }
 

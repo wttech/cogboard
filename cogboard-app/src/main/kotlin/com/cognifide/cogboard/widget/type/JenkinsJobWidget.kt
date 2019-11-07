@@ -1,31 +1,35 @@
 package com.cognifide.cogboard.widget.type
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
+import com.cognifide.cogboard.CogboardConstants as CC
 
 class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val path: String = config.getString("path", "")
 
     override fun handleResponse(responseBody: JsonObject) {
-        val lastBuild = responseBody.getJsonObject("lastBuild")
+        if (checkAuthorized(responseBody)) {
+            val lastBuild = responseBody.getJsonObject("lastBuild")
 
-        if (lastBuild != null) {
-            val status = if (lastBuild.getBoolean("building", false)) Widget.Status.IN_PROGRESS
-            else Widget.Status.from(lastBuild.getString("result", ""))
-            lastBuild.put(CogboardConstants.PROP_ERROR_MESSAGE, "")
-            lastBuild.put("branch", extractBranchInfo(lastBuild))
-            lastBuild.put(CogboardConstants.PROP_URL, makePublic(lastBuild.getString(CogboardConstants.PROP_URL, "")))
-
-            send(JsonObject()
-                    .put(CogboardConstants.PROP_STATUS, status)
-                    .put(CogboardConstants.PROP_CONTENT, lastBuild))
-        } else {
-            sendConfigurationError("Config error: Wrong response.")
+            if (lastBuild != null) {
+                sendSuccess(lastBuild)
+            } else sendUnknownResponceError()
         }
+    }
+
+    private fun sendSuccess(lastBuild: JsonObject) {
+        val status = if (lastBuild.getBoolean("building", false)) Widget.Status.IN_PROGRESS
+        else Widget.Status.from(lastBuild.getString("result", ""))
+        lastBuild.put(CC.PROP_ERROR_MESSAGE, "")
+        lastBuild.put("branch", extractBranchInfo(lastBuild))
+        lastBuild.put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
+
+        send(JsonObject()
+                .put(CC.PROP_STATUS, status)
+                .put(CC.PROP_CONTENT, lastBuild))
     }
 
     private fun makePublic(privateUrl: String): String {
@@ -54,7 +58,7 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
         if (url.isNotBlank() && path.isNotBlank()) {
             httpGet(url = "$url$path/api/json?tree=lastBuild[$LAST_BUILD_PROPS]")
         } else {
-            sendConfigurationError("Config error: Endpoint URL or Path is blank.")
+            sendConfigurationError("Endpoint URL or Path is blank.")
         }
     }
 

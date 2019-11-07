@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { splitPropsGroupName, parseYupErrors } from '../components/helpers';
+import { splitPropsGroupName, parseYupErrors } from '../helpers';
 
-export const useToggle = () => {
-  const [isOpened, setOpened] = useState(false);
+export const useToggle = (initialState = false) => {
+  const [isOpened, setOpened] = useState(initialState);
 
   const handleOpen = () => setOpened(true);
   const handleClose = () => setOpened(false);
@@ -19,10 +19,9 @@ export const useFormData = (data, config={}) => {
   const [status, setStatus] = useState({
     submited: false,
     onChange: onChange,
-  })
+  });
 
   const [validationSchema, setValidationSchema] = useState(initialSchema)
-
   const [errors, setErrors] = useState({});
 
   const handleChange = fieldName => event => {
@@ -62,19 +61,19 @@ export const useFormData = (data, config={}) => {
       validationSchema.validateAt(fieldName, fieldsValues, {abortEarly: false})
         .then(() => {
           if (fieldName in errors) {
-            const errorsTmp = {...errors}
-            
-            delete errorsTmp[fieldName]
+            const errorsTmp = {...errors};
+
+            delete errorsTmp[fieldName];
             setErrors(errorsTmp)
           }
         })
         .catch(error => setErrors({...errors, ...parseYupErrors(error)}))
     }
-  }
+  };
 
   const withValidation = func => event => {
     event.preventDefault();
-    setStatus({...status, submited: true})
+    setStatus({...status, submited: true});
 
     if(validationSchema) {
       validationSchema.validate(values, {abortEarly: false, stripUnknown: true})
@@ -83,7 +82,7 @@ export const useFormData = (data, config={}) => {
     } else {
       func(values);
     }
-  }
+  };
 
   return { values, handleChange, withValidation, errors, validationSchema, setValidationSchema };
 };

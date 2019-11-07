@@ -1,3 +1,5 @@
+import { capitalize } from "../helpers";
+
 export const URL = {
   LOAD_DATA: '/api/config',
   SAVE_DATA: '/api/config/save',
@@ -13,8 +15,59 @@ export const SWITCH_INTERVAL_MIN = 3;
 
 export const WIDGET_COLUMNS_MIN = 1;
 export const WIDGET_ROWS_MIN = 1;
-export const WIDGET_ROWS_MAX = 8;
+export const WIDGET_ROWS_MAX = 4;
+
 export const WIDGET_TITLE_LENGTH_LIMIT = 25;
+
+export const TEXT_SIZES = [
+  {
+    display: 'XXL',
+    value: 'h2'
+  },
+  {
+    display: 'XL',
+    value: 'h3'
+  },
+  {
+    display: 'L',
+    value: 'h4'
+  },
+  {
+    display: 'M',
+    value: 'h5'
+  },
+  {
+    display: 'S',
+    value: 'h6'
+  },
+  {
+    display: 'XS',
+    value: 'subtitle1'
+  },
+  {
+    display: 'XXS',
+    value: 'subtitle2'
+  }
+];
+
+export const REQUEST_METHODS = [
+  {
+    display: 'GET',
+    value: 'get'
+  },
+  {
+    display: 'PUT',
+    value: 'put'
+  },
+  {
+    display: 'POST',
+    value: 'post'
+  },
+  {
+    display: 'DELETE',
+    value: 'delete'
+  }
+];
 
 export const ItemTypes = {
   WIDGET: 'widget',
@@ -65,3 +118,15 @@ export const validationMessages = {
   FIELD_MIN_ITEMS: () => 'This field must have at least 1 item.',
   UNIQUE_FIELD: () => 'This field must be unique.',
 }
+export const NOTIFICATIONS = {
+  LOGIN: userRole => ({
+    type: 'success',
+    message: `Logged in as ${userRole}`,
+    duration: 3000
+  }),
+  LOGOUT: userRole => ({
+    type: 'info',
+    message: `${capitalize(userRole)} logged out`,
+    duration: 3000
+  })
+};

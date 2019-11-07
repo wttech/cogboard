@@ -13,6 +13,8 @@ export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
     return newObj;
   }, {});
 
+export const capitalize = ([firstLetter, ...rest]) => [firstLetter.toUpperCase(), ...rest].join('');
+
 export const parseYupErrors = (errors) => {
   let result = {};
   errors.inner.forEach(error => {
@@ -24,15 +26,15 @@ export const parseYupErrors = (errors) => {
       result[path] = [message]
     }
   });
-  
+
   return result;
-}
+};
 
 export const trimLeadingZeros = (event) => {
   const inputValue = event.target.value;
   const parsedValue = parseInt(inputValue);
-  
-  event.target.value = parsedValue.toString();
-}
 
-export const hasError = ( error ) => error !== undefined; 
+  event.target.value = parsedValue.toString();
+};
+
+export const hasError = ( error ) => error !== undefined;

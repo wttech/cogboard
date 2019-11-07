@@ -12,7 +12,7 @@ export const theme = createMuiTheme({
       default: '#211F39',
       paper: '#26243E',
       board: {
-        card: '#5c6bc0', 
+        card: '#5c6bc0',
         dragged: '#353b61'
       }
     },
@@ -26,7 +26,7 @@ export const theme = createMuiTheme({
       ERROR: createGradient('#af4448', '#e57373'),
       FAIL: createGradient('#af4448', '#e57373')
     },
-    variant : {
+    snackbarVariant : {
       info: blue[100],
       success: green[300],
       warning: amber[700],

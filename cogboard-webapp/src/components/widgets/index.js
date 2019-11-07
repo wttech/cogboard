@@ -46,7 +46,7 @@ const widgetTypes = {
   ServiceCheckWidget: {
     name: 'Service Check',
     component: ServiceCheckWidget,
-    dialogFields: ['SchedulePeriod', 'URL', 'StatusCode'],
+    dialogFields: ['SchedulePeriod', 'RequestMethod', 'EndpointField', 'Path', 'RequestBody', 'ResponseBody', 'StatusCode'],
     showUpdateTime : true,
     validationConstraints: {
       'SchedulePeriod': { min: 3 },
@@ -72,8 +72,7 @@ const widgetTypes = {
   WorldClockWidget: {
     name: 'World Clock',
     component: WorldClockWidget,
-    dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'DateTimeSize']
-
+    dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'TextSize']
   },
   IframeEmbedWidget: {
     name: 'Iframe Embed',

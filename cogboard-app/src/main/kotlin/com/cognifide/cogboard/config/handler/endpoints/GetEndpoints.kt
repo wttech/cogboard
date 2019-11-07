@@ -25,7 +25,8 @@ class GetEndpoints : RoutingHandlerFactory {
     }
 
     private fun filterSensitiveData(config: JsonObject?): JsonArray {
-        val copy = config?.getJsonArray(EndpointLoader.ENDPOINTS) ?: JsonArray().add(CogboardConstants.errorResponse("No endpoints array found, $config"))
+        val copy = config?.getJsonArray(EndpointLoader.ENDPOINTS)
+                ?: JsonArray().add(CogboardConstants.errorResponse("No endpoints array found, $config"))
         copy.stream().forEach {
             if (it is JsonObject) {
                 it.remove("url")
@@ -37,5 +38,4 @@ class GetEndpoints : RoutingHandlerFactory {
         }
         return copy
     }
-
 }

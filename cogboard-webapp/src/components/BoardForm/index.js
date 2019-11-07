@@ -35,10 +35,10 @@ const BoardForm = ({ handleSubmit, handleCancel, boardId, ...initialFormValues }
 
   return (
     <form onSubmit={withValidation(handleSubmit)} noValidate="novalidate">
-      <DynamicForm 
-        fields={formFields} 
-        values={values} 
-        handleChange={handleChange} 
+      <DynamicForm
+        fields={formFields}
+        values={values}
+        handleChange={handleChange}
         errors={errors}
         rootName='board-form'
       />

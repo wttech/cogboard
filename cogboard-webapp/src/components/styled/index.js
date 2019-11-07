@@ -4,7 +4,7 @@ import styled from '@emotion/styled/macro';
 import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
 
 import IframeEmbed from "../IframeEmbed";
-import { setSize } from "../helpers";
+import { setSize } from "../../helpers";
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;
@@ -28,6 +28,10 @@ export const WidgetIconButton = styled(IconButton)`
 `;
 
 export const Caption = (props) => <StyledTypography {...props} variant="caption" paragraph />;
+
+export const CaptionWithPointer = styled(Caption)`
+  cursor: pointer;
+`;
 
 export const StyledFieldset = styled(FormControl)`
   display: flex;
@@ -66,7 +70,13 @@ export const StyledTitle = styled(Typography)`
 `;
 
 export const StyledFormControl = styled(FormControl)`
-      margin: theme.spacing(1),
-      minWidth: 120,
-      maxWidth: 300,
-  `;
+  margin: ${setSize(1)};
+  min-width: 120px;
+  max-width: 300px;
+`;
+
+export const StyledPopoverText = styled(Typography)`
+  background: #fff;
+  color: #000;
+  padding: 1rem;
+`;

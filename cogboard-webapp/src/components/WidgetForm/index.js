@@ -51,8 +51,8 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
         onChange={handleTabChange}
         variant="fullWidth"
       >
-        <Tab label="General"/>
-        {hasDialogFields && <Tab label={widgetType.name}/>}
+        <Tab label="General" data-cy="widget-form-general-tab"/>
+        {hasDialogFields && <Tab label={widgetType.name} data-cy="widget-form-dynamic-tab"/>}
       </StyledTabs>
       <StyledTabPanel value={tabValue} index={0}>
       <DynamicForm
@@ -63,7 +63,7 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
           rootName='widget-form'
         />
       </StyledTabPanel>
-      {hasDialogFields && 
+      {hasDialogFields &&
         <StyledTabPanel value={tabValue} index={1}>
           <WidgetTypeForm
             type={values.type}
@@ -82,8 +82,8 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
           >
         Save
       </Button>
-      <StyledCancelButton 
-        handleCancelClick={handleCancel} 
+      <StyledCancelButton
+        handleCancelClick={handleCancel}
         data-cy="widget-form-cancel-button"
       />
     </form>

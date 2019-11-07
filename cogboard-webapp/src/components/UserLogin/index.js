@@ -9,7 +9,6 @@ import { getIsAuthenticated } from '../../selectors';
 import { Button, IconButton, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
 import AppDialog from './../AppDialog';
-import SnackbarWithVariant from "../SnackbarWithVariant";
 import { StyledFieldset } from '../styled';
 import { getCredentials } from "./helpers";
 
@@ -18,15 +17,12 @@ const UserLogin = () => {
   const errorMsg = useSelector(({app}) => app.loginErrorMessage);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
-  const [loginSnackbarOpened, openLoginSnackbar, handleLoginSnackbarClose] = useToggle();
-  const [logoutSnackbarOpened, openLogoutSnackbar, handleLogoutSnackbarClose] = useToggle();
 
   useEffect(() => {
     if(isAuthenticated) {
       handleDialogClose();
-      openLoginSnackbar();
     }
-  }, [isAuthenticated, handleDialogClose, openLoginSnackbar]);
+  }, [isAuthenticated, handleDialogClose]);
 
   const handleLoginButtonClick = () => {
     const credentials = getCredentials();
@@ -45,7 +41,6 @@ const UserLogin = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    openLogoutSnackbar();
   };
 
   function closeDialog() {
@@ -117,24 +112,6 @@ const UserLogin = () => {
           </Button>
         </StyledFieldset>
       </AppDialog>
-      <SnackbarWithVariant
-        open={loginSnackbarOpened}
-        handleClose={handleLoginSnackbarClose}
-        hideAfter={3000}
-        message={`Logged in as ${getCredentials().username}`}
-        vertical="top"
-        horizontal="center"
-        variant="success"
-      />
-      <SnackbarWithVariant
-        open={logoutSnackbarOpened}
-        handleClose={handleLogoutSnackbarClose}
-        hideAfter={3000}
-        message={`Logged out successfully`}
-        vertical="top"
-        horizontal="center"
-        variant="info"
-      />
     </>
   );
 };
