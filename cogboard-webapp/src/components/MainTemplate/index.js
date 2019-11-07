@@ -14,6 +14,7 @@ import BoardIndex from '../BoardIndex';
 import Board from '../Board';
 import NavBar from '../NavBar';
 import AddBoard from '../AddBoard';
+import Notifications from '../Notifications';
 import { StyledActions,
   StyledBoardList,
   StyledDrawerContainer,
@@ -95,6 +96,7 @@ const MainTemplate = () => {
           </StyledActions>
         </Container>
       </StyledMain>
+      <Notifications />
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}

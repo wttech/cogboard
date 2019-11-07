@@ -109,6 +109,6 @@ class EndpointsController : AbstractVerticle() {
             }
             index++
         }
-        return index;
+        return index
     }
 }

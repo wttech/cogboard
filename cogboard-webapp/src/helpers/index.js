@@ -13,6 +13,8 @@ export const sortByKey = (obj, key, asc = true) => Object.entries(obj)
     return newObj;
   }, {});
 
+export const capitalize = ([firstLetter, ...rest]) => [firstLetter.toUpperCase(), ...rest].join('');
+
 export const parseYupErrors = (errors) => {
   let result = {};
   errors.inner.forEach(error => {
@@ -24,7 +26,7 @@ export const parseYupErrors = (errors) => {
       result[path] = [message]
     }
   });
-  
+
   return result;
 };
 

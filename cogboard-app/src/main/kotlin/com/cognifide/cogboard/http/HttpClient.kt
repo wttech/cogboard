@@ -5,54 +5,67 @@ import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_MESSAGE
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.buffer.Buffer
+import io.vertx.core.json.DecodeException
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import io.vertx.ext.web.client.HttpRequest
+import io.vertx.ext.web.client.HttpResponse
 import io.vertx.ext.web.client.WebClient
 
 class HttpClient : AbstractVerticle() {
 
     override fun start() {
-        val client = WebClient.create(vertx)
+        WebClient.create(vertx)?.let {
+            registerGET(it)
+            registerCHECK(it)
+            registerPUT(it)
+            registerPOST(it)
+            registerDELETE(it)
+        }
+    }
+
+    private fun registerGET(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_GET).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
+    }
+
+    private fun registerCHECK(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_CHECK).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
+    }
+
+    private fun registerPUT(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_PUT).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.putAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.putAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
+    }
+
+    private fun registerPOST(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_POST).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.postAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.postAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
+    }
+
+    private fun registerDELETE(client: WebClient) {
         vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_DELETE).handler { message ->
-            client?.let {
-                message.body()?.let {
-                    val httpRequest = client.deleteAbs(it.getString(CogboardConstants.PROP_URL))
-                    makeRequest(httpRequest, it)
-                }
+            message.body()?.let {
+                val httpRequest = client.deleteAbs(it.getString(CogboardConstants.PROP_URL))
+                makeRequest(httpRequest, it)
             }
         }
     }
@@ -63,9 +76,9 @@ class HttpClient : AbstractVerticle() {
         val body = config.getJsonObject(CogboardConstants.PROP_BODY)
 
         body?.let {
-            executeRequest(request, address, body)
+            executeCheckRequest(request, address, body)
         } ?: run {
-            executeRequest(request, address, JsonObject())
+            executeRequest(request, address)
         }
     }
 
@@ -80,7 +93,36 @@ class HttpClient : AbstractVerticle() {
         return request
     }
 
-    private fun executeRequest(request: HttpRequest<Buffer>, address: String?, body: JsonObject?) {
+    private fun toJson(response: HttpResponse<Buffer>): JsonObject {
+        return try {
+            response.bodyAsJsonObject()
+        } catch (e: DecodeException) {
+            try {
+                JsonObject().put(CogboardConstants.PROP_ARRAY, response.bodyAsJsonArray())
+            } catch (e: DecodeException) {
+                JsonObject().put("body", response.bodyAsString())
+            }
+        }
+    }
+
+    private fun executeRequest(request: HttpRequest<Buffer>, address: String?) {
+        request.send {
+            if (!it.succeeded()) {
+                vertx.eventBus().send(address, JsonObject()
+                        .put(CogboardConstants.PROP_ERROR_MESSAGE, "Http Error")
+                        .put(CogboardConstants.PROP_ERROR_CAUSE, it.cause()?.message))
+                LOGGER.error(it.cause()?.message)
+            } else {
+                toJson(it.result()).let { json ->
+                    json.put(PROP_STATUS_CODE, it.result().statusCode())
+                    json.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
+                    vertx.eventBus().send(address, json)
+                }
+            }
+        }
+    }
+
+    private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?, body: JsonObject?) {
         request.sendJsonObject(body) {
             val result = JsonObject()
             if (it.succeeded()) {

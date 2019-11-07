@@ -4,7 +4,11 @@ import com.cognifide.cogboard.CogboardConstants
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class EndpointLoader(private val endpointsConfig: JsonArray, private val credentialsConfig: JsonArray, private val endpointId: String) {
+class EndpointLoader(
+    private val endpointsConfig: JsonArray,
+    private val credentialsConfig: JsonArray,
+    private val endpointId: String
+) {
 
     fun load(): JsonObject {
        return endpointsConfig.findById(endpointId)
@@ -15,7 +19,7 @@ class EndpointLoader(private val endpointsConfig: JsonArray, private val credent
     }
 
     private fun JsonObject.attachUserPassword(): JsonObject {
-        this.remove(CREDENTIALS)?.let {credId ->
+        this.remove(CREDENTIALS)?.let { credId ->
             credentialsConfig.findById(credId as String).let { credentials ->
                 this.put(USER, credentials.getString(USER) ?: "")
                 this.put(PASSWORD, credentials.getString(PASSWORD) ?: "")
@@ -50,4 +54,3 @@ class EndpointLoader(private val endpointsConfig: JsonArray, private val credent
         }
     }
 }
-

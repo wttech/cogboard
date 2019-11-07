@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { splitPropsGroupName, parseYupErrors } from '../components/helpers';
+import { splitPropsGroupName, parseYupErrors } from '../helpers';
 
-export const useToggle = () => {
-  const [isOpened, setOpened] = useState(false);
+export const useToggle = (initialState = false) => {
+  const [isOpened, setOpened] = useState(initialState);
 
   const handleOpen = () => setOpened(true);
   const handleClose = () => setOpened(false);
@@ -57,7 +57,7 @@ export const useFormData = (data, validationSchema=null, onChange=null) => {
         .then(() => {
           if (fieldName in errors) {
             const errorsTmp = {...errors};
-            
+
             delete errorsTmp[fieldName];
             setErrors(errorsTmp)
           }

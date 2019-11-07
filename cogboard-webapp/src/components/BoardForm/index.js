@@ -7,7 +7,7 @@ import { StyledFieldset, StyledValidationMessages } from './styled';
 import { useFormData } from '../../hooks';
 import { getBoards } from '../../selectors';
 import { createValidationSchema } from './validators';
-import { trimLeadingZeros } from '../helpers';
+import { trimLeadingZeros } from '../../helpers';
 
 import NumberInput from "../widgets/dialogFields/NumberInput";
 

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import widgetTypes from '../widgets';
 import { useFormData } from '../../hooks';
-import { sortByKey } from "../helpers";
+import { sortByKey } from "../../helpers";
 import { WIDGET_ROWS_MIN, WIDGET_COLUMNS_MIN, WIDGET_ROWS_MAX } from '../../constants';
 
 import { Box, FormControlLabel, FormControl, TextField, Switch, Tab } from '@material-ui/core';
@@ -31,13 +31,13 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
 
   return (
     <>
-      <StyledTabs 
-        value={tabValue} 
+      <StyledTabs
+        value={tabValue}
         onChange={handleTabChange}
         variant="fullWidth"
       >
-        <Tab label="General"/>
-        {hasDialogFields && <Tab label={widgetType.name}/>}
+        <Tab label="General" data-cy="widget-form-general-tab"/>
+        {hasDialogFields && <Tab label={widgetType.name} data-cy="widget-form-dynamic-tab"/>}
       </StyledTabs>
       <StyledTabPanel value={tabValue} index={0}>
         <StyledFieldset component="fieldset">
@@ -130,7 +130,7 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
           </FormControl>
         </StyledFieldset>
       </StyledTabPanel>
-      {hasDialogFields && 
+      {hasDialogFields &&
         <StyledTabPanel value={tabValue} index={1}>
           <WidgetTypeForm
             type={values.type}

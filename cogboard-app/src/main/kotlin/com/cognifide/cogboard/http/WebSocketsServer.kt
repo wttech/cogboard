@@ -11,7 +11,7 @@ import io.vertx.core.logging.LoggerFactory
 
 class WebSocketsServer : AbstractVerticle() {
 
-    private var port = 9001
+    private var port = CogboardConstants.DEFAULT_WEB_SOCKET_PORT
 
     override fun init(vertx: Vertx?, context: Context?) {
         super.init(vertx, context)

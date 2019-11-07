@@ -5,12 +5,16 @@ import io.vertx.core.json.JsonObject
 class CogboardConstants {
     companion object {
 
+        const val DEFAULT_WEB_SOCKET_PORT = 9001
+        const val STATUS_CODE_401 = 401
+        const val STATUS_CODE_200 = 200
         const val PROP_ID = "id"
         const val PROP_EVENT_TYPE = "eventType"
         const val PROP_WIDGETS = "widgets"
         const val PROP_WIDGETS_BY_ID = "widgetsById"
         const val PROP_STATUS = "status"
         const val PROP_ERROR_MESSAGE = "errorMessage"
+        const val PROP_ERROR_CAUSE = "errorCause"
         const val PROP_DISABLED = "disabled"
         const val PROP_TITLE = "title"
         const val PROP_CONTENT = "content"

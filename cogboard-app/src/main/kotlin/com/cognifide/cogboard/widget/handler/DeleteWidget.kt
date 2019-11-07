@@ -23,5 +23,4 @@ class DeleteWidget : RoutingHandlerFactory {
     companion object {
         val DEFAULT_NO_BODY: JsonObject = JsonObject().put("status", "failed")
     }
-
 }
