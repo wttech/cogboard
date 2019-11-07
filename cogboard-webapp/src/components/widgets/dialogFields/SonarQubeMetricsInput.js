@@ -6,13 +6,11 @@ import {ALL_SONARQUBE_METRICS} from "../../../constants";
 import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select, FormHelperText } from '@material-ui/core';
 
 import { StyledFormControl } from './../../styled';
-import { ALL_SONARQUBE_METRICS } from "../../../constants";
-import { hasError } from '../../helpers';
+import { hasError } from '../../../helpers';
 
 const SonarQubeMetricsInput = ({ onChange, value, error, dataCy }) => {
   const inputId = 'sonarqube-metrics-input';
   const theme = useTheme();
-
 
   return (
     <StyledFormControl error={hasError(error)} theme={theme}>

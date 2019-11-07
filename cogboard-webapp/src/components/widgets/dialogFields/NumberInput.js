@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import { StyledValidationMessages } from '../../WidgetForm/styled';
-import { hasError } from '../../helpers';
+import { hasError } from '../../../helpers';
 
 const NumberInput = ({ min, step, error, dataCy, ...other }) => {
 

@@ -42,7 +42,8 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
   useEffect(() => {
     const validationSchema = createWidgetValidationSchema(values.type, generalFields, constraints)
     setValidationSchema(validationSchema)
-  }, [values, generalFields, constraints, setValidationSchema])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values.type])
 
   return (
     <form onSubmit={withValidation(handleSubmit)} noValidate="novalidate">

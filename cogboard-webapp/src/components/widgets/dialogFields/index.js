@@ -238,22 +238,6 @@ const dialogFields = {
     initialValue: true,
     validator: () => boolean()
   },
-  DateTimeSize: {
-    component: TextSizeInput,
-    name: 'content.textSize',
-    label: 'Text Size',
-    dropdownItems: {
-      XXL: 'h2',
-      XL: 'h3',
-      L: 'h4',
-      M: 'h5',
-      S: 'h6',
-      XS: 'subtitle1',
-      XXS: 'subtitle2'
-    },
-    initialValue: 'h5',
-    validator: () => string()
-  },
   Text: {
     component: MultilineTextInput,
     name: 'content.text',
@@ -263,12 +247,14 @@ const dialogFields = {
   RequestBody: {
     component: MultilineTextInput,
     name: 'body',
-    label: 'Request Body'
+    label: 'Request Body',
+    validator: () => string()
   },
   ResponseBody: {
     component: MultilineTextInput,
     name: 'expectedResponseBody',
-    label: 'Response Body Fragment'
+    label: 'Response Body Fragment',
+    validator: () => string()
   },
   TextSize: {
     component: DisplayValueSelect,
@@ -283,7 +269,8 @@ const dialogFields = {
     name: 'requestMethod',
     label: 'Request Method',
     dropdownItems: REQUEST_METHODS,
-    initialValue: REQUEST_METHODS[0].value
+    initialValue: REQUEST_METHODS[0].value,
+    validator: () => string()
   },
   TextOrientation: {
     component: CheckboxInput,

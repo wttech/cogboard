@@ -1,4 +1,4 @@
-import { splitPropsGroupName } from '../helpers';
+import { splitPropsGroupName } from '../../helpers';
 
 export const camelToKebab = ( string ) => string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
 

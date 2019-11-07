@@ -6,7 +6,7 @@ import { AEM_HEALTH_CHECKS } from '../../../constants';
 import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select, FormHelperText } from '@material-ui/core';
 import { StyledFormControl } from './../../styled';
 
-import { hasError } from '../../helpers';
+import { hasError } from '../../../helpers';
 
 const AemHealthcheckInput = ({ onChange, value, error, dataCy }) => {
   const theme = useTheme();

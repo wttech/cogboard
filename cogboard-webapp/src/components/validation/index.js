@@ -1,6 +1,6 @@
 import { object } from 'yup';
 
-import { splitPropsGroupName } from '../helpers';
+import { splitPropsGroupName } from '../../helpers';
 
 import dialogFields from '../widgets/dialogFields';
 import { validationMessages as vm } from '../../constants';
