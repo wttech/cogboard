@@ -3,14 +3,20 @@ import { string } from 'prop-types';
 
 import { MenuItem } from '@material-ui/core';
 import DropdownField from '../../DropdownField';
+import AddEndpoint from '../../AddEndpoint';
 
 const EndpointInput = props => {
   return (
-    <DropdownField {...props}>
-      {endpoints => endpoints.map(({ id, label }) =>
-        <MenuItem key={id} value={id}>{label}</MenuItem>
-      )}
-    </DropdownField>
+    <>
+      <DropdownField 
+        optionalButton={<AddEndpoint/>}
+        {...props}>
+        {endpoints => endpoints.map(({ id, label }) =>
+          <MenuItem key={id} value={id}>{label}</MenuItem>
+        )}
+      </DropdownField>
+      
+    </>
   );
 };
 

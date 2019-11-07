@@ -1,15 +1,11 @@
 import styled from '@emotion/styled/macro';
 
-import { Button, Tabs } from "@material-ui/core";
+import { Tabs } from "@material-ui/core";
 import AppDialog from '../AppDialog';
 import TabPanel from '../TabPanel';
 
 export const StyledAppDialog = styled(AppDialog)`
   max-width: 800px;
-`;
-
-export const StyledButton = styled(Button)`
-  width: 100%;
 `;
 
 export const StyledTabPanel = styled(TabPanel)`
@@ -18,4 +14,4 @@ export const StyledTabPanel = styled(TabPanel)`
 
 export const StyledTabs = styled(Tabs)`
   margin-bottom: 12px;
-`
+`;

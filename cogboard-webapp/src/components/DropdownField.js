@@ -15,6 +15,7 @@ const DropdownField = props => {
     children,
     dropdownItems,
     itemsUrl,
+    optionalButton,
     ...other
   } = props;
   const initialLoaded = !itemsUrl;
@@ -33,7 +34,6 @@ const DropdownField = props => {
       fetch(itemsUrl, init)
         .then(response => response.json())
         .then(data => {
-          console.log(data)
           setOptions(data);
           setLoaded(true);
         })
@@ -58,6 +58,7 @@ const DropdownField = props => {
       >
         {loaded && children(options)}
       </Select>
+      {optionalButton}
     </FormControl>
   );
 };
