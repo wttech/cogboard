@@ -22,7 +22,7 @@ export const RotatedStyledPre = styled(StyledPre)`
   transform: rotate(-90deg);
 `;
 
-export const OverflowingText = (component) => styled(component)`
+export const OverflowingText = component => styled(component)`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
