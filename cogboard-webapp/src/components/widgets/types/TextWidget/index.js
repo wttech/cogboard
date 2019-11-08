@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useSize } from 'react-hook-size';
 import { bool, string } from 'prop-types';
 
 import {
@@ -9,42 +10,39 @@ import {
   OverflowingText,
   SetWidth
 } from './styled';
-import { useClientRect } from './hooks';
 
-export const ModifiedWidth = (component, componentRect) => {
-  if (componentRect) {
-    console.log(componentRect);
-    const { height } = componentRect;
-    console.log(height);
-
+export const ModifiedWidth = (component, height) => {
+  if (height) {
     return SetWidth(component, height);
   }
 
   return component;
 };
 
-const TruncatedText = ({isVertical, parentRect, children}) => {
+const TruncatedText = ({ isVertical, parentDimensions, children }) => {
   let TruncatedPre = null;
 
-  if (isVertical && parentRect !== null) {
-    const ModifiedPre = ModifiedWidth(RotatedStyledPre, parentRect);
+  if (isVertical && parentDimensions !== null) {
+    const { height } = parentDimensions;
+    const ModifiedPre = ModifiedWidth(RotatedStyledPre, height);
     TruncatedPre = OverflowingText(ModifiedPre);
   } else {
     TruncatedPre = OverflowingText(StyledPre);
   }
 
-  return <TruncatedPre>{children}</TruncatedPre>
+  return <TruncatedPre>{children}</TruncatedPre>;
 };
 
 const TextWidget = ({ text, textSize, isVertical }) => {
-  const [centerWrapperRect, centerWrapperRef] = useClientRect();
+  const targetRef = useRef();
+  const centerWrapperDimensions = useSize(targetRef);
 
   return (
     <TypographyVariant variant={textSize}>
-      <CenterWrapper ref={centerWrapperRef}>
+      <CenterWrapper ref={targetRef}>
         <TruncatedText
           isVertical={isVertical}
-          parentRect={centerWrapperRect}
+          parentDimensions={centerWrapperDimensions}
         >
           {text}
         </TruncatedText>
