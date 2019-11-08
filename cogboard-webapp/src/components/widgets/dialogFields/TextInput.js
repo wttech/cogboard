@@ -6,7 +6,7 @@ const TextInput = props => {
   return (
     <TextField
       InputLabelProps={{
-        shrink: true,
+        shrink: true
       }}
       margin="normal"
       {...props}

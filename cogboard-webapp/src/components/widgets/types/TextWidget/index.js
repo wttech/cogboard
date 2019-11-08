@@ -8,9 +8,9 @@ const TextWidget = ({ text, textSize, isVertical }) => {
   const TextVariant = isVertical ? VerticalText : Typography;
 
   return (
-      <TextVariant variant={textSize}>
-          <StyledPre>{text}</StyledPre>
-      </TextVariant>
+    <TextVariant variant={textSize}>
+      <StyledPre>{text}</StyledPre>
+    </TextVariant>
   );
 };
 

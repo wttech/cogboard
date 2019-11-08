@@ -12,19 +12,13 @@ import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
 
 import { CardHeader, CardContent, IconButton } from '@material-ui/core';
-import { Delete, Edit } from '@material-ui/icons'
+import { Delete, Edit } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
 import EditBoard from '../EditBoard';
 import { StyledCard, StyledCardActions } from './styled';
 
 const BoardCard = ({ boardData, index, className }) => {
-  const {
-    autoSwitch,
-    columns,
-    id,
-    switchInterval,
-    title
-  } = boardData;
+  const { autoSwitch, columns, id, switchInterval, title } = boardData;
   const [open, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -50,15 +44,16 @@ const BoardCard = ({ boardData, index, className }) => {
       const targetIndex = index;
 
       if (sourceIndex === targetIndex) {
-        return
+        return;
       }
 
       const { top, bottom } = ref.current.getBoundingClientRect();
       const dropTargetMiddleY = bottom - (bottom - top) / 2;
       const { y: dragSourceMouseY } = monitor.getClientOffset();
 
-      const hasPointerPassedMiddle = (sourceIndex < targetIndex && dragSourceMouseY >= dropTargetMiddleY) ||
-        (sourceIndex > targetIndex && dragSourceMouseY <= dropTargetMiddleY)
+      const hasPointerPassedMiddle =
+        (sourceIndex < targetIndex && dragSourceMouseY >= dropTargetMiddleY) ||
+        (sourceIndex > targetIndex && dragSourceMouseY <= dropTargetMiddleY);
 
       if (!hasPointerPassedMiddle) {
         return;
@@ -75,16 +70,16 @@ const BoardCard = ({ boardData, index, className }) => {
 
   drag(drop(ref));
 
-  const handleBoardClick = (boardId) => () => {
+  const handleBoardClick = boardId => () => {
     navigate(boardId);
   };
 
-  const handleEditClick = (event) => {
+  const handleEditClick = event => {
     event.stopPropagation();
     openDialog();
   };
 
-  const handleDeleteClick = (event) => {
+  const handleDeleteClick = event => {
     event.stopPropagation();
     dispatch(deleteBoardWithWidgets(id));
   };
@@ -101,18 +96,15 @@ const BoardCard = ({ boardData, index, className }) => {
       >
         <CardHeader
           title={title}
-          titleTypographyProps={
-            {
-              component: 'h3',
-              variant: 'subtitle2',
-              color: 'textPrimary'
-            }
-          }
+          titleTypographyProps={{
+            component: 'h3',
+            variant: 'subtitle2',
+            color: 'textPrimary'
+          }}
           data-cy="board-card-header"
         />
-        <CardContent>
-        </CardContent>
-        {isAuthenticated &&
+        <CardContent></CardContent>
+        {isAuthenticated && (
           <StyledCardActions>
             <IconButton
               onClick={handleEditClick}
@@ -131,7 +123,7 @@ const BoardCard = ({ boardData, index, className }) => {
               <Delete />
             </IconButton>
           </StyledCardActions>
-        }
+        )}
       </StyledCard>
       <AppDialog
         disableBackdropClick={true}

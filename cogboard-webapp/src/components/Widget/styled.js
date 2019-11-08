@@ -6,20 +6,30 @@ import { mapStatusToColor } from './helpers';
 
 import { Card, CardHeader, CardContent } from '@material-ui/core';
 
-export const StyledCard = styled(forwardRef(({
-  status,
-  columns,
-  goNewLine,
-  isLoggedIn,
-  isDragging,
-  isOver,
-  rows,
-  theme,
-  ...other
-}, ref) => <Card {...other} ref={ref} />))`
-  background: ${({ isDragging, status, theme }) => !isDragging ? mapStatusToColor(status, theme) : theme.palette.background.paper};
+export const StyledCard = styled(
+  forwardRef(
+    (
+      {
+        status,
+        columns,
+        goNewLine,
+        isLoggedIn,
+        isDragging,
+        isOver,
+        rows,
+        theme,
+        ...other
+      },
+      ref
+    ) => <Card {...other} ref={ref} />
+  )
+)`
+  background: ${({ isDragging, status, theme }) =>
+    !isDragging
+      ? mapStatusToColor(status, theme)
+      : theme.palette.background.paper};
   box-shadow: none;
-  cursor: ${({ isLoggedIn }) => isLoggedIn ? 'move' : 'default'};
+  cursor: ${({ isLoggedIn }) => (isLoggedIn ? 'move' : 'default')};
   display: flex;
   flex-direction: column;
   grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
@@ -27,7 +37,9 @@ export const StyledCard = styled(forwardRef(({
   grid-row-end: span ${({ rows }) => rows};
   position: relative;
 
-  ${({ isDragging, isOver, theme }) => isDragging && `
+  ${({ isDragging, isOver, theme }) =>
+    isDragging &&
+    `
     &::before {
       background: ${theme.palette.background.paper};
       border: ${isOver && `1px dashed ${theme.palette.action.hover}`};

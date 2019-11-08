@@ -36,10 +36,7 @@ const BoardSwitcher = ({ className }) => {
   return (
     <div className={className}>
       <StyledTimer>{formatTime(timeLeft)}</StyledTimer>
-      <Tooltip
-        title={prevBoardTitle}
-        placement="bottom-end"
-      >
+      <Tooltip title={prevBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('prev')}
           color="inherit"
@@ -57,10 +54,7 @@ const BoardSwitcher = ({ className }) => {
       >
         {isPlaying ? <Pause /> : <PlayArrow />}
       </IconButton>
-      <Tooltip
-        title={nextBoardTitle}
-        placement="bottom-end"
-      >
+      <Tooltip title={nextBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('next')}
           color="inherit"

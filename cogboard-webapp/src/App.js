@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { Router } from "@reach/router";
+import { Router } from '@reach/router';
 
-import { fetchInitialData } from "./actions/thunks";
-import { updateWidget, saveDataSuccess, loginSuccess } from './actions/actionCreators';
+import { fetchInitialData } from './actions/thunks';
+import {
+  updateWidget,
+  saveDataSuccess,
+  loginSuccess
+} from './actions/actionCreators';
 import { theme } from './theme';
 
 import MainTemplate from './components/MainTemplate';
@@ -15,9 +19,7 @@ import { isAuthenticated } from './utils/auth';
 import ServerErrorPage from './components/ServerErrorPage';
 
 function App() {
-  const appInitialized = useSelector(
-    ({ app }) => app.initialized
-  );
+  const appInitialized = useSelector(({ app }) => app.initialized);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,7 +32,9 @@ function App() {
 
   useEffect(() => {
     if (appInitialized) {
-      const socket = new WebSocket(`ws://${window.location.hostname}:${process.env.REACT_APP_WS_PORT}`);
+      const socket = new WebSocket(
+        `ws://${window.location.hostname}:${process.env.REACT_APP_WS_PORT}`
+      );
       const handleMessageReceive = ({ data: dataJson }) => {
         const { eventType, ...data } = JSON.parse(dataJson);
 
@@ -55,9 +59,7 @@ function App() {
         <CssBaseline />
         <Router>
           <ServerErrorPage path="error-page" />
-          {appInitialized &&
-            <MainTemplate path="/*" />
-          }
+          {appInitialized && <MainTemplate path="/*" />}
         </Router>
       </DndProvider>
     </ThemeProvider>

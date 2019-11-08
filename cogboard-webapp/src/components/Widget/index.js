@@ -6,7 +6,7 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import { useToggle } from '../../hooks';
 import { removeWidget, reorderWidgets } from '../../actions/thunks';
-import widgetTypes from "../widgets";
+import widgetTypes from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent } from './helpers';
@@ -16,8 +16,8 @@ import { StyledCard, StyledCardHeader } from './styled';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
-import ConfirmationDialog from "../ConfirmationDialog";
-import WarningIcon from "@material-ui/icons/Warning";
+import ConfirmationDialog from '../ConfirmationDialog';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -32,17 +32,19 @@ const Widget = ({ id, index }) => {
     status,
     title,
     content,
-    config: {
-      columns,
-      goNewLine,
-      rows
-    },
+    config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
-  const showUpdateTime = widgetTypes[type] ? widgetTypes[type].showUpdateTime : false;
+  const showUpdateTime = widgetTypes[type]
+    ? widgetTypes[type].showUpdateTime
+    : false;
   const dispatch = useDispatch();
   const theme = useTheme();
-  const [confirmationDialogOpened, openConfirmationDialog, closeConfirmationDialog] = useToggle();
+  const [
+    confirmationDialogOpened,
+    openConfirmationDialog,
+    closeConfirmationDialog
+  ] = useToggle();
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
@@ -89,12 +91,12 @@ const Widget = ({ id, index }) => {
 
   drag(drop(ref));
 
-  const handleEditClick = (closeMenu) => () => {
+  const handleEditClick = closeMenu => () => {
     openDialog();
     closeMenu();
   };
 
-  const handleDeleteClick = (closeMenu) => () => {
+  const handleDeleteClick = closeMenu => () => {
     openConfirmationDialog();
     closeMenu();
   };
@@ -118,23 +120,31 @@ const Widget = ({ id, index }) => {
         ref={ref}
       >
         <StyledCardHeader
-          avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon/>}
+          avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon />}
           title={title}
-          titleTypographyProps={
-            {
-              component: 'h3',
-              variant: 'subtitle2',
-              color: 'textPrimary'
-            }
-          }
+          titleTypographyProps={{
+            component: 'h3',
+            variant: 'subtitle2',
+            color: 'textPrimary'
+          }}
           action={
             <MoreMenu>
-              {closeMenu =>
+              {closeMenu => (
                 <>
-                  <MenuItem onClick={handleEditClick(closeMenu)} data-cy="widget-edit">Edit</MenuItem>
-                  <MenuItem onClick={handleDeleteClick(closeMenu)} data-cy="widget-delete">Delete</MenuItem>
+                  <MenuItem
+                    onClick={handleEditClick(closeMenu)}
+                    data-cy="widget-edit"
+                  >
+                    Edit
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleDeleteClick(closeMenu)}
+                    data-cy="widget-delete"
+                  >
+                    Delete
+                  </MenuItem>
                 </>
-              }
+              )}
             </MoreMenu>
           }
         />

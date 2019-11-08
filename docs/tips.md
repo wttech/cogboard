@@ -1,3 +1,5 @@
+# [Home](/cogboard/) >> Tips & Tricks
+
 #### 1. Error while deploying Cogboard container
 If You see similar error while deploying Cogboard:
 ```bash

@@ -17,14 +17,14 @@ const AddWidget = ({ closeDialog }) => {
   const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
   const dispatch = useDispatch();
 
-  const handleAddClick = (values) => () => {
+  const handleAddClick = values => () => {
     dispatch(addNewWidget({ currentBoardId, values }));
     closeDialog();
   };
 
   return (
     <WidgetForm
-      renderActions={values =>
+      renderActions={values => (
         <>
           <Button
             onClick={handleAddClick(values)}
@@ -34,18 +34,18 @@ const AddWidget = ({ closeDialog }) => {
           >
             Add
           </Button>
-          <StyledCancelButton 
-            handleCancelClick={closeDialog} 
+          <StyledCancelButton
+            handleCancelClick={closeDialog}
             data-cy="widget-form-cancel-button"
           />
         </>
-      }
+      )}
     />
   );
 };
 
 AddWidget.propTypes = {
-  closeDialog: func.isRequired,
+  closeDialog: func.isRequired
 };
 
 export default AddWidget;

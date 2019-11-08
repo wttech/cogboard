@@ -1,9 +1,16 @@
 import React from 'react';
 import { useTheme } from '@material-ui/styles';
 
-import {ALL_SONARQUBE_METRICS} from "../../../constants";
+import { ALL_SONARQUBE_METRICS } from '../../../constants';
 
-import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select } from '@material-ui/core';
+import {
+  Input,
+  InputLabel,
+  Checkbox,
+  MenuItem,
+  ListItemText,
+  Select
+} from '@material-ui/core';
 import { StyledFormControl } from './../../styled';
 
 const SonarQubeMetricsInput = props => {
@@ -18,13 +25,13 @@ const SonarQubeMetricsInput = props => {
         multiple
         value={value}
         onChange={onChange}
-        input={<Input id={inputId}/>}
+        input={<Input id={inputId} />}
         renderValue={value => `${value.length} selected`}
       >
         {ALL_SONARQUBE_METRICS.map(name => (
           <MenuItem key={name} value={name}>
-            <Checkbox checked={value.includes(name)}/>
-            <ListItemText primary={name}/>
+            <Checkbox checked={value.includes(name)} />
+            <ListItemText primary={name} />
           </MenuItem>
         ))}
       </Select>
@@ -33,4 +40,3 @@ const SonarQubeMetricsInput = props => {
 };
 
 export default SonarQubeMetricsInput;
-

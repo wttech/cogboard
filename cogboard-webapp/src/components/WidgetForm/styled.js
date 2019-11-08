@@ -12,4 +12,4 @@ export const StyledTabPanel = styled(TabPanel)`
 
 export const StyledTabs = styled(Tabs)`
   margin-bottom: 12px;
-`
+`;

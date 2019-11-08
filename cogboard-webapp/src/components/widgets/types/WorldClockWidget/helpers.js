@@ -1,4 +1,4 @@
-import moment from 'moment-timezone'
+import moment from 'moment-timezone';
 
 export const getDateTime = (timezone, format) => {
   return moment.tz(new Date(), timezone).format(format);
@@ -17,12 +17,15 @@ const getGmtTimezones = () => {
   };
 
   const gmtTimezones = allTimezones
-    .filter(timezone => timezone.includes("Etc/GMT") && !duplicatedTimezones.includes(timezone))
+    .filter(
+      timezone =>
+        timezone.includes('Etc/GMT') && !duplicatedTimezones.includes(timezone)
+    )
     .sort(gmtSort)
     .map(timezone => {
       const displayName = timezone
         .replace('Etc/', '')
-        .replace(/[+-]/g, c => c === '+' ? '-' : '+'); //swap '+' sign with '-' sign to preserve correct time
+        .replace(/[+-]/g, c => (c === '+' ? '-' : '+')); //swap '+' sign with '-' sign to preserve correct time
       return {
         display: displayName,
         value: timezone
@@ -30,7 +33,7 @@ const getGmtTimezones = () => {
     });
 
   gmtTimezones.splice(0, 0, {
-    display: "Current time zone",
+    display: 'Current time zone',
     value: moment.tz.guess()
   });
 

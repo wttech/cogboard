@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 
-const NumberInput = (props) => {
+const NumberInput = props => {
   const { min, step, ...other } = props;
 
   return (
@@ -10,7 +10,7 @@ const NumberInput = (props) => {
       type="number"
       inputProps={{ min, step }}
       InputLabelProps={{
-        shrink: true,
+        shrink: true
       }}
       margin="normal"
       {...other}
