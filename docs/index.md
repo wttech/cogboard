@@ -27,6 +27,7 @@
 * [Backup](./config-backup)
 
 ### Development:
+* [Definition Of Done](./dod)
 * [Debugging](./debugging)
 * [Widget Development](./widget-development)
 
