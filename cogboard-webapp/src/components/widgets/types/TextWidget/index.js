@@ -1,16 +1,55 @@
 import React from 'react';
 import { bool, string } from 'prop-types';
 
-import { Typography } from '@material-ui/core';
-import { StyledPre, VerticalText } from './styled';
+import {
+  TypographyVariant,
+  CenterWrapper,
+  StyledPre,
+  RotatedStyledPre,
+  OverflowingText,
+  SetWidth
+} from './styled';
+import { useClientRect } from './hooks';
+
+export const ModifiedWidth = (component, componentRect) => {
+  if (componentRect) {
+    console.log(componentRect);
+    const { height } = componentRect;
+    console.log(height);
+
+    return SetWidth(component, height);
+  }
+
+  return component;
+};
+
+const TruncatedText = ({isVertical, parentRect, children}) => {
+  const UniversalPre = isVertical ? RotatedStyledPre : StyledPre;
+  const OverflowingPre = OverflowingText(UniversalPre);
+
+  if (parentRect !== null) {
+    const ModifiedPre = ModifiedWidth(OverflowingPre, parentRect);
+
+    return <ModifiedPre>{children}</ModifiedPre>
+  }
+
+  return <OverflowingPre>{children}</OverflowingPre>
+};
 
 const TextWidget = ({ text, textSize, isVertical }) => {
-  const TextVariant = isVertical ? VerticalText : Typography;
+  const [centerWrapperRect, centerWrapperRef] = useClientRect();
 
   return (
-    <TextVariant variant={textSize}>
-      <StyledPre>{text}</StyledPre>
-    </TextVariant>
+    <TypographyVariant variant={textSize}>
+      <CenterWrapper ref={centerWrapperRef}>
+        <TruncatedText
+          isVertical={isVertical}
+          parentRect={centerWrapperRect}
+        >
+          {text}
+        </TruncatedText>
+      </CenterWrapper>
+    </TypographyVariant>
   );
 };
 
