@@ -10,7 +10,8 @@ const isTokenExpired = token => {
   return Date.now() > expTimestamp;
 };
 
-export const getUserRole = () => hasToken() ? decode(getToken()).name : undefined;
+export const getUserRole = () =>
+  hasToken() ? decode(getToken()).name : undefined;
 
 export const getToken = () => localStorage.getItem(tokenName);
 

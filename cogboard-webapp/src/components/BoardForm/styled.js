@@ -13,4 +13,4 @@ export const StyledValidationMessages = styled(ValidationMessages)`
   list-style-type: none;
   margin: 0;
   padding: 0;
-`
+`;

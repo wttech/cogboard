@@ -1,14 +1,18 @@
-import { DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS } from "../types/WorldClockWidget/helpers";
+import {
+  DATE_FORMATS,
+  GMT_TIMEZONES,
+  TIME_FORMATS
+} from '../types/WorldClockWidget/helpers';
 
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
-import DisplayValueSelect from "./DisplayValueSelect";
-import { REQUEST_METHODS, TEXT_SIZES } from "../../../constants";
-import MultilineTextInput from "./MultilineTextInput";
-import CheckboxInput from "./CheckboxInput";
-import AemHealthcheckInput from "./AemHealthcheckInput";
+import DisplayValueSelect from './DisplayValueSelect';
+import { REQUEST_METHODS, TEXT_SIZES } from '../../../constants';
+import MultilineTextInput from './MultilineTextInput';
+import CheckboxInput from './CheckboxInput';
+import AemHealthcheckInput from './AemHealthcheckInput';
 
 const dialogFields = {
   EndpointField: {
@@ -59,12 +63,22 @@ const dialogFields = {
   SonarQubeMetricsInput: {
     component: SonarQubeMetricsInput,
     name: 'selectedMetrics',
-    initialValue: ['blocker_violations', 'critical_violations', 'major_violations', 'minor_violations']
+    initialValue: [
+      'blocker_violations',
+      'critical_violations',
+      'major_violations',
+      'minor_violations'
+    ]
   },
   AemHealthcheckInput: {
     component: AemHealthcheckInput,
     name: 'selectedHealthChecks',
-    initialValue: ['slingJobs', 'systemchecks', 'inactiveBundles', 'DiskSpaceHealthCheck']
+    initialValue: [
+      'slingJobs',
+      'systemchecks',
+      'inactiveBundles',
+      'DiskSpaceHealthCheck'
+    ]
   },
   StatusCode: {
     component: NumberInput,

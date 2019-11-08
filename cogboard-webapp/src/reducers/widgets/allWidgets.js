@@ -1,7 +1,14 @@
-import { RECEIVE_DATA, ADD_WIDGET, DELETE_WIDGET, DELETE_MULTIPLE_WIDGETS } from '../../actions/types';
+import {
+  RECEIVE_DATA,
+  ADD_WIDGET,
+  DELETE_WIDGET,
+  DELETE_MULTIPLE_WIDGETS
+} from '../../actions/types';
 
 const receiveData = (state, { payload }) => {
-  const { widgets: { allWidgets } } = payload;
+  const {
+    widgets: { allWidgets }
+  } = payload;
 
   return [...state, ...allWidgets];
 };

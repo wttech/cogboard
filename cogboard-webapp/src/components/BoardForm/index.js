@@ -2,22 +2,38 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { string, number, bool } from 'prop-types';
 
-import { FormControl, FormControlLabel, Switch, TextField } from '@material-ui/core';
+import {
+  FormControl,
+  FormControlLabel,
+  Switch,
+  TextField
+} from '@material-ui/core';
 import { StyledFieldset, StyledValidationMessages } from './styled';
 import { useFormData } from '../../hooks';
 import { getBoards } from '../../selectors';
 import { createValidationSchema } from './validators';
 import { trimLeadingZeros } from '../../helpers';
 
-import NumberInput from "../widgets/dialogFields/NumberInput";
+import NumberInput from '../widgets/dialogFields/NumberInput';
 
-const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) => {
+const BoardForm = ({
+  onSubmit,
+  renderActions,
+  boardId,
+  ...initialFormValues
+}) => {
   const boards = useSelector(getBoards);
   const validationSchema = createValidationSchema(boardId, boards);
-  const {values, handleChange, handleSubmit, errors} = useFormData(initialFormValues, validationSchema, true);
+  const { values, handleChange, handleSubmit, errors } = useFormData(
+    initialFormValues,
+    validationSchema,
+    true
+  );
 
-  const handleNumberInput = (event) => {
-    const { target: { value } } = event;
+  const handleNumberInput = event => {
+    const {
+      target: { value }
+    } = event;
 
     event.target.value = trimLeadingZeros(value);
   };
@@ -39,8 +55,9 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             <StyledValidationMessages
               messages={errors.title}
               data-cy={'board-form-title-error'}
-            />}
-          inputProps={{'data-cy': 'board-form-title-input'}}
+            />
+          }
+          inputProps={{ 'data-cy': 'board-form-title-input' }}
         />
         <NumberInput
           onChange={handleChange('columns')}
@@ -49,7 +66,7 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           InputLabelProps={{
             shrink: true
           }}
-          inputProps={{'data-cy': 'board-form-columns-input'}}
+          inputProps={{ 'data-cy': 'board-form-columns-input' }}
           label="Columns"
           margin="normal"
           value={values.columns}
@@ -58,8 +75,9 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
           helperText={
             <StyledValidationMessages
               messages={errors.columns}
-              data-cy='board-form-columns-error'
-            />}
+              data-cy="board-form-columns-error"
+            />
+          }
         />
         <FormControl margin="normal">
           <FormControlLabel
@@ -69,13 +87,13 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
                 checked={values.autoSwitch}
                 color="primary"
                 value="autoSwitch"
-                inputProps={{'data-cy': 'board-form-auto-switch-checkbox'}}
+                inputProps={{ 'data-cy': 'board-form-auto-switch-checkbox' }}
               />
             }
             label="Auto switch"
           />
         </FormControl>
-        {values.autoSwitch &&
+        {values.autoSwitch && (
           <NumberInput
             onChange={handleChange('switchInterval')}
             onInput={handleNumberInput}
@@ -91,11 +109,12 @@ const BoardForm = ({ onSubmit, renderActions, boardId, ...initialFormValues }) =
             helperText={
               <StyledValidationMessages
                 messages={errors.switchInterval}
-                data-cy='board-form-switch-interval-error'
-              />}
-            inputProps={{'data-cy': 'board-form-switch-interval-input'}}
+                data-cy="board-form-switch-interval-error"
+              />
+            }
+            inputProps={{ 'data-cy': 'board-form-switch-interval-input' }}
           />
-        }
+        )}
       </StyledFieldset>
       {renderActions()}
     </form>
@@ -106,14 +125,14 @@ BoardForm.propTypes = {
   autoSwitch: bool,
   columns: number,
   switchInterval: number,
-  title: string,
+  title: string
 };
 
 BoardForm.defaultProps = {
   autoSwitch: true,
   columns: 8,
   switchInterval: 60,
-  title: 'Board',
+  title: 'Board'
 };
 
 export default BoardForm;

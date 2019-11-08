@@ -32,16 +32,16 @@ export const requestData = () => ({
 });
 
 export const loginSuccess = () => ({
-  type: LOGIN_SUCCESS,
+  type: LOGIN_SUCCESS
 });
 
-export const loginFailure = (data) => ({
+export const loginFailure = data => ({
   type: LOGIN_FAILURE,
   payload: data
 });
 
 export const clearLoginErrorMessage = () => ({
-  type: CLEAR_LOGIN_ERROR_MESSAGE,
+  type: CLEAR_LOGIN_ERROR_MESSAGE
 });
 
 export const logout = () => ({
@@ -53,17 +53,17 @@ export const receiveData = state => ({
   payload: state
 });
 
-export const requestUpdate = (id) => ({
+export const requestUpdate = id => ({
   type: REQUEST_UPDATE,
   payload: id
 });
 
-export const updateWidget = (data) => ({
+export const updateWidget = data => ({
   type: UPDATE_WIDGET,
   payload: data
 });
 
-export const addBoard = (data) => ({
+export const addBoard = data => ({
   type: ADD_BOARD,
   payload: {
     id: `board-${v4()}`,
@@ -73,12 +73,12 @@ export const addBoard = (data) => ({
   }
 });
 
-export const deleteBoard = (id) => ({
+export const deleteBoard = id => ({
   type: DELETE_BOARD,
   payload: id
 });
 
-export const editBoard = (editData) => ({
+export const editBoard = editData => ({
   type: EDIT_BOARD,
   payload: editData
 });
@@ -88,12 +88,12 @@ export const reorderBoards = (sourceId, targetIndex) => ({
   payload: { sourceId, targetIndex }
 });
 
-export const editWidget = (editData) => ({
+export const editWidget = editData => ({
   type: EDIT_WIDGET,
   payload: editData
 });
 
-export const addWidget = (widgetData) => ({
+export const addWidget = widgetData => ({
   type: ADD_WIDGET,
   payload: widgetData
 });
@@ -108,24 +108,24 @@ export const deleteMultipleWidgets = (widgetIds, boardId = '') => ({
   payload: { widgetIds, boardId }
 });
 
-export const sortWidgets = (payload) => ({
+export const sortWidgets = payload => ({
   type: SORT_WIDGETS,
   payload
 });
 
 export const dataChanged = () => ({
-  type: DATA_CHANGED,
+  type: DATA_CHANGED
 });
 
 export const saveDataStart = () => ({
-  type: SAVE_DATA_START,
+  type: SAVE_DATA_START
 });
 
 export const saveDataSuccess = () => ({
-  type: SAVE_DATA_SUCCESS,
+  type: SAVE_DATA_SUCCESS
 });
 
-export const setCurrentBoard = (id) => ({
+export const setCurrentBoard = id => ({
   type: SET_CURRENT_BOARD,
   payload: id
 });
@@ -135,7 +135,7 @@ export const initBoardProps = () => ({
   payload: { ...INITIAL_BOARD_PROPS }
 });
 
-export const pushNotification = (notification) => ({
+export const pushNotification = notification => ({
   type: PUSH_NOTIFICATION,
   payload: {
     id: v4(),
@@ -143,7 +143,7 @@ export const pushNotification = (notification) => ({
   }
 });
 
-export const deleteNotification = (id) => ({
+export const deleteNotification = id => ({
   type: DELETE_NOTIFICATION,
   payload: id
 });

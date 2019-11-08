@@ -8,7 +8,7 @@ export const createValueRef = (values, initialValue, name) => {
       values[groupName] = {};
     }
 
-    if(values[groupName][propName] === undefined) {
+    if (values[groupName][propName] === undefined) {
       values[groupName][propName] = initialValue;
     }
 

@@ -6,7 +6,7 @@ const MultilineTextInput = props => {
   return (
     <TextField
       InputLabelProps={{
-        shrink: true,
+        shrink: true
       }}
       margin="normal"
       multiline={true}

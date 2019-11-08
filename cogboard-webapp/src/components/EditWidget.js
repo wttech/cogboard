@@ -17,7 +17,7 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
   const initialFormValues = { ...widgetData, ...widgetTypeData };
   const dispatch = useDispatch();
 
-  const handleSaveClick = (values) => () => {
+  const handleSaveClick = values => () => {
     dispatch(saveWidget({ id, values }));
     closeDialog();
   };
@@ -25,7 +25,7 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
   return (
     <WidgetForm
       {...initialFormValues}
-      renderActions={values =>
+      renderActions={values => (
         <>
           <Button
             onClick={handleSaveClick(values)}
@@ -35,12 +35,12 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
           >
             Save
           </Button>
-          <StyledCancelButton 
-            handleCancelClick={closeDialog} 
+          <StyledCancelButton
+            handleCancelClick={closeDialog}
             data-cy="widget-form-cancel-button"
           />
         </>
-      }
+      )}
     />
   );
 };

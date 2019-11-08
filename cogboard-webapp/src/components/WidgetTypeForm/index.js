@@ -16,33 +16,36 @@ const StyledFieldset = styled(FormControl)`
 
 const WidgetTypeForm = ({ values, type, handleChange }) => {
   const widgetType = widgetTypes[type];
-  const dialogFieldNames = (widgetType && widgetType.dialogFields) ? widgetType.dialogFields : [];
+  const dialogFieldNames =
+    widgetType && widgetType.dialogFields ? widgetType.dialogFields : [];
   const hasDialogFields = dialogFieldNames.length !== 0;
 
-  return hasDialogFields && (
-    <>
-      <StyledFieldset component="fieldset">
-        {dialogFieldNames.map(fieldName => {
-          const {
-            component: DialogField,
-            initialValue = '',
-            ...dialogFieldProps
-          } = dialogFields[fieldName];
+  return (
+    hasDialogFields && (
+      <>
+        <StyledFieldset component="fieldset">
+          {dialogFieldNames.map(fieldName => {
+            const {
+              component: DialogField,
+              initialValue = '',
+              ...dialogFieldProps
+            } = dialogFields[fieldName];
 
-          const { name } = dialogFieldProps;
-          const valueRef = createValueRef(values, initialValue, name);
+            const { name } = dialogFieldProps;
+            const valueRef = createValueRef(values, initialValue, name);
 
-          return (
-            <DialogField
-              key={name}
-              value={valueRef}
-              onChange={handleChange(name)}
-              {...dialogFieldProps}
-            />
-          );
-        })}
-      </StyledFieldset>
-    </>
+            return (
+              <DialogField
+                key={name}
+                value={valueRef}
+                onChange={handleChange(name)}
+                {...dialogFieldProps}
+              />
+            );
+          })}
+        </StyledFieldset>
+      </>
+    )
   );
 };
 
