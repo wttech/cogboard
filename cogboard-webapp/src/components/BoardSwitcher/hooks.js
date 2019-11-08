@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
 
@@ -54,11 +54,16 @@ export const useBoardSwitching = () => {
 
     switchBoard(direction);
     setTimeElapsed(0);
+    setIsPlaying(false);
   };
 
   const handlePlayToggle = () => {
     setIsPlaying(prevState => !prevState);
   };
+
+  const handleResetTimeElapsed = () => {
+    setTimeElapsed(0);
+  }
 
   useEffect(() => {
     if (isPlaying) {
@@ -78,6 +83,7 @@ export const useBoardSwitching = () => {
   return {
     handleBoardsSwitch,
     handlePlayToggle,
+    handleResetTimeElapsed,
     hasBoardsToSwitch,
     isPlaying,
     isDisable,
@@ -87,3 +93,13 @@ export const useBoardSwitching = () => {
     timeElapsed
   };
 };
+
+export const usePrevious = (value) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
+}
