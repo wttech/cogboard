@@ -24,16 +24,16 @@ export const ModifiedWidth = (component, componentRect) => {
 };
 
 const TruncatedText = ({isVertical, parentRect, children}) => {
-  const UniversalPre = isVertical ? RotatedStyledPre : StyledPre;
-  const OverflowingPre = OverflowingText(UniversalPre);
+  let TruncatedPre = null;
 
-  if (parentRect !== null) {
-    const ModifiedPre = ModifiedWidth(OverflowingPre, parentRect);
-
-    return <ModifiedPre>{children}</ModifiedPre>
+  if (isVertical && parentRect !== null) {
+    const ModifiedPre = ModifiedWidth(RotatedStyledPre, parentRect);
+    TruncatedPre = OverflowingText(ModifiedPre);
+  } else {
+    TruncatedPre = OverflowingText(StyledPre);
   }
 
-  return <OverflowingPre>{children}</OverflowingPre>
+  return <TruncatedPre>{children}</TruncatedPre>
 };
 
 const TextWidget = ({ text, textSize, isVertical }) => {
