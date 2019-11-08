@@ -30,8 +30,16 @@ const BoardForm = ({
     true
   );
 
+  const handleNumberInput = event => {
+    const {
+      target: { value }
+    } = event;
+
+    event.target.value = trimLeadingZeros(value);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} novalidate="novalidate">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
       <StyledFieldset component="fieldset">
         <TextField
           onChange={handleChange('title')}
@@ -42,7 +50,7 @@ const BoardForm = ({
           label="Title"
           margin="normal"
           value={values.title}
-          error={errors.title}
+          error={errors.title !== undefined}
           helperText={
             <StyledValidationMessages
               messages={errors.title}
@@ -53,7 +61,7 @@ const BoardForm = ({
         />
         <NumberInput
           onChange={handleChange('columns')}
-          onInput={trimLeadingZeros}
+          onInput={handleNumberInput}
           id="columns"
           InputLabelProps={{
             shrink: true
@@ -62,7 +70,8 @@ const BoardForm = ({
           label="Columns"
           margin="normal"
           value={values.columns}
-          error={errors.columns}
+          error={errors.columns !== undefined}
+          FormHelperTextProps={{ component: 'div' }}
           helperText={
             <StyledValidationMessages
               messages={errors.columns}
@@ -87,7 +96,7 @@ const BoardForm = ({
         {values.autoSwitch && (
           <NumberInput
             onChange={handleChange('switchInterval')}
-            onInput={trimLeadingZeros}
+            onInput={handleNumberInput}
             id="switchInterval"
             InputLabelProps={{
               shrink: true
@@ -95,7 +104,8 @@ const BoardForm = ({
             label="Switch interval [s]"
             margin="normal"
             value={values.switchInterval}
-            error={errors.switchInterval}
+            error={errors.switchInterval !== undefined}
+            FormHelperTextProps={{ component: 'div' }}
             helperText={
               <StyledValidationMessages
                 messages={errors.switchInterval}

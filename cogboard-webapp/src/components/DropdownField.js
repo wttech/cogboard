@@ -52,7 +52,7 @@ const DropdownField = props => {
         value={value}
         input={<Input name={name} id={id} />}
         name={name}
-        inputProps={other}
+        SelectDisplayProps={other}
       >
         {loaded && children(options)}
       </Select>

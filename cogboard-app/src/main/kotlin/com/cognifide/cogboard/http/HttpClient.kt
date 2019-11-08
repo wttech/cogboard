@@ -107,9 +107,6 @@ class HttpClient : AbstractVerticle() {
 
     private fun executeRequest(request: HttpRequest<Buffer>, address: String?) {
         request.send {
-            val statusCode = it.result().statusCode()
-            val statusMessage = it.result().statusMessage()
-
             if (!it.succeeded()) {
                 vertx.eventBus().send(address, JsonObject()
                         .put(CogboardConstants.PROP_ERROR_MESSAGE, "Http Error")
@@ -117,8 +114,8 @@ class HttpClient : AbstractVerticle() {
                 LOGGER.error(it.cause()?.message)
             } else {
                 toJson(it.result()).let { json ->
-                    json.put(PROP_STATUS_CODE, statusCode)
-                    json.put(PROP_STATUS_MESSAGE, statusMessage)
+                    json.put(PROP_STATUS_CODE, it.result().statusCode())
+                    json.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
                     vertx.eventBus().send(address, json)
                 }
             }

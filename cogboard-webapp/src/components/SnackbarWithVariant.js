@@ -9,7 +9,7 @@ import Snackbar from '@material-ui/core/Snackbar/index';
 import SnackbarVariantContent from './SnackbarVariantContent';
 
 const SnackbarWithVariant = React.memo(
-  ({ notificationId, vertical, horizontal }) => {
+  ({ notificationId, vertical, horizontal, 'data-cy': dataCy }) => {
     const getNotification = useMemo(createGetNotification, []);
     const { type, message, duration } = useSelector(state =>
       getNotification(state, notificationId)
@@ -35,6 +35,7 @@ const SnackbarWithVariant = React.memo(
         autoHideDuration={duration}
         disableWindowBlurListener
         open={isOpened}
+        data-cy={dataCy}
       >
         <SnackbarVariantContent variant={type} message={message} />
       </Snackbar>

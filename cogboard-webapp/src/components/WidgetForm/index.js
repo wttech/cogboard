@@ -48,8 +48,10 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
         onChange={handleTabChange}
         variant="fullWidth"
       >
-        <Tab label="General" />
-        {hasDialogFields && <Tab label={widgetType.name} />}
+        <Tab label="General" data-cy="widget-form-general-tab" />
+        {hasDialogFields && (
+          <Tab label={widgetType.name} data-cy="widget-form-dynamic-tab" />
+        )}
       </StyledTabs>
       <StyledTabPanel value={tabValue} index={0}>
         <StyledFieldset component="fieldset">
