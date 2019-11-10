@@ -44,6 +44,6 @@ class CogboardConstants {
         val DEFAULT_VALUES: JsonObject = JsonObject()
                 .put(PROP_SCHEDULE_PERIOD, PROP_SCHEDULE_PERIOD_DEFAULT)
 
-        fun errorResponse(message : String = "") : JsonObject = JsonObject().put("error", message)
+        fun errorResponse(message : String = "") : JsonObject = JsonObject().put("status", "failed $message")
     }
 }

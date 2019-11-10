@@ -35,7 +35,7 @@ class EndpointsService(private val config: JsonObject, vertx: Vertx) {
 
     private fun update(endpoint: JsonObject) {
         val endpointId = endpoint.getString(ENDPOINT_ID_PROP)
-        val endpointToUpdate = EndpointLoader.from(config, endpointId).load()
+        val endpointToUpdate = EndpointLoader(config).load(endpointId)
         endpointToUpdate.mergeIn(endpoint, true)
     }
 

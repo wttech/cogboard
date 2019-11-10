@@ -7,6 +7,7 @@ object ConfigFactory {
     fun getByType(configType: ConfigType): Config {
         return when (configType) {
             BOARDS -> BoardsConfig()
+            CREDENTIALS -> CredentialsConfig()
             ENDPOINTS -> EndpointsConfig()
         }
     }

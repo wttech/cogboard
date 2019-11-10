@@ -10,15 +10,19 @@ import org.junit.jupiter.api.TestInstance
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class EndpointTest {
 
-    private lateinit var config: JsonObject
+    private lateinit var endpointsConfig: JsonObject
+    private lateinit var credentialsConfig: JsonObject
+    private lateinit var endpointsLoader: EndpointLoader
     private lateinit var validEndpoint: JsonObject
     private lateinit var invalidEndpoint: JsonObject
 
     @BeforeAll
     fun init() {
-        config = readConfigFromResource("/com/cognifide/cogboard/config/endpoints-test.json")
-        validEndpoint = EndpointLoader.from(config, "validEndpoint").loadWithSensitiveData()
-        invalidEndpoint = EndpointLoader.from(config, "invalidEndpoint").loadWithSensitiveData()
+        endpointsConfig= readConfigFromResource("/com/cognifide/cogboard/config/endpoints-test.json")
+        credentialsConfig = readConfigFromResource("/com/cognifide/cogboard/config/credentials-test.json")
+        endpointsLoader = EndpointLoader(endpointsConfig)
+        validEndpoint = endpointsLoader.loadWithSensitiveData("validEndpoint")
+        invalidEndpoint = endpointsLoader.loadWithSensitiveData("invalidEndpoint")
     }
 
     @Test

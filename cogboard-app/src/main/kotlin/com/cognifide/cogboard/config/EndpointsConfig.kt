@@ -20,7 +20,8 @@ class EndpointsConfig: Config() {
         const val ENDPOINT_LABEL_PROP = "label"
         const val ENDPOINT_URL_PROP = "url"
         const val ENDPOINT_PUBLIC_URL_PROP = "publicUrl"
-        const val USER = "user"
-        const val PASSWORD = "password"
+        const val CREDENTIALS_PROP: String = "credentials"
+        const val USER_PROP = "user"
+        const val PASSWORD_PROP = "password"
     }
 }

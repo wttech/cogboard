@@ -6,8 +6,8 @@ import com.cognifide.cogboard.config.ConfigFactory
 import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
-import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD
-import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD_PROP
+import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER_PROP
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -58,8 +58,8 @@ class GetEndpoints : RoutingHandlerFactory {
     }
 
     private fun JsonObject.filterSensitiveData() {
-        this.remove(USER)
-        this.remove(PASSWORD)
+        this.remove(USER_PROP)
+        this.remove(PASSWORD_PROP)
     }
 
     companion object {

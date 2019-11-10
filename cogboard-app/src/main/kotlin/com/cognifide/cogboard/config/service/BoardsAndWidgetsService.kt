@@ -41,17 +41,17 @@ class BoardsAndWidgetsService(private val config: JsonObject, private val vertx:
                 it.stop()
                 newConfig = it.config().mergeIn(widgetConfig, true)
             }
-            newConfig.attachEndpoint(config)
+            newConfig.attachEndpoint()
             widgets[id] = WidgetIndex.create(newConfig, vertx).start()
         } else {
             BoardsAndWidgetsService.LOGGER.error("Widget Update / Create | There is widget with no ID in configuration: $widgetConfig")
         }
     }
 
-    private fun JsonObject.attachEndpoint(endpointsConfig: JsonObject) {
+    private fun JsonObject.attachEndpoint() {
         val endpointId = this.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
-            val endpoint = EndpointLoader.from(endpointsConfig, endpointId).loadWithSensitiveData()
+            val endpoint = EndpointLoader(config).loadWithSensitiveData(endpointId)
             this.put(CogboardConstants.PROP_ENDPOINT, endpoint)
         }
     }
