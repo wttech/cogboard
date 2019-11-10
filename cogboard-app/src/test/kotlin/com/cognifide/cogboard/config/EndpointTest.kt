@@ -20,7 +20,7 @@ internal class EndpointTest {
     fun init() {
         endpointsConfig= readConfigFromResource("/com/cognifide/cogboard/config/endpoints-test.json")
         credentialsConfig = readConfigFromResource("/com/cognifide/cogboard/config/credentials-test.json")
-        endpointsLoader = EndpointLoader(endpointsConfig)
+        endpointsLoader = EndpointLoader(endpointsConfig, credentialsConfig)
         validEndpoint = endpointsLoader.loadWithSensitiveData("validEndpoint")
         invalidEndpoint = endpointsLoader.loadWithSensitiveData("invalidEndpoint")
     }

@@ -7,13 +7,14 @@ import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER_PROP
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class EndpointLoader(endpointsConfig: JsonObject) {
+class EndpointLoader(
+        endpointsConfig: JsonObject,
+        credentialsConfig: JsonObject = CredentialsConfig().load()
+) {
 
     private val endpoints = endpointsConfig.getJsonArray(EndpointsConfig.ENDPOINTS_ARRAY) ?: JsonArray()
 
-    private val credentials = CredentialsConfig()
-            .load()
-            .getJsonArray(CredentialsConfig.CREDENTIALS_ARRAY) ?: JsonArray()
+    private val credentials = credentialsConfig.getJsonArray(CredentialsConfig.CREDENTIALS_ARRAY) ?: JsonArray()
 
     fun load(endpointId: String): JsonObject {
         return endpoints.findById(endpointId)
