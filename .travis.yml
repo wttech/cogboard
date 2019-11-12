@@ -5,16 +5,16 @@ services:
 jdk:
 - oraclejdk11
 before_script:
-- git checkout feature/travis-cicd && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git
+- git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git
 - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
-- if [ "$TRAVIS_BRANCH" = "feature/travis-cicd" ]; then ./gradlew cogboardInit && ./gradlew release
+- if [ "$TRAVIS_BRANCH" = "master" ]; then ./gradlew cogboardInit && ./gradlew release
   -Prelease.useAutomaticVersion=true --info; fi
 deploy:
 - provider: script
   script: bash scripts/release.sh
   on:
-    branch: feature/travis-cicd
+    branch: master
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
