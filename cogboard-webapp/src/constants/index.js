@@ -1,4 +1,4 @@
-import { capitalize } from "../helpers";
+import { capitalize } from '../helpers';
 
 export const URL = {
   LOAD_DATA: '/api/config',
@@ -88,18 +88,18 @@ export const AEM_HEALTH_CHECKS = {
   securitychecks: 'Security Checks',
   slingJobs: 'Sling Jobs',
   slingDiscoveryOakSynchronizedClocks: 'Synchronized Clocks',
-  systemchecks: 'System Maintenance',
+  systemchecks: 'System Maintenance'
 };
 
 export const ALL_SONARQUBE_METRICS = [
-  "blocker_violations",
-  "critical_violations",
-  "major_violations",
-  "minor_violations",
-  "info_violations",
-  "bugs",
-  "code_smells",
-  "vulnerabilities"
+  'blocker_violations',
+  'critical_violations',
+  'major_violations',
+  'minor_violations',
+  'info_violations',
+  'bugs',
+  'code_smells',
+  'vulnerabilities'
 ];
 
 // props will be added to old configs on app init

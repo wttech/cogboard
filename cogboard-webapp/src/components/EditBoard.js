@@ -6,9 +6,9 @@ import { saveBoard } from '../actions/thunks';
 import BoardForm from './BoardForm';
 
 const EditBoard = ({ closeDialog, id, ...initialFormValues }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const handleSaveClick = (values) => {
+  const handleSaveClick = values => {
     dispatch(saveBoard({ id, ...values }));
     closeDialog();
   };

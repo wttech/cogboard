@@ -1,14 +1,14 @@
 import DefaultWidget from './types/DefaultWidget';
 import ExampleWidget from './types/ExampleWidget';
-import JenkinsJobWidget from "./types/JenkinsJobWidget";
-import SonarQubeWidget from "./types/SonarQubeWidget";
-import ServiceCheckWidget from "./types/ServiceCheckWidget";
-import TextWidget from "./types/TextWidget";
-import BambooPlanWidget from "./types/BambooPlanWidget";
-import WorldClockWidget from "./types/WorldClockWidget";
+import JenkinsJobWidget from './types/JenkinsJobWidget';
+import SonarQubeWidget from './types/SonarQubeWidget';
+import ServiceCheckWidget from './types/ServiceCheckWidget';
+import TextWidget from './types/TextWidget';
+import BambooPlanWidget from './types/BambooPlanWidget';
+import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
-import AemHealthcheckWidget from "./types/AemHealthcheckWidget";
-import IframeEmbedWidget from "./types/IframeEmbedWidget";
+import AemHealthcheckWidget from './types/AemHealthcheckWidget';
+import IframeEmbedWidget from './types/IframeEmbedWidget';
 
 const widgetTypes = {
   DefaultWidget: {
@@ -72,7 +72,14 @@ const widgetTypes = {
   WorldClockWidget: {
     name: 'World Clock',
     component: WorldClockWidget,
-    dialogFields: ['TimeZoneId', 'DateFormat', 'TimeFormat', 'DisplayDate', 'DisplayTime', 'TextSize']
+    dialogFields: [
+      'TimeZoneId',
+      'DateFormat',
+      'TimeFormat',
+      'DisplayDate',
+      'DisplayTime',
+      'TextSize'
+    ]
   },
   IframeEmbedWidget: {
     name: 'Iframe Embed',
@@ -82,7 +89,7 @@ const widgetTypes = {
   CheckboxWidget: {
     name: 'Checkbox',
     component: CheckboxWidget,
-    showUpdateTime : true
+    showUpdateTime: true
   },
   AemHealthcheckWidget: {
     name: 'AEM Healthcheck',

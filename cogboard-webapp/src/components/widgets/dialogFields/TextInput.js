@@ -8,7 +8,7 @@ const TextInput = ({ error, dataCy, values, ...other }) => {
   return (
     <TextField
       InputLabelProps={{
-        shrink: true,
+        shrink: true
       }}
       margin="normal"
       error={hasError(error)}

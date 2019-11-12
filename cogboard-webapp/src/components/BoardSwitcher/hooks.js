@@ -1,25 +1,41 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
 
-import { getSwitcherBoards, getSwitchInterval, getBoardTitle, getCurrentBoardId } from '../../selectors';
+import {
+  getSwitcherBoards,
+  getSwitchInterval,
+  getBoardTitle,
+  getCurrentBoardId
+} from '../../selectors';
 import { getPrevAndNextIndex } from './helpers';
 
 export const useBoardSwitching = () => {
   const switcherBoards = useSelector(getSwitcherBoards);
   const currentBoardId = useSelector(getCurrentBoardId);
   const hasBoardsToSwitch = switcherBoards.length > 1;
-  const boardIndex = switcherBoards.includes(currentBoardId) ? switcherBoards.indexOf(currentBoardId) : 0;
+  const boardIndex = switcherBoards.includes(currentBoardId)
+    ? switcherBoards.indexOf(currentBoardId)
+    : 0;
   const [isPlaying, setIsPlaying] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
-  const [prevBoardIndex, nextBoardIndex] = getPrevAndNextIndex(switcherBoards, boardIndex);
-  const switchInterval = useSelector(state => getSwitchInterval(state, switcherBoards[boardIndex]));
-  const prevBoardTitle = useSelector(state => getBoardTitle(state, switcherBoards[prevBoardIndex]));
-  const nextBoardTitle = useSelector(state => getBoardTitle(state, switcherBoards[nextBoardIndex]));
+  const [prevBoardIndex, nextBoardIndex] = getPrevAndNextIndex(
+    switcherBoards,
+    boardIndex
+  );
+  const switchInterval = useSelector(state =>
+    getSwitchInterval(state, switcherBoards[boardIndex])
+  );
+  const prevBoardTitle = useSelector(state =>
+    getBoardTitle(state, switcherBoards[prevBoardIndex])
+  );
+  const nextBoardTitle = useSelector(state =>
+    getBoardTitle(state, switcherBoards[nextBoardIndex])
+  );
   const isDisable = !switcherBoards.includes(currentBoardId);
 
   const switchBoard = useCallback(
-    (direction) => {
+    direction => {
       const switchDirection = {
         next: nextBoardIndex,
         prev: prevBoardIndex
@@ -31,40 +47,43 @@ export const useBoardSwitching = () => {
     [nextBoardIndex, prevBoardIndex, switcherBoards]
   );
 
-  const handleBoardsSwitch = (direction) => () => {
+  const handleBoardsSwitch = direction => () => {
     if (!hasBoardsToSwitch) {
       return;
     }
 
     switchBoard(direction);
     setTimeElapsed(0);
+    setIsPlaying(false);
   };
 
   const handlePlayToggle = () => {
     setIsPlaying(prevState => !prevState);
   };
 
-  useEffect(
-    () => {
-      if (isPlaying) {
-        const interval = setInterval(() => {
-          setTimeElapsed(prevState => prevState + 1);
+  const handleResetTimeElapsed = () => {
+    setTimeElapsed(0);
+  }
 
-          if (timeElapsed >= switchInterval) {
-            switchBoard('next');
-            setTimeElapsed(0);
-          }
-        }, 1000);
+  useEffect(() => {
+    if (isPlaying) {
+      const interval = setInterval(() => {
+        setTimeElapsed(prevState => prevState + 1);
 
-        return () => clearInterval(interval);
-      }
-    },
-    [isPlaying, timeElapsed, switchInterval, switchBoard]
-  );
+        if (timeElapsed >= switchInterval) {
+          switchBoard('next');
+          setTimeElapsed(0);
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isPlaying, timeElapsed, switchInterval, switchBoard]);
 
   return {
     handleBoardsSwitch,
     handlePlayToggle,
+    handleResetTimeElapsed,
     hasBoardsToSwitch,
     isPlaying,
     isDisable,
@@ -74,3 +93,13 @@ export const useBoardSwitching = () => {
     timeElapsed
   };
 };
+
+export const usePrevious = (value) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
+}

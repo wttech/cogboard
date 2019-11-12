@@ -32,7 +32,8 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
   const [tabValue, setTabValue] = useState(0);
 
   const widgetType = widgetTypes[values.type];
-  const dialogFieldNames = (widgetType && widgetType.dialogFields) ? widgetType.dialogFields : [];
+  const dialogFieldNames =
+    widgetType && widgetType.dialogFields ? widgetType.dialogFields : [];
   const hasDialogFields = dialogFieldNames.length !== 0;
 
   const handleTabChange = (event, newValue) => {
@@ -47,13 +48,15 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
 
   return (
     <form onSubmit={withValidation(handleSubmit)} noValidate="novalidate">
-      <StyledTabs 
-        value={tabValue} 
+      <StyledTabs
+        value={tabValue}
         onChange={handleTabChange}
         variant="fullWidth"
       >
-        <Tab label="General" data-cy="widget-form-general-tab"/>
-        {hasDialogFields && <Tab label={widgetType.name} data-cy="widget-form-dynamic-tab"/>}
+        <Tab label="General" data-cy="widget-form-general-tab" />
+        {hasDialogFields && (
+          <Tab label={widgetType.name} data-cy="widget-form-dynamic-tab" />
+        )}
       </StyledTabs>
       <StyledTabPanel value={tabValue} index={0}>
       <DynamicForm

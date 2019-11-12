@@ -11,7 +11,7 @@ const NumberInput = ({ min, step, error, dataCy, ...other }) => {
       type="number"
       inputProps={{ min, step, 'data-cy': dataCy }}
       InputLabelProps={{
-        shrink: true,
+        shrink: true
       }}
       margin="normal"
       error={hasError(error)}

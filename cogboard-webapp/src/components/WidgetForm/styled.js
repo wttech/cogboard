@@ -14,13 +14,13 @@ export const StyledTabPanel = styled(TabPanel)`
 
 export const StyledTabs = styled(Tabs)`
   margin-bottom: 12px;
-`
+`;
 
 export const StyledValidationMessages = styled(ValidationMessages)`
   list-style-type: none;
   margin: 0;
   padding: 0;
-`
+`;
 
 export const StyledCancelButton = styled(CancelButton)`
   margin-left: 20px;

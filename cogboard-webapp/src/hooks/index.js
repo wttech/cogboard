@@ -18,7 +18,7 @@ export const useFormData = (data, config={}) => {
 
   const [status, setStatus] = useState({
     submited: false,
-    onChange: onChange,
+    onChange: onChange
   });
 
   const [validationSchema, setValidationSchema] = useState(initialSchema)
@@ -43,11 +43,11 @@ export const useFormData = (data, config={}) => {
       const groupValues = values[groupName];
 
       newValues = {
-          ...values,
-          [groupName]: { ...groupValues, [propName]: fieldValue }
-        }
+        ...values,
+        [groupName]: { ...groupValues, [propName]: fieldValue }
+      };
     } else {
-      newValues = { ...values, [propName]: fieldValue};
+      newValues = { ...values, [propName]: fieldValue };
     }
 
     validateField(fieldName, newValues);
@@ -57,28 +57,28 @@ export const useFormData = (data, config={}) => {
 
   const validateField = (fieldName, fieldsValues) => {
     if (status.submited || status.onChange) {
-
-      validationSchema.validateAt(fieldName, fieldsValues, {abortEarly: false})
+      validationSchema
+        .validateAt(fieldName, fieldsValues, { abortEarly: false })
         .then(() => {
           if (fieldName in errors) {
-            const errorsTmp = {...errors};
+            const errorsTmp = { ...errors };
 
             delete errorsTmp[fieldName];
-            setErrors(errorsTmp)
+            setErrors(errorsTmp);
           }
         })
-        .catch(error => setErrors({...errors, ...parseYupErrors(error)}))
+        .catch(error => setErrors({ ...errors, ...parseYupErrors(error) }));
     }
   };
 
   const withValidation = func => event => {
     event.preventDefault();
-    setStatus({...status, submited: true});
+    setStatus({ ...status, submited: true });
 
     if(validationSchema) {
       validationSchema.validate(values, {abortEarly: false, stripUnknown: true})
         .then(value => func(value))
-        .catch(errors => setErrors(parseYupErrors(errors)))
+        .catch(errors => setErrors(parseYupErrors(errors)));
     } else {
       func(values);
     }
@@ -105,4 +105,4 @@ export function useInterval(callback, delay) {
       return () => clearInterval(id);
     }
   }, [delay]);
-};
+}

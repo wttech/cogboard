@@ -19,16 +19,16 @@ const AemHealthcheckInput = ({ onChange, value, error, dataCy }) => {
         multiple
         value={value}
         onChange={onChange}
-        input={<Input id={inputId}/>}
+        input={<Input id={inputId} />}
         renderValue={value => `${value.length} selected`}
         data-cy={dataCy}
       >
-        {Object.entries(AEM_HEALTH_CHECKS).map(([name, label]) =>
+        {Object.entries(AEM_HEALTH_CHECKS).map(([name, label]) => (
           <MenuItem key={name} value={name}>
-            <Checkbox checked={value.includes(name)}/>
-            <ListItemText primary={label}/>
+            <Checkbox checked={value.includes(name)} />
+            <ListItemText primary={label} />
           </MenuItem>
-        )}
+        ))}
       </Select>
       {hasError(error) && <FormHelperText data-cy={`${dataCy}-error`}>{error}</FormHelperText>}
     </StyledFormControl>
@@ -36,4 +36,3 @@ const AemHealthcheckInput = ({ onChange, value, error, dataCy }) => {
 };
 
 export default AemHealthcheckInput;
-

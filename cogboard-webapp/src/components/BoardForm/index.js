@@ -62,14 +62,14 @@ BoardForm.propTypes = {
   autoSwitch: bool,
   columns: number,
   switchInterval: number,
-  title: string,
+  title: string
 };
 
 BoardForm.defaultProps = {
   autoSwitch: true,
   columns: 8,
   switchInterval: 60,
-  title: 'Board',
+  title: 'Board'
 };
 
 export default BoardForm;

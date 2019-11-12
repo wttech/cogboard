@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useToggle } from '../hooks';
@@ -15,12 +15,12 @@ const AddBoard = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(getIsAuthenticated);
 
-  const handleAddBoardClick = (event) => {
+  const handleAddBoardClick = event => {
     event.stopPropagation();
     openDialog();
   };
 
-  const handleAddActionClick = (values) => {
+  const handleAddActionClick = values => {
     dispatch(addNewBoard(values));
     handleDialogClose();
   };
@@ -34,7 +34,8 @@ const AddBoard = () => {
       <IconButton
         onClick={handleAddBoardClick}
         color="primary"
-        data-cy="add-board-add-button">
+        data-cy="add-board-add-button"
+      >
         <Add />
       </IconButton>
       <AppDialog

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 import { FormControl, InputLabel, Input, Select } from '@material-ui/core';
 import { getToken } from '../utils/auth';
@@ -25,11 +25,13 @@ const DropdownField = props => {
 
   useEffect(() => {
     if (itemsUrl) {
-      const init = isAuthenticated ? {
-        headers: {
-          'Authorization': getToken()
-        }
-      } : undefined;
+      const init = isAuthenticated
+        ? {
+            headers: {
+              Authorization: getToken()
+            }
+          }
+        : undefined;
 
       fetch(itemsUrl, init)
         .then(response => response.json())
@@ -43,10 +45,7 @@ const DropdownField = props => {
 
   return (
     <FormControl>
-      <InputLabel
-        shrink
-        htmlFor={id}
-      >
+      <InputLabel shrink htmlFor={id}>
         {label}
       </InputLabel>
       <Select
