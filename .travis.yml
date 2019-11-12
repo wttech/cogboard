@@ -5,7 +5,7 @@ services:
 jdk:
 - oraclejdk11
 before_script:
-- git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/test-org-board/cogboard-fork.git
+- git checkout feature/travis-cicd && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git
 - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
 - if [ "$TRAVIS_BRANCH" = "feature/travis-cicd" ]; then ./gradlew cogboardInit && ./gradlew release
