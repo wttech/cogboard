@@ -73,7 +73,7 @@ apply(from = "gradle/init.gradle.kts")
 apply(from = "gradle/distribution.gradle.kts")
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
 apply(from = "gradle/docker.gradle.kts")
-apply("release.gradle")
+apply(from = "release.gradle")
 
 //gradle.taskGraph.whenReady {
 //    this.allTasks.forEach { logger.error(it.path + " " + it.name) }
