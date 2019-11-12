@@ -17,6 +17,7 @@ plugins {
     id("com.bmuschko.docker-remote-api")
     id("java")
     id("io.gitlab.arturbosch.detekt") version "1.1.0"
+    id("net.researchgate.release")
 }
 
 val dockerContainerName = project.property("docker.container.name") ?: "cogboard"
@@ -53,6 +54,13 @@ tasks.named("build") {
     dependsOn("runTest", "dockerStopCogboard", "checkInited")
 }
 
+// release {
+//     tagTemplate = "v$version"
+//     versionPatterns = [
+//         "/[.]*\.(\d+)\.(\d+)[.]*/" to { (m: Matcher, p: Project) -> m.replaceAll(".${(m[0][1] as int) + 1}.0") }
+//     ]
+// }
+
 detekt {
     input = files("cogboard-app/src/main/kotlin")
     config.from(file("detekt.yml"))
@@ -65,6 +73,7 @@ apply(from = "gradle/init.gradle.kts")
 apply(from = "gradle/distribution.gradle.kts")
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
 apply(from = "gradle/docker.gradle.kts")
+apply("release.gradle")
 
 //gradle.taskGraph.whenReady {
 //    this.allTasks.forEach { logger.error(it.path + " " + it.name) }
