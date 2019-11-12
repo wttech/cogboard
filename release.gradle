@@ -11,6 +11,6 @@ release {
     ]
     buildTasks=['build']
     git {
-        requireBranch = 'master'
+        requireBranch = 'feature/travis-cicd'
     }
 }
