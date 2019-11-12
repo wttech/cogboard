@@ -1,5 +1,5 @@
 import React from 'react';
-import { node, func, string } from 'prop-types';
+import { elementType, func, string } from 'prop-types';
 
 const conditionallyHidden = ( Component, conditionField, condition ) => ({ values, ...other }) => {
   if (values[conditionField] === undefined) {
@@ -13,7 +13,7 @@ const conditionallyHidden = ( Component, conditionField, condition ) => ({ value
 }
 
 conditionallyHidden.propTypes = {
-  Component: node,
+  Component: elementType,
   condition: func,
   conditionField: string
 }
