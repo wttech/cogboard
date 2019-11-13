@@ -3,6 +3,7 @@ package com.cognifide.cogboard.config.handler.credentials
 import com.cognifide.cogboard.config.CredentialsConfig
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.PASSWORD_PROP
+import com.cognifide.cogboard.http.HttpConstants
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -19,7 +20,9 @@ class GetCredentials : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         val credentialId = event.request().getParam(PARAM_CREDENTIAL_ID)
         val response = if (credentialId != null) getCredentialById(credentialId) else getAllCredentials()
-        event.response().end(response)
+        event.response()
+                .putHeader(HttpConstants.HEADER_CONTENT_TYPE, HttpConstants.CONTENT_TYPE_JSON)
+                .end(response)
     }
 
     private fun getCredentialById(credentialId: String): String {

@@ -38,9 +38,11 @@ class EndpointsService(private val config: JsonObject, vertx: Vertx) {
     }
 
     private fun update(endpoint: JsonObject) {
-        val endpointId = endpoint.getString(ENDPOINT_ID_PROP)
-        val endpointToUpdate = EndpointLoader(config).load(endpointId)
-        endpointToUpdate.mergeIn(endpoint, true)
+        if (EndpointsValidator.validateEndpoint(endpoint)) {
+            val endpointId = endpoint.getString(ENDPOINT_ID_PROP)
+            val endpointToUpdate = EndpointLoader(config).load(endpointId)
+            endpointToUpdate.mergeIn(endpoint, true)
+        }
     }
 
     private fun add(endpoint: JsonObject) {
@@ -59,7 +61,6 @@ class EndpointsService(private val config: JsonObject, vertx: Vertx) {
             it.put(ENDPOINT_LABEL_PROP, it.getString(ENDPOINT_LABEL_PROP)
                     ?: it.getString(ENDPOINT_ID_PROP))
         }
-
     }
 
     private fun generateId(): String {

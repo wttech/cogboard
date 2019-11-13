@@ -6,6 +6,7 @@ import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER_PROP
+import com.cognifide.cogboard.http.HttpConstants
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -22,7 +23,9 @@ class GetEndpoints : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         val endpointId = event.request().getParam(PARAM_ENDPOINT_ID)
         val response = if(endpointId != null) getEndpointById(endpointId) else getAllEndpoints()
-        event.response().end(response)
+        event.response()
+                .putHeader(HttpConstants.HEADER_CONTENT_TYPE, HttpConstants.CONTENT_TYPE_JSON)
+                .end(response)
     }
 
     private fun getEndpointById(endpointId: String): String {

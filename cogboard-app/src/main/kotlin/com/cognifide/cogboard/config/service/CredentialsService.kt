@@ -9,6 +9,7 @@ import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_LABE
 import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.findById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
+import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorage
 import io.vertx.core.Vertx
@@ -37,25 +38,24 @@ class CredentialsService(private val config: JsonObject, vertx: Vertx) {
     }
 
     private fun update(credential: JsonObject) {
-        val credentialId = credential.getString(CREDENTIAL_ID_PROP)
-        val credentials = getCredentialsFromConfig()
-        val credentialToUpdate = credentials.findById(credentialId)
-        credentialToUpdate.mergeIn(credential, true)
+        if (CredentialsValidator.validateCredential(credential)) {
+            val credentialId = credential.getString(CREDENTIAL_ID_PROP)
+            val credentials = getCredentialsFromConfig()
+            val credentialToUpdate = credentials.findById(credentialId)
+            credentialToUpdate.mergeIn(credential, true)
+        }
     }
 
     private fun getCredentialsFromConfig(): JsonArray = config.getJsonArray(CREDENTIALS_ARRAY) ?: JsonArray()
 
     private fun add(credential: JsonObject) {
-        credential.let {
-            it.put(CREDENTIAL_ID_PROP, generateId())
-            it.put(CREDENTIAL_LABEL_PROP, it.getString(CREDENTIAL_LABEL_PROP)
-                    ?: it.getString(CREDENTIAL_ID_PROP))
+        setIdAndLabel(credential)
+        if (CredentialsValidator.validateCredential(credential)) {
+            config
+                    .putIfNotExist(CREDENTIALS_ARRAY, JsonArray())
+                    .getJsonArray(CREDENTIALS_ARRAY)
+                    .add(credential)
         }
-
-        config
-                .putIfNotExist(CREDENTIALS_ARRAY, JsonArray())
-                .getJsonArray(CREDENTIALS_ARRAY)
-                .add(credential)
     }
 
     private fun generateId(): String {
@@ -67,6 +67,14 @@ class CredentialsService(private val config: JsonObject, vertx: Vertx) {
                 .orElse(0L)
 
         return CREDENTIAL_ID_PREFIX + (lastId + 1)
+    }
+
+    private fun setIdAndLabel(credential: JsonObject) {
+        credential.let {
+            it.put(CREDENTIAL_ID_PROP, generateId())
+            it.put(CREDENTIAL_LABEL_PROP, it.getString(CREDENTIAL_LABEL_PROP)
+                    ?: it.getString(CREDENTIAL_ID_PROP))
+        }
     }
 
     fun delete(credentialId: String) {

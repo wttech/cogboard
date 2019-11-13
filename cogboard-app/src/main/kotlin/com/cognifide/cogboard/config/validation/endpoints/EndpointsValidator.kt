@@ -3,8 +3,9 @@ package com.cognifide.cogboard.config.validation.endpoints
 import com.cognifide.cogboard.config.CredentialsConfig
 import com.cognifide.cogboard.config.model.Endpoint
 import com.cognifide.cogboard.config.model.Endpoints
-import com.cognifide.cogboard.config.validation.Validator
 import com.cognifide.cogboard.config.utils.JsonUtils.findById
+import com.cognifide.cogboard.config.validation.Validator
+import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -15,7 +16,7 @@ import io.vertx.core.logging.LoggerFactory
 
 object EndpointsValidator : Validator {
 
-    private val LOGGER: Logger = LoggerFactory.getLogger(EndpointsValidator::class.java)
+    private val LOGGER: Logger = LoggerFactory.getLogger(CredentialsValidator::class.java)
 
     private val credentialsConfig = CredentialsConfig()
 

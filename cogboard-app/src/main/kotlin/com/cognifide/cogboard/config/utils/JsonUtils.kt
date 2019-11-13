@@ -7,9 +7,13 @@ import io.vertx.core.json.JsonObject
 object JsonUtils {
 
     fun JsonArray.findById(idValue: String, idKey: String = CogboardConstants.PROP_ID): JsonObject {
+        return this.findByKeyValue(idValue, idKey)
+    }
+
+    fun JsonArray.findByKeyValue(value: String, key: String): JsonObject {
         return this.stream()
                 .map { it as JsonObject }
-                .filter { it.getString(idKey) == idValue }
+                .filter { it.getString(key) == value }
                 .findFirst()
                 .orElse(JsonObject())
     }
