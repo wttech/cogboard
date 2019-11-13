@@ -1,25 +1,127 @@
-import {
-  DATE_FORMATS,
-  GMT_TIMEZONES,
-  TIME_FORMATS
-} from '../types/WorldClockWidget/helpers';
+import { string, number, boolean, array } from 'yup';
+
+import { DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS } from "../types/WorldClockWidget/helpers";
+
+import { parseWidgetTypes } from './helpers';
+import widgetTypes from '../../widgets';
+import { validationMessages as vm } from '../../../constants';
+import { uniqueTitleTestCreator } from '../../validation';
 
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
-import DisplayValueSelect from './DisplayValueSelect';
-import { REQUEST_METHODS, TEXT_SIZES } from '../../../constants';
-import MultilineTextInput from './MultilineTextInput';
-import CheckboxInput from './CheckboxInput';
-import AemHealthcheckInput from './AemHealthcheckInput';
+import DisplayValueSelect from "./DisplayValueSelect";
+import { REQUEST_METHODS, TEXT_SIZES } from "../../../constants";
+import MultilineTextInput from "./MultilineTextInput";
+import CheckboxInput from "./CheckboxInput";
+import AemHealthcheckInput from "./AemHealthcheckInput";
+import conditionallyHidden from './conditionallyHidden';
+import SwitchInput from "./SwitchInput";
+import { StyledNumberInput } from './styled';
 
 const dialogFields = {
+  WidgetTypeField: {
+    component: DisplayValueSelect,
+    name: 'type',
+    label: 'Type',
+    dropdownItems: parseWidgetTypes(widgetTypes),
+    validator: () => string().required(vm.FIELD_REQUIRED()),
+  },
+  TitleField: {
+    component: TextInput,
+    name: 'title',
+    label: 'Title',
+    initialValue: 'Title',
+    validator: ({ max }) => string()
+      .trim()
+      .max(max, vm.STRING_LENGTH('Title', max))
+      .required(vm.FIELD_REQUIRED())
+  },
+  UniqueTitleField: {
+    component: TextInput,
+    name: 'title',
+    label: 'Title',
+    initialValue: 'Title',
+    validator: ({ max, boardId, boards }) => string()
+      .trim()
+      .max(max, vm.STRING_LENGTH('Title', max))
+      .test(uniqueTitleTestCreator(boardId, boards))
+      .required(vm.FIELD_REQUIRED())
+  },
+  ColumnField: {
+    component: NumberInput,
+    name: 'columns',
+    label: 'Columns',
+    initialValue: 1,
+    validator: ({ min, max }) => number()
+      .min(min, vm.NUMBER_MIN('Columns', min))
+      .max(max, vm.NUMBER_MAX('Columns', max))
+      .required(vm.FIELD_REQUIRED())
+  },
+  ColumnFieldSm: {
+    component: StyledNumberInput,
+    name: 'columns',
+    label: 'Columns',
+    initialValue: 1,
+    validator: ({ min, max }) => number()
+      .min(min, vm.NUMBER_MIN('Columns', min))
+      .max(max, vm.NUMBER_MAX('Columns', max))
+      .required(vm.FIELD_REQUIRED())
+  },
+  RowFieldSm: {
+    component: StyledNumberInput,
+    name: 'rows',
+    label: 'Rows',
+    initialValue: 1,
+    validator: ({ min, max }) => number()
+      .min(min, vm.NUMBER_MIN('Rows', min))
+      .max(max, vm.NUMBER_MAX('Rows', max))
+      .required(vm.FIELD_REQUIRED())
+  },
+  NewLineField: {
+    component: SwitchInput,
+    name: 'goNewLine',
+    label: 'Go to new line',
+    checkboxValue: 'goNewLine',
+    validator: () => boolean()
+  },
+  DisabledField: {
+    component: SwitchInput,
+    name: 'disabled',
+    label: 'Disabled',
+    checkboxValue: 'disabled',
+    validator: () => boolean()
+  },
+  AutoSwitchField: {
+    component: SwitchInput,
+    name: 'autoSwitch',
+    label: 'Auto Switch',
+    checkboxValue: 'autoSwitch',
+    validator: () => boolean()
+  },
+  SwitchInterval: {
+    component: conditionallyHidden(NumberInput, 'autoSwitch', (value) => value),
+    name: 'switchInterval',
+    label: 'Switch Interval',
+    validator: ({ min }) => number()
+      .when(
+        'autoSwitch', {
+          is: true,
+          then: number()
+            .min(min, vm.NUMBER_MIN('Switch interval', min))
+            .required(),
+          otherwise: number()
+            .notRequired()
+        }
+      )
+  },
   EndpointField: {
     component: EndpointInput,
     name: 'endpoint',
     label: 'Endpoint',
-    itemsUrl: '/api/endpoints'
+    itemsUrl: '/api/endpoints',
+    validator: () => string()
   },
   SchedulePeriod: {
     component: NumberInput,
@@ -27,58 +129,64 @@ const dialogFields = {
     label: 'Schedule Period [sec] (if 0 will run once)',
     min: 0,
     step: 10,
-    initialValue: 120
+    initialValue: 120,
+    validator: ({ min }) => number()
+      .min(min, vm.NUMBER_MIN('Schedule period', min))
   },
   Path: {
     component: TextInput,
     name: 'path',
-    label: 'Path'
+    label: 'Path',
+    validator: () => string()
   },
   URL: {
     component: TextInput,
     name: 'url',
-    label: 'URL'
+    label: 'URL',
+    validator: () => string().url(vm.INVALID_URL())
   },
   UrlForContent: {
     component: TextInput,
     name: 'content.url',
-    label: 'URL'
+    label: 'URL',
+    validator: () => string().url(vm.INVALID_URL())
   },
   IdString: {
     component: TextInput,
     name: 'idString',
-    label: 'ID'
+    label: 'ID',
+    validator: () => string()
   },
   IdNumber: {
     component: NumberInput,
     name: 'idNumber',
     label: 'ID',
-    step: 1
+    step: 1,
+    validator: () => number()
   },
   Key: {
     component: TextInput,
     name: 'keyString',
-    label: 'Key'
+    label: 'Key',
+    validator: () => string()
   },
   SonarQubeMetricsInput: {
     component: SonarQubeMetricsInput,
     name: 'selectedMetrics',
-    initialValue: [
-      'blocker_violations',
-      'critical_violations',
-      'major_violations',
-      'minor_violations'
-    ]
+    initialValue: ['blocker_violations', 'critical_violations', 'major_violations', 'minor_violations'],
+    validator: ({ minArrayLength = 0 }) => array()
+      .ensure()
+      .min(minArrayLength, vm.FIELD_MIN_ITEMS())
+      .of(string())
   },
   AemHealthcheckInput: {
     component: AemHealthcheckInput,
     name: 'selectedHealthChecks',
-    initialValue: [
-      'slingJobs',
-      'systemchecks',
-      'inactiveBundles',
-      'DiskSpaceHealthCheck'
-    ]
+    initialValue: ['slingJobs', 'systemchecks', 'inactiveBundles', 'DiskSpaceHealthCheck'],
+    validator: ({ minArrayLength = 0 }) => array()
+      .ensure()
+      .min(minArrayLength, vm.FIELD_MIN_ITEMS())
+      .of(string())
   },
   StatusCode: {
     component: NumberInput,
@@ -86,75 +194,90 @@ const dialogFields = {
     label: 'Expected Status Code',
     min: 0,
     step: 1,
-    initialValue: 200
+    initialValue: 200,
+    validator: () => number()
+      .lessThan(600)
+      .moreThan(99)
+      .required(vm.FIELD_REQUIRED())
   },
   TimeZoneId: {
     component: DisplayValueSelect,
     name: 'content.timeZoneId',
     label: 'Timezone',
     dropdownItems: GMT_TIMEZONES,
-    initialValue: GMT_TIMEZONES[0].value
+    initialValue: GMT_TIMEZONES[0].value,
+    validator: () => string()
   },
   DateFormat: {
     component: DisplayValueSelect,
     name: 'content.dateFormat',
     label: 'Date Format',
     dropdownItems: DATE_FORMATS,
-    initialValue: DATE_FORMATS[1].value
+    initialValue: DATE_FORMATS[1].value,
+    validator: () => string()
   },
   TimeFormat: {
     component: DisplayValueSelect,
     name: 'content.timeFormat',
     label: 'Time Format',
     dropdownItems: TIME_FORMATS,
-    initialValue: TIME_FORMATS[1].value
+    initialValue: TIME_FORMATS[1].value,
+    validator: () => string()
   },
   DisplayDate: {
     component: CheckboxInput,
     name: 'content.displayDate',
     label: 'Display date',
-    initialValue: true
+    initialValue: true,
+    validator: () => boolean()
   },
   DisplayTime: {
     component: CheckboxInput,
     name: 'content.displayTime',
     label: 'Display time',
-    initialValue: true
+    initialValue: true,
+    validator: () => boolean()
   },
   Text: {
     component: MultilineTextInput,
     name: 'content.text',
-    label: 'Text'
+    label: 'Text',
+    validator: () => string()
   },
   RequestBody: {
     component: MultilineTextInput,
     name: 'body',
-    label: 'Request Body'
+    label: 'Request Body',
+    validator: () => string()
   },
   ResponseBody: {
     component: MultilineTextInput,
     name: 'expectedResponseBody',
-    label: 'Response Body Fragment'
+    label: 'Response Body Fragment',
+    validator: () => string()
   },
   TextSize: {
     component: DisplayValueSelect,
     name: 'content.textSize',
     label: 'Text Size',
     dropdownItems: TEXT_SIZES,
-    initialValue: TEXT_SIZES[3].value
+    initialValue: TEXT_SIZES[3].value,
+    validator: () => string(),
   },
   RequestMethod: {
     component: DisplayValueSelect,
     name: 'requestMethod',
     label: 'Request Method',
     dropdownItems: REQUEST_METHODS,
-    initialValue: REQUEST_METHODS[0].value
+    initialValue: REQUEST_METHODS[0].value,
+    validator: () => string()
   },
   TextOrientation: {
     component: CheckboxInput,
     name: 'content.isVertical',
     label: 'Vertical Text',
-    initialValue: false
+    initialValue: false,
+    validator: () => boolean()
   }
 };
 

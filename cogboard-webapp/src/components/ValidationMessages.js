@@ -1,17 +1,17 @@
 import React from 'react';
 
-const ValidationMessages = ({ className, messages, ...others }) => {
-  if (messages === undefined) {
-    return null;
-  }
+const ValidationMessages = ({ className, messages, ...others }) => (
+  <>
+    {
+      messages !== undefined &&
+      <ul className={className} {...others}>
+        {
+          messages.map((message, index) =>
+              <li key={index}>{message}</li>)
+        }
+      </ul>
+    }
+  </>);
 
-  return (
-    <ul className={className} {...others}>
-      {messages.map(message => (
-        <li>{message}</li>
-      ))}
-    </ul>
-  );
-};
 
 export default ValidationMessages;
