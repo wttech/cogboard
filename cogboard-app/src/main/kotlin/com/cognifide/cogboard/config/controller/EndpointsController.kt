@@ -18,14 +18,14 @@ class EndpointsController : AbstractVerticle() {
 
     private fun listenOnEndpointsUpdate() = vertx
             .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS_CONFIG)
+            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS)
             .handler {
                 endpointsService.save(it.body())
             }
 
     private fun listenOnEndpointsDelete() = vertx
             .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_ENDPOINTS_CONFIG)
+            .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_ENDPOINTS)
             .handler {
                 val endpointId: String = it.body().getString(ENDPOINT_ID_PROP)
                 endpointsService.delete(endpointId)

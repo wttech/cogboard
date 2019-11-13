@@ -2,12 +2,14 @@ package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.EndpointLoader
+import com.cognifide.cogboard.config.EndpointsConfig
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PREFIX
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_LABEL_PROP
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorage
+import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
@@ -77,23 +79,13 @@ class EndpointsService(private val config: JsonObject, vertx: Vertx) {
                 .map { it.getString(ENDPOINT_ID_PROP) }
                 .filter { it == endpointId }
                 .findFirst()
-                .ifPresent {
-                    val endpointPosition = getEndpointPosition(endpoints, it)
-                    endpoints.remove(endpointPosition)
-                }
+                .ifPresent { endpoints.removeEndpointById(it) }
 
         storage.saveConfig(config)
     }
 
-    private fun getEndpointPosition(endpoints: JsonArray, endpointId: String): Int {
-        var index = 0
-        while (index <= endpoints.size()) {
-            val endpoint = endpoints.getJsonObject(index)
-            if (endpoint.getString(ENDPOINT_ID_PROP) == endpointId) {
-                break
-            }
-            index++
-        }
-        return index
+    private fun JsonArray.removeEndpointById(id: String) {
+        val endpointPosition = this.getObjectPositionById(EndpointsConfig.ENDPOINT_ID_PROP, id)
+        this.remove(endpointPosition)
     }
 }

@@ -114,13 +114,13 @@ paths:
       responses:
         default:
           description: Credential with id
-#    delete:
-#      operationId: credentials-delete-handler
-#      #      security:
-#      #        - cogboardAuth: []
-#      responses:
-#        default:
-#          description: Credential Delete Handler
+    delete:
+      operationId: credentials-delete-handler
+      #      security:
+      #        - cogboardAuth: []
+      responses:
+        default:
+          description: Credential Delete Handler
   /api/widget/update:
     post:
       operationId: widget-update-handler

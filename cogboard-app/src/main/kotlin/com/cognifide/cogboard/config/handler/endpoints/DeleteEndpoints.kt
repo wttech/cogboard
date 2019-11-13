@@ -19,7 +19,7 @@ class DeleteEndpoints : RoutingHandlerFactory {
                                                 .get(PARAM_ENDPOINT_ID)
         vertx
                 ?.eventBus()
-                ?.publish(CogboardConstants.EVENT_DELETE_ENDPOINTS_CONFIG, JsonObject().put(ENDPOINT_ID_PROP, endpointId))
+                ?.publish(CogboardConstants.EVENT_DELETE_ENDPOINTS, JsonObject().put(ENDPOINT_ID_PROP, endpointId))
         event
                 .response()
                 .end(config?.getJsonObject("body", CogboardConstants.errorResponse())?.encode())

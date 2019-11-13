@@ -2,8 +2,7 @@ package com.cognifide.cogboard.config.handler.credentials
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.Config
-import com.cognifide.cogboard.config.ConfigFactory
-import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.config.CredentialsConfig
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIALS_ARRAY
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.PASSWORD_PROP
@@ -16,7 +15,7 @@ import io.vertx.reactivex.ext.web.RoutingContext
 
 class GetCredentials : RoutingHandlerFactory {
 
-    private val config: Config = ConfigFactory.getByType(ConfigType.CREDENTIALS)
+    private val config: Config = CredentialsConfig()
 
     override fun getName(): String = "credentials-get-handler"
 
