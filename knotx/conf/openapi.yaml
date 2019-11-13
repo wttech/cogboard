@@ -76,7 +76,7 @@ paths:
         - cogboardAuth: []
       responses:
         default:
-          description: Endpoint list
+          description: Endpoint with id
     delete:
       operationId: endpoints-delete-handler
       security:
@@ -84,6 +84,43 @@ paths:
       responses:
         default:
           description: Endpoint Delete Handler
+  /api/credentials:
+    get:
+      operationId: credentials-get-handler
+      #      security:
+      #        - cogboardAuth: []
+      responses:
+        default:
+          description: Credentials list
+#    post:
+#      operationId: credentials-update-handler
+#      #      security:
+#      #        - cogboardAuth: []
+#      responses:
+#        default:
+#          description: Credentials Update Handler
+  /api/credentials/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: credential to be fetched, updated or deleted
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: credential-by-id-get-handler
+      #      security:
+      #        - cogboardAuth: []
+      responses:
+        default:
+          description: Credential with id
+#    delete:
+#      operationId: credentials-delete-handler
+#      #      security:
+#      #        - cogboardAuth: []
+#      responses:
+#        default:
+#          description: Credential Delete Handler
   /api/widget/update:
     post:
       operationId: widget-update-handler
