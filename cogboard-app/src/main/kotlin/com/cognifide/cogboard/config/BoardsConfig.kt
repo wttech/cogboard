@@ -1,12 +1,12 @@
 package com.cognifide.cogboard.config
 
-import com.cognifide.cogboard.config.validation.BoardsValidation
+import com.cognifide.cogboard.config.validation.boards.BoardsValidator
 import io.vertx.core.json.JsonObject
 
 class BoardsConfig: Config(){
 
     override fun validate(configJson: JsonObject): Boolean {
-        return BoardsValidation.validate(configJson)
+        return BoardsValidator.validate(configJson)
     }
 
     override fun filePath() : String = BOARDS_CONFIG_FILE_PATH

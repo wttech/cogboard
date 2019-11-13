@@ -21,7 +21,7 @@ class GetCredentials : RoutingHandlerFactory {
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         val credentialId = event.request().getParam(PARAM_CREDENTIAL_ID)
-        val response = if(credentialId!= null) getCredentialById(credentialId) else getAllCredentials()
+        val response = if (credentialId != null) getCredentialById(credentialId) else getAllCredentials()
         event.response().end(response)
     }
 
