@@ -11,6 +11,7 @@ import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorage
 import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
+import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
@@ -43,16 +44,22 @@ class EndpointsService(private val config: JsonObject, vertx: Vertx) {
     }
 
     private fun add(endpoint: JsonObject) {
+        setIdAndLabel(endpoint)
+        if (EndpointsValidator.validateEndpoint(endpoint)) {
+            config
+                    .putIfNotExist(ENDPOINTS_ARRAY, JsonArray())
+                    .getJsonArray(ENDPOINTS_ARRAY)
+                    .add(endpoint)
+        }
+    }
+
+    private fun setIdAndLabel(endpoint: JsonObject) {
         endpoint.let {
             it.put(ENDPOINT_ID_PROP, generateId())
             it.put(ENDPOINT_LABEL_PROP, it.getString(ENDPOINT_LABEL_PROP)
                     ?: it.getString(ENDPOINT_ID_PROP))
         }
 
-        config
-                .putIfNotExist(ENDPOINTS_ARRAY, JsonArray())
-                .getJsonArray(ENDPOINTS_ARRAY)
-                .add(endpoint)
     }
 
     private fun generateId(): String {
@@ -79,7 +86,7 @@ class EndpointsService(private val config: JsonObject, vertx: Vertx) {
     }
 
     private fun JsonArray.removeEndpointById(id: String) {
-        val endpointPosition = this.getObjectPositionById(EndpointsConfig.ENDPOINT_ID_PROP, id)
+        val endpointPosition = this.getObjectPositionById(id, EndpointsConfig.ENDPOINT_ID_PROP)
         this.remove(endpointPosition)
     }
 }

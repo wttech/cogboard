@@ -16,7 +16,7 @@ object JsonUtils {
 
     fun JsonArray.getObjectPositionById(idValue: String, idKey: String = CogboardConstants.PROP_ID): Int {
         var index = 0
-        while (index <= this.size()) {
+        while (index < this.size()) {
             val credential = this.getJsonObject(index)
             if (credential.getString(idKey) == idValue) {
                 break

@@ -1,9 +1,6 @@
 package com.cognifide.cogboard.config.handler.credentials
 
-import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.Config
 import com.cognifide.cogboard.config.CredentialsConfig
-import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIALS_ARRAY
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.PASSWORD_PROP
 import io.knotx.server.api.handler.RoutingHandlerFactory
@@ -15,7 +12,7 @@ import io.vertx.reactivex.ext.web.RoutingContext
 
 class GetCredentials : RoutingHandlerFactory {
 
-    private val config: Config = CredentialsConfig()
+    private val config = CredentialsConfig()
 
     override fun getName(): String = "credentials-get-handler"
 
@@ -39,20 +36,18 @@ class GetCredentials : RoutingHandlerFactory {
     }
 
     private fun getAllCredentials(): String {
-        val credentialsConfig = config.load()
-        val credentialsWithoutSensitiveData = filterSensitiveData(credentialsConfig)
+        val credentials = config.getCredentials()
+        val credentialsWithoutSensitiveData = filterSensitiveData(credentials)
         return credentialsWithoutSensitiveData.encode()
     }
 
-    private fun filterSensitiveData(config: JsonObject): JsonArray {
-        val copy = config.getJsonArray(CREDENTIALS_ARRAY)
-                ?: JsonArray().add(CogboardConstants.errorResponse("No credentials array found, $config"))
-        copy.stream().forEach {
+    private fun filterSensitiveData(credentials: JsonArray): JsonArray {
+        credentials.stream().forEach {
             if (it is JsonObject) {
                 it.filterSensitiveData()
             }
         }
-        return copy
+        return credentials
     }
 
     private fun JsonObject.filterSensitiveData() {

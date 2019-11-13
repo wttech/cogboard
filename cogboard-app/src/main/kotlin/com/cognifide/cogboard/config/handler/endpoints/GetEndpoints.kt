@@ -1,9 +1,7 @@
 package com.cognifide.cogboard.config.handler.endpoints
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.Config
-import com.cognifide.cogboard.config.ConfigFactory
-import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.config.EndpointsConfig
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD_PROP
@@ -17,7 +15,7 @@ import io.vertx.reactivex.ext.web.RoutingContext
 
 class GetEndpoints : RoutingHandlerFactory {
 
-    private val config: Config = ConfigFactory.getByType(ConfigType.ENDPOINTS)
+    private val config = EndpointsConfig()
 
     override fun getName(): String = "endpoints-get-handler"
 

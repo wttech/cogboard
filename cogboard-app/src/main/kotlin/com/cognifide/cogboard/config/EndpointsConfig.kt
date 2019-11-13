@@ -1,11 +1,15 @@
 package com.cognifide.cogboard.config
 
+import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
+import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class EndpointsConfig: Config() {
 
+    fun getEndpoints(): JsonArray = load().getJsonArray(ENDPOINTS_ARRAY)
+
     override fun validate(configJson: JsonObject): Boolean {
-        return configJson.getJsonArray(ENDPOINTS_ARRAY) != null
+        return EndpointsValidator.validate(configJson)
     }
 
     override fun filePath() : String = ENDPOINTS_CONFIG_FILE_PATH

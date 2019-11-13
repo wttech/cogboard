@@ -1,8 +1,11 @@
 package com.cognifide.cogboard.config
 
+import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class CredentialsConfig: Config() {
+
+    fun getCredentials(): JsonArray = load().getJsonArray(CREDENTIALS_ARRAY)
 
     override fun validate(configJson: JsonObject): Boolean {
         return configJson.getJsonArray(CREDENTIALS_ARRAY) != null
