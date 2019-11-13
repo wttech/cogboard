@@ -4,7 +4,9 @@ import styled from '@emotion/styled/macro';
 
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 
-const StyledDialog = styled(props => <Dialog classes={{ paper: 'paper' }} {...props} />)`
+const StyledDialog = styled(props => (
+  <Dialog classes={{ paper: 'paper' }} {...props} />
+))`
   .paper {
     max-width: 800px;
     padding: 15px;
@@ -16,9 +18,15 @@ const StyledDialogContent = styled(DialogContent)`
 `;
 
 const AppDialog = props => {
-  const { children, handleDialogClose, open, title, disableBackdropClick } = props;
+  const {
+    children,
+    handleDialogClose,
+    open,
+    title,
+    disableBackdropClick
+  } = props;
 
-  const stopEventPropagation = (event) => event.stopPropagation();
+  const stopEventPropagation = event => event.stopPropagation();
 
   return (
     <StyledDialog
@@ -28,9 +36,11 @@ const AppDialog = props => {
       onKeyDown={stopEventPropagation}
       aria-labelledby="app-dialog-title"
       open={open}
-      PaperProps={{'data-cy': props['data-cy']}}
+      PaperProps={{ 'data-cy': props['data-cy'] }}
     >
-      <DialogTitle id="app-dialog-title" data-cy="app-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="app-dialog-title" data-cy="app-dialog-title">
+        {title}
+      </DialogTitle>
       <StyledDialogContent data-cy="app-dialog-content">
         {children}
       </StyledDialogContent>
@@ -43,7 +53,7 @@ AppDialog.propTypes = {
   children: element.isRequired,
   open: bool.isRequired,
   title: string
-}
+};
 
 AppDialog.defaultProps = {
   title: ''

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useBoardSwitching } from './hooks';
+import { useBoardSwitching, usePrevious } from './hooks';
 import { formatTime } from './helpers';
 
 import { IconButton, Tooltip } from '@material-ui/core';
@@ -11,6 +11,7 @@ const BoardSwitcher = ({ className }) => {
   const {
     handleBoardsSwitch,
     handlePlayToggle,
+    handleResetTimeElapsed,
     hasBoardsToSwitch,
     isPlaying,
     isDisable,
@@ -20,6 +21,13 @@ const BoardSwitcher = ({ className }) => {
     timeElapsed
   } = useBoardSwitching();
   const timeLeft = switchInterval - timeElapsed;
+  const previousSwitchInterval = usePrevious(switchInterval);
+
+  useEffect(() => {
+    if (previousSwitchInterval !== switchInterval) {
+      handleResetTimeElapsed();
+    }
+  })
 
   if (!hasBoardsToSwitch || isDisable) {
     return null;
@@ -28,10 +36,7 @@ const BoardSwitcher = ({ className }) => {
   return (
     <div className={className}>
       <StyledTimer>{formatTime(timeLeft)}</StyledTimer>
-      <Tooltip
-        title={prevBoardTitle}
-        placement="bottom-end"
-      >
+      <Tooltip title={prevBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('prev')}
           color="inherit"
@@ -49,10 +54,7 @@ const BoardSwitcher = ({ className }) => {
       >
         {isPlaying ? <Pause /> : <PlayArrow />}
       </IconButton>
-      <Tooltip
-        title={nextBoardTitle}
-        placement="bottom-end"
-      >
+      <Tooltip title={nextBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('next')}
           color="inherit"

@@ -9,7 +9,11 @@ const ErrorPage = ({ title, tip, homeLink, className }) => (
       <h1>{title}</h1>
       <h3>{tip}</h3>
 
-      {homeLink && <p>You could go back to the <StyledLink to="/">Home page</StyledLink></p>}
+      {homeLink && (
+        <p>
+          You could go back to the <StyledLink to="/">Home page</StyledLink>
+        </p>
+      )}
     </div>
   </div>
 );

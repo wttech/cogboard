@@ -11,15 +11,15 @@ const TabPanel = ({ children, value, index, ...other }) => {
       hidden={value !== index}
       {...other}
     >
-        {children}
+      {children}
     </Typography>
-  )
-}
+  );
+};
 
 TabPanel.propTypes = {
   children: node,
   index: any.isRequired,
-  value: any.isRequired,
+  value: any.isRequired
 };
 
 export default TabPanel;

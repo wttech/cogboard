@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import { func } from 'prop-types';
 
 import { getIsAuthenticated } from '../selectors';
@@ -11,7 +11,8 @@ const MoreMenu = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
 
-  const handleMoreButtonClick = ({ currentTarget }) => setAnchorEl(currentTarget);
+  const handleMoreButtonClick = ({ currentTarget }) =>
+    setAnchorEl(currentTarget);
 
   const handleMoreMenuClose = () => setAnchorEl(null);
 
@@ -37,9 +38,7 @@ const MoreMenu = ({ children }) => {
         keepMounted
         open={Boolean(anchorEl)}
       >
-        <MenuList>
-          {children(handleMoreMenuClose)}
-        </MenuList>
+        <MenuList>{children(handleMoreMenuClose)}</MenuList>
       </Menu>
     </>
   );

@@ -1,14 +1,21 @@
-import React, {useState} from 'react';
-import {string} from "prop-types";
+import React, { useState } from 'react';
+import { string } from 'prop-types';
 
-import {useInterval} from '../../../../hooks'
-import {getDateTime} from "./helpers";
+import { useInterval } from '../../../../hooks';
+import { getDateTime } from './helpers';
 
-import {Typography} from "@material-ui/core";
-import { DatePre, TimePre } from "./styled";
+import { Typography } from '@material-ui/core';
+import { DatePre, TimePre } from './styled';
 
 const WorldClockWidget = props => {
-  const { timeZoneId, dateFormat, timeFormat, displayDate, displayTime, textSize } = props;
+  const {
+    timeZoneId,
+    dateFormat,
+    timeFormat,
+    displayDate,
+    displayTime,
+    textSize
+  } = props;
 
   const date = getDateTime(timeZoneId, dateFormat);
 

@@ -3,14 +3,16 @@ import styled from '@emotion/styled/macro';
 
 import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
 
-import IframeEmbed from "../IframeEmbed";
-import { setSize } from "../../helpers";
+import IframeEmbed from '../IframeEmbed';
+import { setSize } from '../../helpers';
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;
 `;
 
-const FullWidthButtonOutlined = (props) => <Button {...props} fullWidth variant="outlined" target="_blank" />;
+const FullWidthButtonOutlined = props => (
+  <Button {...props} fullWidth variant="outlined" target="_blank" />
+);
 
 export const WidgetButton = styled(FullWidthButtonOutlined)`
   margin-top: auto;
@@ -27,7 +29,9 @@ export const WidgetIconButton = styled(IconButton)`
   width: 100%;
 `;
 
-export const Caption = (props) => <StyledTypography {...props} variant="caption" paragraph />;
+export const Caption = props => (
+  <StyledTypography {...props} variant="caption" paragraph />
+);
 
 export const CaptionWithPointer = styled(Caption)`
   cursor: pointer;
@@ -39,13 +43,15 @@ export const StyledFieldset = styled(FormControl)`
   min-width: 300px;
 `;
 
-export const StyledIframe = (props) => <IframeEmbed {...props} frameBorder={0} allowFullScreen height="100%"/>;
+export const StyledIframe = props => (
+  <IframeEmbed {...props} frameBorder={0} allowFullScreen height="100%" />
+);
 
 export const StyledFormControlForDropdown = styled(FormControl)`
-      display: flex;
-      margin-bottom: 12px;
-      min-width: 300px;
-    `;
+  display: flex;
+  margin-bottom: 12px;
+  min-width: 300px;
+`;
 
 export const StyledTitle = styled(Typography)`
   align-self: center;

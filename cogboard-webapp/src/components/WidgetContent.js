@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
 import { object, string } from 'prop-types';
 
 import widgetTypes from './widgets';
 
-const WidgetContent = ({id, type, content }) =>  {
+const WidgetContent = ({ id, type, content }) => {
   const notFoundMessage = 'Widget type not found';
-  const WidgetType = widgetTypes[type] ? widgetTypes[type].component : () => notFoundMessage;
+  const WidgetType = widgetTypes[type]
+    ? widgetTypes[type].component
+    : () => notFoundMessage;
 
   return <WidgetType id={id} {...content} />;
 };

@@ -3,19 +3,19 @@ import styled from '@emotion/styled/macro';
 
 import { Card, CardActions } from '@material-ui/core';
 
-export const StyledCard = styled(forwardRef(({
-  isLoggedIn,
-  isDragging,
-  isOver,
-  theme,
-  ...other
-}, ref) => <Card {...other} ref={ref} />))`
+export const StyledCard = styled(
+  forwardRef(({ isLoggedIn, isDragging, isOver, theme, ...other }, ref) => (
+    <Card {...other} ref={ref} />
+  ))
+)`
   background-color: ${({ theme }) => theme.palette.background.board.card}};
   box-shadow: none;
-  cursor: ${({ isLoggedIn }) => isLoggedIn ? 'move': 'default'};
+  cursor: ${({ isLoggedIn }) => (isLoggedIn ? 'move' : 'default')};
   position: relative;
 
-  ${({ isDragging, isOver, theme }) => isDragging && `
+  ${({ isDragging, isOver, theme }) =>
+    isDragging &&
+    `
     &::before {
       background-color: ${theme.palette.background.board.dragged};
       border: ${isOver && `1px dashed ${theme.palette.action.hover}`};
@@ -29,7 +29,7 @@ export const StyledCard = styled(forwardRef(({
       width: 100%;
     }
   `}
-`
+`;
 
 export const StyledCardActions = styled(CardActions)`
   justify-content: flex-end;

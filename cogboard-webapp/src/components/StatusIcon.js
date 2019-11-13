@@ -1,5 +1,9 @@
-import React from "react";
-import { Check, Close, IndeterminateCheckBoxOutlined } from "@material-ui/icons";
+import React from 'react';
+import {
+  Check,
+  Close,
+  IndeterminateCheckBoxOutlined
+} from '@material-ui/icons';
 
 const StatusIcon = ({ status, size }) => {
   const iconComponents = {
@@ -8,7 +12,10 @@ const StatusIcon = ({ status, size }) => {
     UNKNOWN: IndeterminateCheckBoxOutlined
   };
 
-  const IconComponent = status in iconComponents ? iconComponents[status] : iconComponents['UNKNOWN'];
+  const IconComponent =
+    status in iconComponents
+      ? iconComponents[status]
+      : iconComponents['UNKNOWN'];
 
   return <IconComponent fontSize={size} />;
 };

@@ -11,33 +11,18 @@ export const useToggle = (initialState = false) => {
   return [isOpened, handleOpen, handleClose];
 };
 
-export const useFormData = (data, validationSchema=null, onChange=null) => {
+export const useFormData = (data, config={}) => {
   const [values, setValues] = useState(data);
+
+  const { onChange=null, initialSchema=null } = config;
+
   const [status, setStatus] = useState({
     submited: false,
-    onChange: onChange,
+    onChange: onChange
   });
+
+  const [validationSchema, setValidationSchema] = useState(initialSchema)
   const [errors, setErrors] = useState({});
-
-  const setFieldValue = (fieldName, fieldValue) => {
-    const [groupName, propName] = splitPropsGroupName(fieldName);
-    let newValues;
-
-    if (groupName) {
-      const groupValues = values[groupName];
-
-      newValues = {
-          ...values,
-          [groupName]: { ...groupValues, [propName]: fieldValue }
-        }
-    } else {
-      newValues = { ...values, [propName]: fieldValue};
-    }
-
-    validateField(fieldName, newValues);
-
-    setValues(newValues);
-  };
 
   const handleChange = fieldName => event => {
     const { target: { type, value, checked } } = event;
@@ -50,36 +35,56 @@ export const useFormData = (data, validationSchema=null, onChange=null) => {
     setFieldValue(fieldName, fieldValue);
   };
 
+  const setFieldValue = (fieldName, fieldValue) => {
+    const [groupName, propName] = splitPropsGroupName(fieldName);
+    let newValues;
+
+    if (groupName) {
+      const groupValues = values[groupName];
+
+      newValues = {
+        ...values,
+        [groupName]: { ...groupValues, [propName]: fieldValue }
+      };
+    } else {
+      newValues = { ...values, [propName]: fieldValue };
+    }
+
+    validateField(fieldName, newValues);
+
+    setValues(newValues);
+  };
+
   const validateField = (fieldName, fieldsValues) => {
     if (status.submited || status.onChange) {
-
-      validationSchema.validateAt(fieldName, fieldsValues, {abortEarly: false})
+      validationSchema
+        .validateAt(fieldName, fieldsValues, { abortEarly: false })
         .then(() => {
           if (fieldName in errors) {
-            const errorsTmp = {...errors};
+            const errorsTmp = { ...errors };
 
             delete errorsTmp[fieldName];
-            setErrors(errorsTmp)
+            setErrors(errorsTmp);
           }
         })
-        .catch(error => setErrors({...errors, ...parseYupErrors(error)}))
+        .catch(error => setErrors({ ...errors, ...parseYupErrors(error) }));
     }
   };
 
-  const handleSubmit = func => event => {
+  const withValidation = func => event => {
     event.preventDefault();
-    setStatus({...status, submited: true});
+    setStatus({ ...status, submited: true });
 
     if(validationSchema) {
-      validationSchema.validate(values, {abortEarly: false})
+      validationSchema.validate(values, {abortEarly: false, stripUnknown: true})
         .then(value => func(value))
-        .catch(errors => setErrors(parseYupErrors(errors)))
+        .catch(errors => setErrors(parseYupErrors(errors)));
     } else {
       func(values);
     }
   };
 
-  return { values, handleChange, handleSubmit, errors };
+  return { values, handleChange, withValidation, errors, validationSchema, setValidationSchema };
 };
 
 export function useInterval(callback, delay) {
@@ -100,4 +105,4 @@ export function useInterval(callback, delay) {
       return () => clearInterval(id);
     }
   }, [delay]);
-};
+}

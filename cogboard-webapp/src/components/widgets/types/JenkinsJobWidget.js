@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Caption, WidgetButton } from "../../styled";
+import { Caption, WidgetButton } from '../../styled';
 
 const JenkinsJobWidget = props => {
   const { duration, displayName, url, timestamp, branch } = props;
@@ -10,18 +10,10 @@ const JenkinsJobWidget = props => {
 
   return (
     <>
-      <Caption>
-        {ts}
-      </Caption>
-      <Caption>
-        Duration: {dur}
-      </Caption>
-      <Caption>
-          {branch}
-      </Caption>
-      <WidgetButton href={url}>
-        {displayName}
-      </WidgetButton>
+      <Caption>{ts}</Caption>
+      <Caption>Duration: {dur}</Caption>
+      <Caption>{branch}</Caption>
+      <WidgetButton href={url}>{displayName}</WidgetButton>
     </>
   );
 };
