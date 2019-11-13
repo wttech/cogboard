@@ -12,8 +12,16 @@ class CredentialsController : AbstractVerticle() {
 
     override fun start() {
         credentialsService = CredentialsService(config(), vertx)
+        listenOnEndpointsUpdate()
         listenOnCredentialsDelete()
     }
+
+    private fun listenOnEndpointsUpdate() = vertx
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_CREDENTIALS)
+            .handler {
+                credentialsService.save(it.body())
+            }
 
     private fun listenOnCredentialsDelete() = vertx
             .eventBus()

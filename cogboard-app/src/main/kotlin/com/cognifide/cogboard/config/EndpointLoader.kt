@@ -1,9 +1,9 @@
 package com.cognifide.cogboard.config
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.CREDENTIALS_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER_PROP
+import com.cognifide.cogboard.config.utils.JsonUtils.findById
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
@@ -22,14 +22,6 @@ class EndpointLoader(
 
     fun loadWithSensitiveData(endpointId: String): JsonObject {
         return load(endpointId).attachUserPassword()
-    }
-
-    private fun JsonArray.findById(id: String): JsonObject {
-        return this.stream()
-                .map { it as JsonObject }
-                .filter { it.getString(CogboardConstants.PROP_ID) == id }
-                .findFirst()
-                .orElse(JsonObject())
     }
 
     private fun JsonObject.attachUserPassword(): JsonObject {

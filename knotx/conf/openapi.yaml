@@ -92,13 +92,13 @@ paths:
       responses:
         default:
           description: Credentials list
-#    post:
-#      operationId: credentials-update-handler
-#      #      security:
-#      #        - cogboardAuth: []
-#      responses:
-#        default:
-#          description: Credentials Update Handler
+    post:
+      operationId: credentials-update-handler
+      #      security:
+      #        - cogboardAuth: []
+      responses:
+        default:
+          description: Credentials Update Handler
   /api/credentials/{id}:
     parameters:
       - name: id

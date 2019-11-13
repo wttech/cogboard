@@ -10,6 +10,7 @@ import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_LABEL_PR
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorage
 import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
+import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
@@ -52,13 +53,6 @@ class EndpointsService(private val config: JsonObject, vertx: Vertx) {
                 .putIfNotExist(ENDPOINTS_ARRAY, JsonArray())
                 .getJsonArray(ENDPOINTS_ARRAY)
                 .add(endpoint)
-    }
-
-    private fun JsonObject.putIfNotExist(key: String, value: Any): JsonObject {
-        if (!this.containsKey(key)) {
-            config.put(key, value)
-        }
-        return this
     }
 
     private fun generateId(): String {

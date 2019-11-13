@@ -37,6 +37,7 @@ class CogboardConstants {
         const val EVENT_DELETE_WIDGET_CONFIG = "cogboard.config.widget.delete"
         const val EVENT_UPDATE_ENDPOINTS = "cogboard.config.endpoints.update"
         const val EVENT_DELETE_ENDPOINTS = "cogboard.config.endpoints.delete"
+        const val EVENT_UPDATE_CREDENTIALS = "cogboard.config.credentials.update"
         const val EVENT_DELETE_CREDENTIALS = "cogboard.config.credentials.delete"
         const val EVENT_HTTP_GET = "cogboard.httpclient.get"
         const val EVENT_HTTP_CHECK = "cogboard.httpclient.check"

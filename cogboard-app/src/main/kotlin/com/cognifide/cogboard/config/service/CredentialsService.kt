@@ -2,7 +2,13 @@ package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.CredentialsConfig
+import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIALS_ARRAY
+import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PREFIX
+import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
+import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_LABEL_PROP
 import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
+import com.cognifide.cogboard.config.utils.JsonUtils.findById
+import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorage
 import io.vertx.core.Vertx
@@ -14,6 +20,54 @@ class CredentialsService(private val config: JsonObject, vertx: Vertx) {
     private var storage: Storage = VolumeStorage(ConfigType.CREDENTIALS, vertx)
 
     fun loadConfig(): JsonObject = storage.loadConfig()
+
+    fun save(credential: JsonObject) {
+        if (exists(credential)) update(credential) else add(credential)
+        storage.saveConfig(config)
+    }
+
+    fun exists(credential: JsonObject): Boolean {
+        val credentialId = credential.getString(CREDENTIAL_ID_PROP) ?: return false
+        val credentials = getCredentialsFromConfig()
+        return credentials.stream()
+                .map { it as JsonObject }
+                .anyMatch {
+                    credentialId == it.getString(CREDENTIAL_ID_PROP)
+                }
+    }
+
+    private fun update(credential: JsonObject) {
+        val credentialId = credential.getString(CREDENTIAL_ID_PROP)
+        val credentials = getCredentialsFromConfig()
+        val credentialToUpdate = credentials.findById(credentialId)
+        credentialToUpdate.mergeIn(credential, true)
+    }
+
+    private fun getCredentialsFromConfig(): JsonArray = config.getJsonArray(CREDENTIALS_ARRAY) ?: JsonArray()
+
+    private fun add(credential: JsonObject) {
+        credential.let {
+            it.put(CREDENTIAL_ID_PROP, generateId())
+            it.put(CREDENTIAL_LABEL_PROP, it.getString(CREDENTIAL_LABEL_PROP)
+                    ?: it.getString(CREDENTIAL_ID_PROP))
+        }
+
+        config
+                .putIfNotExist(CREDENTIALS_ARRAY, JsonArray())
+                .getJsonArray(CREDENTIALS_ARRAY)
+                .add(credential)
+    }
+
+    private fun generateId(): String {
+        val credentials = getCredentialsFromConfig()
+        val lastId: Long = credentials.stream()
+                .map { it as JsonObject }
+                .mapToLong { it.getString(CREDENTIAL_ID_PROP).replace(CREDENTIAL_ID_PREFIX, "").toLong() }
+                .max()
+                .orElse(0L)
+
+        return CREDENTIAL_ID_PREFIX + (lastId + 1)
+    }
 
     fun delete(credentialId: String) {
         val credentials = config.getJsonArray(CredentialsConfig.CREDENTIALS_ARRAY) ?: JsonArray()
@@ -28,7 +82,7 @@ class CredentialsService(private val config: JsonObject, vertx: Vertx) {
     }
 
     private fun JsonArray.removeCredentialById(id: String) {
-        val credentialPosition = this.getObjectPositionById(CredentialsConfig.CREDENTIAL_ID_PROP, id)
+        val credentialPosition = this.getObjectPositionById(id)
         this.remove(credentialPosition)
     }
 
