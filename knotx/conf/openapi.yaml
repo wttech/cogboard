@@ -87,15 +87,15 @@ paths:
   /api/credentials:
     get:
       operationId: credentials-get-handler
-      #      security:
-      #        - cogboardAuth: []
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Credentials list
     post:
       operationId: credentials-update-handler
-      #      security:
-      #        - cogboardAuth: []
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Credentials Update Handler
@@ -109,15 +109,15 @@ paths:
           type: string
     get:
       operationId: credential-by-id-get-handler
-      #      security:
-      #        - cogboardAuth: []
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Credential with id
     delete:
       operationId: credentials-delete-handler
-      #      security:
-      #        - cogboardAuth: []
+      security:
+        - cogboardAuth: []
       responses:
         default:
           description: Credential Delete Handler
