@@ -1,7 +1,7 @@
 val configsToCopy = mapOf(
         "config.json" to "/mnt",
         "endpoints.json" to "/mnt",
-        "admins.conf" to "/knotx/conf",
+        "admins.conf" to "/mnt",
         "jwt.conf" to "/knotx/conf"
 )
 
