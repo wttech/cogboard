@@ -15,7 +15,7 @@ export const SWITCH_INTERVAL_MIN = 3;
 
 export const WIDGET_COLUMNS_MIN = 1;
 export const WIDGET_ROWS_MIN = 1;
-export const WIDGET_ROWS_MAX = 4;
+export const WIDGET_ROWS_MAX = 10;
 
 export const WIDGET_TITLE_LENGTH_LIMIT = 25;
 
@@ -110,14 +110,15 @@ export const INITIAL_BOARD_PROPS = {
 };
 
 export const validationMessages = {
-  STRING_LENGTH: (name, max) => `${name} length must be less or equal to ${max}.`,
+  STRING_LENGTH: (name, max) =>
+    `${name} length must be less or equal to ${max}.`,
   FIELD_REQUIRED: () => 'This field is required',
   NUMBER_MIN: (name, min) => `${name} number cannot be less than ${min}.`,
   NUMBER_MAX: (name, max) => `${name} number cannot be more than ${max}.`,
   INVALID_URL: () => 'Invalid URL',
   FIELD_MIN_ITEMS: () => 'This field must have at least 1 item.',
-  UNIQUE_FIELD: () => 'This field must be unique.',
-}
+  UNIQUE_FIELD: () => 'This field must be unique.'
+};
 export const NOTIFICATIONS = {
   LOGIN: userRole => ({
     type: 'success',
