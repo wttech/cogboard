@@ -17,7 +17,7 @@ export const SWITCH_INTERVAL_MIN = 3;
 
 export const WIDGET_COLUMNS_MIN = 0.5;
 export const WIDGET_ROWS_MIN = 0.5;
-export const WIDGET_ROWS_MAX = 4;
+export const WIDGET_ROWS_MAX = 10;
 
 export const WIDGET_TITLE_LENGTH_LIMIT = 25;
 
