@@ -5,16 +5,22 @@ services:
 jdk:
 - oraclejdk11
 before_script:
-- git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git
+- if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export RELEASE=1 && git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git; fi
 - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
-- if [ "$TRAVIS_BRANCH" = "master" ]; then ./gradlew cogboardInit && ./gradlew release
+- if [ "$RELEASE" = "1" ]; then ./gradlew cogboardInit && ./gradlew release
   -Prelease.useAutomaticVersion=true --info; fi
+- if [ "$RELEASE" != "1" ]; then ./gradlew cogboardInit && ./gradlew build; fi
 deploy:
 - provider: script
   script: bash scripts/release.sh
   on:
-    branch: master
+    condition: $RELEASE = 1
+- provider: script
+  script: bash scripts/dev_build.sh
+  on:
+    all_branches: true
+    condition: $TRAVIS_EVENT_TYPE = push && $TRAVIS_BRANCH != ^master$
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
