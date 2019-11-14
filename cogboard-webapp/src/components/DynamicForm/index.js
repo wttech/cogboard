@@ -7,12 +7,12 @@ import { Box } from '@material-ui/core';
 import dialogFields from '../widgets/dialogFields';
 
 const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
-
-  const createField = (field) => {
+  const createField = field => {
     const {
       component: DialogField,
       name,
       initialValue = '',
+      valueUpdater,
       validator,
       ...dialogFieldProps
     } = dialogFields[field];
@@ -24,41 +24,34 @@ const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
         key={name}
         values={values}
         value={valueRef}
-        onChange={handleChange(name)}
+        onChange={handleChange(name, valueUpdater)}
         error={errors[name]}
         dataCy={`${rootName}-${camelToKebab(name)}-input`}
         {...dialogFieldProps}
       />
     );
-  }
+  };
 
-  const createGroupedFields = (groupedFields) => {
+  const createGroupedFields = groupedFields => {
     return (
-      <Box
-        display="flex"
-        justifyContent="space-between"
-      >
-        {
-          groupedFields.map(field => {
-            return createField(field)
-          })
-        } 
+      <Box display="flex" justifyContent="space-between">
+        {groupedFields.map(field => {
+          return createField(field);
+        })}
       </Box>
     );
-  }
+  };
 
   return (
     <>
       <StyledFieldset component="fieldset">
-        {
-          fields.map(field => {
-            if (typeof field === 'string') {
-              return createField(field)
-            } else {
-              return createGroupedFields(field)
-            }
-          })
-        }
+        {fields.map(field => {
+          if (typeof field === 'string') {
+            return createField(field);
+          } else {
+            return createGroupedFields(field);
+          }
+        })}
       </StyledFieldset>
     </>
   );

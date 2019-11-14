@@ -5,7 +5,6 @@ import { StyledValidationMessages } from '../../WidgetForm/styled';
 import { hasError } from '../../../helpers';
 
 const NumberInput = ({ min, step, error, dataCy, ...other }) => {
-
   return (
     <TextField
       type="number"
@@ -15,12 +14,13 @@ const NumberInput = ({ min, step, error, dataCy, ...other }) => {
       }}
       margin="normal"
       error={hasError(error)}
-      FormHelperTextProps={{component: 'div'}}
+      FormHelperTextProps={{ component: 'div' }}
       helperText={
         <StyledValidationMessages
           messages={error}
           data-cy={`${dataCy}-error`}
-        />}
+        />
+      }
       {...other}
     />
   );

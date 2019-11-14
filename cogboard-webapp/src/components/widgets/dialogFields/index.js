@@ -1,23 +1,29 @@
 import { string, number, boolean, array } from 'yup';
 
-import { DATE_FORMATS, GMT_TIMEZONES, TIME_FORMATS } from "../types/WorldClockWidget/helpers";
-
-import { parseWidgetTypes } from './helpers';
-import widgetTypes from '../../widgets';
-import { validationMessages as vm } from '../../../constants';
+import {
+  DATE_FORMATS,
+  GMT_TIMEZONES,
+  TIME_FORMATS
+} from '../types/WorldClockWidget/helpers';
+import { parseWidgetTypes, transformMinValueToHalf } from './helpers';
+import {
+  REQUEST_METHODS,
+  TEXT_SIZES,
+  validationMessages as vm
+} from '../../../constants';
 import { uniqueTitleTestCreator } from '../../validation';
+import widgetTypes from '../../widgets';
 
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
-import DisplayValueSelect from "./DisplayValueSelect";
-import { REQUEST_METHODS, TEXT_SIZES } from "../../../constants";
-import MultilineTextInput from "./MultilineTextInput";
-import CheckboxInput from "./CheckboxInput";
-import AemHealthcheckInput from "./AemHealthcheckInput";
+import DisplayValueSelect from './DisplayValueSelect';
+import MultilineTextInput from './MultilineTextInput';
+import CheckboxInput from './CheckboxInput';
+import AemHealthcheckInput from './AemHealthcheckInput';
 import conditionallyHidden from './conditionallyHidden';
-import SwitchInput from "./SwitchInput";
+import SwitchInput from './SwitchInput';
 import { StyledNumberInput } from './styled';
 
 const dialogFields = {
@@ -26,58 +32,65 @@ const dialogFields = {
     name: 'type',
     label: 'Type',
     dropdownItems: parseWidgetTypes(widgetTypes),
-    validator: () => string().required(vm.FIELD_REQUIRED()),
+    validator: () => string().required(vm.FIELD_REQUIRED())
   },
   TitleField: {
     component: TextInput,
     name: 'title',
     label: 'Title',
     initialValue: 'Title',
-    validator: ({ max }) => string()
-      .trim()
-      .max(max, vm.STRING_LENGTH('Title', max))
-      .required(vm.FIELD_REQUIRED())
+    validator: ({ max }) =>
+      string()
+        .trim()
+        .max(max, vm.STRING_LENGTH('Title', max))
+        .required(vm.FIELD_REQUIRED())
   },
   UniqueTitleField: {
     component: TextInput,
     name: 'title',
     label: 'Title',
     initialValue: 'Title',
-    validator: ({ max, boardId, boards }) => string()
-      .trim()
-      .max(max, vm.STRING_LENGTH('Title', max))
-      .test(uniqueTitleTestCreator(boardId, boards))
-      .required(vm.FIELD_REQUIRED())
+    validator: ({ max, boardId, boards }) =>
+      string()
+        .trim()
+        .max(max, vm.STRING_LENGTH('Title', max))
+        .test(uniqueTitleTestCreator(boardId, boards))
+        .required(vm.FIELD_REQUIRED())
   },
   ColumnField: {
     component: NumberInput,
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
-    validator: ({ min, max }) => number()
-      .min(min, vm.NUMBER_MIN('Columns', min))
-      .max(max, vm.NUMBER_MAX('Columns', max))
-      .required(vm.FIELD_REQUIRED())
+    validator: ({ min, max }) =>
+      number()
+        .min(min, vm.NUMBER_MIN('Columns', min))
+        .max(max, vm.NUMBER_MAX('Columns', max))
+        .required(vm.FIELD_REQUIRED())
   },
   ColumnFieldSm: {
     component: StyledNumberInput,
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
-    validator: ({ min, max }) => number()
-      .min(min, vm.NUMBER_MIN('Columns', min))
-      .max(max, vm.NUMBER_MAX('Columns', max))
-      .required(vm.FIELD_REQUIRED())
+    valueUpdater: transformMinValueToHalf(),
+    validator: ({ min, max }) =>
+      number()
+        .min(min, vm.NUMBER_MIN('Columns', min))
+        .max(max, vm.NUMBER_MAX('Columns', max))
+        .required(vm.FIELD_REQUIRED())
   },
   RowFieldSm: {
     component: StyledNumberInput,
     name: 'rows',
     label: 'Rows',
     initialValue: 1,
-    validator: ({ min, max }) => number()
-      .min(min, vm.NUMBER_MIN('Rows', min))
-      .max(max, vm.NUMBER_MAX('Rows', max))
-      .required(vm.FIELD_REQUIRED())
+    valueUpdater: transformMinValueToHalf(),
+    validator: ({ min, max }) =>
+      number()
+        .min(min, vm.NUMBER_MIN('Rows', min))
+        .max(max, vm.NUMBER_MAX('Rows', max))
+        .required(vm.FIELD_REQUIRED())
   },
   NewLineField: {
     component: SwitchInput,
@@ -101,20 +114,17 @@ const dialogFields = {
     validator: () => boolean()
   },
   SwitchInterval: {
-    component: conditionallyHidden(NumberInput, 'autoSwitch', (value) => value),
+    component: conditionallyHidden(NumberInput, 'autoSwitch', value => value),
     name: 'switchInterval',
     label: 'Switch Interval',
-    validator: ({ min }) => number()
-      .when(
-        'autoSwitch', {
-          is: true,
-          then: number()
-            .min(min, vm.NUMBER_MIN('Switch interval', min))
-            .required(),
-          otherwise: number()
-            .notRequired()
-        }
-      )
+    validator: ({ min }) =>
+      number().when('autoSwitch', {
+        is: true,
+        then: number()
+          .min(min, vm.NUMBER_MIN('Switch interval', min))
+          .required(),
+        otherwise: number().notRequired()
+      })
   },
   EndpointField: {
     component: EndpointInput,
@@ -130,8 +140,8 @@ const dialogFields = {
     min: 0,
     step: 10,
     initialValue: 120,
-    validator: ({ min }) => number()
-      .min(min, vm.NUMBER_MIN('Schedule period', min))
+    validator: ({ min }) =>
+      number().min(min, vm.NUMBER_MIN('Schedule period', min))
   },
   Path: {
     component: TextInput,
@@ -173,20 +183,32 @@ const dialogFields = {
   SonarQubeMetricsInput: {
     component: SonarQubeMetricsInput,
     name: 'selectedMetrics',
-    initialValue: ['blocker_violations', 'critical_violations', 'major_violations', 'minor_violations'],
-    validator: ({ minArrayLength = 0 }) => array()
-      .ensure()
-      .min(minArrayLength, vm.FIELD_MIN_ITEMS())
-      .of(string())
+    initialValue: [
+      'blocker_violations',
+      'critical_violations',
+      'major_violations',
+      'minor_violations'
+    ],
+    validator: ({ minArrayLength = 0 }) =>
+      array()
+        .ensure()
+        .min(minArrayLength, vm.FIELD_MIN_ITEMS())
+        .of(string())
   },
   AemHealthcheckInput: {
     component: AemHealthcheckInput,
     name: 'selectedHealthChecks',
-    initialValue: ['slingJobs', 'systemchecks', 'inactiveBundles', 'DiskSpaceHealthCheck'],
-    validator: ({ minArrayLength = 0 }) => array()
-      .ensure()
-      .min(minArrayLength, vm.FIELD_MIN_ITEMS())
-      .of(string())
+    initialValue: [
+      'slingJobs',
+      'systemchecks',
+      'inactiveBundles',
+      'DiskSpaceHealthCheck'
+    ],
+    validator: ({ minArrayLength = 0 }) =>
+      array()
+        .ensure()
+        .min(minArrayLength, vm.FIELD_MIN_ITEMS())
+        .of(string())
   },
   StatusCode: {
     component: NumberInput,
@@ -195,10 +217,11 @@ const dialogFields = {
     min: 0,
     step: 1,
     initialValue: 200,
-    validator: () => number()
-      .lessThan(600)
-      .moreThan(99)
-      .required(vm.FIELD_REQUIRED())
+    validator: () =>
+      number()
+        .lessThan(600)
+        .moreThan(99)
+        .required(vm.FIELD_REQUIRED())
   },
   TimeZoneId: {
     component: DisplayValueSelect,
@@ -262,7 +285,7 @@ const dialogFields = {
     label: 'Text Size',
     dropdownItems: TEXT_SIZES,
     initialValue: TEXT_SIZES[3].value,
-    validator: () => string(),
+    validator: () => string()
   },
   RequestMethod: {
     component: DisplayValueSelect,
