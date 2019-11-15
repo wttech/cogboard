@@ -65,12 +65,23 @@ export const login = credentials => dispatch => {
   );
 };
 
-export const logout = () => dispatch => {
+export const logout = (isEpiredSession = false) => (dispatch, getState) => {
   const userRole = getUserRole();
+  const {
+    app: { logoutReasonMessage }
+  } = getState();
 
   removeToken();
   dispatch(logoutUser());
-  dispatch(pushNotification(NOTIFICATIONS.LOGOUT(userRole)));
+  if (isEpiredSession && logoutReasonMessage !== '') {
+    dispatch(
+      pushNotification(
+        NOTIFICATIONS.LOGOUT_REASON(userRole, logoutReasonMessage)
+      )
+    );
+  } else {
+    dispatch(pushNotification(NOTIFICATIONS.LOGOUT(userRole)));
+  }
 };
 
 const deleteBoardWithWidgetsThunk = id => (dispatch, getState) => {
