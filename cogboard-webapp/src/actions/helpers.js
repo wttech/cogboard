@@ -102,7 +102,6 @@ export const withAuthentication = actionCallback => (...args) => dispatch => {
   if (!isAuthenticated()) {
     dispatch(setLogoutReasonMessage('session expired'));
     dispatch(logout(true));
-    console.log('Wylogowane');
     return;
   }
 
