@@ -93,6 +93,4 @@ class CredentialsService(private val config: JsonObject, vertx: Vertx) {
         val credentialPosition = this.getObjectPositionById(id)
         this.remove(credentialPosition)
     }
-
-
 }

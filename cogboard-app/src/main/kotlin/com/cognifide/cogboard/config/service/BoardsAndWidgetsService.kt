@@ -28,7 +28,8 @@ class BoardsAndWidgetsService(private val config: JsonObject, private val vertx:
             widgets.remove(id)?.stop()
             LOGGER.info("Widget Deleted: $widgetConfig")
         } else {
-            LOGGER.error("Widget Delete | There is widget with no ID in configuration: $widgetConfig")
+            LOGGER.error("Widget Delete | " +
+                    "There is widget with no ID in configuration: $widgetConfig")
         }
     }
 
@@ -44,7 +45,8 @@ class BoardsAndWidgetsService(private val config: JsonObject, private val vertx:
             newConfig.attachEndpoint()
             widgets[id] = WidgetIndex.create(newConfig, vertx).start()
         } else {
-            BoardsAndWidgetsService.LOGGER.error("Widget Update / Create | There is widget with no ID in configuration: $widgetConfig")
+            LOGGER.error("Widget Update / Create | " +
+                    "There is widget with no ID in configuration: $widgetConfig")
         }
     }
 

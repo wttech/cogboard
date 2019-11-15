@@ -11,7 +11,6 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
-
 object CredentialsValidator : Validator {
 
     private val LOGGER: Logger = LoggerFactory.getLogger(CredentialsValidator::class.java)

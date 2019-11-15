@@ -8,8 +8,8 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class EndpointLoader(
-        endpointsConfig: JsonObject,
-        credentialsConfig: JsonObject = CredentialsConfig().load()
+    endpointsConfig: JsonObject,
+    credentialsConfig: JsonObject = CredentialsConfig().load()
 ) {
 
     private val endpoints = endpointsConfig.getJsonArray(EndpointsConfig.ENDPOINTS_ARRAY) ?: JsonArray()

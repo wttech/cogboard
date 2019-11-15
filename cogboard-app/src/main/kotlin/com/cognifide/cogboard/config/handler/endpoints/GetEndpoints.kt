@@ -22,7 +22,7 @@ class GetEndpoints : RoutingHandlerFactory {
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         val endpointId = event.request().getParam(PARAM_ENDPOINT_ID)
-        val response = if(endpointId != null) getEndpointById(endpointId) else getAllEndpoints()
+        val response = if (endpointId != null) getEndpointById(endpointId) else getAllEndpoints()
         event.response()
                 .putHeader(HttpConstants.HEADER_CONTENT_TYPE, HttpConstants.CONTENT_TYPE_JSON)
                 .end(response)

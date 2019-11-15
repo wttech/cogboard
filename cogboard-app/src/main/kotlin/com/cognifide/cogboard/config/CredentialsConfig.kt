@@ -4,7 +4,7 @@ import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class CredentialsConfig: Config() {
+class CredentialsConfig : Config() {
 
     fun getCredentials(): JsonArray = load().getJsonArray(CREDENTIALS_ARRAY)
 
@@ -12,7 +12,7 @@ class CredentialsConfig: Config() {
         return CredentialsValidator.validate(configJson)
     }
 
-    override fun filePath() : String = CREDENTIALS_CONFIG_FILE_PATH
+    override fun filePath(): String = CREDENTIALS_CONFIG_FILE_PATH
 
     override fun type(): ConfigType = ConfigType.CREDENTIALS
 

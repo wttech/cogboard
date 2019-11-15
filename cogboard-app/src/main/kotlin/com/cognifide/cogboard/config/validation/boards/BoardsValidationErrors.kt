@@ -2,7 +2,7 @@ package com.cognifide.cogboard.config.validation.boards
 
 import com.cognifide.cogboard.config.validation.ValidationErrors
 
-class BoardsValidationErrors(override val errors: List<BoardsValidationError>): ValidationErrors {
+class BoardsValidationErrors(override val errors: List<BoardsValidationError>) : ValidationErrors {
 
     override fun toString(): String {
         val builder = StringBuilder()

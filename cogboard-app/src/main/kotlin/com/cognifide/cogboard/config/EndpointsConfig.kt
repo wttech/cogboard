@@ -4,7 +4,7 @@ import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class EndpointsConfig: Config() {
+class EndpointsConfig : Config() {
 
     fun getEndpoints(): JsonArray = load().getJsonArray(ENDPOINTS_ARRAY)
 
@@ -12,7 +12,7 @@ class EndpointsConfig: Config() {
         return EndpointsValidator.validate(configJson)
     }
 
-    override fun filePath() : String = ENDPOINTS_CONFIG_FILE_PATH
+    override fun filePath(): String = ENDPOINTS_CONFIG_FILE_PATH
 
     override fun type(): ConfigType = ConfigType.ENDPOINTS
 
