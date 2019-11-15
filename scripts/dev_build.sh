@@ -6,5 +6,4 @@ DOCKER_IMAGE="cogboard/cogboard-app"
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 # push recently builded image
-docker tag ${DOCKER_IMAGE}:latest ${DOCKER_IMAGE}:SNAPSHOT
-docker push ${DOCKER_IMAGE}:SNAPSHOT
+docker push ${DOCKER_IMAGE}:${VERSION}-SNAPSHOT
