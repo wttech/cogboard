@@ -72,8 +72,8 @@ export const logout = () => (dispatch, getState) => {
   } = getState();
 
   removeToken();
-  dispatch(logoutUser());
 
+  dispatch(logoutUser());
   dispatch(
     pushNotification(NOTIFICATIONS.LOGOUT(userRole, logoutReasonMessage))
   );
