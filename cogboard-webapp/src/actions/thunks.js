@@ -65,7 +65,7 @@ export const login = credentials => dispatch => {
   );
 };
 
-export const logout = (isEpiredSession = false) => (dispatch, getState) => {
+export const logout = () => (dispatch, getState) => {
   const userRole = getUserRole();
   const {
     app: { logoutReasonMessage }
@@ -73,7 +73,7 @@ export const logout = (isEpiredSession = false) => (dispatch, getState) => {
 
   removeToken();
   dispatch(logoutUser());
-  if (isEpiredSession && logoutReasonMessage !== '') {
+  if (logoutReasonMessage !== '') {
     dispatch(
       pushNotification(
         NOTIFICATIONS.LOGOUT_REASON(userRole, logoutReasonMessage)
