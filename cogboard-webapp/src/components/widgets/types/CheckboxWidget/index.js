@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setWidgetState } from '../../../../actions/thunks';
 import getNextStatus from './helpers';
 
-import { WidgetIconButton } from "../../../styled";
+import { WidgetIconButton } from '../../../styled';
 import StatusIcon from '../../../StatusIcon';
 
 const CheckboxWidget = props => {
@@ -19,14 +19,16 @@ const CheckboxWidget = props => {
   };
 
   const handleChangeStatus = () => {
-    dispatch(setWidgetState({
-      id,
-      status: getNextStatus(status)
-    }));
+    dispatch(
+      setWidgetState({
+        id,
+        status: getNextStatus(status)
+      })
+    );
   };
 
   return (
-    <WidgetIconButton 
+    <WidgetIconButton
       aria-label="Toggle status"
       aria-checked={ariaCheckedStatusMap[status]}
       data-cy="checkbox"

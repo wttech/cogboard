@@ -11,7 +11,7 @@ Thumbs.db
 
 *.jar
 /knotx/conf/jwt.conf
-/knotx/conf/admins.conf
+/mnt/admins.conf
 /mnt/*.json
 /mnt/*.backup
 

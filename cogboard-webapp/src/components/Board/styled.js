@@ -20,7 +20,7 @@ export const StyledNotFound = styled(NotFound)`
   right: 0;
   top: 0;
   z-index: 2000;
-  
+
   > div {
     padding: 0 15px;
     text-align: center;

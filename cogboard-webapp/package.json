@@ -11,10 +11,12 @@
     "http-proxy-middleware": "^0.20.0",
     "jwt-decode": "^2.2.0",
     "moment-timezone": "^0.5.26",
+    "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-dnd": "^9.3.4",
     "react-dnd-html5-backend": "^9.3.4",
     "react-dom": "^16.8.6",
+    "react-hook-size": "^1.3.5",
     "react-iframe": "latest",
     "react-redux": "^7.1.0",
     "react-scripts": "3.0.1",
@@ -28,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,7 +49,21 @@
     ]
   },
   "devDependencies": {
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
     "redux-devtools-extension": "^2.13.8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "pretty-quick --staged",
+      "git add"
+    ]
   }
 }

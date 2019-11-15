@@ -4,14 +4,14 @@ import { func } from 'prop-types';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/core/styles';
 
-import { setSize } from './helpers';
+import { setSize } from '../helpers';
 
 import { AppBar, Container, Toolbar, IconButton } from '@material-ui/core';
 import { DashboardRounded } from '@material-ui/icons';
-import { StyledTitle } from "./styled";
+import { StyledTitle } from './styled';
 
 import BoardSwitcher from './BoardSwitcher';
-import UserLogin from "./UserLogin";
+import UserLogin from './UserLogin';
 
 const StyledBoardSwitcher = styled(BoardSwitcher)`
   align-items: center;
@@ -30,15 +30,16 @@ const StyledToolbar = styled(Toolbar)`
 
 const NavBar = ({ handleDrawerToggle }) => {
   const theme = useTheme();
-  const title = useSelector(({ ui, boards }) => ui.currentBoard && boards.boardsById[ui.currentBoard] ? boards.boardsById[ui.currentBoard].title : '');
+  const title = useSelector(({ ui, boards }) =>
+    ui.currentBoard && boards.boardsById[ui.currentBoard]
+      ? boards.boardsById[ui.currentBoard].title
+      : ''
+  );
 
   return (
     <StyledAppBar position="fixed">
       <Container maxWidth="xl">
-        <StyledToolbar
-          disableGutters
-          theme={theme}
-        >
+        <StyledToolbar disableGutters theme={theme}>
           <IconButton
             onClick={handleDrawerToggle(true)}
             aria-label="Open boards drawer"
@@ -48,7 +49,7 @@ const NavBar = ({ handleDrawerToggle }) => {
           >
             <DashboardRounded />
           </IconButton>
-          <UserLogin/>
+          <UserLogin />
           <StyledTitle
             component="h2"
             variant="h3"

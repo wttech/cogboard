@@ -1,20 +1,34 @@
 language: java
 install: true
-
 services:
   - docker
-
 jdk:
-  - oraclejdk8
-
+  - oraclejdk11
+before_script:
+  - if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export RELEASE=1 && git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git; fi
+  - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
-  - ./gradlew build --info
-
+  - if [ "$RELEASE" = "1" ]; then ./gradlew cogboardInit && ./gradlew release
+    -Prelease.useAutomaticVersion=true --info; fi
+  - if [ "$RELEASE" != "1" ]; then ./gradlew cogboardInit && ./gradlew build; fi
+deploy:
+  - provider: script
+    script: bash scripts/release.sh
+    on:
+      condition: $RELEASE = 1
+  - provider: script
+    script: bash scripts/dev_build.sh
+    on:
+      all_branches: true
+      condition: $TRAVIS_EVENT_TYPE = push && $TRAVIS_BRANCH != ^master$
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
 cache:
   directories:
     - "$HOME/.gradle/caches/"
     - "$HOME/.gradle/wrapper/"
+env:
+  global:
+    - secure: Am67p/tzwtBKjUYnVjNrLI9prTLr1Bq6TeuaQYM6YxBpijvBa/XXveJT6m6xfaCCxk8XmKUvmhBoVfug896GBE+TCIVqUbARb06x9gmqH6qQa5b9yPHmkeesxgAObDrasbTCRDQj2ADVQaaya3WH2w4QkKTknNF/XDMiSD2b0cJ6iTLHAy7OY+iIOCLFXRtWqUNyKSBmF9ZFBexs6SENJ0TJggawP5ZyZpVqTsDUB3mbfB9ZegVTWaqr2Plf8/3pk5c/f3pamP4YACgc/Pak71TAwwBaDGlHggnQexgIeluHmABHkt7IBtXOLXQCme3WWL4we7B49Y7QlxhRyLGfMIwZF99mEozOTynW2i8aYQSrRpik7GB882AJxmumAh+FVSzxAZNSFSTrFrFz3+zumxiyALVOgwzg1cI4SAxuOxc2/dYAANzrLJt4WyaVNjEzum19C52Is/fKzPqNQNu5lFlkmsAblXxLYePQi4jxzdj+AyLk7NvGortoCUWZLxmedpRrGaVZ0xqCqLtcDjQqes5umGAlN5Mt4b2zdKXkUmf/uVRgo5PRQwC+WxqWt00ePgfi5cQIGX4Cs5Gt6JcRmvzZT7dXvujJS4ykjH4V7GoSW7z9s3gKRp9QqRonEpV3uh/Z2J6uNxjUhQO36ZrVoecaQFvZaQh4OedQv/r3vi8=
+    - secure: BN6g7txDLcN1dVRHssroiQDCxvAda06P0Xasnz8kX3FdlpMN4gwJOeqjo7AOB2K8F053qOUFt3HiJ+2XLzfIjAmG/71wmdFXWa++KPOfzhZadk3bzdeI7FTdeMB09iRjK5w15ZvMbptLXEL78fxxBmlEKQ8VvPRMasEhmAaQontYhQMsRl/6yzDR6TisWHEXuihoiISu4v7onTZbbOkiS/Kip1RYUtXW7rJhXtF5nlck9NTyARt/Xz5Ttd6pVvAezhirN9hrAWnJNBp8XlZBH+MBUJd7FOqHov1egc59+0RttzggGoSrBB57Q8S7WSBKZ5D+mreKGgzvSxgu15qktduWxVqFJRMkZq9LIFk02cMuvBPz+EE43yA+xCIYZdFohOQ7fgSVgI8JD8GDDv58iiIXyDcFDYccvKCIHMBArsmDs1EUBCqvD69IiO6bZ3m1RfFrWxIZbx2DlGVIm3mJbNimniOl3ZSFWFGz9XGN1klt37mHi1Ludgpn8En3iNSriplihZagGrHMepRPPzJ+Rp9wGXYH740SRqAqrss7IY5qHT8g1TprBGBsSM2hTHBMKidEVhTUwK2OcST8Qd46YsyYt0eHrzAZJJM9EAs5rin6SkeYQfdX8cU7fL9rHN1w+hIMjw5r+UJowYoiq5KMyjXW8PefuKQhtBEY9Yk54J8=

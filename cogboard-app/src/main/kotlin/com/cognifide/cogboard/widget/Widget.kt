@@ -31,7 +31,7 @@ interface Widget {
             fun from(text: String): Status = when (text.toUpperCase()) {
                 "SUCCESS", "SUCCESSFUL", "OK" -> OK
                 "WARN" -> UNSTABLE
-                "FAILURE", "FAILED", "CRITICAL" -> FAIL
+                "FAILURE", "FAILED", "CRITICAL", "HEALTH_CHECK_ERROR" -> FAIL
                 else -> values().firstOrNull { it.name.equals(text, ignoreCase = true) } ?: UNKNOWN
             }
 

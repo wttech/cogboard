@@ -7,9 +7,13 @@ import DropdownField from '../../DropdownField';
 const EndpointInput = props => {
   return (
     <DropdownField {...props}>
-      {endpoints => endpoints.map(({ id, label }) =>
-        <MenuItem key={id} value={id}>{label}</MenuItem>
-      )}
+      {endpoints =>
+        endpoints.map(({ id, label }) => (
+          <MenuItem key={id} value={id}>
+            {label}
+          </MenuItem>
+        ))
+      }
     </DropdownField>
   );
 };

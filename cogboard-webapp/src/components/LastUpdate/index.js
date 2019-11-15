@@ -4,7 +4,12 @@ import { StyledTypography } from './styled';
 
 const LastUpdate = ({ lastUpdateTime }) => {
   return (
-    <StyledTypography align='left' color='textSecondary' variant='caption' gutterBottom={false}>
+    <StyledTypography
+      align="left"
+      color="textSecondary"
+      variant="caption"
+      gutterBottom={false}
+    >
       Last update: {lastUpdateTime}
     </StyledTypography>
   );

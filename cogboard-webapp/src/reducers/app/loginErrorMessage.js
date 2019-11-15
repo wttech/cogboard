@@ -1,4 +1,9 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, CLEAR_LOGIN_ERROR_MESSAGE, LOGOUT } from '../../actions/types';
+import {
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS,
+  CLEAR_LOGIN_ERROR_MESSAGE,
+  LOGOUT
+} from '../../actions/types';
 
 const loginErrorMessage = (state = '', { type, payload }) => {
   switch (type) {

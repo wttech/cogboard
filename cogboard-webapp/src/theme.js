@@ -1,9 +1,10 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { amber, blue, green, red } from "@material-ui/core/colors/index";
+import { amber, blue, green, red } from '@material-ui/core/colors/index';
 
 const gradientAngle = 45;
 
-const createGradient = (start, end) => `linear-gradient(${gradientAngle}deg, ${start}, ${end})`;
+const createGradient = (start, end) =>
+  `linear-gradient(${gradientAngle}deg, ${start}, ${end})`;
 
 export const theme = createMuiTheme({
   palette: {
@@ -12,7 +13,7 @@ export const theme = createMuiTheme({
       default: '#211F39',
       paper: '#26243E',
       board: {
-        card: '#5c6bc0', 
+        card: '#5c6bc0',
         dragged: '#353b61'
       }
     },
@@ -26,7 +27,7 @@ export const theme = createMuiTheme({
       ERROR: createGradient('#af4448', '#e57373'),
       FAIL: createGradient('#af4448', '#e57373')
     },
-    variant : {
+    snackbarVariant: {
       info: blue[100],
       success: green[300],
       warning: amber[700],

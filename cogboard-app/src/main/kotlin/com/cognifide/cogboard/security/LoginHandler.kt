@@ -1,5 +1,6 @@
 package com.cognifide.cogboard.security
 
+import com.cognifide.cogboard.CogboardConstants
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -50,7 +51,7 @@ class LoginHandler : RoutingHandlerFactory {
     }
 
     private fun sendUnauthorized(ctx: RoutingContext, message: String) {
-        ctx.response().setStatusMessage(message).setStatusCode(401).end()
+        ctx.response().setStatusMessage(message).setStatusCode(CogboardConstants.STATUS_CODE_401).end()
     }
 
     private fun isNotExisting(user: String): Boolean {
@@ -79,5 +80,4 @@ class LoginHandler : RoutingHandlerFactory {
     companion object {
         private const val SESSION_DURATION_IN_SECONDS = 30 * 60
     }
-
 }

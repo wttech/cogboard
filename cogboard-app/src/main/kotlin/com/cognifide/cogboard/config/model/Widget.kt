@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonIgnore
 
 data class Widget(
-        val id: String,
-        val type: String,
-        val title: String,
-        val config: WidgetConfig,
-        val disabled: Boolean,
-        val content: Map<String, Any>,
-        @JsonIgnore
-        val dynamicFields: MutableMap<String, Any> = mutableMapOf()
+    val id: String,
+    val type: String,
+    val title: String,
+    val config: WidgetConfig,
+    val disabled: Boolean,
+    val content: Map<String, Any>,
+    @JsonIgnore
+    val dynamicFields: MutableMap<String, Any> = mutableMapOf()
 ) {
     @JsonAnySetter
     fun setFields(name: String, value: Any) {
@@ -23,8 +23,8 @@ data class Widget(
     fun getFields() = dynamicFields
 
     data class WidgetConfig(
-            val columns: Int,
-            val rows: Int,
-            val goNewLine: Boolean
+        val columns: Int,
+        val rows: Int,
+        val goNewLine: Boolean
     )
 }

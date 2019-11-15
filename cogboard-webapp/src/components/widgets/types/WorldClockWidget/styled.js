@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from '@emotion/styled/macro';
 
 export const TimePre = styled.pre`
   font-weight: bold;

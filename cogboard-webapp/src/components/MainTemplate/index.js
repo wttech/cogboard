@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Router } from "@reach/router";
+import { Router } from '@reach/router';
 
 import { useToggle } from '../../hooks';
 import { saveData } from '../../actions/thunks';
@@ -14,7 +14,9 @@ import BoardIndex from '../BoardIndex';
 import Board from '../Board';
 import NavBar from '../NavBar';
 import AddBoard from '../AddBoard';
-import { StyledActions,
+import Notifications from '../Notifications';
+import {
+  StyledActions,
   StyledBoardList,
   StyledDrawerContainer,
   StyledLogo,
@@ -51,10 +53,7 @@ const MainTemplate = () => {
   return (
     <>
       <NavBar handleDrawerToggle={handleDrawerToggle} />
-      <Drawer
-        onClose={handleDrawerToggle(false)}
-        open={drawerOpened}
-      >
+      <Drawer onClose={handleDrawerToggle(false)} open={drawerOpened}>
         <StyledDrawerContainer
           onClick={handleDrawerToggle(false)}
           onKeyDown={handleDrawerToggle(false)}
@@ -72,7 +71,7 @@ const MainTemplate = () => {
             <Board path="/:boardId" />
           </Router>
           <StyledActions>
-            {isAuthenticated && isDataChanged &&
+            {isAuthenticated && isDataChanged && (
               <StyledSaveFab
                 onClick={handleSaveDataClick}
                 aria-label="Save Data"
@@ -81,8 +80,8 @@ const MainTemplate = () => {
               >
                 <Save />
               </StyledSaveFab>
-            }
-            {isAuthenticated && currentBoardId &&
+            )}
+            {isAuthenticated && currentBoardId && (
               <Fab
                 onClick={handleAddWidgetClick}
                 aria-label="Add Widget"
@@ -91,10 +90,11 @@ const MainTemplate = () => {
               >
                 <Add />
               </Fab>
-            }
+            )}
           </StyledActions>
         </Container>
       </StyledMain>
+      <Notifications />
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
@@ -102,9 +102,7 @@ const MainTemplate = () => {
         title="Add new widget"
         data-cy="main-template-add-widget-dialog"
       >
-        <AddWidget
-          closeDialog={handleDialogClose}
-        />
+        <AddWidget closeDialog={handleDialogClose} />
       </AppDialog>
     </>
   );

@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import { func, oneOf, string } from 'prop-types';
 import { useTheme } from '@material-ui/styles';
 
-import { SpanIcon, StyledSnackbarContent } from "./styled";
-import IconVariant from "../IconVariant";
+import { Box } from '@material-ui/core';
+import IconVariant from '../IconVariant';
+import { StyledSnackbarContent } from './styled';
 
-const SnackbarVariantContent = props => {
-  const { message, variant } = props;
+const SnackbarVariantContent = ({ message, variant }) => {
   const theme = useTheme();
 
   return (
@@ -14,19 +14,19 @@ const SnackbarVariantContent = props => {
       theme={theme}
       variant={variant}
       message={
-        <SpanIcon>
-          <IconVariant variant={variant}/>
-          {message}
-        </SpanIcon>
+        <Box display="flex" alignItems="center">
+          <IconVariant variant={variant} />
+          <Box marginLeft={1}>{message}</Box>
+        </Box>
       }
     />
   );
 };
 
 SnackbarVariantContent.propTypes = {
-  variant: PropTypes.oneOf(['error', 'info', 'success', 'warning']).isRequired,
-  message: PropTypes.string,
-  onClose: PropTypes.func
+  variant: oneOf(['error', 'info', 'success', 'warning']).isRequired,
+  message: string,
+  onClose: func
 };
 
 export default SnackbarVariantContent;

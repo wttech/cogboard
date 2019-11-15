@@ -1,33 +1,73 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { string, number } from 'prop-types';
 
-import { Typography } from "@material-ui/core";
-import { Caption, WidgetButton } from "../../styled";
+import { Popover } from '@material-ui/core';
+import {
+  Caption,
+  CaptionWithPointer,
+  WidgetButton,
+  StyledPopoverText
+} from '../../styled';
 import Loader from '../../Loader';
 
 const ServiceCheckWidget = props => {
-  const { statusCode, statusMessage, expectedStatusCode, url, errorMessage } = props;
-  const error = expectedStatusCode !== statusCode;
-  const statusCodeMessage = error ? `${expectedStatusCode} expected, got ${statusCode}` : statusCode;
+  const {
+    statusCode,
+    statusMessage,
+    expectedStatusCode,
+    body,
+    expectedResponseBody,
+    url
+  } = props;
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  if (errorMessage) {
-    return (
-      <Typography variant="h5">
-        {errorMessage}
-      </Typography>
-    );
-  }
+  const errorStatus = expectedStatusCode !== statusCode;
+  const statusCodeMessage = errorStatus
+    ? `${expectedStatusCode} expected, got ${statusCode}`
+    : statusCode;
+  const errorBody = !expectedResponseBody && expectedResponseBody !== body;
+  const bodyMessage = errorBody ? 'FAIL' : 'OK';
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const popoverOpen = Boolean(anchorEl);
 
   return (
     <>
-      {error &&
-        <Caption>
-          {statusMessage}
-        </Caption>
-      }
-      <WidgetButton href={url}>
-        {!statusCode ? <Loader text='Pending update' size={20} /> : statusCodeMessage}
-      </WidgetButton>
+      {errorStatus && <Caption>{statusMessage}</Caption>}
+      <Caption>
+        <WidgetButton href={url}>
+          {!statusCode ? (
+            <Loader text="Pending update" size={20} />
+          ) : (
+            statusCodeMessage
+          )}
+        </WidgetButton>
+      </Caption>
+
+      {expectedResponseBody && (
+        <>
+          <CaptionWithPointer title={body} onClick={handleClick}>
+            Response: {bodyMessage}
+          </CaptionWithPointer>
+          <Popover
+            open={popoverOpen}
+            onClose={handlePopoverClose}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left'
+            }}
+          >
+            <StyledPopoverText>{body}</StyledPopoverText>
+          </Popover>
+        </>
+      )}
     </>
   );
 };
@@ -37,15 +77,17 @@ ServiceCheckWidget.propTypes = {
   statusMessage: string,
   timestamp: number,
   expectedStatusCode: number,
-  errorMessage: string
+  body: string,
+  expectedResponseBody: string
 };
 
 ServiceCheckWidget.defaultProps = {
   statusCode: 0,
   statusMessage: '',
-  errorMessage: '',
   expectedStatusCode: 200,
-  timestamp: 0,
+  body: '',
+  expectedResponseBody: '',
+  timestamp: 0
 };
 
 export default ServiceCheckWidget;
