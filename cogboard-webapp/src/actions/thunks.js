@@ -73,15 +73,10 @@ export const logout = () => (dispatch, getState) => {
 
   removeToken();
   dispatch(logoutUser());
-  if (logoutReasonMessage !== '') {
-    dispatch(
-      pushNotification(
-        NOTIFICATIONS.LOGOUT_REASON(userRole, logoutReasonMessage)
-      )
-    );
-  } else {
-    dispatch(pushNotification(NOTIFICATIONS.LOGOUT(userRole)));
-  }
+
+  dispatch(
+    pushNotification(NOTIFICATIONS.LOGOUT(userRole, logoutReasonMessage))
+  );
 };
 
 const deleteBoardWithWidgetsThunk = id => (dispatch, getState) => {

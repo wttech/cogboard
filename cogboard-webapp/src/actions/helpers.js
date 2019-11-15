@@ -100,8 +100,9 @@ export const mapDataToState = data => {
 
 export const withAuthentication = actionCallback => (...args) => dispatch => {
   if (!isAuthenticated()) {
-    dispatch(setLogoutReasonMessage('session expired'));
+    dispatch(setLogoutReasonMessage(' - session expired'));
     dispatch(logout());
+
     return;
   }
 
