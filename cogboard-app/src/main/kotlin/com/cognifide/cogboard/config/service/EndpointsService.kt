@@ -18,7 +18,7 @@ import io.vertx.core.json.JsonObject
 
 class EndpointsService(private val config: JsonObject, vertx: Vertx) {
 
-    private var storage: Storage = VolumeStorage(ConfigType.ENDPOINTS, vertx)
+    private var storage: Storage = VolumeStorage(ConfigType.ENDPOINTS)
 
     fun loadConfig(): JsonObject = storage.loadConfig()
 

@@ -18,13 +18,13 @@ import io.vertx.core.json.JsonObject
 
 class CredentialsService(private val config: JsonObject, vertx: Vertx) {
 
-    private var storage: Storage = VolumeStorage(ConfigType.CREDENTIALS, vertx)
+    private var storage: Storage = VolumeStorage(ConfigType.CREDENTIALS)
 
     fun loadConfig(): JsonObject = storage.loadConfig()
 
-    fun save(credential: JsonObject) {
+    fun save(credential: JsonObject): Boolean {
         if (exists(credential)) update(credential) else add(credential)
-        storage.saveConfig(config)
+        return storage.saveConfig(config)
     }
 
     fun exists(credential: JsonObject): Boolean {

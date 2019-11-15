@@ -12,9 +12,9 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
-class BoardsAndWidgetsService(private val config: JsonObject, private val vertx: Vertx) {
+class BoardsAndWidgetsService(private val config: JsonObject) {
 
-    private val storage: Storage = VolumeStorage(ConfigType.BOARDS, vertx)
+    private val storage: Storage = VolumeStorage(ConfigType.BOARDS)
 
     private val widgets = mutableMapOf<String, Widget>()
 
@@ -33,7 +33,7 @@ class BoardsAndWidgetsService(private val config: JsonObject, private val vertx:
         }
     }
 
-    fun createOrUpdateWidget(widgetConfig: JsonObject) {
+    fun createOrUpdateWidget(vertx: Vertx, widgetConfig: JsonObject) {
         var newConfig = widgetConfig
         val id = widgetConfig.getString(CogboardConstants.PROP_ID)
 

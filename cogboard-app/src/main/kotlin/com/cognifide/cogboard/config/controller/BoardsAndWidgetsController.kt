@@ -8,9 +8,11 @@ import io.vertx.core.json.JsonObject
 class BoardsAndWidgetsController : AbstractVerticle() {
 
     private lateinit var boardsService: BoardsAndWidgetsService
+    private lateinit var sender: ConfirmationSender
 
     override fun start() {
-        boardsService = BoardsAndWidgetsService(config(), vertx)
+        boardsService = BoardsAndWidgetsService(config())
+        sender = ConfirmationSender(vertx)
         listenOnConfigSave()
         listenOnWidgetUpdate()
         listenOnWidgetDelete()
@@ -19,12 +21,14 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     private fun listenOnConfigSave() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_SAVE_BOARDS_CONFIG)
-            .handler { boardsService.saveBoardsConfig(it.body()) }
+            .handler {
+                sender.confirmationAfter(boardsService::saveBoardsConfig, it.body())
+            }
 
     private fun listenOnWidgetUpdate() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONFIG)
-            .handler { boardsService.createOrUpdateWidget(it.body()) }
+            .handler { boardsService.createOrUpdateWidget(vertx, it.body()) }
 
     private fun listenOnWidgetDelete() = vertx
             .eventBus()

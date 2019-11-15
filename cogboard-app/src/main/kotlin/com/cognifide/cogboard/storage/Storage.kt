@@ -6,5 +6,5 @@ interface Storage {
 
     fun loadConfig(): JsonObject
 
-    fun saveConfig(configJson: JsonObject)
+    fun saveConfig(configJson: JsonObject): Boolean
 }

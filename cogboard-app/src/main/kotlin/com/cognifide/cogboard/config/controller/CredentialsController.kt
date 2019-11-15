@@ -9,9 +9,11 @@ import io.vertx.core.json.JsonObject
 class CredentialsController : AbstractVerticle() {
 
     private lateinit var credentialsService: CredentialsService
+    private lateinit var sender: ConfirmationSender
 
     override fun start() {
         credentialsService = CredentialsService(config(), vertx)
+        sender = ConfirmationSender(vertx)
         listenOnEndpointsUpdate()
         listenOnCredentialsDelete()
     }
@@ -20,7 +22,7 @@ class CredentialsController : AbstractVerticle() {
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_CREDENTIALS)
             .handler {
-                credentialsService.save(it.body())
+                sender.confirmationAfter(credentialsService::save, it.body())
             }
 
     private fun listenOnCredentialsDelete() = vertx
