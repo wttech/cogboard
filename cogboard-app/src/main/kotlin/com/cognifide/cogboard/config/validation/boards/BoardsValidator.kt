@@ -28,7 +28,9 @@ object BoardsValidator : Validator {
 
     private fun validateBoards(config: Config): Boolean {
         val titles = mutableSetOf<String>()
-        val errors = config.boards.boardsById.flatMap { m -> validateBoard(m.value, titles) }
+        val errors = config.boards.boardsById.flatMap {
+            m -> validateBoard(m.value, titles)
+        }
         val validationResult = BoardsValidationErrors(errors)
         return if (validationResult.hasErrors()) {
             LOGGER.error(validationResult)
@@ -41,13 +43,16 @@ object BoardsValidator : Validator {
     private fun validateBoard(board: Board, titles: MutableSet<String>): List<BoardsValidationError> {
         val errors = mutableListOf<BoardsValidationError>()
 
-        if (!checkColumnsRange(board))
+        if (!checkColumnsRange(board)) {
             errors.add(BoardsValidationError(board,
                     "Columns number should be between ${CC.PROP_BOARD_COLUMN_MIN} and " +
                             "${CC.PROP_BOARD_COLUMN_MAX}"))
-        if (!checkTitleLength(board))
+        }
+        if (!checkTitleLength(board)) {
             errors.add(BoardsValidationError(board,
-                    "Title length must be less than or equal to 25, and should not be empty"))
+                    "Title length must be less than or equal to 25, " +
+                            "and should not be empty"))
+        }
         if (!checkTitleUnique(board, titles))
             errors.add(BoardsValidationError(board, "Title must be unique"))
         if (!checkAutoSwitchInterval(board))

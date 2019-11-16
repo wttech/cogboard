@@ -12,7 +12,7 @@ class EndpointsController : AbstractVerticle() {
     private lateinit var endpointsService: EndpointsService
 
     override fun start() {
-        endpointsService = EndpointsService(config(), endpoints())
+        endpointsService = EndpointsService(endpoints())
         listenOnEndpointsUpdate()
         listenOnEndpointsDelete()
     }

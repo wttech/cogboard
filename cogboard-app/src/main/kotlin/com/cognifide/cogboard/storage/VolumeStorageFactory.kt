@@ -1,24 +1,26 @@
 package com.cognifide.cogboard.storage
 
-import com.cognifide.cogboard.config.ConfigFactory
-import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.config.ConfigType.BOARDS
+import com.cognifide.cogboard.config.ConfigType.CREDENTIALS
+import com.cognifide.cogboard.config.ConfigType.ENDPOINTS
 import com.cognifide.cogboard.config.validation.boards.BoardsValidator
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 
 object VolumeStorageFactory {
+    private const val BOARDS_CONFIG_FILE_PATH = "/data/config.json"
+    private const val ENDPOINTS_CONFIG_FILE_PATH = "/data/endpoints.json"
+    private const val CREDENTIALS_CONFIG_FILE_PATH = "/data/credentials.json"
+
     fun boards(): VolumeStorage {
-        val config = ConfigFactory.getByType(ConfigType.BOARDS)
-        return VolumeStorage(ConfigType.BOARDS, config.filePath(), BoardsValidator)
+        return VolumeStorage(BOARDS, BOARDS_CONFIG_FILE_PATH, BoardsValidator)
     }
 
     fun credentials(): VolumeStorage {
-        val config = ConfigFactory.getByType(ConfigType.CREDENTIALS)
-        return VolumeStorage(ConfigType.CREDENTIALS, config.filePath(), CredentialsValidator)
+        return VolumeStorage(CREDENTIALS, CREDENTIALS_CONFIG_FILE_PATH, CredentialsValidator)
     }
 
     fun endpoints(): VolumeStorage {
-        val config = ConfigFactory.getByType(ConfigType.ENDPOINTS)
-        return VolumeStorage(ConfigType.ENDPOINTS, config.filePath(), EndpointsValidator)
+        return VolumeStorage(ENDPOINTS, ENDPOINTS_CONFIG_FILE_PATH, EndpointsValidator)
     }
 }

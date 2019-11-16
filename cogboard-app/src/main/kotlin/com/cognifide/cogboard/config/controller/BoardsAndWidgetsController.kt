@@ -13,8 +13,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     private lateinit var sender: ConfirmationSender
 
     override fun start() {
-        boardsService = BoardsAndWidgetsService(config(),
-                VolumeStorageFactory.boards(), ContentRepository("/data"))
+        boardsService = BoardsAndWidgetsService(VolumeStorageFactory.boards(), ContentRepository())
         sender = ConfirmationSender(vertx)
         listenOnConfigSave()
         listenOnWidgetUpdate()
@@ -31,7 +30,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     private fun listenOnWidgetUpdate() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONFIG)
-            .handler { boardsService.createOrUpdateWidget(vertx, it.body()) }
+            .handler { boardsService.createOrUpdateWidget(vertx, it.body(), config()) }
 
     private fun listenOnWidgetDelete() = vertx
             .eventBus()

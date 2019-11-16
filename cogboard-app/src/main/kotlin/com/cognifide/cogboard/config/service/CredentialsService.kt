@@ -5,17 +5,22 @@ import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIALS_ARR
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PREFIX
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_LABEL_PROP
-import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.findById
+import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.storage.Storage
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class CredentialsService(private val config: JsonObject, private val storage: Storage) {
+class CredentialsService(
+    private val storage: Storage,
+    private val config: JsonObject = storage.loadConfig()
+) {
 
     fun loadConfig(): JsonObject = storage.loadConfig()
+
+    fun getCredentials(): JsonArray = loadConfig().getJsonArray(CREDENTIALS_ARRAY)
 
     fun save(credential: JsonObject): Boolean {
         if (exists(credential)) update(credential) else add(credential)
@@ -41,7 +46,8 @@ class CredentialsService(private val config: JsonObject, private val storage: St
         }
     }
 
-    private fun getCredentialsFromConfig(): JsonArray = config.getJsonArray(CREDENTIALS_ARRAY) ?: JsonArray()
+    private fun getCredentialsFromConfig(): JsonArray = config.getJsonArray(CREDENTIALS_ARRAY)
+            ?: JsonArray()
 
     private fun add(credential: JsonObject) {
         setIdAndLabel(credential)

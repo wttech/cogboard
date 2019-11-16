@@ -13,7 +13,7 @@ class CredentialsController : AbstractVerticle() {
     private lateinit var sender: ConfirmationSender
 
     override fun start() {
-        credentialsService = CredentialsService(config(), credentials())
+        credentialsService = CredentialsService(credentials())
         sender = ConfirmationSender(vertx)
         listenOnEndpointsUpdate()
         listenOnCredentialsDelete()

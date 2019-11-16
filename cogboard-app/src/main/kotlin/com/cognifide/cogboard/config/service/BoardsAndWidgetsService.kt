@@ -12,7 +12,6 @@ import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
 class BoardsAndWidgetsService(
-    private val endpoints: JsonObject,
     private val storage: Storage,
     private val contentRepository: ContentRepository
 ) {
@@ -64,10 +63,7 @@ class BoardsAndWidgetsService(
         }
     }
 
-    fun createOrUpdateWidget(vertx: Vertx, widgetConfig: JsonObject) {
-        LOGGER.error("widgetConfig: $widgetConfig")
-        LOGGER.error("config: $endpoints")
-
+    fun createOrUpdateWidget(vertx: Vertx, widgetConfig: JsonObject, endpoints: JsonObject) {
         var newConfig = widgetConfig
         val id = widgetConfig.getString(CogboardConstants.PROP_ID)
 
@@ -76,7 +72,7 @@ class BoardsAndWidgetsService(
                 it.stop()
                 newConfig = it.config().mergeIn(widgetConfig, true)
             }
-            newConfig.attachEndpoint()
+            newConfig.attachEndpoint(endpoints)
             widgets[id] = WidgetIndex.create(newConfig, vertx).start()
         } else {
             LOGGER.error("Widget Update / Create | " +
@@ -84,7 +80,7 @@ class BoardsAndWidgetsService(
         }
     }
 
-    private fun JsonObject.attachEndpoint() {
+    private fun JsonObject.attachEndpoint(endpoints: JsonObject) {
         val endpointId = this.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
             val endpoint = EndpointLoader(endpoints).loadWithSensitiveData(endpointId)

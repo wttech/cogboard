@@ -13,7 +13,7 @@ import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class EndpointsService(private val config: JsonObject, private var storage: Storage) {
+class EndpointsService(private var storage: Storage, private val config: JsonObject = storage.loadConfig()) {
 
     fun loadConfig(): JsonObject = storage.loadConfig()
 
