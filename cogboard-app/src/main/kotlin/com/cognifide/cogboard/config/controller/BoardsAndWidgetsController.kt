@@ -2,8 +2,6 @@ package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsAndWidgetsService
-import com.cognifide.cogboard.storage.ContentRepository
-import com.cognifide.cogboard.storage.VolumeStorageFactory
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
 
@@ -13,7 +11,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     private lateinit var sender: ConfirmationSender
 
     override fun start() {
-        boardsService = BoardsAndWidgetsService(VolumeStorageFactory.boards(), ContentRepository())
+        boardsService = BoardsAndWidgetsService()
         sender = ConfirmationSender(vertx)
         listenOnConfigSave()
         listenOnWidgetUpdate()

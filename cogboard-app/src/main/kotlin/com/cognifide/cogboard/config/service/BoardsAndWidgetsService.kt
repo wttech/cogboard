@@ -1,9 +1,11 @@
 package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CONTENT
 import com.cognifide.cogboard.config.EndpointLoader
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.Storage
+import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.WidgetIndex
 import io.vertx.core.Vertx
@@ -12,8 +14,8 @@ import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
 class BoardsAndWidgetsService(
-    private val storage: Storage,
-    private val contentRepository: ContentRepository
+    private val storage: Storage = boards(),
+    private val contentRepository: ContentRepository = ContentRepository()
 ) {
 
     private val widgets = mutableMapOf<String, Widget>()
@@ -35,13 +37,16 @@ class BoardsAndWidgetsService(
             boardsConfig.getJsonObject("widgets")
                     .getJsonObject("widgetsById")
 
+    fun saveContent(widgetId: String, content: JsonObject) {
+        contentRepository.save(widgetId, content)
+    }
     private fun saveContent(widgetsById: JsonObject) {
         widgetsById.fieldNames()
                 .map { it to widgetsById.getJsonObject(it) }
                 .forEach {
-                    val content = it.second.getJsonObject("content")
-                    contentRepository.save(it.first, content)
-                    it.second.put("content", JsonObject())
+                    val content = it.second.getJsonObject(PROP_CONTENT)
+                    saveContent(it.first, content)
+                    it.second.put(PROP_CONTENT, JsonObject())
                 }
     }
 
