@@ -14,6 +14,6 @@ interface Storage {
         else CogboardConstants.errorResponse("$type config not valid")
     }
 
-    fun loadConfig() : JsonObject
+    fun loadConfig(): JsonObject
     fun saveConfig(configJson: JsonObject): Boolean
 }

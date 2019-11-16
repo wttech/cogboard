@@ -2,7 +2,6 @@ package com.cognifide.cogboard.config
 
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import io.vertx.core.json.JsonArray
-import io.vertx.core.json.JsonObject
 
 class CredentialsConfig : Config() {
 

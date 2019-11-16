@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.config.service
 
-import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.CredentialsConfig
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIALS_ARRAY
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PREFIX
@@ -11,8 +10,6 @@ import com.cognifide.cogboard.config.utils.JsonUtils.findById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.storage.Storage
-import com.cognifide.cogboard.storage.VolumeStorage
-import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 

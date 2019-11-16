@@ -1,7 +1,6 @@
 package com.cognifide.cogboard.config
 
 import com.cognifide.cogboard.config.validation.boards.BoardsValidator
-import io.vertx.core.json.JsonObject
 
 class BoardsConfig : Config() {
 

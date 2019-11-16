@@ -2,7 +2,6 @@ package com.cognifide.cogboard.config
 
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 import io.vertx.core.json.JsonArray
-import io.vertx.core.json.JsonObject
 
 class EndpointsConfig : Config() {
 

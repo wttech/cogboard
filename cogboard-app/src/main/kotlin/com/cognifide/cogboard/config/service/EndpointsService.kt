@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.config.service
 
-import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.EndpointLoader
 import com.cognifide.cogboard.config.EndpointsConfig
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
@@ -8,11 +7,9 @@ import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PREFI
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_LABEL_PROP
 import com.cognifide.cogboard.storage.Storage
-import com.cognifide.cogboard.storage.VolumeStorage
 import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
-import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 

@@ -1,10 +1,7 @@
 package com.cognifide.cogboard.storage
 
 import com.cognifide.cogboard.config.validation.Validator
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.ConfigType
-import com.cognifide.cogboard.config.Config
-import com.cognifide.cogboard.config.ConfigFactory
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory

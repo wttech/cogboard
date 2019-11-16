@@ -11,13 +11,15 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
-class BoardsAndWidgetsService(private val endpoints: JsonObject,
-                              private val storage: Storage,
-                              private val contentRepository: ContentRepository) {
+class BoardsAndWidgetsService(
+    private val endpoints: JsonObject,
+    private val storage: Storage,
+    private val contentRepository: ContentRepository
+) {
 
     private val widgets = mutableMapOf<String, Widget>()
 
-    fun saveBoardsConfig(boardsConfig: JsonObject) : Boolean {
+    fun saveBoardsConfig(boardsConfig: JsonObject): Boolean {
         val widgetsById = getWidgetById(boardsConfig)
         saveContent(widgetsById)
         return storage.saveConfig(boardsConfig)
@@ -44,9 +46,9 @@ class BoardsAndWidgetsService(private val endpoints: JsonObject,
                 }
     }
 
-    private fun loadContent(widgetsById: JsonObject) : JsonObject{
+    private fun loadContent(widgetsById: JsonObject): JsonObject {
         widgetsById.fieldNames()
-                .forEach {widgetsById.getJsonObject(it).put("content",contentRepository.get(it))}
+                .forEach { widgetsById.getJsonObject(it).put("content", contentRepository.get(it)) }
 
         return widgetsById
     }

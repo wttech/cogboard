@@ -3,7 +3,6 @@ package com.cognifide.cogboard.config.controller
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.CredentialsConfig
 import com.cognifide.cogboard.config.service.CredentialsService
-import com.cognifide.cogboard.storage.VolumeStorageFactory
 import com.cognifide.cogboard.storage.VolumeStorageFactory.credentials
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
