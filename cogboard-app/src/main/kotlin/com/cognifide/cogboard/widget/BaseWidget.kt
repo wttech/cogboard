@@ -51,7 +51,6 @@ abstract class BaseWidget(
      * This method will add some required fields for you: `id`, `eventType`
      */
     override fun send(state: JsonObject) {
-        println(">>>>>>>>>>>>>>>>>>>>>>>>>> $state <<<<<<<<<<<<<<<<")
         state.put(CC.PROP_ID, id)
         state.put(CC.PROP_EVENT_TYPE, PROP_EVENT_TYPE_WIDGET_UPDATE)
         boardService.saveContent(id, state.getJsonObject(CC.PROP_CONTENT))
