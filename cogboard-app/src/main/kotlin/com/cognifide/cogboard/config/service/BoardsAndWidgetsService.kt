@@ -18,19 +18,38 @@ class BoardsAndWidgetsService(private val endpoints: JsonObject,
     private val widgets = mutableMapOf<String, Widget>()
 
     fun saveBoardsConfig(boardsConfig: JsonObject) : Boolean {
-        val widgetsById = boardsConfig.getJsonObject("widgets")
-                .getJsonObject("widgetsById")
+        val widgetsById = getWidgetById(boardsConfig)
         saveContent(widgetsById)
         return storage.saveConfig(boardsConfig)
+    }
+
+    private fun getWidgetById(boardsConfig: JsonObject) =
+            boardsConfig.getJsonObject("widgets")
+                    .getJsonObject("widgetsById")
+
+    fun loadBoardsConfig(): JsonObject {
+        val config = storage.loadConfig()
+        loadContent(getWidgetById(config))
+
+        return config
     }
 
     private fun saveContent(widgetsById: JsonObject) {
         widgetsById.fieldNames()
                 .map { it to widgetsById.getJsonObject(it) }
-                .forEach { contentRepository.save(it.first, it.second.getJsonObject("content"))}
+                .forEach {
+                    val content = it.second.getJsonObject("content")
+                    contentRepository.save(it.first, content)
+                    it.second.put("content", JsonObject())
+                }
     }
 
-    fun loadBoardsConfig(): JsonObject = storage.loadConfig()
+    private fun loadContent(widgetsById: JsonObject) : JsonObject{
+        widgetsById.fieldNames()
+                .forEach {widgetsById.getJsonObject(it).put("content",contentRepository.get(it))}
+
+        return widgetsById
+    }
 
     fun deleteWidget(widgetConfig: JsonObject) {
         val id = widgetConfig.getString(CogboardConstants.PROP_ID)

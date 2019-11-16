@@ -8,4 +8,8 @@ class ContentRepository(private val path: String) {
         File("$path/$widgetId.json")
                 .writeText(content.toString())
     }
+
+    fun get(widgetId: String): JsonObject {
+        return JsonObject(File("$path/$widgetId.json").readText())
+    }
 }
