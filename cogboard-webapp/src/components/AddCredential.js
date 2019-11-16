@@ -7,51 +7,53 @@ import { Add } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import CredentialForm from './CredentialForm';
 
-const AddCredential = ({ largeButton, dataChanged }) => {
+const AddCredential = ({ largeButton, dataChanged, credentialsData }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
-  const handleAddEndpointClick = (event) => {
+  const handleAddEndpointClick = event => {
     event.stopPropagation();
     openDialog();
   };
 
-  const handleSubmit = (values) => (event) => {
-    event.preventDefault();
+  const handleSubmit = values => {
     console.log(values);
     if (dataChanged !== undefined) {
       dataChanged();
     }
     handleDialogClose();
-  }
+  };
 
   return (
-    <> { largeButton ? 
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={handleAddEndpointClick}
-        data-cy="add-endpoint-add-button"
-        fullWidth
-      >
-        Add Credential
-      </Button> : 
-      <IconButton
-        onClick={handleAddEndpointClick}
-        color="primary"
-        data-cy="add-endpoint-add-button"
-      >
-        <Add/>
-      </IconButton> }
-      
+    <>
+      {largeButton ? (
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleAddEndpointClick}
+          data-cy="add-endpoint-add-button"
+          fullWidth
+        >
+          Add Credential
+        </Button>
+      ) : (
+        <IconButton
+          onClick={handleAddEndpointClick}
+          color="primary"
+          data-cy="add-endpoint-add-button"
+        >
+          <Add />
+        </IconButton>
+      )}
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title="Add new credential"
       >
-        <CredentialForm 
+        <CredentialForm
           onSubmit={handleSubmit}
           handleCancel={handleDialogClose}
+          credentialsData={credentialsData}
         />
       </AppDialog>
     </>

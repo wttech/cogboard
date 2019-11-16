@@ -25,7 +25,7 @@ const DropdownField = props => {
   const isAuthenticated = useSelector(getIsAuthenticated);
 
   useEffect(() => {
-    if (itemsUrl) {
+    if (!loaded && itemsUrl) {
       const init = isAuthenticated
         ? {
             headers: {
@@ -37,12 +37,17 @@ const DropdownField = props => {
       fetch(itemsUrl, init)
         .then(response => response.json())
         .then(data => {
+          console.log(`DropdownField: fetched data`);
           setOptions(data);
           setLoaded(true);
         })
         .catch(console.error);
     }
-  }, [itemsUrl, isAuthenticated]);
+  }, [loaded, itemsUrl, isAuthenticated]);
+
+  const handleDataChange = () => {
+    setLoaded(false);
+  };
 
   return (
     <FormControl>
@@ -59,7 +64,8 @@ const DropdownField = props => {
       >
         {loaded && children(options)}
       </Select>
-      {optionalButton}
+      {/* TODO add loaded */}
+      {optionalButton && optionalButton(options, handleDataChange)}
     </FormControl>
   );
 };

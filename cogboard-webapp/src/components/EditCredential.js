@@ -7,31 +7,35 @@ import { Build } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import CredentialForm from './CredentialForm';
 
-const EditCredential = ({id, dataChanged, ...initialFormValues}) => {
+const EditCredential = ({
+  id,
+  dataChanged,
+  credentialsData,
+  ...initialFormValues
+}) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
-  const handleAddEndpointClick = (event) => {
+  const handleAddEndpointClick = event => {
     event.stopPropagation();
-    console.log(id)
+    console.log(id);
     openDialog();
   };
 
-  const handleSubmit = (values) => (event) => {
-    event.preventDefault();
+  const handleSubmit = values => {
     console.log(values);
     if (dataChanged !== undefined) {
       dataChanged();
     }
     handleDialogClose();
-  }
+  };
 
   return (
-    <> 
+    <>
       <IconButton
         onClick={handleAddEndpointClick}
         data-cy="add-endpoint-add-button"
       >
-        <Build/>
+        <Build />
       </IconButton>
       <AppDialog
         disableBackdropClick={true}
@@ -39,10 +43,11 @@ const EditCredential = ({id, dataChanged, ...initialFormValues}) => {
         open={dialogOpened}
         title="Edit credential"
       >
-        <CredentialForm 
+        <CredentialForm
           onSubmit={handleSubmit}
           handleCancel={handleDialogClose}
           id={id}
+          credentialsData={credentialsData}
           {...initialFormValues}
         />
       </AppDialog>

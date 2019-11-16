@@ -22,7 +22,6 @@ export const parseYupErrors = errors => {
   let result = {};
   errors.inner.forEach(error => {
     const { path, message } = error;
-
     if (path in result) {
       result[path].push(message);
     } else {
@@ -35,4 +34,4 @@ export const parseYupErrors = errors => {
 
 export const trimLeadingZeros = inputValue => String(parseInt(inputValue));
 
-export const hasError = ( error ) => error !== undefined;
+export const hasError = error => error !== undefined;
