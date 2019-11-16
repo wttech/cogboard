@@ -1,10 +1,9 @@
 package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.EndpointLoader
+import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.Storage
-import com.cognifide.cogboard.storage.VolumeStorage
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.WidgetIndex
 import io.vertx.core.Vertx
@@ -12,13 +11,24 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
-class BoardsAndWidgetsService(private val config: JsonObject) {
-
-    private val storage: Storage = VolumeStorage(ConfigType.BOARDS)
+class BoardsAndWidgetsService(private val endpoints: JsonObject,
+                              private val storage: Storage,
+                              private val contentRepository: ContentRepository) {
 
     private val widgets = mutableMapOf<String, Widget>()
 
-    fun saveBoardsConfig(boardsConfig: JsonObject) = storage.saveConfig(boardsConfig)
+    fun saveBoardsConfig(boardsConfig: JsonObject) : Boolean {
+        val widgetsById = boardsConfig.getJsonObject("widgets")
+                .getJsonObject("widgetsById")
+        saveContent(widgetsById)
+        return storage.saveConfig(boardsConfig)
+    }
+
+    private fun saveContent(widgetsById: JsonObject) {
+        widgetsById.fieldNames()
+                .map { it to widgetsById.getJsonObject(it) }
+                .forEach { contentRepository.save(it.first, it.second.getJsonObject("content"))}
+    }
 
     fun loadBoardsConfig(): JsonObject = storage.loadConfig()
 
@@ -34,6 +44,9 @@ class BoardsAndWidgetsService(private val config: JsonObject) {
     }
 
     fun createOrUpdateWidget(vertx: Vertx, widgetConfig: JsonObject) {
+        LOGGER.error("widgetConfig: $widgetConfig")
+        LOGGER.error("config: $endpoints")
+
         var newConfig = widgetConfig
         val id = widgetConfig.getString(CogboardConstants.PROP_ID)
 
@@ -53,7 +66,7 @@ class BoardsAndWidgetsService(private val config: JsonObject) {
     private fun JsonObject.attachEndpoint() {
         val endpointId = this.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
-            val endpoint = EndpointLoader(config).loadWithSensitiveData(endpointId)
+            val endpoint = EndpointLoader(endpoints).loadWithSensitiveData(endpointId)
             this.put(CogboardConstants.PROP_ENDPOINT, endpoint)
         }
     }

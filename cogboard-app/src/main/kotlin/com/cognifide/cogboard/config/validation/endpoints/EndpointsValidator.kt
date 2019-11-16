@@ -22,9 +22,9 @@ object EndpointsValidator : Validator {
 
     private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 
-    override fun validate(config: JsonObject): Boolean =
+    override fun validate(config: String): Boolean =
             try {
-                val endpoints = mapper.readValue<Endpoints>(config.toString())
+                val endpoints = mapper.readValue<Endpoints>(config)
                 validateEndpoints(endpoints)
             } catch (error: JsonMappingException) {
                 LOGGER.error(error.message)

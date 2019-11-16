@@ -5,8 +5,8 @@ import io.vertx.core.json.JsonObject
 
 class BoardsConfig : Config() {
 
-    override fun validate(configJson: JsonObject): Boolean {
-        return BoardsValidator.validate(configJson)
+    override fun validate(config: String): Boolean {
+        return BoardsValidator.validate(config)
     }
 
     override fun filePath(): String = BOARDS_CONFIG_FILE_PATH

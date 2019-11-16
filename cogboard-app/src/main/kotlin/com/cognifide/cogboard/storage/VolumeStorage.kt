@@ -1,5 +1,6 @@
 package com.cognifide.cogboard.storage
 
+import com.cognifide.cogboard.config.validation.Validator
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.Config
@@ -9,26 +10,19 @@ import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import java.io.File
 
-class VolumeStorage(configType: ConfigType) : Storage {
+class VolumeStorage(private val configType: ConfigType, private val path: String, private val validator: Validator) : Storage {
 
-    private var config: Config = ConfigFactory.getByType(configType)
-
-    override fun loadConfig(): JsonObject = config.load()
+    override fun loadConfig() = loadConfig(configType, path, validator)
 
     override fun saveConfig(configJson: JsonObject): Boolean {
-        if (config.validate(configJson)) {
-            File(config.filePath()).writeText(configJson.toString())
+        val conf = configJson.toString()
+        if (validator.validate(conf)) {
+            File(path).writeText(conf)
             return true
         }
 
         LOGGER.error("$ERROR_MESSAGE \nconfig:\n$configJson")
         return false
-    }
-
-    private fun JsonObject.message(message: String): JsonObject {
-        return this
-                .put(CogboardConstants.PROP_EVENT_TYPE, PROP_EVENT_TYPE_NOTIFICATION_CONFIG_SAVE)
-                .put("message", message)
     }
 
     companion object {

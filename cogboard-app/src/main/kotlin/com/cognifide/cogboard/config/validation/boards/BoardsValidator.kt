@@ -18,9 +18,9 @@ object BoardsValidator : Validator {
 
     private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 
-    override fun validate(config: JsonObject): Boolean =
+    override fun validate(config: String): Boolean =
             try {
-                val boardsConfig = mapper.readValue<Config>(config.toString())
+                val boardsConfig = mapper.readValue<Config>(config)
                 validateBoards(boardsConfig)
             } catch (error: JsonMappingException) {
                 LOGGER.error(error.message)

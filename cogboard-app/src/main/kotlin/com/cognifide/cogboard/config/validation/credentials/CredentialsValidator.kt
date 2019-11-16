@@ -17,9 +17,9 @@ object CredentialsValidator : Validator {
 
     private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 
-    override fun validate(config: JsonObject): Boolean =
+    override fun validate(config: String): Boolean =
             try {
-                mapper.readValue<Credentials>(config.toString())
+                mapper.readValue<Credentials>(config)
                 true
             } catch (error: JsonMappingException) {
                 LOGGER.error(error.message)

@@ -8,7 +8,7 @@ class EndpointsConfig : Config() {
 
     fun getEndpoints(): JsonArray = load().getJsonArray(ENDPOINTS_ARRAY)
 
-    override fun validate(configJson: JsonObject): Boolean {
+    override fun validate(configJson: String): Boolean {
         return EndpointsValidator.validate(configJson)
     }
 

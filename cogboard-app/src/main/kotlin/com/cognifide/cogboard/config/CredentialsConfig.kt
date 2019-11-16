@@ -8,7 +8,7 @@ class CredentialsConfig : Config() {
 
     fun getCredentials(): JsonArray = load().getJsonArray(CREDENTIALS_ARRAY)
 
-    override fun validate(configJson: JsonObject): Boolean {
+    override fun validate(configJson: String): Boolean {
         return CredentialsValidator.validate(configJson)
     }
 
