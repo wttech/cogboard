@@ -23,16 +23,16 @@ class BoardsAndWidgetsService(private val endpoints: JsonObject,
         return storage.saveConfig(boardsConfig)
     }
 
-    private fun getWidgetById(boardsConfig: JsonObject) =
-            boardsConfig.getJsonObject("widgets")
-                    .getJsonObject("widgetsById")
-
     fun loadBoardsConfig(): JsonObject {
         val config = storage.loadConfig()
         loadContent(getWidgetById(config))
 
         return config
     }
+
+    private fun getWidgetById(boardsConfig: JsonObject) =
+            boardsConfig.getJsonObject("widgets")
+                    .getJsonObject("widgetsById")
 
     private fun saveContent(widgetsById: JsonObject) {
         widgetsById.fieldNames()
