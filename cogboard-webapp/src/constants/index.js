@@ -7,15 +7,17 @@ export const URL = {
   DELETE_WIDGET: '/api/widget/delete',
   LOGIN: '/api/login'
 };
+export const COLUMN_MULTIPLIER = 2;
+export const ROW_MULTIPLIER = 2;
 export const BOARD_COLUMNS_MIN = 4;
 export const BOARD_COLUMNS_DEFAULT = 8;
 export const BOARD_COLUMNS_MAX = 20;
 export const BOARD_TITLE_LENGTH_LIMIT = 25;
 export const SWITCH_INTERVAL_MIN = 3;
 
-export const WIDGET_COLUMNS_MIN = 1;
-export const WIDGET_ROWS_MIN = 1;
-export const WIDGET_ROWS_MAX = 10;
+export const WIDGET_COLUMNS_MIN = 0.5;
+export const WIDGET_ROWS_MIN = 0.5;
+export const WIDGET_ROWS_MAX = 4;
 
 export const WIDGET_TITLE_LENGTH_LIMIT = 25;
 

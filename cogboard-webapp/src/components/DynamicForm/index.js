@@ -12,6 +12,7 @@ const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
       component: DialogField,
       name,
       initialValue = '',
+      valueUpdater,
       validator,
       ...dialogFieldProps
     } = dialogFields[field];
@@ -23,7 +24,7 @@ const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
         key={name}
         values={values}
         value={valueRef}
-        onChange={handleChange(name)}
+        onChange={handleChange(name, valueUpdater)}
         error={errors[name]}
         dataCy={`${rootName}-${camelToKebab(name)}-input`}
         {...dialogFieldProps}

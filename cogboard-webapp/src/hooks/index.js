@@ -13,18 +13,15 @@ export const useToggle = (initialState = false) => {
 
 export const useFormData = (data, config = {}) => {
   const [values, setValues] = useState(data);
-
   const { onChange = null, initialSchema = null } = config;
-
   const [status, setStatus] = useState({
     submited: false,
     onChange: onChange
   });
-
   const [validationSchema, setValidationSchema] = useState(initialSchema);
   const [errors, setErrors] = useState({});
 
-  const handleChange = fieldName => event => {
+  const handleChange = (fieldName, updaterFn = arg => arg) => event => {
     const {
       target: { type, value, checked }
     } = event;
@@ -34,7 +31,7 @@ export const useFormData = (data, config = {}) => {
     };
     const fieldValue = valueType[type] !== undefined ? valueType[type] : value;
 
-    setFieldValue(fieldName, fieldValue);
+    setFieldValue(fieldName, updaterFn(fieldValue));
   };
 
   const setFieldValue = (fieldName, fieldValue) => {
