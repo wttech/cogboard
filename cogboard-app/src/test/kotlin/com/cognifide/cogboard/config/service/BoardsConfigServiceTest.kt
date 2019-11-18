@@ -4,6 +4,7 @@ import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.validation.boards.BoardsValidator
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.VolumeStorage
+import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
@@ -12,30 +13,26 @@ import java.io.File
 
 internal class BoardsConfigServiceTest {
     @Test
-    @DisplayName("Expect board config and content saved in separate files")
+    @DisplayName("Expect board config saved without content")
     fun saveBoardsConfig() {
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
-        clearContentDest(boardPath)
 
-        val boardConfigDest = "$boardPath/server-config.json"
-        val contentDest = "$boardPath/widgets"
+        val boardConfig = "$boardPath/server-config.json"
         val uiBoardConfigState = File("$boardPath/ui-board-config.json").readText()
-        val (storage, contentRepository) =
-                prepareRepositories(boardConfigDest, contentDest)
+        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
 
-        val underTest = BoardsConfigService(storage, contentRepository)
+        val underTest = BoardsConfigService(storage)
 
         //when
         underTest.saveBoardsConfig(JsonObject(uiBoardConfigState))
 
         //then
-        assertTrue(File("$boardPath/widgets/widget1.json").exists())
-    }
-
-    private fun clearContentDest(boardPath: String?) {
-        File("$boardPath/widgets").delete()
-        File("$boardPath/widgets").mkdir()
+        val contentOnServer = JsonObject(File(boardConfig).readText()).getJsonObject("widgets")
+                .getJsonObject("widgetsById")
+                .getJsonObject("widget1")
+                .getJsonObject("content")
+        assertTrue(contentOnServer.isEmpty)
     }
 
     @Test
@@ -43,9 +40,9 @@ internal class BoardsConfigServiceTest {
     fun loadConfig() {
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
-        val boardConfigDest = "$boardPath/server-board-config.json"
-        val (storage, contentRepository) =
-                prepareRepositories(boardConfigDest, boardPath)
+        val boardConfig = "$boardPath/server-board-config.json"
+        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
+        val contentRepository = ContentRepository("$boardPath/content")
         val underTest = BoardsConfigService(storage, contentRepository)
 
         //when
@@ -58,11 +55,36 @@ internal class BoardsConfigServiceTest {
                 .getJsonObject("content").containsKey("serverTime"))
     }
 
-    private fun prepareRepositories(boardConfigDest: String,
-                                    contentDest: String)
-            : Pair<VolumeStorage, ContentRepository> {
-        val storage = VolumeStorage(ConfigType.BOARDS, boardConfigDest, BoardsValidator)
-        val contentRepository = ContentRepository(contentDest)
-        return storage to contentRepository
+    @Test
+    @DisplayName("Expect all widgets returned")
+    fun getAllWidgets(){
+        //given
+        val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
+        val boardConfig = "$boardPath/server-board-config.json"
+        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
+        val underTest = BoardsConfigService(storage)
+
+        //when
+        val allWidget = underTest.getAllWidgets()
+
+        //then
+        assertTrue(allWidget.containsKey("serverWidget1"))
+        assertTrue(allWidget.size() == 1)
+    }
+
+    @Test
+    @DisplayName("Expect content saved")
+    fun saveContent(){
+        //given
+        val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
+        val contentRepository = ContentRepository("$boardPath/content")
+        val underTest = BoardsConfigService(boards(), contentRepository)
+
+        //when
+        underTest.saveContent("testWidget", JsonObject().put("someKey", "someValue"))
+
+        //then
+        val content = JsonObject(File("$boardPath/content/testWidget.json").readText())
+        assertTrue(content.containsKey("someKey"))
     }
 }

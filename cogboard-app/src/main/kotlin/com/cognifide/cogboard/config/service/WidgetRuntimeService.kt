@@ -9,8 +9,18 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
-class WidgetRuntimeService(private val vertx: Vertx, private val endpoints: JsonObject) {
+class WidgetRuntimeService(
+    private val vertx: Vertx,
+    private val endpoints: JsonObject
+) {
     private val widgets = mutableMapOf<String, Widget>()
+
+    fun init(widgetsById: JsonObject): WidgetRuntimeService {
+        widgetsById.fieldNames()
+                .map { widgetsById.getJsonObject(it) }
+                .forEach { createOrUpdateWidget(it) }
+        return this
+    }
 
     fun deleteWidget(widgetConfig: JsonObject) {
         val id = widgetConfig.getString(CogboardConstants.PROP_ID)
@@ -47,6 +57,7 @@ class WidgetRuntimeService(private val vertx: Vertx, private val endpoints: Json
             this.put(CogboardConstants.PROP_ENDPOINT, endpoint)
         }
     }
+
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(WidgetRuntimeService::class.java)
     }

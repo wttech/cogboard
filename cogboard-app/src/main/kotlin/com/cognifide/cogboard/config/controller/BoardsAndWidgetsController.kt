@@ -14,8 +14,10 @@ class BoardsAndWidgetsController : AbstractVerticle() {
 
     override fun start() {
         boardsConfigService = BoardsConfigService()
+        val allWidgets = boardsConfigService.getAllWidgets()
         sender = ConfirmationSender(vertx)
-        widgetRuntimeService = WidgetRuntimeService(vertx, config())
+        widgetRuntimeService = WidgetRuntimeService(vertx, config()).init(allWidgets)
+
         listenOnConfigSave()
         listenOnWidgetUpdate()
         listenOnWidgetDelete()
