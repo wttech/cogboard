@@ -12,7 +12,7 @@ const NoBoards = ({ className }) => {
     <div className={className}>
       <div>
         <h1>No boards found</h1>
-        {isAuthenticated && <h3>Add first dashboard</h3>}
+        {isAuthenticated && <h3>Add first board</h3>}
         <AddBoard />
       </div>
     </div>
