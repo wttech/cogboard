@@ -9,8 +9,8 @@ import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
 class BoardsConfigService(
-        private val storage: Storage = boards(),
-        private val contentRepository: ContentRepository = ContentRepository()
+    private val storage: Storage = boards(),
+    private val contentRepository: ContentRepository = ContentRepository()
 ) {
     fun saveBoardsConfig(boardsConfig: JsonObject): Boolean {
         val clearBoardsConfig = executeForWidgets(boardsConfig, this::clearContent)
@@ -34,7 +34,6 @@ class BoardsConfigService(
             boardsConfig.getJsonObject("widgets")
                     ?.getJsonObject("widgetsById") ?: JsonObject()
 
-
     private fun clearContent(widgetId: String, widget: JsonObject) {
         widget.put(PROP_CONTENT, JsonObject())
     }
@@ -43,8 +42,10 @@ class BoardsConfigService(
         widget.put(PROP_CONTENT, contentRepository.get(widgetId))
     }
 
-    private fun executeForWidgets(boardsConfig: JsonObject,
-                                  action: (String, JsonObject) -> Unit): JsonObject {
+    private fun executeForWidgets(
+        boardsConfig: JsonObject,
+        action: (String, JsonObject) -> Unit
+    ): JsonObject {
         val widgetsById = getWidgetById(boardsConfig)
         widgetsById.fieldNames()
                 .map { it to widgetsById.getJsonObject(it) }
