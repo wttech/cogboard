@@ -30,7 +30,9 @@
           "columns": 1,
           "goNewLine": false
         },
-        "content": {}
+        "content": {
+          "serverTime": "no data"
+        }
       }
     },
     "allWidgets": ["widget1"]

@@ -20,8 +20,8 @@
   },
   "widgets": {
     "widgetsById": {
-      "widget1": {
-        "id": "widget1",
+      "serverWidget1": {
+        "id": "serverWidget1",
         "title": "This is first Widget",
         "disabled": false,
         "type": "ExampleWidget",

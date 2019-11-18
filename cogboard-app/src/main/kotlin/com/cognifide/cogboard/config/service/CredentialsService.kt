@@ -1,30 +1,30 @@
 package com.cognifide.cogboard.config.service
 
-import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.CredentialsConfig
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIALS_ARRAY
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PREFIX
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_LABEL_PROP
-import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.findById
+import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.storage.Storage
-import com.cognifide.cogboard.storage.VolumeStorage
-import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class CredentialsService(private val config: JsonObject, vertx: Vertx) {
-
-    private var storage: Storage = VolumeStorage(ConfigType.CREDENTIALS, vertx)
+class CredentialsService(
+    private val storage: Storage,
+    private val config: JsonObject = storage.loadConfig()
+) {
 
     fun loadConfig(): JsonObject = storage.loadConfig()
 
-    fun save(credential: JsonObject) {
+    fun getCredentials(): JsonArray = loadConfig().getJsonArray(CREDENTIALS_ARRAY)
+
+    fun save(credential: JsonObject): Boolean {
         if (exists(credential)) update(credential) else add(credential)
-        storage.saveConfig(config)
+        return storage.saveConfig(config)
     }
 
     fun exists(credential: JsonObject): Boolean {
@@ -46,7 +46,8 @@ class CredentialsService(private val config: JsonObject, vertx: Vertx) {
         }
     }
 
-    private fun getCredentialsFromConfig(): JsonArray = config.getJsonArray(CREDENTIALS_ARRAY) ?: JsonArray()
+    private fun getCredentialsFromConfig(): JsonArray = config.getJsonArray(CREDENTIALS_ARRAY)
+            ?: JsonArray()
 
     private fun add(credential: JsonObject) {
         setIdAndLabel(credential)

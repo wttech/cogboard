@@ -1,16 +1,23 @@
 package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.service.BoardsAndWidgetsService
+import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.config.service.WidgetRuntimeService
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
 
 class BoardsAndWidgetsController : AbstractVerticle() {
 
-    private lateinit var boardsService: BoardsAndWidgetsService
+    private lateinit var boardsConfigService: BoardsConfigService
+    private lateinit var widgetRuntimeService: WidgetRuntimeService
+    private lateinit var sender: ConfirmationSender
 
     override fun start() {
-        boardsService = BoardsAndWidgetsService(config(), vertx)
+        boardsConfigService = BoardsConfigService()
+        val allWidgets = boardsConfigService.getAllWidgets()
+        sender = ConfirmationSender(vertx)
+        widgetRuntimeService = WidgetRuntimeService(vertx, config()).init(allWidgets)
+
         listenOnConfigSave()
         listenOnWidgetUpdate()
         listenOnWidgetDelete()
@@ -19,15 +26,17 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     private fun listenOnConfigSave() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_SAVE_BOARDS_CONFIG)
-            .handler { boardsService.saveBoardsConfig(it.body()) }
+            .handler {
+                sender.confirmationAfter(boardsConfigService::saveBoardsConfig, it.body())
+            }
 
     private fun listenOnWidgetUpdate() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONFIG)
-            .handler { boardsService.createOrUpdateWidget(it.body()) }
+            .handler { widgetRuntimeService.createOrUpdateWidget(it.body()) }
 
     private fun listenOnWidgetDelete() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_WIDGET_CONFIG)
-            .handler { boardsService.deleteWidget(it.body()) }
+            .handler { widgetRuntimeService.deleteWidget(it.body()) }
 }

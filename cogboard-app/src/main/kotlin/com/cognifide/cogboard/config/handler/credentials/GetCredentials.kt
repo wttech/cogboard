@@ -1,9 +1,10 @@
 package com.cognifide.cogboard.config.handler.credentials
 
-import com.cognifide.cogboard.config.CredentialsConfig
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.PASSWORD_PROP
+import com.cognifide.cogboard.config.service.CredentialsService
 import com.cognifide.cogboard.http.HttpConstants
+import com.cognifide.cogboard.storage.VolumeStorageFactory.credentials
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -13,7 +14,7 @@ import io.vertx.reactivex.ext.web.RoutingContext
 
 class GetCredentials : RoutingHandlerFactory {
 
-    private val config = CredentialsConfig()
+    private val service = CredentialsService(credentials())
 
     override fun getName(): String = "credentials-get-handler"
 
@@ -39,7 +40,7 @@ class GetCredentials : RoutingHandlerFactory {
     }
 
     private fun getAllCredentials(): String {
-        val credentials = config.getCredentials()
+        val credentials = service.getCredentials()
         val credentialsWithoutSensitiveData = filterSensitiveData(credentials)
         return credentialsWithoutSensitiveData.encode()
     }

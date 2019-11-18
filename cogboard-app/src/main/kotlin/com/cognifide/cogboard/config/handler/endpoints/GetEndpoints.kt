@@ -1,12 +1,13 @@
 package com.cognifide.cogboard.config.handler.endpoints
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.EndpointsConfig
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER_PROP
+import com.cognifide.cogboard.config.service.EndpointsService
 import com.cognifide.cogboard.http.HttpConstants
+import com.cognifide.cogboard.storage.VolumeStorageFactory.endpoints
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -16,7 +17,7 @@ import io.vertx.reactivex.ext.web.RoutingContext
 
 class GetEndpoints : RoutingHandlerFactory {
 
-    private val config = EndpointsConfig()
+    private val service = EndpointsService(endpoints())
 
     override fun getName(): String = "endpoints-get-handler"
 
@@ -42,7 +43,7 @@ class GetEndpoints : RoutingHandlerFactory {
     }
 
     private fun getAllEndpoints(): String {
-        val endpointsConfig = config.load()
+        val endpointsConfig = service.loadConfig()
         val endpointsWithoutSensitiveData = filterSensitiveData(endpointsConfig)
         return endpointsWithoutSensitiveData.encode()
     }
