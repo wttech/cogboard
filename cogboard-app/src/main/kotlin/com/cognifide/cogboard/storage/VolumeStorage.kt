@@ -25,6 +25,5 @@ class VolumeStorage(private val configType: ConfigType, private val path: String
     companion object {
         private val LOGGER: Logger = LoggerFactory.getLogger(VolumeStorage::class.java)
         const val ERROR_MESSAGE = "Configuration not saved - wrong configuration"
-        const val PROP_EVENT_TYPE_NOTIFICATION_CONFIG_SAVE = "notification-config-save"
     }
 }

@@ -82,7 +82,7 @@ class EndpointsService(private var storage: Storage, private val config: JsonObj
     }
 
     private fun JsonArray.removeEndpointById(id: String) {
-        val endpointPosition = this.getObjectPositionById(id, EndpointsConfig.ENDPOINT_ID_PROP)
+        val endpointPosition = this.getObjectPositionById(id, ENDPOINT_ID_PROP)
         this.remove(endpointPosition)
     }
 }

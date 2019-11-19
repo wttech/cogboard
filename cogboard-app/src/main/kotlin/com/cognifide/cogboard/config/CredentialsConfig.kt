@@ -3,7 +3,6 @@ package com.cognifide.cogboard.config
 class CredentialsConfig {
 
     companion object {
-        private const val CREDENTIALS_CONFIG_FILE_PATH = "/data/credentials.json"
         const val CREDENTIALS_ARRAY = "credentials"
         const val CREDENTIAL_ID_PROP = "id"
         const val CREDENTIAL_ID_PREFIX = "credential"

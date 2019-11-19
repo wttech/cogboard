@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.config.service
 
-import com.cognifide.cogboard.config.CredentialsConfig
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIALS_ARRAY
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PREFIX
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
@@ -27,7 +26,7 @@ class CredentialsService(
         return storage.saveConfig(config)
     }
 
-    fun exists(credential: JsonObject): Boolean {
+    private fun exists(credential: JsonObject): Boolean {
         val credentialId = credential.getString(CREDENTIAL_ID_PROP) ?: return false
         val credentials = getCredentialsFromConfig()
         return credentials.stream()
@@ -79,10 +78,10 @@ class CredentialsService(
     }
 
     fun delete(credentialId: String) {
-        val credentials = config.getJsonArray(CredentialsConfig.CREDENTIALS_ARRAY) ?: JsonArray()
+        val credentials = config.getJsonArray(CREDENTIALS_ARRAY) ?: JsonArray()
         credentials.stream()
                 .map { it as JsonObject }
-                .map { it.getString(CredentialsConfig.CREDENTIAL_ID_PROP) }
+                .map { it.getString(CREDENTIAL_ID_PROP) }
                 .filter { credentialId == it }
                 .findFirst()
                 .ifPresent { credentials.removeCredentialById(it) }
