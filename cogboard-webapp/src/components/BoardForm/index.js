@@ -10,28 +10,46 @@ import { Button } from '@material-ui/core';
 import DynamicForm from '../DynamicForm';
 import { StyledCancelButton } from './styled';
 
-import { BOARD_TITLE_LENGTH_LIMIT, BOARD_COLUMNS_MIN, BOARD_COLUMNS_MAX, SWITCH_INTERVAL_MIN } from '../../constants';
+import {
+  BOARD_TITLE_LENGTH_LIMIT,
+  BOARD_COLUMNS_MIN,
+  BOARD_COLUMNS_MAX,
+  SWITCH_INTERVAL_MIN
+} from '../../constants';
 
-const BoardForm = ({ handleSubmit, handleCancel, boardId, ...initialFormValues }) => {
+const BoardForm = ({
+  handleSubmit,
+  handleCancel,
+  boardId,
+  ...initialFormValues
+}) => {
   const boards = useSelector(getBoards);
-  const formFields = ['UniqueTitleField', 'ColumnField', 'AutoSwitchField', 'SwitchInterval'];
+  const formFields = [
+    'UniqueTitleField',
+    'ColumnField',
+    'AutoSwitchField',
+    'SwitchInterval'
+  ];
   const constraints = {
-    'UniqueTitleField' : {
+    UniqueTitleField: {
       max: BOARD_TITLE_LENGTH_LIMIT,
       boardId: boardId,
-      boards: boards,
+      boards: boards
     },
-    'ColumnField': {
+    ColumnField: {
       min: BOARD_COLUMNS_MIN,
-      max: BOARD_COLUMNS_MAX,
+      max: BOARD_COLUMNS_MAX
     },
-    'SwitchInterval': {
-      min: SWITCH_INTERVAL_MIN,
+    SwitchInterval: {
+      min: SWITCH_INTERVAL_MIN
     }
   };
 
   const validationSchema = createValidationSchema(formFields, constraints);
-  const {values, handleChange, withValidation, errors} = useFormData(initialFormValues, {initialSchema: validationSchema, onChange: true});
+  const { values, handleChange, withValidation, errors } = useFormData(
+    initialFormValues,
+    { initialSchema: validationSchema, onChange: true }
+  );
 
   return (
     <form onSubmit={withValidation(handleSubmit)} noValidate="novalidate">
@@ -40,7 +58,7 @@ const BoardForm = ({ handleSubmit, handleCancel, boardId, ...initialFormValues }
         values={values}
         handleChange={handleChange}
         errors={errors}
-        rootName='board-form'
+        rootName="board-form"
       />
       <Button
         color="primary"

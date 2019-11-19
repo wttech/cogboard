@@ -3,7 +3,15 @@ import { useTheme } from '@material-ui/styles';
 
 import { ALL_SONARQUBE_METRICS } from '../../../constants';
 
-import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select, FormHelperText } from '@material-ui/core';
+import {
+  Input,
+  InputLabel,
+  Checkbox,
+  MenuItem,
+  ListItemText,
+  Select,
+  FormHelperText
+} from '@material-ui/core';
 
 import { StyledFormControl } from './../../styled';
 import { hasError } from '../../../helpers';

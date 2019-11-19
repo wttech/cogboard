@@ -27,7 +27,7 @@ const BoardSwitcher = ({ className }) => {
     if (previousSwitchInterval !== switchInterval) {
       handleResetTimeElapsed();
     }
-  })
+  });
 
   if (!hasBoardsToSwitch || isDisable) {
     return null;

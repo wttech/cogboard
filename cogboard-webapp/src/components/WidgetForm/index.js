@@ -6,10 +6,15 @@ import widgetTypes from '../widgets';
 import { useFormData } from '../../hooks';
 
 import { createWidgetValidationSchema } from './validators';
-import { WIDGET_TITLE_LENGTH_LIMIT, WIDGET_COLUMNS_MIN, WIDGET_ROWS_MIN, WIDGET_ROWS_MAX } from '../../constants';
+import {
+  WIDGET_TITLE_LENGTH_LIMIT,
+  WIDGET_COLUMNS_MIN,
+  WIDGET_ROWS_MIN,
+  WIDGET_ROWS_MAX
+} from '../../constants';
 
 import { Tab, Button } from '@material-ui/core';
-import DynamicForm from "../DynamicForm";
+import DynamicForm from '../DynamicForm';
 import WidgetTypeForm from '../WidgetTypeForm';
 import { StyledTabPanel, StyledTabs, StyledCancelButton } from './styled';
 
@@ -18,15 +23,31 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
     ({ ui, boards }) => boards.boardsById[ui.currentBoard].columns
   );
 
-  const generalFields = ['WidgetTypeField', 'TitleField', ['ColumnFieldSm', 'RowFieldSm'], 'NewLineField', 'DisabledField'];
+  const generalFields = [
+    'WidgetTypeField',
+    'TitleField',
+    ['ColumnFieldSm', 'RowFieldSm'],
+    'NewLineField',
+    'DisabledField'
+  ];
   const constraints = {
-    'TitleField': { max: WIDGET_TITLE_LENGTH_LIMIT },
-    'ColumnFieldSm': { min: WIDGET_COLUMNS_MIN, max: boardColumns },
-    'RowFieldSm': { min: WIDGET_ROWS_MIN, max: WIDGET_ROWS_MAX }
-  }
+    TitleField: { max: WIDGET_TITLE_LENGTH_LIMIT },
+    ColumnFieldSm: { min: WIDGET_COLUMNS_MIN, max: boardColumns },
+    RowFieldSm: { min: WIDGET_ROWS_MIN, max: WIDGET_ROWS_MAX }
+  };
 
-  const { values, handleChange, withValidation, errors, setValidationSchema } = useFormData(initialFormValues, {
-    initialSchema: createWidgetValidationSchema(initialFormValues.type, generalFields, constraints),
+  const {
+    values,
+    handleChange,
+    withValidation,
+    errors,
+    setValidationSchema
+  } = useFormData(initialFormValues, {
+    initialSchema: createWidgetValidationSchema(
+      initialFormValues.type,
+      generalFields,
+      constraints
+    ),
     onChange: true
   });
   const [tabValue, setTabValue] = useState(0);
@@ -41,10 +62,14 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
   };
 
   useEffect(() => {
-    const validationSchema = createWidgetValidationSchema(values.type, generalFields, constraints)
-    setValidationSchema(validationSchema)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.type])
+    const validationSchema = createWidgetValidationSchema(
+      values.type,
+      generalFields,
+      constraints
+    );
+    setValidationSchema(validationSchema);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values.type]);
 
   return (
     <form onSubmit={withValidation(handleSubmit)} noValidate="novalidate">
@@ -59,31 +84,31 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
         )}
       </StyledTabs>
       <StyledTabPanel value={tabValue} index={0}>
-      <DynamicForm
+        <DynamicForm
           values={values}
           fields={generalFields}
           handleChange={handleChange}
           errors={errors}
-          rootName='widget-form'
+          rootName="widget-form"
         />
       </StyledTabPanel>
-      {hasDialogFields &&
+      {hasDialogFields && (
         <StyledTabPanel value={tabValue} index={1}>
           <WidgetTypeForm
             type={values.type}
             values={values}
             errors={errors}
             handleChange={handleChange}
-            rootName='widget-form'
+            rootName="widget-form"
           />
         </StyledTabPanel>
-      }
+      )}
       <Button
-            type="submit"
-            color="primary"
-            variant="contained"
-            data-cy="widget-form-submit-button"
-          >
+        type="submit"
+        color="primary"
+        variant="contained"
+        data-cy="widget-form-submit-button"
+      >
         Save
       </Button>
       <StyledCancelButton

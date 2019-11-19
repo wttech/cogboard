@@ -10,21 +10,18 @@ const AddWidget = ({ closeDialog }) => {
   const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
   const dispatch = useDispatch();
 
-  const handleAddWidget = ( values ) => {
+  const handleAddWidget = values => {
     dispatch(addNewWidget({ currentBoardId, values }));
     closeDialog();
   };
 
   return (
-    <WidgetForm
-      handleSubmit={handleAddWidget}
-      handleCancel={closeDialog}
-    />
+    <WidgetForm handleSubmit={handleAddWidget} handleCancel={closeDialog} />
   );
 };
 
 AddWidget.propTypes = {
-  closeDialog: func.isRequired,
+  closeDialog: func.isRequired
 };
 
 export default AddWidget;

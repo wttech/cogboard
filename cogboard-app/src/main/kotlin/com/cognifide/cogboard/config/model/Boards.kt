@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.storage.model
+package com.cognifide.cogboard.config.model
 
 data class Boards(
     val boardsById: Map<String, Board>,
