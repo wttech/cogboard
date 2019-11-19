@@ -10,6 +10,7 @@ class ContentRepository(private val path: String = "/data/content") {
     }
 
     fun get(widgetId: String): JsonObject {
-        return JsonObject(File("$path/$widgetId.json").readText())
+        val file = File("$path/$widgetId.json")
+        return if (file.exists()) JsonObject(file.readText()) else JsonObject()
     }
 }
