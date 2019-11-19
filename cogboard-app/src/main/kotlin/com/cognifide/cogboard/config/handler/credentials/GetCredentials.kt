@@ -56,6 +56,7 @@ class GetCredentials : RoutingHandlerFactory {
 
     private fun JsonObject.filterSensitiveData() {
         this.remove(PASSWORD_PROP)
+        // TODO security concern ? should we remove USER_PROP also ?
     }
 
     companion object {
