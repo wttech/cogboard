@@ -9,8 +9,7 @@ import io.vertx.core.logging.LoggerFactory
 class ConfirmationSender(private val vertx: Vertx) {
 
     fun confirmationAfter(action: (JsonObject) -> Boolean, body: JsonObject) =
-            if (action(body)) { sendOk() }
-            else { sendError(body) }
+            if (action(body)) sendOk() else sendError(body)
 
     private fun sendOk() {
         vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET,

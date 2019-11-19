@@ -3,7 +3,8 @@ package com.cognifide.cogboard.widget
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
-import java.util.*
+import java.util.TimerTask
+import java.util.Timer
 import kotlin.concurrent.timerTask
 import com.cognifide.cogboard.CogboardConstants as CC
 
@@ -12,9 +13,9 @@ import com.cognifide.cogboard.CogboardConstants as CC
  * This widget is meant for tasks that are not requesting 3rd party endpoints.
  */
 abstract class BaseWidget(
-        val vertx: Vertx,
-        val config: JsonObject,
-        private var boardService: BoardsConfigService = BoardsConfigService()
+    val vertx: Vertx,
+    val config: JsonObject,
+    private var boardService: BoardsConfigService = BoardsConfigService()
 ) : Widget {
 
     override val id: String

@@ -28,8 +28,8 @@ object BoardsValidator : Validator {
 
     private fun validateBoards(config: Config): Boolean {
         val titles = mutableSetOf<String>()
-        val errors = config.boards.boardsById.flatMap {
-            m -> validateBoard(m.value, titles)
+        val errors = config.boards.boardsById.flatMap { m ->
+            validateBoard(m.value, titles)
         }
         val validationResult = BoardsValidationErrors(errors)
         return if (validationResult.hasErrors()) {
@@ -53,10 +53,12 @@ object BoardsValidator : Validator {
                     "Title length must be less than or equal to 25, " +
                             "and should not be empty"))
         }
-        if (!checkTitleUnique(board, titles))
+        if (!checkTitleUnique(board, titles)) {
             errors.add(BoardsValidationError(board, "Title must be unique"))
-        if (!checkAutoSwitchInterval(board))
+        }
+        if (!checkAutoSwitchInterval(board)) {
             errors.add(BoardsValidationError(board, "Interval cannot be smaller than 3s."))
+        }
 
         return errors
     }

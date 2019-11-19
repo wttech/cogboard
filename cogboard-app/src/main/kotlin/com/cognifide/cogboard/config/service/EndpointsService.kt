@@ -1,7 +1,6 @@
 package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.config.EndpointLoader
-import com.cognifide.cogboard.config.EndpointsConfig
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PREFIX
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP

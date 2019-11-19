@@ -7,7 +7,11 @@ import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import java.io.File
 
-class VolumeStorage(private val configType: ConfigType, private val path: String, private val validator: Validator) : Storage {
+class VolumeStorage(
+    private val configType: ConfigType,
+    private val path: String,
+    private val validator: Validator
+) : Storage {
 
     override fun loadConfig() = loadConfig(configType, path, validator)
 
