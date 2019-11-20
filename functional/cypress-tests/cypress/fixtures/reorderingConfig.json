@@ -1,0 +1,90 @@
+{
+  "boards": {
+    "boardsById": {
+      "board_1": {
+        "id": "board_1",
+        "title": "Board_1",
+        "columns": 8,
+        "theme": "default",
+        "widgets": [ 
+          "widget_1", "widget_2", "widget_3"
+        ]
+      },
+      "board_2": {
+        "id": "board_2",
+        "title": "Board_2",
+        "columns": 8,
+        "theme": "default",
+        "widgets": [ 
+          "widget_1", "widget_2", "widget_3"
+        ]
+      },
+      "board_3": {
+        "id": "board_3",
+        "title": "Board_3",
+        "columns": 8,
+        "theme": "default",
+        "widgets": [ 
+          "widget_1", "widget_2", "widget_3"
+        ]
+      }
+    },
+    "allBoards": ["board_1", "board_2", "board_3"]
+  },
+  "widgets": {
+    "widgetsById": {
+      "widget_1": {
+        "id": "widget_1",
+        "title": "This is first Widget",
+        "disabled": false,
+        "type": "DefaultWidget",
+        "scheduleDelay": 500,
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "content": {
+          "serverTime": "no data"
+        },
+        "isUpdating": false,
+        "schedulePeriod": 120
+      },
+      "widget_2": {
+        "id": "widget_2",
+        "title": "This is second Widget",
+        "disabled": false,
+        "type": "DefaultWidget",
+        "scheduleDelay": 500,
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "content": {
+          "serverTime": "no data"
+        },
+        "isUpdating": false,
+        "schedulePeriod": 120
+      },
+      "widget_3": {
+        "id": "widget_3",
+        "title": "This is third Widget",
+        "disabled": false,
+        "type": "DefaultWidget",
+        "scheduleDelay": 500,
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "content": {
+          "serverTime": "no data"
+        },
+        "isUpdating": false,
+        "schedulePeriod": 120
+      }
+    },
+    "allWidgets": ["widget_1", "widget_2", "widget_3"]
+  }
+}
