@@ -24,10 +24,6 @@ import {
   INIT_BOARD_PROPS,
   PUSH_NOTIFICATION,
   DELETE_NOTIFICATION,
-  SAVE_ENDPOINTS,
-  FETCH_ENDPOINTS,
-  SAVE_CREDENTIALS,
-  FETCH_CREDENTIALS,
   SAVE_SETTINGS
 } from './types';
 import { INITIAL_BOARD_PROPS } from '../constants';
@@ -151,24 +147,6 @@ export const pushNotification = notification => ({
 export const deleteNotification = id => ({
   type: DELETE_NOTIFICATION,
   payload: id
-});
-
-export const saveEndpoints = endpoints => ({
-  type: SAVE_ENDPOINTS,
-  payload: endpoints
-});
-
-export const fetchEndpoints = () => ({
-  type: FETCH_ENDPOINTS
-});
-
-export const saveCredentials = credentials => ({
-  type: SAVE_CREDENTIALS,
-  payload: credentials
-});
-
-export const fetchCredentials = () => ({
-  type: FETCH_CREDENTIALS
 });
 
 export const saveSettings = data => ({
