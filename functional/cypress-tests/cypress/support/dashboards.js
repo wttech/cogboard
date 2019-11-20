@@ -69,4 +69,5 @@ Cypress.Commands.add('renewDashboards', (username=Cypress.env("username"), passw
                     })
                 })
             })
-  })
+        })
+    })
