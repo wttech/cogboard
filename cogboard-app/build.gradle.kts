@@ -12,8 +12,6 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-
-
 dependencies {
 
     "io.knotx:knotx".let { v ->
@@ -32,6 +30,7 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.12.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.1")
+    testImplementation("org.mockito:mockito-junit-jupiter:3.1.0")
     testImplementation(gradleTestKit())
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.2")
 }
