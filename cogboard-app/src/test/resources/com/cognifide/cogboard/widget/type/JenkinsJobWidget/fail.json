@@ -1,0 +1,39 @@
+{
+  "_class": "hudson.model.FreeStyleProject",
+  "lastBuild": {
+    "_class": "hudson.model.FreeStyleBuild",
+    "actions": [
+      {
+        "_class": "hudson.model.CauseAction"
+      },
+      {
+        "_class": "hudson.plugins.git.util.BuildData",
+        "lastBuiltRevision": {
+          "branch": [
+            {
+              "name": "master-branch"
+            }
+          ]
+        }
+      },
+      { },
+      {
+        "_class": "hudson.plugins.disk_usage.BuildDiskUsageAction"
+      },
+      { },
+      { }
+    ],
+    "building": false,
+    "description": null,
+    "displayName": "#7",
+    "duration": 9,
+    "estimatedDuration": 8,
+    "executor": null,
+    "fullDisplayName": "CogBoard » Fail #7",
+    "id": "4",
+    "result": "FAILURE",
+    "timestamp": 1572536545536,
+    "url": "http://jenkins.org/job/project_name/job/job_name/7/",
+    "builtOn": "Master-executor"
+  }
+}
