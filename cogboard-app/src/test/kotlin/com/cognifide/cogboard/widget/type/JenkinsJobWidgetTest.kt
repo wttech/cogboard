@@ -30,7 +30,7 @@ class JenkinsJobWidgetTest : WidgetTestCommon() {
 
         val (result, content) = captureWhatIsSent(eventBus, captor)
 
-        assertStatus("OKX", result)
+        assertStatus("OK", result)
         assertDisplayName("#5", content)
         assertBranch("master-branch", content)
         assertDuration(10800030L, content)
