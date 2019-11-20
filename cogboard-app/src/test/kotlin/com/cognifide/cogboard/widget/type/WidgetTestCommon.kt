@@ -41,7 +41,7 @@ abstract class WidgetTestCommon {
 
     fun initWidget(): JsonObject = JsonObject().put("id", "widget-ID")
 
-    fun captureWhatIsSend(eventBus: EventBus, captor: ArgumentCaptor<JsonObject>): Pair<JsonObject, JsonObject> {
+    fun captureWhatIsSent(eventBus: EventBus, captor: ArgumentCaptor<JsonObject>): Pair<JsonObject, JsonObject> {
         verify(eventBus).send(eq("cogboard.websocket.message"), captor.capture())
         return Pair(captor.value, captor.value.getJsonObject(CogboardConstants.PROP_CONTENT))
     }

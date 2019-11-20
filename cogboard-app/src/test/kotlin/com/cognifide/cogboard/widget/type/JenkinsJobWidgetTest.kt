@@ -28,9 +28,9 @@ class JenkinsJobWidgetTest : WidgetTestCommon() {
 
         underTest.handleResponse(successResponce)
 
-        val (result, content) = captureWhatIsSend(eventBus, captor)
+        val (result, content) = captureWhatIsSent(eventBus, captor)
 
-        assertStatus("OK", result)
+        assertStatus("OKX", result)
         assertDisplayName("#5", content)
         assertBranch("master-branch", content)
         assertDuration(10800030L, content)
@@ -44,7 +44,7 @@ class JenkinsJobWidgetTest : WidgetTestCommon() {
 
         underTest.handleResponse(failResponce)
 
-        val (result, content) = captureWhatIsSend(eventBus, captor)
+        val (result, content) = captureWhatIsSent(eventBus, captor)
 
         assertStatus("FAIL", result)
         assertDisplayName("#7", content)
@@ -60,7 +60,7 @@ class JenkinsJobWidgetTest : WidgetTestCommon() {
 
         underTest.handleResponse(inProgressResponce)
 
-        val (result, content) = captureWhatIsSend(eventBus, captor)
+        val (result, content) = captureWhatIsSent(eventBus, captor)
 
         assertStatus("IN_PROGRESS", result)
         assertDisplayName("#6", content)
