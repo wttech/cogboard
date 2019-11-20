@@ -127,7 +127,9 @@ export const NOTIFICATIONS = {
   }),
   LOGOUT: (userRole, reason = '') => ({
     type: 'info',
-    message: `${capitalize(userRole)} logged out${reason}`,
+    message: `${capitalize(userRole)} logged out${
+      reason ? ' - ' : ''
+    }${reason}`,
     duration: 3000
   })
 };

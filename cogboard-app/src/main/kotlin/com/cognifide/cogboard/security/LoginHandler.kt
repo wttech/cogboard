@@ -78,6 +78,6 @@ class LoginHandler : RoutingHandlerFactory {
     }
 
     companion object {
-        private const val SESSION_DURATION_IN_SECONDS = 2 * 60 * 60 // Two hours (7200 seconds)
+        private const val SESSION_DURATION_IN_SECONDS = 2 * 60 * 60 // hours * min * sec
     }
 }
