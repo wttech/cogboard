@@ -1,17 +1,15 @@
 package com.cognifide.cogboard.widget.type
 
-import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.ArgumentCaptor
 import org.mockito.junit.jupiter.MockitoExtension
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension::class)
-class JenkinsJobWidgetTest : WidgetTest() {
+class JenkinsJobWidgetTest : WidgetTestCommon() {
 
     private lateinit var underTest: JenkinsJobWidget
 
@@ -22,7 +20,6 @@ class JenkinsJobWidgetTest : WidgetTest() {
         super.init()
 
         underTest = JenkinsJobWidget(vertx, initWidget())
-        captor = ArgumentCaptor.forClass(JsonObject::class.java)
     }
 
     @Test

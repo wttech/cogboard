@@ -11,7 +11,7 @@ import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations.initMocks
 
-abstract class WidgetTest {
+abstract class WidgetTestCommon {
 
     val successResponce: JsonObject
         get() = load("/com/cognifide/cogboard/widget/type/${widgetName()}/success.json")
@@ -33,6 +33,7 @@ abstract class WidgetTest {
     fun init() {
         initMocks(this)
         `when`(vertx.eventBus()).thenReturn(eventBus)
+        captor = ArgumentCaptor.forClass(JsonObject::class.java)
     }
 
     abstract fun widgetName(): String
