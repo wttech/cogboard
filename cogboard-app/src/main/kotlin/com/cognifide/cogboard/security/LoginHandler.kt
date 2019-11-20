@@ -72,12 +72,12 @@ class LoginHandler : RoutingHandlerFactory {
 
         val token = jwtAuth?.generateToken(
                 JsonObject().put("name", username),
-                JWTOptions().setExpiresInSeconds(SESSION_DURATION_TWO_HOURS)
+                JWTOptions().setExpiresInSeconds(SESSION_DURATION_IN_SECONDS)
         ) ?: "no data"
         return "{\"token\":\"Bearer $token\"}"
     }
 
     companion object {
-        private const val SESSION_DURATION_TWO_HOURS = 2 * 60 * 60
+        private const val SESSION_DURATION_IN_SECONDS = 2 * 60 * 60 // Two hours (7200 seconds)
     }
 }
