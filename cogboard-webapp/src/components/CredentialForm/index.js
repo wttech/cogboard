@@ -1,5 +1,6 @@
 import React from 'react';
 import { string } from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { useFormData } from '../../hooks';
 import { createValidationSchema } from '../validation';
@@ -7,14 +8,15 @@ import { createValidationSchema } from '../validation';
 import { Button } from '@material-ui/core';
 import { StyledCancelButton } from './styled';
 import DynamicForm from '../DynamicForm';
+import { getCredentials } from '../../selectors';
 
 const CredentialsForm = ({
   onSubmit,
   handleCancel,
   id,
-  credentialsData,
   ...initialFormValues
 }) => {
+  const credentialsData = useSelector(getCredentials);
   const formFields = [
     'LabelField',
     'UsernameField',
@@ -25,7 +27,7 @@ const CredentialsForm = ({
   const constraints = {
     LabelField: {
       max: 25,
-      labels: credentialsData ? credentialsData : [],
+      labels: credentialsData,
       labelId: id
     },
     UsernameField: {
@@ -70,7 +72,10 @@ CredentialsForm.propTypes = {
 };
 
 CredentialsForm.defaultProps = {
-  label: 'Label'
+  label: '',
+  user: '',
+  password: '',
+  confirmationPassword: ''
 };
 
 export default CredentialsForm;

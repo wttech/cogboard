@@ -1,5 +1,6 @@
 import React from 'react';
 import { string } from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { useFormData } from '../../hooks';
 import { createValidationSchema } from '../validation';
@@ -7,19 +8,15 @@ import { createValidationSchema } from '../validation';
 import { Button } from '@material-ui/core';
 import { StyledCancelButton } from './styled';
 import DynamicForm from '../DynamicForm';
+import { getEndpoints } from '../../selectors';
 
-const EndpointForm = ({
-  onSubmit,
-  handleCancel,
-  id,
-  endpointData,
-  ...initialFormValues
-}) => {
+const EndpointForm = ({ onSubmit, handleCancel, id, ...initialFormValues }) => {
+  const endpointData = useSelector(getEndpoints);
   const formFields = ['LabelField', 'URL', 'PublicURL', 'CredentialField'];
   const constraints = {
     LabelField: {
       max: 25,
-      labels: endpointData ? endpointData : [],
+      labels: endpointData,
       labelId: id
     }
   };
@@ -29,8 +26,6 @@ const EndpointForm = ({
     initialFormValues,
     { initialSchema: validationSchema, onChange: true }
   );
-
-  console.log(values);
 
   return (
     <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
@@ -65,10 +60,10 @@ EndpointForm.propTypes = {
 };
 
 EndpointForm.defaultProps = {
-  label: 'Label',
+  label: '',
   url: '',
   publicUrl: '',
-  credential: ''
+  credentials: ''
 };
 
 export default EndpointForm;

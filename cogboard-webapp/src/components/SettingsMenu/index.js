@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { useToggle } from '../../hooks';
-import { getIsAuthenticated } from '../../selectors';
+import {
+  getIsAuthenticated,
+  getCredentials,
+  getEndpoints
+} from '../../selectors';
 
 import {
   Button,
@@ -22,42 +26,23 @@ import EditEndpoint from '../EditEndpoint';
 import EditCredential from '../EditCredential';
 import DeleteEnpoint from '../DeleteEndpoint';
 import DeleteCredential from '../DeleteCredential';
+import { loadSettings } from '../../actions/thunks';
 
 const SettingsMenu = () => {
+  const dispatch = useDispatch();
   const [tabValue, setTabValue] = useState(0);
-  const [needFetchData, setNeedFetchData] = useState(true);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const isAuthenticated = useSelector(getIsAuthenticated);
+  const credentials = useSelector(getCredentials);
+  const endpoints = useSelector(getEndpoints);
 
-  const endpoints = [
-    { id: 'endpoint_1', label: 'Endpoint 1' },
-    { id: 'endpoint_2', label: 'Endpoint 2' },
-    { id: 'endpoint_3', label: 'Endpoint 3' }
-  ];
-  const credentials = [
-    { id: 'credentials_1', label: 'Credentials 1' },
-    { id: 'credentials_2', label: 'Credentials 2' },
-    { id: 'credentials_3', label: 'Credentials 3' }
-  ];
-
-  useEffect(() => {
-    if (needFetchData) {
-      console.log('Fetch enpoints data');
-      setNeedFetchData(false);
-    }
-  }, [needFetchData]);
-
-  const handleDialogOpen = event => {
-    event.stopPropagation();
+  const handleDialogOpen = () => {
+    dispatch(loadSettings());
     openDialog();
   };
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = (_, newValue) => {
     setTabValue(newValue);
-  };
-
-  const handleDataChanged = () => {
-    setNeedFetchData(true);
   };
 
   const mapToListItem = (items, EditComponent, DeleteComponent) =>
@@ -65,17 +50,8 @@ const SettingsMenu = () => {
       <ListItem key={id}>
         <ListItemText primary={label} />
         <ListItemSecondaryAction>
-          <EditComponent
-            id={id}
-            label={label}
-            dataChanged={handleDataChanged}
-            credentialsData={items}
-          />
-          <DeleteComponent
-            id={id}
-            label={label}
-            dataChanged={handleDataChanged}
-          />
+          <EditComponent id={id} />
+          <DeleteComponent id={id} label={label} />
         </ListItemSecondaryAction>
       </ListItem>
     ));
@@ -111,17 +87,18 @@ const SettingsMenu = () => {
           </StyledTabs>
           <StyledTabPanel value={tabValue} index={0}>
             <List>{mapToListItem(endpoints, EditEndpoint, DeleteEnpoint)}</List>
-            <AddEndpoint largeButton dataChanged={handleDataChanged} />
+            <AddEndpoint largeButton />
           </StyledTabPanel>
           <StyledTabPanel value={tabValue} index={1}>
             <List>
-              {mapToListItem(credentials, EditCredential, DeleteCredential)}
+              {' '}
+              {mapToListItem(
+                credentials,
+                EditCredential,
+                DeleteCredential
+              )}{' '}
             </List>
-            <AddCredential
-              largeButton
-              dataChanged={handleDataChanged}
-              credentialsData={credentials}
-            />
+            <AddCredential largeButton />
           </StyledTabPanel>
           <Button
             onClick={handleDialogClose}

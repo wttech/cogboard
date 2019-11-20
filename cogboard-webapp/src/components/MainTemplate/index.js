@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Router } from '@reach/router';
 
 import { useToggle } from '../../hooks';
-import { saveData } from '../../actions/thunks';
+import { saveData, loadSettings } from '../../actions/thunks';
 import { getIsAuthenticated } from '../../selectors';
 
 import { Container, Drawer, Fab } from '@material-ui/core';
@@ -37,6 +37,7 @@ const MainTemplate = () => {
   };
 
   const handleAddWidgetClick = () => {
+    dispatch(loadSettings());
     openDialog(true);
   };
 

@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { FormControl, InputLabel, Input, Select } from '@material-ui/core';
+import { hasError } from '../helpers';
+
+import {
+  FormControl,
+  InputLabel,
+  Input,
+  Select,
+  FormHelperText
+} from '@material-ui/core';
 import { getToken } from '../utils/auth';
 import { getIsAuthenticated } from '../selectors';
 
@@ -11,6 +19,7 @@ const DropdownField = props => {
     id,
     label,
     value,
+    error,
     name,
     children,
     dropdownItems,
@@ -25,7 +34,11 @@ const DropdownField = props => {
   const isAuthenticated = useSelector(getIsAuthenticated);
 
   useEffect(() => {
-    if (!loaded && itemsUrl) {
+    setOptions(dropdownItems);
+  }, [dropdownItems]);
+
+  useEffect(() => {
+    if (itemsUrl) {
       const init = isAuthenticated
         ? {
             headers: {
@@ -37,20 +50,15 @@ const DropdownField = props => {
       fetch(itemsUrl, init)
         .then(response => response.json())
         .then(data => {
-          console.log(`DropdownField: fetched data`);
           setOptions(data);
           setLoaded(true);
         })
         .catch(console.error);
     }
-  }, [loaded, itemsUrl, isAuthenticated]);
-
-  const handleDataChange = () => {
-    setLoaded(false);
-  };
+  }, [itemsUrl, isAuthenticated]);
 
   return (
-    <FormControl>
+    <FormControl error={hasError(error)}>
       <InputLabel shrink htmlFor={id}>
         {label}
       </InputLabel>
@@ -64,8 +72,9 @@ const DropdownField = props => {
       >
         {loaded && children(options)}
       </Select>
-      {/* TODO add loaded */}
-      {optionalButton && optionalButton(options, handleDataChange)}
+      {error && <FormHelperText>{error}</FormHelperText>}
+
+      {optionalButton}
     </FormControl>
   );
 };

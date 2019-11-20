@@ -21,7 +21,8 @@ import {
   loginFailure,
   logout as logoutUser,
   initBoardProps,
-  pushNotification
+  pushNotification,
+  saveSettings
 } from './actionCreators';
 import {
   fetchData,
@@ -29,7 +30,8 @@ import {
   createEditWidgetData,
   mapDataToState,
   withAuthentication,
-  withDataChanged
+  withDataChanged,
+  deleteData
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
 import { setToken, removeToken, getToken, getUserRole } from '../utils/auth';
@@ -126,6 +128,64 @@ const reorderWidgetsThunk = (sourceId, targetIndex) => (dispatch, getState) => {
   dispatch(sortWidgets({ sourceId, targetIndex, boardId }));
 };
 
+const loadSettingsThunk = token => dispatch => {
+  const init = {
+    headers: {
+      Authorization: token ? token : getToken()
+    }
+  };
+
+  Promise.all([fetch('/api/endpoints', init), fetch('/api/credentials', init)])
+    .then(([endpoints, credentials]) =>
+      Promise.all([endpoints.json(), credentials.json()])
+    )
+    .then(([endpoints, credentials]) => {
+      dispatch(
+        saveSettings({
+          endpoints: endpoints,
+          credentials: credentials
+        })
+      );
+    })
+    .catch(console.log);
+};
+
+const saveEndpointThunk = endpoint => dispatch => {
+  const token = getToken();
+
+  return fetchData(URL.ENDPOINTS_ENDPOINT, 'POST', endpoint, token).then(
+    () => dispatch(loadSettingsThunk()),
+    console.error
+  );
+};
+
+const deleteEndpointThunk = id => dispatch => {
+  const token = getToken();
+
+  return deleteData(`${URL.ENDPOINTS_ENDPOINT}/${id}`, token).then(
+    () => dispatch(loadSettingsThunk()),
+    console.error
+  );
+};
+
+const saveCredentialThunk = credential => dispatch => {
+  const token = getToken();
+
+  return fetchData(URL.CREDENTIALS_ENDPOINT, 'POST', credential, token).then(
+    () => dispatch(loadSettingsThunk()),
+    console.error
+  );
+};
+
+const deleteCredentialThunk = id => dispatch => {
+  const token = getToken();
+
+  return deleteData(`${URL.CREDENTIALS_ENDPOINT}/${id}`, token).then(
+    () => dispatch(loadSettingsThunk()),
+    console.error
+  );
+};
+
 export const addNewWidget = withAuthentication(
   makeWidgetUpdaterThunk(addWidget, createNewWidgetData)
 );
@@ -144,3 +204,8 @@ export const deleteBoardWithWidgets = withDataChanged(
 );
 export const setWidgetState = withDataChanged(editWidget);
 export const saveData = withAuthentication(saveDataThunk);
+export const loadSettings = withAuthentication(loadSettingsThunk);
+export const saveEndpoint = withAuthentication(saveEndpointThunk);
+export const deleteEndpoint = withAuthentication(deleteEndpointThunk);
+export const saveCredential = withAuthentication(saveCredentialThunk);
+export const deleteCredential = withAuthentication(deleteCredentialThunk);

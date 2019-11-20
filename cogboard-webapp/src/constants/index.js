@@ -5,7 +5,9 @@ export const URL = {
   SAVE_DATA: '/api/config/save',
   UPDATE_WIDGET: '/api/widget/update',
   DELETE_WIDGET: '/api/widget/delete',
-  LOGIN: '/api/login'
+  LOGIN: '/api/login',
+  ENDPOINTS_ENDPOINT: '/api/endpoints',
+  CREDENTIALS_ENDPOINT: '/api/credentials'
 };
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;

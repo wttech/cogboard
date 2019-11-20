@@ -1,14 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useToggle } from '../hooks';
+import { saveEndpoint } from '../actions/thunks';
 
 import { IconButton, Button } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import EndpointForm from './EndpointForm';
 
-const AddEndpoint = ({ largeButton, dataChanged }) => {
+const AddEndpoint = ({ largeButton, dataChanged, endpointsData }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+  const dispatch = useDispatch();
 
   const handleAddEndpointClick = event => {
     event.stopPropagation();
@@ -16,7 +19,7 @@ const AddEndpoint = ({ largeButton, dataChanged }) => {
   };
 
   const handleSubmit = values => {
-    console.log(values);
+    dispatch(saveEndpoint(values));
     if (dataChanged !== undefined) {
       dataChanged();
     }
@@ -53,6 +56,7 @@ const AddEndpoint = ({ largeButton, dataChanged }) => {
         <EndpointForm
           onSubmit={handleSubmit}
           handleCancel={handleDialogClose}
+          endpointData={endpointsData}
         />
       </AppDialog>
     </>

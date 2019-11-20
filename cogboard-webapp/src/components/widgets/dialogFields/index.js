@@ -43,18 +43,13 @@ const dialogFields = {
   },
   CredentialField: {
     component: CredentialInput,
-    name: 'credential',
+    name: 'credentials',
     label: 'Credential',
-    // itemsUrl: '/api/endpoints',
-    dropdownItems: [
-      { id: '1', label: 'credential 1' },
-      { id: '2', label: 'credential 2' }
-    ],
-    validator: () => string().required()
+    validator: () => string().required(vm.FIELD_REQUIRED())
   },
   UsernameField: {
     component: TextInput,
-    name: 'username',
+    name: 'user',
     label: 'Username',
     validator: ({ max }) =>
       string()
@@ -183,7 +178,6 @@ const dialogFields = {
     component: EndpointInput,
     name: 'endpoint',
     label: 'Endpoint',
-    itemsUrl: '/api/endpoints',
     validator: () => string()
   },
   SchedulePeriod: {

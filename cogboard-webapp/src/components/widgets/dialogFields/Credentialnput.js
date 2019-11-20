@@ -1,19 +1,19 @@
 import React from 'react';
 import { string } from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { MenuItem } from '@material-ui/core';
 import DropdownField from '../../DropdownField';
 import AddCredential from '../../AddCredential';
+import { getCredentials } from '../../../selectors';
 
 const CredentialInput = props => {
+  const credentials = useSelector(getCredentials);
+
   return (
     <DropdownField
-      optionalButton={(values, handleDataChange) => (
-        <AddCredential
-          credentialsData={values}
-          dataChanged={handleDataChange}
-        />
-      )}
+      optionalButton={<AddCredential />}
+      dropdownItems={credentials}
       {...props}
     >
       {credentials =>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useToggle } from '../hooks';
 
@@ -6,20 +7,20 @@ import { IconButton, Button } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import CredentialForm from './CredentialForm';
+import { saveCredential } from '../actions/thunks';
 
-const AddCredential = ({ largeButton, dataChanged, credentialsData }) => {
+const AddCredential = ({ largeButton }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+  const dispatch = useDispatch();
 
-  const handleAddEndpointClick = event => {
-    event.stopPropagation();
+  const handleAddEndpointClick = () => {
     openDialog();
   };
 
   const handleSubmit = values => {
-    console.log(values);
-    if (dataChanged !== undefined) {
-      dataChanged();
-    }
+    delete values.passwordConfirmation;
+
+    dispatch(saveCredential(values));
     handleDialogClose();
   };
 
@@ -53,7 +54,6 @@ const AddCredential = ({ largeButton, dataChanged, credentialsData }) => {
         <CredentialForm
           onSubmit={handleSubmit}
           handleCancel={handleDialogClose}
-          credentialsData={credentialsData}
         />
       </AppDialog>
     </>

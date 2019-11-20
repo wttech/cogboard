@@ -34,6 +34,18 @@ export const fetchData = (url, method = 'GET', data = {}, token = '') => {
     .then(response => response.json());
 };
 
+export const deleteData = (url, token = '') => {
+  const config = { method: 'DELETE', headers: {} };
+
+  if (token) {
+    config.headers['Authorization'] = token;
+  }
+
+  return fetch(url, config)
+    .then(checkResponseStatus)
+    .then(response => response.json());
+};
+
 const makeIdCreator = prefix => allIds => {
   const intRegex = new RegExp(/[0-9]\d*$/, 'g');
   const [lastId] = [...allIds].sort(

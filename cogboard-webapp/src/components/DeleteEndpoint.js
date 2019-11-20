@@ -1,28 +1,25 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useToggle } from '../hooks';
 
 import { IconButton } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import ConfirmationDialog from './ConfirmationDialog';
+import { deleteEndpoint } from '../actions/thunks';
 
-const DeleteEnpoint = ({ id, label, dataChanged }) => {
+const DeleteEnpoint = ({ id, label }) => {
+  const dispatch = useDispatch();
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
-  const handleDelete = (id) => () => {
-    console.log(`Delete ${id}`);
-    if (dataChanged !== undefined) {
-      dataChanged();
-    }
+  const handleDelete = id => () => {
+    dispatch(deleteEndpoint(id));
     handleDialogClose();
   };
 
   return (
     <>
-      <IconButton
-        onClick={openDialog}
-        data-cy="delete-endpoint-delete-button"
-      >
+      <IconButton onClick={openDialog} data-cy="delete-endpoint-delete-button">
         <Delete />
       </IconButton>
       <ConfirmationDialog
