@@ -10,7 +10,7 @@ const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
   const initialFormValues = { ...widgetData, ...widgetTypeData };
   const dispatch = useDispatch();
 
-  const handleEditWidget = ( values ) => {
+  const handleEditWidget = values => {
     dispatch(saveWidget({ id, values }));
     closeDialog();
   };

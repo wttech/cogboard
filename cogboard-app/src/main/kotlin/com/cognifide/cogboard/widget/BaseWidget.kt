@@ -1,9 +1,10 @@
 package com.cognifide.cogboard.widget
 
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
-import java.util.Timer
 import java.util.TimerTask
+import java.util.Timer
 import kotlin.concurrent.timerTask
 import com.cognifide.cogboard.CogboardConstants as CC
 
@@ -11,7 +12,11 @@ import com.cognifide.cogboard.CogboardConstants as CC
  * Base widget class for extending - use this class if your new widget needs to do some computations on backend.
  * This widget is meant for tasks that are not requesting 3rd party endpoints.
  */
-abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
+abstract class BaseWidget(
+    val vertx: Vertx,
+    val config: JsonObject,
+    private var boardService: BoardsConfigService = BoardsConfigService()
+) : Widget {
 
     override val id: String
         get() = config.getString(CC.PROP_ID)
@@ -49,6 +54,7 @@ abstract class BaseWidget(val vertx: Vertx, val config: JsonObject) : Widget {
     override fun send(state: JsonObject) {
         state.put(CC.PROP_ID, id)
         state.put(CC.PROP_EVENT_TYPE, PROP_EVENT_TYPE_WIDGET_UPDATE)
+        boardService.saveContent(id, state.getJsonObject(CC.PROP_CONTENT))
         vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
     }
 

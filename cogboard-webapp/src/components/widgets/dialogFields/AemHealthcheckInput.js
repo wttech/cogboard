@@ -3,7 +3,15 @@ import { useTheme } from '@material-ui/styles';
 
 import { AEM_HEALTH_CHECKS } from '../../../constants';
 
-import { Input, InputLabel, Checkbox, MenuItem, ListItemText, Select, FormHelperText } from '@material-ui/core';
+import {
+  Input,
+  InputLabel,
+  Checkbox,
+  MenuItem,
+  ListItemText,
+  Select,
+  FormHelperText
+} from '@material-ui/core';
 import { StyledFormControl } from './../../styled';
 
 import { hasError } from '../../../helpers';
@@ -30,7 +38,9 @@ const AemHealthcheckInput = ({ onChange, value, error, dataCy }) => {
           </MenuItem>
         ))}
       </Select>
-      {hasError(error) && <FormHelperText data-cy={`${dataCy}-error`}>{error}</FormHelperText>}
+      {hasError(error) && (
+        <FormHelperText data-cy={`${dataCy}-error`}>{error}</FormHelperText>
+      )}
     </StyledFormControl>
   );
 };

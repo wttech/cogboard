@@ -31,6 +31,8 @@ const StyledToolbar = styled(Toolbar)`
 
 const NavBar = ({ handleDrawerToggle }) => {
   const theme = useTheme();
+  const noBoardsFound =
+    useSelector(({ boards }) => boards.allBoards).length === 0;
   const title = useSelector(({ ui, boards }) =>
     ui.currentBoard && boards.boardsById[ui.currentBoard]
       ? boards.boardsById[ui.currentBoard].title
@@ -52,14 +54,16 @@ const NavBar = ({ handleDrawerToggle }) => {
           </IconButton>
           <SettingsMenu />
           <UserLogin />
-          <StyledTitle
-            component="h2"
-            variant="h3"
-            theme={theme}
-            data-cy="navbar-title-header"
-          >
-            {title}
-          </StyledTitle>
+          {!noBoardsFound && (
+            <StyledTitle
+              component="h2"
+              variant="h3"
+              theme={theme}
+              data-cy="navbar-title-header"
+            >
+              {title}
+            </StyledTitle>
+          )}
           <StyledBoardSwitcher />
         </StyledToolbar>
       </Container>

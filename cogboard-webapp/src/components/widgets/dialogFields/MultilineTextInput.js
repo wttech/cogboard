@@ -13,13 +13,14 @@ const MultilineTextInput = ({ error, dataCy, values, ...other }) => {
       margin="normal"
       multiline={true}
       error={hasError(error)}
-      FormHelperTextProps={{component: 'div'}}
+      FormHelperTextProps={{ component: 'div' }}
       helperText={
         <StyledValidationMessages
           messages={error}
           data-cy={`${dataCy}-error`}
-        />}
-      inputProps={{'data-cy': dataCy}}
+        />
+      }
+      inputProps={{ 'data-cy': dataCy }}
       {...other}
     />
   );

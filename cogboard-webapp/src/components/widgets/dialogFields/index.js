@@ -5,18 +5,20 @@ import {
   GMT_TIMEZONES,
   TIME_FORMATS
 } from '../types/WorldClockWidget/helpers';
-
-import { parseWidgetTypes } from './helpers';
-import widgetTypes from '../../widgets';
-import { validationMessages as vm } from '../../../constants';
+import { parseWidgetTypes, transformMinValueToHalf } from './helpers';
+import {
+  REQUEST_METHODS,
+  TEXT_SIZES,
+  validationMessages as vm
+} from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
+import widgetTypes from '../../widgets';
 
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
 import TextInput from './TextInput';
 import SonarQubeMetricsInput from './SonarQubeMetricsInput';
 import DisplayValueSelect from './DisplayValueSelect';
-import { REQUEST_METHODS, TEXT_SIZES } from '../../../constants';
 import MultilineTextInput from './MultilineTextInput';
 import CheckboxInput from './CheckboxInput';
 import AemHealthcheckInput from './AemHealthcheckInput';
@@ -124,6 +126,7 @@ const dialogFields = {
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
+    valueUpdater: transformMinValueToHalf(),
     validator: ({ min, max }) =>
       number()
         .min(min, vm.NUMBER_MIN('Columns', min))
@@ -135,6 +138,7 @@ const dialogFields = {
     name: 'rows',
     label: 'Rows',
     initialValue: 1,
+    valueUpdater: transformMinValueToHalf(),
     validator: ({ min, max }) =>
       number()
         .min(min, vm.NUMBER_MIN('Rows', min))

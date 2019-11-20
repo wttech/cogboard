@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.storage.model
+package com.cognifide.cogboard.config.model
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter

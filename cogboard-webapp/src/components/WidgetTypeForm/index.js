@@ -7,17 +7,20 @@ import DynamicForm from '../DynamicForm';
 
 const WidgetTypeForm = ({ values, type, handleChange, errors, ...other }) => {
   const widgetType = widgetTypes[type];
-  const dialogFieldNames = (widgetType && widgetType.dialogFields) ? widgetType.dialogFields : [];
+  const dialogFieldNames =
+    widgetType && widgetType.dialogFields ? widgetType.dialogFields : [];
   const hasDialogFields = dialogFieldNames.length !== 0;
 
-  return hasDialogFields && (
-    <DynamicForm
-      values={values}
-      handleChange={handleChange}
-      fields={dialogFieldNames}
-      errors={errors}
-      {...other}
-    />
+  return (
+    hasDialogFields && (
+      <DynamicForm
+        values={values}
+        handleChange={handleChange}
+        fields={dialogFieldNames}
+        errors={errors}
+        {...other}
+      />
+    )
   );
 };
 

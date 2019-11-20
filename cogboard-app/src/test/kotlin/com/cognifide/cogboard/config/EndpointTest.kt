@@ -1,5 +1,6 @@
 package com.cognifide.cogboard.config
 
+import com.cognifide.cogboard.TestHelper.Companion.readConfigFromResource
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -10,15 +11,19 @@ import org.junit.jupiter.api.TestInstance
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class EndpointTest {
 
-    private lateinit var config: JsonObject
+    private lateinit var endpointsConfig: JsonObject
+    private lateinit var credentialsConfig: JsonObject
+    private lateinit var endpointsLoader: EndpointLoader
     private lateinit var validEndpoint: JsonObject
     private lateinit var invalidEndpoint: JsonObject
 
     @BeforeAll
     fun init() {
-        config = readConfigFromResource("/com/cognifide/cogboard/config/endpoints-test.json")
-        validEndpoint = EndpointLoader.from(config, "validEndpoint").loadWithSensitiveData()
-        invalidEndpoint = EndpointLoader.from(config, "invalidEndpoint").loadWithSensitiveData()
+        endpointsConfig= readConfigFromResource("/com/cognifide/cogboard/config/endpoints-test.json")
+        credentialsConfig = readConfigFromResource("/com/cognifide/cogboard/config/credentials-test.json")
+        endpointsLoader = EndpointLoader(endpointsConfig, credentialsConfig)
+        validEndpoint = endpointsLoader.loadWithSensitiveData("validEndpoint")
+        invalidEndpoint = endpointsLoader.loadWithSensitiveData("invalidEndpoint")
     }
 
     @Test
@@ -77,12 +82,5 @@ internal class EndpointTest {
                     """)
 
         assertEquals(invalidEndpointToReturn, invalidEndpoint)
-    }
-
-    companion object {
-        fun readConfigFromResource(pathToJsonResource: String) : JsonObject {
-            val endpointsContent = EndpointTest::class.java.getResource(pathToJsonResource).readText()
-            return JsonObject(endpointsContent.trimIndent())
-        }
     }
 }
