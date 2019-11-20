@@ -75,6 +75,5 @@ object BoardsValidator : Validator {
     private fun checkAutoSwitchInterval(board: Board) =
             if (board.autoSwitch) {
                 board.switchInterval >= 3
-            }
-            else true
+            } else true
 }
