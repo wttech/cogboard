@@ -25,9 +25,6 @@ class JenkinsJobWidgetTest : WidgetTest() {
         captor = ArgumentCaptor.forClass(JsonObject::class.java)
     }
 
-    private fun initWidget() = JsonObject()
-            .put("id", "widget-ID")
-
     @Test
     @DisplayName("Expect success widget update message send on event bus")
     fun successResponceGenerateValidUpdateEvent() {
