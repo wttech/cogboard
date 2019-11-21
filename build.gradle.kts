@@ -51,7 +51,7 @@ allprojects {
 }
 
 tasks.named("build") {
-    dependsOn("runTest", "dockerStopCogboard", "checkInited")
+    dependsOn("runTest", "dockerStopCogboard")
 }
 
 detekt {
@@ -62,7 +62,6 @@ detekt {
     failFast = true
 }
 
-apply(from = "gradle/init.gradle.kts")
 apply(from = "gradle/distribution.gradle.kts")
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
 apply(from = "gradle/docker.gradle.kts")
