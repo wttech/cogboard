@@ -13,6 +13,10 @@ class VolumeStorage(
     private val validator: Validator
 ) : Storage {
 
+    init {
+        StorageInitializer.createIfDoesNotExist(path)
+    }
+
     override fun loadConfig() = loadConfig(configType, path, validator)
 
     override fun saveConfig(configJson: JsonObject): Boolean {
@@ -28,6 +32,6 @@ class VolumeStorage(
 
     companion object {
         private val LOGGER: Logger = LoggerFactory.getLogger(VolumeStorage::class.java)
-        const val ERROR_MESSAGE = "Configuration not saved - wrong configuration"
+        const val ERROR_MESSAGE = "Configuration not saved - invalid configuration"
     }
 }

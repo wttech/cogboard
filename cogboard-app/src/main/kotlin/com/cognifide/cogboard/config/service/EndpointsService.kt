@@ -9,12 +9,16 @@ import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
+import com.cognifide.cogboard.storage.VolumeStorageFactory
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class EndpointsService(private var storage: Storage, private val config: JsonObject = storage.loadConfig()) {
+class EndpointsService(
+    private var storage: Storage,
+    private val config: JsonObject = VolumeStorageFactory.endpoints().loadConfig()
+) {
 
-    fun loadConfig(): JsonObject = storage.loadConfig()
+    fun loadConfig(): JsonObject = VolumeStorageFactory.endpoints().loadConfig()
 
     fun save(endpoint: JsonObject) {
         if (exists(endpoint)) update(endpoint) else add(endpoint)

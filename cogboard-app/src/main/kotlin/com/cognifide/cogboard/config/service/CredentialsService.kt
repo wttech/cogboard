@@ -9,17 +9,18 @@ import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.storage.Storage
+import com.cognifide.cogboard.storage.VolumeStorageFactory
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class CredentialsService(
     private val storage: Storage,
-    private val config: JsonObject = storage.loadConfig()
+    private val config: JsonObject = VolumeStorageFactory.credentials().loadConfig()
 ) {
 
-    fun loadConfig(): JsonObject = storage.loadConfig()
+    fun loadConfig(): JsonObject = VolumeStorageFactory.credentials().loadConfig()
 
-    fun getCredentials(): JsonArray = loadConfig().getJsonArray(CREDENTIALS_ARRAY)
+    fun getCredentials(): JsonArray = VolumeStorageFactory.credentials().loadConfig().getJsonArray(CREDENTIALS_ARRAY)
 
     fun save(credential: JsonObject): Boolean {
         if (exists(credential)) update(credential) else add(credential)
