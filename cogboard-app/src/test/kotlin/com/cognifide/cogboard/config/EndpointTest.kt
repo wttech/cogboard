@@ -1,5 +1,6 @@
 package com.cognifide.cogboard.config
 
+import com.cognifide.cogboard.TestHelper.Companion.readConfigFromResource
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -81,12 +82,5 @@ internal class EndpointTest {
                     """)
 
         assertEquals(invalidEndpointToReturn, invalidEndpoint)
-    }
-
-    companion object {
-        fun readConfigFromResource(pathToJsonResource: String) : JsonObject {
-            val endpointsContent = EndpointTest::class.java.getResource(pathToJsonResource).readText()
-            return JsonObject(endpointsContent.trimIndent())
-        }
     }
 }

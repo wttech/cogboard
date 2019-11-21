@@ -51,7 +51,7 @@ allprojects {
 }
 
 tasks.named("build") {
-    dependsOn("runTest", "dockerStopCogboard")
+    dependsOn("runTest", "dockerStopCogboard", ":cogboard-app:test")
 }
 
 detekt {

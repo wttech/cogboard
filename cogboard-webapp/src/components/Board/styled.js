@@ -1,6 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { getColumns } from './helpers';
 import NotFound from '../NotFound';
+import NoBoards from '../NoBoards';
 
 export const StyledContainer = styled.div`
   display: grid;
@@ -9,8 +10,7 @@ export const StyledContainer = styled.div`
   grid-auto-rows: 0.5fr;
 `;
 
-export const StyledNotFound = styled(NotFound)`
-  background: #211f39;
+const BaseNoData = component => styled(component)`
   bottom: 0;
   display: flex;
   align-items: center;
@@ -19,10 +19,16 @@ export const StyledNotFound = styled(NotFound)`
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 2000;
 
   > div {
     padding: 0 15px;
     text-align: center;
   }
 `;
+
+export const StyledNotFound = styled(BaseNoData(NotFound))`
+  background: #211f39;
+  z-index: 2000;
+`;
+
+export const StyledNoBoards = BaseNoData(NoBoards);

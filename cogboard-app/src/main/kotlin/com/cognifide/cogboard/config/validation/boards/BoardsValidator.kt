@@ -73,10 +73,7 @@ object BoardsValidator : Validator {
             titles.add(board.title)
 
     private fun checkAutoSwitchInterval(board: Board) =
-            when {
-                board.autoSwitch -> {
-                    board.switchInterval >= 3
-                }
-                else -> true
-            }
+            if (board.autoSwitch) {
+                board.switchInterval >= 3
+            } else true
 }

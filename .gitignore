@@ -52,3 +52,8 @@ cogboard-app/src/main/resources
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# cypress
+**/cypress/videos
+**/cypress/screenshots
+**/cypress/cypress
