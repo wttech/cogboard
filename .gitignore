@@ -10,7 +10,6 @@ Thumbs.db
 ~*
 
 *.jar
-/mnt/admins.json
 /mnt/*.json
 /mnt/*.backup
 /mnt/content/*.json

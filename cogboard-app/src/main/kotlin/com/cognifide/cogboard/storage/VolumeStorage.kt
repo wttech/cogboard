@@ -14,7 +14,7 @@ class VolumeStorage(
 ) : Storage {
 
     init {
-        StorageInitializer.createIfDoesNotExist(path)
+        ConfigFileCreator.createIfDoesNotExist(path)
     }
 
     override fun loadConfig() = loadConfig(configType, path, validator)

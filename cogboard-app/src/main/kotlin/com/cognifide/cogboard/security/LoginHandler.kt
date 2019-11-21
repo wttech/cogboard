@@ -16,8 +16,8 @@ import io.vertx.reactivex.ext.web.RoutingContext
 class LoginHandler : RoutingHandlerFactory {
 
     private var vertx: Vertx? = null
-    private lateinit var config: JsonObject
     private var admins: MutableMap<String, String> = mutableMapOf()
+    private lateinit var config: JsonObject
 
     override fun getName(): String = "login-handler"
 
