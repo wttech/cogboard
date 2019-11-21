@@ -3,17 +3,16 @@ import { useDispatch } from 'react-redux';
 
 import { useToggle } from '../hooks';
 
-import { IconButton, Button } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import CredentialForm from './CredentialForm';
 import { saveCredential } from '../actions/thunks';
+import AddButton from './AddButton';
 
 const AddCredential = ({ largeButton }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
 
-  const handleAddEndpointClick = () => {
+  const handleAddCredentialClick = () => {
     openDialog();
   };
 
@@ -26,25 +25,14 @@ const AddCredential = ({ largeButton }) => {
 
   return (
     <>
-      {largeButton ? (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleAddEndpointClick}
-          data-cy="add-endpoint-add-button"
-          fullWidth
-        >
-          Add Credential
-        </Button>
-      ) : (
-        <IconButton
-          onClick={handleAddEndpointClick}
-          color="primary"
-          data-cy="add-endpoint-add-button"
-        >
-          <Add />
-        </IconButton>
-      )}
+      <AddButton
+        color="primary"
+        onClick={handleAddCredentialClick}
+        data-cy="add-credential-add-button"
+        largeButton={largeButton}
+      >
+        Add credential
+      </AddButton>
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}

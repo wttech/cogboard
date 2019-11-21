@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useToggle } from '../hooks';
 import { saveEndpoint } from '../actions/thunks';
 
-import { IconButton, Button } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import AddButton from './AddButton';
 import AppDialog from './AppDialog';
 import EndpointForm from './EndpointForm';
 
@@ -28,25 +27,14 @@ const AddEndpoint = ({ largeButton, dataChanged, endpointsData }) => {
 
   return (
     <>
-      {largeButton ? (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleAddEndpointClick}
-          data-cy="add-endpoint-add-button"
-          fullWidth
-        >
-          Add Endpoint
-        </Button>
-      ) : (
-        <IconButton
-          onClick={handleAddEndpointClick}
-          color="primary"
-          data-cy="add-endpoint-add-button"
-        >
-          <Add />
-        </IconButton>
-      )}
+      <AddButton
+        color="primary"
+        onClick={handleAddEndpointClick}
+        data-cy="add-endpoint-add-button"
+        largeButton={largeButton}
+      >
+        Add endpoint
+      </AddButton>
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
