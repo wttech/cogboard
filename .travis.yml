@@ -1,4 +1,10 @@
 language: java
+node_js:
+  - 10
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
 install: true
 services:
   - docker
@@ -10,7 +16,8 @@ before_script:
 script:
   - if [ "$RELEASE" = "1" ]; then ./gradlew cogboardInit && ./gradlew release
     -Prelease.useAutomaticVersion=true --info; fi
-  - if [ "$RELEASE" != "1" ]; then ./gradlew cogboardInit && ./gradlew build; fi
+  - if [ "$RELEASE" != "1" ]; then ./gradlew cogboardInit && ./gradlew build; scripts/runContainer.sh; fi
+  - cd functional/cypress-tests/ && npm test
 deploy:
   - provider: script
     script: bash scripts/release.sh
