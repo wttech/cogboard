@@ -8,9 +8,8 @@ before_script:
   - if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export RELEASE=1 && git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git; fi
   - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
-  - if [ "$RELEASE" = "1" ]; then ./gradlew cogboardInit && ./gradlew release
-    -Prelease.useAutomaticVersion=true --info; fi
-  - if [ "$RELEASE" != "1" ]; then ./gradlew cogboardInit && ./gradlew build; fi
+  - if [ "$RELEASE" = "1" ]; then ./gradlew release -Prelease.useAutomaticVersion=true --info; fi
+  - if [ "$RELEASE" != "1" ]; then ./gradlew build; fi
 deploy:
   - provider: script
     script: bash scripts/release.sh
