@@ -73,7 +73,6 @@ const DropdownField = props => {
         {loaded && children(options)}
       </Select>
       {error && <FormHelperText>{error}</FormHelperText>}
-
       {optionalButton}
     </FormControl>
   );

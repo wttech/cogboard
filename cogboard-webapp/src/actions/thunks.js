@@ -128,10 +128,10 @@ const reorderWidgetsThunk = (sourceId, targetIndex) => (dispatch, getState) => {
   dispatch(sortWidgets({ sourceId, targetIndex, boardId }));
 };
 
-const loadSettingsThunk = token => dispatch => {
+const loadSettingsThunk = () => dispatch => {
   const init = {
     headers: {
-      Authorization: token ? token : getToken()
+      Authorization: getToken()
     }
   };
 
