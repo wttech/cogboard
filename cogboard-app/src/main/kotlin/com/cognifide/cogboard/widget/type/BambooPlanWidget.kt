@@ -18,7 +18,7 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
                 sendNeverBuilt()
             } else if (results != null && results.getInteger("size") == 1) {
                 sendSuccess(results)
-            } else sendUnknownResponceError()
+            } else sendUnknownResponseError()
         }
     }
 

@@ -16,7 +16,7 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
 
             if (lastBuild != null) {
                 sendSuccess(lastBuild)
-            } else sendUnknownResponceError()
+            } else sendUnknownResponseError()
         }
     }
 

@@ -18,7 +18,7 @@ class BambooDeploymentWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(ver
                 sendNeverDeployed()
             } else if (results != null && results.size() == 1) {
                 sendSuccess(results.first() as JsonObject)
-            } else sendUnknownResponceError()
+            } else sendUnknownResponseError()
         }
     }
 
@@ -41,7 +41,7 @@ class BambooDeploymentWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(ver
         result.remove("items")
 
         send(JsonObject()
-                .put(CC.PROP_STATUS, Widget.Status.from(result.getString("deploymentState")))
+                .put(CC.PROP_STATUS, getStatus(result))
                 .put(CC.PROP_CONTENT, result))
     }
 
@@ -51,6 +51,21 @@ class BambooDeploymentWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(ver
         } else {
             sendConfigurationError("Endpoint URL or ID is blank")
         }
+    }
+
+    /** Patch up the case where `deploymentState` doesn't tell us anything useful */
+    private fun getStatus(result: JsonObject) : Widget.Status {
+        val deploymentState = Widget.Status.from(result.getString("deploymentState"))
+
+        if (deploymentState == Widget.Status.UNKNOWN) {
+            val lifeCycleState = Widget.Status.from(result.getString("lifeCycleState"))
+
+            if (lifeCycleState != Widget.Status.UNKNOWN) {
+                return lifeCycleState
+            }
+        }
+
+        return deploymentState
     }
 
     private fun constructUrl(deploymentResultId: Int): String {
