@@ -16,7 +16,7 @@ before_script:
 script:
   - if [ "$RELEASE" = "1" ]; then ./gradlew cogboardInit && ./gradlew release
     -Prelease.useAutomaticVersion=true --info; fi
-  - if [ "$RELEASE" != "1" ]; then ./gradlew cogboardInit && ./gradlew build; scripts/runContainer.sh; fi
+  - if [ "$RELEASE" != "1" ]; then ./gradlew cogboardInit && ./gradlew build; bash scripts/runContainer.sh; fi
   - cd functional/cypress-tests/ && npm test
 deploy:
   - provider: script
