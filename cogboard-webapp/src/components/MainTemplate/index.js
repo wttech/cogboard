@@ -63,6 +63,7 @@ const MainTemplate = () => {
         classes={{ paper: drawerClasses.root }}
       >
         <StyledDrawerContainer
+          onClick={handleDrawerToggle(false)}
           onKeyDown={handleDrawerToggle(false)}
           role="presentation"
         >
