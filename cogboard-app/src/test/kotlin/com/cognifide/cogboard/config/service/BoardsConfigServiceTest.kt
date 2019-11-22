@@ -21,8 +21,8 @@ internal class BoardsConfigServiceTest {
         val boardConfig = "$boardPath/server-config.json"
         val uiBoardConfigState = File("$boardPath/ui-board-config.json").readText()
         val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
-
-        val underTest = BoardsConfigService(storage)
+        val contentRepository = ContentRepository("$boardPath/content")
+        val underTest = BoardsConfigService(storage, contentRepository)
 
         //when
         underTest.saveBoardsConfig(JsonObject(uiBoardConfigState))
