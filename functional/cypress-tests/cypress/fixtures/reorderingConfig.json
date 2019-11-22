@@ -6,21 +6,27 @@
         "title": "Board_1",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget_1", "widget_2", "widget_3"]
+        "widgets": [
+          "widget_1", "widget_2", "widget_3"
+        ]
       },
       "board_2": {
         "id": "board_2",
         "title": "Board_2",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget_1", "widget_2", "widget_3"]
+        "widgets": [
+          "widget_1", "widget_2", "widget_3"
+        ]
       },
       "board_3": {
         "id": "board_3",
         "title": "Board_3",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget_1", "widget_2", "widget_3"]
+        "widgets": [
+          "widget_1", "widget_2", "widget_3"
+        ]
       }
     },
     "allBoards": ["board_1", "board_2", "board_3"]

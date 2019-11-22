@@ -1,15 +1,8 @@
-export const renewConfig = (config, newConfig) => {
-  const {
-    boards: { allBoards },
-    widgets: { allWidgets }
-  } = config;
+export const renewConfig = ( config, newConfig ) => {
+  const { boards: {allBoards}, widgets: {allWidgets} } = config;
 
-  const filteredBoards = allBoards.filter(
-    id => !newConfig.boards.allBoards.includes(id)
-  );
-  const filteredWidgets = allWidgets.filter(
-    id => !newConfig.widgets.allWidgets.includes(id)
-  );
+  const filteredBoards = allBoards.filter((id) => !newConfig.boards.allBoards.includes(id));
+  const filteredWidgets = allWidgets.filter((id) => !newConfig.widgets.allWidgets.includes(id));
 
   const result = {
     ...config,
@@ -19,7 +12,10 @@ export const renewConfig = (config, newConfig) => {
         ...config.boards.boardsById,
         ...newConfig.boards.boardsById
       },
-      allBoards: [...filteredBoards, ...newConfig.boards.allBoards]
+      allBoards: [
+        ...filteredBoards,
+        ...newConfig.boards.allBoards
+      ]
     },
     widgets: {
       ...config.widgets,
@@ -27,8 +23,11 @@ export const renewConfig = (config, newConfig) => {
         ...config.widgets.widgetsById,
         ...newConfig.widgets.widgetsById
       },
-      allWidgets: [...filteredWidgets, ...newConfig.widgets.allWidgets]
+      allWidgets: [
+        ...filteredWidgets,
+        ...newConfig.widgets.allWidgets
+      ]
     }
-  };
+  }
   return result;
-};
+}
