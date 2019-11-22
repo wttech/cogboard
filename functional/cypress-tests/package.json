@@ -1,15 +1,20 @@
 {
-  "name": "cypress-tests",
+  "name": "cypress-cogboard",
   "version": "1.0.0",
-  "description": "Tests in this part of the repository are testing UI of the CogBoard. Get to know helper functions available right now (and update them if needed).",
+  "description": "Cypress automation for CogBoard development",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^3.6.1",
+    "fs-extra": "^8.1.0"
   },
-  "keywords": [],
+  "scripts": {
+    "test": "npm install & npx cypress run --browser chrome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cognifide/cogboard"
+  },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cypress": "^3.6.1"
-  }
+  "license": "ISC"
 }
