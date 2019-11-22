@@ -14,7 +14,7 @@ Cypress.Commands.add('login',(username = Cypress.env("username"), password = Cyp
     cy.get('[data-cy="user-login-login-icon"]')
         .should('not.exist');
 });
-    
+
 Cypress.Commands.add('logout', () => {
     cy.get('[data-cy="user-login-logout-icon"]')
         .click();

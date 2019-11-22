@@ -28,6 +28,6 @@ class VolumeStorage(
 
     companion object {
         private val LOGGER: Logger = LoggerFactory.getLogger(VolumeStorage::class.java)
-        const val ERROR_MESSAGE = "Configuration not saved - wrong configuration"
+        const val ERROR_MESSAGE = "Configuration not saved - invalid configuration"
     }
 }

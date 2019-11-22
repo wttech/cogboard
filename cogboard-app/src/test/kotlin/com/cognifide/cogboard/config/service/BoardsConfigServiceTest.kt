@@ -21,8 +21,8 @@ internal class BoardsConfigServiceTest {
         val boardConfig = "$boardPath/server-config.json"
         val uiBoardConfigState = File("$boardPath/ui-board-config.json").readText()
         val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
-
-        val underTest = BoardsConfigService(storage)
+        val contentRepository = ContentRepository("$boardPath/content")
+        val underTest = BoardsConfigService(storage, contentRepository)
 
         //when
         underTest.saveBoardsConfig(JsonObject(uiBoardConfigState))
@@ -78,7 +78,9 @@ internal class BoardsConfigServiceTest {
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
         val contentRepository = ContentRepository("$boardPath/content")
-        val underTest = BoardsConfigService(boards(), contentRepository)
+        val boardConfig = "$boardPath/server-board-config.json"
+        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
+        val underTest = BoardsConfigService(storage, contentRepository)
 
         //when
         underTest.saveContent("testWidget", JsonObject().put("someKey", "someValue"))
