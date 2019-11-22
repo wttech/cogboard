@@ -22,8 +22,7 @@ object VolumeStorageFactory {
     private const val ADMINS_CONFIG_FILE_PATH = "/data/admins.json"
 
     fun boards(): VolumeStorage {
-        createIfDoesNotExist(BOARDS_CONFIG_FILE_PATH)
-        return VolumeStorage(BOARDS, BOARDS_CONFIG_FILE_PATH, BoardsValidator)
+        return createVolumeStorage(BOARDS, BOARDS_CONFIG_FILE_PATH, BoardsValidator)
     }
 
     fun credentials(): VolumeStorage {
