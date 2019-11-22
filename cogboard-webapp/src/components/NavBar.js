@@ -28,10 +28,6 @@ const StyledDashboardRounded = styled(DashboardRounded)`
   color: #198cdb;
 `;
 
-const StyledUserLogin = styled(UserLogin)`
-  color: #198cdb;
-`;
-
 const StyledToolbar = styled(Toolbar)`
   min-height: ${setSize(10)};
 `;
@@ -70,15 +66,6 @@ const NavBar = ({ handleDrawerToggle }) => {
               {title}
             </StyledTitle>
           )}
-          <StyledUserLogin />
-          <StyledTitle
-            component="h2"
-            variant="h3"
-            theme={theme}
-            data-cy="navbar-title-header"
-          >
-            {title}
-          </StyledTitle>
           <StyledBoardSwitcher />
         </StyledToolbar>
       </Container>

@@ -39,7 +39,7 @@ const BoardSwitcher = ({ className }) => {
       <Tooltip title={prevBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('prev')}
-          color="inherit"
+          color="primary"
           aria-label="Next board"
           edge="start"
         >
@@ -48,7 +48,7 @@ const BoardSwitcher = ({ className }) => {
       </Tooltip>
       <IconButton
         onClick={handlePlayToggle}
-        color="inherit"
+        color="primary"
         aria-label="Auto switch boards"
         edge="start"
       >
@@ -57,7 +57,7 @@ const BoardSwitcher = ({ className }) => {
       <Tooltip title={nextBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('next')}
-          color="inherit"
+          color="primary"
           aria-label="Next board"
           edge="start"
         >
