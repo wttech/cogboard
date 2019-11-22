@@ -1,5 +1,11 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.config.service.BoardsConfigServiceTest
+import com.cognifide.cogboard.config.validation.boards.BoardsValidator
+import com.cognifide.cogboard.storage.ContentRepository
+import com.cognifide.cogboard.storage.VolumeStorage
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -18,8 +24,7 @@ class JenkinsJobWidgetTest : WidgetTestCommon() {
     @BeforeEach
     fun initForTest() {
         super.init()
-
-        underTest = JenkinsJobWidget(vertx, initWidget())
+        underTest = JenkinsJobWidget(vertx, initWidget(), initService())
     }
 
     @Test
