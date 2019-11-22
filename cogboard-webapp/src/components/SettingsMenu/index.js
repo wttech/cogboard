@@ -17,7 +17,7 @@ import {
   ListItemText,
   ListItemSecondaryAction
 } from '@material-ui/core';
-import { Build } from '@material-ui/icons';
+import { Settings } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
 import { StyledTabs, StyledTabPanel } from './styled';
 import AddEndpoint from '../AddEndpoint';
@@ -28,7 +28,7 @@ import DeleteEnpoint from '../DeleteEndpoint';
 import DeleteCredential from '../DeleteCredential';
 import { loadSettings } from '../../actions/thunks';
 
-const SettingsMenu = () => {
+const SettingsMenu = ({ className }) => {
   const dispatch = useDispatch();
   const [tabValue, setTabValue] = useState(0);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
@@ -63,12 +63,13 @@ const SettingsMenu = () => {
   return (
     <>
       <IconButton
+        className={className}
         onClick={handleDialogOpen}
         color="inherit"
         edge="start"
         data-cy="settings-menu-open-button"
       >
-        <Build />
+        <Settings />
       </IconButton>
       <AppDialog
         disableBackdropClick={true}

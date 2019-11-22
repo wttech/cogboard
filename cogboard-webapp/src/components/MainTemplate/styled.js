@@ -1,8 +1,10 @@
 import styled from '@emotion/styled/macro';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Box, Fab } from '@material-ui/core';
 import BoardList from '../BoardList';
 import Logo from '../Logo';
+import SettingsMenu from '../SettingsMenu';
 
 export const StyledActions = styled(Box)`
   bottom: 50px;
@@ -38,4 +40,16 @@ export const StyledDrawerContainer = styled.div`
   flex-direction: column;
   padding-top: 32px;
   width: 250px;
+`;
+
+export const drawerStyles = makeStyles({
+  root: {
+    justifyContent: 'space-between'
+  }
+});
+
+export const StyledSettingsMenu = styled(SettingsMenu)`
+  align-self: flex-end;
+  margin-right: 20px;
+  margin-bottom: 20px;
 `;

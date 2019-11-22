@@ -12,7 +12,6 @@ import { StyledTitle } from './styled';
 
 import BoardSwitcher from './BoardSwitcher';
 import UserLogin from './UserLogin';
-import SettingsMenu from './SettingsMenu';
 
 const StyledBoardSwitcher = styled(BoardSwitcher)`
   align-items: center;
@@ -52,7 +51,6 @@ const NavBar = ({ handleDrawerToggle }) => {
           >
             <DashboardRounded />
           </IconButton>
-          <SettingsMenu />
           <UserLogin />
           {!noBoardsFound && (
             <StyledTitle

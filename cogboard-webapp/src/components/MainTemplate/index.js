@@ -21,7 +21,9 @@ import {
   StyledDrawerContainer,
   StyledLogo,
   StyledMain,
-  StyledSaveFab
+  StyledSaveFab,
+  drawerStyles,
+  StyledSettingsMenu
 } from './styled';
 
 const MainTemplate = () => {
@@ -31,6 +33,7 @@ const MainTemplate = () => {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
+  const drawerClasses = drawerStyles();
 
   const handleSaveDataClick = () => {
     dispatch(saveData());
@@ -54,9 +57,12 @@ const MainTemplate = () => {
   return (
     <>
       <NavBar handleDrawerToggle={handleDrawerToggle} />
-      <Drawer onClose={handleDrawerToggle(false)} open={drawerOpened}>
+      <Drawer
+        onClose={handleDrawerToggle(false)}
+        open={drawerOpened}
+        classes={{ paper: drawerClasses.root }}
+      >
         <StyledDrawerContainer
-          onClick={handleDrawerToggle(false)}
           onKeyDown={handleDrawerToggle(false)}
           role="presentation"
         >
@@ -64,6 +70,7 @@ const MainTemplate = () => {
           <AddBoard />
           <StyledBoardList />
         </StyledDrawerContainer>
+        <StyledSettingsMenu />
       </Drawer>
       <StyledMain>
         <Container maxWidth="xl">
