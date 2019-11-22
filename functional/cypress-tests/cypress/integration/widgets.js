@@ -4,7 +4,7 @@ let example = Widgets.example
 let dashboardName = 'Welcome to Cogboard';
 let widgetsKeys = Object.keys(Widgets);
 
-describe('Widgets', function() {
+describe('Widgets', () => {
 
     beforeEach(() => {
         cy.visit('/');
@@ -31,7 +31,7 @@ describe('Widgets', function() {
         });
     };
 
-    it('Example widget persistence', () =>{
+    it('Example widget persistence', () => {
         cy.fillNewWidgetGeneral(example.name, example.name, false, false, 4, 2);
         fillDynamicTab(example.name);
         cy.confirmAddWidget();

@@ -1,6 +1,6 @@
 import {dashboardNameGen, columnEdgeValues, switchIntervalEdgeValues, dashboardNames} from '../fixtures/Dashboard'
 
-describe('Basic Dashboard CRUD', function() {
+describe('Basic Dashboard CRUD', () => {
     let dashboardName = dashboardNameGen();
     let editDashboardName = dashboardNameGen("Edit");
     
@@ -9,11 +9,11 @@ describe('Basic Dashboard CRUD', function() {
         cy.login();
     })
 
-    it('Logged user can add new dashboard', function () {
+    it('Logged user can add new dashboard', () => {
         cy.addDashboard(dashboardName);
     });
 
-    it('Logged user can choose dashboard', function() {
+    it('Logged user can choose dashboard', () => {
         cy.addDashboard(dashboardName);
         cy.contains('[data-cy="board-card"]', dashboardName)
             .click();
@@ -21,7 +21,7 @@ describe('Basic Dashboard CRUD', function() {
             .should('exist');
     });
 
-    it('Anonymous user can choose dashboard', function() {
+    it('Anonymous user can choose dashboard', () => {
         cy.addDashboard(dashboardName);
         cy.closeDrawer();
         cy.logout();
@@ -33,7 +33,7 @@ describe('Basic Dashboard CRUD', function() {
             .should('exist');
     });
 
-    it('Logged user can edit dashboard', function() {
+    it('Logged user can edit dashboard', () => {
         cy.addDashboard(dashboardName);
         cy.contains('[data-cy="board-card"]', dashboardName)
             .find('[data-cy="board-card-edit-button"]')
@@ -49,26 +49,28 @@ describe('Basic Dashboard CRUD', function() {
             .should('is.visible');
     });
 
-    it('Logged user can remove dashboard', function() {
+    it('Logged user can remove dashboard', () => {
         cy.addDashboard(dashboardName);
         cy.contains('[data-cy="board-card"]', dashboardName)
             .find('[data-cy="board-card-delete-button"]')
             .scrollIntoView()
-            .click(); //TODO add confirmation popup
+            .click();
+        cy.get('[data-cy="confirmation-dialog-ok"]')
+            .click();
         cy.contains('[data-cy="board-card"]', dashboardName)
             .should('not.exist');
     });
 
 });
 
-describe('Dashboard Persistence', function() {
+describe('Dashboard Persistence', () => {
     
     beforeEach(() => {
         cy.visit('/');
         cy.login();
     })
 
-    it('Not saved dashboard isn\'t displayed after refresh ', function() {
+    it('Not saved dashboard isn\'t displayed after refresh ', () => {
         let name = dashboardNameGen();
         cy.addDashboard(name);
         cy.visit('/');
@@ -78,7 +80,7 @@ describe('Dashboard Persistence', function() {
             .should('not.visible'); 
     });
 
-    it('Saved dashboard is displayed after refresh', function() {
+    it('Saved dashboard is displayed after refresh', () => {
         let name = dashboardNameGen();
         cy.addDashboard(name);
         cy.saveState();
@@ -92,12 +94,14 @@ describe('Dashboard Persistence', function() {
             .find('[data-cy="board-card-delete-button"]')
             .scrollIntoView()
             .click();
+        cy.get('[data-cy="confirmation-dialog-ok"]')
+            .click();
         cy.saveState();
     });
 
 });
 
-describe('Dashboard Frontend Validation', function() {
+describe('Dashboard Frontend Validation', () => {
     
     beforeEach(() => {
         cy.visit('/');
@@ -106,39 +110,37 @@ describe('Dashboard Frontend Validation', function() {
 
     it(' For empty dashboard name is displayed and submit is impossible', () => {
         cy.addDashboard(' ', '4', '10', true);
-        cy.contains('li', 'Title cannot be empty')
-            .should('is.visible');
-        cy.contains('li', 'Title is a required field')
+        cy.get('[data-cy="board-form-title-input-error"]')
             .should('is.visible');
     })
 
-    dashboardNames.forEach(function(value) {
+    dashboardNames.forEach((value) => {
         it(` For too long dashboard name is displayed and submit is impossible. Length: ${value.length}`, () => {
             cy.addDashboard(value, '8', '10', true);
             if (value.length > 25) {
-                cy.contains('li', 'Title length must be less than or equal to 25')
+                cy.contains('[data-cy="board-form-title-input-error"]', 'Title length')
                     .should('is.visible');
             } else {
-                cy.contains('li', 'Title length must be less than or equal to 25')
+                cy.get('[data-cy="board-form-title-input-error"]')
                     .should('not.visible');
             }
         })
     })
 
-    columnEdgeValues.forEach(function(value) {
+    columnEdgeValues.forEach((value) => {
         it(` For Columns input is displayed and submit is impossible for incorrect values. Edge value : ${value}`, () => {
             cy.addDashboard(dashboardNameGen(), value, '10', true);
             if (value == '3' || value == '21') {
-                cy.get('[data-cy="board-form-columns-error"]')
+                cy.get('[data-cy="board-form-columns-input-error"]')
                     .should('is.visible')
             } else {
-                cy.get('[data-cy="board-form-columns-error"]')
+                cy.get('[data-cy="board-form-columns-input-error"]')
                     .should('not.visible')
             }
         })
     })
 
-    switchIntervalEdgeValues.forEach(function(value) {
+    switchIntervalEdgeValues.forEach((value) => {
         it(` For Switch Interval input is displayed and submit is impossible for incorrect values. Edge value: ${value}`, () => {
             cy.addDashboard(dashboardNameGen(), '8', value, true);
             if (value == '2') {
