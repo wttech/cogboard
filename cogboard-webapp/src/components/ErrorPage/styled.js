@@ -8,5 +8,5 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   border-bottom: 2px solid;
   padding-bottom: 4px;
-  border-color: #ff8a65;
+  border-color: #198cdb;
 `;

@@ -7,7 +7,7 @@ import { clearLoginErrorMessage } from '../../actions/actionCreators';
 import { getIsAuthenticated } from '../../selectors';
 
 import { Button, IconButton, TextField, Typography } from '@material-ui/core';
-import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
+import { StyledAccountCircle, StyledPowerSettingsNew } from './styled';
 import AppDialog from './../AppDialog';
 import { StyledFieldset } from '../styled';
 import { getCredentials } from './helpers';
@@ -58,7 +58,7 @@ const UserLogin = () => {
           edge="start"
           data-cy="user-login-login-icon"
         >
-          <AccountCircle />
+          <StyledAccountCircle />
         </IconButton>
       )}
       {isAuthenticated && (
@@ -69,7 +69,7 @@ const UserLogin = () => {
           edge="start"
           data-cy="user-login-logout-icon"
         >
-          <PowerSettingsNew />
+          <StyledPowerSettingsNew />
         </IconButton>
       )}
       <AppDialog

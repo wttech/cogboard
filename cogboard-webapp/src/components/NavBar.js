@@ -20,8 +20,16 @@ const StyledBoardSwitcher = styled(BoardSwitcher)`
 `;
 
 const StyledAppBar = styled(AppBar)`
-  background-color: #211f39;
+  background-color: #fff;
   box-shadow: none;
+`;
+
+const StyledDashboardRounded = styled(DashboardRounded)`
+  color: #198cdb;
+`;
+
+const StyledUserLogin = styled(UserLogin)`
+  color: #198cdb;
 `;
 
 const StyledToolbar = styled(Toolbar)`
@@ -49,7 +57,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             edge="start"
             data-cy="navbar-show-drawer-button"
           >
-            <DashboardRounded />
+            <StyledDashboardRounded />
           </IconButton>
           <UserLogin />
           {!noBoardsFound && (
@@ -62,6 +70,15 @@ const NavBar = ({ handleDrawerToggle }) => {
               {title}
             </StyledTitle>
           )}
+          <StyledUserLogin />
+          <StyledTitle
+            component="h2"
+            variant="h3"
+            theme={theme}
+            data-cy="navbar-title-header"
+          >
+            {title}
+          </StyledTitle>
           <StyledBoardSwitcher />
         </StyledToolbar>
       </Container>

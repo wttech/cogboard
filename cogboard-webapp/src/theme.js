@@ -1,31 +1,32 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { amber, blue, green, red } from '@material-ui/core/colors/index';
 
-const gradientAngle = 45;
-
-const createGradient = (start, end) =>
-  `linear-gradient(${gradientAngle}deg, ${start}, ${end})`;
-
 export const theme = createMuiTheme({
   palette: {
     type: 'dark',
+    primary: {
+      main: '#198CDB'
+    },
+    secondary: {
+      main: '#1C2630'
+    },
     background: {
-      default: '#211F39',
-      paper: '#26243E',
+      default: '#fff',
+      paper: '#1C2630',
       board: {
-        card: '#5c6bc0',
-        dragged: '#353b61'
+        card: '#198CDB',
+        dragged: '#bbdefb'
       }
     },
     status: {
       UNKNOWN: '#26243E',
-      OK: createGradient('#519657', '#81c784'),
-      IN_PROGRESS: createGradient('#009faf', '#4dd0e1'),
-      UNSTABLE: createGradient('#c75b39', '#ff8a65'),
-      ERROR_CONNECTION: createGradient('#af4448', '#e57373'),
-      ERROR_CONFIGURATION: createGradient('#af4448', '#e57373'),
-      ERROR: createGradient('#af4448', '#e57373'),
-      FAIL: createGradient('#af4448', '#e57373')
+      OK: '#019430',
+      IN_PROGRESS: '#198CDB',
+      UNSTABLE: '#FF5219',
+      ERROR_CONNECTION: '#E1312F',
+      ERROR_CONFIGURATION: '#E1312F',
+      ERROR: '#E1312F',
+      FAIL: '#E1312F'
     },
     snackbarVariant: {
       info: blue[100],
@@ -35,7 +36,7 @@ export const theme = createMuiTheme({
     }
   },
   shape: {
-    borderRadius: 10
+    borderRadius: 0
   },
   typography: {
     h3: {

@@ -6,7 +6,7 @@ import { useToggle } from '../../hooks';
 import { saveData } from '../../actions/thunks';
 import { getIsAuthenticated } from '../../selectors';
 
-import { Container, Drawer, Fab } from '@material-ui/core';
+import { Container, Fab } from '@material-ui/core';
 import { Add, Save } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
 import AddWidget from '../AddWidget';
@@ -18,6 +18,7 @@ import Notifications from '../Notifications';
 import {
   StyledActions,
   StyledBoardList,
+  StyledDrawer,
   StyledDrawerContainer,
   StyledLogo,
   StyledMain,
@@ -53,7 +54,7 @@ const MainTemplate = () => {
   return (
     <>
       <NavBar handleDrawerToggle={handleDrawerToggle} />
-      <Drawer onClose={handleDrawerToggle(false)} open={drawerOpened}>
+      <StyledDrawer onClose={handleDrawerToggle(false)} open={drawerOpened}>
         <StyledDrawerContainer
           onClick={handleDrawerToggle(false)}
           onKeyDown={handleDrawerToggle(false)}
@@ -63,7 +64,7 @@ const MainTemplate = () => {
           <AddBoard />
           <StyledBoardList />
         </StyledDrawerContainer>
-      </Drawer>
+      </StyledDrawer>
       <StyledMain>
         <Container maxWidth="xl">
           <Router>

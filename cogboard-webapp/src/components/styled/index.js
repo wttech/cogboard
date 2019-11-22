@@ -63,9 +63,10 @@ export const StyledTitle = styled(Typography)`
   padding-right: 2rem;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: #1c2630;
 
   &::after {
-    background-color: #ff8a65;
+    background-color: #198cdb;
     content: '';
     display: block;
     height: 2px;
