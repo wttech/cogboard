@@ -4,9 +4,9 @@ Cypress.Commands.add('clickAddWidgetButton', () => {
 });
 
 Cypress.Commands.add('fillNewWidgetGeneral', (type = "Text", title = "Text Title", newLine = false, disabled = false, columns = 2, rows = 4) => {
-    cy.get('#select-type')
+    cy.get('[data-cy="widget-form-type-input"]')
         .click();
-    cy.contains('[data-cy="widget-type-select-item"]', type)
+    cy.contains('li', type)
         .click();
     if ((type !== "Checkbox") && (type !== "Default")) {
         cy.contains('span', type)
@@ -30,7 +30,7 @@ Cypress.Commands.add('fillNewWidgetGeneral', (type = "Text", title = "Text Title
 });
 
 Cypress.Commands.add('fillSchedulePeriod', (value) => {
-    cy.get('[name="schedulePeriod"]')
+    cy.get('[data-cy="widget-form-schedule-period-input"]')
         .type('{selectall}' + value);
 });
 
