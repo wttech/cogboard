@@ -78,7 +78,9 @@ internal class BoardsConfigServiceTest {
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
         val contentRepository = ContentRepository("$boardPath/content")
-        val underTest = BoardsConfigService(boards(), contentRepository)
+        val boardConfig = "$boardPath/server-board-config.json"
+        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
+        val underTest = BoardsConfigService(storage, contentRepository)
 
         //when
         underTest.saveContent("testWidget", JsonObject().put("someKey", "someValue"))
