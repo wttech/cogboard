@@ -14,8 +14,8 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class CredentialsService(
-        private val storage: Storage,
-        private val config: JsonObject = credentials().loadConfig()
+    private val storage: Storage,
+    private val config: JsonObject = credentials().loadConfig()
 ) {
 
     fun loadConfig(): JsonObject = credentials().loadConfig()

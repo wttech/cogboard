@@ -1,7 +1,6 @@
 package com.cognifide.cogboard.storage
 
 import io.vertx.core.json.JsonObject
-import io.vertx.core.logging.LoggerFactory
 import java.io.File
 
 class ContentRepository(private val path: String = "/data/content") {
