@@ -14,6 +14,11 @@ script:
 - if [ "$RELEASE" = "1" ]; then ./gradlew release -Prelease.useAutomaticVersion=true
   --info; fi
 - if [ "$RELEASE" != "1" ]; then ./gradlew build; fi
+- bash scripts/runContainer.sh
+- cd functional/cypress-tests/
+- npm install
+- npx cypress run --browser chrome
+- cd ../../
 deploy:
 - provider: script
   script: bash scripts/release.sh
