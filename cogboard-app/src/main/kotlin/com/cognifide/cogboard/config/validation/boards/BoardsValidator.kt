@@ -4,21 +4,17 @@ import com.cognifide.cogboard.config.model.Board
 import com.cognifide.cogboard.config.model.Config
 import com.cognifide.cogboard.config.validation.Validator
 import com.fasterxml.jackson.databind.JsonMappingException
-import com.fasterxml.jackson.databind.MapperFeature
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.cognifide.cogboard.CogboardConstants as CC
 
 object BoardsValidator : Validator {
-
-    private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 
     override fun validate(config: String): Boolean =
             try {
                 val boardsConfig = mapper.readValue<Config>(config)
                 validateBoards(boardsConfig)
             } catch (error: JsonMappingException) {
-                logger.error(error.message)
+                logger.error("BoardsValidator: ${error.message}")
                 false
             }
 
