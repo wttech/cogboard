@@ -1,12 +1,17 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
-class BambooDeploymentWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
+class BambooDeploymentWidget(
+    vertx: Vertx,
+    config: JsonObject,
+    boardService: BoardsConfigService = BoardsConfigService()
+) : AsyncWidget(vertx, config, boardService) {
 
     private val idString: String = config.getString("idString", "")
 
@@ -54,7 +59,7 @@ class BambooDeploymentWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(ver
     }
 
     /** Patch up the case where `deploymentState` doesn't tell us anything useful */
-    private fun getStatus(result: JsonObject) : Widget.Status {
+    private fun getStatus(result: JsonObject): Widget.Status {
         val deploymentState = Widget.Status.from(result.getString("deploymentState"))
 
         if (deploymentState == Widget.Status.UNKNOWN) {

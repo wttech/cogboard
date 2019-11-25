@@ -20,7 +20,7 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     fun initForTest() {
         super.init()
 
-        underTest = BambooDeploymentWidget(vertx, initWidget())
+        underTest = BambooDeploymentWidget(vertx, initWidget(), initService())
     }
 
     @Test
