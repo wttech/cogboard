@@ -5,30 +5,21 @@ import com.cognifide.cogboard.config.model.Endpoints
 import com.cognifide.cogboard.config.service.CredentialsService
 import com.cognifide.cogboard.config.utils.JsonUtils.findById
 import com.cognifide.cogboard.config.validation.Validator
-import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.storage.VolumeStorageFactory.credentials
 import com.fasterxml.jackson.databind.JsonMappingException
-import com.fasterxml.jackson.databind.MapperFeature
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.vertx.core.json.JsonObject
-import io.vertx.core.logging.Logger
-import io.vertx.core.logging.LoggerFactory
 
 object EndpointsValidator : Validator {
 
-    private val LOGGER: Logger = LoggerFactory.getLogger(CredentialsValidator::class.java)
-
     private val credentialsService = CredentialsService(credentials())
-
-    private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 
     override fun validate(config: String): Boolean =
             try {
                 val endpoints = mapper.readValue<Endpoints>(config)
                 validateEndpoints(endpoints)
             } catch (error: JsonMappingException) {
-                LOGGER.error(error.message)
+                logger.error("EndpointsValidator: ${error.message}")
                 false
             }
 
@@ -44,7 +35,7 @@ object EndpointsValidator : Validator {
             val endpoint = mapper.readValue<Endpoint>(endpointJson.toString())
             validateEndpoint(endpoint)
         } catch (error: JsonMappingException) {
-            LOGGER.error(error.message)
+            logger.error("EndpointsValidator: ${error.message}")
             false
         }
     }
