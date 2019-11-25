@@ -8,6 +8,7 @@ before_script:
 - if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export
   RELEASE=1 && git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git;
   fi
+- if [[ "$TRAVIS_BRANCH" != ^master$ && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export DEV_BUILD=1; fi
 - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
 - if [ "$RELEASE" = "1" ]; then ./gradlew release -Prelease.useAutomaticVersion=true
@@ -22,7 +23,7 @@ deploy:
   script: bash scripts/dev_build.sh
   on:
     all_branches: true
-    condition: "$TRAVIS_EVENT_TYPE = push && $TRAVIS_BRANCH != ^master$"
+    condition: "$DEV_BUILD = 1"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
