@@ -3,8 +3,13 @@ import { string, number } from 'prop-types';
 
 import { Caption, WidgetButton } from '../../styled';
 
-const JenkinsJobWidget = props => {
-  const { duration, displayName, url, timestamp, branch } = props;
+const JenkinsJobWidget = ({
+  branch,
+  displayName,
+  duration,
+  timestamp,
+  url
+}) => {
   const ts = timestamp ? new Date(timestamp).toLocaleString() : '';
   const dur = duration ? `${duration / 1000} [s]` : '';
 

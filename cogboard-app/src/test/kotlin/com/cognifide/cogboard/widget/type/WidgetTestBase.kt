@@ -6,25 +6,27 @@ import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.config.validation.boards.BoardsValidator
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.VolumeStorage
-import com.cognifide.cogboard.TestHelper.Companion.readConfigFromResource as load
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.EventBus
 import io.vertx.core.json.JsonObject
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.mockito.ArgumentCaptor
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.eq
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations.initMocks
+import com.cognifide.cogboard.TestHelper.Companion.readConfigFromResource as load
 
-abstract class WidgetTestCommon {
+abstract class WidgetTestBase {
 
-    val successResponce: JsonObject
+    val successResponse: JsonObject
         get() = load("/com/cognifide/cogboard/widget/type/${widgetName()}/success.json")
 
-    val failResponce: JsonObject
+    val failResponse: JsonObject
         get() = load("/com/cognifide/cogboard/widget/type/${widgetName()}/fail.json")
 
-    val inProgressResponce: JsonObject
+    val inProgressResponse: JsonObject
         get() = load("/com/cognifide/cogboard/widget/type/${widgetName()}/in-progress.json")
 
     lateinit var captor: ArgumentCaptor<JsonObject>
@@ -43,9 +45,7 @@ abstract class WidgetTestCommon {
 
     abstract fun widgetName(): String
 
-
-    fun initWidget(): JsonObject = JsonObject().put("id", "widget-ID")
-
+    open fun initWidget(): JsonObject = JsonObject().put("id", "widget-ID")
 
     fun initService(): BoardsConfigService {
         val boardPath = JenkinsJobWidgetTest::class.java.getResource("/board").path
@@ -54,6 +54,7 @@ abstract class WidgetTestCommon {
         val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
         return BoardsConfigService(storage, contentRepository)
     }
+
 
     fun captureWhatIsSent(eventBus: EventBus, captor: ArgumentCaptor<JsonObject>): Pair<JsonObject, JsonObject> {
         verify(eventBus).send(eq("cogboard.websocket.message"), captor.capture())
@@ -64,23 +65,7 @@ abstract class WidgetTestCommon {
         assertEquals(expected, result.getString(CogboardConstants.PROP_STATUS))
     }
 
-    fun assertDuration(expected: Long, result: JsonObject) {
-        assertEquals(expected, result.getLong("duration"))
-    }
-
-    fun assertDisplayName(expected: String, result: JsonObject) {
-        assertEquals(expected, result.getString("displayName"))
-    }
-
     fun assertURL(expected: String, result: JsonObject) {
         assertEquals(expected, result.getString(CogboardConstants.PROP_URL))
-    }
-
-    fun assertTimestamp(expected: Long, result: JsonObject) {
-        assertEquals(expected, result.getLong("timestamp"))
-    }
-
-    fun assertBranch(expected: String, result: JsonObject) {
-        assertEquals(expected, result.getString("branch"))
     }
 }

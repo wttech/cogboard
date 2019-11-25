@@ -21,7 +21,7 @@ class JenkinsJobWidget(
 
             if (lastBuild != null) {
                 sendSuccess(lastBuild)
-            } else sendUnknownResponceError()
+            } else sendUnknownResponseError()
         }
     }
 

@@ -3,8 +3,8 @@ package com.cognifide.cogboard.widget
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
-import java.util.TimerTask
 import java.util.Timer
+import java.util.TimerTask
 import kotlin.concurrent.timerTask
 import com.cognifide.cogboard.CogboardConstants as CC
 
@@ -72,7 +72,7 @@ abstract class BaseWidget(
         )
     }
 
-    fun sendUnknownResponceError() {
+    fun sendUnknownResponseError() {
         sendConfigurationError("Unknown Response")
     }
 
