@@ -18,7 +18,7 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
             val data = getData(responseBody)
             if (data.containsKey("msr")) {
                 sendSuccess(data)
-            } else sendUnknownResponceError()
+            } else sendUnknownResponseError()
         }
     }
 

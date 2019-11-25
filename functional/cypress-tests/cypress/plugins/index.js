@@ -8,16 +8,16 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 // promisified fs module
-const { readJson } = require('fs-extra');
-const { resolve } = require('path')
+const { readJson } = require("fs-extra");
+const { resolve } = require("path");
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
-function getConfigurationByFile (file) {
+function getConfigurationByFile(file) {
   if (file) {
-  const pathToConfigFile = resolve('cypress/', 'config', `${file}.json`)
+    const pathToConfigFile = resolve("cypress/", "config", `${file}.json`);
 
-  return readJson(pathToConfigFile)
+    return readJson(pathToConfigFile);
   }
 }
 
@@ -26,7 +26,7 @@ module.exports = (on, config) => {
   // `config` is the resolved Cypress config
 
   // accept a configFile value or use development by default
-  
+
   const file = config ? config.env.configFile : null;
-  return getConfigurationByFile(file)
-}
+  return getConfigurationByFile(file);
+};
