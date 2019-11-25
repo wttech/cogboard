@@ -20,13 +20,14 @@ script:
   - cd functional/cypress-tests/
   - npm install
   - npx cypress run --browser chrome
+  - cd ../../
 deploy:
   - provider: script
-    script: bash $HOME/scripts/release.sh
+    script: bash /scripts/release.sh
     on:
       condition: $RELEASE = 1
   - provider: script
-    script: bash $HOME/scripts/dev_build.sh
+    script: bash /scripts/dev_build.sh
     on:
       all_branches: true
       condition: $TRAVIS_EVENT_TYPE = push && $TRAVIS_BRANCH != ^master$
