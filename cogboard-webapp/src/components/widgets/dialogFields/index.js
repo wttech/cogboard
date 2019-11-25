@@ -43,7 +43,6 @@ const dialogFields = {
       string()
         .trim()
         .max(max, vm.STRING_LENGTH('Title', max))
-        .required(vm.FIELD_REQUIRED())
   },
   UniqueTitleField: {
     component: TextInput,

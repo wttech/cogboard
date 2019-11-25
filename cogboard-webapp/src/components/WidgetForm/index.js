@@ -133,7 +133,7 @@ WidgetForm.defaultProps = {
   columns: 1,
   goNewLine: false,
   rows: 1,
-  title: 'Default Widget',
+  title: '',
   type: 'DefaultWidget'
 };
 

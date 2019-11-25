@@ -121,7 +121,7 @@ const Widget = ({ id, index }) => {
       >
         <StyledCardHeader
           avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon />}
-          title={title}
+          title={title ? title : null}
           titleTypographyProps={{
             component: 'h3',
             variant: 'subtitle2',
