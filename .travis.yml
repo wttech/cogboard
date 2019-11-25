@@ -23,11 +23,11 @@ script:
   - cd ../../
 deploy:
   - provider: script
-    script: bash /scripts/release.sh
+    script: bash scripts/release.sh
     on:
       condition: $RELEASE = 1
   - provider: script
-    script: bash /scripts/dev_build.sh
+    script: bash scripts/dev_build.sh
     on:
       all_branches: true
       condition: $TRAVIS_EVENT_TYPE = push && $TRAVIS_BRANCH != ^master$
