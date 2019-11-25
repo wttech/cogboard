@@ -17,7 +17,9 @@ script:
   - if [ "$RELEASE" = "1" ]; then ./gradlew cogboardInit && ./gradlew release
     -Prelease.useAutomaticVersion=true --info; fi
   - if [ "$RELEASE" != "1" ]; then ./gradlew cogboardInit && ./gradlew build; bash scripts/runContainer.sh; fi
-  - cd functional/cypress-tests/ && npm test
+  - cd functional/cypress-tests/
+  - npm install --loglevel verbose
+  - npx cypress run --browser chrome
 deploy:
   - provider: script
     script: bash scripts/release.sh
