@@ -8,12 +8,8 @@ import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.vertx.core.json.JsonObject
-import io.vertx.core.logging.Logger
-import io.vertx.core.logging.LoggerFactory
 
 object CredentialsValidator : Validator {
-
-    private val LOGGER: Logger = LoggerFactory.getLogger(CredentialsValidator::class.java)
 
     private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 
@@ -22,7 +18,7 @@ object CredentialsValidator : Validator {
                 mapper.readValue<Credentials>(config)
                 true
             } catch (error: JsonMappingException) {
-                LOGGER.error(error.message)
+                logger.error(error.message)
                 false
             }
 
@@ -31,7 +27,7 @@ object CredentialsValidator : Validator {
             mapper.readValue<Credential>(credentialJson.toString())
             true
         } catch (error: JsonMappingException) {
-            LOGGER.error(error.message)
+            logger.error(error.message)
             false
         }
     }

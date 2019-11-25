@@ -6,12 +6,9 @@ import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import io.vertx.core.logging.Logger
-import io.vertx.core.logging.LoggerFactory
 
 object AdminsValidator : Validator {
 
-    private val LOGGER: Logger = LoggerFactory.getLogger(AdminsValidator::class.java)
     private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 
     override fun validate(config: String): Boolean =
@@ -19,7 +16,7 @@ object AdminsValidator : Validator {
                 val adminsConfig = mapper.readValue<Admins>(config)
                 validateAdmins(adminsConfig)
             } catch (error: JsonMappingException) {
-                LOGGER.error(error.message)
+                logger.error(error.message)
                 false
             }
 

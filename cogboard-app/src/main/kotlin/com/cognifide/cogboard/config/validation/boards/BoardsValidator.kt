@@ -7,13 +7,9 @@ import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import io.vertx.core.logging.Logger
-import io.vertx.core.logging.LoggerFactory
 import com.cognifide.cogboard.CogboardConstants as CC
 
 object BoardsValidator : Validator {
-
-    private val LOGGER: Logger = LoggerFactory.getLogger(BoardsValidator::class.java)
 
     private val mapper = jacksonObjectMapper().disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
 
@@ -22,7 +18,7 @@ object BoardsValidator : Validator {
                 val boardsConfig = mapper.readValue<Config>(config)
                 validateBoards(boardsConfig)
             } catch (error: JsonMappingException) {
-                LOGGER.error(error.message)
+                logger.error(error.message)
                 false
             }
 
@@ -33,7 +29,7 @@ object BoardsValidator : Validator {
         }
         val validationResult = BoardsValidationErrors(errors)
         return if (validationResult.hasErrors()) {
-            LOGGER.error(validationResult)
+            logger.error(validationResult)
             false
         } else {
             true
