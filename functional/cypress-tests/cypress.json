@@ -3,5 +3,6 @@
   "env": {
     "username": "admin",
     "password": "admin"
-  }
+  },
+  "video": false
 }
