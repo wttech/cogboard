@@ -3,7 +3,7 @@ import {dashboardNameGen, columnEdgeValues, switchIntervalEdgeValues, dashboardN
 describe('Basic Dashboard CRUD', function() {
     let dashboardName = dashboardNameGen();
     let editDashboardName = dashboardNameGen("Edit");
-    
+
     beforeEach(() => {
         cy.visit('/');
         cy.login();
@@ -62,7 +62,7 @@ describe('Basic Dashboard CRUD', function() {
 });
 
 describe('Dashboard Persistence', function() {
-    
+
     beforeEach(() => {
         cy.visit('/');
         cy.login();
@@ -75,7 +75,7 @@ describe('Dashboard Persistence', function() {
         cy.get('[data-cy="navbar-show-drawer-button"]')
             .click();
         cy.contains('[data-cy="board-card"]', name)
-            .should('not.visible'); 
+            .should('not.visible');
     });
 
     it('Saved dashboard is displayed after refresh', function() {
@@ -98,7 +98,7 @@ describe('Dashboard Persistence', function() {
 });
 
 describe('Dashboard Frontend Validation', function() {
-    
+
     beforeEach(() => {
         cy.visit('/');
         cy.login();

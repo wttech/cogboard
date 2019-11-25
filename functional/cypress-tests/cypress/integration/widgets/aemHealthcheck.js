@@ -2,7 +2,7 @@ import Widgets from '../../fixtures/Widgets'
 let aemHealthcheck = Widgets.aemHealthcheck
 let name = aemHealthcheck.name;
 
-function fillAemHealthcheck() {    
+function fillAemHealthcheck() {
     //Change selector (add data-cy in markup)
     cy.get('#select-endpoint')
         .click();

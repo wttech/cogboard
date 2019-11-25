@@ -2,7 +2,7 @@ import { renewConfig } from "./helpers";
 
 Cypress.Commands.add('openDrawer', () => {
     cy.get('[data-cy="navbar-show-drawer-button"]')
-        .click(); 
+        .click();
 });
 
 Cypress.Commands.add('closeDrawer', () => {
@@ -54,7 +54,7 @@ Cypress.Commands.add('renewDashboards', (username=Cypress.env("username"), passw
     .then((response) => {
         const loginBody = response.body.token.split(" ");
         const token = loginBody[1];
-        
+
         cy.request('http://localhost:8092/api/config')
             .then((response) => {
                 cy.fixture('reorderingConfig').then((reorderConfig) => {

@@ -26,7 +26,7 @@ module.exports = (on, config) => {
   // `config` is the resolved Cypress config
 
   // accept a configFile value or use development by default
-  
+
   const file = config ? config.env.configFile : null;
   return getConfigurationByFile(file)
 }

@@ -1,6 +1,11 @@
 package com.cognifide.cogboard.widget.type
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.config.validation.boards.BoardsValidator
+import com.cognifide.cogboard.storage.ContentRepository
+import com.cognifide.cogboard.storage.VolumeStorage
 import com.cognifide.cogboard.TestHelper.Companion.readConfigFromResource as load
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.EventBus
@@ -40,6 +45,15 @@ abstract class WidgetTestCommon {
 
 
     fun initWidget(): JsonObject = JsonObject().put("id", "widget-ID")
+
+
+    fun initService(): BoardsConfigService {
+        val boardPath = JenkinsJobWidgetTest::class.java.getResource("/board").path
+        val contentRepository = ContentRepository("$boardPath/content")
+        val boardConfig = "$boardPath/server-board-config.json"
+        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
+        return BoardsConfigService(storage, contentRepository)
+    }
 
     fun captureWhatIsSent(eventBus: EventBus, captor: ArgumentCaptor<JsonObject>): Pair<JsonObject, JsonObject> {
         verify(eventBus).send(eq("cogboard.websocket.message"), captor.capture())
