@@ -13,10 +13,6 @@ class VolumeStorage(
     private val validator: Validator
 ) : Storage {
 
-    init {
-        ConfigFileCreator.createIfDoesNotExist(path)
-    }
-
     override fun loadConfig() = loadConfig(configType, path, validator)
 
     override fun saveConfig(configJson: JsonObject): Boolean {
