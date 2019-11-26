@@ -16,7 +16,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
         boardsConfigService = BoardsConfigService()
         val allWidgets = boardsConfigService.getAllWidgets()
         sender = ConfirmationSender(vertx)
-        widgetRuntimeService = WidgetRuntimeService(vertx, config()).init(allWidgets)
+        widgetRuntimeService = WidgetRuntimeService(vertx).init(allWidgets)
 
         listenOnConfigSave()
         listenOnWidgetUpdate()

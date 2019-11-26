@@ -10,8 +10,7 @@ import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
 class WidgetRuntimeService(
-    private val vertx: Vertx,
-    private val endpoints: JsonObject
+    private val vertx: Vertx
 ) {
     private val widgets = mutableMapOf<String, Widget>()
 
@@ -53,7 +52,7 @@ class WidgetRuntimeService(
     private fun JsonObject.attachEndpoint() {
         val endpointId = this.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
-            val endpoint = EndpointLoader(endpoints).loadWithSensitiveData(endpointId)
+            val endpoint = EndpointLoader().loadWithSensitiveData(endpointId)
             this.put(CogboardConstants.PROP_ENDPOINT, endpoint)
         }
     }
