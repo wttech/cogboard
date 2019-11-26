@@ -3,10 +3,19 @@
 
 Tests in this part of the repository are testing UI of the CogBoard. Get to know helper functions available right now (and update them if needed).
 
+## Running tests
+### CLI
+`npm test` _(`npm install && npx cypress run --browser chrome`)_
+
+All specs will be launched. To run one spec only use: `npm test --spec path/to/spec.js`
+### GUI
+`npx cypress open`
 
 ## Contribution guide
 
+All cypress related commits should be done on branches starting with `automation/`
 ### Tasks to do
+...
 
 ### Coding conventions
 All tests should be written according to [Cypress.io Best Practices guide](https://docs.cypress.io/guides/references/best-practices.html "Best Practices | Cypress Documentation"). Read it before starting to contribute.
@@ -15,9 +24,13 @@ Additional project specific conventions:
 * For actions that have been already covered in other tests write `cy.request(...)` helper command to bypass UI and speed up the test execution time
   * Good example would be the Widget tests. Dashboard creation and dashboard removal steps are performed in each of those tests and take around 2.5s. If we have used API calls instead we would be lookng at `2.5s * numOfWidgets` time reduction.
 * Keep test data in separate files. i.e. `../fixtures/Widgets.js`
+* No test case dependencies. Each test's expected initial state should be either prepared manually or by `cy.request(...)` call before test starts.
+* Actions that impact on other specs (such as saving) should be kept in the same spec.
+* Repetitive tests should be written in iterative manner: i.e. `../integration/widgets.js` or FE validation tests in `../integration/dashboards.js`
 * ...
 
 ## Available helpers
+Use helpers below to minimize specfiles size. Keep in mind that some of those helpers require certain state of app to work correctly, make sure you learn their code.
 ### General
 `cy.saveState()` - Saves current state of the Dashboard
 
@@ -25,6 +38,7 @@ Additional project specific conventions:
 `cy.login()` - Log in with credentials specified in configuration file. - _Currently  `../cypress.json`_
 
 `cy.logout()` - Log out of the application
+
 ### Dashboard
 `cy.openDrawer()` - Open the Dashboard Drawer
 
