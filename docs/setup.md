@@ -21,14 +21,6 @@ Edit this file `mnt/endpoints.json`.
 Any sensitive data from `endpoints.json` file is never accessible for end-users. Only `id` and `title` can be requested.
 
 ## How to run
-
-#### Initialization step 
- 
-Execute below command once for initial configuration. This step will create required config files.
-```cmd
-./gradlew cogboardInit
-```
-
 #### Run
 Use below command to assemble and deploy Cogboard docker app.
 ```cmd
