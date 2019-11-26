@@ -11,4 +11,4 @@
 1. Go to `<bamboo_host>/allPlans.action`
 2. Click on plan from list
 3. Project page opens:
-   - In URL you will find `ID` number >> <bamboo_host>/browse/ `CSOI-SDFAPTAS`
+   - In URL you will find `ID` number >> <bamboo_host>/browse/CSOI-SDFAPTAS
