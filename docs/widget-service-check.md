@@ -5,6 +5,16 @@
 * `Request Method` - choose request method >> `GET | PUT | POST | DELETE`
 * `Endpoint` - choose service endpoint
 * `Path` - service url >> example: `/login`
-* `Request Body` - Required field for `PUT` and `POST` requests (format: `json`) >> example: `{ "user": "test", "password": "test" }`
+* `Request Body` - Optional field for `PUT` and `POST` requests (empty or in Json format >> example: `{ "user": "test", "password": "test" }`)
+* `Response body` - response body fragment that is expected for this service
 * `Expected Status Code` - status code that is expected for this service >> default: `200`
-* `Response body` - response body that is expected for this service
+
+#### Presentation
+ Widget displays:
+ * Expected status code in frame. If response status code is different it shows: ex. "200 EXPECTED, GOT 404"
+ * Response status:
+    * `MATCH` - response includes expected response fragment
+    * `NOT MATCH` - response not includes expected reponse fragment
+    * `OK` - when expeced response body remains empty
+ * Response body message - in a popover after hover a mouse over reponse status
+  
