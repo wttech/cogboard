@@ -52,25 +52,20 @@ const ServiceCheckWidget = props => {
           )}
         </WidgetButton>
       </Caption>
-
-      {expectedResponseBody && (
-        <>
-          <CaptionWithPointer title={body} onClick={handleClick}>
-            Response: {bodyMessage}
-          </CaptionWithPointer>
-          <Popover
-            open={popoverOpen}
-            onClose={handlePopoverClose}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left'
-            }}
-          >
-            <StyledPopoverText>{body}</StyledPopoverText>
-          </Popover>
-        </>
-      )}
+      <CaptionWithPointer title={body} onClick={handleClick}>
+        Response: {bodyMessage}
+      </CaptionWithPointer>
+      <Popover
+        open={popoverOpen}
+        onClose={handlePopoverClose}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left'
+        }}
+      >
+        <StyledPopoverText>{body}</StyledPopoverText>
+      </Popover>
     </>
   );
 };
