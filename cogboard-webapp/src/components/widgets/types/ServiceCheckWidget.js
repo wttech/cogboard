@@ -25,8 +25,11 @@ const ServiceCheckWidget = props => {
   const statusCodeMessage = errorStatus
     ? `${expectedStatusCode} expected, got ${statusCode}`
     : statusCode;
-  const errorBody = !expectedResponseBody && expectedResponseBody !== body;
-  const bodyMessage = errorBody ? 'FAIL' : 'OK';
+  const bodyMessage = !expectedResponseBody
+    ? 'OK'
+    : body.includes(expectedResponseBody)
+    ? 'MATCH'
+    : 'NO MATCH';
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);

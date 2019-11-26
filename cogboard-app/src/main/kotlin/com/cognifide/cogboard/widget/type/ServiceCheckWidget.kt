@@ -19,6 +19,7 @@ import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.netty.util.internal.StringUtil.EMPTY_STRING
 import io.vertx.core.Vertx
+import io.vertx.core.json.DecodeException
 import io.vertx.core.json.JsonObject
 
 class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
@@ -33,14 +34,28 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
 
     override fun updateState() {
         if (urlToCheck.isNotBlank()) {
-            when (requestMethod) {
-                REQUEST_METHOD_GET -> httpGet(url = urlToCheck)
-                REQUEST_METHOD_PUT -> httpPut(url = urlToCheck, body = JsonObject(requestBody))
-                REQUEST_METHOD_POST -> httpPost(url = urlToCheck, body = JsonObject(requestBody))
-                REQUEST_METHOD_DELETE -> httpDelete(url = urlToCheck)
+            if (requestMethod == REQUEST_METHOD_GET) {
+                httpGet(url = urlToCheck)
+            } else if (requestMethod == REQUEST_METHOD_DELETE) {
+                httpDelete(url = urlToCheck)
+            } else {
+                handlePostPut()
             }
         } else {
             sendConfigurationError("Public URL or Path is blank")
+        }
+    }
+
+    private fun handlePostPut() {
+        try {
+            val body = if (requestBody.isNotBlank()) JsonObject(requestBody) else JsonObject()
+            if (requestMethod == REQUEST_METHOD_PUT) {
+                httpPut(url = urlToCheck, body = body)
+            } else if (requestMethod == REQUEST_METHOD_POST) {
+                httpPost(url = urlToCheck, body = body)
+            }
+        } catch (e: DecodeException) {
+            sendConfigurationError("Invalid request body.")
         }
     }
 
