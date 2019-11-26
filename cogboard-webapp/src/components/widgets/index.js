@@ -85,7 +85,7 @@ const widgetTypes = {
     }
   },
   BambooDeploymentWidget: {
-    name: 'Bamboo Environment Deployment',
+    name: 'Bamboo Deployment',
     component: BambooDeploymentWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
     showUpdateTime: true,

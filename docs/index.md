@@ -20,6 +20,7 @@
 ### Widgets:
 
 - [AEM Healthcheck](./widget-aem-healtcheck)
+- [Bamboo Deploy](./widget-bamboo-deploy)
 - [Bamboo Plan](./widget-bamboo-plan)
 - [Iframe Embed](./widget-iframe-embed)
 - [Jenkins Job](./widget-jenkins-job)
