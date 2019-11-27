@@ -1,7 +1,6 @@
 package com.cognifide.cogboard.security
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.storage.VolumeStorageFactory
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -15,16 +14,14 @@ import io.vertx.reactivex.ext.web.RoutingContext
 
 class LoginHandler : RoutingHandlerFactory {
 
-    private var vertx: Vertx? = null
-    private var admins: MutableMap<String, String> = mutableMapOf()
-    private lateinit var config: JsonObject
+    var vertx: Vertx? = null
+    var admins: MutableMap<String, String> = mutableMapOf()
 
     override fun getName(): String = "login-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> {
         this.vertx = vertx
-        this.config = config ?: JsonObject()
-        loadAdmins(VolumeStorageFactory.admins().loadConfig().getJsonArray("admins") ?: JsonArray())
+        loadAdmins(config?.getJsonArray("admins") ?: JsonArray())
         val wrongUserMsg = config?.getString("wrongUserMsg") ?: "Please, enter correct Username"
         val wrongPassMsg = config?.getString("wrongPassMsg") ?: "Please, enter correct Password"
 
@@ -67,10 +64,9 @@ class LoginHandler : RoutingHandlerFactory {
 
     private fun generateJWT(username: String): String {
         val keyStore = KeyStoreOptions()
-                .setType(config.getString("type", "jceks"))
-                .setPath(config.getString("path", "keystore.jceks"))
-                .setPassword(config.getString("password", "secret"))
-
+                .setType("jceks")
+                .setPath("keystore.jceks")
+                .setPassword("secret")
         val config = JWTAuthOptions().setKeyStore(keyStore)
         val jwtAuth = JWTAuth.create(vertx, config)
 
@@ -82,6 +78,6 @@ class LoginHandler : RoutingHandlerFactory {
     }
 
     companion object {
-        private const val SESSION_DURATION_IN_SECONDS = 2 * 60 * 60 // hours * min * sec
+        private const val SESSION_DURATION_IN_SECONDS = 30 * 60
     }
 }

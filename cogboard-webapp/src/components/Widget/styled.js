@@ -3,7 +3,6 @@ import { bool, number, object, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import { mapStatusToColor } from './helpers';
-import { COLUMN_MULTIPLIER, ROW_MULTIPLIER } from '../../constants';
 
 import { Card, CardHeader, CardContent } from '@material-ui/core';
 
@@ -34,8 +33,8 @@ export const StyledCard = styled(
   display: flex;
   flex-direction: column;
   grid-column-start: ${({ goNewLine }) => goNewLine === true && 1};
-  grid-column-end: span ${({ columns }) => columns * COLUMN_MULTIPLIER};
-  grid-row-end: span ${({ rows }) => rows * ROW_MULTIPLIER};
+  grid-column-end: span ${({ columns }) => columns};
+  grid-row-end: span ${({ rows }) => rows};
   position: relative;
 
   ${({ isDragging, isOver, theme }) =>

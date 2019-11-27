@@ -2,10 +2,9 @@ package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.widget.type.AemHealthcheckWidget
-import com.cognifide.cogboard.widget.type.BambooDeploymentWidget
+import com.cognifide.cogboard.widget.type.ExampleWidget
 import com.cognifide.cogboard.widget.type.BambooPlanWidget
 import com.cognifide.cogboard.widget.type.DefaultWidget
-import com.cognifide.cogboard.widget.type.ExampleWidget
 import com.cognifide.cogboard.widget.type.JenkinsJobWidget
 import com.cognifide.cogboard.widget.type.ServiceCheckWidget
 import com.cognifide.cogboard.widget.type.SonarQubeWidget
@@ -25,7 +24,6 @@ class WidgetIndex {
             JenkinsJobWidget::class.java.simpleName -> JenkinsJobWidget(vertx, config)
             SonarQubeWidget::class.java.simpleName -> SonarQubeWidget(vertx, config)
             ServiceCheckWidget::class.java.simpleName -> ServiceCheckWidget(vertx, config)
-            BambooDeploymentWidget::class.java.simpleName -> BambooDeploymentWidget(vertx, config)
             BambooPlanWidget::class.java.simpleName -> BambooPlanWidget(vertx, config)
             AemHealthcheckWidget::class.java.simpleName -> AemHealthcheckWidget(vertx, config)
             // add here

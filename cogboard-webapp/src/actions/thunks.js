@@ -65,18 +65,12 @@ export const login = credentials => dispatch => {
   );
 };
 
-export const logout = () => (dispatch, getState) => {
+export const logout = () => dispatch => {
   const userRole = getUserRole();
-  const {
-    app: { logoutReasonMessage }
-  } = getState();
 
   removeToken();
-
   dispatch(logoutUser());
-  dispatch(
-    pushNotification(NOTIFICATIONS.LOGOUT(userRole, logoutReasonMessage))
-  );
+  dispatch(pushNotification(NOTIFICATIONS.LOGOUT(userRole)));
 };
 
 const deleteBoardWithWidgetsThunk = id => (dispatch, getState) => {

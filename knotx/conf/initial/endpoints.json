@@ -1,0 +1,31 @@
+{
+  "credentials": [
+    {
+      "id": "credentials1",
+      "label": "My Credentials 1",
+      "password": "password",
+      "user": "user"
+    },
+    {
+      "id": "credentials2",
+      "label": "My Credentials 2",
+      "password": "password",
+      "user": "user"
+    }
+  ],
+  "endpoints": [
+    {
+      "credentials": "credentials1",
+      "id": "endpoint1",
+      "label": "My Endpoint 1",
+      "publicUrl": "My Public Url",
+      "url": "url"
+    },
+    {
+      "credentials": "credentials2",
+      "id": "endpoint2",
+      "label": "My Endpoint 2",
+      "url": "url"
+    }
+  ]
+}

@@ -9,19 +9,17 @@ import {
   Checkbox,
   MenuItem,
   ListItemText,
-  Select,
-  FormHelperText
+  Select
 } from '@material-ui/core';
-
 import { StyledFormControl } from './../../styled';
-import { hasError } from '../../../helpers';
 
-const SonarQubeMetricsInput = ({ onChange, value, error, dataCy }) => {
-  const inputId = 'sonarqube-metrics-input';
+const SonarQubeMetricsInput = props => {
+  const { onChange, value } = props;
   const theme = useTheme();
+  const inputId = 'sonarqube-metrics-input';
 
   return (
-    <StyledFormControl error={hasError(error)} theme={theme}>
+    <StyledFormControl theme={theme}>
       <InputLabel htmlFor={inputId}>Metrics</InputLabel>
       <Select
         multiple
@@ -29,7 +27,6 @@ const SonarQubeMetricsInput = ({ onChange, value, error, dataCy }) => {
         onChange={onChange}
         input={<Input id={inputId} />}
         renderValue={value => `${value.length} selected`}
-        data-cy={dataCy}
       >
         {ALL_SONARQUBE_METRICS.map(name => (
           <MenuItem key={name} value={name}>
@@ -38,7 +35,6 @@ const SonarQubeMetricsInput = ({ onChange, value, error, dataCy }) => {
           </MenuItem>
         ))}
       </Select>
-      {hasError(error) && <FormHelperText>{error}</FormHelperText>}
     </StyledFormControl>
   );
 };

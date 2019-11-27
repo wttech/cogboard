@@ -1,17 +1,12 @@
 package com.cognifide.cogboard.widget.type
 
-import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
-class JenkinsJobWidget(
-    vertx: Vertx,
-    config: JsonObject,
-    boardService: BoardsConfigService = BoardsConfigService()
-) : AsyncWidget(vertx, config, boardService) {
+class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val path: String = config.getString("path", "")
 
@@ -21,7 +16,7 @@ class JenkinsJobWidget(
 
             if (lastBuild != null) {
                 sendSuccess(lastBuild)
-            } else sendUnknownResponseError()
+            } else sendUnknownResponceError()
         }
     }
 

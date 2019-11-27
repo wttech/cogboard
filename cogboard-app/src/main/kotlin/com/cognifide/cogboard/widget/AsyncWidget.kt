@@ -1,7 +1,6 @@
 package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.service.BoardsConfigService
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
@@ -10,11 +9,7 @@ import io.vertx.core.json.JsonObject
  * Async widget class for extending - use this class if your new widget needs to call
  * some 3rd party endpoints to gather data.
  */
-abstract class AsyncWidget(
-    vertx: Vertx,
-    config: JsonObject,
-    boardService: BoardsConfigService = BoardsConfigService()
-) : BaseWidget(vertx, config, boardService) {
+abstract class AsyncWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
 
     val user: String = config.endpointProp("user")
     val password: String = config.endpointProp("password")

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Checkbox, FormControlLabel } from '@material-ui/core';
 
-const CheckboxInput = ({ value, onChange, dataCy, ...other }) => (
+const CheckboxInput = ({ value, onChange, ...other }) => (
   <FormControlLabel
-    control={<Checkbox checked={value} onChange={onChange} data-cy={dataCy} />}
+    control={<Checkbox checked={value} onChange={onChange} />}
     {...other}
   />
 );

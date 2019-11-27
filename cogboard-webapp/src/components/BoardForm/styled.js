@@ -1,7 +1,16 @@
 import styled from '@emotion/styled/macro';
 
-import CancelButton from '../CancelButton';
+import { FormControl } from '@material-ui/core';
+import ValidationMessages from '../ValidationMessages';
 
-export const StyledCancelButton = styled(CancelButton)`
-  margin-left: 20px;
+export const StyledFieldset = styled(FormControl)`
+  display: flex;
+  margin-bottom: 32px;
+  min-width: 300px;
+`;
+
+export const StyledValidationMessages = styled(ValidationMessages)`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 `;

@@ -14,7 +14,7 @@ class UpdateEndpoints : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         vertx
                 ?.eventBus()
-                ?.publish(CogboardConstants.EVENT_UPDATE_ENDPOINTS, event.bodyAsJson)
+                ?.publish(CogboardConstants.EVENT_UPDATE_ENDPOINTS_CONFIG, event.bodyAsJson)
         event
                 .response()
                 .end(config?.getJsonObject("body", CogboardConstants.errorResponse())?.encode())

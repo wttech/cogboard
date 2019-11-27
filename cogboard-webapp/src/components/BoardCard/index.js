@@ -16,16 +16,10 @@ import { Delete, Edit } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
 import EditBoard from '../EditBoard';
 import { StyledCard, StyledCardActions } from './styled';
-import ConfirmationDialog from '../ConfirmationDialog';
 
 const BoardCard = ({ boardData, index, className }) => {
   const { autoSwitch, columns, id, switchInterval, title } = boardData;
   const [open, openDialog, handleDialogClose] = useToggle();
-  const [
-    confirmationDialogOpened,
-    openConfirmationDialog,
-    closeConfirmationDialog
-  ] = useToggle();
   const dispatch = useDispatch();
   const theme = useTheme();
   const isAuthenticated = useSelector(getIsAuthenticated);
@@ -87,12 +81,7 @@ const BoardCard = ({ boardData, index, className }) => {
 
   const handleDeleteClick = event => {
     event.stopPropagation();
-    openConfirmationDialog();
-  };
-
-  const deleteBoard = () => {
     dispatch(deleteBoardWithWidgets(id));
-    closeConfirmationDialog();
   };
 
   return (
@@ -152,14 +141,6 @@ const BoardCard = ({ boardData, index, className }) => {
           title={title}
         />
       </AppDialog>
-      <ConfirmationDialog
-        open={confirmationDialogOpened}
-        title={`Delete ${title}`}
-        content={`Are you sure you want to delete ${title}?`}
-        handleOk={deleteBoard}
-        labelOk="Delete"
-        handleCancel={closeConfirmationDialog}
-      />
     </div>
   );
 };

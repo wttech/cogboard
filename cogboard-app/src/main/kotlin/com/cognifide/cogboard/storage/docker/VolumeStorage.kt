@@ -1,0 +1,85 @@
+package com.cognifide.cogboard.storage.docker
+
+import com.cognifide.cogboard.storage.Storage
+import io.vertx.core.Vertx
+import io.vertx.core.json.JsonObject
+import io.vertx.core.logging.Logger
+import io.vertx.core.logging.LoggerFactory
+import java.io.File
+import com.cognifide.cogboard.CogboardConstants as CC
+
+class VolumeStorage(val vertx: Vertx) : Storage {
+    private val loader = Loader()
+
+    override fun loadBoardsConfig(): JsonObject {
+        return loader.loadBoardsConfig()
+    }
+
+    override fun saveBoardsConfig(config: JsonObject) {
+        if (Validation.validate(config)) {
+            File(BOARDS_CONFIG_FILE_PATH).writeText(config.toString())
+            vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, JsonObject().message(OK_MESSAGE))
+        } else {
+            vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, JsonObject().message(ERROR_MESSAGE))
+            LOGGER.error("$ERROR_MESSAGE \nconfig:\n$config")
+        }
+    }
+
+    override fun loadEndpointsConfig(): JsonObject {
+        return loader.loadEndpointsConfig()
+    }
+
+    override fun saveEndpointsConfig(config: JsonObject) {
+        if (validateEndpoints(config)) {
+            File(ENDPOINTS_CONFIG_FILE_PATH).writeText(config.toString())
+            vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, JsonObject().message(OK_MESSAGE))
+        } else {
+            vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, JsonObject().message(ERROR_MESSAGE))
+            LOGGER.error("$ERROR_MESSAGE \nconfig:\n$config")
+        }
+    }
+
+    private fun JsonObject.message(message: String): JsonObject {
+        return this
+                .put(CC.PROP_EVENT_TYPE, PROP_EVENT_TYPE_NOTIFICATION_CONFIG_SAVE)
+                .put("message", message)
+    }
+
+    class Loader : Storage {
+
+        override fun loadBoardsConfig(): JsonObject {
+            val conf = File(BOARDS_CONFIG_FILE_PATH).readText()
+            val configJson = JsonObject(conf)
+            return if (Validation.validate(configJson)) configJson
+                   else CC.errorResponse("Config not valid")
+        }
+
+        override fun saveBoardsConfig(config: JsonObject) {
+            throw NotImplementedError()
+        }
+
+        override fun loadEndpointsConfig(): JsonObject {
+            val conf = File(ENDPOINTS_CONFIG_FILE_PATH).readText().trimIndent()
+            val configJson = JsonObject(conf)
+            return if (validateEndpoints(configJson)) configJson
+                   else CC.errorResponse("Endpoints config not valid")
+        }
+
+        override fun saveEndpointsConfig(config: JsonObject) {
+            throw NotImplementedError()
+        }
+    }
+
+    companion object {
+        const val OK_MESSAGE = "Configuration saved"
+        const val ERROR_MESSAGE = "Configuration not saved - wrong configuration"
+        const val PROP_EVENT_TYPE_NOTIFICATION_CONFIG_SAVE = "notification-config-save"
+        private const val BOARDS_CONFIG_FILE_PATH = "/data/config.json"
+        private const val ENDPOINTS_CONFIG_FILE_PATH = "/data/endpoints.json"
+        private val LOGGER: Logger = LoggerFactory.getLogger(VolumeStorage::class.java)
+
+        private fun validateEndpoints(config: JsonObject): Boolean {
+            return config.getJsonArray("endpoints") != null
+        }
+    }
+}

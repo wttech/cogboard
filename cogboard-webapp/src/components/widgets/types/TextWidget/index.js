@@ -1,53 +1,16 @@
-import React, { useRef } from 'react';
-import { useSize } from 'react-hook-size';
+import React from 'react';
 import { bool, string } from 'prop-types';
 
-import {
-  TypographyVariant,
-  CenterWrapper,
-  StyledPre,
-  RotatedStyledPre,
-  OverflowingText,
-  SetWidth
-} from './styled';
-
-export const ModifiedWidth = (component, height) => {
-  if (height) {
-    return SetWidth(component, height);
-  }
-
-  return component;
-};
-
-const TruncatedText = ({ isVertical, parentDimensions, children }) => {
-  let TruncatedPre = null;
-
-  if (isVertical && parentDimensions !== null) {
-    const { height } = parentDimensions;
-    const ModifiedPre = ModifiedWidth(RotatedStyledPre, height);
-    TruncatedPre = OverflowingText(ModifiedPre);
-  } else {
-    TruncatedPre = OverflowingText(StyledPre);
-  }
-
-  return <TruncatedPre>{children}</TruncatedPre>;
-};
+import { Typography } from '@material-ui/core';
+import { StyledPre, VerticalText } from './styled';
 
 const TextWidget = ({ text, textSize, isVertical }) => {
-  const targetRef = useRef();
-  const centerWrapperDimensions = useSize(targetRef);
+  const TextVariant = isVertical ? VerticalText : Typography;
 
   return (
-    <TypographyVariant variant={textSize}>
-      <CenterWrapper ref={targetRef}>
-        <TruncatedText
-          isVertical={isVertical}
-          parentDimensions={centerWrapperDimensions}
-        >
-          {text}
-        </TruncatedText>
-      </CenterWrapper>
-    </TypographyVariant>
+    <TextVariant variant={textSize}>
+      <StyledPre>{text}</StyledPre>
+    </TextVariant>
   );
 };
 

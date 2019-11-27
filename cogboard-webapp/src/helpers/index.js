@@ -34,5 +34,3 @@ export const parseYupErrors = errors => {
 };
 
 export const trimLeadingZeros = inputValue => String(parseInt(inputValue));
-
-export const hasError = error => error !== undefined;

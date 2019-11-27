@@ -1,4 +1,4 @@
-import { dataChanged, setLogoutReasonMessage } from './actionCreators';
+import { dataChanged } from './actionCreators';
 import { logout } from './thunks';
 import { isAuthenticated } from '../utils/auth';
 import { navigate } from '@reach/router';
@@ -100,7 +100,6 @@ export const mapDataToState = data => {
 
 export const withAuthentication = actionCallback => (...args) => dispatch => {
   if (!isAuthenticated()) {
-    dispatch(setLogoutReasonMessage('session expired'));
     dispatch(logout());
 
     return;
