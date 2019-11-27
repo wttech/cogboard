@@ -12,3 +12,5 @@
 2. Click on deployment from list
 3. Project page opens:
    - In URL you will find `ID` number >> <bamboo_host>/deploy/viewEnvironment.action?id=1234567
+   
+###### Tested on Bamboo v.6.1.1
