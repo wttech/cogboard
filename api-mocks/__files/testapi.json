@@ -1,0 +1,16 @@
+{
+  "builds": [
+      {
+          "build": {
+              "name": "SOME_BUILD",
+              "status": "OK"
+          }
+      },
+      {
+          "build": {
+              "name": "SOME_OTHER_BUILD",
+              "status": "FAILED"
+          }
+      }
+  ]
+}

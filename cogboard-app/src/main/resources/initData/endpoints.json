@@ -2,16 +2,16 @@
   "endpoints": [
     {
       "credentials": "credentials1",
-      "id": "endpoint1",
-      "label": "My Endpoint 1",
-      "publicUrl": "My Public Url",
-      "url": "url"
+      "id": "valid-endpoint",
+      "label": "Valid endpoint",
+      "publicUrl": "http://api-mocks:8080/testapi200",
+      "url": "http://api-mocks:8080/testapi200"
     },
     {
       "credentials": "credentials2",
-      "id": "endpoint2",
-      "label": "My Endpoint 2",
-      "url": "url"
+      "id": "invalid-endpoint",
+      "label": "Invalid endpoint",
+      "url": "http://api-mocks:8080/testapi500"
     }
   ]
 }

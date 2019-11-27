@@ -120,3 +120,52 @@ tasks.register("runFunctionalTest", Test::class) {
     finalizedBy(tasks.named("stopContainer"))
     include("**/*ITCase*")
 }
+
+
+tasks.register<Exec>("updateLocal") {
+    group = "docker"
+    commandLine = listOf("docker", "service", "update", "--force", "${project.name}-local_cogboard")
+}
+
+tasks.register<Exec>("updateMocks") {
+    group = "docker"
+    commandLine = listOf("docker", "service", "update", "--force", "${project.name}-local_api-mocks")
+}
+
+tasks.register<Exec>("initSwarm") {
+    group = "swarm"
+    commandLine = listOf("docker", "swarm", "init")
+    isIgnoreExitValue = true
+}
+
+tasks.register<Exec>("awaitLocalStackUndeployed") {
+    commandLine = listOf("docker", "network", "inspect", "${project.name}-local_cognet")
+    isIgnoreExitValue = true
+    errorOutput = java.io.ByteArrayOutputStream()
+    doLast {
+        if (errorOutput.toString().contains("Error: No such network")) {
+            //we are happy, since this network is down we can proceed
+        } else {
+            Thread.sleep(15 * 1000) // let's wait for better times
+        }
+    }
+    mustRunAfter("build")
+}
+
+tasks.register<Exec>("deployLocal") {
+    group = "swarm"
+    commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
+    dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed")
+    mustRunAfter("undeployLocal")
+}
+
+tasks.register<Exec>("undeployLocal") {
+    group = "swarm"
+    commandLine = listOf("docker", "stack", "rm", "${project.name}-local")
+    dependsOn("initSwarm")
+}
+
+tasks.register("redeployLocal") {
+    group = "swarm"
+    dependsOn("undeployLocal", "deployLocal")
+}
