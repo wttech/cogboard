@@ -34,7 +34,7 @@ export function fillExample() {
 };
 
 export function fillIframeEmbed() {
-    cy.get('[data-cy="widget-form-content.url-input"]')
+    cy.get('[data-cy="widget-form-iframe-url-input"]')
         .type(Widgets.iframeEmbed.url);
 };
 
@@ -74,43 +74,43 @@ export function fillSonarQube() {
 };
 
 export function fillText() {
-    cy.get('[data-cy="widget-form-content.text-input"]')
+    cy.get('[data-cy="widget-form-text-input"]')
         .type(Widgets.text.text);
-    cy.get('[data-cy="widget-form-content.text-size-input"]')
+    cy.get('[data-cy="widget-form-text-size-input"]')
         .click();
     //Change selector (add data-cy in markup)
     cy.get('[data-value="h3"]')
         .click();
     if (randomBoolean()) {
-        cy.get('[data-cy="widget-form-content.is-vertical-input"]')
+        cy.get('[data-cy="widget-form-is-vertical-input"]')
             .click();
     };
 };
 
 export function fillWorldClock() {
-    cy.get('[data-cy="widget-form-content.time-zone-id-input"]')
+    cy.get('[data-cy="widget-form-time-zone-id-input"]')
         .click();
     cy.contains(Widgets.worldClock.timezone)
         .click();
-    cy.get('[data-cy="widget-form-content.date-format-input"]')
+    cy.get('[data-cy="widget-form-date-format-input"]')
         .click();
     //Change selector (add data-cy in markup)
     cy.get(`[data-value="${Widgets.worldClock.dateFormat}"]`)
         .click();
-    cy.get('[data-cy="widget-form-content.time-format-input"]')
+    cy.get('[data-cy="widget-form-time-format-input"]')
         .click();
     //Change selector (add data-cy in markup)
     cy.get(`[data-value="${Widgets.worldClock.timeFormat}"]`)
         .click();
     if (randomBoolean()) {
-        cy.get('[data-cy="widget-form-content.display-date-input"]')
+        cy.get('[data-cy="widget-form-display-date-input"]')
             .click();
     }
     if (randomBoolean()) {
-        cy.get('[data-cy="widget-form-content.display-time-input"]')
+        cy.get('[data-cy="widget-form-display-time-input"]')
             .click();
     }
-    cy.get('[data-cy="widget-form-content.text-size-input"]')
+    cy.get('[data-cy="widget-form-text-size-input"]')
         .click();
     //Change selector (add data-cy in markup)
     cy.get(`[data-value="${Widgets.worldClock.textsize}"]`)
