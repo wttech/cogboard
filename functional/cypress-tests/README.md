@@ -9,7 +9,7 @@ Tests in this part of the repository are testing UI of the CogBoard. Get to know
 ### Tasks to do
 
 ### Coding conventions
-All tests should be written according to [Cypress.io Best Practices guide](https://docs.cypress.io/guides/references/best-practices.html, "Best Practices | Cypress Documentation"). Read it before starting to contribute.
+All tests should be written according to [Cypress.io Best Practices guide](https://docs.cypress.io/guides/references/best-practices.html "Best Practices | Cypress Documentation"). Read it before starting to contribute.
 
 Additional project specific conventions:
 * For actions that have been already covered in other tests write `cy.request(...)` helper command to bypass UI and speed up the test execution time

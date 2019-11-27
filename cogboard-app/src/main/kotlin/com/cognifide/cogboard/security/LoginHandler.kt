@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.security
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.storage.VolumeStorageFactory
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -14,14 +15,16 @@ import io.vertx.reactivex.ext.web.RoutingContext
 
 class LoginHandler : RoutingHandlerFactory {
 
-    var vertx: Vertx? = null
-    var admins: MutableMap<String, String> = mutableMapOf()
+    private var vertx: Vertx? = null
+    private var admins: MutableMap<String, String> = mutableMapOf()
+    private lateinit var config: JsonObject
 
     override fun getName(): String = "login-handler"
 
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> {
         this.vertx = vertx
-        loadAdmins(config?.getJsonArray("admins") ?: JsonArray())
+        this.config = config ?: JsonObject()
+        loadAdmins(VolumeStorageFactory.admins().loadConfig().getJsonArray("admins") ?: JsonArray())
         val wrongUserMsg = config?.getString("wrongUserMsg") ?: "Please, enter correct Username"
         val wrongPassMsg = config?.getString("wrongPassMsg") ?: "Please, enter correct Password"
 
@@ -64,9 +67,10 @@ class LoginHandler : RoutingHandlerFactory {
 
     private fun generateJWT(username: String): String {
         val keyStore = KeyStoreOptions()
-                .setType("jceks")
-                .setPath("keystore.jceks")
-                .setPassword("secret")
+                .setType(config.getString("type", "jceks"))
+                .setPath(config.getString("path", "keystore.jceks"))
+                .setPassword(config.getString("password", "secret"))
+
         val config = JWTAuthOptions().setKeyStore(keyStore)
         val jwtAuth = JWTAuth.create(vertx, config)
 

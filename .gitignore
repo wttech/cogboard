@@ -10,8 +10,6 @@ Thumbs.db
 ~*
 
 *.jar
-/knotx/conf/jwt.conf
-/mnt/admins.conf
 /mnt/*.json
 /mnt/*.backup
 /mnt/content/*.json
@@ -35,6 +33,7 @@ Thumbs.db
 **/.pnp
 .pnp.js
 cogboard-app/src/main/resources
+!cogboard-app/src/main/resources/initData
 !cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.RoutingHandlerFactory
 !cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.AuthHandlerFactory
 

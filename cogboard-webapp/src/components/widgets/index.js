@@ -4,6 +4,7 @@ import JenkinsJobWidget from './types/JenkinsJobWidget';
 import SonarQubeWidget from './types/SonarQubeWidget';
 import ServiceCheckWidget from './types/ServiceCheckWidget';
 import TextWidget from './types/TextWidget';
+import BambooDeploymentWidget from './types/BambooDeploymentWidget';
 import BambooPlanWidget from './types/BambooPlanWidget';
 import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
@@ -77,6 +78,15 @@ const widgetTypes = {
   BambooPlanWidget: {
     name: 'Bamboo Plan',
     component: BambooPlanWidget,
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
+  },
+  BambooDeploymentWidget: {
+    name: 'Bamboo Deployment',
+    component: BambooDeploymentWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
     showUpdateTime: true,
     validationConstraints: {

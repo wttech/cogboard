@@ -1,5 +1,5 @@
-describe('Login', function() {
-    it('Login form validations', function () {
+describe('Login', () => {
+    it('Login form validations', () => {
         cy.visit('/');
         cy.get('[data-cy="user-login-login-icon"]')
             .click();
@@ -18,17 +18,17 @@ describe('Login', function() {
         cy.get('[data-cy="user-login-error-messages"]')
             .should('be.visible');
     });
-    it('User can login', function() {
+    it('User can login', () => {
         cy.visit('/');
         cy.login();
     });
-    it('Widget edit options are enabled', function() {
+    it('Widget edit options are enabled', () => {
         cy.get('[data-cy="main-template-add-widget-button"]')
             .should('be.visible');
         cy.get('[data-cy="more-menu-button"]')
             .should('be.visible');
     });
-    it('Dashboard edit options are enabled', function() {
+    it('Dashboard edit options are enabled', () => {
         cy.get('[data-cy="navbar-show-drawer-button"]')
             .click();
         cy.get('[data-cy="add-board-add-button"]')
