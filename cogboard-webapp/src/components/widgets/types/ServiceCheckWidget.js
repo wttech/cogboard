@@ -25,8 +25,11 @@ const ServiceCheckWidget = props => {
   const statusCodeMessage = errorStatus
     ? `${expectedStatusCode} expected, got ${statusCode}`
     : statusCode;
-  const errorBody = !expectedResponseBody && expectedResponseBody !== body;
-  const bodyMessage = errorBody ? 'FAIL' : 'OK';
+  const bodyMessage = !expectedResponseBody
+    ? 'OK'
+    : body.includes(expectedResponseBody)
+    ? 'MATCH'
+    : 'NO MATCH';
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -49,25 +52,20 @@ const ServiceCheckWidget = props => {
           )}
         </WidgetButton>
       </Caption>
-
-      {expectedResponseBody && (
-        <>
-          <CaptionWithPointer title={body} onClick={handleClick}>
-            Response: {bodyMessage}
-          </CaptionWithPointer>
-          <Popover
-            open={popoverOpen}
-            onClose={handlePopoverClose}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left'
-            }}
-          >
-            <StyledPopoverText>{body}</StyledPopoverText>
-          </Popover>
-        </>
-      )}
+      <CaptionWithPointer title={body} onClick={handleClick}>
+        Response: {bodyMessage}
+      </CaptionWithPointer>
+      <Popover
+        open={popoverOpen}
+        onClose={handlePopoverClose}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left'
+        }}
+      >
+        <StyledPopoverText>{body}</StyledPopoverText>
+      </Popover>
     </>
   );
 };

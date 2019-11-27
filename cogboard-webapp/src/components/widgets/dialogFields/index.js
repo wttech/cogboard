@@ -269,7 +269,7 @@ const dialogFields = {
   RequestBody: {
     component: MultilineTextInput,
     name: 'body',
-    label: 'Request Body',
+    label: 'Request Body (Json format or empty)',
     validator: () => string()
   },
   ResponseBody: {
