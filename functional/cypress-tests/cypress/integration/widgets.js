@@ -11,7 +11,6 @@ describe('Widgets', () => {
         cy.login();
         cy.openDrawer();
         cy.chooseDashboard(dashboardName);
-        cy.removeWidget();
         cy.clickAddWidgetButton();
     });
 
