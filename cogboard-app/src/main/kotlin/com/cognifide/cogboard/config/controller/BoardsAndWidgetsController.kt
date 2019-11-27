@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.config.helper.BoardDeletionHelper
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.config.service.WidgetRuntimeService
 import io.vertx.core.AbstractVerticle
@@ -14,6 +15,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
 
     override fun start() {
         boardsConfigService = BoardsConfigService()
+        boardsConfigService.setDeletionHelper(BoardDeletionHelper(vertx))
         val allWidgets = boardsConfigService.getAllWidgets()
         sender = ConfirmationSender(vertx)
         widgetRuntimeService = WidgetRuntimeService(vertx).init(allWidgets)

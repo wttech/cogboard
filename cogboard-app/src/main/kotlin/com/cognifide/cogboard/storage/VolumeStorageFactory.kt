@@ -1,15 +1,15 @@
 package com.cognifide.cogboard.storage
 
 import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.config.ConfigType.ADMINS
 import com.cognifide.cogboard.config.ConfigType.BOARDS
 import com.cognifide.cogboard.config.ConfigType.CREDENTIALS
 import com.cognifide.cogboard.config.ConfigType.ENDPOINTS
-import com.cognifide.cogboard.config.ConfigType.ADMINS
 import com.cognifide.cogboard.config.validation.Validator
+import com.cognifide.cogboard.config.validation.admins.AdminsValidator
 import com.cognifide.cogboard.config.validation.boards.BoardsValidator
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
-import com.cognifide.cogboard.config.validation.admins.AdminsValidator
 import io.vertx.core.logging.LoggerFactory
 import java.io.File
 
@@ -49,7 +49,9 @@ object VolumeStorageFactory {
     }
 
     private fun createFile(configPath: String) {
-        val fileContent = VolumeStorageFactory::class.java.getResource("/initData/${configPath.substringAfterLast("/")}").readText()
+        val fileContent =
+            VolumeStorageFactory::class.java
+                .getResource("/initData/${configPath.substringAfterLast("/")}").readText()
         val file = File(configPath)
         file.writeText(fileContent)
         LOGGER.info("Configuration file $configPath")

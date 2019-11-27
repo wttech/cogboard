@@ -20,7 +20,7 @@ object AdminsValidator : Validator {
         if (config.admins.isEmpty()) {
             return false
         } else {
-            config.admins.forEach() { admin ->
+            config.admins.forEach { admin ->
                 if (admin.name.isEmpty() || admin.pass.isEmpty()) {
                     return false
                 }

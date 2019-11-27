@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CONTENT
+import com.cognifide.cogboard.config.helper.BoardDeletionHelper
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
@@ -12,8 +13,13 @@ class BoardsConfigService(
     private val storage: Storage = boards(),
     private val contentRepository: ContentRepository = ContentRepository()
 ) {
+    private var boardDeletionHelper: BoardDeletionHelper? = null
+
     fun saveBoardsConfig(boardsConfig: JsonObject): Boolean {
         val clearBoardsConfig = executeForWidgets(boardsConfig, this::clearContent)
+
+        handleDeletedBoards(boardsConfig)
+
         return storage.saveConfig(clearBoardsConfig)
     }
 
@@ -30,11 +36,16 @@ class BoardsConfigService(
         contentRepository.save(widgetId, content)
     }
 
+    fun setDeletionHelper(helper: BoardDeletionHelper) {
+        boardDeletionHelper = helper
+    }
+
     private fun getWidgetById(boardsConfig: JsonObject) =
             boardsConfig.getJsonObject("widgets")
                     ?.getJsonObject("widgetsById") ?: JsonObject()
 
     private fun clearContent(widgetId: String, widget: JsonObject) {
+        contentRepository.delete(widgetId)
         widget.put(PROP_CONTENT, JsonObject())
     }
 
@@ -52,6 +63,11 @@ class BoardsConfigService(
                 .forEach { action(it.first, it.second) }
 
         return boardsConfig
+    }
+
+    private fun handleDeletedBoards(boardsConfig: JsonObject) {
+        boardDeletionHelper
+            ?.handle(storage.loadConfig(), boardsConfig)
     }
 
     companion object {
