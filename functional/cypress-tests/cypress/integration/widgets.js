@@ -17,15 +17,16 @@ describe('Widgets', () => {
     for (let i = 0; i < widgetsKeys.length; i++) {
         let widget = widgetsKeys[i];
         let name = Widgets[widget].name;
+        let title = `Test-${name}`;
 
         it(`${name} can be configured and added by logged in user`, () => {
-            cy.fillNewWidgetGeneral(name, name, false, false, 4, 2);
+            cy.fillNewWidgetGeneral(name, title, false, false, 4, 2);
             fillDynamicTab(name)
             cy.confirmAddWidget();
-            cy.contains('h3', name)
+            cy.contains('h3', title)
                 .should('is.visible');
-            cy.removeWidget();
-            cy.contains('h3', name)
+            cy.removeWidget(title);
+            cy.contains('h3', title)
                 .should('not.visible');
         });
     };
@@ -42,7 +43,7 @@ describe('Widgets', () => {
         cy.chooseDashboard(dashboardName);
         cy.contains('h3', example.name)
             .should('is.visible');
-        cy.removeWidget();
+        cy.removeWidget(example.name);
         cy.saveState();
     });
 })
