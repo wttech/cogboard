@@ -4,7 +4,7 @@ import { func } from 'prop-types';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/core/styles';
 
-import { setSize } from '../helpers';
+import { getSize, getBackgroundColor } from '../helpers';
 
 import { AppBar, Container, Toolbar, IconButton } from '@material-ui/core';
 import { DashboardRounded } from '@material-ui/icons';
@@ -20,16 +20,12 @@ const StyledBoardSwitcher = styled(BoardSwitcher)`
 `;
 
 const StyledAppBar = styled(AppBar)`
-  background-color: #fff;
+  background-color: ${getBackgroundColor('default')};
   box-shadow: none;
 `;
 
-const StyledDashboardRounded = styled(DashboardRounded)`
-  color: #198cdb;
-`;
-
 const StyledToolbar = styled(Toolbar)`
-  min-height: ${setSize(10)};
+  min-height: ${getSize(10)};
 `;
 
 const NavBar = ({ handleDrawerToggle }) => {
@@ -43,7 +39,7 @@ const NavBar = ({ handleDrawerToggle }) => {
   );
 
   return (
-    <StyledAppBar position="fixed">
+    <StyledAppBar position="fixed" theme={theme}>
       <Container maxWidth="xl">
         <StyledToolbar disableGutters theme={theme}>
           <IconButton
@@ -53,7 +49,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             edge="start"
             data-cy="navbar-show-drawer-button"
           >
-            <StyledDashboardRounded />
+            <DashboardRounded color="primary" />
           </IconButton>
           <UserLogin />
           {!noBoardsFound && (

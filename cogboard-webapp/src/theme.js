@@ -5,28 +5,28 @@ export const theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
-      main: '#198CDB'
+      main: '#198cbd'
     },
     secondary: {
-      main: '#1C2630'
+      main: '#1c2630'
     },
     background: {
       default: '#fff',
-      paper: '#1C2630',
+      paper: '#1c2630',
       board: {
-        card: '#198CDB',
+        card: '#198cbd',
         dragged: '#bbdefb'
       }
     },
     status: {
-      UNKNOWN: '#26243E',
+      UNKNOWN: '#26243e',
       OK: '#019430',
-      IN_PROGRESS: '#198CDB',
-      UNSTABLE: '#FF5219',
-      ERROR_CONNECTION: '#E1312F',
-      ERROR_CONFIGURATION: '#E1312F',
-      ERROR: '#E1312F',
-      FAIL: '#E1312F'
+      IN_PROGRESS: '#198cbd',
+      UNSTABLE: '#ff5219',
+      ERROR_CONNECTION: '#e1312f',
+      ERROR_CONFIGURATION: '#e1312f',
+      ERROR: '#e1312f',
+      FAIL: '#e1312f'
     },
     snackbarVariant: {
       info: blue[100],

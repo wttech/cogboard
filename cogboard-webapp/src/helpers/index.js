@@ -1,4 +1,9 @@
-export const setSize = factor => ({ theme }) => `${theme.spacing(factor)}px`;
+export const getSize = factor => ({ theme }) => `${theme.spacing(factor)}px`;
+
+export const getColor = variant => ({ theme }) => theme.palette[variant].main;
+
+export const getBackgroundColor = variant => ({ theme }) =>
+  theme.palette.background[variant];
 
 export const splitPropsGroupName = propName => {
   return propName.includes('.') ? propName.split('.') : [undefined, propName];

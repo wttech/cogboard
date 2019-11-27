@@ -1,4 +1,7 @@
+import React from 'react';
 import styled from '@emotion/styled/macro';
+
+import { getBackgroundColor } from '../../helpers';
 
 import { Box, Drawer, Fab } from '@material-ui/core';
 import BoardList from '../BoardList';
@@ -41,4 +44,10 @@ export const StyledDrawerContainer = styled.div`
   background: #fff;
 `;
 
-export const StyledDrawer = styled(Drawer)``;
+export const StyledDrawer = styled(props => (
+  <Drawer classes={{ paper: 'paper' }} {...props} />
+))`
+  .paper {
+    background: ${getBackgroundColor('default')};
+  }
+`;
