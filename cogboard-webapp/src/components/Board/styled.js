@@ -5,12 +5,13 @@ import NoBoards from '../NoBoards';
 
 export const StyledContainer = styled.div`
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 10px;
   grid-template-columns: repeat(${getColumns}, 1fr);
   grid-auto-rows: 0.5fr;
 `;
 
 const BaseNoData = component => styled(component)`
+  background: #fff;
   bottom: 0;
   display: flex;
   align-items: center;

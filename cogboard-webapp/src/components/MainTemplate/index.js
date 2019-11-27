@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Router } from '@reach/router';
+import { useTheme } from '@material-ui/styles';
 
 import { useToggle } from '../../hooks';
 import { saveData } from '../../actions/thunks';
 import { getIsAuthenticated } from '../../selectors';
 
-import { Container, Drawer, Fab } from '@material-ui/core';
+import { Router } from '@reach/router';
+import { Container, Fab } from '@material-ui/core';
 import { Add, Save } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
 import AddWidget from '../AddWidget';
@@ -18,6 +19,7 @@ import Notifications from '../Notifications';
 import {
   StyledActions,
   StyledBoardList,
+  StyledDrawer,
   StyledDrawerContainer,
   StyledLogo,
   StyledMain,
@@ -31,6 +33,7 @@ const MainTemplate = () => {
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   const handleSaveDataClick = () => {
     dispatch(saveData());
@@ -53,7 +56,11 @@ const MainTemplate = () => {
   return (
     <>
       <NavBar handleDrawerToggle={handleDrawerToggle} />
-      <Drawer onClose={handleDrawerToggle(false)} open={drawerOpened}>
+      <StyledDrawer
+        onClose={handleDrawerToggle(false)}
+        open={drawerOpened}
+        theme={theme}
+      >
         <StyledDrawerContainer
           onClick={handleDrawerToggle(false)}
           onKeyDown={handleDrawerToggle(false)}
@@ -63,7 +70,7 @@ const MainTemplate = () => {
           <AddBoard />
           <StyledBoardList />
         </StyledDrawerContainer>
-      </Drawer>
+      </StyledDrawer>
       <StyledMain>
         <Container maxWidth="xl">
           <Router>
