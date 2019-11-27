@@ -106,6 +106,15 @@ abstract class BaseWidget(
         return config
     }
 
+    protected fun updateStateByCopingPropsToContent(props: Set<String>) {
+        val content = JsonObject()
+        props.forEach {
+            content.put(it, config.getValue(it))
+        }
+        send(JsonObject()
+                .put(com.cognifide.cogboard.CogboardConstants.PROP_CONTENT, content))
+    }
+
     private fun startWithSchedule() {
         if (schedulePeriod > 0L) {
             task = timerTask { updateState() }

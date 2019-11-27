@@ -6,9 +6,12 @@ import com.cognifide.cogboard.widget.type.BambooDeploymentWidget
 import com.cognifide.cogboard.widget.type.BambooPlanWidget
 import com.cognifide.cogboard.widget.type.DefaultWidget
 import com.cognifide.cogboard.widget.type.ExampleWidget
+import com.cognifide.cogboard.widget.type.IframeEmbedWidget
 import com.cognifide.cogboard.widget.type.JenkinsJobWidget
 import com.cognifide.cogboard.widget.type.ServiceCheckWidget
 import com.cognifide.cogboard.widget.type.SonarQubeWidget
+import com.cognifide.cogboard.widget.type.TextWidget
+import com.cognifide.cogboard.widget.type.WorldClockWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 
@@ -28,6 +31,9 @@ class WidgetIndex {
             BambooDeploymentWidget::class.java.simpleName -> BambooDeploymentWidget(vertx, config)
             BambooPlanWidget::class.java.simpleName -> BambooPlanWidget(vertx, config)
             AemHealthcheckWidget::class.java.simpleName -> AemHealthcheckWidget(vertx, config)
+            TextWidget::class.java.simpleName -> TextWidget(vertx, config)
+            IframeEmbedWidget::class.java.simpleName -> IframeEmbedWidget(vertx, config)
+            WorldClockWidget::class.java.simpleName -> WorldClockWidget(vertx, config)
             // add here
             else -> DefaultWidget.INSTANCE
         }
