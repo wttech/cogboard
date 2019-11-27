@@ -31,7 +31,7 @@ EditWidget.propTypes = {
   goNewLine: bool.isRequired,
   id: string.isRequired,
   rows: number.isRequired,
-  title: string.isRequired,
+  title: string,
   type: string.isRequired,
   widgetTypeData: object.isRequired
 };

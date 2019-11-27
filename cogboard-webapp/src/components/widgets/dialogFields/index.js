@@ -43,7 +43,6 @@ const dialogFields = {
       string()
         .trim()
         .max(max, vm.STRING_LENGTH('Title', max))
-        .required(vm.FIELD_REQUIRED())
   },
   UniqueTitleField: {
     component: TextInput,
@@ -116,7 +115,7 @@ const dialogFields = {
   SwitchInterval: {
     component: conditionallyHidden(NumberInput, 'autoSwitch', value => value),
     name: 'switchInterval',
-    label: 'Switch Interval',
+    label: 'Switch Interval [sec]',
     validator: ({ min }) =>
       number().when('autoSwitch', {
         is: true,
