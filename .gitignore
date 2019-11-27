@@ -10,10 +10,9 @@ Thumbs.db
 ~*
 
 *.jar
-/knotx/conf/jwt.conf
-/knotx/conf/admins.conf
 /mnt/*.json
 /mnt/*.backup
+/mnt/content/*.json
 
 # Intellij           #
 ######################
@@ -34,6 +33,7 @@ Thumbs.db
 **/.pnp
 .pnp.js
 cogboard-app/src/main/resources
+!cogboard-app/src/main/resources/initData
 !cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.RoutingHandlerFactory
 !cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.AuthHandlerFactory
 
@@ -51,3 +51,8 @@ cogboard-app/src/main/resources
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# cypress
+**/cypress/videos
+**/cypress/screenshots
+**/cypress/cypress

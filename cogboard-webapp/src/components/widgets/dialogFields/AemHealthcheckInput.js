@@ -9,17 +9,19 @@ import {
   Checkbox,
   MenuItem,
   ListItemText,
-  Select
+  Select,
+  FormHelperText
 } from '@material-ui/core';
 import { StyledFormControl } from './../../styled';
 
-const AemHealthcheckInput = props => {
-  const { onChange, value } = props;
+import { hasError } from '../../../helpers';
+
+const AemHealthcheckInput = ({ onChange, value, error, dataCy }) => {
   const theme = useTheme();
   const inputId = 'aemhealthcheck-metrics-input';
 
   return (
-    <StyledFormControl theme={theme}>
+    <StyledFormControl error={hasError(error)} theme={theme}>
       <InputLabel htmlFor={inputId}>Health Checks</InputLabel>
       <Select
         multiple
@@ -27,6 +29,7 @@ const AemHealthcheckInput = props => {
         onChange={onChange}
         input={<Input id={inputId} />}
         renderValue={value => `${value.length} selected`}
+        data-cy={dataCy}
       >
         {Object.entries(AEM_HEALTH_CHECKS).map(([name, label]) => (
           <MenuItem key={name} value={name}>
@@ -35,6 +38,9 @@ const AemHealthcheckInput = props => {
           </MenuItem>
         ))}
       </Select>
+      {hasError(error) && (
+        <FormHelperText data-cy={`${dataCy}-error`}>{error}</FormHelperText>
+      )}
     </StyledFormControl>
   );
 };

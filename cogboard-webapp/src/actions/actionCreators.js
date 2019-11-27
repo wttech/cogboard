@@ -23,7 +23,8 @@ import {
   LOGOUT,
   INIT_BOARD_PROPS,
   PUSH_NOTIFICATION,
-  DELETE_NOTIFICATION
+  DELETE_NOTIFICATION,
+  SET_LOGOUT_REASON_MESSAGE
 } from './types';
 import { INITIAL_BOARD_PROPS } from '../constants';
 
@@ -146,4 +147,9 @@ export const pushNotification = notification => ({
 export const deleteNotification = id => ({
   type: DELETE_NOTIFICATION,
   payload: id
+});
+
+export const setLogoutReasonMessage = reason => ({
+  type: SET_LOGOUT_REASON_MESSAGE,
+  payload: reason
 });

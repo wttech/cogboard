@@ -63,7 +63,7 @@ export const useBoardSwitching = () => {
 
   const handleResetTimeElapsed = () => {
     setTimeElapsed(0);
-  }
+  };
 
   useEffect(() => {
     if (isPlaying) {
@@ -94,7 +94,7 @@ export const useBoardSwitching = () => {
   };
 };
 
-export const usePrevious = (value) => {
+export const usePrevious = value => {
   const ref = useRef();
 
   useEffect(() => {
@@ -102,4 +102,4 @@ export const usePrevious = (value) => {
   });
 
   return ref.current;
-}
+};

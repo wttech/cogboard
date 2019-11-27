@@ -1,35 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { string, number, bool } from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import widgetTypes from '../widgets';
 import { useFormData } from '../../hooks';
-import { sortByKey } from '../../helpers';
+
+import { createWidgetValidationSchema } from './validators';
 import {
-  WIDGET_ROWS_MIN,
+  WIDGET_TITLE_LENGTH_LIMIT,
   WIDGET_COLUMNS_MIN,
+  WIDGET_ROWS_MIN,
   WIDGET_ROWS_MAX
 } from '../../constants';
 
-import {
-  Box,
-  FormControlLabel,
-  FormControl,
-  TextField,
-  Switch,
-  Tab
-} from '@material-ui/core';
-import DropdownField from '../DropdownField';
+import { Tab, Button } from '@material-ui/core';
+import DynamicForm from '../DynamicForm';
 import WidgetTypeForm from '../WidgetTypeForm';
-import { StyledNumberField, StyledTabPanel, StyledTabs } from './styled';
-import { renderWidgetTypesMenu } from './helpers';
-import { StyledFieldset } from '../styled';
+import { StyledTabPanel, StyledTabs, StyledCancelButton } from './styled';
 
-const WidgetForm = ({ renderActions, ...initialFormValues }) => {
+const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
   const boardColumns = useSelector(
     ({ ui, boards }) => boards.boardsById[ui.currentBoard].columns
   );
-  const { values, handleChange } = useFormData(initialFormValues);
+
+  const generalFields = [
+    'WidgetTypeField',
+    'TitleField',
+    ['ColumnFieldSm', 'RowFieldSm'],
+    'NewLineField',
+    'DisabledField'
+  ];
+  const constraints = {
+    TitleField: { max: WIDGET_TITLE_LENGTH_LIMIT },
+    ColumnFieldSm: { min: WIDGET_COLUMNS_MIN, max: boardColumns },
+    RowFieldSm: { min: WIDGET_ROWS_MIN, max: WIDGET_ROWS_MAX }
+  };
+
+  const {
+    values,
+    handleChange,
+    withValidation,
+    errors,
+    setValidationSchema
+  } = useFormData(initialFormValues, {
+    initialSchema: createWidgetValidationSchema(
+      initialFormValues.type,
+      generalFields,
+      constraints
+    ),
+    onChange: true
+  });
   const [tabValue, setTabValue] = useState(0);
 
   const widgetType = widgetTypes[values.type];
@@ -41,8 +61,18 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
     setTabValue(newValue);
   };
 
+  useEffect(() => {
+    const validationSchema = createWidgetValidationSchema(
+      values.type,
+      generalFields,
+      constraints
+    );
+    setValidationSchema(validationSchema);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values.type]);
+
   return (
-    <>
+    <form onSubmit={withValidation(handleSubmit)} noValidate="novalidate">
       <StyledTabs
         value={tabValue}
         onChange={handleTabChange}
@@ -54,104 +84,38 @@ const WidgetForm = ({ renderActions, ...initialFormValues }) => {
         )}
       </StyledTabs>
       <StyledTabPanel value={tabValue} index={0}>
-        <StyledFieldset component="fieldset">
-          <DropdownField
-            onChange={handleChange('type')}
-            label="Type"
-            id="widget-type"
-            name="type"
-            value={values.type}
-            dropdownItems={sortByKey(widgetTypes, 'name')}
-            data-cy="widget-form-type-select"
-          >
-            {renderWidgetTypesMenu}
-          </DropdownField>
-          <TextField
-            onChange={handleChange('title')}
-            id="title"
-            InputLabelProps={{
-              shrink: true
-            }}
-            label="Title"
-            margin="normal"
-            value={values.title}
-            inputProps={{ 'data-cy': 'widget-form-title-input' }}
-          />
-          <Box display="flex" justifyContent="space-between">
-            <StyledNumberField
-              onChange={handleChange('columns')}
-              id="columns"
-              InputLabelProps={{
-                shrink: true
-              }}
-              inputProps={{
-                min: WIDGET_COLUMNS_MIN,
-                max: boardColumns,
-                'data-cy': 'widget-form-columns-input'
-              }}
-              label="Columns"
-              margin="normal"
-              value={values.columns}
-              type="number"
-            />
-            <StyledNumberField
-              onChange={handleChange('rows')}
-              id="rows"
-              InputLabelProps={{
-                shrink: true
-              }}
-              inputProps={{
-                min: WIDGET_ROWS_MIN,
-                max: WIDGET_ROWS_MAX,
-                'data-cy': 'widget-form-rows-input'
-              }}
-              label="Rows"
-              margin="normal"
-              value={values.rows}
-              type="number"
-            />
-          </Box>
-          <FormControl margin="normal">
-            <FormControlLabel
-              control={
-                <Switch
-                  onChange={handleChange('goNewLine')}
-                  checked={values.goNewLine}
-                  color="primary"
-                  value="goNewLine"
-                  inputProps={{ 'data-cy': 'widget-form-go-new-line-checkbox' }}
-                />
-              }
-              label="Go to new line"
-            />
-          </FormControl>
-          <FormControl margin="normal">
-            <FormControlLabel
-              control={
-                <Switch
-                  onChange={handleChange('disabled')}
-                  checked={values.disabled}
-                  color="primary"
-                  value="disabled"
-                  inputProps={{ 'data-cy': 'widget-form-disable-checkbox' }}
-                />
-              }
-              label="Disable"
-            />
-          </FormControl>
-        </StyledFieldset>
+        <DynamicForm
+          values={values}
+          fields={generalFields}
+          handleChange={handleChange}
+          errors={errors}
+          rootName="widget-form"
+        />
       </StyledTabPanel>
       {hasDialogFields && (
         <StyledTabPanel value={tabValue} index={1}>
           <WidgetTypeForm
             type={values.type}
             values={values}
+            errors={errors}
             handleChange={handleChange}
+            rootName="widget-form"
           />
         </StyledTabPanel>
       )}
-      {renderActions(values)}
-    </>
+      <Button
+        type="submit"
+        color="primary"
+        variant="contained"
+        data-cy="widget-form-submit-button"
+      >
+        Save
+      </Button>
+      <StyledCancelButton
+        handleCancelClick={handleCancel}
+        data-cy="widget-form-cancel-button"
+      />
+    </form>
   );
 };
 

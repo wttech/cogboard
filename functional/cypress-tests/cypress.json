@@ -1,0 +1,8 @@
+{
+  "baseUrl": "http://localhost:8092",
+  "env": {
+    "username": "admin",
+    "password": "admin"
+  },
+  "video": false
+}

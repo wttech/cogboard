@@ -4,6 +4,7 @@ import JenkinsJobWidget from './types/JenkinsJobWidget';
 import SonarQubeWidget from './types/SonarQubeWidget';
 import ServiceCheckWidget from './types/ServiceCheckWidget';
 import TextWidget from './types/TextWidget';
+import BambooDeploymentWidget from './types/BambooDeploymentWidget';
 import BambooPlanWidget from './types/BambooPlanWidget';
 import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
@@ -19,13 +20,19 @@ const widgetTypes = {
     name: 'Example',
     component: ExampleWidget,
     dialogFields: ['SchedulePeriod'],
-    showUpdateTime: true
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
   },
   JenkinsJobWidget: {
     name: 'Jenkins Job',
     component: JenkinsJobWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'Path'],
-    showUpdateTime: true
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
   },
   SonarQubeWidget: {
     name: 'SonarQube',
@@ -37,7 +44,11 @@ const widgetTypes = {
       'IdNumber',
       'SonarQubeMetricsInput'
     ],
-    showUpdateTime: true
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 },
+      SonarQubeMetricsInput: { minArrayLength: 1 }
+    }
   },
   ServiceCheckWidget: {
     name: 'Service Check',
@@ -51,18 +62,36 @@ const widgetTypes = {
       'ResponseBody',
       'StatusCode'
     ],
-    showUpdateTime: true
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
   },
   TextWidget: {
     name: 'Text',
     component: TextWidget,
-    dialogFields: ['Text', 'TextSize', 'TextOrientation']
+    dialogFields: ['Text', 'TextSize', 'TextOrientation'],
+    validationConstraints: {
+      Text: { max: 240 }
+    }
   },
   BambooPlanWidget: {
     name: 'Bamboo Plan',
     component: BambooPlanWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
-    showUpdateTime: true
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
+  },
+  BambooDeploymentWidget: {
+    name: 'Bamboo Deployment',
+    component: BambooDeploymentWidget,
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
   },
   WorldClockWidget: {
     name: 'World Clock',
@@ -90,7 +119,11 @@ const widgetTypes = {
     name: 'AEM Healthcheck',
     component: AemHealthcheckWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'AemHealthcheckInput'],
-    showUpdateTime: true
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 },
+      AemHealthcheckInput: { minArrayLength: 1 }
+    }
   }
 };
 
