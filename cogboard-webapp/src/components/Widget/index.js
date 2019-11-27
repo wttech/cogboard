@@ -119,35 +119,37 @@ const Widget = ({ id, index }) => {
         isOver={isOver}
         ref={ref}
       >
-        <StyledCardHeader
-          avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon />}
-          title={title ? title : null}
-          titleTypographyProps={{
-            component: 'h3',
-            variant: 'subtitle2',
-            color: 'textPrimary'
-          }}
-          action={
-            <MoreMenu>
-              {closeMenu => (
-                <>
-                  <MenuItem
-                    onClick={handleEditClick(closeMenu)}
-                    data-cy="widget-edit"
-                  >
-                    Edit
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleDeleteClick(closeMenu)}
-                    data-cy="widget-delete"
-                  >
-                    Delete
-                  </MenuItem>
-                </>
-              )}
-            </MoreMenu>
-          }
-        />
+        {(isAuthenticated || title !== '') && (
+          <StyledCardHeader
+            avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon />}
+            title={title}
+            titleTypographyProps={{
+              component: 'h3',
+              variant: 'subtitle2',
+              color: 'textPrimary'
+            }}
+            action={
+              <MoreMenu>
+                {closeMenu => (
+                  <>
+                    <MenuItem
+                      onClick={handleEditClick(closeMenu)}
+                      data-cy="widget-edit"
+                    >
+                      Edit
+                    </MenuItem>
+                    <MenuItem
+                      onClick={handleDeleteClick(closeMenu)}
+                      data-cy="widget-delete"
+                    >
+                      Delete
+                    </MenuItem>
+                  </>
+                )}
+              </MoreMenu>
+            }
+          />
+        )}
         {renderCardContent(content, showUpdateTime, disabled, id, type)}
       </StyledCard>
       <AppDialog
