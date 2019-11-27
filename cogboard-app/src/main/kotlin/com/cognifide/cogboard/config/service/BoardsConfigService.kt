@@ -1,26 +1,25 @@
 package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CONTENT
-import com.cognifide.cogboard.config.helper.BoardDeletionHelper
+import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
 import io.vertx.core.json.JsonObject
-import io.vertx.core.logging.Logger
-import io.vertx.core.logging.LoggerFactory
+import com.cognifide.cogboard.CogboardConstants as CC
 
 class BoardsConfigService(
     private val storage: Storage = boards(),
-    private val contentRepository: ContentRepository = ContentRepository()
+    private val contentRepository: ContentRepository = ContentRepository(),
+    private val entityCleanupHelper: EntityCleanupHelper? = null
 ) {
-    private var boardDeletionHelper: BoardDeletionHelper? = null
 
     fun saveBoardsConfig(boardsConfig: JsonObject): Boolean {
-        val clearBoardsConfig = executeForWidgets(boardsConfig, this::clearContent)
+        val cleanBoardsConfig = executeForWidgets(boardsConfig, this::resetContentNode)
 
-        handleDeletedBoards(boardsConfig)
+        handleDeletedEntities(cleanBoardsConfig)
 
-        return storage.saveConfig(clearBoardsConfig)
+        return storage.saveConfig(cleanBoardsConfig)
     }
 
     fun loadBoardsConfig(): JsonObject {
@@ -36,16 +35,11 @@ class BoardsConfigService(
         contentRepository.save(widgetId, content)
     }
 
-    fun setDeletionHelper(helper: BoardDeletionHelper) {
-        boardDeletionHelper = helper
-    }
-
     private fun getWidgetById(boardsConfig: JsonObject) =
-            boardsConfig.getJsonObject("widgets")
-                    ?.getJsonObject("widgetsById") ?: JsonObject()
+            boardsConfig.getJsonObject(CC.PROP_WIDGETS)
+                    ?.getJsonObject(CC.PROP_WIDGETS_BY_ID) ?: JsonObject()
 
-    private fun clearContent(widgetId: String, widget: JsonObject) {
-        contentRepository.delete(widgetId)
+    private fun resetContentNode(widgetId: String, widget: JsonObject) {
         widget.put(PROP_CONTENT, JsonObject())
     }
 
@@ -65,12 +59,14 @@ class BoardsConfigService(
         return boardsConfig
     }
 
-    private fun handleDeletedBoards(boardsConfig: JsonObject) {
-        boardDeletionHelper
+    private fun handleDeletedEntities(boardsConfig: JsonObject) {
+        entityCleanupHelper
             ?.handle(storage.loadConfig(), boardsConfig)
-    }
-
-    companion object {
-        val LOGGER: Logger = LoggerFactory.getLogger(BoardsConfigService::class.java)
+            ?.forEach {
+                boardsConfig
+                    .getJsonObject(CC.PROP_WIDGETS)
+                    .getJsonObject(CC.PROP_WIDGETS_BY_ID)
+                    .remove(it)
+            }
     }
 }
