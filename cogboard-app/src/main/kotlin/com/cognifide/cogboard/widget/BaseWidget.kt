@@ -111,8 +111,7 @@ abstract class BaseWidget(
         props.forEach {
             content.put(it, config.getValue(it))
         }
-        send(JsonObject()
-                .put(com.cognifide.cogboard.CogboardConstants.PROP_CONTENT, content))
+        send(JsonObject().put(CC.PROP_CONTENT, content))
     }
 
     private fun startWithSchedule() {
