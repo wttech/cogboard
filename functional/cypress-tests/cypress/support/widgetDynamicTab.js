@@ -19,6 +19,17 @@ export function fillAemHealthcheck() {
         .type('{esc}');
 };
 
+export function fillBambooDeployment() {
+    cy.get('[data-cy="widget-form-endpoint-input"]')
+        .click();
+    //Change selector (add data-cy in markup)
+    cy.get(`[data-value="${Widgets.bambooEnvironmentDeployment.endpoint}"]`)
+        .click();
+    cy.fillSchedulePeriod(Widgets.bambooEnvironmentDeployment.schedulePeriod);
+    cy.get('[data-cy="widget-form-id-string-input"]')
+        .type('{selectall}' + Widgets.bambooEnvironmentDeployment.id);
+};
+
 export function fillBambooPlan() {
     cy.get('[data-cy="widget-form-endpoint-input"]')
         .click();
@@ -26,7 +37,8 @@ export function fillBambooPlan() {
     cy.get(`[data-value="${Widgets.bambooPlan.endpoint}"]`)
         .click();
     cy.fillSchedulePeriod(Widgets.bambooPlan.schedulePeriod);
-
+    cy.get('[data-cy="widget-form-id-string-input"]')
+        .type('{selectall}' + Widgets.bambooPlan.id);
 };
 
 export function fillExample() {
@@ -125,6 +137,9 @@ export function fillDynamicTab(type = "Text") {
         switch(type) {
             case "AEM Healthcheck":
                 fillAemHealthcheck();
+                break;
+            case "Bamboo Environment Deployment":
+                fillBambooDeployment();
                 break;
             case "Bamboo Plan":
                 fillBambooPlan();

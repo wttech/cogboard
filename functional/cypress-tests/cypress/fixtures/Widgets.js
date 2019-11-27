@@ -62,6 +62,12 @@ module.exports = {
 			},
 		},
 	},
+	bambooEnvironmentDeployment: {
+		name: "Bamboo Environment Deployment",
+		endpoint: "endpoint1",
+		schedulePeriod: "500",
+		id: "",
+	},
 	bambooPlan: {
 		name: "Bamboo Plan",
 		endpoint: "endpoint1",
