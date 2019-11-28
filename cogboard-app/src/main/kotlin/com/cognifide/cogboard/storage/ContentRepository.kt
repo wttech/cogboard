@@ -5,12 +5,6 @@ import java.io.File
 
 class ContentRepository(private val path: String = "/data/content") {
 
-    init {
-        if (!File(path).exists()) {
-            File(path).mkdir()
-        }
-    }
-
     fun save(widgetId: String, content: JsonObject) {
         File("$path/$widgetId.json").writeText(content.toString())
     }
