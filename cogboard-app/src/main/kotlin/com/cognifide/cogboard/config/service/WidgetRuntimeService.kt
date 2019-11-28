@@ -24,18 +24,18 @@ class WidgetRuntimeService(
     }
 
     fun deleteWidget(widgetConfig: JsonObject) {
-        internalDelete("Delete", widgetConfig)
+        stopAndRemove("Delete", widgetConfig)
     }
 
     fun purgeWidget(widgetConfig: JsonObject) {
-        internalDelete("Purge", widgetConfig)?.let {
+        stopAndRemove("Purge", widgetConfig)?.let {
             contentRepository.delete(it)
         }
     }
 
     fun createOrUpdateWidget(widgetConfig: JsonObject) {
         var newConfig = widgetConfig
-        val id = extractId(widgetConfig)
+        val id = widgetConfig.getId()
 
         if (id != null) {
             widgets[id]?.let {
@@ -50,8 +50,8 @@ class WidgetRuntimeService(
         }
     }
 
-    private fun internalDelete(action: String, widgetConfig: JsonObject): String? {
-        val id = extractId(widgetConfig)
+    private fun stopAndRemove(action: String, widgetConfig: JsonObject): String? {
+        val id = widgetConfig.getId()
         if (id != null) {
             widgets.remove(id)?.stop()
             LOGGER.info("Widget $action: $widgetConfig")
@@ -62,8 +62,8 @@ class WidgetRuntimeService(
         return id
     }
 
-    private fun extractId(widgetConfig: JsonObject) =
-        widgetConfig.getString(CogboardConstants.PROP_ID)
+    private fun JsonObject.getId() =
+        this.getString(CogboardConstants.PROP_ID)
 
     private fun JsonObject.attachEndpoint() {
         val endpointId = this.getString(CogboardConstants.PROP_ENDPOINT)

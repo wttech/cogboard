@@ -15,11 +15,9 @@ class EntityCleanupHelper(private val vertx: Vertx) {
         val oldBoards = getAllBoards(oldConfig)
         val newBoards = getAllBoards(newConfig)
 
-        val allOldWidgets = getAllWidgets(oldBoards, oldConfig)
-
         val newUsedWidgets = getAssignedWidgets(newBoards, newConfig)
 
-        return allOldWidgets
+        return getAllWidgets(oldBoards, oldConfig)
             .filter { !newUsedWidgets.contains(it) }
             .distinct()
     }
@@ -37,31 +35,30 @@ class EntityCleanupHelper(private val vertx: Vertx) {
         return boardsWidgets + declaredWidgets
     }
 
-    private fun getAssignedWidgets(boardIds: JsonArray, config: JsonObject): List<Any> {
-        return boardIds
+    private fun getAssignedWidgets(boardIds: JsonArray, config: JsonObject): List<Any> =
+        boardIds
             .mapNotNull { getBoardWidgets(config, it) }
             .flatten()
-    }
 
-    private fun getBoardWidgets(config: JsonObject, it: Any): JsonArray? {
-        return config
+    private fun getBoardWidgets(config: JsonObject, it: Any): JsonArray? =
+        config
             .getJsonObject(CC.PROP_BOARDS)
             .getJsonObject(CC.PROP_BOARDS_BY_ID)
             .getJsonObject(it.toString())
             ?.getJsonArray(CC.PROP_WIDGETS)
-    }
 
     private fun getAllBoards(config: JsonObject) =
         config
             .getJsonObject(CC.PROP_BOARDS)
             .getJsonArray(CC.PROP_BOARDS_ALL)
 
-    private fun sendWidgetPurgeEvent(widgetId: String) = vertx
-        .eventBus()
-        .publish(
-            CC.EVENT_PURGE_WIDGET_CONFIG,
-            JsonObject().put(
-                CC.PROP_ID,
-                widgetId)
-        )
+    private fun sendWidgetPurgeEvent(widgetId: String) =
+        vertx
+            .eventBus()
+            .publish(
+                CC.EVENT_PURGE_WIDGET_CONFIG,
+                JsonObject().put(
+                    CC.PROP_ID,
+                    widgetId)
+            )
 }
