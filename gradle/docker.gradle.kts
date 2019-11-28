@@ -75,8 +75,8 @@ tasks.register<DockerRemoveImage>("removeImage") {
 tasks.register<DockerBuildImage> ("buildImage") {
     group = "docker"
     inputDir.set(file("$buildDir"))
-    tags.add("${project.property("docker.image.name")}:latest")
-    dependsOn("removeImage", "prepareDocker")
+    tags.add("${project.property("docker.image.name")}:$version")
+    dependsOn("prepareDocker")
 }
 val buildImage = tasks.named<DockerBuildImage>("buildImage")
 
@@ -153,9 +153,10 @@ tasks.register<Exec>("awaitLocalStackUndeployed") {
 }
 
 tasks.register<Exec>("deployLocal") {
+    environment = mapOf("COGBOARD_VERSION" to version)
     group = "swarm"
     commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
-    dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed")
+    dependsOn("initSwarm", "build", "awaitLocalStackUndeployed")
     mustRunAfter("undeployLocal")
 }
 

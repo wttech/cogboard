@@ -15,7 +15,7 @@ services:
     command: ["--verbose", "--no-request-journal"]
 
   cogboard:
-    image: cogboard/cogboard-app
+    image: "cogboard/cogboard-app:${COGBOARD_VERSION}"
     volumes:
       - "./mnt:/data"
     networks:
