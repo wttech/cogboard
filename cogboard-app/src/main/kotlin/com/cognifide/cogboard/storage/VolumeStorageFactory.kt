@@ -60,10 +60,6 @@ object VolumeStorageFactory {
     }
 
     private fun getResource(configPath: String): URL {
-        val r = VolumeStorageFactory::class.java.getResource(getFileName(configPath))
-        LOGGER.error(r.path)
-        LOGGER.error(r.content)
-        LOGGER.error(r.userInfo)
-        return r
+        return VolumeStorageFactory::class.java.getResource(getFileName(configPath))
     }
 }
