@@ -13,4 +13,9 @@ class ContentRepository(private val path: String = "/data/content") {
         val file = File("$path/$widgetId.json")
         return if (file.exists()) JsonObject(file.readText()) else JsonObject()
     }
+
+    fun delete(widgetId: String) {
+        val file = File("$path/$widgetId.json")
+        if (file.exists()) file.delete()
+    }
 }

@@ -2,6 +2,7 @@ package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.EndpointLoader
+import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.WidgetIndex
 import io.vertx.core.Vertx
@@ -10,7 +11,8 @@ import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 
 class WidgetRuntimeService(
-    private val vertx: Vertx
+    private val vertx: Vertx,
+    private val contentRepository: ContentRepository
 ) {
     private val widgets = mutableMapOf<String, Widget>()
 
@@ -22,19 +24,18 @@ class WidgetRuntimeService(
     }
 
     fun deleteWidget(widgetConfig: JsonObject) {
-        val id = widgetConfig.getString(CogboardConstants.PROP_ID)
-        if (id != null) {
-            widgets.remove(id)?.stop()
-            LOGGER.info("Widget Deleted: $widgetConfig")
-        } else {
-            LOGGER.error("Widget Delete | " +
-                    "There is widget with no ID in configuration: $widgetConfig")
+        stopAndRemove("Delete", widgetConfig)
+    }
+
+    fun purgeWidget(widgetConfig: JsonObject) {
+        stopAndRemove("Purge", widgetConfig)?.let {
+            contentRepository.delete(it)
         }
     }
 
     fun createOrUpdateWidget(widgetConfig: JsonObject) {
         var newConfig = widgetConfig
-        val id = widgetConfig.getString(CogboardConstants.PROP_ID)
+        val id = widgetConfig.getId()
 
         if (id != null) {
             widgets[id]?.let {
@@ -45,9 +46,24 @@ class WidgetRuntimeService(
             widgets[id] = WidgetIndex.create(newConfig, vertx).start()
         } else {
             LOGGER.error("Widget Update / Create | " +
-                    "There is widget with no ID in configuration: $widgetConfig")
+                    "There is no widget with given ID in configuration: $widgetConfig")
         }
     }
+
+    private fun stopAndRemove(action: String, widgetConfig: JsonObject): String? {
+        val id = widgetConfig.getId()
+        if (id != null) {
+            widgets.remove(id)?.stop()
+            LOGGER.info("Widget $action: $widgetConfig")
+        } else {
+            LOGGER.error("Widget $action | " +
+                "There is no widget with given ID in configuration: $widgetConfig")
+        }
+        return id
+    }
+
+    private fun JsonObject.getId() =
+        this.getString(CogboardConstants.PROP_ID)
 
     private fun JsonObject.attachEndpoint() {
         val endpointId = this.getString(CogboardConstants.PROP_ENDPOINT)

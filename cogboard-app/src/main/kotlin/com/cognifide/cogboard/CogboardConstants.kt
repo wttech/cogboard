@@ -10,6 +10,9 @@ class CogboardConstants {
         const val STATUS_CODE_200 = 200
         const val PROP_ID = "id"
         const val PROP_EVENT_TYPE = "eventType"
+        const val PROP_BOARDS = "boards"
+        const val PROP_BOARDS_BY_ID = "boardsById"
+        const val PROP_BOARDS_ALL = "allBoards"
         const val PROP_WIDGETS = "widgets"
         const val PROP_WIDGETS_BY_ID = "widgetsById"
         const val PROP_STATUS = "status"
@@ -46,6 +49,7 @@ class CogboardConstants {
         const val EVENT_SAVE_BOARDS_CONFIG = "cogboard.config.boards.save"
         const val EVENT_UPDATE_WIDGET_CONFIG = "cogboard.config.widget.update"
         const val EVENT_DELETE_WIDGET_CONFIG = "cogboard.config.widget.delete"
+        const val EVENT_PURGE_WIDGET_CONFIG = "cogboard.config.widget.purge"
         const val EVENT_UPDATE_ENDPOINTS = "cogboard.config.endpoints.update"
         const val EVENT_DELETE_ENDPOINTS = "cogboard.config.endpoints.delete"
         const val EVENT_UPDATE_CREDENTIALS = "cogboard.config.credentials.update"
