@@ -3,6 +3,19 @@
     {
       "request": {
         "method": "GET",
+        "url": "/jenkins/ok.html"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "text/html"
+        },
+        "bodyFileName": "jenkins/ok.html"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
         "url": "/job/CogBoard/job/success/api/json?tree=lastBuild[building,description,displayName,duration,estimatedDuration,executor,fullDisplayName,id,result,timestamp,url,builtOn,actions[lastBuiltRevision[branch[name]]]]"
       },
       "response": {

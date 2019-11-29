@@ -33,7 +33,7 @@
     "id": "4",
     "result": "FAILURE",
     "timestamp": 1572536545536,
-    "url": "http://jenkins.org/job/project_name/job/job_name/7/",
+    "url": "http://localhost:8080/jenkins/ok.html",
     "builtOn": "Master-executor"
   }
 }
