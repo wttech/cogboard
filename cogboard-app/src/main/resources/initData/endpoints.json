@@ -1,17 +1,17 @@
 {
   "endpoints": [
     {
-      "credentials": "credentials1",
-      "id": "valid-endpoint",
-      "label": "Valid endpoint",
-      "publicUrl": "http://api-mocks:8080/testapi200",
-      "url": "http://api-mocks:8080/testapi200"
+      "id": "api-mocks-endpoint",
+      "label": "API Mocks Endpoint",
+      "publicUrl": "http://api-mocks:8080",
+      "url": "http://api-mocks:8080"
     },
     {
-      "credentials": "credentials2",
-      "id": "invalid-endpoint",
-      "label": "Invalid endpoint",
-      "url": "http://api-mocks:8080/testapi500"
+      "credentials": "credentials1",
+      "id": "endpoint1",
+      "label": "Example Endpoint",
+      "publicUrl": "http://example.com",
+      "url": "http://internal.example.com"
     }
   ]
 }

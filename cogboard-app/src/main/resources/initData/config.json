@@ -9,9 +9,7 @@
         "columns": 8,
         "theme": "default",
         "widgets": [
-          "widget1",
-          "widget3",
-          "widget4"
+          "widget1"
         ]
       },
       "board2": {
@@ -33,67 +31,25 @@
     "widgetsById": {
       "widget1": {
         "id": "widget1",
-        "title": "This is first Widget",
+        "title": "Jenkins Success",
         "disabled": false,
-        "type": "ExampleWidget",
+        "type": "JenkinsJobWidget",
         "scheduleDelay": 500,
         "config": {
-          "columns": 1,
-          "goNewLine": false
-        },
-        "content": {},
-        "status": "UNSTABLE",
-        "isUpdating": false
-      },
-      "widget3": {
-        "id": "widget3",
-        "title": "Invalid service",
-        "config": {
-          "columns": 1,
+          "columns": 2,
           "goNewLine": false,
           "rows": 1
         },
-        "type": "ServiceCheckWidget",
-        "disabled": false,
         "content": {},
-        "status": "ERROR",
         "isUpdating": false,
-        "boardId": "board1",
+        "path": "/job/CogBoard/job/Success",
         "schedulePeriod": 120,
-        "requestMethod": "get",
-        "endpoint": "invalid-endpoint",
-        "path": "",
-        "body": "",
-        "expectedResponseBody": "",
-        "expectedStatusCode": 200
-      },
-      "widget4": {
-        "id": "widget4",
-        "title": "Valid service",
-        "config": {
-          "columns": 1,
-          "goNewLine": false,
-          "rows": 1
-        },
-        "type": "ServiceCheckWidget",
-        "disabled": false,
-        "content": {},
-        "status": "OK",
-        "isUpdating": false,
-        "boardId": "board1",
-        "schedulePeriod": 120,
-        "requestMethod": "get",
-        "endpoint": "valid-endpoint",
-        "path": "",
-        "body": "",
-        "expectedResponseBody": "",
-        "expectedStatusCode": 200
+        "endpoint": "api-mocks-endpoint",
+        "status": "OK"
       }
     },
     "allWidgets": [
-      "widget1",
-      "widget3",
-      "widget4"
+      "widget1"
     ]
   }
 }
