@@ -59,7 +59,7 @@ object BoardsValidator : Validator {
             board.columns in CC.PROP_BOARD_COLUMN_MIN..CC.PROP_BOARD_COLUMN_MAX
 
     private fun checkTitleLength(board: Board) =
-            board.title.length in 1..25
+            board.title.length in 1..50
 
     private fun checkTitleUnique(board: Board, titles: MutableSet<String>) =
             titles.add(board.title)
