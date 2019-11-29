@@ -2,8 +2,8 @@
   "boards": {
     "boardsById": {
       "board1": {
-        "autoSwitch": false,
-        "switchInterval": 0,
+        "autoSwitch": true,
+        "switchInterval": 10,
         "id": "board1",
         "title": "Welcome to Cogboard",
         "columns": 8,
@@ -13,13 +13,17 @@
         ]
       },
       "board2": {
-        "autoSwitch": false,
-        "switchInterval": 0,
+        "autoSwitch": true,
+        "switchInterval": 10,
         "id": "board2",
-        "title": "Board Two",
-        "columns": 4,
+        "title": "Jenkins Job",
+        "columns": 6,
         "theme": "default",
-        "widgets": []
+        "widgets": [
+          "widget2",
+          "widget3",
+          "widget4"
+        ]
       }
     },
     "allBoards": [
@@ -31,25 +35,80 @@
     "widgetsById": {
       "widget1": {
         "id": "widget1",
-        "title": "Jenkins Success",
-        "disabled": false,
-        "type": "JenkinsJobWidget",
-        "scheduleDelay": 500,
+        "title": "Example Widget",
         "config": {
-          "columns": 2,
+          "columns": 1,
           "goNewLine": false,
           "rows": 1
         },
+        "type": "ExampleWidget",
+        "disabled": false,
         "content": {},
+        "status": "UNKNOWN",
         "isUpdating": false,
-        "path": "/job/CogBoard/job/Success",
-        "schedulePeriod": 120,
+        "boardId": "board1",
+        "schedulePeriod": 3
+      },
+      "widget2": {
+        "id": "widget2",
+        "title": "Jenkins Success",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "status": "OK",
+        "isUpdating": false,
+        "boardId": "board2",
         "endpoint": "api-mocks-endpoint",
-        "status": "OK"
+        "schedulePeriod": 120,
+        "path": "/job/CogBoard/job/success"
+      },
+      "widget3": {
+        "id": "widget3",
+        "title": "Jenkins Fail",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "status": "FAIL",
+        "isUpdating": false,
+        "boardId": "board2",
+        "endpoint": "api-mocks-endpoint",
+        "schedulePeriod": 120,
+        "path": "/job/CogBoard/job/fail"
+      },
+      "widget4": {
+        "id": "widget4",
+        "title": "Jenkins Progress",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "status": "IN_PROGRESS",
+        "isUpdating": false,
+        "boardId": "board2",
+        "endpoint": "api-mocks-endpoint",
+        "schedulePeriod": 120,
+        "path": "/job/CogBoard/job/in-progress"
       }
     },
     "allWidgets": [
-      "widget1"
+      "widget1",
+      "widget2",
+      "widget3",
+      "widget4"
     ]
   }
 }
