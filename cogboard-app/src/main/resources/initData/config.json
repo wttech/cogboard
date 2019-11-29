@@ -16,7 +16,7 @@
         "autoSwitch": true,
         "switchInterval": 10,
         "id": "board2",
-        "title": "Jenkins Job",
+        "title": "Jenkins Job Widget Examples",
         "columns": 6,
         "theme": "default",
         "widgets": [
