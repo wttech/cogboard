@@ -1,7 +1,8 @@
 {
-    "baseUrl": "http://localhost:8092?prod",
-    "env": {
-        "username": "adminProd",
-        "password": "adminProd"
-      }
+  "baseUrl": "http://localhost:8092",
+  "env": {
+    "username": "admin",
+    "password": "admin"
+  },
+  "video": false
 }

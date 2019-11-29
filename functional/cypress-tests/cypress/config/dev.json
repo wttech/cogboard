@@ -1,7 +1,8 @@
 {
-    "baseUrl": "http://localhost:8092?dev",
-    "env": {
-        "username": "adminDev",
-        "password": "adminDev"
-      }
+  "baseUrl": "http://localhost:8093",
+  "env": {
+    "username": "admin",
+    "password": "admin"
+  },
+  "video": false
 }
