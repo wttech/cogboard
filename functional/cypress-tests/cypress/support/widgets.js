@@ -29,7 +29,7 @@ Cypress.Commands.add('fillNewWidgetGeneral', (type = "Text", title = "Text Title
     };
 });
 
-Cypress.Commands.add('fillSchedulePeriod', (value) => {
+Cypress.Commands.add('fillSchedulePeriod', value => {
     cy.get('[data-cy="widget-form-schedule-period-input"]')
         .type('{selectall}' + value);
 });
@@ -39,10 +39,14 @@ Cypress.Commands.add('confirmAddWidget', () => {
         .click();
 });
 
-Cypress.Commands.add('removeWidget', () => {
-    cy.get('[data-cy="more-menu-button"]')
+Cypress.Commands.add('removeWidget', name => {
+    cy.contains(name)
+        .parents('.MuiCardHeader-root')
+        .find('[data-cy="more-menu-button"]')
         .click();
-    cy.get('[data-cy="widget-delete"]')
+    cy.get('div[id="more-menu"]')
+        .not('[aria-hidden="true"]')
+        .find('[data-cy="widget-delete"]')
         .click();
     cy.get('[data-cy="confirmation-dialog-ok"]')
         .click();
