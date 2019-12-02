@@ -9,7 +9,7 @@ services:
     volumes:
       - "./api-mocks:/home/wiremock"
     ports:
-      - "8080:8080"
+      - "8093:8093"
     networks:
       - coganet
     command: ["--verbose", "--no-request-journal"]
