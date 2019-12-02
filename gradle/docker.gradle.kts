@@ -21,8 +21,8 @@ import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
 
 val dockerImageRef = "$buildDir/.docker/buildImage-imageId.txt"
-val dockerContainerName = project.property("docker.container.name")?.toString() ?: "cogboard"
-val dockerImageName = project.property("docker.image.name")?.toString() ?: "cogboard/cogboard-app"
+val dockerContainerName = project.property("docker.app.container.name")?.toString() ?: "cogboard"
+val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "cogboard/cogboard-app"
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
@@ -75,7 +75,7 @@ tasks.register<DockerRemoveImage>("removeImage") {
 tasks.register<DockerBuildImage> ("buildImage") {
     group = "docker"
     inputDir.set(file("$buildDir"))
-    tags.add("${project.property("docker.image.name")}:$version")
+    tags.add("$dockerImageName:$version")
     dependsOn("prepareDocker")
 }
 val buildImage = tasks.named<DockerBuildImage>("buildImage")

@@ -32,10 +32,6 @@ Thumbs.db
 **/node_modules/
 **/.pnp
 .pnp.js
-cogboard-app/src/main/resources
-!cogboard-app/src/main/resources/initData
-!cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.RoutingHandlerFactory
-!cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.AuthHandlerFactory
 
 # testing
 **/coverage
