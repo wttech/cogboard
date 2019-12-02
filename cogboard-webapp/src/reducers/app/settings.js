@@ -1,3 +1,5 @@
+import { mergeRight } from 'ramda';
+
 import { SAVE_SETTINGS } from '../../actions/types';
 
 const initState = {
@@ -5,13 +7,12 @@ const initState = {
   credentials: []
 };
 
+const saveSettings = (state, payload) => mergeRight(state, payload);
+
 const settings = (state = initState, { type, payload }) => {
   switch (type) {
     case SAVE_SETTINGS:
-      return {
-        ...state,
-        ...payload
-      };
+      return saveSettings(state, payload);
     default:
       return state;
   }

@@ -7,6 +7,13 @@ import {
   getCredentials,
   getEndpoints
 } from '../../selectors';
+import {
+  loadSettings,
+  deleteEndpoint,
+  deleteCredential,
+  saveCredential,
+  saveEndpoint
+} from '../../actions/thunks';
 
 import {
   Button,
@@ -20,13 +27,12 @@ import {
 import { Settings } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
 import { StyledTabs, StyledTabPanel } from './styled';
-import AddEndpoint from '../AddEndpoint';
-import AddCredential from '../AddCredential';
+import AddItem from '../AddItem';
 import EditEndpoint from '../EditEndpoint';
 import EditCredential from '../EditCredential';
-import DeleteEnpoint from '../DeleteEndpoint';
-import DeleteCredential from '../DeleteCredential';
-import { loadSettings } from '../../actions/thunks';
+import DeleteItem from '../DeleteItem';
+import EndpointForm from '../EndpointForm';
+import CredentialForm from '../CredentialForm';
 
 const SettingsMenu = ({ className }) => {
   const dispatch = useDispatch();
@@ -45,13 +51,28 @@ const SettingsMenu = ({ className }) => {
     setTabValue(newValue);
   };
 
-  const mapToListItem = (items, EditComponent, DeleteComponent) =>
+  const handleSubmitCredential = values => {
+    delete values.passwordConfirmation;
+
+    dispatch(saveCredential(values));
+  };
+
+  const handleSubmitEndpoint = values => {
+    dispatch(saveEndpoint(values));
+  };
+
+  const renderListItems = (items, name, EditComponent, deleteAction) =>
     items.map(({ id, label }) => (
       <ListItem key={id}>
         <ListItemText primary={label} />
         <ListItemSecondaryAction>
           <EditComponent id={id} />
-          <DeleteComponent id={id} label={label} />
+          <DeleteItem
+            id={id}
+            label={label}
+            itemName={name}
+            deleteAction={deleteAction}
+          />
         </ListItemSecondaryAction>
       </ListItem>
     ));
@@ -87,19 +108,39 @@ const SettingsMenu = ({ className }) => {
             <Tab label="Credientials" />
           </StyledTabs>
           <StyledTabPanel value={tabValue} index={0}>
-            <List>{mapToListItem(endpoints, EditEndpoint, DeleteEnpoint)}</List>
-            <AddEndpoint largeButton />
+            <List>
+              {renderListItems(
+                endpoints,
+                'endpoint',
+                EditEndpoint,
+                deleteEndpoint
+              )}
+            </List>
+            <AddItem
+              largeButton
+              itemName="endpoint"
+              submitAction={handleSubmitEndpoint}
+            >
+              <EndpointForm />
+            </AddItem>
           </StyledTabPanel>
           <StyledTabPanel value={tabValue} index={1}>
             <List>
               {' '}
-              {mapToListItem(
+              {renderListItems(
                 credentials,
+                'credential',
                 EditCredential,
-                DeleteCredential
+                deleteCredential
               )}{' '}
             </List>
-            <AddCredential largeButton />
+            <AddItem
+              largeButton
+              itemName="credential"
+              submitAction={handleSubmitCredential}
+            >
+              <CredentialForm />
+            </AddItem>
           </StyledTabPanel>
           <Button
             onClick={handleDialogClose}

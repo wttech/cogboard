@@ -2,6 +2,7 @@ import { dataChanged } from './actionCreators';
 import { logout } from './thunks';
 import { isAuthenticated } from '../utils/auth';
 import { navigate } from '@reach/router';
+import { mergeRight, assocPath } from 'ramda';
 
 const checkResponseStatus = response => {
   const { status, statusText } = response;
@@ -16,32 +17,27 @@ const checkResponseStatus = response => {
   }
 };
 
-export const fetchData = (url, method = 'GET', data = {}, token = '') => {
-  const postConfig = {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  if (token) {
-    postConfig.headers['Authorization'] = token;
-  }
-  const init = method !== 'GET' ? postConfig : {};
+export const fetchData = (
+  url,
+  { method = 'GET', data = {}, token = '' } = {}
+) => {
+  const baseConfig = { method };
 
-  return fetch(url, init)
-    .then(checkResponseStatus)
-    .then(response => response.json());
-};
+  const config =
+    method !== 'GET' && method !== 'DELETE'
+      ? mergeRight(baseConfig, {
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+      : baseConfig;
 
-export const deleteData = (url, token = '') => {
-  const config = { method: 'DELETE', headers: {} };
+  const enhancedConfig = token
+    ? assocPath(['headers', 'Authorization'], token, config)
+    : config;
 
-  if (token) {
-    config.headers['Authorization'] = token;
-  }
-
-  return fetch(url, config)
+  return fetch(url, enhancedConfig)
     .then(checkResponseStatus)
     .then(response => response.json());
 };

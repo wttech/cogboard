@@ -6,14 +6,13 @@ import { useToggle } from '../hooks';
 import { IconButton } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import ConfirmationDialog from './ConfirmationDialog';
-import { deleteCredential } from '../actions/thunks';
 
-const DeleteCredential = ({ id, label }) => {
+const DeleteItem = ({ id, label, itemName, deleteAction }) => {
   const dispatch = useDispatch();
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
   const handleDelete = id => () => {
-    dispatch(deleteCredential(id));
+    dispatch(deleteAction(id));
     handleDialogClose();
   };
 
@@ -21,7 +20,7 @@ const DeleteCredential = ({ id, label }) => {
     <>
       <IconButton
         onClick={openDialog}
-        data-cy="delete-credentail-delete-button"
+        data-cy={`delete-${itemName}-delete-button`}
       >
         <Delete />
       </IconButton>
@@ -38,4 +37,4 @@ const DeleteCredential = ({ id, label }) => {
   );
 };
 
-export default DeleteCredential;
+export default DeleteItem;
