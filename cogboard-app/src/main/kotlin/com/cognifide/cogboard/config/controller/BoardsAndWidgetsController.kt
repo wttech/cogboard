@@ -31,6 +31,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
         listenOnConfigSave()
 
         listenOnWidgetUpdate()
+        listenOnWidgetContentUpdate()
         listenOnWidgetDelete()
         listenOnWidgetPurge()
     }
@@ -46,6 +47,13 @@ class BoardsAndWidgetsController : AbstractVerticle() {
         .eventBus()
         .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONFIG)
         .handler { widgetRuntimeService.createOrUpdateWidget(it.body()) }
+
+    private fun listenOnWidgetContentUpdate() = vertx
+        .eventBus()
+        .consumer<JsonObject>(CogboardConstants.EVENT_CONTENT_UPDATE_WIDGET_CONFIG)
+        .handler {
+            widgetRuntimeService.handleWidgetContentUpdate(it.body())
+        }
 
     private fun listenOnWidgetDelete() = vertx
         .eventBus()

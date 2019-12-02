@@ -1,3 +1,5 @@
+import { checkResponseStatus } from '../utils/fetch';
+
 export const getSize = factor => ({ theme }) => `${theme.spacing(factor)}px`;
 
 export const getColor = variant => ({ theme }) => theme.palette[variant].main;
@@ -41,3 +43,17 @@ export const parseYupErrors = errors => {
 export const trimLeadingZeros = inputValue => String(parseInt(inputValue));
 
 export const hasError = error => error !== undefined;
+
+export const postWidgetContentUpdate = (data = {}) => {
+  const postConfig = {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch('/api/widget/contentUpdate', postConfig)
+    .then(checkResponseStatus)
+    .then(response => response.json());
+};

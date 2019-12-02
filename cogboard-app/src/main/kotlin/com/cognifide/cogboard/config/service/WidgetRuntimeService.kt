@@ -50,6 +50,19 @@ class WidgetRuntimeService(
         }
     }
 
+    fun handleWidgetContentUpdate(widgetConfig: JsonObject) {
+        widgetContentUpdateAddress(widgetConfig)?.let {
+            vertx
+                .eventBus()
+                .publish(it, widgetConfig)
+        }
+    }
+
+    private fun widgetContentUpdateAddress(widgetConfig: JsonObject): String? =
+        widgetConfig.getId()
+            ?.takeIf { widgets.containsKey(it) }
+            ?.let { createWidgetContentUpdateAddress(it) }
+
     private fun stopAndRemove(action: String, widgetConfig: JsonObject): String? {
         val id = widgetConfig.getId()
         if (id != null) {
@@ -62,7 +75,7 @@ class WidgetRuntimeService(
         return id
     }
 
-    private fun JsonObject.getId() =
+    private fun JsonObject.getId(): String? =
         this.getString(CogboardConstants.PROP_ID)
 
     private fun JsonObject.attachEndpoint() {
@@ -75,5 +88,8 @@ class WidgetRuntimeService(
 
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(WidgetRuntimeService::class.java)
+
+        internal fun createWidgetContentUpdateAddress(it: String) =
+            CogboardConstants.EVENT_CONTENT_UPDATE_WIDGET_CONFIG + '.' + it
     }
 }

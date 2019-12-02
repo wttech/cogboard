@@ -4,13 +4,11 @@ import com.cognifide.cogboard.widget.BaseWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 
-class TextWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
+class CheckboxWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
 
     init {
         createDynamicChangeSubscriber()
-            .handler {
-                send(it.body())
-            }
+            .handler { send(it.body()) }
     }
 
     override fun updateState() {
@@ -18,6 +16,6 @@ class TextWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
     }
 
     companion object {
-        val PROPS = setOf("text", "textSize", "isVertical")
+        val PROPS = setOf("widgetStatus")
     }
 }
