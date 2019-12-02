@@ -1,9 +1,11 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.npm.NpmTask
 
 plugins {
     id("base")
     id("com.moowork.node")
+    id("com.bmuschko.docker-remote-api")
 }
 
 configure<NodeExtension> {
@@ -47,7 +49,12 @@ tasks {
         inputs.dir("${project.projectDir}/config")
         outputs.dir("${project.projectDir}")
     }
-
+    register<DockerBuildImage> ("buildImage") {
+        group = "docker"
+        inputDir.set(file("$projectDir"))
+        tags.add("${rootProject.property("docker.web.image.name")}:$version")
+        dependsOn("buildReactApp")
+    }
     register<Delete>("clearEnvFile"){
         delete("${project.projectDir}/.env")
     }
