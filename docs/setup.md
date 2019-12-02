@@ -46,7 +46,7 @@ To redeploy
 
 ##### When launched go to [http://localhost:8092](http://localhost:8092) to see your board
 
-##### When launched with mocks app is available as above. For mocks open [http://localhost:8080/__admin](http://localhost:8080/__admin) to see mocks configuration
+##### When launched with mocks app is available as above. For mocks open [http://localhost:8093/__admin](http://localhost:8080/__admin) to see mocks configuration
 
 
 ##### Login to manage boards >> default credentials: `admin` : `admin`
