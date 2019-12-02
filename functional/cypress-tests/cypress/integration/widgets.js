@@ -30,20 +30,4 @@ describe('Widgets', () => {
                 .should('not.visible');
         });
     };
-
-    it('Example widget persistence', () => {
-        cy.fillNewWidgetGeneral(example.name, example.name, false, false, 4, 2);
-        fillDynamicTab(example.name);
-        cy.confirmAddWidget();
-        cy.contains('h3', example.name)
-            .should('is.visible');
-        cy.saveState();
-        cy.visit('/');
-        cy.openDrawer();
-        cy.chooseDashboard(dashboardName);
-        cy.contains('h3', example.name)
-            .should('is.visible');
-        cy.removeWidget(example.name);
-        cy.saveState();
-    });
 })
