@@ -52,10 +52,19 @@ describe('Widget Persistence', () => {
     });
 
     it('Not saved Example widget isn\'t displayed after refresh', () => {
-
+        cy.fillNewWidgetGeneral(example.name, title, false, false, 4, 2);
+        fillDynamicTab(example.name);
+        cy.confirmAddWidget();
+        cy.contains('h3', title)
+            .should('is.visible');
+        cy.visit('/');
+        cy.openDrawer();
+        cy.chooseDashboard(dashboardName);
+        cy.contains('h3', title)
+            .should('not.visible');
     });
 
-    it('Saved Example widgetis displayed after refresh', () => {
+    it('Saved Example widget is displayed after refresh', () => {
         cy.fillNewWidgetGeneral(example.name, title, false, false, 4, 2);
         fillDynamicTab(example.name);
         cy.confirmAddWidget();
