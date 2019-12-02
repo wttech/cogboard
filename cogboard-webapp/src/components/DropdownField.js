@@ -19,7 +19,7 @@ const DropdownField = props => {
     id,
     label,
     value,
-    error,
+    error: dropdownError,
     name,
     children,
     dropdownItems,
@@ -58,7 +58,7 @@ const DropdownField = props => {
   }, [itemsUrl, isAuthenticated]);
 
   return (
-    <FormControl error={hasError(error)}>
+    <FormControl error={hasError(dropdownError)}>
       <InputLabel shrink htmlFor={id}>
         {label}
       </InputLabel>
@@ -72,7 +72,7 @@ const DropdownField = props => {
       >
         {loaded && children(options)}
       </Select>
-      {error && <FormHelperText>{error}</FormHelperText>}
+      {dropdownError && <FormHelperText>{dropdownError}</FormHelperText>}
       {optionalButton}
     </FormControl>
   );
