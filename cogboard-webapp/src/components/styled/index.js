@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-import { getSize, getColor } from '../../helpers';
-
 import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
 import IframeEmbed from '../IframeEmbed';
+import { getColor, getSize } from '../../utils/components';
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;

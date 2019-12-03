@@ -1,4 +1,4 @@
-import { sortByKey } from '../../../helpers';
+import { sortByKey } from '../../../utils/components';
 
 export const parseWidgetTypes = widgetTypes => {
   const sortedWidgetTypes = sortByKey(widgetTypes, 'name');

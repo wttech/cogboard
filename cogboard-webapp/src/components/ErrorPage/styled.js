@@ -1,8 +1,7 @@
 import styled from '@emotion/styled/macro';
 
-import { getColor } from '../../helpers';
-
 import { Link } from '@reach/router';
+import { getColor } from '../../utils/components';
 
 export const StyledLink = styled(Link)`
   font-size: 16px;

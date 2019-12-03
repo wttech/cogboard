@@ -4,14 +4,13 @@ import { func } from 'prop-types';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/core/styles';
 
-import { getSize, getBackgroundColor } from '../helpers';
-
 import { AppBar, Container, Toolbar, IconButton } from '@material-ui/core';
 import { DashboardRounded } from '@material-ui/icons';
 import { StyledTitle } from './styled';
 
 import BoardSwitcher from './BoardSwitcher';
 import UserLogin from './UserLogin';
+import { getBackgroundColor, getSize } from '../utils/components';
 
 const StyledBoardSwitcher = styled(BoardSwitcher)`
   align-items: center;

@@ -29,7 +29,6 @@ const Widget = ({ id, index }) => {
     isUpdating,
     disabled,
     type,
-    status,
     title,
     content,
     config: { columns, goNewLine, rows },
