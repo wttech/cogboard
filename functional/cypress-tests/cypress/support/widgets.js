@@ -24,7 +24,7 @@ Cypress.Commands.add('fillNewWidgetGeneral', (type = "Text", title = "Text Title
             .click();
     };
     if (disabled == true) {
-        cy.get('[data-cy="widget-form-disable-checkbox"]')
+        cy.get('[data-cy="widget-form-disabled-input"]')
             .click();
     };
 });
