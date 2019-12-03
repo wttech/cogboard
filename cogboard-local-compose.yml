@@ -24,7 +24,7 @@ services:
   frontened:
     image: "cogboard/cogboard-web:${COGBOARD_VERSION}"
     depends_on:
-      - "local-cogboard-app"
+      - "backend"
     networks:
       - coganet
     ports:
