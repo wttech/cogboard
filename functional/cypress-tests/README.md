@@ -47,4 +47,4 @@ Additional project specific conventions:
 
 `cy.confirmAddWidget()` - Confirm creation of a widget.
 
-`cy.removeWidget()` - Remove a widget on the page. - _Current tests use only one widget per test case._
+`cy.removeWidget(name)` - Remove a widget on the page, specified by its name (title).
