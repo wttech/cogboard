@@ -50,16 +50,6 @@ task("cogboard-is-running") {
     }
 }
 
-task("dockerStopCogboard") {
-    doLast {
-        logger.lifecycle("Trying to stop docker container named: $dockerContainerName")
-        exec {
-            isIgnoreExitValue = true
-            commandLine("docker", "container", "stop", dockerContainerName)
-        }
-    }
-}
-
 tasks.register<DockerRemoveImage>("removeImage") {
     group = "docker"
 
