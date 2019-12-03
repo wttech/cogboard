@@ -5,7 +5,7 @@ import { setWidgetState } from '../../../../actions/thunks';
 import getNextStatus from './helpers';
 
 import { WidgetIconButton } from '../../../styled';
-import StatusIcon from '../../../StatusIcon';
+import StatusCheckbox from '../../../StatusCheckbox';
 
 import { postWidgetContentUpdate } from '../../../../utils/fetch';
 
@@ -46,7 +46,7 @@ const CheckboxWidget = ({ id }) => {
       data-cy="checkbox"
       onClick={handleChangeStatus}
     >
-      <StatusIcon size="large" status={widgetStatus} />
+      <StatusCheckbox size="large" status={widgetStatus} />
     </WidgetIconButton>
   );
 };

@@ -21,7 +21,7 @@ describe('Widgets', () => {
 
         it(`${name} can be configured and added by logged in user`, () => {
             cy.fillNewWidgetGeneral(name, title, false, false, 4, 2);
-            fillDynamicTab(name)
+            fillDynamicTab(name);
             cy.confirmAddWidget();
             cy.contains('h3', title)
                 .should('is.visible');
@@ -31,19 +31,12 @@ describe('Widgets', () => {
         });
     };
 
-    it('Example widget persistence', () => {
-        cy.fillNewWidgetGeneral(example.name, example.name, false, false, 4, 2);
+    it('Example widget can be disabled', () => {
+        let title = `Test-${example.name}`;
+        cy.fillNewWidgetGeneral(example.name, title, false, true, 4, 2);
         fillDynamicTab(example.name);
         cy.confirmAddWidget();
-        cy.contains('h3', example.name)
+        cy.contains('Disabled')
             .should('is.visible');
-        cy.saveState();
-        cy.visit('/');
-        cy.openDrawer();
-        cy.chooseDashboard(dashboardName);
-        cy.contains('h3', example.name)
-            .should('is.visible');
-        cy.removeWidget(example.name);
-        cy.saveState();
-    });
+    })
 })
