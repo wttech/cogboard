@@ -2,9 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled/macro';
 
 import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
-
 import IframeEmbed from '../IframeEmbed';
-import { setSize } from '../../helpers';
+import { getColor, getSize } from '../../utils/components';
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;
@@ -56,27 +55,28 @@ export const StyledFormControlForDropdown = styled(FormControl)`
 export const StyledTitle = styled(Typography)`
   align-self: center;
   flex-grow: 1;
-  font-size: 2rem;
+  font-size: ${getSize(3)};
   margin-left: 1rem;
   margin-top: 1rem;
   overflow: hidden;
   padding-right: 2rem;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: ${getColor('secondary')};
 
   &::after {
-    background-color: #ff8a65;
+    background-color: ${getColor('primary')};
     content: '';
     display: block;
     height: 2px;
-    margin-top: ${setSize(2)};
+    margin-top: ${getSize(2)};
     margin-left: 3px;
-    width: ${setSize(10)};
+    width: ${getSize(10)};
   }
 `;
 
 export const StyledFormControl = styled(FormControl)`
-  margin: ${setSize(1)};
+  margin: ${getSize(1)};
   min-width: 120px;
   max-width: 300px;
 `;

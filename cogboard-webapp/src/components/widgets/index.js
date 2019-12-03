@@ -85,7 +85,7 @@ const widgetTypes = {
     }
   },
   BambooDeploymentWidget: {
-    name: 'Bamboo Environment Deployment',
+    name: 'Bamboo Deployment',
     component: BambooDeploymentWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
     showUpdateTime: true,
@@ -108,7 +108,7 @@ const widgetTypes = {
   IframeEmbedWidget: {
     name: 'Iframe Embed',
     component: IframeEmbedWidget,
-    dialogFields: ['UrlForContent']
+    dialogFields: ['IFrameURL']
   },
   CheckboxWidget: {
     name: 'Checkbox',

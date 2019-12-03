@@ -1,22 +1,30 @@
 import React from 'react';
 import { string, bool } from 'prop-types';
+import { useTheme } from '@material-ui/styles';
 
 import { StyledLink } from './styled';
 
-const ErrorPage = ({ title, tip, homeLink, className }) => (
-  <div className={className}>
-    <div>
-      <h1>{title}</h1>
-      <h3>{tip}</h3>
+const ErrorPage = ({ title, tip, homeLink, className }) => {
+  const theme = useTheme();
 
-      {homeLink && (
-        <p>
-          You could go back to the <StyledLink to="/">Home page</StyledLink>
-        </p>
-      )}
+  return (
+    <div className={className}>
+      <div>
+        <h1>{title}</h1>
+        <h3>{tip}</h3>
+
+        {homeLink && (
+          <p>
+            You could go back to the{' '}
+            <StyledLink to="/" theme={theme}>
+              Home page
+            </StyledLink>
+          </p>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 ErrorPage.propTypes = {
   title: string,

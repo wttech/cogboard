@@ -20,21 +20,24 @@ In order to use widgets that communicate with third party software you must firs
 Edit this file `mnt/endpoints.json`.  
 Any sensitive data from `endpoints.json` file is never accessible for end-users. Only `id` and `title` can be requested.
 
-## How to run
-
-#### Initialization step 
- 
-Execute below command once for initial configuration. This step will create required config files.
-```cmd
-./gradlew cogboardInit
-```
-
-#### Run
-Use below command to assemble and deploy Cogboard docker app.
+## How to run Cogboard in developer mode
+To build and run use default task:
 ```cmd
 ./gradlew
 ```
 
+To un-deploy docker stack
+```cmd
+./gradlew undeployLocal
+```
+
+## How to run Cogboard in production ready mode
+
+`TODO`: Design how to setup for production
+
+
 ##### When launched go to [http://localhost:8092](http://localhost:8092) to see your board
+
+##### When launched with mocks app is available as above. For mocks open [http://localhost:8093/__admin](http://localhost:8080/__admin) to see mocks configuration
 
 ##### Login to manage boards >> default credentials: `admin` : `admin`

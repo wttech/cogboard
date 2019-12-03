@@ -4,13 +4,15 @@ import com.cognifide.cogboard.config.EndpointsConfig.Companion.CREDENTIALS_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER_PROP
 import com.cognifide.cogboard.config.service.CredentialsService
+import com.cognifide.cogboard.config.service.EndpointsService
 import com.cognifide.cogboard.config.utils.JsonUtils.findById
 import com.cognifide.cogboard.storage.VolumeStorageFactory.credentials
+import com.cognifide.cogboard.storage.VolumeStorageFactory.endpoints
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class EndpointLoader(
-    endpointsConfig: JsonObject,
+    endpointsConfig: JsonObject = EndpointsService(endpoints()).loadConfig(),
     credentialsConfig: JsonObject = CredentialsService(credentials()).loadConfig()
 ) {
 

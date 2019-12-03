@@ -7,3 +7,5 @@
 
 `*` There are other health checks available in AEM. If other checks are desirable they can be added easily by contributing to: 
 `cogboard-webapp/src/constants/index.js#AEM_HEALTH_CHECKS` constant.
+
+###### Tested on AEM v.6.5

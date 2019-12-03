@@ -5,12 +5,12 @@ import { useToggle } from '../../hooks';
 import { login, logout } from '../../actions/thunks';
 import { clearLoginErrorMessage } from '../../actions/actionCreators';
 import { getIsAuthenticated } from '../../selectors';
+import { getCredentials } from './helpers';
 
 import { Button, IconButton, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
 import AppDialog from './../AppDialog';
 import { StyledFieldset } from '../styled';
-import { getCredentials } from './helpers';
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ const UserLogin = () => {
           edge="start"
           data-cy="user-login-login-icon"
         >
-          <AccountCircle />
+          <AccountCircle color="primary" />
         </IconButton>
       )}
       {isAuthenticated && (
@@ -69,7 +69,7 @@ const UserLogin = () => {
           edge="start"
           data-cy="user-login-logout-icon"
         >
-          <PowerSettingsNew />
+          <PowerSettingsNew color="primary" />
         </IconButton>
       )}
       <AppDialog

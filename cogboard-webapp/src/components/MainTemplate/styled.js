@@ -1,8 +1,10 @@
+import React from 'react';
 import styled from '@emotion/styled/macro';
 
-import { Box, Fab } from '@material-ui/core';
+import { Box, Drawer, Fab } from '@material-ui/core';
 import BoardList from '../BoardList';
 import Logo from '../Logo';
+import { getBackgroundColor } from '../../utils/components';
 
 export const StyledActions = styled(Box)`
   bottom: 50px;
@@ -38,4 +40,13 @@ export const StyledDrawerContainer = styled.div`
   flex-direction: column;
   padding-top: 32px;
   width: 250px;
+  background: #fff;
+`;
+
+export const StyledDrawer = styled(props => (
+  <Drawer classes={{ paper: 'paper' }} {...props} />
+))`
+  .paper {
+    background: ${getBackgroundColor('default')};
+  }
 `;

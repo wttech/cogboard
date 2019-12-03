@@ -62,7 +62,9 @@ abstract class WidgetTestBase {
     }
 
     fun assertStatus(expected: String, result: JsonObject) {
-        assertEquals(expected, result.getString(CogboardConstants.PROP_STATUS))
+        assertEquals(expected,
+            result.getJsonObject(CogboardConstants.PROP_CONTENT)
+                .getString(CogboardConstants.PROP_WIDGET_STATUS))
     }
 
     fun assertURL(expected: String, result: JsonObject) {

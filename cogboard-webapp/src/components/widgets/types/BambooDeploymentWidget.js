@@ -10,10 +10,9 @@ const BambooDeploymentWidget = ({
 }) => {
   return (
     <>
-      <Caption>Artifact: {releaseName}</Caption>
       <Caption>Deployment state: {deploymentState}</Caption>
       <Caption>Lifecycle state: {lifeCycleState}</Caption>
-      <WidgetButton href={url}>Deployment logs</WidgetButton>
+      <WidgetButton href={url}>{releaseName}</WidgetButton>
     </>
   );
 };

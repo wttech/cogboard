@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 
 import { StyledFormControl } from './../../styled';
-import { hasError } from '../../../helpers';
+import { hasError } from '../../../utils/components';
 
 const SonarQubeMetricsInput = ({ onChange, value, error, dataCy }) => {
   const inputId = 'sonarqube-metrics-input';
