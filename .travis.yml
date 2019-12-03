@@ -23,9 +23,10 @@ script:
 - echo $cyEnv
 - docker images
 - bash scripts/runContainer-$cyEnv.sh
+- docker ps -a
 - cd functional/cypress-tests/
 - npm install
-- npx cypress run --browser chrome --config-file cypress/config/$cyEnv.json
+- TERM=linux npx cypress run --browser chrome --config-file cypress/config/$cyEnv.json
 - cd ../../
 deploy:
 - provider: script
