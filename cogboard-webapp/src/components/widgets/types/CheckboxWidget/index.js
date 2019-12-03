@@ -5,7 +5,7 @@ import { setWidgetState } from '../../../../actions/thunks';
 import getNextStatus from './helpers';
 
 import { WidgetIconButton } from '../../../styled';
-import StatusIcon from '../../../StatusIcon';
+import StatusCheckbox from '../../../StatusCheckbox';
 
 const CheckboxWidget = props => {
   const { id } = props;
@@ -34,7 +34,7 @@ const CheckboxWidget = props => {
       data-cy="checkbox"
       onClick={handleChangeStatus}
     >
-      <StatusIcon size="large" status={status} />
+      <StatusCheckbox size="large" status={status} />
     </WidgetIconButton>
   );
 };

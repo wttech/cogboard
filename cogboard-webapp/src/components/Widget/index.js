@@ -17,7 +17,7 @@ import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import ConfirmationDialog from '../ConfirmationDialog';
-import WarningIcon from '@material-ui/icons/Warning';
+import StatusIcon from '../StatusIcon';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -121,7 +121,7 @@ const Widget = ({ id, index }) => {
       >
         {(isAuthenticated || title !== '') && (
           <StyledCardHeader
-            avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon />}
+            avatar={<StatusIcon status={status} />}
             title={title}
             titleTypographyProps={{
               component: 'h3',
