@@ -1,9 +1,8 @@
 import { object } from 'yup';
 
-import { splitPropsGroupName } from '../../helpers';
-
 import dialogFields from '../widgets/dialogFields';
 import { validationMessages as vm } from '../../constants';
+import { splitPropsGroupName } from '../../utils/components';
 
 export const createValidationSchema = (fields, constraints) => {
   const validators = Array.prototype

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { splitPropsGroupName, parseYupErrors } from '../helpers';
+import { parseYupErrors } from '../utils/common';
+import { splitPropsGroupName } from '../utils/components';
 
 export const useToggle = (initialState = false) => {
   const [isOpened, setOpened] = useState(initialState);

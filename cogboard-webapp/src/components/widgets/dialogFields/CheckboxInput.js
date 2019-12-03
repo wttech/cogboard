@@ -2,9 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/styles';
 
-import { getColor } from '../../../helpers';
-
 import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { getColor } from '../../../utils/components';
 
 export const StyledCheckbox = styled(Checkbox)`
   color: ${getColor('primary')};

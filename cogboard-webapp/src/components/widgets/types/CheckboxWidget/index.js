@@ -7,10 +7,13 @@ import getNextStatus from './helpers';
 import { WidgetIconButton } from '../../../styled';
 import StatusCheckbox from '../../../StatusCheckbox';
 
-const CheckboxWidget = props => {
-  const { id } = props;
-  const { status } = useSelector(({ widgets }) => widgets.widgetsById[id]);
+import { postWidgetContentUpdate } from '../../../../utils/fetch';
+
+const CheckboxWidget = ({ id }) => {
   const dispatch = useDispatch();
+  const {
+    content: { widgetStatus }
+  } = useSelector(({ widgets }) => widgets.widgetsById[id]);
 
   const ariaCheckedStatusMap = {
     OK: true,
@@ -19,22 +22,31 @@ const CheckboxWidget = props => {
   };
 
   const handleChangeStatus = () => {
+    let nextStatus = getNextStatus(widgetStatus);
     dispatch(
       setWidgetState({
         id,
-        status: getNextStatus(status)
+        content: {
+          widgetStatus: nextStatus
+        },
+        withWidgetContentUpdate: true
       })
     );
+
+    postWidgetContentUpdate({
+      id,
+      content: { widgetStatus: nextStatus }
+    }).catch(e => console.log(e));
   };
 
   return (
     <WidgetIconButton
       aria-label="Toggle status"
-      aria-checked={ariaCheckedStatusMap[status]}
+      aria-checked={ariaCheckedStatusMap[widgetStatus]}
       data-cy="checkbox"
       onClick={handleChangeStatus}
     >
-      <StatusCheckbox size="large" status={status} />
+      <StatusCheckbox size="large" status={widgetStatus} />
     </WidgetIconButton>
   );
 };
