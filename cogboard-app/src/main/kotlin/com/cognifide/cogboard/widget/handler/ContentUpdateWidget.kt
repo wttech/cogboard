@@ -14,7 +14,7 @@ class ContentUpdateWidget : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         vertx
             ?.eventBus()
-            ?.publish(CogboardConstants.EVENT_CONTENT_UPDATE_WIDGET_CONFIG, event.body.toJsonObject())
+            ?.publish(CogboardConstants.EVENT_UPDATE_WIDGET_CONTENT_CONFIG, event.body.toJsonObject())
         event
             .response()
             .end(config?.getJsonObject("body", DEFAULT_NO_BODY)?.encode())

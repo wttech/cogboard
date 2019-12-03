@@ -50,7 +50,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
 
     private fun listenOnWidgetContentUpdate() = vertx
         .eventBus()
-        .consumer<JsonObject>(CogboardConstants.EVENT_CONTENT_UPDATE_WIDGET_CONFIG)
+        .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONTENT_CONFIG)
         .handler {
             widgetRuntimeService.handleWidgetContentUpdate(it.body())
         }

@@ -12,3 +12,17 @@ export const checkResponseStatus = response => {
     return Promise.reject(new Error(statusText));
   }
 };
+
+export const postWidgetContentUpdate = (data = {}) => {
+  const postConfig = {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch('/api/widget/contentUpdate', postConfig)
+    .then(checkResponseStatus)
+    .then(response => response.json());
+};

@@ -12,10 +12,6 @@ class CheckboxWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, confi
     }
 
     override fun updateState() {
-        updateStateByCopingPropsToContent(PROPS)
-    }
-
-    companion object {
-        val PROPS = setOf("widgetStatus")
+        // noop, everything is handled in content
     }
 }

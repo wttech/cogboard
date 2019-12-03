@@ -7,7 +7,7 @@ import getNextStatus from './helpers';
 import { WidgetIconButton } from '../../../styled';
 import StatusIcon from '../../../StatusIcon';
 
-import { postWidgetContentUpdate } from '../../../../helpers';
+import { postWidgetContentUpdate } from '../../../../utils/fetch';
 
 const CheckboxWidget = ({ id }) => {
   const dispatch = useDispatch();

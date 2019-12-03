@@ -51,10 +51,10 @@ class WidgetRuntimeService(
     }
 
     fun handleWidgetContentUpdate(widgetConfig: JsonObject) {
-        widgetContentUpdateAddress(widgetConfig)?.let {
+        widgetContentUpdateAddress(widgetConfig)?.let { widgetAddress ->
             vertx
                 .eventBus()
-                .publish(it, widgetConfig)
+                .publish(widgetAddress, widgetConfig)
         }
     }
 
@@ -89,7 +89,7 @@ class WidgetRuntimeService(
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(WidgetRuntimeService::class.java)
 
-        internal fun createWidgetContentUpdateAddress(it: String) =
-            CogboardConstants.EVENT_CONTENT_UPDATE_WIDGET_CONFIG + '.' + it
+        internal fun createWidgetContentUpdateAddress(id: String) =
+            CogboardConstants.EVENT_UPDATE_WIDGET_CONTENT_CONFIG + '.' + id
     }
 }

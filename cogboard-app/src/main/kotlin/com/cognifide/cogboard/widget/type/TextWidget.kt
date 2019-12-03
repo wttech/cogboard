@@ -6,13 +6,6 @@ import io.vertx.core.json.JsonObject
 
 class TextWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
 
-    init {
-        createDynamicChangeSubscriber()
-            .handler {
-                send(it.body())
-            }
-    }
-
     override fun updateState() {
         updateStateByCopingPropsToContent(PROPS)
     }
