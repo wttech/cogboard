@@ -14,13 +14,13 @@ before_script:
 - if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export
   RELEASE=1 && git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git;
   fi
-- if [[ "$TRAVIS_BRANCH" != ^master$ && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export DEV_BUILD=1; fi
+- if [[ "$TRAVIS_BRANCH" != ^master$ && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export DEV_BUILD=1; sed -i 's/8092/8093' gradle.properties && sed -i 's/9001/9002' gradle.properties; fi
 - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
 - if [ "$RELEASE" = "1" ]; then ./gradlew release -Prelease.useAutomaticVersion=true
   --info && cyEnv=prod; fi
 - if [ "$RELEASE" != "1" ]; then ./gradlew build && cyEnv=dev; fi
-- bash scripts/runContainer.sh
+- bash scripts/runContainer-${cyEnv}.sh
 - cd functional/cypress-tests/
 - npm install
 - npx cypress run --browser chrome --config-file cypress/config/$cyEnv.json
