@@ -20,7 +20,7 @@ script:
 - if [ "$RELEASE" = "1" ]; then export cyEnv=prod && ./gradlew release -Prelease.useAutomaticVersion=true
   --info; fi
 - if [ "$RELEASE" != "1" ]; then export cyEnv=dev && ./gradlew build; fi
-- echo cyEnv
+- echo $cyEnv
 - docker images
 - bash scripts/runContainer-$cyEnv.sh
 - cd functional/cypress-tests/
