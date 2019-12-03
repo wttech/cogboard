@@ -17,7 +17,7 @@ import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import ConfirmationDialog from '../ConfirmationDialog';
-import WarningIcon from '@material-ui/icons/Warning';
+import StatusIcon from '../StatusIcon';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -29,12 +29,12 @@ const Widget = ({ id, index }) => {
     isUpdating,
     disabled,
     type,
-    status,
     title,
     content,
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
+  const widgetStatus = content && content.widgetStatus;
   const showUpdateTime = widgetTypes[type]
     ? widgetTypes[type].showUpdateTime
     : false;
@@ -109,7 +109,7 @@ const Widget = ({ id, index }) => {
   return (
     <>
       <StyledCard
-        status={status}
+        status={widgetStatus}
         columns={columns}
         goNewLine={goNewLine}
         rows={rows}
@@ -121,7 +121,7 @@ const Widget = ({ id, index }) => {
       >
         {(isAuthenticated || title !== '') && (
           <StyledCardHeader
-            avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon />}
+            avatar={<StatusIcon status={widgetStatus} />}
             title={title}
             titleTypographyProps={{
               component: 'h3',

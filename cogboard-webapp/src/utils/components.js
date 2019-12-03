@@ -20,24 +20,4 @@ export const sortByKey = (obj, key, asc = true) =>
       return newObj;
     }, {});
 
-export const capitalize = ([firstLetter, ...rest]) =>
-  [firstLetter.toUpperCase(), ...rest].join('');
-
-export const parseYupErrors = errors => {
-  let result = {};
-  errors.inner.forEach(error => {
-    const { path, message } = error;
-
-    if (path in result) {
-      result[path].push(message);
-    } else {
-      result[path] = [message];
-    }
-  });
-
-  return result;
-};
-
-export const trimLeadingZeros = inputValue => String(parseInt(inputValue));
-
 export const hasError = error => error !== undefined;

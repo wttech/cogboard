@@ -13,8 +13,8 @@ servers:
         description: api domain
       port:
         enum:
-          - '8092'
-        default: '8092'
+          - "8092"
+        default: "8092"
   - url: ws://{domain}:{port}
     description: The Websocket server
     variables:
@@ -23,8 +23,8 @@ servers:
         description: websockets
       port:
         enum:
-          - '$ws_port'
-        default: '$ws_port'
+          - "$ws_port"
+        default: "$ws_port"
 
 paths:
   /api/config:
@@ -137,7 +137,12 @@ paths:
       responses:
         default:
           description: Widget Delete Handler
-
+  /api/widget/contentUpdate:
+    post:
+      operationId: widget-content-update-handler
+      responses:
+        default:
+          description: Widget Content Refresh Handler
 components:
   securitySchemes:
     cogboardAuth:
