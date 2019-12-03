@@ -1,4 +1,3 @@
-com.cognifide.cogboard.config.handler.HomePage
 com.cognifide.cogboard.config.handler.boards.GetBoards
 com.cognifide.cogboard.config.handler.boards.SaveBoards
 com.cognifide.cogboard.config.handler.endpoints.GetEndpoints
