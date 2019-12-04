@@ -25,7 +25,7 @@ describe("Widgets", () => {
             cy.confirmAddWidget();
             cy.contains('h3', title)
                 .should('is.visible');
-            // validateWidgetConfig(name); - in progress
+            validateWidgetConfig(name);
             cy.removeWidget(title);
             cy.contains('h3', title)
                 .should('not.exist');

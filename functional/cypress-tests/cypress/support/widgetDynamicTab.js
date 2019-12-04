@@ -1,22 +1,26 @@
 import Widgets from '../fixtures/Widgets';
 
-function randomBoolean() {
-    return Math.random() >= 0.5
-};
-
 export function fillAemHealthcheck() {
+    let healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
     cy.get('[data-cy="widget-form-endpoint-input"]')
         .click();
-    //Change selector (add data-cy in markup)
     cy.get(`[data-value="${Widgets.aemHealthcheck.endpoint}"]`)
         .click();
     cy.fillSchedulePeriod(Widgets.aemHealthcheck.schedulePeriod);
     cy.get('[data-cy="widget-form-selected-health-checks-input"]')
         .click();
-    //Change selector (add data-cy in markup)
-    cy.contains('span', `${Widgets.aemHealthcheck.healthChecks.ObservationQueueLengthHealthCheck.label}`)
-        .click()
-        .type('{esc}');
+    for (let i = 0; i < healthcheckKeys.length - 1; i++) {
+        let healthcheck = healthcheckKeys[i];
+        let label = Widgets.aemHealthcheck.healthChecks[healthcheck].label
+        if (i == 0 || i == 3 || i == 11) {
+        } else if (i == 12) {
+            cy.contains('span', `${label}`)
+                .type('{esc}');
+        } else {
+            cy.contains('span', `${label}`)
+                .click();
+        };
+    };
 };
 
 export function fillBambooPlan() {
@@ -39,7 +43,10 @@ export function fillIframeEmbed() {
 };
 
 export function fillJenkinsJob() {
-    //To Do: Choose endpoint
+    cy.get('[data-cy="widget-form-endpoint-input"]')
+        .click();
+    cy.get(`[data-value="${Widgets.jenkinsJob.endpoint}"]`)
+        .click();
     cy.fillSchedulePeriod(Widgets.jenkinsJob.schedulePeriod);
     cy.get('[data-cy="widget-form-path-input"]')
         .type(Widgets.jenkinsJob.path);
@@ -62,7 +69,6 @@ export function fillServiceCheck() {
 export function fillSonarQube() {
     cy.get('[data-cy="widget-form-endpoint-input"]')
         .click();
-    //Change selector (add data-cy in markup)
     cy.get(`[data-value="${Widgets.sonarQube.endpoint}"]`)
         .click();
     cy.fillSchedulePeriod(Widgets.sonarQube.schedulePeriod);
@@ -78,13 +84,8 @@ export function fillText() {
         .type(Widgets.text.text);
     cy.get('[data-cy="widget-form-text-size-input"]')
         .click();
-    //Change selector (add data-cy in markup)
     cy.get('[data-value="h3"]')
         .click();
-    if (randomBoolean()) {
-        cy.get('[data-cy="widget-form-is-vertical-input"]')
-            .click();
-    };
 };
 
 export function fillWorldClock() {
@@ -102,14 +103,6 @@ export function fillWorldClock() {
     //Change selector (add data-cy in markup)
     cy.get(`[data-value="${Widgets.worldClock.timeFormat}"]`)
         .click();
-    if (randomBoolean()) {
-        cy.get('[data-cy="widget-form-display-date-input"]')
-            .click();
-    }
-    if (randomBoolean()) {
-        cy.get('[data-cy="widget-form-display-time-input"]')
-            .click();
-    }
     cy.get('[data-cy="widget-form-text-size-input"]')
         .click();
     //Change selector (add data-cy in markup)
@@ -119,7 +112,6 @@ export function fillWorldClock() {
 
 export function fillDynamicTab(type = "Text") {
     if (type !== 'Default' && type !== 'Checkbox') {
-        console.log(type)
         cy.get('[data-cy="widget-form-dynamic-tab"]')
             .click();
         switch(type) {

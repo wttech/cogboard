@@ -51,6 +51,19 @@
         },
         "bodyFileName": "jenkins/v2.46.3/in-progress.json"
       }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/system/sling/monitoring/mbeans/org/apache/sling/healthcheck.2.json"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "aem/healthcheck.json"
+      }
     }
   ]
 }

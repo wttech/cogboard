@@ -1,7 +1,7 @@
 module.exports = {
 	aemHealthcheck: {
 		name: "AEM Healthcheck",
-		endpoint: "endpoint1",
+		endpoint: "wiremock",
 		schedulePeriod: "500",
 		healthChecks: {
 			activeBundles: {
@@ -34,7 +34,7 @@ module.exports = {
 			},
 			requestsStatus: {
 				dataValue: "requestsStatus",
-				label: "Requests Performance",
+				label: "Request Performance",
 			},
 			queriesStatus: {
 				dataValue: "queriesStatus",
@@ -64,7 +64,7 @@ module.exports = {
 	},
 	bambooPlan: {
 		name: "Bamboo Plan",
-		endpoint: "endpoint1",
+		endpoint: "wiremock",
 		schedulePeriod: "500",
 		id: "bamboo-test",
 	},
@@ -84,15 +84,15 @@ module.exports = {
 	},
 	jenkinsJob: {
 		name: "Jenkins Job",
-		endpoint: "endpoint1",
+		endpoint: "wiremock",
 		schedulePeriod: "500",
-		path: "somepath",
+		path: "/job/CogBoard/job/in-progress",
 	},
 	serviceCheck: {
 		name: "Service Check",
 		schedulePeriod: "60",
 		requestMethod: "POST",
-		endpoint: "endpoint1",
+		endpoint: "wiremock",
 		path: "api/v1/create",
 		requestBody: '{"name":"cogboard-automation", "salary": "12345", "age": "1"}',
 		responseBodyFragment: "cogboard-automation",
@@ -100,7 +100,7 @@ module.exports = {
 	},
 	sonarQube: {
 		name: "SonarQube",
-		endpoint: "endpoint1",
+		endpoint: "wiremock",
 		schedulePeriod: "90",
 		key: "rand",
 		id: "1",

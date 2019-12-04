@@ -26,7 +26,7 @@
     "building": true,
     "description": null,
     "displayName": "#6",
-    "duration": 0,
+    "duration": 250,
     "estimatedDuration": 10800029,
     "executor": { },
     "fullDisplayName": "CogBoard » In Progress #6",
