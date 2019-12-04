@@ -18,10 +18,11 @@ import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
+import { getWidgetStatus } from '../../utils/components';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
-    state => state.widgets.widgetsById[id],
+    ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
   const {
@@ -34,7 +35,7 @@ const Widget = ({ id, index }) => {
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
-  const widgetStatus = content && content.widgetStatus;
+  const widgetStatus = getWidgetStatus(content);
   const showUpdateTime = widgetTypes[type]
     ? widgetTypes[type].showUpdateTime
     : false;
