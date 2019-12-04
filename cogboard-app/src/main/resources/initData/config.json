@@ -9,7 +9,8 @@
         "columns": 8,
         "theme": "default",
         "widgets": [
-          "widget1"
+          "widget1",
+          "widget9"
         ]
       },
       "board2": {
@@ -210,6 +211,22 @@
         "text": "v5.6.6",
         "textSize": "h3",
         "isVertical": true
+      },
+      "widget9": {
+        "id": "widget9",
+        "title": "Checkbox Widget",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "CheckboxWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board1",
+        "withWidgetContentUpdate": true
       }
     },
     "allWidgets": [
@@ -220,7 +237,8 @@
       "widget5",
       "widget6",
       "widget7",
-      "widget8"
+      "widget8",
+      "widget9"
     ]
   }
 }
