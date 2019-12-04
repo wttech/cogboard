@@ -21,8 +21,8 @@ import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
 
 val dockerImageRef = "$buildDir/.docker/buildImage-imageId.txt"
-val dockerContainerName = project.property("docker.container.name")?.toString() ?: "cogboard"
-val dockerImageName = project.property("docker.image.name")?.toString() ?: "cogboard/cogboard-app"
+val dockerContainerName = project.property("docker.app.container.name")?.toString() ?: "cogboard"
+val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "cogboard/cogboard-app"
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
@@ -50,16 +50,6 @@ task("cogboard-is-running") {
     }
 }
 
-task("dockerStopCogboard") {
-    doLast {
-        logger.lifecycle("Trying to stop docker container named: $dockerContainerName")
-        exec {
-            isIgnoreExitValue = true
-            commandLine("docker", "container", "stop", dockerContainerName)
-        }
-    }
-}
-
 tasks.register<DockerRemoveImage>("removeImage") {
     group = "docker"
 
@@ -75,7 +65,7 @@ tasks.register<DockerRemoveImage>("removeImage") {
 tasks.register<DockerBuildImage> ("buildImage") {
     group = "docker"
     inputDir.set(file("$buildDir"))
-    tags.add("${project.property("docker.image.name")}:$version")
+    tags.add("$dockerImageName:$version")
     dependsOn("prepareDocker")
 }
 val buildImage = tasks.named<DockerBuildImage>("buildImage")
@@ -156,7 +146,7 @@ tasks.register<Exec>("deployLocal") {
     environment = mapOf("COGBOARD_VERSION" to version)
     group = "swarm"
     commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
-    dependsOn("initSwarm", "build", "awaitLocalStackUndeployed")
+    dependsOn("initSwarm", "build", "awaitLocalStackUndeployed", ":cogboard-webapp:buildImage")
     mustRunAfter("undeployLocal")
 }
 

@@ -29,10 +29,10 @@ class BambooDeploymentWidget(
 
     private fun sendNeverDeployed() {
         send(JsonObject()
-                .put(CC.PROP_STATUS, Widget.Status.UNKNOWN)
                 .put(CC.PROP_CONTENT, JsonObject()
                         .put(CC.PROP_ERROR_MESSAGE, "Never Deployed")
-                        .put(CC.PROP_ERROR_CAUSE, "")))
+                        .put(CC.PROP_ERROR_CAUSE, "")
+                        .put(CC.PROP_WIDGET_STATUS, Widget.Status.UNKNOWN)))
     }
 
     private fun sendSuccess(result: JsonObject) {
@@ -40,13 +40,13 @@ class BambooDeploymentWidget(
         val deploymentResultId = result.getInteger("id")
 
         result.put(CC.PROP_ERROR_MESSAGE, "")
-        result.put(CC.PROP_URL, constructUrl(deploymentResultId))
-        result.put(CC.PROP_RELEASE_NAME, deploymentVersionName)
+            .put(CC.PROP_URL, constructUrl(deploymentResultId))
+            .put(CC.PROP_RELEASE_NAME, deploymentVersionName)
+            .put(CC.PROP_WIDGET_STATUS, getStatus(result))
 
         result.remove("items")
 
         send(JsonObject()
-                .put(CC.PROP_STATUS, getStatus(result))
                 .put(CC.PROP_CONTENT, result))
     }
 

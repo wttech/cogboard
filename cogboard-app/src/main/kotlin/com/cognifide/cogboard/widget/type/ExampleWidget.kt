@@ -29,8 +29,11 @@ class ExampleWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config
 
     override fun updateState() {
         send(JsonObject()
-                .put(CogboardConstants.PROP_STATUS, Widget.Status.random())
-                .put(CogboardConstants.PROP_CONTENT, JsonObject().put("serverTime", Date().time)))
+            .put(CogboardConstants.PROP_CONTENT,
+                JsonObject()
+                    .put("serverTime", Date().time)
+                    .put(CogboardConstants.PROP_WIDGET_STATUS, Widget.Status.random()))
+        )
     }
 
     companion object {

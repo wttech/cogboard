@@ -4,6 +4,7 @@ import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.widget.type.AemHealthcheckWidget
 import com.cognifide.cogboard.widget.type.BambooDeploymentWidget
 import com.cognifide.cogboard.widget.type.BambooPlanWidget
+import com.cognifide.cogboard.widget.type.CheckboxWidget
 import com.cognifide.cogboard.widget.type.DefaultWidget
 import com.cognifide.cogboard.widget.type.ExampleWidget
 import com.cognifide.cogboard.widget.type.IframeEmbedWidget
@@ -34,6 +35,7 @@ class WidgetIndex {
             TextWidget::class.java.simpleName -> TextWidget(vertx, config)
             IframeEmbedWidget::class.java.simpleName -> IframeEmbedWidget(vertx, config)
             WorldClockWidget::class.java.simpleName -> WorldClockWidget(vertx, config)
+            CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)
             // add here
             else -> DefaultWidget.INSTANCE
         }
