@@ -23,9 +23,7 @@ import {
   StyledDrawerContainer,
   StyledLogo,
   StyledMain,
-  StyledSaveFab,
-  drawerStyles,
-  StyledSettingsMenu
+  StyledSaveFab
 } from './styled';
 
 const MainTemplate = () => {
@@ -36,7 +34,6 @@ const MainTemplate = () => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const dispatch = useDispatch();
   const theme = useTheme();
-  const drawerClasses = drawerStyles();
 
   const handleSaveDataClick = () => {
     dispatch(saveData());
