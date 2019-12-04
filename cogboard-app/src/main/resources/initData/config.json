@@ -31,6 +31,7 @@
         "id": "board3",
         "theme": "default",
         "widgets": [
+          "widget8",
           "widget5",
           "widget7",
           "widget6"
@@ -191,6 +192,24 @@
           "major_violations",
           "minor_violations"
         ]
+      },
+      "widget8": {
+        "id": "widget8",
+        "title": "",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board3",
+        "text": "v5.6.6",
+        "textSize": "h3",
+        "isVertical": true
       }
     },
     "allWidgets": [
@@ -200,7 +219,8 @@
       "widget4",
       "widget5",
       "widget6",
-      "widget7"
+      "widget7",
+      "widget8"
     ]
   }
 }
