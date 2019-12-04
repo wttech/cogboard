@@ -24,11 +24,25 @@
           "widget3",
           "widget4"
         ]
+      },
+      "board3": {
+        "autoSwitch": true,
+        "switchInterval": 60,
+        "id": "board3",
+        "theme": "default",
+        "widgets": [
+          "widget5",
+          "widget7",
+          "widget6"
+        ],
+        "columns": 8,
+        "title": "Sonarqube tests"
       }
     },
     "allBoards": [
       "board1",
-      "board2"
+      "board2",
+      "board3"
     ]
   },
   "widgets": {
@@ -102,13 +116,91 @@
         "endpoint": "api-mocks-endpoint",
         "schedulePeriod": 120,
         "path": "/job/CogBoard/job/in-progress"
+      },
+      "widget5": {
+        "id": "widget5",
+        "title": "Sonarqube Success",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "status": "OK",
+        "isUpdating": false,
+        "boardId": "board3",
+        "endpoint": "api-mocks-endpoint",
+        "schedulePeriod": 120,
+        "keyString": "success",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations"
+        ]
+      },
+      "widget6": {
+        "id": "widget6",
+        "title": "Sonarqube Fail",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "status": "FAIL",
+        "isUpdating": false,
+        "boardId": "board3",
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations"
+        ],
+        "idNumber": 1,
+        "keyString": "fail",
+        "schedulePeriod": 120000,
+        "endpoint": "api-mocks-endpoint"
+      },
+      "widget7": {
+        "id": "widget7",
+        "title": "Sonarqube Warning",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNSTABLE",
+        "isUpdating": false,
+        "boardId": "board3",
+        "endpoint": "api-mocks-endpoint",
+        "schedulePeriod": 120000,
+        "keyString": "warning",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations"
+        ]
       }
     },
     "allWidgets": [
       "widget1",
       "widget2",
       "widget3",
-      "widget4"
+      "widget4",
+      "widget5",
+      "widget6",
+      "widget7"
     ]
   }
 }
