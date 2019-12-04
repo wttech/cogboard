@@ -130,16 +130,12 @@ const reorderWidgetsThunk = (sourceId, targetIndex) => (dispatch, getState) => {
 };
 
 const loadSettingsThunk = () => dispatch => {
-  const init = {
-    headers: {
-      Authorization: getToken()
-    }
-  };
+  const token = getToken();
 
-  Promise.all([fetch('/api/endpoints', init), fetch('/api/credentials', init)])
-    .then(([endpoints, credentials]) =>
-      Promise.all([endpoints.json(), credentials.json()])
-    )
+  Promise.all([
+    fetchData('/api/endpoints', { token }),
+    fetchData('/api/credentials', { token })
+  ])
     .then(([endpoints, credentials]) => {
       dispatch(
         saveSettings({
