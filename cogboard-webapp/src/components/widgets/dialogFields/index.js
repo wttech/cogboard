@@ -91,7 +91,6 @@ const dialogFields = {
       string()
         .trim()
         .max(max, vm.STRING_LENGTH('Title', max))
-        .required(vm.FIELD_REQUIRED())
   },
   UniqueTitleField: {
     component: TextInput,
@@ -164,7 +163,7 @@ const dialogFields = {
   SwitchInterval: {
     component: conditionallyHidden(NumberInput, 'autoSwitch', value => value),
     name: 'switchInterval',
-    label: 'Switch Interval',
+    label: 'Switch Interval [sec]',
     validator: ({ min }) =>
       number().when('autoSwitch', {
         is: true,
@@ -202,9 +201,9 @@ const dialogFields = {
     label: 'URL',
     validator: () => string().url(vm.INVALID_URL())
   },
-  UrlForContent: {
+  IFrameURL: {
     component: TextInput,
-    name: 'content.url',
+    name: 'iframeUrl',
     label: 'URL',
     validator: () => string().url(vm.INVALID_URL())
   },
@@ -272,7 +271,7 @@ const dialogFields = {
   },
   TimeZoneId: {
     component: DisplayValueSelect,
-    name: 'content.timeZoneId',
+    name: 'timeZoneId',
     label: 'Timezone',
     dropdownItems: GMT_TIMEZONES,
     initialValue: GMT_TIMEZONES[0].value,
@@ -280,7 +279,7 @@ const dialogFields = {
   },
   DateFormat: {
     component: DisplayValueSelect,
-    name: 'content.dateFormat',
+    name: 'dateFormat',
     label: 'Date Format',
     dropdownItems: DATE_FORMATS,
     initialValue: DATE_FORMATS[1].value,
@@ -288,7 +287,7 @@ const dialogFields = {
   },
   TimeFormat: {
     component: DisplayValueSelect,
-    name: 'content.timeFormat',
+    name: 'timeFormat',
     label: 'Time Format',
     dropdownItems: TIME_FORMATS,
     initialValue: TIME_FORMATS[1].value,
@@ -296,28 +295,28 @@ const dialogFields = {
   },
   DisplayDate: {
     component: CheckboxInput,
-    name: 'content.displayDate',
+    name: 'displayDate',
     label: 'Display date',
     initialValue: true,
     validator: () => boolean()
   },
   DisplayTime: {
     component: CheckboxInput,
-    name: 'content.displayTime',
+    name: 'displayTime',
     label: 'Display time',
     initialValue: true,
     validator: () => boolean()
   },
   Text: {
     component: MultilineTextInput,
-    name: 'content.text',
+    name: 'text',
     label: 'Text',
     validator: () => string()
   },
   RequestBody: {
     component: MultilineTextInput,
     name: 'body',
-    label: 'Request Body',
+    label: 'Request Body (Json format or empty)',
     validator: () => string()
   },
   ResponseBody: {
@@ -328,7 +327,7 @@ const dialogFields = {
   },
   TextSize: {
     component: DisplayValueSelect,
-    name: 'content.textSize',
+    name: 'textSize',
     label: 'Text Size',
     dropdownItems: TEXT_SIZES,
     initialValue: TEXT_SIZES[3].value,
@@ -344,7 +343,7 @@ const dialogFields = {
   },
   TextOrientation: {
     component: CheckboxInput,
-    name: 'content.isVertical',
+    name: 'isVertical',
     label: 'Vertical Text',
     initialValue: false,
     validator: () => boolean()

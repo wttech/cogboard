@@ -1,0 +1,33 @@
+version: "3.7"
+
+networks:
+  coganet:
+
+services:
+  api-mocks:
+    image: rodolpheche/wiremock
+    volumes:
+      - "./api-mocks:/home/wiremock"
+    ports:
+      - "8093:8080"
+    networks:
+      - coganet
+    command: ["--verbose", "--no-request-journal"]
+
+  backend:
+    image: "cogboard/cogboard-app:${COGBOARD_VERSION}"
+    volumes:
+      - "./mnt:/data"
+    networks:
+      - coganet
+  #    ports:
+  #      - "18092:18092"
+
+  frontened:
+    image: "cogboard/cogboard-web:${COGBOARD_VERSION}"
+    depends_on:
+      - "backend"
+    networks:
+      - coganet
+    ports:
+      - "80:80"

@@ -1,10 +1,12 @@
 package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.config.service.WidgetRuntimeService
 import io.vertx.core.Vertx
+import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
-import java.util.TimerTask
 import java.util.Timer
+import java.util.TimerTask
 import kotlin.concurrent.timerTask
 import com.cognifide.cogboard.CogboardConstants as CC
 
@@ -63,16 +65,16 @@ abstract class BaseWidget(
      */
     fun sendConfigurationError(cause: String = "") {
         send(JsonObject()
-                .put(CC.PROP_STATUS, Widget.Status.ERROR_CONFIGURATION)
                 .put(CC.PROP_CONTENT,
                         JsonObject()
                                 .put(CC.PROP_ERROR_MESSAGE, "Configuration Error")
                                 .put(CC.PROP_ERROR_CAUSE, cause)
+                                .put(CC.PROP_WIDGET_STATUS, Widget.Status.ERROR_CONFIGURATION)
                 )
         )
     }
 
-    fun sendUnknownResponceError() {
+    fun sendUnknownResponseError() {
         sendConfigurationError("Unknown Response")
     }
 
@@ -104,6 +106,20 @@ abstract class BaseWidget(
 
     override fun config(): JsonObject {
         return config
+    }
+
+    protected fun createDynamicChangeSubscriber(): MessageConsumer<JsonObject> {
+        return vertx
+            .eventBus()
+            .consumer<JsonObject>(WidgetRuntimeService.createWidgetContentUpdateAddress(id))
+    }
+
+    protected fun updateStateByCopingPropsToContent(props: Set<String>) {
+        val content = JsonObject()
+        props.forEach {
+            content.put(it, config.getValue(it))
+        }
+        send(JsonObject().put(CC.PROP_CONTENT, content))
     }
 
     private fun startWithSchedule() {

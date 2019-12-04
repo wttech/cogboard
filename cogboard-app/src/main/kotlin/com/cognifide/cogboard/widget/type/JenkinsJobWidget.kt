@@ -1,12 +1,17 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
-class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
+class JenkinsJobWidget(
+    vertx: Vertx,
+    config: JsonObject,
+    boardService: BoardsConfigService = BoardsConfigService()
+) : AsyncWidget(vertx, config, boardService) {
 
     private val path: String = config.getString("path", "")
 
@@ -16,19 +21,20 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
 
             if (lastBuild != null) {
                 sendSuccess(lastBuild)
-            } else sendUnknownResponceError()
+            } else sendUnknownResponseError()
         }
     }
 
     private fun sendSuccess(lastBuild: JsonObject) {
         val status = if (lastBuild.getBoolean("building", false)) Widget.Status.IN_PROGRESS
         else Widget.Status.from(lastBuild.getString("result", ""))
+
         lastBuild.put(CC.PROP_ERROR_MESSAGE, "")
-        lastBuild.put("branch", extractBranchInfo(lastBuild))
-        lastBuild.put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
+            .put("branch", extractBranchInfo(lastBuild))
+            .put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
+            .put(CC.PROP_WIDGET_STATUS, status)
 
         send(JsonObject()
-                .put(CC.PROP_STATUS, status)
                 .put(CC.PROP_CONTENT, lastBuild))
     }
 

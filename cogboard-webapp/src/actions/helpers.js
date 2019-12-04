@@ -1,21 +1,8 @@
-import { dataChanged } from './actionCreators';
+import { dataChanged, setLogoutReasonMessage } from './actionCreators';
 import { logout } from './thunks';
 import { isAuthenticated } from '../utils/auth';
-import { navigate } from '@reach/router';
 import { mergeRight, assocPath } from 'ramda';
-
-const checkResponseStatus = response => {
-  const { status, statusText } = response;
-
-  if (status >= 200 && status < 300) {
-    return Promise.resolve(response);
-  } else if (status >= 500) {
-    navigate('/error-page');
-    return Promise.reject(new Error(statusText));
-  } else {
-    return Promise.reject(new Error(statusText));
-  }
-};
+import { checkResponseStatus } from '../utils/fetch';
 
 export const fetchData = (
   url,
@@ -108,6 +95,7 @@ export const mapDataToState = data => {
 
 export const withAuthentication = actionCallback => (...args) => dispatch => {
   if (!isAuthenticated()) {
+    dispatch(setLogoutReasonMessage('session expired'));
     dispatch(logout());
 
     return;

@@ -8,9 +8,9 @@ import com.cognifide.cogboard.CogboardConstants.Companion.PROP_EXPECTED_STATUS_C
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_ID
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PATH
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_REQUEST_METHOD
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_URL
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_WIDGET_STATUS
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_DELETE
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_GET
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_POST
@@ -19,6 +19,7 @@ import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.netty.util.internal.StringUtil.EMPTY_STRING
 import io.vertx.core.Vertx
+import io.vertx.core.json.DecodeException
 import io.vertx.core.json.JsonObject
 
 class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
@@ -33,26 +34,40 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
 
     override fun updateState() {
         if (urlToCheck.isNotBlank()) {
-            when (requestMethod) {
-                REQUEST_METHOD_GET -> httpGet(url = urlToCheck)
-                REQUEST_METHOD_PUT -> httpPut(url = urlToCheck, body = JsonObject(requestBody))
-                REQUEST_METHOD_POST -> httpPost(url = urlToCheck, body = JsonObject(requestBody))
-                REQUEST_METHOD_DELETE -> httpDelete(url = urlToCheck)
+            if (requestMethod == REQUEST_METHOD_GET) {
+                httpGet(url = urlToCheck)
+            } else if (requestMethod == REQUEST_METHOD_DELETE) {
+                httpDelete(url = urlToCheck)
+            } else {
+                handlePostPut()
             }
         } else {
             sendConfigurationError("Public URL or Path is blank")
         }
     }
 
+    private fun handlePostPut() {
+        try {
+            val body = if (requestBody.isNotBlank()) JsonObject(requestBody) else JsonObject()
+            if (requestMethod == REQUEST_METHOD_PUT) {
+                httpPut(url = urlToCheck, body = body)
+            } else if (requestMethod == REQUEST_METHOD_POST) {
+                httpPost(url = urlToCheck, body = body)
+            }
+        } catch (e: DecodeException) {
+            sendConfigurationError("Invalid request body.")
+        }
+    }
+
     override fun handleResponse(responseBody: JsonObject) {
         responseBody.put(PROP_URL, urlToCheck)
-        responseBody.put(CogboardConstants.PROP_ERROR_MESSAGE, "")
-        responseBody.put(PROP_EXPECTED_RESPONSE_BODY, expectedResponseBody)
-        responseBody.put(PROP_EXPECTED_STATUS_CODE, expectedStatusCode)
+            .put(CogboardConstants.PROP_ERROR_MESSAGE, "")
+            .put(PROP_EXPECTED_RESPONSE_BODY, expectedResponseBody)
+            .put(PROP_EXPECTED_STATUS_CODE, expectedStatusCode)
+            .put(PROP_WIDGET_STATUS, getStatusResponse(responseBody))
 
         send(JsonObject()
                 .put(PROP_ID, id)
-                .put(PROP_STATUS, getStatusResponse(responseBody))
                 .put(PROP_CONTENT, responseBody))
     }
 

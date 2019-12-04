@@ -4,10 +4,6 @@ plugins {
     kotlin("jvm")
 }
 
-tasks.named("processResources") {
-    dependsOn(":cogboard-webapp:copyReactAppToAppClasspath")
-}
-
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }

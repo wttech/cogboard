@@ -18,27 +18,27 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
                 sendNeverBuilt()
             } else if (results != null && results.getInteger("size") == 1) {
                 sendSuccess(results)
-            } else sendUnknownResponceError()
+            } else sendUnknownResponseError()
         }
     }
 
     private fun sendNeverBuilt() {
         send(JsonObject()
-                .put(CC.PROP_STATUS, Widget.Status.UNKNOWN)
                 .put(CC.PROP_CONTENT, JsonObject()
                         .put(CC.PROP_ERROR_MESSAGE, "Never Built")
-                        .put(CC.PROP_ERROR_CAUSE, "")))
+                        .put(CC.PROP_ERROR_CAUSE, "")
+                        .put(CC.PROP_WIDGET_STATUS, Widget.Status.UNKNOWN)))
     }
 
     private fun sendSuccess(results: JsonObject) {
         results.getJsonArray("result")?.first().let {
             val result = it as JsonObject
-            result.put(CC.PROP_ERROR_MESSAGE, "")
-            result.put(CC.PROP_URL, extractUrl(it.getString("buildResultKey")))
 
-            send(JsonObject()
-                    .put(CC.PROP_STATUS, Widget.Status.from(result.getString("state")))
-                    .put(CC.PROP_CONTENT, result))
+            result.put(CC.PROP_ERROR_MESSAGE, "")
+                    .put(CC.PROP_URL, extractUrl(result.getString("buildResultKey")))
+                    .put(CC.PROP_WIDGET_STATUS, Widget.Status.from(result.getString("state")))
+
+            send(JsonObject().put(CC.PROP_CONTENT, result))
         }
     }
 

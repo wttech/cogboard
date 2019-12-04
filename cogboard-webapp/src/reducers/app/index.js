@@ -6,6 +6,7 @@ import isDataChanged from './isDataChanged';
 import isDataSaving from './isDataSaving';
 import loginErrorMessage from './loginErrorMessage';
 import isAuthenticated from './isAuthenticated';
+import logoutReasonMessage from './logoutReasonMessage';
 import settings from './settings';
 
 const app = combineReducers({
@@ -15,6 +16,7 @@ const app = combineReducers({
   isDataSaving,
   loginErrorMessage,
   isAuthenticated,
+  logoutReasonMessage,
   settings
 });
 

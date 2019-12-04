@@ -1,4 +1,4 @@
-import { capitalize } from '../helpers';
+import { capitalize } from '../utils/common';
 
 export const URL = {
   LOAD_DATA: '/api/config',
@@ -14,7 +14,7 @@ export const ROW_MULTIPLIER = 2;
 export const BOARD_COLUMNS_MIN = 4;
 export const BOARD_COLUMNS_DEFAULT = 8;
 export const BOARD_COLUMNS_MAX = 20;
-export const BOARD_TITLE_LENGTH_LIMIT = 25;
+export const BOARD_TITLE_LENGTH_LIMIT = 50;
 export const SWITCH_INTERVAL_MIN = 3;
 
 export const WIDGET_COLUMNS_MIN = 0.5;
@@ -131,9 +131,11 @@ export const NOTIFICATIONS = {
     message: `Logged in as ${userRole}`,
     duration: 3000
   }),
-  LOGOUT: userRole => ({
+  LOGOUT: (userRole, reason = '') => ({
     type: 'info',
-    message: `${capitalize(userRole)} logged out`,
+    message: `${capitalize(userRole)} logged out${
+      reason ? ' - ' : ''
+    }${reason}`,
     duration: 3000
   })
 };

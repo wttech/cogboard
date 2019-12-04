@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:8092?prod",
+  "env": {
+    "username": "adminProd",
+    "password": "adminProd"
+  }
+}

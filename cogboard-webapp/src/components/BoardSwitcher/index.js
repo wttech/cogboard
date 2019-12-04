@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTheme } from '@material-ui/styles';
 
 import { useBoardSwitching, usePrevious } from './hooks';
 import { formatTime } from './helpers';
@@ -8,6 +9,7 @@ import { SkipPrevious, PlayArrow, SkipNext, Pause } from '@material-ui/icons';
 import { StyledTimer } from './styled';
 
 const BoardSwitcher = ({ className }) => {
+  const theme = useTheme();
   const {
     handleBoardsSwitch,
     handlePlayToggle,
@@ -35,11 +37,11 @@ const BoardSwitcher = ({ className }) => {
 
   return (
     <div className={className}>
-      <StyledTimer>{formatTime(timeLeft)}</StyledTimer>
+      <StyledTimer theme={theme}>{formatTime(timeLeft)}</StyledTimer>
       <Tooltip title={prevBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('prev')}
-          color="inherit"
+          color="primary"
           aria-label="Next board"
           edge="start"
         >
@@ -48,7 +50,7 @@ const BoardSwitcher = ({ className }) => {
       </Tooltip>
       <IconButton
         onClick={handlePlayToggle}
-        color="inherit"
+        color="primary"
         aria-label="Auto switch boards"
         edge="start"
       >
@@ -57,7 +59,7 @@ const BoardSwitcher = ({ className }) => {
       <Tooltip title={nextBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('next')}
-          color="inherit"
+          color="primary"
           aria-label="Next board"
           edge="start"
         >

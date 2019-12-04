@@ -20,10 +20,10 @@ plugins {
     id("net.researchgate.release")
 }
 
-val dockerContainerName = project.property("docker.container.name") ?: "cogboard"
-val dockerImageName = project.property("docker.image.name") ?: "cogboard/cogboard-app"
+val dockerContainerName = project.property("docker.app.container.name") ?: "cogboard"
+val dockerImageName = project.property("docker.app.image.name") ?: "cogboard/cogboard-app"
 
-defaultTasks("cogboard-is-running")
+defaultTasks("redeployLocal")
 
 configurations {
     register("dist")
@@ -51,7 +51,7 @@ allprojects {
 }
 
 tasks.named("build") {
-    dependsOn("runTest", "dockerStopCogboard", "checkInited", ":cogboard-app:test")
+    dependsOn("runTest", ":cogboard-app:test")
 }
 
 detekt {
@@ -62,7 +62,6 @@ detekt {
     failFast = true
 }
 
-apply(from = "gradle/init.gradle.kts")
 apply(from = "gradle/distribution.gradle.kts")
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
 apply(from = "gradle/docker.gradle.kts")

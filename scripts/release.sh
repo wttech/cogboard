@@ -5,6 +5,7 @@ DOCKER_IMAGE="cogboard/cogboard-app"
 # login to docker hub
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-# tag and push recently builded image
-docker tag ${DOCKER_IMAGE}:latest ${DOCKER_IMAGE}:${VERSION}
-docker push ${DOCKER_IMAGE}
+# Tag and push recently builded image
+echo $VERSION
+echo "Tag RELEASE build" && docker tag ${DOCKER_IMAGE}:latest ${DOCKER_IMAGE}:${VERSION}
+echo "Push RELEASE image" && docker push ${DOCKER_IMAGE}
