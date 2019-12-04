@@ -32,21 +32,12 @@ Thumbs.db
 **/node_modules/
 **/.pnp
 .pnp.js
-cogboard-app/src/main/resources
-!cogboard-app/src/main/resources/initData
-!cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.RoutingHandlerFactory
-!cogboard-app/src/main/resources/META-INF/services/io.knotx.server.api.handler.AuthHandlerFactory
 
 # testing
 **/coverage
 
 # misc
 .DS_Store
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 .vscode
 
 npm-debug.log*

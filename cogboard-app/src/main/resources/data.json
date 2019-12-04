@@ -1,0 +1,209 @@
+{
+  "boards": {
+    "boardsById": {
+      "board1": {
+        "id": "board1",
+        "title": "Example project",
+        "columns": 6,
+        "theme": "default",
+        "widgets": ["widget1", "widget2", "widget3", "widget4", "widget5", "widget6", "widget14"]
+      },
+      "board2": {
+        "id": "board2",
+        "title": "Another example project",
+        "columns": 4,
+        "theme": "default",
+        "widgets": ["widget7", "widget8", "widget9", "widget10", "widget11", "widget12"]
+      }
+    },
+    "allBoards": ["board1", "board2"]
+  },
+  "widgets": {
+    "widgetsById": {
+      "widget1": {
+        "id": "widget1",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "title": "Example Widget",
+        "disabled": false,
+        "type": "ExampleWidgett",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget2": {
+        "id": "widget2",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "title": "Example Widget",
+        "disabled": false,
+        "type": "ExampleWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget3": {
+        "id": "widget3",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "title": "Example Widget",
+        "disabled": false,
+        "type": "ExampleWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget4": {
+        "id": "widget4",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "status": "OK",
+        "title": "Example Widget",
+        "disabled": false,
+        "type": "ExampleWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget5": {
+        "id": "widget5",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "title": "Example Widget",
+        "disabled": false,
+        "type": "ExampleWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget6": {
+        "id": "widget6",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "content": {
+          "url": "https://www.youtube.com/embed/IiwGbcd8S7I"
+        },
+        "title": "IFrame Widget",
+        "type": "IFrameEmbedWidget",
+        "disabled": false
+      },
+      "widget7": {
+        "id": "widget7",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "status": "ERROR",
+        "title": "Server Time 7",
+        "disabled": false,
+        "type": "ExampleWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget8": {
+        "id": "widget8",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "title": "Server Time 8",
+        "disabled": false,
+        "type": "ExampleWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget9": {
+        "id": "widget9",
+        "disabled": false,
+        "config": {
+          "goNewLine": false,
+          "columns": 2,
+          "rows": 1
+        },
+        "title": "",
+        "type": "DefaultWidget"
+      },
+      "widget10": {
+        "id": "widget10",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "status": "OK",
+        "title": "Server Time 10",
+        "disabled": false,
+        "type": "DefaultWidget",
+        "content": {
+          "serverTime": "no data"
+        }
+      },
+      "widget11": {
+        "id": "widget11",
+        "title": "Server Time 11",
+        "disabled": false,
+        "type": "DefaultWidget",
+        "content": {
+          "serverTime": "no data"
+        },
+        "config": {
+          "columns": 2,
+          "goNewLine": true,
+          "rows": 1
+        }
+      },
+      "widget12": {
+        "id": "widget12",
+        "type": "DefaultWidget",
+        "content": {
+          "serverTime": "no data"
+        },
+        "status": "OK",
+        "title": "I have 2 columns width",
+        "disabled": false,
+        "config": {
+          "columns": 2,
+          "goNewLine": true,
+          "rows": 1
+        }
+      },
+      "widget14": {
+        "id": "widget14",
+        "type": "CheckboxWidget",
+        "content": {
+          "status": "SUCCESS"
+        },
+        "status": "OK",
+        "title": "Checkbox widget",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        }
+      }
+    },
+    "allWidgets": ["widget1", "widget2", "widget3", "widget4", "widget5", "widget6", "widget7", "widget8", "widget9", "widget10", "widget11", "widget12", "widget14"]
+  }
+}

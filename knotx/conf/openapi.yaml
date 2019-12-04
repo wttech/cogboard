@@ -143,25 +143,6 @@ paths:
       responses:
         default:
           description: Widget Content Refresh Handler
-  /:
-    get:
-      operationId: home-page
-      responses:
-        default:
-          description: Cogboard Home
-  /board*:
-    get:
-      operationId: home-page-board
-      responses:
-        default:
-          description: Cogboard Home
-  /*:
-    get:
-      operationId: cogboard-react-app
-      responses:
-        default:
-          description: Cogboard App Sources
-
 components:
   securitySchemes:
     cogboardAuth:

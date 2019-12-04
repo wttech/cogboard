@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 networks:
   coganet:
@@ -14,13 +14,20 @@ services:
       - coganet
     command: ["--verbose", "--no-request-journal"]
 
-  cogboard:
+  backend:
     image: "cogboard/cogboard-app:${COGBOARD_VERSION}"
     volumes:
       - "./mnt:/data"
     networks:
       - coganet
+  #    ports:
+  #      - "18092:18092"
+
+  frontened:
+    image: "cogboard/cogboard-web:${COGBOARD_VERSION}"
+    depends_on:
+      - "backend"
+    networks:
+      - coganet
     ports:
-      - "8092:8092"
-#      - "18092:18092"
-      - "9001:9001"
+      - "80:80"
