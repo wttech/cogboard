@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { StyledCardContent } from './styled';
+import { StyledCardContent, StyledIconButton } from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
 import LastUpdate from '../LastUpdate';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
@@ -12,20 +13,35 @@ export const renderCardContent = (
   showUpdateTime,
   disabled,
   id,
-  type
+  type,
+  isExpanded,
+  expanded,
+  handleExpandClick
 ) => {
   return (
     <StyledCardContent>
       {content && content.errorMessage ? (
         <ErrorMessage {...content} />
-      ) : !disabled ? (
+      ) : !disabled && !isExpanded ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : (
         'Disabled'
       )}
-      {showUpdateTime && (
-        <LastUpdate lastUpdateTime={new Date().toLocaleString()} />
-      )}
+      <div className="cardFootWrapper">
+        {showUpdateTime && (
+          <LastUpdate lastUpdateTime={new Date().toLocaleString()} />
+        )}
+        {isExpanded && (
+          <StyledIconButton
+            isExpanded={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={isExpanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </StyledIconButton>
+        )}
+      </div>
     </StyledCardContent>
   );
 };

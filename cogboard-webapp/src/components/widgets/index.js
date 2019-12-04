@@ -118,7 +118,12 @@ const widgetTypes = {
   AemHealthcheckWidget: {
     name: 'AEM Healthcheck',
     component: AemHealthcheckWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'AemHealthcheckInput'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'AemHealthcheckInput',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 },

@@ -12,12 +12,13 @@ import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardHeader } from './styled';
+import WarningIcon from '@material-ui/icons/Warning';
+import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
+import WidgetContent from '../WidgetContent';
 import ConfirmationDialog from '../ConfirmationDialog';
-import WarningIcon from '@material-ui/icons/Warning';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -32,6 +33,7 @@ const Widget = ({ id, index }) => {
     status,
     title,
     content,
+    isExpanded,
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
@@ -89,6 +91,8 @@ const Widget = ({ id, index }) => {
     })
   });
 
+  const [expanded, setExpanded] = React.useState(false);
+
   drag(drop(ref));
 
   const handleEditClick = closeMenu => () => {
@@ -104,6 +108,10 @@ const Widget = ({ id, index }) => {
   const deleteWidget = () => {
     dispatch(removeWidget(id));
     closeConfirmationDialog();
+  };
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
   };
 
   return (
@@ -150,7 +158,30 @@ const Widget = ({ id, index }) => {
             }
           />
         )}
-        {renderCardContent(content, showUpdateTime, disabled, id, type)}
+        {renderCardContent(
+          content,
+          showUpdateTime,
+          disabled,
+          id,
+          type,
+          isExpanded,
+          expanded,
+          handleExpandClick
+        )}
+        {isExpanded && (
+          <StyledCollapse
+            isExpanded={expanded}
+            status={status}
+            theme={theme}
+            isDragging={isDragging}
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
+          >
+            <WidgetContent id={id} type={type} content={content} />
+            <p>{content.errorMessage}</p>
+          </StyledCollapse>
+        )}
       </StyledCard>
       <AppDialog
         disableBackdropClick={true}

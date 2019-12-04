@@ -5,7 +5,8 @@ import styled from '@emotion/styled/macro';
 import { mapStatusToColor } from './helpers';
 import { COLUMN_MULTIPLIER, ROW_MULTIPLIER } from '../../constants';
 
-import { Card, CardHeader, CardContent } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Collapse } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 
 export const StyledCard = styled(
   forwardRef(
@@ -37,6 +38,7 @@ export const StyledCard = styled(
   grid-column-end: span ${({ columns }) => columns * COLUMN_MULTIPLIER};
   grid-row-end: span ${({ rows }) => rows * ROW_MULTIPLIER};
   position: relative;
+  overflow: visible;
 
   ${({ isDragging, isOver, theme }) =>
     isDragging &&
@@ -72,4 +74,36 @@ export const StyledCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
   flex: 1;
+  position: relative;
+
+  &:last-child {
+    padding-bottom: 16px;
+  }
+
+  .cardFootWrapper {
+    display: inherit;
+  }
+`;
+
+export const StyledCollapse = styled(Collapse)`
+  position: absolute;
+  bottom: 0px;
+  transform: ${({ isExpanded }) =>
+    isExpanded ? 'translateY(100%)' : 'translateY(0)'};
+  width: 100%;
+  height: auto;
+  background-color: ${({ isDragging, status, theme }) =>
+    !isDragging
+      ? mapStatusToColor(status, theme)
+      : theme.palette.background.paper};
+  padding: 0 16px;
+  opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
+  transition: height transform 500ms linear, opacity 100ms linear;
+  z-index: 3;
+`;
+
+export const StyledIconButton = styled(IconButton)`
+  transform: ${({ isExpanded }) =>
+    isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
+  marginleft: auto;
 `;

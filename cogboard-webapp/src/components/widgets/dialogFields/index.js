@@ -300,6 +300,13 @@ const dialogFields = {
     label: 'Vertical Text',
     initialValue: false,
     validator: () => boolean()
+  },
+  ExpandableContent: {
+    component: CheckboxInput,
+    name: 'isExpanded',
+    label: 'Expandable Content',
+    initialValue: false,
+    validator: () => boolean()
   }
 };
 
