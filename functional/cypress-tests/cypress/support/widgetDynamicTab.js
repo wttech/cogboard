@@ -74,6 +74,7 @@ export function fillServiceCheck() {
 };
 
 export function fillSonarQube() {
+    let metricKeys = Object.keys(Widgets.sonarQube.metrics);
     cy.get('[data-cy="widget-form-endpoint-input"]')
         .click();
     cy.get(`[data-value="${Widgets.sonarQube.endpoint}"]`)
@@ -83,7 +84,19 @@ export function fillSonarQube() {
         .type(Widgets.sonarQube.key);
     cy.get('[data-cy="widget-form-id-number-input"]')
         .type(Widgets.sonarQube.id);
-    //To Do: Choosing metrics
+    cy.get('[data-cy="widget-form-selected-metrics-input"]')
+        .click();
+    for (let i = 4; i < metricKeys.length; i++) {
+        let metric = metricKeys[i];
+        let dataValue = Widgets.sonarQube.metrics[metric].dataValue;
+        if (i == metricKeys.length - 1) {
+            cy.get(`[data-value="${dataValue}"]`)
+                .type('{esc}')
+        } else {
+            cy.get(`[data-value="${dataValue}"]`)
+                .click();
+        }
+    }
 };
 
 export function fillText() {

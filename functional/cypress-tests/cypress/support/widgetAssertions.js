@@ -78,7 +78,23 @@ export function validateServiceCheck() {
 };
 
 export function validateSonarQube() {
-
+    let metricKeys = Object.keys(Widgets.sonarQube.metrics);
+    for (let i = 0; i < metricKeys.length; i++) {
+        let metric = metricKeys[i];
+        let label = Widgets.sonarQube.metrics[metric].label;
+        let value = Widgets.sonarQube.metrics[metric].value;
+        cy.contains('p', `${label}`)
+            .should('is.visible')
+            .then(metric => {
+                console.log(metric.text());
+            });
+    };
+    cy.contains('span', '316488')
+        .should('is.visible');
+    cy.contains('p', '25/04/2019, 04:01:02')
+        .should('is.visible');
+    cy.contains('p', '6.4.2.6-SNAPSHOT')
+        .should('is.visible');
 };
 
 export function validateText() {

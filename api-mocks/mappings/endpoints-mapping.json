@@ -136,7 +136,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/resources?resource=success&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations"
+        "url": "/api/resources?resource=success&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
       },
       "response": {
         "status": 200,
