@@ -119,6 +119,58 @@
         },
         "bodyFileName": "service-check/post.json"
       }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/dashboard/1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "text/html"
+        },
+        "bodyFileName": "sonarqube/ok.html"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/resources?resource=success&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "sonarqube/v5.6.6/success.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/resources?resource=fail&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "sonarqube/v5.6.6/fail.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/resources?resource=warning&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "sonarqube/v5.6.6/warning.json"
+      }
     }
   ]
 }
