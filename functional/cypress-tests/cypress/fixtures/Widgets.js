@@ -66,7 +66,7 @@ module.exports = {
 		name: "Bamboo Plan",
 		endpoint: "wiremock",
 		schedulePeriod: "500",
-		id: "bamboo-test",
+		id: "CGB-SCS",
 	},
 	checkbox: {
 		name: "Checkbox",
@@ -80,7 +80,7 @@ module.exports = {
 	},
 	iframeEmbed: {
 		name: "Iframe Embed",
-		url: "http://example.com/",
+		url: "http://www.example.com/",
 	},
 	jenkinsJob: {
 		name: "Jenkins Job",
@@ -91,18 +91,18 @@ module.exports = {
 	serviceCheck: {
 		name: "Service Check",
 		schedulePeriod: "60",
-		requestMethod: "POST",
+		requestMethod: "GET",
 		endpoint: "wiremock",
-		path: "api/v1/create",
-		requestBody: '{"name":"cogboard-automation", "salary": "12345", "age": "1"}',
-		responseBodyFragment: "cogboard-automation",
+		path: "/service-check/post.json",
+		requestBody: '{ "name": "cogboard-automation" }',
+		responseBodyFragment: "Expected string",
 		expectedStatusCode: "200",
 	},
 	sonarQube: {
 		name: "SonarQube",
 		endpoint: "wiremock",
 		schedulePeriod: "90",
-		key: "rand",
+		key: "example",
 		id: "1",
 		metrics: {
 			blocker_violations: {
@@ -148,8 +148,8 @@ module.exports = {
 	worldClock: {
 		name: "World Clock",
 		timezone: "GMT+2",
-		dateFormat: "dddd, Do MMMM YYYY",
-		timeFormat: "h:mm:ss a",
+		dateFormat: "DD/MM/YYYY",
+		timeFormat: "HH:mm:ss",
 		displayDate: true,
 		displayTime: true,
 		textsize: "h6",

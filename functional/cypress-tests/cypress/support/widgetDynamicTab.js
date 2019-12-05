@@ -30,7 +30,8 @@ export function fillBambooPlan() {
     cy.get(`[data-value="${Widgets.bambooPlan.endpoint}"]`)
         .click();
     cy.fillSchedulePeriod(Widgets.bambooPlan.schedulePeriod);
-
+    cy.get('[data-cy="widget-form-id-string-input"]')
+        .type(Widgets.bambooPlan.id);
 };
 
 export function fillExample() {
@@ -56,12 +57,18 @@ export function fillServiceCheck() {
     cy.fillSchedulePeriod(Widgets.serviceCheck.schedulePeriod)
     cy.get('[data-cy="widget-form-request-method-input"]')
         .click();
-    //Change selector (add data-cy in markup)
     cy.get('[data-value="post"]')
+        .click();
+    cy.get('[data-cy="widget-form-endpoint-input"]')
+        .click();
+    cy.get(`[data-value="${Widgets.serviceCheck.endpoint}"]`)
         .click();
     cy.get('[data-cy="widget-form-path-input"]')
         .type(Widgets.serviceCheck.path);
-    //To Do: request body and response body filling
+    cy.get('[data-cy="widget-form-body-input"]')
+        .type(Widgets.serviceCheck.requestBody, {parseSpecialCharSequences: false});
+    cy.get('[data-cy="widget-form-expected-response-body-input"]')
+        .type(Widgets.serviceCheck.responseBodyFragment);
     cy.get('[data-cy="widget-form-expected-status-code-input"]')
         .type('{selectall}' +Widgets.serviceCheck.expectedStatusCode);
 };

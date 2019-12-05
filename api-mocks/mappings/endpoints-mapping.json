@@ -64,6 +64,61 @@
         },
         "bodyFileName": "aem/healthcheck.json"
       }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/result/CGB-SCS.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/successful.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/result/CGB-FLD.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/failed.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/result/CGB-UKWN.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/unknown.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/service-check/post.json",
+        "bodyPatterns" : [{
+          "matchesJsonPath" : "$.[?(@.name == 'cogboard-automation')]"
+        }]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "service-check/post.json"
+      }
     }
   ]
 }

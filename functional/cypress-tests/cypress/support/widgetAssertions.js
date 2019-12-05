@@ -1,18 +1,33 @@
 import Widgets from '../fixtures/Widgets'
 
+function getWidgetTimeDate(dispTime) {
+    let str = dispTime.text();
+    let hour = str.slice(0,2);
+    let min = str.slice(3,5);
+    let sec = str.slice(6,8);
+    let day = str.slice(8,10);
+    let month = str.slice(11,13);
+    let year = str.slice(14,18);
+    return new Date(year, month-1, day, hour-1, min, sec).toUTCString()
+}
+
 export function validateAemHealthcheck() {
     let healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
-    for (let i = 0; i < healthcheckKeys.length - 1; i++) {
+    for (let i = 0; i < healthcheckKeys.length; i++) {
           let healthcheck = healthcheckKeys[i];
           let label = Widgets.aemHealthcheck.healthChecks[healthcheck].label
           cy.contains('p', `${label}`)
             .should('is.visible');
       };
-
 };
 
 export function validateBambooPlan() {
-
+    cy.contains('p', 'Finished')
+    cy.contains('span', '1597')
+        .should('is.visible');
+    cy.contains('h3', `Test-${Widgets.bambooPlan.name}`)
+        .parents('[draggable="true"]')
+        .should('have.css', 'background-color', 'rgb(1, 148, 48)');
 };
 
 export function validateCheckbox() {
@@ -34,12 +49,9 @@ export function validateCheckbox() {
         .should('have.css', 'background-color', 'rgb(38, 36, 62)');
 };
 
-export function validateExample() {
-
-};
-
 export function validateIframeEmbed() {
-
+    cy.get('iframe')
+        .should('is.visible');
 };
 
 export function validateJenkinsJob() {
@@ -56,7 +68,13 @@ export function validateJenkinsJob() {
 };
 
 export function validateServiceCheck() {
-
+    cy.contains('h3', `Test-${Widgets.serviceCheck.name}`)
+        .parents('[draggable="true"]')
+        .should('have.css', 'background-color', 'rgb(1, 148, 48)');
+    cy.contains('p', 'MATCH')
+        .should('is.visible');
+    cy.contains('span', `${Widgets.serviceCheck.expectedStatusCode}`)
+        .should('is.visible');
 };
 
 export function validateSonarQube() {
@@ -64,44 +82,47 @@ export function validateSonarQube() {
 };
 
 export function validateText() {
-
+    cy.contains('h3', `${Widgets.text.text}`)
+        .should('is.visible');
 };
 
 export function validateWorldClock() {
-
+    cy.contains('h6', /^[0-9]{2}:[0-9]{2}:[0-9]{4}\/[0-9]{2}\/[0-9]{4}/)
+        .should('is.visible')
+        .then(dispTime => {
+            let realTime = new Date().toUTCString();
+            cy.wrap(getWidgetTimeDate(dispTime)).should('eq', realTime)
+        })
 };
 
-export function validateWidgetConfig(type = "Text") {
-    if (type !== 'Default') {
+export function validateWidgetConfig(type = 'Text') {
+    if (type !== 'Default' && type !=='Example') {
         switch(type) {
-            case "AEM Healthcheck":
+            case 'AEM Healthcheck':
                 validateAemHealthcheck();
                 break;
-            case "Bamboo Plan":
+            case 'Bamboo Plan':
                 validateBambooPlan();
                 break;
-            case "Checkbox":
+            case 'Checkbox':
                 validateCheckbox();
                 break;
-            case "Example":
-                validateExample();
-                break;
-            case "Iframe Embed":
+            case 'Iframe Embed':
                 validateIframeEmbed();
                 break;
-            case "Jenkins Job":
+            case 'Jenkins Job':
                 validateJenkinsJob();
                 break;
-            case "Service Check":
+            case 'Service Check':
                 validateServiceCheck();
                 break;
-            case "SonarQube":
+            case 'SonarQube':
                 validateSonarQube();
                 break;
-            case "Text":
+            case 'Text':
                 validateText();
                 break;
-            case "World Clock":
+            case 'World Clock':
                 validateWorldClock();
                 break;
             default:
