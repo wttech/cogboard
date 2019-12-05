@@ -3,6 +3,7 @@ import { bool, element, func, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
+import ComponentIdDisplay from './ComponentIdDisplay';
 
 const StyledDialog = styled(props => (
   <Dialog classes={{ paper: 'paper' }} {...props} />
@@ -22,7 +23,8 @@ const AppDialog = props => {
     handleDialogClose,
     open,
     title,
-    disableBackdropClick
+    disableBackdropClick,
+    componentId
   } = props;
 
   const stopEventPropagation = event => event.stopPropagation();
@@ -39,6 +41,7 @@ const AppDialog = props => {
     >
       <DialogTitle id="app-dialog-title" data-cy="app-dialog-title">
         {title}
+        <ComponentIdDisplay componentId={componentId} />
       </DialogTitle>
       <StyledDialogContent data-cy="app-dialog-content">
         {children}
