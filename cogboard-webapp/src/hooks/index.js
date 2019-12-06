@@ -73,6 +73,7 @@ export const useFormData = (data, config = {}) => {
 
   const withValidation = func => event => {
     event.preventDefault();
+    event.stopPropagation();
     setStatus({ ...status, submited: true });
 
     if (validationSchema) {

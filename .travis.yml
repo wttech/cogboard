@@ -11,30 +11,30 @@ services:
 jdk:
   - oraclejdk11
 before_script:
-- if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export
-  RELEASE=1 && git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git;
-  fi
-- if [[ "$TRAVIS_BRANCH" != ^master$ && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export DEV_BUILD=1; fi
-- export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
+  - if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export
+    RELEASE=1 && git checkout master && git remote set-url origin https://"$GITHUB_USERNAME":"$GITHUB_PASSWORD"@github.com/Cognifide/cogboard.git;
+    fi
+  - if [[ "$TRAVIS_BRANCH" != ^master$ && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export DEV_BUILD=1; fi
+  - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
-- if [ "$RELEASE" = "1" ]; then ./gradlew release -Prelease.useAutomaticVersion=true
-  --info; fi
-- if [ "$RELEASE" != "1" ]; then ./gradlew build; fi
-- bash scripts/runContainer.sh
-- cd functional/cypress-tests/
-- npm install
-- npx cypress run --browser chrome
-- cd ../../
+  - if [ "$RELEASE" = "1" ]; then ./gradlew release -Prelease.useAutomaticVersion=true
+    --info; fi
+  - if [ "$RELEASE" != "1" ]; then ./gradlew build; fi
+  - bash scripts/runContainer.sh
+  - cd functional/cypress-tests/
+  - npm install
+  - npx cypress run --browser chrome
+  - cd ../../
 deploy:
-- provider: script
-  script: bash scripts/release.sh
-  on:
-    condition: "$RELEASE = 1"
-- provider: script
-  script: bash scripts/dev_build.sh
-  on:
-    all_branches: true
-    condition: "$DEV_BUILD = 1"
+  - provider: script
+    script: bash scripts/release.sh
+    on:
+      condition: "$RELEASE = 1"
+  - provider: script
+    script: bash scripts/dev_build.sh
+    on:
+      all_branches: true
+      condition: "$DEV_BUILD = 1"
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/

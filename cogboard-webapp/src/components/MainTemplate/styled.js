@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Box, Drawer, Fab } from '@material-ui/core';
 import BoardList from '../BoardList';
 import Logo from '../Logo';
 import { getBackgroundColor } from '../../utils/components';
+import SettingsMenu from '../SettingsMenu';
 
 export const StyledActions = styled(Box)`
   bottom: 50px;
@@ -48,5 +50,12 @@ export const StyledDrawer = styled(props => (
 ))`
   .paper {
     background: ${getBackgroundColor('default')};
+    justify-content: space-between;
   }
+`;
+
+export const StyledSettingsMenu = styled(SettingsMenu)`
+  align-self: flex-end;
+  margin-right: 20px;
+  margin-bottom: 20px;
 `;
