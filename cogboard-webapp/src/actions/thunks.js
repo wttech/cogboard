@@ -137,11 +137,11 @@ const reorderWidgetsThunk = (sourceId, targetIndex) => (dispatch, getState) => {
 
 const loadSettingsThunk = () => dispatch => {
   const token = getToken();
-  const endpointAPI = '/api/endpoints';
-  const credentialAPI = '/api/credentials';
 
   Promise.all(
-    [endpointAPI, credentialAPI].map(item => fetchData(item, { token }))
+    [URL.ENDPOINTS_ENDPOINT, URL.CREDENTIALS_ENDPOINT].map(item =>
+      fetchData(item, { token })
+    )
   )
     .then(([endpoints, credentials]) => {
       dispatch(
