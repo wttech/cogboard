@@ -20,7 +20,6 @@ script:
   - if [ "$RELEASE" = "1" ]; then ./gradlew release -Prelease.useAutomaticVersion=true
     --info && bash scripts/runContainer.sh ${VERSION}; fi
   - if [ "$RELEASE" != "1" ]; then ./gradlew build && bash scripts/runContainer.sh ${VERSION}-SNAPSHOT; fi
-  - bash scripts/runContainer.sh ${VERSION}
   - cd functional/cypress-tests/
   - npm install
   - npx cypress run --browser chrome
