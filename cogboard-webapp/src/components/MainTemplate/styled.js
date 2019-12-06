@@ -50,14 +50,9 @@ export const StyledDrawer = styled(props => (
 ))`
   .paper {
     background: ${getBackgroundColor('default')};
+    justify-content: space-between;
   }
 `;
-
-export const drawerStyles = makeStyles({
-  root: {
-    justifyContent: 'space-between'
-  }
-});
 
 export const StyledSettingsMenu = styled(SettingsMenu)`
   align-self: flex-end;

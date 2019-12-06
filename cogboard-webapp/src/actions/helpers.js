@@ -10,21 +10,24 @@ export const fetchData = (
 ) => {
   const baseConfig = { method };
 
-  const config =
-    method !== 'GET' && method !== 'DELETE'
-      ? mergeRight(baseConfig, {
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-      : baseConfig;
+  const configMap = {
+    GET: baseConfig,
+    DELETE: baseConfig,
+    POST: mergeRight(baseConfig, {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  };
 
-  const enhancedConfig = token
+  const config = method in configMap ? configMap[method] : configMap['POST'];
+
+  const authenticationConfig = token
     ? assocPath(['headers', 'Authorization'], token, config)
     : config;
 
-  return fetch(url, enhancedConfig)
+  return fetch(url, authenticationConfig)
     .then(checkResponseStatus)
     .then(response => response.json());
 };

@@ -86,7 +86,7 @@ const SettingsMenu = ({ className }) => {
       <IconButton
         className={className}
         onClick={handleDialogOpen}
-        color="inherit"
+        color="primary"
         edge="start"
         data-cy="settings-menu-open-button"
       >
