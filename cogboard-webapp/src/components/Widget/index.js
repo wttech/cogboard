@@ -163,6 +163,7 @@ const Widget = ({ id, index }) => {
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title={`Edit ${title}`}
+        componentId={id}
         data-cy="widget-edit-dialog"
       >
         <EditWidget

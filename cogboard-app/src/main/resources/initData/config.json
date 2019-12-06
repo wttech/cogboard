@@ -8,7 +8,10 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget1"]
+        "widgets": [
+          "widget1",
+          "widget9"
+        ]
       },
       "board2": {
         "autoSwitch": true,
@@ -17,10 +20,32 @@
         "title": "Jenkins Job Widget Examples",
         "columns": 6,
         "theme": "default",
-        "widgets": ["widget2", "widget3", "widget4"]
+        "widgets": [
+          "widget2",
+          "widget3",
+          "widget4"
+        ]
+      },
+      "board3": {
+        "autoSwitch": true,
+        "switchInterval": 60,
+        "id": "board3",
+        "theme": "default",
+        "widgets": [
+          "widget8",
+          "widget5",
+          "widget7",
+          "widget6"
+        ],
+        "columns": 8,
+        "title": "Sonarqube Widget Examples"
       }
     },
-    "allBoards": ["board1", "board2"]
+    "allBoards": [
+      "board1",
+      "board2",
+      "board3"
+    ]
   },
   "widgets": {
     "widgetsById": {
@@ -93,8 +118,127 @@
         "endpoint": "api-mocks-endpoint",
         "schedulePeriod": 120,
         "path": "/job/CogBoard/job/in-progress"
+      },
+      "widget5": {
+        "id": "widget5",
+        "title": "Sonarqube Success",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "status": "OK",
+        "isUpdating": false,
+        "boardId": "board3",
+        "endpoint": "api-mocks-endpoint",
+        "schedulePeriod": 120,
+        "keyString": "success",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations"
+        ]
+      },
+      "widget6": {
+        "id": "widget6",
+        "title": "Sonarqube Fail",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "status": "FAIL",
+        "isUpdating": false,
+        "boardId": "board3",
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations"
+        ],
+        "idNumber": 1,
+        "keyString": "fail",
+        "schedulePeriod": 120000,
+        "endpoint": "api-mocks-endpoint"
+      },
+      "widget7": {
+        "id": "widget7",
+        "title": "Sonarqube Warning",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNSTABLE",
+        "isUpdating": false,
+        "boardId": "board3",
+        "endpoint": "api-mocks-endpoint",
+        "schedulePeriod": 120000,
+        "keyString": "warning",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations"
+        ]
+      },
+      "widget8": {
+        "id": "widget8",
+        "title": "",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board3",
+        "text": "v5.6.6",
+        "textSize": "h3",
+        "isVertical": true
+      },
+      "widget9": {
+        "id": "widget9",
+        "title": "Checkbox Widget",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "CheckboxWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board1",
+        "withWidgetContentUpdate": true
       }
     },
-    "allWidgets": ["widget1", "widget2", "widget3", "widget4"]
+    "allWidgets": [
+      "widget1",
+      "widget2",
+      "widget3",
+      "widget4",
+      "widget5",
+      "widget6",
+      "widget7",
+      "widget8",
+      "widget9"
+    ]
   }
 }

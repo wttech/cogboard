@@ -135,6 +135,11 @@ abstract class BaseWidget(
         return this.getJsonObject(CC.PROP_ENDPOINT)?.getString(prop) ?: ""
     }
 
+    protected fun JsonObject.clearErrorMessageAndErrorCause() {
+        map.put(CC.PROP_ERROR_MESSAGE, "")
+        map.put(CC.PROP_ERROR_CAUSE, "")
+    }
+
     companion object {
         const val PROP_EVENT_TYPE_WIDGET_UPDATE = "widget-update"
         const val TO_SECONDS = 1000

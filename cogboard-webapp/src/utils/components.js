@@ -22,4 +22,5 @@ export const sortByKey = (obj, key, asc = true) =>
 
 export const hasError = error => error !== undefined;
 
-export const getWidgetStatus = content => content && content.widgetStatus;
+export const getWidgetStatus = content =>
+  (content && content.widgetStatus) || 'UNDEFINED';

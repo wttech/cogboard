@@ -32,7 +32,7 @@
     "id": "6",
     "result": null,
     "timestamp": 1574165093771,
-    "url": "http://localhost:8080/jenkins/ok.html",
+    "url": "http://localhost:8093/jenkins/ok.html",
     "builtOn": "Master-executor"
   }
 }
