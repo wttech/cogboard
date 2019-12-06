@@ -1,4 +1,4 @@
-import { capitalize } from '../helpers';
+import { capitalize } from '../utils/common';
 
 export const URL = {
   LOAD_DATA: '/api/config',

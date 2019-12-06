@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { StyledCardContent, StyledIconButton } from './styled';
+import {
+  StyledCardContent,
+  StyledIconButton,
+  StyledStatusIconButton
+} from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
 import LastUpdate from '../LastUpdate';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import StatusIcon from '../StatusIcon';
 
 export const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
@@ -14,16 +19,25 @@ export const renderCardContent = (
   disabled,
   id,
   type,
-  isExpanded,
+  status,
+  expandContent,
   expanded,
   handleExpandClick
 ) => {
+  const handleClick = () => {
+    console.log(content);
+  };
+
   return (
     <StyledCardContent>
       {content && content.errorMessage ? (
         <ErrorMessage {...content} />
-      ) : !disabled && !isExpanded ? (
+      ) : !disabled && !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
+      ) : expandContent ? (
+        <StyledStatusIconButton onClick={handleClick}>
+          <StatusIcon status={status} size="large" />
+        </StyledStatusIconButton>
       ) : (
         'Disabled'
       )}
@@ -31,11 +45,11 @@ export const renderCardContent = (
         {showUpdateTime && (
           <LastUpdate lastUpdateTime={new Date().toLocaleString()} />
         )}
-        {isExpanded && (
+        {expandContent && !content.errorMessage && (
           <StyledIconButton
             isExpanded={expanded}
             onClick={handleExpandClick}
-            aria-expanded={isExpanded}
+            aria-expanded={expandContent}
             aria-label="show more"
           >
             <ExpandMoreIcon />

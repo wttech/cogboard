@@ -56,14 +56,18 @@ export const StyledCard = styled(
       width: 100%;
     }
   `}
+
+  a {
+    color: white;
+  }
 `;
 
 StyledCard.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   rows: number.isRequired,
-  status: string.isRequired,
-  theme: object.isRequired
+  theme: object.isRequired,
+  status: string
 };
 
 export const StyledCardHeader = styled(CardHeader)`
@@ -82,28 +86,41 @@ export const StyledCardContent = styled(CardContent)`
 
   .cardFootWrapper {
     display: inherit;
+    align-items: center;
   }
 `;
 
-export const StyledCollapse = styled(Collapse)`
-  position: absolute;
-  bottom: 0px;
-  transform: ${({ isExpanded }) =>
-    isExpanded ? 'translateY(100%)' : 'translateY(0)'};
-  width: 100%;
-  height: auto;
+export const StyledCollapse = styled(
+  ({ isExpanded, isDragging, status, theme, ...props }) => (
+    <Collapse {...props} />
+  )
+)`
+  bottom: 1px;
   background-color: ${({ isDragging, status, theme }) =>
     !isDragging
       ? mapStatusToColor(status, theme)
       : theme.palette.background.paper};
-  padding: 0 16px;
+  height: auto;
   opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
-  transition: height transform 500ms linear, opacity 100ms linear;
+  padding: 0 16px 16px;
+  position: absolute;
+  transition: height transform 300ms linear, opacity 100ms linear;
+  transform: ${({ isExpanded }) =>
+    isExpanded ? 'translateY(100%)' : 'translateY(0)'};
+  width: 100%;
   z-index: 3;
 `;
 
-export const StyledIconButton = styled(IconButton)`
+export const StyledIconButton = styled(({ isExpanded, ...props }) => (
+  <IconButton {...props} />
+))`
+  marginleft: auto;
   transform: ${({ isExpanded }) =>
     isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
-  marginleft: auto;
+  transition: transform 100ms linear;
+`;
+
+export const StyledStatusIconButton = styled(IconButton)`
+  border-radius: 0;
+  width: 100%;
 `;

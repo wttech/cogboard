@@ -12,17 +12,18 @@ import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import WarningIcon from '@material-ui/icons/Warning';
 import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import WidgetContent from '../WidgetContent';
 import ConfirmationDialog from '../ConfirmationDialog';
+import StatusIcon from '../StatusIcon';
+import { getWidgetStatus } from '../../utils/components';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
-    state => state.widgets.widgetsById[id],
+    ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
   const {
@@ -30,13 +31,13 @@ const Widget = ({ id, index }) => {
     isUpdating,
     disabled,
     type,
-    status,
     title,
     content,
-    isExpanded,
+    expandContent,
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
+  const widgetStatus = getWidgetStatus(content);
   const showUpdateTime = widgetTypes[type]
     ? widgetTypes[type].showUpdateTime
     : false;
@@ -117,7 +118,7 @@ const Widget = ({ id, index }) => {
   return (
     <>
       <StyledCard
-        status={status}
+        status={widgetStatus}
         columns={columns}
         goNewLine={goNewLine}
         rows={rows}
@@ -129,7 +130,11 @@ const Widget = ({ id, index }) => {
       >
         {(isAuthenticated || title !== '') && (
           <StyledCardHeader
-            avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon />}
+            avatar={
+              (!expandContent || content.errorMessage) && (
+                <StatusIcon status={widgetStatus} size="small" />
+              )
+            }
             title={title}
             titleTypographyProps={{
               component: 'h3',
@@ -164,14 +169,15 @@ const Widget = ({ id, index }) => {
           disabled,
           id,
           type,
-          isExpanded,
+          widgetStatus,
+          expandContent,
           expanded,
           handleExpandClick
         )}
-        {isExpanded && (
+        {expandContent && (
           <StyledCollapse
             isExpanded={expanded}
-            status={status}
+            status={widgetStatus}
             theme={theme}
             isDragging={isDragging}
             in={expanded}
@@ -179,7 +185,6 @@ const Widget = ({ id, index }) => {
             unmountOnExit
           >
             <WidgetContent id={id} type={type} content={content} />
-            <p>{content.errorMessage}</p>
           </StyledCollapse>
         )}
       </StyledCard>

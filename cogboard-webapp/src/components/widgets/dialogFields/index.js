@@ -303,7 +303,7 @@ const dialogFields = {
   },
   ExpandableContent: {
     component: CheckboxInput,
-    name: 'isExpanded',
+    name: 'expandContent',
     label: 'Expandable Content',
     initialValue: false,
     validator: () => boolean()
