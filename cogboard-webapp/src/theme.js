@@ -11,7 +11,7 @@ export const theme = createMuiTheme({
       main: '#1c2630'
     },
     background: {
-      default: '#fff',
+      default: '#fffafa',
       paper: '#1c2630',
       board: {
         card: '#198cbd',

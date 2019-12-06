@@ -40,7 +40,7 @@ export const StyledDrawerContainer = styled.div`
   flex-direction: column;
   padding-top: 32px;
   width: 250px;
-  background: #fff;
+  background: #fffafa;
 `;
 
 export const StyledDrawer = styled(props => (
