@@ -1,61 +1,47 @@
 import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
-import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import * as PropTypes from 'prop-types';
+
+import { IconButton, Tooltip, Typography } from '@material-ui/core';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import { grey } from '@material-ui/core/colors/index';
 import styled from '@emotion/styled/macro';
 
-const HideableTextField = styled(TextField)`
-  width: 100px;
-  height: 32px;
+import copy from 'copy-to-clipboard';
 
-  &.hidden {
-    display: none;
-    visibility: hidden;
-  }
-`;
-
-const StyledContainer = styled('span')`
+const StyledTooltip = styled(Tooltip)`
   float: right;
-
-  & .MuiFormControl-marginDense {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
 `;
 
-const TEXT_FIELD_ID = 'component-id-display';
+const StyledTypography = styled(Typography)`
+  margin-left: 5px;
+  color: ${grey[500]};
+`;
 
 class ComponentIdDisplay extends React.Component {
-  toggle() {
-    const element = document.querySelector(`#${TEXT_FIELD_ID}`);
-
-    if (element) element.parentElement.parentElement.classList.toggle('hidden');
-  }
-
   render() {
     const { componentId } = this.props;
 
-    if (!componentId) return null;
+    if (!componentId) {
+      return null;
+    }
+
+    const copyToClipboard = id => () => {
+      if (id) {
+        copy(id);
+      }
+    };
 
     return (
-      <StyledContainer>
-        <HideableTextField
-          id={TEXT_FIELD_ID}
-          label="ID"
-          value={componentId}
-          inputProps={{ readOnly: true }}
-          className="hidden"
-          variant="outlined"
-          margin="dense"
-        />
-        <Tooltip title="Show/hide component ID" arrow>
-          <IconButton onClick={this.toggle} size="small">
+      <>
+        <StyledTypography variant="caption">
+          (ID: {componentId})
+        </StyledTypography>
+        <StyledTooltip title="Copy component ID to clipboard" arrow>
+          <IconButton onClick={copyToClipboard(componentId)} size="small">
             <FingerprintIcon />
           </IconButton>
-        </Tooltip>
-      </StyledContainer>
+        </StyledTooltip>
+      </>
     );
   }
 }
