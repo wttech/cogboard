@@ -23,7 +23,7 @@
         "ok": false,
         "hc.name": "Check for default AEM content packages",
         "mbean:objectName": "org.apache.sling.healthcheck:name=AEM content packages,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 108,
         "finishedAt": "Wed Dec 04 14:03:48 UTC 2019"
       },
@@ -205,7 +205,7 @@
         "ok": false,
         "hc.name": "Sling/Granite Content Access Check",
         "mbean:objectName": "org.apache.sling.healthcheck:name=SlingContentHealthCheck,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 2015,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -275,7 +275,7 @@
         "ok": false,
         "hc.name": "CRXDE Support",
         "mbean:objectName": "org.apache.sling.healthcheck:name=crxdeSupportBundle,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 3,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -289,7 +289,7 @@
         "ok": false,
         "hc.name": "DavEx Health Check",
         "mbean:objectName": "org.apache.sling.healthcheck:name=davExBundleCheck,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 3,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -303,7 +303,7 @@
         "ok": false,
         "hc.name": "Default Login Accounts",
         "mbean:objectName": "org.apache.sling.healthcheck:name=defaultLogins,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 7,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -317,7 +317,7 @@
         "ok": false,
         "hc.name": "Sling Get Servlet",
         "mbean:objectName": "org.apache.sling.healthcheck:name=defaultSlingGetServletConfig,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 1,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -331,7 +331,7 @@
         "ok": false,
         "hc.name": "CQ Dispatcher Configuration",
         "mbean:objectName": "org.apache.sling.healthcheck:name=dispatcherConfig,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 1,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -345,7 +345,7 @@
         "ok": false,
         "hc.name": "Example Content Packages",
         "mbean:objectName": "org.apache.sling.healthcheck:name=exampleContent,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 104,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -359,7 +359,7 @@
         "ok": false,
         "hc.name": "CQ HTML Library Manager Config",
         "mbean:objectName": "org.apache.sling.healthcheck:name=htmlLibraryMangerConfig,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 2,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -399,7 +399,7 @@
         "ok": false,
         "hc.name": "Log Errors",
         "mbean:objectName": "org.apache.sling.healthcheck:name=logErrorHealthCheck,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 1,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -481,7 +481,7 @@
         "ok": false,
         "hc.name": "Replication and Transport Users",
         "mbean:objectName": "org.apache.sling.healthcheck:name=replicationTransportUsers,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 2,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -521,7 +521,7 @@
         "ok": false,
         "hc.name": "Security Checks",
         "mbean:objectName": "org.apache.sling.healthcheck:name=securitychecks,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 21,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -574,7 +574,7 @@
         "ok": false,
         "hc.name": "Sling Java Script Handler",
         "mbean:objectName": "org.apache.sling.healthcheck:name=slingJavaScriptHandler,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 1,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -602,7 +602,7 @@
         "ok": false,
         "hc.name": "Sling Jsp Script Handler",
         "mbean:objectName": "org.apache.sling.healthcheck:name=slingJspScriptHandler,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 2,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -630,7 +630,7 @@
         "ok": false,
         "hc.name": "SSL Configuration",
         "mbean:objectName": "org.apache.sling.healthcheck:name=sslConfig,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 9,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -672,7 +672,7 @@
         "ok": false,
         "hc.name": "WCM Filters Configuration",
         "mbean:objectName": "org.apache.sling.healthcheck:name=wcmFilterConfig,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 1,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -686,7 +686,7 @@
         "ok": false,
         "hc.name": "WebDAV Health Check",
         "mbean:objectName": "org.apache.sling.healthcheck:name=webDavAccess,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 3,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       },
@@ -700,7 +700,7 @@
         "ok": false,
         "hc.name": "Web Server Configuration",
         "mbean:objectName": "org.apache.sling.healthcheck:name=webServerConfig,type=HealthCheck",
-        "status": "WARN",
+        "status": "OK",
         "elapsedTime": 0,
         "finishedAt": "Wed Dec 04 14:03:50 UTC 2019"
       }
