@@ -17,9 +17,9 @@ before_script:
   - if [[ "$TRAVIS_BRANCH" != ^master$ && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export DEV_BUILD=1; fi
   - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
-  - if [ "$RELEASE" = "1" ]; then ./gradlew release -Prelease.useAutomaticVersion=true
+  - if [[ "$RELEASE" = "1" ]]; then ./gradlew release -Prelease.useAutomaticVersion=true
     --info && bash scripts/runContainer.sh ${VERSION}; fi
-  - if [ "$RELEASE" != "1" ]; then ./gradlew build && bash scripts/runContainer.sh ${VERSION}-SNAPSHOT; fi
+  - if [[ "$RELEASE" != "1" ]]; then ./gradlew build && bash scripts/runContainer.sh ${VERSION}-SNAPSHOT; fi
   - cd functional/cypress-tests/
   - npm install
   - npx cypress run --browser chrome
