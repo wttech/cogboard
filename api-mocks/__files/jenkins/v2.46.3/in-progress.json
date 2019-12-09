@@ -1,4 +1,3 @@
-
 {
   "_class": "hudson.model.FreeStyleProject",
   "lastBuild": {
@@ -20,15 +19,15 @@
       {
         "_class": "hudson.plugins.disk_usage.BuildDiskUsageAction"
       },
-      { },
-      { }
+      {},
+      {}
     ],
     "building": true,
     "description": null,
     "displayName": "#6",
     "duration": 250,
     "estimatedDuration": 10800029,
-    "executor": { },
+    "executor": {},
     "fullDisplayName": "CogBoard » In Progress #6",
     "id": "6",
     "result": null,

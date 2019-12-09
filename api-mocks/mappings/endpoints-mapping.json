@@ -108,9 +108,11 @@
       "request": {
         "method": "POST",
         "url": "/service-check/post.json",
-        "bodyPatterns" : [{
-          "matchesJsonPath" : "$.[?(@.name == 'cogboard-automation')]"
-        }]
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.[?(@.name == 'cogboard-automation')]"
+          }
+        ]
       },
       "response": {
         "status": 200,

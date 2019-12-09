@@ -51,7 +51,7 @@ allprojects {
 }
 
 tasks.named("build") {
-    dependsOn("runTest", ":cogboard-app:test")
+    dependsOn("runTest", ":cogboard-app:test", ":cogboard-webapp:buildImage")
 }
 
 detekt {

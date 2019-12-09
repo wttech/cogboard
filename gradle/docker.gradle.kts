@@ -146,7 +146,7 @@ tasks.register<Exec>("deployLocal") {
     environment = mapOf("COGBOARD_VERSION" to version)
     group = "swarm"
     commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
-    dependsOn("initSwarm", "build", "awaitLocalStackUndeployed", ":cogboard-webapp:buildImage")
+    dependsOn("initSwarm", "build", "awaitLocalStackUndeployed")
     mustRunAfter("undeployLocal")
 }
 

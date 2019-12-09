@@ -1,4 +1,4 @@
-import { string, number, boolean, array } from 'yup';
+import { string, number, boolean, array, ref } from 'yup';
 
 import {
   DATE_FORMATS,
@@ -11,7 +11,7 @@ import {
   TEXT_SIZES,
   validationMessages as vm
 } from '../../../constants';
-import { uniqueTitleTestCreator } from '../../validation';
+import { uniqueFieldTestCreator } from '../../validation';
 import widgetTypes from '../../widgets';
 
 import EndpointInput from './EndpointInput';
@@ -25,8 +25,56 @@ import AemHealthcheckInput from './AemHealthcheckInput';
 import conditionallyHidden from './conditionallyHidden';
 import SwitchInput from './SwitchInput';
 import { StyledNumberInput } from './styled';
+import CredentialInput from './Credentialnput';
+import PasswordInput from './PasswordInput';
 
 const dialogFields = {
+  LabelField: {
+    component: TextInput,
+    name: 'label',
+    label: 'Label',
+    initialValue: 'Label',
+    validator: ({ max, labelId, labels }) =>
+      string()
+        .trim()
+        .max(max, vm.STRING_LENGTH('Label', max))
+        .test(uniqueFieldTestCreator(labelId, labels, data => data.label))
+        .required(vm.FIELD_REQUIRED())
+  },
+  CredentialField: {
+    component: CredentialInput,
+    name: 'credentials',
+    label: 'Credential',
+    validator: () => string().required(vm.FIELD_REQUIRED())
+  },
+  UsernameField: {
+    component: TextInput,
+    name: 'user',
+    label: 'Username',
+    validator: ({ max }) =>
+      string()
+        .trim()
+        .max(max, vm.STRING_LENGTH('Label', max))
+        .required(vm.FIELD_REQUIRED())
+  },
+  PasswordField: {
+    component: PasswordInput,
+    name: 'password',
+    label: 'Password',
+    validator: () => string().required(vm.FIELD_REQUIRED)
+  },
+  PasswordConfirmationField: {
+    component: PasswordInput,
+    name: 'passwordConfirmation',
+    label: 'Password confirmation',
+    validator: () => string().oneOf([ref('password'), null], vm.PASSWORD_MATCH)
+  },
+  PublicURL: {
+    component: TextInput,
+    name: 'publicUrl',
+    label: 'Public URL',
+    validator: () => string().url(vm.INVALID_URL())
+  },
   WidgetTypeField: {
     component: DisplayValueSelect,
     name: 'type',
@@ -53,7 +101,7 @@ const dialogFields = {
       string()
         .trim()
         .max(max, vm.STRING_LENGTH('Title', max))
-        .test(uniqueTitleTestCreator(boardId, boards))
+        .test(uniqueFieldTestCreator(boardId, boards, data => data.title))
         .required(vm.FIELD_REQUIRED())
   },
   ColumnField: {
@@ -129,7 +177,6 @@ const dialogFields = {
     component: EndpointInput,
     name: 'endpoint',
     label: 'Endpoint',
-    itemsUrl: '/api/endpoints',
     validator: () => string()
   },
   SchedulePeriod: {

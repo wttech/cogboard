@@ -5,7 +5,11 @@ import { useTheme } from '@material-ui/styles';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { useToggle } from '../../hooks';
-import { removeWidget, reorderWidgets } from '../../actions/thunks';
+import {
+  removeWidget,
+  reorderWidgets,
+  loadSettings
+} from '../../actions/thunks';
 import widgetTypes from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
@@ -93,6 +97,7 @@ const Widget = ({ id, index }) => {
   drag(drop(ref));
 
   const handleEditClick = closeMenu => () => {
+    dispatch(loadSettings());
     openDialog();
     closeMenu();
   };
@@ -158,6 +163,7 @@ const Widget = ({ id, index }) => {
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title={`Edit ${title}`}
+        componentId={id}
         data-cy="widget-edit-dialog"
       >
         <EditWidget

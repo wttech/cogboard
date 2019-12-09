@@ -5,7 +5,9 @@ export const URL = {
   SAVE_DATA: '/api/config/save',
   UPDATE_WIDGET: '/api/widget/update',
   DELETE_WIDGET: '/api/widget/delete',
-  LOGIN: '/api/login'
+  LOGIN: '/api/login',
+  ENDPOINTS_ENDPOINT: '/api/endpoints',
+  CREDENTIALS_ENDPOINT: '/api/credentials'
 };
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;
@@ -119,8 +121,10 @@ export const validationMessages = {
   NUMBER_MAX: (name, max) => `${name} number cannot be more than ${max}.`,
   INVALID_URL: () => 'Invalid URL',
   FIELD_MIN_ITEMS: () => 'This field must have at least 1 item.',
-  UNIQUE_FIELD: () => 'This field must be unique.'
+  UNIQUE_FIELD: () => 'This field must be unique.',
+  PASSWORD_MATCH: () => 'Password must match.'
 };
+
 export const NOTIFICATIONS = {
   LOGIN: userRole => ({
     type: 'success',

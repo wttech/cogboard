@@ -54,6 +54,14 @@ export const StyledCard = styled(
       width: 100%;
     }
   `}
+
+  a {
+    color: #fff;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 `;
 
 StyledCard.propTypes = {

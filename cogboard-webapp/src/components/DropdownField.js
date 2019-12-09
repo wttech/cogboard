@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { FormControl, InputLabel, Input, Select } from '@material-ui/core';
+import { hasError } from '../helpers';
+
+import {
+  FormControl,
+  InputLabel,
+  Input,
+  Select,
+  FormHelperText
+} from '@material-ui/core';
 import { getToken } from '../utils/auth';
 import { getIsAuthenticated } from '../selectors';
 
@@ -11,10 +19,12 @@ const DropdownField = props => {
     id,
     label,
     value,
+    error: dropdownError,
     name,
     children,
     dropdownItems,
     itemsUrl,
+    optionalButton,
     dataCy,
     ...other
   } = props;
@@ -22,6 +32,10 @@ const DropdownField = props => {
   const [options, setOptions] = useState(dropdownItems);
   const [loaded, setLoaded] = useState(initialLoaded);
   const isAuthenticated = useSelector(getIsAuthenticated);
+
+  useEffect(() => {
+    setOptions(dropdownItems);
+  }, [dropdownItems]);
 
   useEffect(() => {
     if (itemsUrl) {
@@ -44,7 +58,7 @@ const DropdownField = props => {
   }, [itemsUrl, isAuthenticated]);
 
   return (
-    <FormControl>
+    <FormControl error={hasError(dropdownError)}>
       <InputLabel shrink htmlFor={id}>
         {label}
       </InputLabel>
@@ -58,6 +72,8 @@ const DropdownField = props => {
       >
         {loaded && children(options)}
       </Select>
+      {dropdownError && <FormHelperText>{dropdownError}</FormHelperText>}
+      {optionalButton}
     </FormControl>
   );
 };

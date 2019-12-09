@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 
 const getApp = ({ app }) => app;
 
+const getSettings = ({ app: { settings } }) => settings;
+
 const getUi = ({ ui }) => ui;
 
 const getNotifications = ({ notifications }) => notifications;
@@ -64,4 +66,14 @@ export const getAllNotifications = createSelector(
 export const getBoards = createSelector(
   [getBoardsById],
   boardsById => Object.values(boardsById)
+);
+
+export const getEndpoints = createSelector(
+  [getSettings],
+  ({ endpoints }) => endpoints
+);
+
+export const getCredentials = createSelector(
+  [getSettings],
+  ({ credentials }) => credentials
 );

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
 
 import { useToggle } from '../../hooks';
-import { saveData } from '../../actions/thunks';
+import { saveData, loadSettings } from '../../actions/thunks';
 import { getIsAuthenticated } from '../../selectors';
 
 import { Router } from '@reach/router';
@@ -23,7 +23,8 @@ import {
   StyledDrawerContainer,
   StyledLogo,
   StyledMain,
-  StyledSaveFab
+  StyledSaveFab,
+  StyledSettingsMenu
 } from './styled';
 
 const MainTemplate = () => {
@@ -40,6 +41,7 @@ const MainTemplate = () => {
   };
 
   const handleAddWidgetClick = () => {
+    dispatch(loadSettings());
     openDialog(true);
   };
 
@@ -70,6 +72,7 @@ const MainTemplate = () => {
           <AddBoard />
           <StyledBoardList />
         </StyledDrawerContainer>
+        <StyledSettingsMenu />
       </StyledDrawer>
       <StyledMain>
         <Container maxWidth="xl">
