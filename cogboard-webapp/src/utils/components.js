@@ -24,3 +24,6 @@ export const hasError = error => error !== undefined;
 
 export const getWidgetStatus = content =>
   (content && content.widgetStatus) || 'UNDEFINED';
+
+export const getWidgetUpdateTime = content =>
+  (content && content.lastUpdated) || 'UNDEFINED';
