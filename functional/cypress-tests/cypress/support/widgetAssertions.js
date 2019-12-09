@@ -98,7 +98,7 @@ export function validateSonarQube() {
 };
 
 export function validateText() {
-    cy.contains('h5', `${Widgets.text.text}`)
+    cy.contains('h3', `${Widgets.text.text}`)
         .should('is.visible');
 };
 
