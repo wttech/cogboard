@@ -12,6 +12,7 @@ export const CenterWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${({ isVertical }) => isVertical && `text-align: center;`}
 `;
 
 export const StyledPre = styled.pre`
