@@ -59,7 +59,7 @@ export function validateJenkinsJob() {
         .should('is.visible');
     cy.contains('p', 'master-branch')
         .should('is.visible');
-    cy.contains('p', '19/11/2019, 13:04:53')
+    cy.contains('p', /[0-9]{2}.[0-9]{2}.[0-9]{4}, [0-9]{2}:[0-9]{2}:[0-9]{2}/)
         .should('is.visible');
     cy.contains('p', '0.25 [s]')
         .should('is.visible')
@@ -89,16 +89,16 @@ export function validateSonarQube() {
                 console.log(metric.text());
             });
     };
-    cy.contains('span', '316488')
+    cy.contains('span', `${Widgets.sonarQube.id}`)
         .should('is.visible');
-    cy.contains('p', '25/04/2019, 04:01:02')
+    cy.contains('p', /[0-9]{2}.[0-9]{2}.[0-9]{4}, [0-9]{2}:[0-9]{2}:[0-9]{2}/)
         .should('is.visible');
     cy.contains('p', '6.4.2.6-SNAPSHOT')
         .should('is.visible');
 };
 
 export function validateText() {
-    cy.contains('h3', `${Widgets.text.text}`)
+    cy.contains('h5', `${Widgets.text.text}`)
         .should('is.visible');
 };
 
