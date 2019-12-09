@@ -37,6 +37,7 @@ class JenkinsJobWidgetTest : WidgetTestBase() {
 
         val (result, content) = captureWhatIsSent(eventBus, captor)
 
+        assertUpdateDatePresent(result)
         assertStatus("OK", result)
         assertDisplayName("#5", content)
         assertBranch("master-branch", content)
@@ -53,6 +54,7 @@ class JenkinsJobWidgetTest : WidgetTestBase() {
 
         val (result, content) = captureWhatIsSent(eventBus, captor)
 
+        assertUpdateDatePresent(result)
         assertStatus("FAIL", result)
         assertDisplayName("#7", content)
         assertBranch("master-branch", content)
@@ -69,6 +71,7 @@ class JenkinsJobWidgetTest : WidgetTestBase() {
 
         val (result, content) = captureWhatIsSent(eventBus, captor)
 
+        assertUpdateDatePresent(result)
         assertStatus("IN_PROGRESS", result)
         assertDisplayName("#6", content)
         assertBranch("master-branch", content)

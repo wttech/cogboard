@@ -41,7 +41,7 @@ To un-deploy docker stack
 
 `TODO`: Design how to setup for production
 
-##### When launched go to [http://localhost:8092](http://localhost:8092) to see your board
+##### When launched go to [http://localhost](http://localhost) to see your board
 
 ##### When launched with mocks app is available as above. For mocks open [http://localhost:8093/\_\_admin](http://localhost:8080/__admin) to see mocks configuration
 
