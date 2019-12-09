@@ -102,4 +102,3 @@ DropdownField.defaultProps = {
 };
 
 export default DropdownField;
-//margin-top: 16px;
