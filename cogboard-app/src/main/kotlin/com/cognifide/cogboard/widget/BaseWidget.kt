@@ -5,8 +5,7 @@ import com.cognifide.cogboard.config.service.WidgetRuntimeService
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
-import java.util.Timer
-import java.util.TimerTask
+import java.util.*
 import kotlin.concurrent.timerTask
 import com.cognifide.cogboard.CogboardConstants as CC
 
@@ -56,6 +55,7 @@ abstract class BaseWidget(
     override fun send(state: JsonObject) {
         state.put(CC.PROP_ID, id)
         state.put(CC.PROP_EVENT_TYPE, PROP_EVENT_TYPE_WIDGET_UPDATE)
+        state.getJsonObject(CC.PROP_CONTENT).attachUpdateDate()
         boardService.saveContent(id, state.getJsonObject(CC.PROP_CONTENT))
         vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
     }
@@ -129,6 +129,10 @@ abstract class BaseWidget(
         } else {
             updateState()
         }
+    }
+
+    private fun JsonObject.attachUpdateDate() {
+        this.put(CC.PROP_LAST_UPDATED, Date().time)
     }
 
     protected fun JsonObject.endpointProp(prop: String): String {
