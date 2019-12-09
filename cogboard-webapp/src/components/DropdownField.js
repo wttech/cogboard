@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import styled from '@emotion/styled/macro';
 
 import { hasError } from '../helpers';
 
@@ -8,10 +9,24 @@ import {
   InputLabel,
   Input,
   Select,
-  FormHelperText
+  FormHelperText,
+  Box
 } from '@material-ui/core';
 import { getToken } from '../utils/auth';
 import { getIsAuthenticated } from '../selectors';
+
+const StyledWrapper = styled(Box)`
+  display: flex;
+`;
+
+const StyledSelect = styled(Select)`
+  margin-top: 16px;
+  flex: 1 0 auto;
+`;
+
+const StyledOptionalButton = styled(Box)`
+  margin-top: 16px;
+`;
 
 const DropdownField = props => {
   const {
@@ -62,18 +77,22 @@ const DropdownField = props => {
       <InputLabel shrink htmlFor={id}>
         {label}
       </InputLabel>
-      <Select
-        onChange={onChange}
-        value={value}
-        input={<Input name={name} id={id} />}
-        name={name}
-        SelectDisplayProps={other}
-        data-cy={dataCy}
-      >
-        {loaded && children(options)}
-      </Select>
+      <StyledWrapper>
+        <StyledSelect
+          onChange={onChange}
+          value={value}
+          input={<Input name={name} id={id} />}
+          name={name}
+          SelectDisplayProps={other}
+          data-cy={dataCy}
+        >
+          {loaded && children(options)}
+        </StyledSelect>
+        {optionalButton && (
+          <StyledOptionalButton>{optionalButton}</StyledOptionalButton>
+        )}
+      </StyledWrapper>
       {dropdownError && <FormHelperText>{dropdownError}</FormHelperText>}
-      {optionalButton}
     </FormControl>
   );
 };
