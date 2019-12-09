@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { Box, Drawer, Fab } from '@material-ui/core';
 import BoardList from '../BoardList';
