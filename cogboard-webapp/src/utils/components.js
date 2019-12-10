@@ -26,7 +26,8 @@ export const getWidgetStatus = content =>
   (content && content.widgetStatus) || 'UNDEFINED';
 
 export const getWidgetUpdateTime = (content, widgetType) => {
-  return widgetType.showUpdateTime
-    ? (content && content.lastUpdated) || 'UNDEFINED'
-    : false;
+  return (
+    widgetType.showUpdateTime &&
+    ((content && content.lastUpdated) || 'UNDEFINED')
+  );
 };
