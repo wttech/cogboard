@@ -19,11 +19,7 @@ before_script:
 script:
   - if [[ "$RELEASE" = "1" ]]; then ./gradlew release -Prelease.useAutomaticVersion=true
     --info; fi
-  - if [[ "$RELEASE" != "1" ]]; then ./gradlew; fi
-  - cd functional/cypress-tests/
-  - npm install
-  - npx cypress run --browser chrome
-  - cd ../../
+  - if [[ "$RELEASE" != "1" ]]; then ./gradlew functionalTests; fi
 deploy:
   - provider: script
     script: bash scripts/release.sh

@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.bmuschko.gradle.docker.tasks.container.DockerCreateContainer
-import com.bmuschko.gradle.docker.tasks.container.DockerStartContainer
-import com.bmuschko.gradle.docker.tasks.container.DockerStopContainer
-import com.bmuschko.gradle.docker.tasks.container.extras.DockerWaitHealthyContainer
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
 
@@ -24,6 +20,7 @@ val dockerImageRef = "$buildDir/.docker/buildImage-imageId.txt"
 val dockerContainerName = project.property("docker.app.container.name")?.toString() ?: "cogboard"
 val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "cogboard/cogboard-app"
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
+val cypressTestsDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/functional/cypress-tests"
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
 
@@ -68,49 +65,6 @@ tasks.register<DockerBuildImage> ("buildImage") {
     tags.add("$dockerImageName:$version")
     dependsOn("prepareDocker")
 }
-val buildImage = tasks.named<DockerBuildImage>("buildImage")
-
-// FUNCTIONAL TESTS
-
-tasks.register<DockerCreateContainer>("createContainer") {
-    group = "docker-functional-tests"
-    dependsOn(buildImage)
-    targetImageId(buildImage.get().imageId)
-    portBindings.set(listOf("8092:8092"))
-    exposePorts("tcp", listOf(8092))
-    autoRemove.set(true)
-}
-val createContainer = tasks.named<DockerCreateContainer>("createContainer")
-
-tasks.register<DockerStartContainer>("startContainer") {
-    group = "docker-functional-tests"
-    dependsOn(createContainer)
-    targetContainerId(createContainer.get().containerId)
-}
-
-tasks.register<DockerWaitHealthyContainer>("waitContainer") {
-    group = "docker-functional-tests"
-    dependsOn(tasks.named("startContainer"))
-    targetContainerId(createContainer.get().containerId)
-}
-
-tasks.register<DockerStopContainer>("stopContainer") {
-    group = "docker-functional-tests"
-    targetContainerId(createContainer.get().containerId)
-}
-
-/** Deprecated */
-tasks.register("runTest", Test::class) {
-    dependsOn(tasks.named("runFunctionalTest"))
-}
-
-tasks.register("runFunctionalTest", Test::class) {
-    group = "docker-functional-tests"
-    dependsOn(tasks.named("waitContainer"))
-    finalizedBy(tasks.named("stopContainer"))
-    include("**/*ITCase*")
-}
-
 
 tasks.register<Exec>("updateLocal") {
     group = "docker"
@@ -159,4 +113,10 @@ tasks.register<Exec>("undeployLocal") {
 tasks.register("redeployLocal") {
     group = "swarm"
     dependsOn("undeployLocal", "deployLocal")
+}
+
+tasks.register<Exec>("functionalTests") {
+    group = "docker-functional-tests"
+    commandLine = listOf("docker", "run", "-v","$cypressTestsDir:/e2e","-w","/e2e","cypress/included:3.7.0", "--browser", "chrome")
+    dependsOn("redeployLocal")
 }

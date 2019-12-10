@@ -51,7 +51,11 @@ allprojects {
 }
 
 tasks.named("build") {
-    dependsOn("runTest", ":cogboard-app:test", ":cogboard-webapp:buildImage")
+    dependsOn(":cogboard-app:test", ":cogboard-webapp:buildImage")
+}
+
+tasks.named("release") {
+    dependsOn("functionalTests")
 }
 
 detekt {
@@ -61,6 +65,8 @@ detekt {
     autoCorrect = true
     failFast = true
 }
+
+
 
 apply(from = "gradle/distribution.gradle.kts")
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
