@@ -34,10 +34,6 @@ dependencies {
     "detektPlugins"("io.gitlab.arturbosch.detekt:detekt-formatting:1.1.0")
 }
 
-sourceSets.named("test") {
-    java.srcDir("functional/src/test/java")
-}
-
 allprojects {
     group = "com.cognifide"
 
