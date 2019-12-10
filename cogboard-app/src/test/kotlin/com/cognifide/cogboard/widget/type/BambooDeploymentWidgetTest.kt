@@ -28,6 +28,7 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     fun successResponseGenerateValidUpdateEvent() {
         val (result, content) = sendResponseWithCapture(successResponse)
 
+        assertUpdateDatePresent(result)
         assertStatus("OK", result)
         assertURL("https://test.bamboo.com/deploy/viewDeploymentResult.action?deploymentResultId=47743263", content)
         assertReleaseName("release-1440", content)
@@ -40,6 +41,7 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     fun failResponseGenerateValidUpdateEvent() {
         val (result, content) = sendResponseWithCapture(failResponse)
 
+        assertUpdateDatePresent(result)
         assertStatus("FAIL", result)
         assertURL("https://test.bamboo.com/deploy/viewDeploymentResult.action?deploymentResultId=47743118", content)
         assertReleaseName("release-1377", content)
@@ -52,6 +54,7 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     fun inProgressResponseGenerateValidUpdateEvent() {
         val (result, content) = sendResponseWithCapture(inProgressResponse)
 
+        assertUpdateDatePresent(result)
         assertStatus("IN_PROGRESS", result)
         assertURL("https://test.bamboo.com/deploy/viewDeploymentResult.action?deploymentResultId=47743269", content)
         assertReleaseName("release-1442", content)

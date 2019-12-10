@@ -1,7 +1,8 @@
-import Widgets from "../fixtures/Widgets";
-import { fillDynamicTab } from "../support/widgetDynamicTab";
-let example = Widgets.example;
-let dashboardName = "Welcome to Cogboard";
+import Widgets from '../fixtures/Widgets'
+import { fillDynamicTab } from '../support/widgetDynamicTab'
+import { validateWidgetConfig } from '../support/widgetAssertions'
+let example = Widgets.example
+let dashboardName = 'Welcome to Cogboard';
 let widgetsKeys = Object.keys(Widgets);
 
 describe("Widgets", () => {
@@ -18,15 +19,18 @@ describe("Widgets", () => {
     let name = Widgets[widget].name;
     let title = `Test-${name}`;
 
-    it(`${name} can be configured and added by logged in user`, () => {
-      cy.fillNewWidgetGeneral(name, title, false, false, 4, 2);
-      fillDynamicTab(name);
-      cy.confirmAddWidget();
-      cy.contains("h3", title).should("is.visible");
-      cy.removeWidget(title);
-      cy.contains("h3", title).should("not.visible");
-    });
-  }
+        it(`${name} can be configured and added by logged in user`, () => {
+            cy.fillNewWidgetGeneral(name, title, false, false, 4, 2);
+            fillDynamicTab(name);
+            cy.confirmAddWidget();
+            cy.contains('h3', title)
+                .should('is.visible');
+            validateWidgetConfig(name);
+            cy.removeWidget(title);
+            cy.contains('h3', title)
+                .should('not.exist');
+        });
+    };
 
   it("Example widget can be disabled", () => {
     let title = `Test-${example.name}`;

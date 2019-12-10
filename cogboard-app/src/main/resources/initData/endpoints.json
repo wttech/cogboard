@@ -3,7 +3,7 @@
     {
       "id": "api-mocks-endpoint",
       "label": "API Mocks Endpoint",
-      "publicUrl": "http://localhost:8092",
+      "publicUrl": "http://api-mocks:8080",
       "url": "http://api-mocks:8080"
     },
     {

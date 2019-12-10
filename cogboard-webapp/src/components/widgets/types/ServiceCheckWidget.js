@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { string, number } from 'prop-types';
 
 import { Popover } from '@material-ui/core';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import {
   Caption,
   CaptionWithPointer,
@@ -9,6 +10,13 @@ import {
   StyledPopoverText
 } from '../../styled';
 import Loader from '../../Loader';
+import styled from '@emotion/styled/macro';
+
+const StyledOpenInNewIcon = styled(OpenInNewIcon)`
+  font-size: 20px;
+  margin-left: 10px;
+  opacity: 0.5;
+`;
 
 const ServiceCheckWidget = props => {
   const {
@@ -50,6 +58,7 @@ const ServiceCheckWidget = props => {
           ) : (
             statusCodeMessage
           )}
+          <StyledOpenInNewIcon />
         </WidgetButton>
       </Caption>
       <CaptionWithPointer title={body} onClick={handleClick}>

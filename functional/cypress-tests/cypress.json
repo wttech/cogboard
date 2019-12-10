@@ -1,8 +1,9 @@
 {
-  "baseUrl": "http://localhost:8092",
+  "baseUrl": "http://localhost",
   "env": {
     "username": "admin",
     "password": "admin"
   },
-  "video": false
+  "video": false,
+  "defaultCommandTimeout": 10000
 }

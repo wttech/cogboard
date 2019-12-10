@@ -9,7 +9,7 @@ export const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
 export const renderCardContent = (
   content,
-  showUpdateTime,
+  updateTimestamp,
   disabled,
   id,
   type
@@ -23,8 +23,10 @@ export const renderCardContent = (
       ) : (
         'Disabled'
       )}
-      {showUpdateTime && (
-        <LastUpdate lastUpdateTime={new Date().toLocaleString()} />
+      {updateTimestamp && (
+        <LastUpdate
+          lastUpdateTime={new Date(updateTimestamp).toLocaleString()}
+        />
       )}
     </StyledCardContent>
   );

@@ -55,6 +55,76 @@
     {
       "request": {
         "method": "GET",
+        "url": "/system/sling/monitoring/mbeans/org/apache/sling/healthcheck.2.json"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "aem/healthcheck.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/result/CGB-SCS.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/successful.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/result/CGB-FLD.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/failed.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/result/CGB-UKWN.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/unknown.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/service-check/post.json",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.[?(@.name == 'cogboard-automation')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "service-check/post.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
         "url": "/dashboard/1"
       },
       "response": {
@@ -68,7 +138,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/resources?resource=success&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations"
+        "url": "/api/resources?resource=success&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
       },
       "response": {
         "status": 200,
@@ -81,7 +151,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/resources?resource=fail&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations"
+        "url": "/api/resources?resource=fail&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
       },
       "response": {
         "status": 200,
@@ -94,7 +164,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/resources?resource=warning&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations"
+        "url": "/api/resources?resource=warning&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
       },
       "response": {
         "status": 200,

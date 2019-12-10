@@ -22,7 +22,7 @@ import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
-import { getWidgetStatus } from '../../utils/components';
+import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -40,9 +40,7 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const widgetStatus = getWidgetStatus(content);
-  const showUpdateTime = widgetTypes[type]
-    ? widgetTypes[type].showUpdateTime
-    : false;
+  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -156,7 +154,7 @@ const Widget = ({ id, index }) => {
             }
           />
         )}
-        {renderCardContent(content, showUpdateTime, disabled, id, type)}
+        {renderCardContent(content, widgetUpdateTimestamp, disabled, id, type)}
       </StyledCard>
       <AppDialog
         disableBackdropClick={true}

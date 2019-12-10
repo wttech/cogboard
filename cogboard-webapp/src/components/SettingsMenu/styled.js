@@ -1,6 +1,6 @@
 import styled from '@emotion/styled/macro';
 
-import { Tabs } from "@material-ui/core";
+import { Tabs } from '@material-ui/core';
 import AppDialog from '../AppDialog';
 import TabPanel from '../TabPanel';
 

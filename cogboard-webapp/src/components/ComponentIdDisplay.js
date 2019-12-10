@@ -2,7 +2,7 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { IconButton, Tooltip, Typography } from '@material-ui/core';
-import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import { grey } from '@material-ui/core/colors/index';
 import styled from '@emotion/styled/macro';
 
@@ -10,6 +10,8 @@ import copy from 'copy-to-clipboard';
 
 const StyledTooltip = styled(Tooltip)`
   float: right;
+  position: relative;
+  top: 2px;
 `;
 
 const StyledTypography = styled(Typography)`
@@ -38,7 +40,7 @@ class ComponentIdDisplay extends React.Component {
         </StyledTypography>
         <StyledTooltip title="Copy component ID to clipboard" arrow>
           <IconButton onClick={copyToClipboard(componentId)} size="small">
-            <FingerprintIcon />
+            <FilterNoneIcon />
           </IconButton>
         </StyledTooltip>
       </>
