@@ -133,13 +133,13 @@ export function validateWidgetConfig(type = 'Text') {
                 validateServiceCheck();
                 break;
             case 'SonarQube':
-                // validateSonarQube(); fix in progress
+                validateSonarQube();
                 break;
             case 'Text':
-                // validateText(); fix in progress
+                validateText();
                 break;
             case 'World Clock':
-                // validateWorldClock(); fix in progress
+                validateWorldClock();
                 break;
             default:
                 break;
