@@ -8,12 +8,12 @@ import { WidgetIconButton } from '../../../styled';
 import StatusCheckbox from '../../../StatusCheckbox';
 
 import { postWidgetContentUpdate } from '../../../../utils/fetch';
+import { getWidgetStatus } from '../../../../utils/components';
 
 const CheckboxWidget = ({ id }) => {
   const dispatch = useDispatch();
-  const {
-    content: { widgetStatus }
-  } = useSelector(({ widgets }) => widgets.widgetsById[id]);
+  const { content } = useSelector(({ widgets }) => widgets.widgetsById[id]);
+  const widgetStatus = getWidgetStatus(content);
 
   const ariaCheckedStatusMap = {
     OK: true,
