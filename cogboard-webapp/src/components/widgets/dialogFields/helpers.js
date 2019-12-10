@@ -14,17 +14,17 @@ export const parseWidgetTypes = widgetTypes => {
   }, []);
 };
 
-export const transformMinValueToHalf = () => {
+export const transformMinValue = minValue => {
   let prevValue;
 
   return value => {
-    if (value < 1) {
-      return (prevValue = 0.5);
+    if (value < minValue) {
+      return (prevValue = minValue);
     }
 
-    if (prevValue === 0.5) {
-      return (prevValue = 1);
-    }
+    // if (prevValue === minValue) {
+    //   return (prevValue = 1);
+    // }
 
     return (prevValue =
       value < prevValue ? Math.floor(value) : Math.ceil(value));
