@@ -9,6 +9,7 @@ import { parseWidgetTypes, transformMinValueToHalf } from './helpers';
 import {
   REQUEST_METHODS,
   TEXT_SIZES,
+  EXPAND_ITEMS,
   validationMessages as vm
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
@@ -349,10 +350,11 @@ const dialogFields = {
     validator: () => boolean()
   },
   ExpandableContent: {
-    component: SwitchInput,
+    component: DisplayValueSelect,
     name: 'expandContent',
     label: 'Expandable Content',
-    initialValue: false,
+    dropdownItems: EXPAND_ITEMS,
+    initialValue: EXPAND_ITEMS[1].value,
     validator: () => boolean()
   }
 };
