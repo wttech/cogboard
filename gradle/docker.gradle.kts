@@ -63,7 +63,7 @@ tasks.register<DockerBuildImage> ("buildImage") {
     group = "docker"
     inputDir.set(file("$buildDir"))
     tags.add("$dockerImageName:$version")
-    dependsOn("prepareDocker")
+    dependsOn("prepareDocker", "build")
 }
 
 tasks.register<Exec>("updateLocal") {
@@ -100,7 +100,7 @@ tasks.register<Exec>("deployLocal") {
     environment = mapOf("COGBOARD_VERSION" to version)
     group = "swarm"
     commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
-    dependsOn("initSwarm", "build", "awaitLocalStackUndeployed")
+    dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed")
     mustRunAfter("undeployLocal")
 }
 
