@@ -28,7 +28,12 @@ const widgetTypes = {
   JenkinsJobWidget: {
     name: 'Jenkins Job',
     component: JenkinsJobWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'Path'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'Path',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }

@@ -36,7 +36,6 @@ const TruncatedText = ({ isVertical, parentDimensions, children }) => {
 const TextWidget = ({ text, textSize, isVertical }) => {
   const targetRef = useRef();
   const centerWrapperDimensions = useSize(targetRef);
-
   return (
     <TypographyVariant variant={textSize}>
       <CenterWrapper ref={targetRef} isVertical={isVertical}>

@@ -349,7 +349,7 @@ const dialogFields = {
     validator: () => boolean()
   },
   ExpandableContent: {
-    component: CheckboxInput,
+    component: SwitchInput,
     name: 'expandContent',
     label: 'Expandable Content',
     initialValue: false,
