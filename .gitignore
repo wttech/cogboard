@@ -38,7 +38,6 @@ Thumbs.db
 
 # misc
 .DS_Store
-.vscode
 
 npm-debug.log*
 yarn-debug.log*
