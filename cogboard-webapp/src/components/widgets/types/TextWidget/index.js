@@ -39,7 +39,7 @@ const TextWidget = ({ text, textSize, isVertical }) => {
 
   return (
     <TypographyVariant variant={textSize}>
-      <CenterWrapper ref={targetRef}>
+      <CenterWrapper ref={targetRef} isVertical={isVertical}>
         <TruncatedText
           isVertical={isVertical}
           parentDimensions={centerWrapperDimensions}

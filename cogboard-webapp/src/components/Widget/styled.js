@@ -58,7 +58,11 @@ export const StyledCard = styled(
   `}
 
   a {
-    color: white;
+    color: #fff;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 `;
 
@@ -72,6 +76,7 @@ StyledCard.propTypes = {
 
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
+  ${({ title }) => !title && `position: absolute; right: 0;`}
 `;
 
 export const StyledCardContent = styled(CardContent)`

@@ -5,7 +5,11 @@ import { useTheme } from '@material-ui/styles';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { useToggle } from '../../hooks';
-import { removeWidget, reorderWidgets } from '../../actions/thunks';
+import {
+  removeWidget,
+  reorderWidgets,
+  loadSettings
+} from '../../actions/thunks';
 import widgetTypes from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
@@ -19,7 +23,7 @@ import MoreMenu from '../MoreMenu';
 import WidgetContent from '../WidgetContent';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
-import { getWidgetStatus } from '../../utils/components';
+import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -38,9 +42,7 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const widgetStatus = getWidgetStatus(content);
-  const showUpdateTime = widgetTypes[type]
-    ? widgetTypes[type].showUpdateTime
-    : false;
+  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -97,6 +99,7 @@ const Widget = ({ id, index }) => {
   drag(drop(ref));
 
   const handleEditClick = closeMenu => () => {
+    dispatch(loadSettings());
     openDialog();
     closeMenu();
   };
@@ -131,7 +134,7 @@ const Widget = ({ id, index }) => {
         {(isAuthenticated || title !== '') && (
           <StyledCardHeader
             avatar={
-              (!expandContent || content.errorMessage) && (
+              !expandContent && (
                 <StatusIcon status={widgetStatus} size="small" />
               )
             }
@@ -165,7 +168,7 @@ const Widget = ({ id, index }) => {
         )}
         {renderCardContent(
           content,
-          showUpdateTime,
+          widgetUpdateTimestamp,
           disabled,
           id,
           type,
@@ -193,6 +196,7 @@ const Widget = ({ id, index }) => {
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title={`Edit ${title}`}
+        componentId={id}
         data-cy="widget-edit-dialog"
       >
         <EditWidget

@@ -1,22 +1,33 @@
 import { dataChanged, setLogoutReasonMessage } from './actionCreators';
 import { logout } from './thunks';
 import { isAuthenticated } from '../utils/auth';
+import { mergeRight, assocPath } from 'ramda';
 import { checkResponseStatus } from '../utils/fetch';
 
-export const fetchData = (url, method = 'GET', data = {}, token = '') => {
-  const postConfig = {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  if (token) {
-    postConfig.headers['Authorization'] = token;
-  }
-  const init = method !== 'GET' ? postConfig : {};
+export const fetchData = (
+  url,
+  { method = 'GET', data = {}, token = '' } = {}
+) => {
+  const baseConfig = { method };
 
-  return fetch(url, init)
+  const configMap = {
+    GET: baseConfig,
+    DELETE: baseConfig,
+    POST: mergeRight(baseConfig, {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  };
+
+  const config = method in configMap ? configMap[method] : configMap['POST'];
+
+  const authenticationConfig = token
+    ? assocPath(['headers', 'Authorization'], token, config)
+    : config;
+
+  return fetch(url, authenticationConfig)
     .then(checkResponseStatus)
     .then(response => response.json());
 };

@@ -34,11 +34,16 @@ export const createValidationSchema = (fields, constraints) => {
   return newValidationSchema;
 };
 
-export const uniqueTitleTestCreator = (boardId, boards) => ({
-  name: 'uniqueTitle',
-  params: { boards, boardId },
+export const uniqueFieldTestCreator = (
+  itemId,
+  items,
+  valueExtFn,
+  idExtFn = data => data.id
+) => ({
+  name: 'uniqueField',
+  params: { items, itemId },
   message: vm.UNIQUE_FIELD(),
   exclusive: true,
-  test: title =>
-    boards.every(board => board.title !== title || board.id === boardId)
+  test: field =>
+    items.every(item => valueExtFn(item) !== field || idExtFn(item) === itemId)
 });
