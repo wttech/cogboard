@@ -40,10 +40,7 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const widgetStatus = getWidgetStatus(content);
-  const showUpdateTime = widgetTypes[type]
-    ? widgetTypes[type].showUpdateTime
-    : false;
-  const updateTimestamp = getWidgetUpdateTime(content);
+  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -157,14 +154,7 @@ const Widget = ({ id, index }) => {
             }
           />
         )}
-        {renderCardContent(
-          content,
-          showUpdateTime,
-          updateTimestamp,
-          disabled,
-          id,
-          type
-        )}
+        {renderCardContent(content, widgetUpdateTimestamp, disabled, id, type)}
       </StyledCard>
       <AppDialog
         disableBackdropClick={true}
