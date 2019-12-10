@@ -33,6 +33,7 @@ class CogboardConstants {
         const val PROP_BODY = "body"
         const val PROP_EVENT_ADDRESS = "event.address"
         const val PROP_ENDPOINT = "endpoint"
+        const val PROP_LAST_UPDATED = "lastUpdated"
         const val PROP_ARRAY = "array"
         const val PROP_STATUS_CODE = "statusCode"
         const val PROP_STATUS_MESSAGE = "statusMessage"
