@@ -5,7 +5,9 @@ import com.cognifide.cogboard.config.service.WidgetRuntimeService
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
-import java.util.*
+import java.util.Date
+import java.util.Timer
+import java.util.TimerTask
 import kotlin.concurrent.timerTask
 import com.cognifide.cogboard.CogboardConstants as CC
 
