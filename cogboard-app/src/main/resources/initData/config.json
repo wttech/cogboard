@@ -8,7 +8,9 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget1", "widget9"]
+        "widgets": [
+          "widget1"
+        ]
       },
       "board2": {
         "autoSwitch": true,
@@ -17,19 +19,32 @@
         "title": "Jenkins Job Widget Examples",
         "columns": 6,
         "theme": "default",
-        "widgets": ["widget2", "widget3", "widget4"]
+        "widgets": [
+          "widget2",
+          "widget3",
+          "widget4"
+        ]
       },
       "board3": {
         "autoSwitch": true,
         "switchInterval": 60,
         "id": "board3",
         "theme": "default",
-        "widgets": ["widget8", "widget5", "widget7", "widget6"],
+        "widgets": [
+          "widget8",
+          "widget5",
+          "widget7",
+          "widget6"
+        ],
         "columns": 8,
         "title": "Sonarqube Widget Examples"
       }
     },
-    "allBoards": ["board1", "board2", "board3"]
+    "allBoards": [
+      "board1",
+      "board2",
+      "board3"
+    ]
   },
   "widgets": {
     "widgetsById": {
@@ -195,22 +210,6 @@
         "text": "v5.6.6",
         "textSize": "h3",
         "isVertical": true
-      },
-      "widget9": {
-        "id": "widget9",
-        "title": "Checkbox Widget",
-        "config": {
-          "columns": 1,
-          "goNewLine": false,
-          "rows": 1
-        },
-        "type": "CheckboxWidget",
-        "disabled": false,
-        "content": {},
-        "status": "UNKNOWN",
-        "isUpdating": false,
-        "boardId": "board1",
-        "withWidgetContentUpdate": true
       }
     },
     "allWidgets": [
@@ -221,8 +220,7 @@
       "widget5",
       "widget6",
       "widget7",
-      "widget8",
-      "widget9"
+      "widget8"
     ]
   }
 }
