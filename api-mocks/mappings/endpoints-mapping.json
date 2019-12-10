@@ -151,7 +151,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/resources?resource=fail&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations"
+        "url": "/api/resources?resource=fail&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
       },
       "response": {
         "status": 200,
@@ -164,7 +164,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/resources?resource=warning&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations"
+        "url": "/api/resources?resource=warning&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
       },
       "response": {
         "status": 200,

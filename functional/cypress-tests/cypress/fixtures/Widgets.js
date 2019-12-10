@@ -102,7 +102,7 @@ module.exports = {
     name: "SonarQube",
     endpoint: "api-mocks-endpoint",
     schedulePeriod: "90",
-    key: "success",
+    key: "fail",
     id: "316488",
     metrics: {
       blocker_violations: {
@@ -138,7 +138,7 @@ module.exports = {
       code_smells: {
         dataValue: "code_smells",
         label: "code smells",
-        value: "25"
+        value: "5"
       },
       vulnerabilities: {
         dataValue: "vulnerabilities",
