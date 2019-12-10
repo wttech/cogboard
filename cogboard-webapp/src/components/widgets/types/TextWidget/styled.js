@@ -26,7 +26,6 @@ export const RotatedStyledPre = styled(StyledPre)`
 export const OverflowingText = component => styled(component)`
   overflow: hidden;
   text-overflow: ellipsis;
-  word-wrap: break-word;
 `;
 
 export const SetWidth = (component, componentWidth) => styled(component)`
