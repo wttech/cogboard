@@ -24,8 +24,8 @@ export const renderCardContent = (
   expanded,
   handleExpandClick
 ) => {
-  const handleClick = () => {
-    console.log(content);
+  const handleClick = status => {
+    console.log(status);
   };
 
   return (
@@ -35,7 +35,7 @@ export const renderCardContent = (
       ) : !disabled && !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
-        <StyledStatusIconButton onClick={handleClick}>
+        <StyledStatusIconButton onClick={handleClick(status)}>
           <StatusIcon status={status} size="large" />
         </StyledStatusIconButton>
       ) : (
