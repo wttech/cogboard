@@ -116,8 +116,10 @@ tasks.register("redeployLocal") {
 }
 
 tasks.register<Exec>("functionalTests") {
-    logger.lifecycle("Running functional tests from $cypressTestsDir")
     group = "docker-functional-tests"
     commandLine = listOf("docker", "run", "-v","$cypressTestsDir:/e2e","-w","/e2e","cypress/included:3.7.0", "--browser", "chrome")
     dependsOn("redeployLocal")
+    doFirst {
+        logger.lifecycle("Running functional tests from $cypressTestsDir")
+    }
 }
