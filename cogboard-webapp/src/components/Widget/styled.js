@@ -126,7 +126,21 @@ export const StyledIconButton = styled(({ isExpanded, ...props }) => (
   transition: transform 100ms linear;
 `;
 
-export const StyledStatusIconButton = styled(IconButton)`
-  border-radius: 0;
+export const StyledStatusIconButton = styled.a`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  transition: 0.2s background-color;
+  border-radius: 2px;
+  padding: 5px 0 5px 0;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+`;
+
+export const StyledIconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
   width: 100%;
 `;

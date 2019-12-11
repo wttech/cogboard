@@ -37,10 +37,10 @@ const Widget = ({ id, index }) => {
     type,
     title,
     content,
-    expandContent,
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
+  const { expandContent } = widgetTypeData;
   const widgetStatus = getWidgetStatus(content);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
   const dispatch = useDispatch();

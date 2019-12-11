@@ -350,11 +350,10 @@ const dialogFields = {
     validator: () => boolean()
   },
   ExpandableContent: {
-    component: DisplayValueSelect,
+    component: CheckboxInput,
     name: 'expandContent',
     label: 'Expandable Content',
-    dropdownItems: EXPAND_ITEMS,
-    initialValue: EXPAND_ITEMS[1].value,
+    initialValue: false,
     validator: () => boolean()
   }
 };

@@ -3,7 +3,8 @@ import React from 'react';
 import {
   StyledCardContent,
   StyledIconButton,
-  StyledStatusIconButton
+  StyledStatusIconButton,
+  StyledIconWrapper
 } from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
@@ -24,6 +25,7 @@ export const renderCardContent = (
   expanded,
   handleExpandClick
 ) => {
+  console.log(content);
   return (
     <StyledCardContent>
       {content && content.errorMessage ? (
@@ -31,9 +33,15 @@ export const renderCardContent = (
       ) : !disabled && !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
-        <StyledStatusIconButton onClick={handleExpandClick}>
-          <StatusIcon status={status} size="large" />
-        </StyledStatusIconButton>
+        type === 'AemHealthcheckWidget' ? (
+          <StyledStatusIconButton href={content.url} target="_blank">
+            <StatusIcon status={status} size="large" />
+          </StyledStatusIconButton>
+        ) : (
+          <StyledIconWrapper>
+            <StatusIcon status={status} size="large" />
+          </StyledIconWrapper>
+        )
       ) : (
         'Disabled'
       )}
