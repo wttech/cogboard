@@ -132,7 +132,7 @@ export const StyledStatusIconButton = styled.a`
   width: 100%;
   transition: 0.2s background-color;
   border-radius: 2px;
-  padding: 5px 0 5px 0;
+  padding: 5px 0;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);

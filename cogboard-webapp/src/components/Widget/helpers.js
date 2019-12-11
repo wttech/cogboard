@@ -25,7 +25,6 @@ export const renderCardContent = (
   expanded,
   handleExpandClick
 ) => {
-  console.log(content);
   return (
     <StyledCardContent>
       {content && content.errorMessage ? (
