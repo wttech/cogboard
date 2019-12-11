@@ -119,6 +119,8 @@ tasks.register("redeployLocal") {
 
 tasks.register<Exec>("functionalTests") {
     group = "docker-functional-tests"
+    environment = mapOf("COGBOARD_VERSION" to version)
+
     commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","cypress/included:3.7.0", "--browser", "chrome")
     dependsOn("redeployLocal")
     doFirst {
