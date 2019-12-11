@@ -84,6 +84,7 @@ export const StyledCardContent = styled(CardContent)`
   flex-direction: column;
   flex: 1;
   position: relative;
+  justify-content: space-between;
 
   &:last-child {
     padding-bottom: 16px;
