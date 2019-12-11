@@ -30,5 +30,6 @@ const StatusIcon = ({ status, size }) => {
 export default StatusIcon;
 
 StatusIcon.propTypes = {
-  status: string
+  status: string,
+  size: string
 };
