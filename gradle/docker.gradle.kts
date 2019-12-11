@@ -20,13 +20,15 @@ val dockerImageRef = "$buildDir/.docker/buildImage-imageId.txt"
 val dockerContainerName = project.property("docker.app.container.name")?.toString() ?: "cogboard"
 val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "cogboard/cogboard-app"
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
-val cypressTestsDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/functional/cypress-tests"
+val defaultCypressTestsDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/functional/cypress-tests"
+val functionalTestsPath = System.getProperty("functionalTestPath")?:defaultCypressTestsDir
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
 
 logger.lifecycle(">> dockerContainerName: $dockerContainerName")
 logger.lifecycle(">> dockerImageName: $dockerImageName")
 logger.lifecycle(">> mountDir: $mountDir")
+logger.lifecycle(">> functionalTestsPath: $functionalTestsPath")
 
 
 task("cogboard-is-running") {
@@ -117,9 +119,9 @@ tasks.register("redeployLocal") {
 
 tasks.register<Exec>("functionalTests") {
     group = "docker-functional-tests"
-    commandLine = listOf("docker", "run", "-v","$cypressTestsDir:/e2e","-w","/e2e","cypress/included:3.7.0", "--browser", "chrome")
+    commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","cypress/included:3.7.0", "--browser", "chrome")
     dependsOn("redeployLocal")
     doFirst {
-        logger.lifecycle("Running functional tests from $cypressTestsDir")
+        logger.lifecycle("Running functional tests from $functionalTestsPath")
     }
 }
