@@ -5,7 +5,8 @@ import styled from '@emotion/styled/macro';
 import { mapStatusToColor } from './helpers';
 import { COLUMN_MULTIPLIER, ROW_MULTIPLIER } from '../../constants';
 
-import { Card, CardHeader, CardContent } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Collapse } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 
 export const StyledCard = styled(
   forwardRef(
@@ -37,6 +38,7 @@ export const StyledCard = styled(
   grid-column-end: span ${({ columns }) => columns * COLUMN_MULTIPLIER};
   grid-row-end: span ${({ rows }) => rows * ROW_MULTIPLIER};
   position: relative;
+  overflow: visible;
 
   ${({ isDragging, isOver, theme }) =>
     isDragging &&
@@ -68,8 +70,8 @@ StyledCard.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   rows: number.isRequired,
-  status: string.isRequired,
-  theme: object.isRequired
+  theme: object.isRequired,
+  status: string
 };
 
 export const StyledCardHeader = styled(CardHeader)`
@@ -81,4 +83,64 @@ export const StyledCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
   flex: 1;
+  position: relative;
+  justify-content: space-between;
+
+  &:last-child {
+    padding-bottom: 16px;
+  }
+
+  .cardFootWrapper {
+    display: inherit;
+    align-items: center;
+  }
+`;
+
+export const StyledCollapse = styled(
+  ({ isExpanded, isDragging, status, theme, ...props }) => (
+    <Collapse {...props} />
+  )
+)`
+  bottom: 1px;
+  background-color: ${({ isDragging, status, theme }) =>
+    !isDragging
+      ? mapStatusToColor(status, theme)
+      : theme.palette.background.paper};
+  height: auto;
+  opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
+  padding: 0 16px 16px;
+  position: absolute;
+  transition: height transform 300ms linear, opacity 100ms linear;
+  transform: ${({ isExpanded }) =>
+    isExpanded ? 'translateY(100%)' : 'translateY(0)'};
+  width: 100%;
+  z-index: 3;
+`;
+
+export const StyledIconButton = styled(({ isExpanded, ...props }) => (
+  <IconButton {...props} />
+))`
+  marginleft: auto;
+  transform: ${({ isExpanded }) =>
+    isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
+  transition: transform 100ms linear;
+`;
+
+export const StyledStatusIconButton = styled.a`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  transition: 0.2s background-color;
+  border-radius: 2px;
+  padding: 5px 0;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+`;
+
+export const StyledIconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `;
