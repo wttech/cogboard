@@ -10,6 +10,7 @@ import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
 import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
+import PersonDrawWidget from './types/PersonDrawWidget';
 
 const widgetTypes = {
   DefaultWidget: {
@@ -124,6 +125,18 @@ const widgetTypes = {
       SchedulePeriod: { min: 3 },
       AemHealthcheckInput: { minArrayLength: 1 }
     }
+  },
+  PersonDrawWidget: {
+    name: 'Person Draw Widget',
+    component: PersonDrawWidget,
+    dialogFields: [
+      'RandomCheckbox',
+      'DailySwitch',
+      'PersonDrawInterval',
+      'MultiTextInput'
+    ],
+    showUpdateTime: false,
+    validationConstraints: {}
   }
 };
 

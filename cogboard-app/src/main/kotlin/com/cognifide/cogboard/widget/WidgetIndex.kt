@@ -1,18 +1,7 @@
 package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.widget.type.AemHealthcheckWidget
-import com.cognifide.cogboard.widget.type.BambooDeploymentWidget
-import com.cognifide.cogboard.widget.type.BambooPlanWidget
-import com.cognifide.cogboard.widget.type.CheckboxWidget
-import com.cognifide.cogboard.widget.type.DefaultWidget
-import com.cognifide.cogboard.widget.type.ExampleWidget
-import com.cognifide.cogboard.widget.type.IframeEmbedWidget
-import com.cognifide.cogboard.widget.type.JenkinsJobWidget
-import com.cognifide.cogboard.widget.type.ServiceCheckWidget
-import com.cognifide.cogboard.widget.type.SonarQubeWidget
-import com.cognifide.cogboard.widget.type.TextWidget
-import com.cognifide.cogboard.widget.type.WorldClockWidget
+import com.cognifide.cogboard.widget.type.*
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 
@@ -33,9 +22,11 @@ class WidgetIndex {
             BambooPlanWidget::class.java.simpleName -> BambooPlanWidget(vertx, config)
             AemHealthcheckWidget::class.java.simpleName -> AemHealthcheckWidget(vertx, config)
             TextWidget::class.java.simpleName -> TextWidget(vertx, config)
+            PersonDrawWidget::class.java.simpleName -> PersonDrawWidget(vertx, config)
             IframeEmbedWidget::class.java.simpleName -> IframeEmbedWidget(vertx, config)
             WorldClockWidget::class.java.simpleName -> WorldClockWidget(vertx, config)
             CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)
+            PersonDrawWidget::class.java.simpleName -> PersonDrawWidget(vertx, config)
             // add here
             else -> DefaultWidget.INSTANCE
         }

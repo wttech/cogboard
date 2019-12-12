@@ -27,6 +27,7 @@ import SwitchInput from './SwitchInput';
 import { StyledNumberInput } from './styled';
 import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
+import MultiTextInput from './MultiTextInput';
 
 const dialogFields = {
   LabelField: {
@@ -345,6 +346,38 @@ const dialogFields = {
     component: CheckboxInput,
     name: 'isVertical',
     label: 'Vertical Text',
+    initialValue: false,
+    validator: () => boolean()
+  },
+  MultiTextInput: {
+    component: MultiTextInput,
+    name: 'multiTextInput',
+    label: 'Multi Text Component',
+    initialValue: '',
+    validator: () => string()
+  },
+  DailySwitch: {
+    component: SwitchInput,
+    name: 'personDrawDailySwitch',
+    label: 'Daily',
+    initialValue: false,
+    validator: () => boolean()
+  },
+  PersonDrawInterval: {
+    component: conditionallyHidden(
+      NumberInput,
+      'personDrawDailySwitch',
+      value => !value
+    ),
+    name: 'personDrawInterval',
+    label: 'Interval [min]',
+    initialValue: 120,
+    validator: () => number().positive()
+  },
+  RandomCheckbox: {
+    component: CheckboxInput,
+    name: 'randomizeCheckbox',
+    label: 'Randomize',
     initialValue: false,
     validator: () => boolean()
   }
