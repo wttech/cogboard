@@ -9,7 +9,6 @@ import { parseWidgetTypes, transformMinValueToHalf } from './helpers';
 import {
   REQUEST_METHODS,
   TEXT_SIZES,
-  EXPAND_ITEMS,
   validationMessages as vm
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';

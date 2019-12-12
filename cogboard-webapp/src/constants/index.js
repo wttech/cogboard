@@ -73,17 +73,6 @@ export const REQUEST_METHODS = [
   }
 ];
 
-export const EXPAND_ITEMS = [
-  {
-    display: 'Expanded',
-    value: true
-  },
-  {
-    display: 'Not Expanded',
-    value: false
-  }
-];
-
 export const ItemTypes = {
   WIDGET: 'widget',
   BOARD: 'board'
