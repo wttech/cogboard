@@ -22,10 +22,7 @@ val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
 val defaultCypressTestsDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/functional/cypress-tests"
 val functionalTestsPath = System.getProperty("functionalTestPath")?:defaultCypressTestsDir
-val defaultHostIP = "$(ip -4 addr show docker0 | grep -Po 'inet \\K[\\d.]+')"
-val hostName = System.getProperty("dockerHost")?:defaultHostIP
-val dockerHost =  "\"DOCKER_HOST=$hostName\""
-val cypressBaseUrl =  "\"CYPRESS_baseUrl=http://\$DOCKER_HOST\""
+val network = "${project.name}-local_coganet"
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
 
@@ -33,8 +30,6 @@ logger.lifecycle(">> dockerContainerName: $dockerContainerName")
 logger.lifecycle(">> dockerImageName: $dockerImageName")
 logger.lifecycle(">> mountDir: $mountDir")
 logger.lifecycle(">> functionalTestsPath: $functionalTestsPath")
-logger.lifecycle(">> cypressBaseUrl: $cypressBaseUrl")
-logger.lifecycle(">> dockerHost: $dockerHost")
 
 
 task("cogboard-is-running") {
@@ -91,7 +86,7 @@ tasks.register<Exec>("initSwarm") {
 }
 
 tasks.register<Exec>("awaitLocalStackUndeployed") {
-    commandLine = listOf("docker", "network", "inspect", "${project.name}-local_cognet")
+    commandLine = listOf("docker", "network", "inspect", network)
     isIgnoreExitValue = true
     errorOutput = java.io.ByteArrayOutputStream()
     doLast {
@@ -125,9 +120,10 @@ tasks.register("redeployLocal") {
 
 tasks.register<Exec>("functionalTests") {
     group = "docker-functional-tests"
-    commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","-e", dockerHost,"-e", cypressBaseUrl, "cypress/included:3.7.0", "--browser", "chrome")
-    //dependsOn("redeployLocal")
+    commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","--network=$network", "cypress/included:3.7.0", "--browser", "chrome")
+
+    dependsOn("redeployLocal")
     doFirst {
-        logger.lifecycle("Running functional tests from $functionalTestsPath with base url: $cypressBaseUrl")
+        logger.lifecycle("Running functional tests from $functionalTestsPath with base network: $network")
     }
 }
