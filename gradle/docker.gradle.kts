@@ -22,7 +22,7 @@ val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
 val defaultCypressTestsDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/functional/cypress-tests"
 val functionalTestsPath = System.getProperty("functionalTestPath")?:defaultCypressTestsDir
-val defaultHostIP = "$(ip -4 addr show docker0 | grep -Po 'inet \\K[\\d.]+')\""
+val defaultHostIP = "$(ip -4 addr show docker0 | grep -Po 'inet \\K[\\d.]+')"
 val hostName = System.getProperty("dockerHost")?:defaultHostIP
 val cypressBaseUrl =  "\"CYPRESS_baseUrl=http://$hostName\""
 val wsPort = project.property("ws.port")
