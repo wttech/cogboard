@@ -22,6 +22,9 @@ val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
 val defaultCypressTestsDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/functional/cypress-tests"
 val functionalTestsPath = System.getProperty("functionalTestPath")?:defaultCypressTestsDir
+val defaultHostIP = "$(ip -4 addr show docker0 | grep -Po 'inet \\K[\\d.]+')\""
+val hostName = System.getProperty("dockerHost")?:defaultHostIP
+val cypressBaseUrl =  "\"CYPRESS_baseUrl=http://$hostName\""
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
 
@@ -29,6 +32,7 @@ logger.lifecycle(">> dockerContainerName: $dockerContainerName")
 logger.lifecycle(">> dockerImageName: $dockerImageName")
 logger.lifecycle(">> mountDir: $mountDir")
 logger.lifecycle(">> functionalTestsPath: $functionalTestsPath")
+logger.lifecycle(">> cypressBaseUrl: $cypressBaseUrl")
 
 
 task("cogboard-is-running") {
@@ -119,11 +123,9 @@ tasks.register("redeployLocal") {
 
 tasks.register<Exec>("functionalTests") {
     group = "docker-functional-tests"
-    environment = mapOf("COGBOARD_VERSION" to version)
-
-    commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","cypress/included:3.7.0", "--browser", "chrome")
+    commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","-e", cypressBaseUrl, "cypress/included:3.7.0", "--browser", "chrome")
     dependsOn("redeployLocal")
     doFirst {
-        logger.lifecycle("Running functional tests from $functionalTestsPath")
+        logger.lifecycle("Running functional tests from $functionalTestsPath with base url: $cypressBaseUrl")
     }
 }

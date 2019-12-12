@@ -16,11 +16,10 @@ before_script:
     fi
   - if [[ "$TRAVIS_BRANCH" != ^master$ && "$TRAVIS_EVENT_TYPE" = "push" ]]; then export DEV_BUILD=1; fi
   - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
-  - export FUNCTIONAL_TESTS_PATH="$TRAVIS_BUILD_DIR/functional/cypress-tests"
 script:
-  - if [[ "$RELEASE" = "1" ]]; then ./gradlew release -Prelease.useAutomaticVersion=true -DfunctionalTestPath="$FUNCTIONAL_TESTS_PATH"
+  - if [[ "$RELEASE" = "1" ]]; then ./gradlew release -Prelease.useAutomaticVersion=true"
     --info; fi
-  - if [[ "$RELEASE" != "1" ]]; then echo $FUNCTIONAL_TESTS_PATH $TRAVIS_BUILD_DIR; ./gradlew functionalTests -DfunctionalTestPath="$FUNCTIONAL_TESTS_PATH"; fi
+  - if [[ "$RELEASE" != "1" ]]; then echo $FUNCTIONAL_TESTS_PATH $TRAVIS_BUILD_DIR; ./gradlew functionalTests; fi
 deploy:
   - provider: script
     script: bash scripts/release.sh
