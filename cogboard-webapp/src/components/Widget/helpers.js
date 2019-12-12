@@ -23,7 +23,7 @@ export const renderCardContent = (
   status,
   expandContent,
   expanded,
-  handleExpandClick
+  handleToggle
 ) => {
   return (
     <StyledCardContent>
@@ -53,7 +53,7 @@ export const renderCardContent = (
         {expandContent && !content.errorMessage && (
           <StyledIconButton
             isExpanded={expanded}
-            onClick={handleExpandClick}
+            onClick={handleToggle}
             aria-expanded={expandContent}
             aria-label="show more"
           >

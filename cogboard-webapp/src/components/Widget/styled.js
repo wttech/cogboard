@@ -74,6 +74,10 @@ StyledCard.propTypes = {
   status: string
 };
 
+StyledCard.defaultProps = {
+  status: ''
+};
+
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
   ${({ title }) => !title && `position: absolute; right: 0;`}

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { string } from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
@@ -17,10 +17,10 @@ import { renderCardContent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
 import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
+import WidgetContent from '../WidgetContent';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
-import WidgetContent from '../WidgetContent';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
@@ -50,7 +50,13 @@ const Widget = ({ id, index }) => {
     openConfirmationDialog,
     closeConfirmationDialog
   ] = useToggle();
-  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+  const [
+    dialogOpened,
+    openDialog,
+    handleDialogClose,
+    handleToggle,
+    expanded
+  ] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [{ isDragging }, drag] = useDrag({
@@ -94,8 +100,6 @@ const Widget = ({ id, index }) => {
     })
   });
 
-  const [expanded, setExpanded] = React.useState(false);
-
   drag(drop(ref));
 
   const handleEditClick = closeMenu => () => {
@@ -112,10 +116,6 @@ const Widget = ({ id, index }) => {
   const deleteWidget = () => {
     dispatch(removeWidget(id));
     closeConfirmationDialog();
-  };
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
   };
 
   return (
@@ -175,7 +175,7 @@ const Widget = ({ id, index }) => {
           widgetStatus,
           expandContent,
           expanded,
-          handleExpandClick
+          handleToggle
         )}
         {expandContent && (
           <StyledCollapse
