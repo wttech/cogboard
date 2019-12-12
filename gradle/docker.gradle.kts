@@ -160,3 +160,9 @@ tasks.register("redeployLocal") {
     group = "swarm"
     dependsOn("undeployLocal", "deployLocal")
 }
+
+tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
+    version = project.version.toString()
+    group = "Changelog"
+    description = "Updates changelog"
+}
