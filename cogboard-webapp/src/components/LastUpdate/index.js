@@ -10,7 +10,7 @@ const LastUpdate = ({ lastUpdateTime }) => {
       variant="caption"
       gutterBottom={false}
     >
-      Last update: {lastUpdateTime}
+      {lastUpdateTime}
     </StyledTypography>
   );
 };

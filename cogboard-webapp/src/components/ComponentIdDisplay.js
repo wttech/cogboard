@@ -38,7 +38,7 @@ class ComponentIdDisplay extends React.Component {
         <StyledTypography variant="caption">
           (ID: {componentId})
         </StyledTypography>
-        <StyledTooltip title="Copy component ID to clipboard" arrow>
+        <StyledTooltip title="Copy component ID to clipboard" arrow="true">
           <IconButton onClick={copyToClipboard(componentId)} size="small">
             <FilterNoneIcon />
           </IconButton>

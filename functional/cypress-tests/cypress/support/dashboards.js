@@ -58,20 +58,20 @@ Cypress.Commands.add("removeDashboard", dashboardName => {
 Cypress.Commands.add(
   "renewDashboards",
   (username = Cypress.env("username"), password = Cypress.env("password")) => {
-    cy.request("post", "http://localhost:8092/api/login", {
+    cy.request("post", "http://host.docker.internal/api/login", {
       username: username,
       password: password
     }).then(response => {
       const loginBody = response.body.token.split(" ");
       const token = loginBody[1];
 
-      cy.request("http://localhost:8092/api/config").then(response => {
+      cy.request("http://host.docker.internal/api/config").then(response => {
         cy.fixture("reorderingConfig").then(reorderConfig => {
           let config = JSON.parse(response.body);
 
           config = renewConfig(config, reorderConfig);
           cy.request({
-            url: "http://localhost:8092/api/config/save",
+            url: "http://host.docker.internal/api/config/save",
             method: "post",
             auth: { bearer: token },
             body: config
