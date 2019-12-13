@@ -20,9 +20,9 @@ class EndpointsService(
 
     fun loadConfig(): JsonObject = endpoints().loadConfig()
 
-    fun save(endpoint: JsonObject) {
+    fun save(endpoint: JsonObject): Boolean {
         if (exists(endpoint)) update(endpoint) else add(endpoint)
-        storage.saveConfig(config)
+        return storage.saveConfig(config)
     }
 
     fun exists(endpoint: JsonObject): Boolean {

@@ -40,7 +40,8 @@ class BoardsAndWidgetsController : AbstractVerticle() {
         .eventBus()
         .consumer<JsonObject>(CogboardConstants.EVENT_SAVE_BOARDS_CONFIG)
         .handler {
-            sender.confirmationAfter(boardsConfigService::saveBoardsConfig, it.body())
+            boardsConfigService.saveBoardsConfig(it.body())
+            it.reply(it.body())
         }
 
     private fun listenOnWidgetUpdate() = vertx

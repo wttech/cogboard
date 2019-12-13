@@ -22,6 +22,7 @@ class EndpointsController : AbstractVerticle() {
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS)
             .handler {
                 endpointsService.save(it.body())
+                it.reply(it.body())
             }
 
     private fun listenOnEndpointsDelete() = vertx

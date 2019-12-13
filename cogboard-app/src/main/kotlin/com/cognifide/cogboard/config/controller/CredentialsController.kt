@@ -23,7 +23,8 @@ class CredentialsController : AbstractVerticle() {
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_CREDENTIALS)
             .handler {
-                sender.confirmationAfter(credentialsService::save, it.body())
+                credentialsService.save(it.body())
+                it.reply(it.body())
             }
 
     private fun listenOnCredentialsDelete() = vertx
