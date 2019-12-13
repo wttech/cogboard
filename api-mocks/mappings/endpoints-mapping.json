@@ -62,7 +62,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "aem/healthcheck.json"
+        "bodyFileName": "aem/v6.4.4/healthcheck.json"
       }
     },
     {
@@ -75,7 +75,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "bamboo/successful.json"
+        "bodyFileName": "bamboo/v6.7.2/successful.json"
       }
     },
     {
@@ -88,7 +88,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "bamboo/failed.json"
+        "bodyFileName": "bamboo/v6.7.2/failed.json"
       }
     },
     {
@@ -101,7 +101,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "bamboo/unknown.json"
+        "bodyFileName": "bamboo/v6.7.2/unknown.json"
       }
     },
     {
