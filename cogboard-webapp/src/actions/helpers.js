@@ -1,35 +1,33 @@
 import { dataChanged, setLogoutReasonMessage } from './actionCreators';
 import { logout } from './thunks';
 import { isAuthenticated } from '../utils/auth';
-import { navigate } from '@reach/router';
+import { mergeRight, assocPath } from 'ramda';
+import { checkResponseStatus } from '../utils/fetch';
 
-const checkResponseStatus = response => {
-  const { status, statusText } = response;
+export const fetchData = (
+  url,
+  { method = 'GET', data = {}, token = '' } = {}
+) => {
+  const baseConfig = { method };
 
-  if (status >= 200 && status < 300) {
-    return Promise.resolve(response);
-  } else if (status >= 500) {
-    navigate('/error-page');
-    return Promise.reject(new Error(statusText));
-  } else {
-    return Promise.reject(new Error(statusText));
-  }
-};
-
-export const fetchData = (url, method = 'GET', data = {}, token = '') => {
-  const postConfig = {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
+  const configMap = {
+    GET: baseConfig,
+    DELETE: baseConfig,
+    POST: mergeRight(baseConfig, {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   };
-  if (token) {
-    postConfig.headers['Authorization'] = token;
-  }
-  const init = method !== 'GET' ? postConfig : {};
 
-  return fetch(url, init)
+  const config = method in configMap ? configMap[method] : configMap['POST'];
+
+  const authenticationConfig = token
+    ? assocPath(['headers', 'Authorization'], token, config)
+    : config;
+
+  return fetch(url, authenticationConfig)
     .then(checkResponseStatus)
     .then(response => response.json());
 };

@@ -16,12 +16,12 @@
           ]
         }
       },
-      { },
+      {},
       {
         "_class": "hudson.plugins.disk_usage.BuildDiskUsageAction"
       },
-      { },
-      { }
+      {},
+      {}
     ],
     "building": false,
     "description": null,
@@ -33,7 +33,7 @@
     "id": "4",
     "result": "FAILURE",
     "timestamp": 1572536545536,
-    "url": "http://localhost:8080/jenkins/ok.html",
+    "url": "http://localhost:8093/jenkins/ok.html",
     "builtOn": "Master-executor"
   }
 }

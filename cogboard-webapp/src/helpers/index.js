@@ -1,9 +1,4 @@
-export const getSize = factor => ({ theme }) => `${theme.spacing(factor)}px`;
-
-export const getColor = variant => ({ theme }) => theme.palette[variant].main;
-
-export const getBackgroundColor = variant => ({ theme }) =>
-  theme.palette.background[variant];
+export const setSize = factor => ({ theme }) => `${theme.spacing(factor)}px`;
 
 export const splitPropsGroupName = propName => {
   return propName.includes('.') ? propName.split('.') : [undefined, propName];
@@ -27,7 +22,6 @@ export const parseYupErrors = errors => {
   let result = {};
   errors.inner.forEach(error => {
     const { path, message } = error;
-
     if (path in result) {
       result[path].push(message);
     } else {

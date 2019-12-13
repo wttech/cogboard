@@ -13,8 +13,8 @@ servers:
         description: api domain
       port:
         enum:
-          - '8092'
-        default: '8092'
+          - "8092"
+        default: "8092"
   - url: ws://{domain}:{port}
     description: The Websocket server
     variables:
@@ -23,8 +23,8 @@ servers:
         description: websockets
       port:
         enum:
-          - '$ws_port'
-        default: '$ws_port'
+          - "$ws_port"
+        default: "$ws_port"
 
 paths:
   /api/config:
@@ -137,25 +137,12 @@ paths:
       responses:
         default:
           description: Widget Delete Handler
-  /:
-    get:
-      operationId: home-page
+  /api/widget/contentUpdate:
+    post:
+      operationId: widget-content-update-handler
       responses:
         default:
-          description: Cogboard Home
-  /board*:
-    get:
-      operationId: home-page-board
-      responses:
-        default:
-          description: Cogboard Home
-  /*:
-    get:
-      operationId: cogboard-react-app
-      responses:
-        default:
-          description: Cogboard App Sources
-
+          description: Widget Content Refresh Handler
 components:
   securitySchemes:
     cogboardAuth:

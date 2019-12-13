@@ -1,4 +1,3 @@
-
 {
   "_class": "hudson.model.FreeStyleProject",
   "lastBuild": {
@@ -20,20 +19,20 @@
       {
         "_class": "hudson.plugins.disk_usage.BuildDiskUsageAction"
       },
-      { },
-      { }
+      {},
+      {}
     ],
     "building": true,
     "description": null,
     "displayName": "#6",
-    "duration": 0,
+    "duration": 250,
     "estimatedDuration": 10800029,
-    "executor": { },
+    "executor": {},
     "fullDisplayName": "CogBoard » In Progress #6",
     "id": "6",
     "result": null,
     "timestamp": 1574165093771,
-    "url": "http://localhost:8080/jenkins/ok.html",
+    "url": "http://localhost:8093/jenkins/ok.html",
     "builtOn": "Master-executor"
   }
 }

@@ -10,6 +10,7 @@ import io.vertx.core.Vertx
 import io.vertx.core.eventbus.EventBus
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.mockito.ArgumentCaptor
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
@@ -62,7 +63,14 @@ abstract class WidgetTestBase {
     }
 
     fun assertStatus(expected: String, result: JsonObject) {
-        assertEquals(expected, result.getString(CogboardConstants.PROP_STATUS))
+        assertEquals(expected,
+            result.getJsonObject(CogboardConstants.PROP_CONTENT)
+                .getString(CogboardConstants.PROP_WIDGET_STATUS))
+    }
+
+    fun assertUpdateDatePresent(result: JsonObject) {
+        assertNotNull(result.getJsonObject(CogboardConstants.PROP_CONTENT)
+                .getLong(CogboardConstants.PROP_LAST_UPDATED))
     }
 
     fun assertURL(expected: String, result: JsonObject) {

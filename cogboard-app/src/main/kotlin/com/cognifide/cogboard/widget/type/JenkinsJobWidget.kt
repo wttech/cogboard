@@ -28,12 +28,13 @@ class JenkinsJobWidget(
     private fun sendSuccess(lastBuild: JsonObject) {
         val status = if (lastBuild.getBoolean("building", false)) Widget.Status.IN_PROGRESS
         else Widget.Status.from(lastBuild.getString("result", ""))
+
         lastBuild.put(CC.PROP_ERROR_MESSAGE, "")
-        lastBuild.put("branch", extractBranchInfo(lastBuild))
-        lastBuild.put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
+            .put("branch", extractBranchInfo(lastBuild))
+            .put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
+            .put(CC.PROP_WIDGET_STATUS, status)
 
         send(JsonObject()
-                .put(CC.PROP_STATUS, status)
                 .put(CC.PROP_CONTENT, lastBuild))
     }
 

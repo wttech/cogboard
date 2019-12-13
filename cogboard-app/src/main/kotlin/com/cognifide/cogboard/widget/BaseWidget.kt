@@ -1,8 +1,11 @@
 package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.config.service.WidgetRuntimeService
 import io.vertx.core.Vertx
+import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
+import java.util.Date
 import java.util.Timer
 import java.util.TimerTask
 import kotlin.concurrent.timerTask
@@ -54,6 +57,7 @@ abstract class BaseWidget(
     override fun send(state: JsonObject) {
         state.put(CC.PROP_ID, id)
         state.put(CC.PROP_EVENT_TYPE, PROP_EVENT_TYPE_WIDGET_UPDATE)
+        state.getJsonObject(CC.PROP_CONTENT).attachUpdateDate()
         boardService.saveContent(id, state.getJsonObject(CC.PROP_CONTENT))
         vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
     }
@@ -63,11 +67,11 @@ abstract class BaseWidget(
      */
     fun sendConfigurationError(cause: String = "") {
         send(JsonObject()
-                .put(CC.PROP_STATUS, Widget.Status.ERROR_CONFIGURATION)
                 .put(CC.PROP_CONTENT,
                         JsonObject()
                                 .put(CC.PROP_ERROR_MESSAGE, "Configuration Error")
                                 .put(CC.PROP_ERROR_CAUSE, cause)
+                                .put(CC.PROP_WIDGET_STATUS, Widget.Status.ERROR_CONFIGURATION)
                 )
         )
     }
@@ -106,6 +110,12 @@ abstract class BaseWidget(
         return config
     }
 
+    protected fun createDynamicChangeSubscriber(): MessageConsumer<JsonObject> {
+        return vertx
+            .eventBus()
+            .consumer<JsonObject>(WidgetRuntimeService.createWidgetContentUpdateAddress(id))
+    }
+
     protected fun updateStateByCopingPropsToContent(props: Set<String>) {
         val content = JsonObject()
         props.forEach {
@@ -123,8 +133,17 @@ abstract class BaseWidget(
         }
     }
 
+    private fun JsonObject.attachUpdateDate() {
+        this.put(CC.PROP_LAST_UPDATED, Date().time)
+    }
+
     protected fun JsonObject.endpointProp(prop: String): String {
         return this.getJsonObject(CC.PROP_ENDPOINT)?.getString(prop) ?: ""
+    }
+
+    protected fun JsonObject.clearErrorMessageAndErrorCause() {
+        map.put(CC.PROP_ERROR_MESSAGE, "")
+        map.put(CC.PROP_ERROR_CAUSE, "")
     }
 
     companion object {

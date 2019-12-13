@@ -1,11 +1,14 @@
 #!/bin/bash
 
-DOCKER_IMAGE="cogboard/cogboard-app"
+DOCKER_APP_IMAGE="cogboard/cogboard-app"
+DOCKER_WEB_IMAGE="cogboard/cogboard-web"
 
 # login to docker hub
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-# Tag and push recently builded image
-echo $VERSION
-echo "Tag RELEASE build" && docker tag ${DOCKER_IMAGE}:${VERSION} ${DOCKER_IMAGE}:latest
-echo "Push RELEASE image" && docker push ${DOCKER_IMAGE}
+# Push recently builded image
+echo "Tag DEV build" && docker tag ${DOCKER_APP_IMAGE}:${VERSION} ${DOCKER_APP_IMAGE}:latest
+echo "Push DEV image" && docker push ${DOCKER_APP_IMAGE}
+
+echo "Tag DEV build" && docker tag ${DOCKER_WEB_IMAGE}:${VERSION} ${DOCKER_WEB_IMAGE}:latest
+echo "Push DEV image" && docker push ${DOCKER_WEB_IMAGE}

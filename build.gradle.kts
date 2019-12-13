@@ -20,8 +20,8 @@ plugins {
     id("net.researchgate.release")
 }
 
-val dockerContainerName = project.property("docker.container.name") ?: "cogboard"
-val dockerImageName = project.property("docker.image.name") ?: "cogboard/cogboard-app"
+val dockerContainerName = project.property("docker.app.container.name") ?: "cogboard"
+val dockerImageName = project.property("docker.app.image.name") ?: "cogboard/cogboard-app"
 
 defaultTasks("redeployLocal")
 
@@ -32,10 +32,6 @@ configurations {
 dependencies {
     subprojects.forEach { "dist"(project(":${it.name}")) }
     "detektPlugins"("io.gitlab.arturbosch.detekt:detekt-formatting:1.1.0")
-}
-
-sourceSets.named("test") {
-    java.srcDir("functional/src/test/java")
 }
 
 allprojects {
@@ -51,7 +47,7 @@ allprojects {
 }
 
 tasks.named("build") {
-    dependsOn("runTest", ":cogboard-app:test")
+    dependsOn(":cogboard-app:test", ":cogboard-webapp:buildImage")
 }
 
 detekt {
@@ -61,6 +57,8 @@ detekt {
     autoCorrect = true
     failFast = true
 }
+
+
 
 apply(from = "gradle/distribution.gradle.kts")
 apply(from = "gradle/javaAndUnitTests.gradle.kts")

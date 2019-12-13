@@ -13,7 +13,8 @@
 1. Go to `<sonarqube_host>/dashboard/index`
 2. Click on project from list
 3. Project page opens:
+
    - In URL you will find `ID` number >> <sonarqube_host>/overview?id=123456
    - On a page (upper-right corner) you will find `Key`
-   
+
 ###### Tested on SonarQube v.5.6.6

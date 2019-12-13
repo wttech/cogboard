@@ -21,7 +21,8 @@ import {
   loginFailure,
   logout as logoutUser,
   initBoardProps,
-  pushNotification
+  pushNotification,
+  saveSettings
 } from './actionCreators';
 import {
   fetchData,
@@ -48,14 +49,14 @@ export const saveDataThunk = () => (dispatch, getState) => {
   const data = { boards, widgets };
   const token = getToken();
 
-  return fetchData(URL.SAVE_DATA, 'POST', data, token).then(
+  return fetchData(URL.SAVE_DATA, { method: 'POST', data, token }).then(
     () => dispatch(saveDataStart()),
     console.error
   );
 };
 
 export const login = credentials => dispatch => {
-  return fetchData(URL.LOGIN, 'POST', credentials).then(
+  return fetchData(URL.LOGIN, { method: 'POST', data: credentials }).then(
     ({ token }) => {
       setToken(token);
       dispatch(loginSuccess());
@@ -110,20 +111,22 @@ const makeWidgetUpdaterThunk = (
   dispatch(dataChanged());
   dispatch(requestUpdate(id));
 
-  return fetchData(URL.UPDATE_WIDGET, 'POST', serverData, token).then(
-    () => dispatch(updateWidget(serverData)),
-    console.error
-  );
+  return fetchData(URL.UPDATE_WIDGET, {
+    method: 'POST',
+    data: serverData,
+    token
+  }).then(() => dispatch(updateWidget(serverData)), console.error);
 };
 
 const removeWidgetThunk = id => (dispatch, getState) => {
   const { currentBoard: boardId } = getState().ui;
   const token = getToken();
 
-  return fetchData(URL.DELETE_WIDGET, 'POST', { id }, token).then(
-    () => dispatch(deleteWidget(id, boardId)),
-    console.error
-  );
+  return fetchData(URL.DELETE_WIDGET, {
+    method: 'POST',
+    data: { id },
+    token
+  }).then(() => dispatch(deleteWidget(id, boardId)), console.error);
 };
 
 const reorderWidgetsThunk = (sourceId, targetIndex) => (dispatch, getState) => {
@@ -131,6 +134,46 @@ const reorderWidgetsThunk = (sourceId, targetIndex) => (dispatch, getState) => {
 
   dispatch(sortWidgets({ sourceId, targetIndex, boardId }));
 };
+
+const loadSettingsThunk = () => dispatch => {
+  const token = getToken();
+
+  Promise.all(
+    [URL.ENDPOINTS_ENDPOINT, URL.CREDENTIALS_ENDPOINT].map(item =>
+      fetchData(item, { token })
+    )
+  )
+    .then(([endpoints, credentials]) => {
+      dispatch(
+        saveSettings({
+          endpoints,
+          credentials
+        })
+      );
+    })
+    .catch(console.log);
+};
+
+const settingItemThunk = (url, method, data = {}) => dispatch => {
+  const token = getToken();
+
+  return fetchData(url, { method, data, token }).then(
+    () => dispatch(loadSettingsThunk()),
+    console.error
+  );
+};
+
+const saveEndpointThunk = endpoint =>
+  settingItemThunk(URL.ENDPOINTS_ENDPOINT, 'POST', endpoint);
+
+const deleteEndpointThunk = id =>
+  settingItemThunk(`${URL.ENDPOINTS_ENDPOINT}/${id}`, 'DELETE');
+
+const saveCredentialThunk = credential =>
+  settingItemThunk(URL.CREDENTIALS_ENDPOINT, 'POST', credential);
+
+const deleteCredentialThunk = id =>
+  settingItemThunk(`${URL.CREDENTIALS_ENDPOINT}/${id}`, 'DELETE');
 
 export const addNewWidget = withAuthentication(
   makeWidgetUpdaterThunk(addWidget, createNewWidgetData)
@@ -150,3 +193,8 @@ export const deleteBoardWithWidgets = withDataChanged(
 );
 export const setWidgetState = withDataChanged(editWidget);
 export const saveData = withAuthentication(saveDataThunk);
+export const loadSettings = withAuthentication(loadSettingsThunk);
+export const saveEndpoint = withAuthentication(saveEndpointThunk);
+export const deleteEndpoint = withAuthentication(deleteEndpointThunk);
+export const saveCredential = withAuthentication(saveCredentialThunk);
+export const deleteCredential = withAuthentication(deleteCredentialThunk);

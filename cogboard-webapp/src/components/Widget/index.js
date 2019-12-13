@@ -5,23 +5,29 @@ import { useTheme } from '@material-ui/styles';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { useToggle } from '../../hooks';
-import { removeWidget, reorderWidgets } from '../../actions/thunks';
+import {
+  removeWidget,
+  reorderWidgets,
+  loadSettings
+} from '../../actions/thunks';
 import widgetTypes from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardHeader } from './styled';
+import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
+import WidgetContent from '../WidgetContent';
 import ConfirmationDialog from '../ConfirmationDialog';
-import WarningIcon from '@material-ui/icons/Warning';
+import StatusIcon from '../StatusIcon';
+import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
-    state => state.widgets.widgetsById[id],
+    ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
   const {
@@ -29,15 +35,14 @@ const Widget = ({ id, index }) => {
     isUpdating,
     disabled,
     type,
-    status,
     title,
     content,
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
-  const showUpdateTime = widgetTypes[type]
-    ? widgetTypes[type].showUpdateTime
-    : false;
+  const { expandContent } = widgetTypeData;
+  const widgetStatus = getWidgetStatus(content);
+  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -89,9 +94,12 @@ const Widget = ({ id, index }) => {
     })
   });
 
+  const [expanded, setExpanded] = React.useState(false);
+
   drag(drop(ref));
 
   const handleEditClick = closeMenu => () => {
+    dispatch(loadSettings());
     openDialog();
     closeMenu();
   };
@@ -106,10 +114,14 @@ const Widget = ({ id, index }) => {
     closeConfirmationDialog();
   };
 
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <>
       <StyledCard
-        status={status}
+        status={widgetStatus}
         columns={columns}
         goNewLine={goNewLine}
         rows={rows}
@@ -121,7 +133,11 @@ const Widget = ({ id, index }) => {
       >
         {(isAuthenticated || title !== '') && (
           <StyledCardHeader
-            avatar={status === 'ERROR_CONFIGURATION' && <WarningIcon />}
+            avatar={
+              !expandContent && (
+                <StatusIcon status={widgetStatus} size="small" />
+              )
+            }
             title={title}
             titleTypographyProps={{
               component: 'h3',
@@ -150,13 +166,37 @@ const Widget = ({ id, index }) => {
             }
           />
         )}
-        {renderCardContent(content, showUpdateTime, disabled, id, type)}
+        {renderCardContent(
+          content,
+          widgetUpdateTimestamp,
+          disabled,
+          id,
+          type,
+          widgetStatus,
+          expandContent,
+          expanded,
+          handleExpandClick
+        )}
+        {expandContent && (
+          <StyledCollapse
+            isExpanded={expanded}
+            status={widgetStatus}
+            theme={theme}
+            isDragging={isDragging}
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
+          >
+            <WidgetContent id={id} type={type} content={content} />
+          </StyledCollapse>
+        )}
       </StyledCard>
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title={`Edit ${title}`}
+        componentId={id}
         data-cy="widget-edit-dialog"
       >
         <EditWidget
