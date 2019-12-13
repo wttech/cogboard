@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:80",
+  "baseUrl": "http://cogboard-local_frontend",
   "env": {
     "username": "admin",
     "password": "admin"
