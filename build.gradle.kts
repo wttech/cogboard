@@ -50,10 +50,6 @@ tasks.named("build") {
     dependsOn(":cogboard-app:test", ":cogboard-webapp:buildImage")
 }
 
-tasks.named("release") {
-    dependsOn("functionalTests")
-}
-
 detekt {
     input = files("cogboard-app/src/main/kotlin")
     config.from(file("detekt.yml"))
