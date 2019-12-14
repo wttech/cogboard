@@ -22,9 +22,14 @@ class CredentialsService(
 
     fun getCredentials(): JsonArray = credentials().loadConfig().getJsonArray(CREDENTIALS_ARRAY)
 
-    fun save(credential: JsonObject): Boolean {
+    fun getCredential(credentialId: String): JsonObject {
+        return getCredentials().findById(credentialId)
+    }
+
+    fun save(credential: JsonObject): JsonObject {
         if (exists(credential)) update(credential) else add(credential)
-        return storage.saveConfig(config)
+        storage.saveConfig(config)
+        return credential
     }
 
     private fun exists(credential: JsonObject): Boolean {

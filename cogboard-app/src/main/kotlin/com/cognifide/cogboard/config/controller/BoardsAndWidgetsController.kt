@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Companion.EVENT_SAVE_BOARDS_CONFIG
 import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.config.service.WidgetRuntimeService
@@ -14,7 +15,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     private lateinit var boardsConfigService: BoardsConfigService
     private lateinit var widgetRuntimeService: WidgetRuntimeService
     private lateinit var sender: ConfirmationSender
-
+    private val factory = ControllerFactory()
     override fun start() {
         val contentRepository = ContentRepository()
         boardsConfigService = BoardsConfigService(
@@ -36,13 +37,12 @@ class BoardsAndWidgetsController : AbstractVerticle() {
         listenOnWidgetPurge()
     }
 
-    private fun listenOnConfigSave() = vertx
-        .eventBus()
-        .consumer<JsonObject>(CogboardConstants.EVENT_SAVE_BOARDS_CONFIG)
-        .handler {
-            boardsConfigService.saveBoardsConfig(it.body())
-            it.reply(it.body())
-        }
+    private fun listenOnConfigSave() {
+        factory.create(EVENT_SAVE_BOARDS_CONFIG, vertx, prepareConfig())
+    }
+    private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
+            "update" to { body -> boardsConfigService.saveBoardsConfig(body).encode() }
+    )
 
     private fun listenOnWidgetUpdate() = vertx
         .eventBus()
