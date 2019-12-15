@@ -1,4 +1,3 @@
-com.cognifide.cogboard.config.handler.boards.GetBoards
 com.cognifide.cogboard.config.handler.ConfigApiHandler
 com.cognifide.cogboard.widget.handler.UpdateWidget
 com.cognifide.cogboard.widget.handler.DeleteWidget

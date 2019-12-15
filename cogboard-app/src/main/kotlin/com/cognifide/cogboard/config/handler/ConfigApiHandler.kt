@@ -19,7 +19,7 @@ class ConfigApiHandler : RoutingHandlerFactory {
 
     private fun buildControllerBody(ctx: RoutingContext, config: JsonObject?): JsonObject? {
         val params = ctx.request().params()
-        val payload = if (config?.containsKey("key") == true) fromParam(params) else ctx.bodyAsJson
+        val payload = if (config?.getString("payload") == "params") fromParam(params) else ctx.bodyAsJson
         return toControllerBody(config, payload)
     }
 

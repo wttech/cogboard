@@ -2,6 +2,7 @@ package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
+import com.cognifide.cogboard.config.CredentialsConfig.Companion.PASSWORD_PROP
 import com.cognifide.cogboard.config.service.CredentialsService
 import com.cognifide.cogboard.storage.VolumeStorageFactory.credentials
 import io.vertx.core.AbstractVerticle
@@ -18,7 +19,7 @@ class CredentialsController : AbstractVerticle() {
     }
 
     private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
-                    "update" to { body -> credentialsService.save(body).encode() },
+                    "update" to { body -> credentialsService.save(body).toString() },
                     "delete" to { body -> delete(body) },
                     "get" to { body -> get(body) }
             )
@@ -30,8 +31,18 @@ class CredentialsController : AbstractVerticle() {
 
     private fun get(body: JsonObject) =
         if (body.containsKey(CREDENTIAL_ID_PROP)) {
-            credentialsService.getCredential(body.getString(CREDENTIAL_ID_PROP)).encode()
+            credentialsService.getCredential(body.getString(CREDENTIAL_ID_PROP))
+                    .filterSensitiveData()
+                    .toString()
         } else {
-            credentialsService.getCredentials().encode()
+            credentialsService.getCredentials()
+                    .map { it as JsonObject }
+                    .map { it.filterSensitiveData() }
+                    .toString()
         }
+
+    private fun JsonObject.filterSensitiveData(): JsonObject {
+        this.remove(PASSWORD_PROP)
+        return this
+    }
 }

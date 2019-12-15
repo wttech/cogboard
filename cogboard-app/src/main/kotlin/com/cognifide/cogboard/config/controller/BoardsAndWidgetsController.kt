@@ -1,7 +1,7 @@
 package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.CogboardConstants.Companion.EVENT_SAVE_BOARDS_CONFIG
+import com.cognifide.cogboard.CogboardConstants.Companion.EVENT_BOARDS_CONFIG
 import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.config.service.WidgetRuntimeService
@@ -29,7 +29,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
             WidgetRuntimeService(vertx, contentRepository)
                 .init(allWidgets)
 
-        listenOnConfigSave()
+        listenOnBoardConfig()
 
         listenOnWidgetUpdate()
         listenOnWidgetContentUpdate()
@@ -37,11 +37,12 @@ class BoardsAndWidgetsController : AbstractVerticle() {
         listenOnWidgetPurge()
     }
 
-    private fun listenOnConfigSave() {
-        factory.create(EVENT_SAVE_BOARDS_CONFIG, vertx, prepareConfig())
+    private fun listenOnBoardConfig() {
+        factory.create(EVENT_BOARDS_CONFIG, vertx, prepareConfig())
     }
     private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
-            "update" to { body -> boardsConfigService.saveBoardsConfig(body).encode() }
+            "update" to { body -> boardsConfigService.saveBoardsConfig(body).toString() },
+            "get" to { body -> boardsConfigService.loadBoardsConfig().toString() }
     )
 
     private fun listenOnWidgetUpdate() = vertx
