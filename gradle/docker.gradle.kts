@@ -132,4 +132,5 @@ tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
     version = project.version.toString()
     group = "Changelog"
     description = "Updates changelog"
+//    dependsOn("functionalTests")
 }
