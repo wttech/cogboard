@@ -10,11 +10,11 @@ import java.time.LocalDate
 
 open class UpdateChangelog : DefaultTask() {
 
-    private lateinit var branch: String
+    private lateinit var pullRequestNumber: String
 
-    @Option(option="branch", description = "Defines which branch was used")
+    @Option(option="pullRequest", description = "Pull request number")
     fun setBranch(branch: String) {
-        this.branch = branch
+        this.pullRequestNumber = branch
     }
 
     private val gson: Gson = Gson()
@@ -25,8 +25,7 @@ open class UpdateChangelog : DefaultTask() {
 
     @TaskAction
     fun updateChangelog() {
-        println(branch)
-        changeLog.appendText(branch)
+        println(pullRequestNumber)
         changeLog.appendText(
                 "\n\n## [$version] - ${LocalDate.now()}\n" +
                         "### What's new\n")
