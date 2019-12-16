@@ -13,7 +13,7 @@ before_script:
 script:
   - if [[ "$RELEASE" == "1" ]]; then ./gradlew release -Prelease.useAutomaticVersion=true
     --info; fi
-  - if [[ "$RELEASE" != "1" ]]; then ./gradlew updatechangeLog $TRAVIS_BRANCH; fi
+  - if [[ "$RELEASE" != "1" ]]; then ./gradlew updatechangeLog --branch $TRAVIS_BRANCH; fi
 deploy:
   - provider: script
     script: bash scripts/release.sh
