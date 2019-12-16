@@ -8,13 +8,23 @@ Tests in this part of the repository are testing UI of the CogBoard. Get to know
 
 ### CLI
 
-`npm test` _(`npm install && npx cypress run --browser chrome`)_
+Quick use (i.e. before push):
 
-All specs will be launched. To run one spec only use: `npm test --spec path/to/spec.js`
+`./gradlew functionalTests` - will launch all specs, with local env config file.
+
+To override env add `-DcypressEnv=envName` system property. Which will run cypress config named `envName.json` under `functional/cypress-tests/cypress/config` directory. You must make sure that you created such a config in a first place.
+
+To customize config and specs to be launched, you have to run:
+
+`npx cypress run [--config-file path/to/config.json]`<sup>1</sup> `[--spec path/to/spec.js]`<sup>2</sup> from the `functional/cypress-tests` directory
+
+<sup>1</sup> - provide custom config file path, by default it will use `functional/cypress-tests/cypress/config/local.json`.
+
+<sup>2</sup> - provide spec file(s) to be launched. By default all specs are run.
 
 ### GUI
 
-`npx cypress open`
+`npx cypress open` in `functional/cypress-tests` directory
 
 ## Contribution guide
 
