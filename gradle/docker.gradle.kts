@@ -129,7 +129,6 @@ tasks.register<Exec>("functionalTests") {
 }
 
 tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
-    logger.info(getBranch())
     version = project.version.toString()
     group = "Changelog"
     description = "Updates changelog"
