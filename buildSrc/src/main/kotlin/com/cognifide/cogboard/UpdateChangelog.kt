@@ -17,6 +17,10 @@ open class UpdateChangelog : DefaultTask() {
         this.branch = branch
     }
 
+    fun getBranch(): String {
+        return branch
+    }
+
     private val gson: Gson = Gson()
     private val array = gson.fromJson(URL("https://api.github.com/repos/cognifide/cogboard/issues").readText(), Array<Issue>::class.java).toList()
     private val changeLog = File("changelog.md")
