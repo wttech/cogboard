@@ -25,7 +25,7 @@ open class UpdateChangelog : DefaultTask() {
 
     @TaskAction
     fun updateChangelog() {
-        println("Test")
+        println("Test t")
         changeLog.appendText(branch)
         changeLog.appendText(
                 "\n\n## [$version] - ${LocalDate.now()}\n" +
