@@ -1,7 +1,8 @@
 {
-  "baseUrl": "http://localhost:8092?dev",
+  "baseUrl": "http://cogboard-local_frontend",
   "env": {
-    "username": "adminDev",
-    "password": "adminDev"
-  }
+    "username": "admin",
+    "password": "admin"
+  },
+  "video": false
 }
