@@ -66,7 +66,7 @@ const ServiceCheckWidget = props => {
         </WidgetButton>
       </Caption>
       <CaptionWithPointer title={body} onClick={handleClick}>
-        ⯆ Response: {bodyMessage}
+        Response: {bodyMessage}
       </CaptionWithPointer>
       <Popover
         open={popoverOpen}
