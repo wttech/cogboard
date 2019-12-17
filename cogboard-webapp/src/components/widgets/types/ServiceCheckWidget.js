@@ -49,7 +49,7 @@ const ServiceCheckWidget = props => {
   };
   const popoverOpen = Boolean(anchorEl);
 
-  const copyResponseText = () => {
+  const handleCopyResponse = () => {
     navigator.clipboard.writeText(body);
   };
 
@@ -78,7 +78,7 @@ const ServiceCheckWidget = props => {
           horizontal: 'left'
         }}
       >
-        <Button onClick={copyResponseText}>Copy</Button>
+        <Button onClick={handleCopyResponse}>Copy</Button>
         <Button onClick={handlePopoverClose}>Close</Button>
         <StyledPopoverText ref={textAreaRef}>{body}</StyledPopoverText>
       </Popover>
