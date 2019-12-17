@@ -37,7 +37,7 @@ const ServiceCheckWidget = props => {
     ? 'OK'
     : body.includes(expectedResponseBody)
     ? 'MATCH'
-    : 'NOT MATCH';
+    : 'NO MATCH';
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
