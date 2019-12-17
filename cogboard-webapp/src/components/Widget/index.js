@@ -121,6 +121,7 @@ const Widget = ({ id, index }) => {
   return (
     <>
       <StyledCard
+        showShadow={expanded}
         status={widgetStatus}
         columns={columns}
         goNewLine={goNewLine}
