@@ -1,46 +1,53 @@
 import React, { useState } from 'react';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
+import {
+  FormControl,
+  IconButton,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  TextField
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
+import { remove } from 'ramda';
+import { prepareChangeEvent } from './helpers';
 
-const getArrayValue = value => {
-  return value && value.length ? JSON.parse(value) : [];
-};
-const removeIndex = (array, index) => {
-  return array.filter((_, i) => i !== index);
-};
-const prepareEvent = (array, name) => {
-  return {
-    target: {
-      value: JSON.stringify(array),
-      type: name
-    }
-  };
-};
-
-const MultiTextInput = props => {
-  const { value, name, onChange } = props;
-  const [items, setItems] = useState(() => getArrayValue(value));
+const MultiTextInput = ({ value, onChange }) => {
+  const [items, setItems] = useState(() => value || []);
   const [formValue, setFormValue] = useState('');
 
-  const onChangeVal = e => setFormValue(e.target.value);
+  const handleChangeVal = e => setFormValue(e.target.value);
   const resetInput = () => setFormValue('');
-  const deleteItem = itemIndex => {
-    setItems(removeIndex(items, itemIndex));
+  const handleDelete = itemIndex => {
+    let itemList = remove(itemIndex, 1, items);
+    setItems(itemList);
+    onChange(prepareChangeEvent(itemList, 'array'));
   };
-  const saveItem = itemText => {
+
+  const handleSave = itemText => {
     const trimmedText = itemText.trim();
     if (trimmedText.length > 0) {
-      let newVar = [...items, itemText];
-      setItems(newVar);
-      onChange(prepareEvent(newVar, name));
+      let updatedItems = [...items, itemText];
+      setItems(updatedItems);
+      onChange(prepareChangeEvent(updatedItems, 'array'));
     }
+  };
+
+  const handleKeyPressed = (e, _) => {
+    if (e.which === 13 || e.key === 'Enter') {
+      e.preventDefault();
+
+      if (!formValue) {
+        return false;
+      }
+
+      handleSave(formValue);
+      resetInput();
+
+      return true;
+    }
+
+    return false;
   };
 
   return (
@@ -51,17 +58,8 @@ const MultiTextInput = props => {
         fullWidth
         margin="normal"
         value={formValue}
-        onChange={onChangeVal}
-        onKeyPress={(event, _) => {
-          if (event.which === 13 || event.keyCode === 13) {
-            event.preventDefault();
-            if (!formValue) return false;
-            saveItem(formValue);
-            resetInput();
-            return true;
-          }
-          return false;
-        }}
+        onChange={handleChangeVal}
+        onKeyPress={handleKeyPressed}
       />
       <List>
         {items.map((item, index) => (
@@ -71,7 +69,7 @@ const MultiTextInput = props => {
               <IconButton
                 aria-label="Delete"
                 onClick={() => {
-                  deleteItem(index);
+                  handleDelete(index);
                 }}
               >
                 <DeleteIcon />

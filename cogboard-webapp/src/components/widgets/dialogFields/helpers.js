@@ -30,3 +30,12 @@ export const transformMinValueToHalf = () => {
       value < prevValue ? Math.floor(value) : Math.ceil(value));
   };
 };
+
+export const prepareChangeEvent = (value, type) => {
+  return {
+    target: {
+      value: value,
+      type: type
+    }
+  };
+};

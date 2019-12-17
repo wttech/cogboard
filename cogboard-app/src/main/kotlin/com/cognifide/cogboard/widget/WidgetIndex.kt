@@ -22,7 +22,6 @@ class WidgetIndex {
             BambooPlanWidget::class.java.simpleName -> BambooPlanWidget(vertx, config)
             AemHealthcheckWidget::class.java.simpleName -> AemHealthcheckWidget(vertx, config)
             TextWidget::class.java.simpleName -> TextWidget(vertx, config)
-            PersonDrawWidget::class.java.simpleName -> PersonDrawWidget(vertx, config)
             IframeEmbedWidget::class.java.simpleName -> IframeEmbedWidget(vertx, config)
             WorldClockWidget::class.java.simpleName -> WorldClockWidget(vertx, config)
             CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)

@@ -353,8 +353,12 @@ const dialogFields = {
     component: MultiTextInput,
     name: 'multiTextInput',
     label: 'Multi Text Component',
-    initialValue: '',
-    validator: () => string()
+    initialValue: [],
+    validator: () =>
+      array()
+        .ensure()
+        .min(1, vm.FIELD_MIN_ITEMS())
+        .of(string())
   },
   DailySwitch: {
     component: SwitchInput,
@@ -372,7 +376,12 @@ const dialogFields = {
     name: 'personDrawInterval',
     label: 'Interval [min]',
     initialValue: 120,
-    validator: () => number().positive()
+    validator: () =>
+      number().when('personDrawDailySwitch', {
+        is: true,
+        then: number().required(),
+        otherwise: number().notRequired()
+      })
   },
   RandomCheckbox: {
     component: CheckboxInput,
