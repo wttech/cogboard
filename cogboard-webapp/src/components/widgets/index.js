@@ -28,7 +28,12 @@ const widgetTypes = {
   JenkinsJobWidget: {
     name: 'Jenkins Job',
     component: JenkinsJobWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'Path'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'Path',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }
@@ -42,7 +47,8 @@ const widgetTypes = {
       'SchedulePeriod',
       'Key',
       'IdNumber',
-      'SonarQubeMetricsInput'
+      'SonarQubeMetricsInput',
+      'ExpandableContent'
     ],
     showUpdateTime: true,
     validationConstraints: {
@@ -60,7 +66,8 @@ const widgetTypes = {
       'Path',
       'RequestBody',
       'ResponseBody',
-      'StatusCode'
+      'StatusCode',
+      'ExpandableContent'
     ],
     showUpdateTime: true,
     validationConstraints: {
@@ -78,7 +85,12 @@ const widgetTypes = {
   BambooPlanWidget: {
     name: 'Bamboo Plan',
     component: BambooPlanWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'IdString',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }
@@ -87,7 +99,12 @@ const widgetTypes = {
   BambooDeploymentWidget: {
     name: 'Bamboo Deployment',
     component: BambooDeploymentWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'IdString',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }
@@ -108,7 +125,7 @@ const widgetTypes = {
   IframeEmbedWidget: {
     name: 'Iframe Embed',
     component: IframeEmbedWidget,
-    dialogFields: ['IFrameURL']
+    dialogFields: ['IFrameURL', 'ExpandableContent']
   },
   CheckboxWidget: {
     name: 'Checkbox',
@@ -118,7 +135,12 @@ const widgetTypes = {
   AemHealthcheckWidget: {
     name: 'AEM Healthcheck',
     component: AemHealthcheckWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'AemHealthcheckInput'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'AemHealthcheckInput',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 },

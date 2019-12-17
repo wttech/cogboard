@@ -16,10 +16,11 @@ import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardHeader } from './styled';
+import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
+import WidgetContent from '../WidgetContent';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
@@ -39,6 +40,7 @@ const Widget = ({ id, index }) => {
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
+  const { expandContent } = widgetTypeData;
   const widgetStatus = getWidgetStatus(content);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
   const dispatch = useDispatch();
@@ -92,6 +94,8 @@ const Widget = ({ id, index }) => {
     })
   });
 
+  const [expanded, setExpanded] = React.useState(false);
+
   drag(drop(ref));
 
   const handleEditClick = closeMenu => () => {
@@ -110,6 +114,10 @@ const Widget = ({ id, index }) => {
     closeConfirmationDialog();
   };
 
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <>
       <StyledCard
@@ -125,7 +133,11 @@ const Widget = ({ id, index }) => {
       >
         {(isAuthenticated || title !== '') && (
           <StyledCardHeader
-            avatar={<StatusIcon status={widgetStatus} />}
+            avatar={
+              !expandContent && (
+                <StatusIcon status={widgetStatus} size="small" />
+              )
+            }
             title={title}
             titleTypographyProps={{
               component: 'h3',
@@ -154,7 +166,30 @@ const Widget = ({ id, index }) => {
             }
           />
         )}
-        {renderCardContent(content, widgetUpdateTimestamp, disabled, id, type)}
+        {renderCardContent(
+          content,
+          widgetUpdateTimestamp,
+          disabled,
+          id,
+          type,
+          widgetStatus,
+          expandContent,
+          expanded,
+          handleExpandClick
+        )}
+        {expandContent && (
+          <StyledCollapse
+            isExpanded={expanded}
+            status={widgetStatus}
+            theme={theme}
+            isDragging={isDragging}
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
+          >
+            <WidgetContent id={id} type={type} content={content} />
+          </StyledCollapse>
+        )}
       </StyledCard>
       <AppDialog
         disableBackdropClick={true}
