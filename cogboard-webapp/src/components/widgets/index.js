@@ -125,7 +125,7 @@ const widgetTypes = {
   IframeEmbedWidget: {
     name: 'Iframe Embed',
     component: IframeEmbedWidget,
-    dialogFields: ['IFrameURL', 'ExpandableContent']
+    dialogFields: ['IFrameURL']
   },
   CheckboxWidget: {
     name: 'Checkbox',
