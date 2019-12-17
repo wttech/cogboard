@@ -1,16 +1,15 @@
 import React from 'react';
 import { array } from 'prop-types';
+import Widget from '../../Widget';
 
-import Widget from './Widget';
-
-const WidgetList = ({ widgets: widgetIds }) => {
+const WidgetBoard = ({ currentBoard: { widgets: widgetIds } }) => {
   return widgetIds.map((widgetId, index) => (
     <Widget key={widgetId} id={widgetId} index={index} />
   ));
 };
 
-WidgetList.propTypes = {
+WidgetBoard.propTypes = {
   widgets: array.isRequired
 };
 
-export default WidgetList;
+export default WidgetBoard;

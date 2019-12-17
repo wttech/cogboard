@@ -6,6 +6,7 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
+
         "widgets": ["widget1"]
       },
       "board2": {

@@ -8,6 +8,7 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
+        "type": "WidgetBoard",
         "widgets": ["widget1", "widget9", "widget20", "widget18", "widget19"]
       },
       "board2": {
@@ -17,6 +18,7 @@
         "title": "Jenkins Job Widget Examples",
         "columns": 6,
         "theme": "default",
+        "type": "WidgetBoard",
         "widgets": ["widget2", "widget3", "widget4"]
       },
       "board3": {
@@ -24,6 +26,7 @@
         "switchInterval": 60,
         "id": "board3",
         "theme": "default",
+        "type": "WidgetBoard",
         "widgets": [
           "widget8",
           "widget5",

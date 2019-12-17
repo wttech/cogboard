@@ -7,5 +7,6 @@ data class Board(
     val autoSwitch: Boolean = false,
     val switchInterval: Int,
     val widgets: List<String>,
-    val theme: String
+    val theme: String,
+    val type: String = "WidgetBoard"
 )

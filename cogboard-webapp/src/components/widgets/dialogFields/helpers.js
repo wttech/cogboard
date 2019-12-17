@@ -1,6 +1,6 @@
 import { sortByKey } from '../../../utils/components';
 
-export const parseWidgetTypes = widgetTypes => {
+export const parseTypes = widgetTypes => {
   const sortedWidgetTypes = sortByKey(widgetTypes, 'name');
 
   return Object.entries(sortedWidgetTypes).reduce((obj, [type, { name }]) => {

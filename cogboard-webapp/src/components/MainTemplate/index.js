@@ -27,7 +27,10 @@ import {
 } from './styled';
 
 const MainTemplate = () => {
-  const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
+  const currentBoardId = useSelector(({ ui }) => ui.currentBoard) || '';
+  const currentBoardType = useSelector(
+    ({ boards }) => boards.boardsById[currentBoardId]
+  );
   const isDataChanged = useSelector(({ app }) => app.isDataChanged);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [drawerOpened, setDrawerOpened] = useState(false);
@@ -35,6 +38,7 @@ const MainTemplate = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
 
+  console.log('type', currentBoardType);
   const handleSaveDataClick = () => {
     dispatch(saveData());
   };
@@ -79,26 +83,30 @@ const MainTemplate = () => {
             <Board path="/:boardId" />
           </Router>
           <StyledActions>
-            {isAuthenticated && isDataChanged && (
-              <StyledSaveFab
-                onClick={handleSaveDataClick}
-                aria-label="Save Data"
-                color="secondary"
-                data-cy="main-template-save-data-button"
-              >
-                <Save />
-              </StyledSaveFab>
-            )}
-            {isAuthenticated && currentBoardId && (
-              <Fab
-                onClick={handleAddWidgetClick}
-                aria-label="Add Widget"
-                color="primary"
-                data-cy="main-template-add-widget-button"
-              >
-                <Add />
-              </Fab>
-            )}
+            {isAuthenticated &&
+              isDataChanged &&
+              currentBoardType.type !== 'IframeBoard' && (
+                <StyledSaveFab
+                  onClick={handleSaveDataClick}
+                  aria-label="Save Data"
+                  color="secondary"
+                  data-cy="main-template-save-data-button"
+                >
+                  <Save />
+                </StyledSaveFab>
+              )}
+            {isAuthenticated &&
+              currentBoardId &&
+              currentBoardType.type !== 'IframeBoard' && (
+                <Fab
+                  onClick={handleAddWidgetClick}
+                  aria-label="Add Widget"
+                  color="primary"
+                  data-cy="main-template-add-widget-button"
+                >
+                  <Add />
+                </Fab>
+              )}
           </StyledActions>
         </Container>
       </StyledMain>
