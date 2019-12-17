@@ -8,14 +8,6 @@ export const StyledNumberField = styled(TextField)`
   flex-basis: calc(50% - 18px);
 `;
 
-export const StyledTabPanel = styled(TabPanel)`
-  margin-bottom: 12px;
-`;
-
-export const StyledTabs = styled(Tabs)`
-  margin-bottom: 12px;
-`;
-
 export const StyledValidationMessages = styled(ValidationMessages)`
   list-style-type: none;
   margin: 0;

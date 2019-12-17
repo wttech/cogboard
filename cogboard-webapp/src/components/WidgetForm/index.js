@@ -16,7 +16,8 @@ import {
 import { Tab, Button } from '@material-ui/core';
 import DynamicForm from '../DynamicForm';
 import WidgetTypeForm from '../WidgetTypeForm';
-import { StyledTabPanel, StyledTabs, StyledCancelButton } from './styled';
+import { StyledCancelButton } from './styled';
+import { StyledTabPanel, StyledTabs } from './../styled';
 
 const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
   const boardColumns = useSelector(

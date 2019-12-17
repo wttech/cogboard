@@ -26,7 +26,7 @@ import {
 } from '@material-ui/core';
 import { Settings } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
-import { StyledTabs, StyledTabPanel } from './styled';
+import { StyledTabPanel, StyledTabs } from './../styled';
 import AddItem from '../AddItem';
 import EditEndpoint from '../EditEndpoint';
 import EditCredential from '../EditCredential';
