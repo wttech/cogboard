@@ -22,7 +22,9 @@ val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
 val defaultCypressTestsDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/functional/cypress-tests"
 val functionalTestsPath = System.getProperty("functionalTestPath")?:defaultCypressTestsDir
-val network = "${project.name}-local_coganet"
+val cypressEnvCode = System.getProperty("cypressEnv")?:"local"
+val cypressConfigPath = "cypress/config/" + cypressEnvCode + ".json"
+val network = "${project.name}-local_cognet"
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
 
@@ -120,7 +122,7 @@ tasks.register("redeployLocal") {
 
 tasks.register<Exec>("functionalTests") {
     group = "docker-functional-tests"
-    commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","--network=$network", "cypress/included:3.7.0", "--browser", "chrome")
+    commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","--network=$network", "cypress/included:3.7.0", "--browser", "chrome", "--config-file", "$cypressConfigPath")
 
     dependsOn("redeployLocal")
     doFirst {
