@@ -35,7 +35,7 @@ export const Caption = props => (
 export const CaptionWithPointer = styled(Caption)`
   cursor: pointer;
   text-align: center;
-  :hover {
+  &:hover {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 5px;
   }
