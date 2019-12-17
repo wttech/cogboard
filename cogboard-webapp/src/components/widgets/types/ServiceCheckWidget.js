@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { string, number } from 'prop-types';
 
-import { Popover } from '@material-ui/core';
+import { Popover, Button, Modal } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import {
   Caption,
@@ -29,6 +29,7 @@ const ServiceCheckWidget = props => {
   } = props;
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const textAreaRef = useRef(null);
   const errorStatus = expectedStatusCode !== statusCode;
   const statusCodeMessage = errorStatus
     ? `${expectedStatusCode} expected, got ${statusCode}`
@@ -37,7 +38,7 @@ const ServiceCheckWidget = props => {
     ? 'OK'
     : body.includes(expectedResponseBody)
     ? 'MATCH'
-    : 'NO MATCH';
+    : 'NOT MATCH';
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -47,6 +48,10 @@ const ServiceCheckWidget = props => {
     setAnchorEl(null);
   };
   const popoverOpen = Boolean(anchorEl);
+
+  const copyResponseText = () => {
+    navigator.clipboard.writeText(body);
+  };
 
   return (
     <>
@@ -62,7 +67,7 @@ const ServiceCheckWidget = props => {
         </WidgetButton>
       </Caption>
       <CaptionWithPointer title={body} onClick={handleClick}>
-        Response: {bodyMessage}
+        ⯆ Response: {bodyMessage}
       </CaptionWithPointer>
       <Popover
         open={popoverOpen}
@@ -73,7 +78,9 @@ const ServiceCheckWidget = props => {
           horizontal: 'left'
         }}
       >
-        <StyledPopoverText>{body}</StyledPopoverText>
+        <Button onClick={copyResponseText}>Copy</Button>
+        <Button onClick={handlePopoverClose}>Close</Button>
+        <StyledPopoverText ref={textAreaRef}>{body}</StyledPopoverText>
       </Popover>
     </>
   );
