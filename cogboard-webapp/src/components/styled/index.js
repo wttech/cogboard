@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
+import {
+  Button,
+  FormControl,
+  Typography,
+  IconButton,
+  Tabs
+} from '@material-ui/core';
 import IframeEmbed from '../IframeEmbed';
 import { getColor, getSize } from '../../utils/components';
 import TabPanel from '../TabPanel';
