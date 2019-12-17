@@ -128,9 +128,22 @@ tasks.register<Exec>("functionalTests") {
     }
 }
 
+tasks.named("release") {
+    dependsOn("updateChangelog")
+}
+
 tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
     version = project.version.toString()
     group = "Changelog"
     description = "Updates changelog"
-//    dependsOn("functionalTests")
+}
+
+tasks.register<Exec>("gitCommit") {
+    commandLine = listOf("git", "commit")
+    mustRunAfter("updateChangelog")
+}
+
+tasks.register<Exec>("gitPush") {
+    commandLine = listOf("git push")
+    mustRunAfter("gitCommit")
 }
