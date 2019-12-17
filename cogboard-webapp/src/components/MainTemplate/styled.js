@@ -52,9 +52,3 @@ export const StyledDrawer = styled(props => (
     justify-content: space-between;
   }
 `;
-
-export const StyledSettingsMenu = styled(SettingsMenu)`
-  align-self: flex-end;
-  margin-right: 20px;
-  margin-bottom: 20px;
-`;
