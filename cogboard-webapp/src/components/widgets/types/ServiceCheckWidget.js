@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { string, number } from 'prop-types';
 
-import { Popover, Button, Modal } from '@material-ui/core';
+import { Popover, Button } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import {
   Caption,
