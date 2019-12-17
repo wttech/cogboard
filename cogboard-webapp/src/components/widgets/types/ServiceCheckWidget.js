@@ -29,7 +29,6 @@ const ServiceCheckWidget = props => {
   } = props;
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const textAreaRef = useRef(null);
   const errorStatus = expectedStatusCode !== statusCode;
   const statusCodeMessage = errorStatus
     ? `${expectedStatusCode} expected, got ${statusCode}`
@@ -80,7 +79,7 @@ const ServiceCheckWidget = props => {
       >
         <Button onClick={handleCopyResponse}>Copy</Button>
         <Button onClick={handlePopoverClose}>Close</Button>
-        <StyledPopoverText ref={textAreaRef}>{body}</StyledPopoverText>
+        <StyledPopoverText>{body}</StyledPopoverText>
       </Popover>
     </>
   );
