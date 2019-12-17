@@ -16,9 +16,9 @@ const CheckboxWidget = ({ id }) => {
   const widgetStatus = getWidgetStatus(content);
 
   const ariaCheckedStatusMap = {
-    OK: true,
-    FAIL: false,
-    UNKNOWN: 'mixed'
+    CHECKBOX_OK: true,
+    CHECKBOX_FAIL: false,
+    CHECKBOX_UNKNOWN: 'mixed'
   };
 
   const handleChangeStatus = () => {
