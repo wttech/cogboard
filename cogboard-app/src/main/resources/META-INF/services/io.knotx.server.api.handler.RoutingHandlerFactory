@@ -1,11 +1,4 @@
-com.cognifide.cogboard.config.handler.boards.GetBoards
-com.cognifide.cogboard.config.handler.boards.SaveBoards
-com.cognifide.cogboard.config.handler.endpoints.GetEndpoints
-com.cognifide.cogboard.config.handler.endpoints.UpdateEndpoints
-com.cognifide.cogboard.config.handler.endpoints.DeleteEndpoints
-com.cognifide.cogboard.config.handler.credentials.GetCredentials
-com.cognifide.cogboard.config.handler.credentials.UpdateCredentials
-com.cognifide.cogboard.config.handler.credentials.DeleteCredentials
+com.cognifide.cogboard.config.handler.ConfigApiHandler
 com.cognifide.cogboard.widget.handler.UpdateWidget
 com.cognifide.cogboard.widget.handler.DeleteWidget
 com.cognifide.cogboard.widget.handler.ContentUpdateWidget

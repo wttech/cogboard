@@ -5,6 +5,7 @@ import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PREFIX
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_LABEL_PROP
+import com.cognifide.cogboard.config.utils.JsonUtils.findById
 import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
@@ -20,9 +21,14 @@ class EndpointsService(
 
     fun loadConfig(): JsonObject = endpoints().loadConfig()
 
-    fun save(endpoint: JsonObject) {
+    fun getAllEndpoints(): JsonArray = loadConfig().getJsonArray(ENDPOINTS_ARRAY)
+
+    fun getEndpoint(endpointId: String) = getAllEndpoints().findById(endpointId)
+
+    fun save(endpoint: JsonObject): JsonObject {
         if (exists(endpoint)) update(endpoint) else add(endpoint)
         storage.saveConfig(config)
+        return endpoint
     }
 
     fun exists(endpoint: JsonObject): Boolean {
