@@ -122,7 +122,7 @@ tasks.register("redeployLocal") {
 
 tasks.register<Exec>("functionalTests") {
     group = "docker-functional-tests"
-    commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","--network=$network", "cypress/included:3.7.0", "--browser", "chrome", "--config-file", "$cypressConfigPath")
+    commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","--network=$network", "cypress/included:3.8.0", "--browser", "chrome", "--config-file", "$cypressConfigPath")
 
     dependsOn("redeployLocal")
     doFirst {
