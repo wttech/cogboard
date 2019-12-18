@@ -130,6 +130,7 @@ const Widget = ({ id, index }) => {
         isDragging={isDragging}
         isOver={isOver}
         ref={ref}
+        type={type}
         expanded
       >
         {(isAuthenticated || title !== '') && (

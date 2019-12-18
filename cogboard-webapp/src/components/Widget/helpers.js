@@ -1,18 +1,16 @@
 import React from 'react';
 
-import {
-  StyledCardContent,
-  StyledIconButton,
-  StyledStatusIconButton,
-  StyledIconWrapper
-} from './styled';
+import { StyledCardContent, StyledIconButton } from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
 import LastUpdate from '../LastUpdate';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import StatusIcon from '../StatusIcon';
+import WidgetTypeIcon from '../WidgetTypeIcon';
 
 export const mapStatusToColor = (status, theme) => theme.palette.status[status];
+
+export const getWidgetOverflow = type =>
+  type !== 'TextWidget' ? 'visible' : 'hidden';
 
 export const renderCardContent = (
   content,
@@ -54,15 +52,11 @@ export const renderCardContent = (
       ) : !disabled && !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
-        type === 'AemHealthcheckWidget' ? (
-          <StyledStatusIconButton href={content.url} target="_blank">
-            <StatusIcon status={status} size="large" />
-          </StyledStatusIconButton>
-        ) : (
-          <StyledIconWrapper>
-            <StatusIcon status={status} size="large" />
-          </StyledIconWrapper>
-        )
+        <WidgetTypeIcon
+          type={type}
+          status={status}
+          content={content}
+        ></WidgetTypeIcon>
       ) : (
         'Disabled'
       )}
