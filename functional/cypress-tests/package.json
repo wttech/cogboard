@@ -1,0 +1,19 @@
+{
+  "name": "cypress-cogboard",
+  "version": "1.0.0",
+  "description": "Cypress automation for CogBoard development",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^3.8.0"
+  },
+  "scripts": {
+    "test": "npm install & npx cypress run --browser chrome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cognifide/cogboard"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -11,9 +11,9 @@ before_script:
   - if [[ "$TRAVIS_BRANCH" != "master" && "$TRAVIS_EVENT_TYPE" == "push" ]]; then export DEV_BUILD=1; fi
   - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
-  - if [[ "$RELEASE" == "1" ]]; then ./gradlew release -Prelease.useAutomaticVersion=true
+  - if [[ "$RELEASE" == "1" ]]; then ./gradlew release -Prelease.useAutomaticVersion=true -DcypressEnv=travis
     --info; fi
-  - if [[ "$RELEASE" != "1" ]]; then ./gradlew functionalTests; fi
+  - if [[ "$RELEASE" != "1" ]]; then ./gradlew functionalTests -DcypressEnv=travis; fi
 deploy:
   - provider: script
     script: bash scripts/release.sh
