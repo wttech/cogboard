@@ -104,7 +104,7 @@ export function fillWorldClock() {
 }
 
 export function fillDynamicTab(type = "Text") {
-  if (type !== "Default" && type !== "Checkbox") {
+  if (type !== "WhiteSpace" && type !== "Checkbox") {
     cy.get('[data-cy="widget-form-dynamic-tab"]').click();
     switch (type) {
       case "AEM Healthcheck":

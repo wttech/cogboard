@@ -71,8 +71,8 @@ module.exports = {
   checkbox: {
     name: "Checkbox"
   },
-  default: {
-    name: "Default"
+  whiteSpace: {
+    name: "WhiteSpace"
   },
   example: {
     name: "Example",

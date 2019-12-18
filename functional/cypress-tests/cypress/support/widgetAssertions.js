@@ -112,7 +112,7 @@ export function validateWorldClock() {
 };
 
 export function validateWidgetConfig(type = 'Text') {
-    if (type !== 'Default' && type !=='Example') {
+    if (type !== 'WhiteSpace' && type !=='Example') {
         switch(type) {
             case 'AEM Healthcheck':
                 validateAemHealthcheck();
