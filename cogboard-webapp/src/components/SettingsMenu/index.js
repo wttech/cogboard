@@ -105,7 +105,7 @@ const SettingsMenu = ({ className }) => {
             variant="fullWidth"
           >
             <Tab label="Endpoints" />
-            <Tab label="Credientials" />
+            <Tab label="Credentials" />
           </StyledTabs>
           <StyledTabPanel value={tabValue} index={0}>
             <List>
