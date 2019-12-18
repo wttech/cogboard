@@ -78,6 +78,7 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
         value={tabValue}
         onChange={handleTabChange}
         variant="fullWidth"
+        indicatorColor="primary"
       >
         <Tab label="General" data-cy="widget-form-general-tab" />
         {hasDialogFields && (

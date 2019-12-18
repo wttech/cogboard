@@ -103,6 +103,7 @@ const SettingsMenu = ({ className }) => {
             value={tabValue}
             onChange={handleTabChange}
             variant="fullWidth"
+            indicatorColor="primary"
           >
             <Tab label="Endpoints" />
             <Tab label="Credientials" />

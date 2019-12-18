@@ -96,7 +96,6 @@ export const StyledPopoverText = styled(Typography)`
 
 export const StyledTabs = styled(Tabs)`
   margin-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 export const StyledTabPanel = styled(TabPanel)`
