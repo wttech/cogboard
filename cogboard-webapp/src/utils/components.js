@@ -23,8 +23,10 @@ export const sortByKey = (obj, key, asc = true) =>
 export const hasError = error => error !== undefined;
 
 export const getWidgetStatus = (content, widgetType) =>
-  (content && content.widgetStatus) || 'WhiteSpaceWidget' === widgetType
-    ? 'TRANSPARENT'
+  content && content.widgetStatus
+    ? 'WhiteSpaceWidget' === widgetType
+      ? 'TRANSPARENT'
+      : content.widgetStatus
     : 'UNKNOWN';
 
 export const getWidgetUpdateTime = (content, widgetType) => {
