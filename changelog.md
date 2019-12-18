@@ -1,2 +1,1 @@
 # Cogboard changelog
-

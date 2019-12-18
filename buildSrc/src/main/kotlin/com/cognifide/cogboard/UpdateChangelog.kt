@@ -10,17 +10,22 @@ import java.time.LocalDate
 
 open class UpdateChangelog : DefaultTask() {
 
-    @Option(option="branch", description="branch name")
-    private lateinit var branch: String
+    private lateinit var issueNumber: String
 
     lateinit var version: String
 
     private val gson: Gson = Gson()
     private val changeLog = File("changelog.md")
 
+    @Option(option="branch", description="branch name")
+    fun setBranch(branch: String) {
+        this.issueNumber = branch.substring(1, 4) // Branch names should be prefixed with #NO, example: #160-issue-issue
+    }
+
     @TaskAction
     fun updateChangelog() {
-        val issue = gson.fromJson(URL("https://api.github.com/repos/cognifide/cogboard/issues/$branch").readText(), Issue::class.java)
+        println(issueNumber)
+        val issue = gson.fromJson(URL("https://api.github.com/repos/cognifide/cogboard/issues/$issueNumber").readText(), Issue::class.java)
         changeLog.appendText(
                 "\n\n## [$version] - ${LocalDate.now()}\n" +
                         "### What's new\n")
