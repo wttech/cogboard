@@ -1,6 +1,5 @@
 import styled from '@emotion/styled/macro';
-import { TextField, Tabs } from '@material-ui/core';
-import TabPanel from '../TabPanel';
+import { TextField } from '@material-ui/core';
 import ValidationMessages from '../ValidationMessages';
 import CancelButton from '../CancelButton';
 

@@ -5,7 +5,6 @@ import { Box, Drawer, Fab } from '@material-ui/core';
 import BoardList from '../BoardList';
 import Logo from '../Logo';
 import { getBackgroundColor } from '../../utils/components';
-import SettingsMenu from '../SettingsMenu';
 
 export const StyledActions = styled(Box)`
   bottom: 50px;
