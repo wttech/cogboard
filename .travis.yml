@@ -12,10 +12,10 @@ before_script:
   - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
 script:
   - if [[ "$RELEASE" == "1" ]]; then
-    ./gradlew release -Prelease.useAutomaticVersion=true -Pchangelogupdater.branch.name=$TRAVIS_BRANCH;
+    ./gradlew release -Prelease.useAutomaticVersion=true;
     --info; fi
   - if [[ "$RELEASE" != "1" ]]; then
-  - ./gradlew functionalTests -Ptestttt=$TRAVIS_BRANCH; fi
+  - ./gradlew functionalTests -Pchangelogupdater.branch.name=$TRAVIS_BRANCH; fi
 deploy:
   - provider: script
     script: bash scripts/release.sh
