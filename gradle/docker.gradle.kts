@@ -134,7 +134,12 @@ tasks.named("release") {
     dependsOn("updateChangelog")
 }
 
+tasks.named("functionalTests") {
+    dependsOn("updateChangelog")
+}
+
 tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
+    branchName = project.property("changelogupdater.branch.name") as String
     version = project.version.toString()
     group = "Changelog"
     description = "Updates changelog"
