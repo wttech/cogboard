@@ -8,15 +8,12 @@ import io.vertx.core.logging.LoggerFactory
 
 class ConfirmationSender(private val vertx: Vertx) {
 
-    fun confirmationAfter(action: (JsonObject) -> Boolean, body: JsonObject) =
-            if (action(body)) sendOk() else sendError(body)
-
-    private fun sendOk() {
+    fun sendOk() {
         vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET,
                 JsonObject().message(OK_MESSAGE))
     }
 
-    private fun sendError(body: JsonObject) {
+    fun sendError(body: JsonObject) {
         LOGGER.error("$ERROR_MESSAGE \nconfig:\n$body")
         vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET,
                 JsonObject().message(ERROR_MESSAGE))

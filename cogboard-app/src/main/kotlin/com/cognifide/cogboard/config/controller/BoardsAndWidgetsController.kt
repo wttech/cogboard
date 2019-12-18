@@ -19,15 +19,15 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     override fun start() {
         val contentRepository = ContentRepository()
         boardsConfigService = BoardsConfigService(
-            VolumeStorageFactory.boards(),
-            contentRepository,
-            EntityCleanupHelper(vertx))
+                VolumeStorageFactory.boards(),
+                contentRepository,
+                EntityCleanupHelper(vertx))
 
         val allWidgets = boardsConfigService.getAllWidgets()
         sender = ConfirmationSender(vertx)
         widgetRuntimeService =
-            WidgetRuntimeService(vertx, contentRepository)
-                .init(allWidgets)
+                WidgetRuntimeService(vertx, contentRepository)
+                        .init(allWidgets)
 
         listenOnBoardConfig()
 
@@ -40,30 +40,37 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     private fun listenOnBoardConfig() {
         factory.create(EVENT_BOARDS_CONFIG, vertx, prepareConfig())
     }
+
     private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
-            "update" to { body -> boardsConfigService.saveBoardsConfig(body).toString() },
+            "update" to { body -> update(body) },
             "get" to { body -> boardsConfigService.loadBoardsConfig().toString() }
     )
 
+    private fun update(body: JsonObject): String {
+        val saved = boardsConfigService.saveBoardsConfig(body)
+        sender.sendOk()
+        return saved.toString()
+    }
+
     private fun listenOnWidgetUpdate() = vertx
-        .eventBus()
-        .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONFIG)
-        .handler { widgetRuntimeService.createOrUpdateWidget(it.body()) }
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONFIG)
+            .handler { widgetRuntimeService.createOrUpdateWidget(it.body()) }
 
     private fun listenOnWidgetContentUpdate() = vertx
-        .eventBus()
-        .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONTENT_CONFIG)
-        .handler {
-            widgetRuntimeService.handleWidgetContentUpdate(it.body())
-        }
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONTENT_CONFIG)
+            .handler {
+                widgetRuntimeService.handleWidgetContentUpdate(it.body())
+            }
 
     private fun listenOnWidgetDelete() = vertx
-        .eventBus()
-        .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_WIDGET_CONFIG)
-        .handler { widgetRuntimeService.deleteWidget(it.body()) }
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_WIDGET_CONFIG)
+            .handler { widgetRuntimeService.deleteWidget(it.body()) }
 
     private fun listenOnWidgetPurge() = vertx
-        .eventBus()
-        .consumer<JsonObject>(CogboardConstants.EVENT_PURGE_WIDGET_CONFIG)
-        .handler { widgetRuntimeService.purgeWidget(it.body()) }
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_PURGE_WIDGET_CONFIG)
+            .handler { widgetRuntimeService.purgeWidget(it.body()) }
 }
