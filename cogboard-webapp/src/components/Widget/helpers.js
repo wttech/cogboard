@@ -25,6 +25,28 @@ export const renderCardContent = (
   expanded,
   handleToggle
 ) => {
+  const WidgetFooter = () => {
+    return (
+      <div className="cardFootWrapper">
+        {updateTimestamp && (
+          <LastUpdate
+            lastUpdateTime={new Date(updateTimestamp).toLocaleString()}
+          />
+        )}
+        {expandContent && !content.errorMessage && (
+          <StyledIconButton
+            isExpanded={expanded}
+            onClick={handleToggle}
+            aria-expanded={expandContent}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </StyledIconButton>
+        )}
+      </div>
+    );
+  };
+
   return (
     <StyledCardContent>
       {content && content.errorMessage ? (
@@ -44,23 +66,7 @@ export const renderCardContent = (
       ) : (
         'Disabled'
       )}
-      <div className="cardFootWrapper">
-        {updateTimestamp && (
-          <LastUpdate
-            lastUpdateTime={new Date(updateTimestamp).toLocaleString()}
-          />
-        )}
-        {expandContent && !content.errorMessage && (
-          <StyledIconButton
-            isExpanded={expanded}
-            onClick={handleToggle}
-            aria-expanded={expandContent}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </StyledIconButton>
-        )}
-      </div>
+      <WidgetFooter></WidgetFooter>
     </StyledCardContent>
   );
 };

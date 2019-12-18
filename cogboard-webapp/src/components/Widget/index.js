@@ -130,6 +130,7 @@ const Widget = ({ id, index }) => {
         isDragging={isDragging}
         isOver={isOver}
         ref={ref}
+        expanded
       >
         {(isAuthenticated || title !== '') && (
           <StyledCardHeader
