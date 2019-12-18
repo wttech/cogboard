@@ -1,11 +1,11 @@
 import React from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
+import { TypographyVariant } from './styled';
+import { CenterWrapper } from '../TextWidget/styled';
 import { Refresh } from '@material-ui/icons';
 import { getIsAuthenticated } from '../../../../selectors';
 import { useSelector } from 'react-redux';
-import { TypographyVariant } from './styled';
-import { CenterWrapper } from '../TextWidget/styled';
 import { array, bool, number } from 'prop-types';
 import { postWidgetContentUpdate } from '../../../../utils/fetch';
 
@@ -15,13 +15,12 @@ const PersonDrawWidget = ({ id, multiTextInput, index }) => {
     multiTextInput && multiTextInput.length - 1 >= index
       ? multiTextInput[index]
       : '';
-
-  function handleManualRefresh() {
+  const handleForceCycle = () => {
     postWidgetContentUpdate({
       id,
       content: { forceCycle: true }
     }).catch(e => console.log(e));
-  }
+  };
 
   return (
     <>
@@ -33,7 +32,7 @@ const PersonDrawWidget = ({ id, multiTextInput, index }) => {
           color="primary"
           aria-label="refresh"
           component="span"
-          onClick={handleManualRefresh}
+          onClick={handleForceCycle}
         >
           <Refresh />
         </IconButton>

@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { remove } from 'ramda';
+import { v4 } from 'uuid';
 import { prepareChangeEvent } from './helpers';
 
 const MultiTextInput = ({ value, onChange }) => {
@@ -63,7 +64,7 @@ const MultiTextInput = ({ value, onChange }) => {
       />
       <List>
         {items.map((item, index) => (
-          <ListItem key={index.toString()} dense button>
+          <ListItem key={v4()} dense button>
             <ListItemText primary={item} />
             <ListItemSecondaryAction>
               <IconButton
