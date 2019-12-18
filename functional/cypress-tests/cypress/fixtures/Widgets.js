@@ -72,7 +72,7 @@ module.exports = {
     name: "Checkbox"
   },
   whiteSpace: {
-    name: "WhiteSpace"
+    name: "White Space"
   },
   example: {
     name: "Example",
