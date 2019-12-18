@@ -15,6 +15,7 @@ import {
   deleteMultipleWidgets,
   sortWidgets,
   dataChanged,
+  saveDataSuccess,
   deleteWidget,
   loginSuccess,
   loginFailure,
@@ -51,7 +52,8 @@ export const saveDataThunk = () => (dispatch, getState) => {
   const data = { boards, widgets };
   const token = getToken();
 
-  return fetchData(URL.SAVE_DATA, { method: 'POST', data, token }).catch(
+  return fetchData(URL.SAVE_DATA, { method: 'POST', data, token }).then(
+    () => dispatch(saveDataSuccess()),
     console.error
   );
 };

@@ -104,8 +104,8 @@ const SettingsMenu = ({ className }) => {
             onChange={handleTabChange}
             variant="fullWidth"
           >
-            <Tab label="Endpoints" />
-            <Tab label="Credientials" />
+            <Tab label="Endpoints" data-cy="settings-menu-endpoints-tab" />
+            <Tab label="Credentials" data-cy="settings-menu-credentials-tab" />
           </StyledTabs>
           <StyledTabPanel value={tabValue} index={0}>
             <List>
