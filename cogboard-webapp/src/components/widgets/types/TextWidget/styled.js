@@ -4,6 +4,8 @@ import { Typography } from '@material-ui/core';
 
 export const TypographyVariant = styled(Typography)`
   height: 100%;
+  ${({ variant }) =>
+    (variant === 'h2' || variant === 'h3') && 'line-height: initial'}
 `;
 
 export const CenterWrapper = styled.div`

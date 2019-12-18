@@ -1,5 +1,6 @@
 import Widgets from "../fixtures/Widgets";
 import { fillDynamicTab } from "../support/widgetDynamicTab";
+import { validateWidgetConfig } from "../support/widgetAssertions";
 let example = Widgets.example;
 let dashboardName = "Welcome to Cogboard";
 let widgetsKeys = Object.keys(Widgets);
@@ -23,8 +24,9 @@ describe("Widgets", () => {
       fillDynamicTab(name);
       cy.confirmAddWidget();
       cy.contains("h3", title).should("is.visible");
+      validateWidgetConfig(name);
       cy.removeWidget(title);
-      cy.contains("h3", title).should("not.visible");
+      cy.contains("h3", title).should("not.exist");
     });
   }
 

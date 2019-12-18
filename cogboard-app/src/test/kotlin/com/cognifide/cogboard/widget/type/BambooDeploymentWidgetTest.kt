@@ -24,8 +24,7 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     }
 
     @Test
-    @DisplayName("Expect success widget update message send on event bus")
-    fun successResponseGenerateValidUpdateEvent() {
+    fun `Expect success widget update message send on event bus`() {
         val (result, content) = sendResponseWithCapture(successResponse)
 
         assertUpdateDatePresent(result)
@@ -37,8 +36,7 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     }
 
     @Test
-    @DisplayName("Expect fail widget update message send on event bus")
-    fun failResponseGenerateValidUpdateEvent() {
+    fun `Expect fail widget update message send on event bus`() {
         val (result, content) = sendResponseWithCapture(failResponse)
 
         assertUpdateDatePresent(result)
@@ -50,8 +48,7 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     }
 
     @Test
-    @DisplayName("Expect in-progress widget update message send on event bus")
-    fun inProgressResponseGenerateValidUpdateEvent() {
+    fun `Expect in-progress widget update message send on event bus`() {
         val (result, content) = sendResponseWithCapture(inProgressResponse)
 
         assertUpdateDatePresent(result)

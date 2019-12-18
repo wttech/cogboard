@@ -34,6 +34,26 @@
           "frmt_val": "4"
         },
         {
+          "key": "info_violations",
+          "val": 15.0,
+          "frmt_val": "4"
+        },
+        {
+          "key": "bugs",
+          "val": 7.0,
+          "frmt_val": "4"
+        },
+        {
+          "key": "code_smells",
+          "val": 5.0,
+          "frmt_val": "5"
+        },
+        {
+          "key": "vulnerabilities",
+          "val": 3.0,
+          "frmt_val": "4"
+        },
+        {
           "key": "alert_status",
           "data": "OK"
         }

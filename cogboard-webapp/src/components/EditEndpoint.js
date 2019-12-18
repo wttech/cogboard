@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useToggle } from '../hooks';
 import { getToken } from '../utils/auth';
 import { getIsAuthenticated } from '../selectors';
-import { saveEndpoint } from '../actions/thunks';
+import { editEndpoint } from '../actions/thunks';
 import { URL } from '../constants';
 
 import { IconButton } from '@material-ui/core';
@@ -24,7 +24,7 @@ const EditEndpoint = ({ id }) => {
   };
 
   const handleSubmit = values => {
-    dispatch(saveEndpoint({ id, ...values }));
+    dispatch(editEndpoint({ id, ...values }));
     handleDialogClose();
   };
 

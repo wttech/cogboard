@@ -389,6 +389,13 @@ const dialogFields = {
     label: 'Randomize',
     initialValue: false,
     validator: () => boolean()
+  },
+  ExpandableContent: {
+    component: CheckboxInput,
+    name: 'expandContent',
+    label: 'Expandable Content',
+    initialValue: false,
+    validator: () => boolean()
   }
 };
 

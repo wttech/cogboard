@@ -14,12 +14,11 @@ class BoardsConfigService(
     private val entityCleanupHelper: EntityCleanupHelper? = null
 ) {
 
-    fun saveBoardsConfig(boardsConfig: JsonObject): Boolean {
+    fun saveBoardsConfig(boardsConfig: JsonObject): JsonObject {
         val cleanBoardsConfig = executeForWidgets(boardsConfig, this::resetContentNode)
-
         handleDeletedEntities(cleanBoardsConfig)
-
-        return storage.saveConfig(cleanBoardsConfig)
+        storage.saveConfig(cleanBoardsConfig)
+        return boardsConfig
     }
 
     fun loadBoardsConfig(): JsonObject {

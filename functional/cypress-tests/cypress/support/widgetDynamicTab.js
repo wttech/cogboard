@@ -1,22 +1,21 @@
 import Widgets from "../fixtures/Widgets";
 
-function randomBoolean() {
-  return Math.random() >= 0.5;
-}
-
 export function fillAemHealthcheck() {
+  let healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
   cy.get('[data-cy="widget-form-endpoint-input"]').click();
-  //Change selector (add data-cy in markup)
   cy.get(`[data-value="${Widgets.aemHealthcheck.endpoint}"]`).click();
   cy.fillSchedulePeriod(Widgets.aemHealthcheck.schedulePeriod);
   cy.get('[data-cy="widget-form-selected-health-checks-input"]').click();
-  //Change selector (add data-cy in markup)
-  cy.contains(
-    "span",
-    `${Widgets.aemHealthcheck.healthChecks.ObservationQueueLengthHealthCheck.label}`
-  )
-    .click()
-    .type("{esc}");
+  for (let i = 0; i < healthcheckKeys.length - 1; i++) {
+    let healthcheck = healthcheckKeys[i];
+    let label = Widgets.aemHealthcheck.healthChecks[healthcheck].label;
+    if (i == 0 || i == 3 || i == 11) {
+    } else if (i == 12) {
+      cy.contains("span", `${label}`).type("{esc}");
+    } else {
+      cy.contains("span", `${label}`).click();
+    }
+  }
 }
 
 export function fillBambooPlan() {
@@ -24,6 +23,7 @@ export function fillBambooPlan() {
   //Change selector (add data-cy in markup)
   cy.get(`[data-value="${Widgets.bambooPlan.endpoint}"]`).click();
   cy.fillSchedulePeriod(Widgets.bambooPlan.schedulePeriod);
+  cy.get('[data-cy="widget-form-id-string-input"]').type(Widgets.bambooPlan.id);
 }
 
 export function fillExample() {
@@ -37,7 +37,8 @@ export function fillIframeEmbed() {
 }
 
 export function fillJenkinsJob() {
-  //To Do: Choose endpoint
+  cy.get('[data-cy="widget-form-endpoint-input"]').click();
+  cy.get(`[data-value="${Widgets.jenkinsJob.endpoint}"]`).click();
   cy.fillSchedulePeriod(Widgets.jenkinsJob.schedulePeriod);
   cy.get('[data-cy="widget-form-path-input"]').type(Widgets.jenkinsJob.path);
 }
@@ -45,35 +46,47 @@ export function fillJenkinsJob() {
 export function fillServiceCheck() {
   cy.fillSchedulePeriod(Widgets.serviceCheck.schedulePeriod);
   cy.get('[data-cy="widget-form-request-method-input"]').click();
-  //Change selector (add data-cy in markup)
   cy.get('[data-value="post"]').click();
+  cy.get('[data-cy="widget-form-endpoint-input"]').click();
+  cy.get(`[data-value="${Widgets.serviceCheck.endpoint}"]`).click();
   cy.get('[data-cy="widget-form-path-input"]').type(Widgets.serviceCheck.path);
-  //To Do: request body and response body filling
+  cy.get('[data-cy="widget-form-body-input"]').type(
+    Widgets.serviceCheck.requestBody,
+    { parseSpecialCharSequences: false }
+  );
+  cy.get('[data-cy="widget-form-expected-response-body-input"]').type(
+    Widgets.serviceCheck.responseBodyFragment
+  );
   cy.get('[data-cy="widget-form-expected-status-code-input"]').type(
     "{selectall}" + Widgets.serviceCheck.expectedStatusCode
   );
 }
 
 export function fillSonarQube() {
+  let metricKeys = Object.keys(Widgets.sonarQube.metrics);
   cy.get('[data-cy="widget-form-endpoint-input"]').click();
-  //Change selector (add data-cy in markup)
   cy.get(`[data-value="${Widgets.sonarQube.endpoint}"]`).click();
   cy.fillSchedulePeriod(Widgets.sonarQube.schedulePeriod);
   cy.get('[data-cy="widget-form-key-string-input"]').type(
     Widgets.sonarQube.key
   );
   cy.get('[data-cy="widget-form-id-number-input"]').type(Widgets.sonarQube.id);
-  //To Do: Choosing metrics
+  cy.get('[data-cy="widget-form-selected-metrics-input"]').click();
+  for (let i = 4; i < metricKeys.length; i++) {
+    let metric = metricKeys[i];
+    let dataValue = Widgets.sonarQube.metrics[metric].dataValue;
+    if (i == metricKeys.length - 1) {
+      cy.get(`[data-value="${dataValue}"]`).type("{esc}");
+    } else {
+      cy.get(`[data-value="${dataValue}"]`).click();
+    }
+  }
 }
 
 export function fillText() {
   cy.get('[data-cy="widget-form-text-input"]').type(Widgets.text.text);
   cy.get('[data-cy="widget-form-text-size-input"]').click();
-  //Change selector (add data-cy in markup)
   cy.get('[data-value="h3"]').click();
-  if (randomBoolean()) {
-    cy.get('[data-cy="widget-form-is-vertical-input"]').click();
-  }
 }
 
 export function fillWorldClock() {
@@ -85,12 +98,6 @@ export function fillWorldClock() {
   cy.get('[data-cy="widget-form-time-format-input"]').click();
   //Change selector (add data-cy in markup)
   cy.get(`[data-value="${Widgets.worldClock.timeFormat}"]`).click();
-  if (randomBoolean()) {
-    cy.get('[data-cy="widget-form-display-date-input"]').click();
-  }
-  if (randomBoolean()) {
-    cy.get('[data-cy="widget-form-display-time-input"]').click();
-  }
   cy.get('[data-cy="widget-form-text-size-input"]').click();
   //Change selector (add data-cy in markup)
   cy.get(`[data-value="${Widgets.worldClock.textsize}"]`).click();
@@ -98,7 +105,6 @@ export function fillWorldClock() {
 
 export function fillDynamicTab(type = "Text") {
   if (type !== "Default" && type !== "Checkbox") {
-    console.log(type);
     cy.get('[data-cy="widget-form-dynamic-tab"]').click();
     switch (type) {
       case "AEM Healthcheck":

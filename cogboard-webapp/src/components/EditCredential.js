@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useToggle } from '../hooks';
 import { getToken } from '../utils/auth';
 import { getIsAuthenticated } from '../selectors';
-import { saveCredential } from '../actions/thunks';
+import { editCredential } from '../actions/thunks';
 import { URL } from '../constants';
 
 import { IconButton } from '@material-ui/core';
@@ -26,7 +26,7 @@ const EditCredential = ({ id }) => {
   const handleSubmit = values => {
     delete values.passwordConfirmation;
 
-    dispatch(saveCredential({ id, ...values }));
+    dispatch(editCredential({ id, ...values }));
     handleDialogClose();
   };
 

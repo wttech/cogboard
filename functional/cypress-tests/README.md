@@ -4,9 +4,35 @@
 
 Tests in this part of the repository are testing UI of the CogBoard. Get to know helper functions available right now (and update them if needed).
 
+## Running tests
+
+### CLI
+
+Quick use (i.e. before push):
+
+`./gradlew functionalTests` - will launch all specs, with local env config file.
+
+To override env add `-DcypressEnv=envName` system property. Which will run cypress config named `envName.json` under `functional/cypress-tests/cypress/config` directory. You must make sure that you created such a config in a first place.
+
+To customize config and specs to be launched, you have to run:
+
+`npx cypress run [--config-file path/to/config.json]`<sup>1</sup> `[--spec path/to/spec.js]`<sup>2</sup> from the `functional/cypress-tests` directory
+
+<sup>1</sup> - provide custom config file path, by default it will use `functional/cypress-tests/cypress/config/local.json`.
+
+<sup>2</sup> - provide spec file(s) to be launched. By default all specs are run.
+
+### GUI
+
+`npx cypress open` in `functional/cypress-tests` directory
+
 ## Contribution guide
 
+All cypress related commits should be done on branches starting with `automation/`
+
 ### Tasks to do
+
+...
 
 ### Coding conventions
 
@@ -17,9 +43,14 @@ Additional project specific conventions:
 - For actions that have been already covered in other tests write `cy.request(...)` helper command to bypass UI and speed up the test execution time
   - Good example would be the Widget tests. Dashboard creation and dashboard removal steps are performed in each of those tests and take around 2.5s. If we have used API calls instead we would be lookng at `2.5s * numOfWidgets` time reduction.
 - Keep test data in separate files. i.e. `../fixtures/Widgets.js`
+- No test case dependencies. Each test's expected initial state should be either prepared manually or by `cy.request(...)` call before test starts.
+- Actions that impact on other specs (such as saving) should be kept in the same spec.
+- Repetitive tests should be written in iterative manner: i.e. `../integration/widgets.js` or FE validation tests in `../integration/dashboards.js`
 - ...
 
 ## Available helpers
+
+Use helpers below to minimize specfiles size. Keep in mind that some of those helpers require certain state of app to work correctly, make sure you learn their code.
 
 ### General
 

@@ -11,8 +11,8 @@ import {
   loadSettings,
   deleteEndpoint,
   deleteCredential,
-  saveCredential,
-  saveEndpoint
+  addEndpoint,
+  addCredential
 } from '../../actions/thunks';
 
 import {
@@ -54,11 +54,11 @@ const SettingsMenu = ({ className }) => {
   const handleSubmitCredential = values => {
     delete values.passwordConfirmation;
 
-    dispatch(saveCredential(values));
+    dispatch(addCredential(values));
   };
 
   const handleSubmitEndpoint = values => {
-    dispatch(saveEndpoint(values));
+    dispatch(addEndpoint(values));
   };
 
   const renderListItems = (items, name, EditComponent, deleteAction) =>

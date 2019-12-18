@@ -13,8 +13,7 @@ import java.io.File
 
 internal class BoardsConfigServiceTest {
     @Test
-    @DisplayName("Expect board config saved without content")
-    fun saveBoardsConfig() {
+    fun `Expect board config saved without content`() {
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
 
@@ -36,8 +35,7 @@ internal class BoardsConfigServiceTest {
     }
 
     @Test
-    @DisplayName("Expect config merged from server board config and widget states")
-    fun loadConfig() {
+    fun `Expect config merged from server board config and widget states`() {
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
         val boardConfig = "$boardPath/server-board-config.json"
@@ -56,8 +54,7 @@ internal class BoardsConfigServiceTest {
     }
 
     @Test
-    @DisplayName("Expect all widgets returned")
-    fun getAllWidgets(){
+    fun `Expect all widgets returned`(){
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
         val boardConfig = "$boardPath/server-board-config.json"
@@ -73,8 +70,7 @@ internal class BoardsConfigServiceTest {
     }
 
     @Test
-    @DisplayName("Expect content saved")
-    fun saveContent(){
+    fun `Expect content saved`(){
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
         val contentRepository = ContentRepository("$boardPath/content")

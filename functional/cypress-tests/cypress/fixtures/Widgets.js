@@ -34,7 +34,7 @@ module.exports = {
       },
       requestsStatus: {
         dataValue: "requestsStatus",
-        label: "Requests Performance"
+        label: "Request Performance"
       },
       queriesStatus: {
         dataValue: "queriesStatus",
@@ -66,7 +66,7 @@ module.exports = {
     name: "Bamboo Plan",
     endpoint: "endpoint1",
     schedulePeriod: "500",
-    id: "bamboo-test"
+    id: "CGB-SCS"
   },
   checkbox: {
     name: "Checkbox"
@@ -80,63 +80,70 @@ module.exports = {
   },
   iframeEmbed: {
     name: "Iframe Embed",
-    url: "http://example.com/"
+    url: "http://www.example.com/"
   },
   jenkinsJob: {
     name: "Jenkins Job",
     endpoint: "endpoint1",
     schedulePeriod: "500",
-    path: "somepath"
+    path: "/job/CogBoard/job/in-progress"
   },
   serviceCheck: {
     name: "Service Check",
     schedulePeriod: "60",
-    requestMethod: "POST",
+    requestMethod: "GET",
     endpoint: "endpoint1",
-    path: "api/v1/create",
-    requestBody:
-      '{"name":"cogboard-automation", "salary": "12345", "age": "1"}',
-    responseBodyFragment: "cogboard-automation",
+    path: "/service-check/post.json",
+    requestBody: '{ "name": "cogboard-automation" }',
+    responseBodyFragment: "Expected string",
     expectedStatusCode: "200"
   },
   sonarQube: {
     name: "SonarQube",
     endpoint: "endpoint1",
     schedulePeriod: "90",
-    key: "rand",
-    id: "1",
+    key: "fail",
+    id: "316488",
     metrics: {
       blocker_violations: {
         dataValue: "blocker_violations",
-        label: "blocker_violations"
+        label: "blocker violations",
+        value: "0"
       },
       critical_violations: {
         dataValue: "critical_violations",
-        label: "critical_violations"
+        label: "critical violations",
+        value: "0"
       },
       major_violations: {
         dataValue: "major_violations",
-        label: "major_violations"
+        label: "major violations",
+        value: "3"
       },
       minor_violations: {
         dataValue: "minor_violations",
-        label: "minor_violations"
+        label: "minor violations",
+        value: "4"
       },
       info_violations: {
         dataValue: "info_violations",
-        label: "info_violations"
+        label: "info violations",
+        value: "15"
       },
       bugs: {
         dataValue: "bugs",
-        label: "bugs"
+        label: "bugs",
+        value: "7"
       },
       code_smells: {
         dataValue: "code_smells",
-        label: "code_smells"
+        label: "code smells",
+        value: "5"
       },
       vulnerabilities: {
         dataValue: "vulnerabilities",
-        label: "vulnerabilities"
+        label: "vulnerabilities",
+        value: "3"
       }
     }
   },
@@ -149,8 +156,8 @@ module.exports = {
   worldClock: {
     name: "World Clock",
     timezone: "GMT+2",
-    dateFormat: "dddd, Do MMMM YYYY",
-    timeFormat: "h:mm:ss a",
+    dateFormat: "DD/MM/YYYY",
+    timeFormat: "HH:mm:ss",
     displayDate: true,
     displayTime: true,
     textsize: "h6"
