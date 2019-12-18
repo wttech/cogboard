@@ -27,6 +27,7 @@ val cypressConfigPath = "cypress/config/" + cypressEnvCode + ".json"
 val network = "${project.name}-local_cognet"
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
+val changelogUpdaterBranchName = project.property("changelogUpdater.branch.name")?.toString() ?: "No branch"
 
 logger.lifecycle(">> dockerContainerName: $dockerContainerName")
 logger.lifecycle(">> dockerImageName: $dockerImageName")
@@ -139,7 +140,7 @@ tasks.named("functionalTests") {
 }
 
 tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
-    branchName = project.property("changelogupdater.branch.name") as String
+    branchName = changelogUpdaterBranchName
     version = project.version.toString()
     group = "Changelog"
     description = "Updates changelog"
