@@ -139,13 +139,3 @@ tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
     group = "Changelog"
     description = "Updates changelog"
 }
-
-tasks.register<Exec>("gitCommit") {
-    commandLine = listOf("git", "commit")
-    mustRunAfter("updateChangelog")
-}
-
-tasks.register<Exec>("gitPush") {
-    commandLine = listOf("git push")
-    mustRunAfter("gitCommit")
-}
