@@ -1,10 +1,10 @@
 import Widgets from '../fixtures/Widgets';
 
 export function validateAemHealthcheck() {
-  let healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
+  const healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
   for (let i = 0; i < healthcheckKeys.length; i++) {
-    let healthcheck = healthcheckKeys[i];
-    let label = Widgets.aemHealthcheck.healthChecks[healthcheck].label;
+    const healthcheck = healthcheckKeys[i];
+    const label = Widgets.aemHealthcheck.healthChecks[healthcheck].label;
     cy.contains('p', `${label}`)
         .should('is.visible');
   }
@@ -48,8 +48,8 @@ export function validateJenkinsJob() {
     .should('is.visible');
   cy.contains('p', 'master-branch')
     .should('is.visible');
-  cy.contains('p', /[0-9]{2}.[0-9]{2}.[0-9]{4}, [0-9]{2}:[0-9]{2}:[0-9]{2}/).
-    should('is.visible');
+  cy.contains('p', /[0-9]{2}.[0-9]{2}.[0-9]{4}, [0-9]{2}:[0-9]{2}:[0-9]{2}/)
+    .should('is.visible');
   cy.contains('p', '0.25 [s]')
     .should('is.visible');
   cy.contains('span', '#6')
@@ -67,11 +67,11 @@ export function validateServiceCheck() {
 }
 
 export function validateSonarQube() {
-  let metricKeys = Object.keys(Widgets.sonarQube.metrics);
+  const metricKeys = Object.keys(Widgets.sonarQube.metrics);
   for (let i = 0; i < metricKeys.length; i++) {
-    let metric = metricKeys[i];
-    let label = Widgets.sonarQube.metrics[metric].label;
-    let value = Widgets.sonarQube.metrics[metric].value;
+    const metric = metricKeys[i];
+    const label = Widgets.sonarQube.metrics[metric].label;
+    const value = Widgets.sonarQube.metrics[metric].value;
     cy.contains('p', `${label}`)
       .should('is.visible')
       .then(metric => {
