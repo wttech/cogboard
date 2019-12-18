@@ -1,4 +1,4 @@
-import DefaultWidget from './types/DefaultWidget';
+import WhiteSpaceWidget from './types/WhiteSpaceWidget';
 import ExampleWidget from './types/ExampleWidget';
 import JenkinsJobWidget from './types/JenkinsJobWidget';
 import SonarQubeWidget from './types/SonarQubeWidget';
@@ -12,9 +12,9 @@ import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
 
 const widgetTypes = {
-  DefaultWidget: {
-    name: 'Default',
-    component: DefaultWidget
+  WhiteSpaceWidget: {
+    name: 'White Space',
+    component: WhiteSpaceWidget
   },
   ExampleWidget: {
     name: 'Example',

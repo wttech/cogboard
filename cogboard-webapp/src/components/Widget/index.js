@@ -41,7 +41,7 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const { expandContent } = widgetTypeData;
-  const widgetStatus = getWidgetStatus(content);
+  const widgetStatus = getWidgetStatus(content, type);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -122,6 +122,7 @@ const Widget = ({ id, index }) => {
     <>
       <StyledCard
         showShadow={expanded}
+        showBorder={isAuthenticated && 'WhiteSpaceWidget' === type}
         status={widgetStatus}
         columns={columns}
         goNewLine={goNewLine}
@@ -146,7 +147,13 @@ const Widget = ({ id, index }) => {
               color: 'textPrimary'
             }}
             action={
-              <MoreMenu>
+              <MoreMenu
+                color={
+                  isAuthenticated && 'WhiteSpaceWidget' === type
+                    ? 'primary'
+                    : ''
+                }
+              >
                 {closeMenu => (
                   <>
                     <MenuItem

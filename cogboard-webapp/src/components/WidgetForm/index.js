@@ -136,7 +136,7 @@ WidgetForm.defaultProps = {
   goNewLine: false,
   rows: 1,
   title: '',
-  type: 'DefaultWidget'
+  type: 'WhiteSpaceWidget'
 };
 
 export default WidgetForm;

@@ -19,6 +19,7 @@ export const theme = createMuiTheme({
       }
     },
     status: {
+      TRANSPARENT: 'transparent',
       CHECKBOX_OK: '#019430',
       CHECKBOX_FAIL: '#e1312f',
       CHECKBOX_UNKNOWN: '#26243e',

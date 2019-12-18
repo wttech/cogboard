@@ -6,13 +6,13 @@ import io.vertx.core.json.JsonObject
 /**
  * Use this for all widgets that don't require backend code
  */
-class DefaultWidget : Widget {
+class WhiteSpaceWidget : Widget {
 
     override val id: String
         get() = "unknown"
 
     override val type: String
-        get() = "DefaultWidget"
+        get() = "WhiteSpaceWidget"
 
     override fun start(): Widget {
         return this
@@ -35,6 +35,6 @@ class DefaultWidget : Widget {
     }
 
     companion object {
-        val INSTANCE = DefaultWidget()
+        val INSTANCE = WhiteSpaceWidget()
     }
 }

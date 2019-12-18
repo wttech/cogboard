@@ -7,7 +7,7 @@ import { getIsAuthenticated } from '../selectors';
 import { Menu, MenuList, IconButton } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 
-const MoreMenu = ({ children }) => {
+const MoreMenu = ({ children, color }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
 
@@ -28,6 +28,7 @@ const MoreMenu = ({ children }) => {
         aria-controls="more-menu"
         aria-haspopup="true"
         data-cy="more-menu-button"
+        color={color}
       >
         <MoreVert />
       </IconButton>
