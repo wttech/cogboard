@@ -13,7 +13,7 @@ before_script:
 script:
   - if [[ "$RELEASE" == "1" ]]; then ./gradlew release -Prelease.useAutomaticVersion=true;
     --info; fi
-  - if [[ "$RELEASE" != "1" ]]; then ./gradlew functionalTests -Dchangelogupdater.branch.name=#160-fefe-fefe --debug; fi
+  - if [[ "$RELEASE" != "1" ]]; then ./gradlew functionalTests -Dchangelogupdater.branch.name=#160-fefe-fefe; fi
 deploy:
   - provider: script
     script: bash scripts/release.sh

@@ -18,6 +18,7 @@ plugins {
     id("java")
     id("io.gitlab.arturbosch.detekt") version "1.1.0"
     id("net.researchgate.release")
+    id ("org.ajoberstar.git-publish") version "2.1.3"
 }
 
 val dockerContainerName = project.property("docker.app.container.name") ?: "cogboard"
