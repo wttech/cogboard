@@ -22,9 +22,15 @@ export const sortByKey = (obj, key, asc = true) =>
 
 export const hasError = error => error !== undefined;
 
+const INITIAL_STATUSES = {
+  WhiteSpaceWidget: 'TRANSPARENT',
+  CheckboxWidget: 'CHECKBOX_UNKNOWN'
+};
+
 export const getWidgetStatus = (content, widgetType) =>
   (content && content.widgetStatus) ||
-  ('WhiteSpaceWidget' === widgetType ? 'TRANSPARENT' : 'UNKNOWN');
+  INITIAL_STATUSES[widgetType] ||
+  'UNKNOWN';
 
 export const getWidgetUpdateTime = (content, widgetType) => {
   return (
