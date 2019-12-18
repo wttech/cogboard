@@ -27,7 +27,7 @@ val cypressConfigPath = "cypress/config/" + cypressEnvCode + ".json"
 val network = "${project.name}-local_cognet"
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
-val changelogUpdaterBranchName = project.property("test")?.toString() ?: "No branch"
+val changelogUpdaterBranchName = project.property("testttt")?.toString() ?: "No branch"
 
 logger.lifecycle(">> dockerContainerName: $dockerContainerName")
 logger.lifecycle(">> dockerImageName: $dockerImageName")

@@ -15,7 +15,7 @@ script:
     ./gradlew release -Prelease.useAutomaticVersion=true -Pchangelogupdater.branch.name=$TRAVIS_BRANCH;
     --info; fi
   - if [[ "$RELEASE" != "1" ]]; then
-  - ./gradlew functionalTests -Ptest=$TRAVIS_BRANCH; fi
+  - ./gradlew functionalTests -Ptestttt=$TRAVIS_BRANCH; fi
 deploy:
   - provider: script
     script: bash scripts/release.sh
