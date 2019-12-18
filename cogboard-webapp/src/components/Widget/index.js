@@ -53,6 +53,8 @@ const Widget = ({ id, index }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
+  const indicateWhiteSpaceWidget =
+    isAuthenticated && 'WhiteSpaceWidget' === type;
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
     canDrag: isAuthenticated,
@@ -122,7 +124,7 @@ const Widget = ({ id, index }) => {
     <>
       <StyledCard
         showShadow={expanded}
-        showBorder={isAuthenticated && 'WhiteSpaceWidget' === type}
+        showBorder={indicateWhiteSpaceWidget}
         status={widgetStatus}
         columns={columns}
         goNewLine={goNewLine}
@@ -147,13 +149,7 @@ const Widget = ({ id, index }) => {
               color: 'textPrimary'
             }}
             action={
-              <MoreMenu
-                color={
-                  isAuthenticated && 'WhiteSpaceWidget' === type
-                    ? 'primary'
-                    : ''
-                }
-              >
+              <MoreMenu color={indicateWhiteSpaceWidget ? 'primary' : ''}>
                 {closeMenu => (
                   <>
                     <MenuItem
