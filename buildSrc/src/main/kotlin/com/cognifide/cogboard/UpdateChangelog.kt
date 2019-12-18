@@ -16,6 +16,7 @@ open class UpdateChangelog : DefaultTask() {
     private lateinit var issueNumber: String
     lateinit var version: String
     lateinit var branchName: String
+//    private lateinit var branch: String
 
 //    @Option(option="branch", description="branch name")
 //    fun setBranch(branch: String) { // TODO REGEX startuje od hash i zgarnia 1-4 cyfry
