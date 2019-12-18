@@ -1,9 +1,8 @@
 {
-    "baseUrl": "http://cogboard-local_frontend",
-    "env": {
-      "username": "admin",
-      "password": "admin"
-    },
-    "video": false
-  }
- 
+  "baseUrl": "http://cogboard-local_frontend",
+  "env": {
+    "username": "admin",
+    "password": "admin"
+  },
+  "video": false
+}

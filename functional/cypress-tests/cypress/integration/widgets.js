@@ -1,9 +1,9 @@
 import Widgets from '../fixtures/Widgets';
 import { fillDynamicTab } from '../support/widgetDynamicTab';
 import { validateWidgetConfig } from '../support/widgetAssertions';
-let example = Widgets.example;
-let dashboardName = 'Welcome to Cogboard';
-let widgetsKeys = Object.keys(Widgets);
+const example = Widgets.example;
+const dashboardName = 'Welcome to Cogboard';
+const widgetsKeys = Object.keys(Widgets);
 
 describe('Widgets', () => {
   beforeEach(() => {
@@ -15,9 +15,9 @@ describe('Widgets', () => {
   });
 
   for (let i = 0; i < widgetsKeys.length; i++) {
-    let widget = widgetsKeys[i];
-    let name = Widgets[widget].name;
-    let title = `Test-${name}`;
+    const widget = widgetsKeys[i];
+    const name = Widgets[widget].name;
+    const title = `Test-${name}`;
 
     it(`${name} can be configured and added by logged in user`, () => {
       cy.fillNewWidgetGeneral(name, title, false, false, 4, 2);

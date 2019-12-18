@@ -1,23 +1,12 @@
 import Widgets from '../fixtures/Widgets';
 
-function getWidgetTimeDate(dispTime) {
-  let str = dispTime.text();
-  let hour = str.slice(0, 2);
-  let min = str.slice(3, 5);
-  let sec = str.slice(6, 8);
-  let day = str.slice(8, 10);
-  let month = str.slice(11, 13);
-  let year = str.slice(14, 18);
-  return new Date(year, month - 1, day, hour - 1, min, sec).toUTCString();
-}
-
 export function validateAemHealthcheck() {
-  let healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
+  const healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
   for (let i = 0; i < healthcheckKeys.length; i++) {
-    let healthcheck = healthcheckKeys[i];
-    let label = Widgets.aemHealthcheck.healthChecks[healthcheck].label;
+    const healthcheck = healthcheckKeys[i];
+    const label = Widgets.aemHealthcheck.healthChecks[healthcheck].label;
     cy.contains('p', `${label}`)
-      .should('is.visible');
+        .should('is.visible');
   }
 }
 
@@ -78,11 +67,11 @@ export function validateServiceCheck() {
 }
 
 export function validateSonarQube() {
-  let metricKeys = Object.keys(Widgets.sonarQube.metrics);
+  const metricKeys = Object.keys(Widgets.sonarQube.metrics);
   for (let i = 0; i < metricKeys.length; i++) {
-    let metric = metricKeys[i];
-    let label = Widgets.sonarQube.metrics[metric].label;
-    let value = Widgets.sonarQube.metrics[metric].value;
+    const metric = metricKeys[i];
+    const label = Widgets.sonarQube.metrics[metric].label;
+    const value = Widgets.sonarQube.metrics[metric].value;
     cy.contains('p', `${label}`)
       .should('is.visible')
       .then(metric => {
@@ -91,7 +80,7 @@ export function validateSonarQube() {
   }
   cy.contains('span', `${Widgets.sonarQube.id}`)
     .should('is.visible');
-  cy.contains('p', /[0-9]{2}.[0-9]{2}.[0-9]{4}, [0-9]{2}:[0-9]{2}:[0-9]{2}/)
+  cy.contains('p', /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/)
     .should('is.visible');
   cy.contains('p', '6.4.2.6-SNAPSHOT')
     .should('is.visible');
@@ -104,12 +93,7 @@ export function validateText() {
 
 export function validateWorldClock() {
   cy.contains('h6', /^[0-9]{2}:[0-9]{2}:[0-9]{4}\/[0-9]{2}\/[0-9]{4}/)
-    .should('is.visible')
-    .then(dispTime => {
-      let realTime = new Date().toUTCString();
-      cy.wrap(getWidgetTimeDate(dispTime))
-        .should('eq', realTime);
-    });
+    .should('is.visible');
 }
 
 export function validateWidgetConfig(type = 'Text') {
@@ -134,13 +118,13 @@ export function validateWidgetConfig(type = 'Text') {
         validateServiceCheck();
         break;
       case 'SonarQube':
-        // validateSonarQube(); fix in progress
+        validateSonarQube();
         break;
       case 'Text':
-        // validateText(); fix in progress
+        validateText();
         break;
       case 'World Clock':
-        // validateWorldClock(); fix in progress
+        validateWorldClock();
         break;
       default:
         break;
