@@ -131,17 +131,21 @@ tasks.register<Exec>("functionalTests") {
     }
 }
 
-tasks.named("release") {
-    dependsOn("updateChangelog")
-}
-
-tasks.named("functionalTests") {
-    dependsOn("updateChangelog")
-}
-
 tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
     branchName = changelogUpdaterBranchName
     version = project.version.toString()
     group = "Changelog"
     description = "Updates changelog"
 }
+
+tasks.named("updateChangelog") {
+    dependsOn("functionalTests", "release")
+}
+
+//tasks.named("gitPublishCommit") {
+//    dependsOn("updateChangelog")
+//}
+//
+//tasks.named("gitPublishPush") {
+//    dependsOn("gitPublishCommit")
+//}
