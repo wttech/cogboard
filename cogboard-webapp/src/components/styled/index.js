@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-import { Button, FormControl, Typography, IconButton } from '@material-ui/core';
+import {
+  Button,
+  FormControl,
+  Typography,
+  IconButton,
+  Tabs
+} from '@material-ui/core';
 import IframeEmbed from '../IframeEmbed';
 import { getColor, getSize } from '../../utils/components';
+import TabPanel from '../TabPanel';
 
 const StyledTypography = styled(Typography)`
   margin-bottom: 5px;
@@ -90,4 +97,12 @@ export const StyledPopoverText = styled(Typography)`
   background: #fff;
   color: #000;
   padding: 1rem;
+`;
+
+export const StyledTabs = styled(Tabs)`
+  margin-bottom: 12px;
+`;
+
+export const StyledTabPanel = styled(TabPanel)`
+  margin-bottom: 12px;
 `;

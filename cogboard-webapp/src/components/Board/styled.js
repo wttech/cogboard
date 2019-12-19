@@ -11,7 +11,6 @@ export const StyledContainer = styled.div`
 `;
 
 const BaseNoData = component => styled(component)`
-  background: #fff;
   bottom: 0;
   display: flex;
   align-items: center;

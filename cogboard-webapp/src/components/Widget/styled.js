@@ -13,6 +13,8 @@ export const StyledCard = styled(
     (
       {
         status,
+        showShadow,
+        showBorder,
         columns,
         goNewLine,
         isLoggedIn,
@@ -30,7 +32,10 @@ export const StyledCard = styled(
     !isDragging
       ? mapStatusToColor(status, theme)
       : theme.palette.background.paper};
-  box-shadow: none;
+  box-shadow: ${({ showShadow }) =>
+    showShadow ? '2px 0px 4px 2px rgba(0,0,0,0.3)' : 'none'};
+  border: ${({ showBorder }) =>
+    showBorder ? '1px solid rgba(0,0,0,0.3)' : 'none'};
   cursor: ${({ isLoggedIn }) => (isLoggedIn ? 'move' : 'default')};
   display: flex;
   flex-direction: column;
@@ -106,6 +111,8 @@ export const StyledCollapse = styled(
     !isDragging
       ? mapStatusToColor(status, theme)
       : theme.palette.background.paper};
+  box-shadow: ${({ isExpanded }) =>
+    isExpanded ? '2px 4px 4px 2px rgba(0,0,0,0.3)' : 'none'};
   height: auto;
   opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
   padding: 0 16px 16px;

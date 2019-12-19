@@ -2,6 +2,7 @@ import React from 'react';
 import { string, bool } from 'prop-types';
 import { useTheme } from '@material-ui/styles';
 
+import { Typography } from '@material-ui/core';
 import { StyledLink } from './styled';
 
 const ErrorPage = ({ title, tip, homeLink, className }) => {
@@ -10,8 +11,12 @@ const ErrorPage = ({ title, tip, homeLink, className }) => {
   return (
     <div className={className}>
       <div>
-        <h1>{title}</h1>
-        <h3>{tip}</h3>
+        <Typography variant="h3" color="primary">
+          {title}
+        </Typography>
+        <Typography variant="h5" color="primary">
+          {tip}
+        </Typography>
 
         {homeLink && (
           <p>
