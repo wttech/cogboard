@@ -1,5 +1,17 @@
 import { capitalize } from '../utils/common';
 
+export const COLORS = {
+  NONE: 'transparent',
+  BKGD_LIGHT: '#fffafa',
+  BKGD_DARK: '#1c2630',
+  GREEN: '#019430',
+  ORANGE: '#ff9724',
+  RED: '#e1312f',
+  LIGHT_BLUE: '#bbdefb',
+  BLUE: '#198cbd',
+  PURPLE: '#26243e'
+};
+
 export const URL = {
   LOAD_DATA: '/api/config',
   SAVE_DATA: '/api/config/save',
