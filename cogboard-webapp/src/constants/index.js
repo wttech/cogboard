@@ -2,8 +2,10 @@ import { capitalize } from '../utils/common';
 
 export const COLORS = {
   NONE: 'transparent',
+  WHITE: '#fff',
   BKGD_LIGHT: '#fffafa',
   BKGD_DARK: '#1c2630',
+  BLACK: '#000',
   GREEN: '#019430',
   ORANGE: '#ff9724',
   RED: '#e1312f',
@@ -24,7 +26,6 @@ export const URL = {
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;
 export const BOARD_COLUMNS_MIN = 4;
-export const BOARD_COLUMNS_DEFAULT = 8;
 export const BOARD_COLUMNS_MAX = 20;
 export const BOARD_TITLE_LENGTH_LIMIT = 50;
 export const SWITCH_INTERVAL_MIN = 3;

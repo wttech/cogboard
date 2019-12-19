@@ -3,7 +3,7 @@ import { bool, number, object, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import { mapStatusToColor } from './helpers';
-import { COLUMN_MULTIPLIER, ROW_MULTIPLIER } from '../../constants';
+import { COLUMN_MULTIPLIER, ROW_MULTIPLIER, COLORS } from '../../constants';
 
 import { Card, CardHeader, CardContent, Collapse } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -63,7 +63,7 @@ export const StyledCard = styled(
   `}
 
   a {
-    color: #fff;
+    color: ${COLORS.WHITE};
 
     &:hover {
       text-decoration: none;

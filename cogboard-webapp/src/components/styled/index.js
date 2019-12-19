@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
+import { COLORS } from '../../constants';
 
 import {
   Button,
@@ -94,8 +95,8 @@ export const StyledFormControl = styled(FormControl)`
 `;
 
 export const StyledPopoverText = styled(Typography)`
-  background: #fff;
-  color: #000;
+  background: ${COLORS.WHITE};
+  color: ${COLORS.BLACK};
   padding: 1rem;
 `;
 
