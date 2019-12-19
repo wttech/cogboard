@@ -1,6 +1,7 @@
-import { Link } from '@reach/router';
-
 import styled from '@emotion/styled/macro';
+
+import { Link } from '@reach/router';
+import { getColor } from '../../utils/components';
 
 export const StyledLink = styled(Link)`
   font-size: 16px;
@@ -8,5 +9,5 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   border-bottom: 2px solid;
   padding-bottom: 4px;
-  border-color: #ff8a65;
+  border-color: ${getColor('primary')};
 `;

@@ -6,7 +6,6 @@ import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.LoggerFactory
-import java.util.Date
 
 class ExampleWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
 
@@ -29,8 +28,10 @@ class ExampleWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config
 
     override fun updateState() {
         send(JsonObject()
-                .put(CogboardConstants.PROP_STATUS, Widget.Status.random())
-                .put(CogboardConstants.PROP_CONTENT, JsonObject().put("serverTime", Date().time)))
+            .put(CogboardConstants.PROP_CONTENT,
+                JsonObject()
+                    .put(CogboardConstants.PROP_WIDGET_STATUS, Widget.Status.random()))
+        )
     }
 
     companion object {

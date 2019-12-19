@@ -63,38 +63,6 @@ describe("Basic Dashboard CRUD", () => {
   });
 });
 
-describe("Dashboard Persistence", () => {
-  beforeEach(() => {
-    cy.visit("/");
-    cy.login();
-  });
-
-  it("Not saved dashboard isn't displayed after refresh ", () => {
-    let name = dashboardNameGen();
-    cy.addDashboard(name);
-    cy.visit("/");
-    cy.get('[data-cy="navbar-show-drawer-button"]').click();
-    cy.contains('[data-cy="board-card"]', name).should("not.visible");
-  });
-
-  it("Saved dashboard is displayed after refresh", () => {
-    let name = dashboardNameGen();
-    cy.addDashboard(name);
-    cy.saveState();
-    cy.visit("/");
-    cy.get('[data-cy="navbar-show-drawer-button"]').click();
-    cy.contains('[data-cy="board-card"]', name)
-      .scrollIntoView()
-      .should("is.visible");
-    cy.contains('[data-cy="board-card"]', name)
-      .find('[data-cy="board-card-delete-button"]')
-      .scrollIntoView()
-      .click();
-    cy.get('[data-cy="confirmation-dialog-ok"]').click();
-    cy.saveState();
-  });
-});
-
 describe("Dashboard Frontend Validation", () => {
   beforeEach(() => {
     cy.visit("/");
@@ -150,5 +118,39 @@ describe("Dashboard Frontend Validation", () => {
         );
       }
     });
+  });
+});
+
+describe("Dashboard switcher", () => {
+  beforeEach(() => {
+    cy.visit("/");
+    cy.login();
+  });
+
+  it("Manual switching works", () => {
+    const dashboardName = dashboardNameGen();
+    cy.addDashboard(dashboardName, "8", "3");
+    cy.chooseDashboard(dashboardName);
+    cy.get('[data-cy="previous-board-button"]').click();
+    cy.contains(
+      '[data-cy="navbar-title-header"]',
+      "Welcome to Cogboard"
+    ).should("is.visible");
+    cy.get('[data-cy="next-board-button"]').click();
+    cy.contains('[data-cy="navbar-title-header"]', dashboardName).should(
+      "is.visible"
+    );
+  });
+
+  it("Automatic switching works", () => {
+    const dashboardName = dashboardNameGen();
+    cy.addDashboard(dashboardName, "8", "3");
+    cy.chooseDashboard(dashboardName);
+    cy.get('[data-cy="auto-switch-board-button"]').click();
+    cy.wait(3000);
+    cy.contains(
+      '[data-cy="navbar-title-header"]',
+      "Welcome to Cogboard"
+    ).should("is.visible");
   });
 });

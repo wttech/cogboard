@@ -1,8 +1,9 @@
 {
-    "baseUrl": "http://localhost:8092",
-    "env": {
-      "username": "admin",
-      "password": "admin"
-    },
-    "video": false
+  "baseUrl": "http://cogboard-local_frontend",
+  "env": {
+    "username": "admin",
+    "password": "admin"
+  },
+  "video": true,
+  "videoCompression": 16
 }

@@ -17,16 +17,12 @@ object AdminsValidator : Validator {
             }
 
     private fun validateAdmins(config: Admins): Boolean {
-        if (config.admins.isEmpty()) {
-            return false
+        return if (config.admins.isEmpty()) {
+            false
         } else {
-            config.admins.forEach() { admin ->
-                if (admin.name.isEmpty() || admin.pass.isEmpty()) {
-                    return false
-                }
-                return true
+            !config.admins.stream().anyMatch { admin ->
+                admin.name.isBlank() || admin.pass.isBlank()
             }
         }
-        return true
     }
 }

@@ -1,0 +1,178 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/jenkins/ok.html"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "text/html"
+        },
+        "bodyFileName": "jenkins/ok.html"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/job/CogBoard/job/success/api/json?tree=lastBuild[building,description,displayName,duration,estimatedDuration,executor,fullDisplayName,id,result,timestamp,url,builtOn,actions[lastBuiltRevision[branch[name]]]]"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "jenkins/v2.46.3/success.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/job/CogBoard/job/fail/api/json?tree=lastBuild[building,description,displayName,duration,estimatedDuration,executor,fullDisplayName,id,result,timestamp,url,builtOn,actions[lastBuiltRevision[branch[name]]]]"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "jenkins/v2.46.3/fail.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/job/CogBoard/job/in-progress/api/json?tree=lastBuild[building,description,displayName,duration,estimatedDuration,executor,fullDisplayName,id,result,timestamp,url,builtOn,actions[lastBuiltRevision[branch[name]]]]"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "jenkins/v2.46.3/in-progress.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/system/sling/monitoring/mbeans/org/apache/sling/healthcheck.2.json"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "aem/v6.4.4/healthcheck.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/result/CGB-SCS.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/successful.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/result/CGB-FLD.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/failed.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/result/CGB-UKWN.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/unknown.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/service-check/post.json",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.[?(@.name == 'cogboard-automation')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "service-check/post.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/dashboard/1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "text/html"
+        },
+        "bodyFileName": "sonarqube/ok.html"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/resources?resource=success&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "sonarqube/v5.6.6/success.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/resources?resource=fail&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "sonarqube/v5.6.6/fail.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/resources?resource=warning&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "sonarqube/v5.6.6/warning.json"
+      }
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import DefaultWidget from './types/DefaultWidget';
+import WhiteSpaceWidget from './types/WhiteSpaceWidget';
 import ExampleWidget from './types/ExampleWidget';
 import JenkinsJobWidget from './types/JenkinsJobWidget';
 import SonarQubeWidget from './types/SonarQubeWidget';
@@ -12,9 +12,9 @@ import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
 
 const widgetTypes = {
-  DefaultWidget: {
-    name: 'Default',
-    component: DefaultWidget
+  WhiteSpaceWidget: {
+    name: 'White Space',
+    component: WhiteSpaceWidget
   },
   ExampleWidget: {
     name: 'Example',
@@ -28,7 +28,12 @@ const widgetTypes = {
   JenkinsJobWidget: {
     name: 'Jenkins Job',
     component: JenkinsJobWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'Path'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'Path',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }
@@ -42,7 +47,8 @@ const widgetTypes = {
       'SchedulePeriod',
       'Key',
       'IdNumber',
-      'SonarQubeMetricsInput'
+      'SonarQubeMetricsInput',
+      'ExpandableContent'
     ],
     showUpdateTime: true,
     validationConstraints: {
@@ -60,7 +66,8 @@ const widgetTypes = {
       'Path',
       'RequestBody',
       'ResponseBody',
-      'StatusCode'
+      'StatusCode',
+      'ExpandableContent'
     ],
     showUpdateTime: true,
     validationConstraints: {
@@ -70,7 +77,7 @@ const widgetTypes = {
   TextWidget: {
     name: 'Text',
     component: TextWidget,
-    dialogFields: ['Text', 'TextSize', 'TextOrientation'],
+    dialogFields: ['Text', 'TextSize', 'TextOrientation', 'ExpandableContent'],
     validationConstraints: {
       Text: { max: 240 }
     }
@@ -78,7 +85,12 @@ const widgetTypes = {
   BambooPlanWidget: {
     name: 'Bamboo Plan',
     component: BambooPlanWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'IdString',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }
@@ -87,7 +99,12 @@ const widgetTypes = {
   BambooDeploymentWidget: {
     name: 'Bamboo Deployment',
     component: BambooDeploymentWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'IdString'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'IdString',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }
@@ -108,7 +125,7 @@ const widgetTypes = {
   IframeEmbedWidget: {
     name: 'Iframe Embed',
     component: IframeEmbedWidget,
-    dialogFields: ['UrlForContent']
+    dialogFields: ['IFrameURL']
   },
   CheckboxWidget: {
     name: 'Checkbox',
@@ -118,7 +135,12 @@ const widgetTypes = {
   AemHealthcheckWidget: {
     name: 'AEM Healthcheck',
     component: AemHealthcheckWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod', 'AemHealthcheckInput'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'AemHealthcheckInput',
+      'ExpandableContent'
+    ],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 },

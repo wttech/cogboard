@@ -27,8 +27,9 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
         val content = JsonObject()
         val status = attachHealthChecks(content, healthChecksResponse)
 
+        content.put(CogboardConstants.PROP_WIDGET_STATUS, status)
+
         send(JsonObject()
-                .put(CogboardConstants.PROP_STATUS, status)
                 .put(CogboardConstants.PROP_CONTENT, content))
     }
 

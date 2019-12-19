@@ -1,0 +1,65 @@
+{
+  "array": [
+    {
+      "id": 316488,
+      "uuid": "AVs465cR82v6cHqJm819",
+      "key": "com.cognifide.statistics:statistics.accelerator",
+      "name": "Accelerator Statistics - Reactor Project",
+      "scope": "PRJ",
+      "qualifier": "TRK",
+      "date": "2019-04-25T04:01:02+0200",
+      "creationDate": "2017-04-04T14:23:35+0200",
+      "lname": "Accelerator Statistics - Reactor Project",
+      "version": "6.4.2.6-SNAPSHOT",
+      "description": "Maven Multimodule project for Accelerator Statistics.",
+      "msr": [
+        {
+          "key": "blocker_violations",
+          "val": 0.0,
+          "frmt_val": "0"
+        },
+        {
+          "key": "critical_violations",
+          "val": 0.0,
+          "frmt_val": "0"
+        },
+        {
+          "key": "major_violations",
+          "val": 3.0,
+          "frmt_val": "3"
+        },
+        {
+          "key": "minor_violations",
+          "val": 4.0,
+          "frmt_val": "4"
+        },
+        {
+          "key": "info_violations",
+          "val": 15.0,
+          "frmt_val": "4"
+        },
+        {
+          "key": "bugs",
+          "val": 7.0,
+          "frmt_val": "4"
+        },
+        {
+          "key": "code_smells",
+          "val": 5.0,
+          "frmt_val": "5"
+        },
+        {
+          "key": "vulnerabilities",
+          "val": 3.0,
+          "frmt_val": "4"
+        },
+        {
+          "key": "alert_status",
+          "data": "OK"
+        }
+      ]
+    }
+  ],
+  "statusCode": 200,
+  "statusMessage": "OK"
+}

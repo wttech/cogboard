@@ -5,36 +5,48 @@ import { setWidgetState } from '../../../../actions/thunks';
 import getNextStatus from './helpers';
 
 import { WidgetIconButton } from '../../../styled';
-import StatusIcon from '../../../StatusIcon';
+import StatusCheckbox from '../../../StatusCheckbox';
 
-const CheckboxWidget = props => {
-  const { id } = props;
-  const { status } = useSelector(({ widgets }) => widgets.widgetsById[id]);
+import { postWidgetContentUpdate } from '../../../../utils/fetch';
+import { getWidgetStatus } from '../../../../utils/components';
+
+const CheckboxWidget = ({ id }) => {
   const dispatch = useDispatch();
+  const { content } = useSelector(({ widgets }) => widgets.widgetsById[id]);
+  const widgetStatus = getWidgetStatus(content, 'CheckboxWidget');
 
   const ariaCheckedStatusMap = {
-    OK: true,
-    FAIL: false,
-    UNKNOWN: 'mixed'
+    CHECKBOX_OK: true,
+    CHECKBOX_FAIL: false,
+    CHECKBOX_UNKNOWN: 'mixed'
   };
 
   const handleChangeStatus = () => {
+    let nextStatus = getNextStatus(widgetStatus);
     dispatch(
       setWidgetState({
         id,
-        status: getNextStatus(status)
+        content: {
+          widgetStatus: nextStatus
+        },
+        withWidgetContentUpdate: true
       })
     );
+
+    postWidgetContentUpdate({
+      id,
+      content: { widgetStatus: nextStatus }
+    }).catch(e => console.log(e));
   };
 
   return (
     <WidgetIconButton
       aria-label="Toggle status"
-      aria-checked={ariaCheckedStatusMap[status]}
+      aria-checked={ariaCheckedStatusMap[widgetStatus]}
       data-cy="checkbox"
       onClick={handleChangeStatus}
     >
-      <StatusIcon size="large" status={status} />
+      <StatusCheckbox size="large" status={widgetStatus} />
     </WidgetIconButton>
   );
 };

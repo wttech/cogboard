@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { splitPropsGroupName, parseYupErrors } from '../helpers';
+import { parseYupErrors } from '../utils/common';
+import { splitPropsGroupName } from '../utils/components';
 
 export const useToggle = (initialState = false) => {
   const [isOpened, setOpened] = useState(initialState);
@@ -72,6 +73,7 @@ export const useFormData = (data, config = {}) => {
 
   const withValidation = func => event => {
     event.preventDefault();
+    event.stopPropagation();
     setStatus({ ...status, submited: true });
 
     if (validationSchema) {

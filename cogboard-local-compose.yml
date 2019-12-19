@@ -1,0 +1,35 @@
+version: "3.7"
+
+networks:
+  cognet:
+    driver: overlay
+    attachable: true
+
+services:
+  api-mocks:
+    image: rodolpheche/wiremock
+    volumes:
+      - "./api-mocks:/home/wiremock"
+    ports:
+      - "8093:8080"
+    networks:
+      - cognet
+    command: ["--verbose", "--no-request-journal"]
+
+  backend:
+    image: "cogboard/cogboard-app:${COGBOARD_VERSION}"
+    volumes:
+      - "./mnt:/data"
+    networks:
+      - cognet
+  #    ports:
+  #      - "18092:18092"
+
+  frontend:
+    image: "cogboard/cogboard-web:${COGBOARD_VERSION}"
+    depends_on:
+      - "backend"
+    networks:
+      - cognet
+    ports:
+      - "80:80"

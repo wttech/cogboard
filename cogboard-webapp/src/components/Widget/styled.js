@@ -3,15 +3,18 @@ import { bool, number, object, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import { mapStatusToColor } from './helpers';
-import { COLUMN_MULTIPLIER, ROW_MULTIPLIER } from '../../constants';
+import { COLUMN_MULTIPLIER, ROW_MULTIPLIER, COLORS } from '../../constants';
 
-import { Card, CardHeader, CardContent } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Collapse } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 
 export const StyledCard = styled(
   forwardRef(
     (
       {
         status,
+        showShadow,
+        showBorder,
         columns,
         goNewLine,
         isLoggedIn,
@@ -29,7 +32,10 @@ export const StyledCard = styled(
     !isDragging
       ? mapStatusToColor(status, theme)
       : theme.palette.background.paper};
-  box-shadow: none;
+  box-shadow: ${({ showShadow }) =>
+    showShadow ? '2px 0px 4px 2px rgba(0,0,0,0.3)' : 'none'};
+  border: ${({ showBorder }) =>
+    showBorder ? '1px solid rgba(0,0,0,0.3)' : 'none'};
   cursor: ${({ isLoggedIn }) => (isLoggedIn ? 'move' : 'default')};
   display: flex;
   flex-direction: column;
@@ -37,6 +43,7 @@ export const StyledCard = styled(
   grid-column-end: span ${({ columns }) => columns * COLUMN_MULTIPLIER};
   grid-row-end: span ${({ rows }) => rows * ROW_MULTIPLIER};
   position: relative;
+  overflow: visible;
 
   ${({ isDragging, isOver, theme }) =>
     isDragging &&
@@ -54,22 +61,93 @@ export const StyledCard = styled(
       width: 100%;
     }
   `}
+
+  a {
+    color: ${COLORS.WHITE};
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 `;
 
 StyledCard.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   rows: number.isRequired,
-  status: string.isRequired,
-  theme: object.isRequired
+  theme: object.isRequired,
+  status: string
 };
 
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
+  ${({ title }) => !title && `position: absolute; right: 0;`}
 `;
 
 export const StyledCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
   flex: 1;
+  position: relative;
+  justify-content: space-between;
+
+  &:last-child {
+    padding-bottom: 16px;
+  }
+
+  .cardFootWrapper {
+    display: inherit;
+    align-items: center;
+  }
+`;
+
+export const StyledCollapse = styled(
+  ({ isExpanded, isDragging, status, theme, ...props }) => (
+    <Collapse {...props} />
+  )
+)`
+  bottom: 1px;
+  background-color: ${({ isDragging, status, theme }) =>
+    !isDragging
+      ? mapStatusToColor(status, theme)
+      : theme.palette.background.paper};
+  box-shadow: ${({ isExpanded }) =>
+    isExpanded ? '2px 4px 4px 2px rgba(0,0,0,0.3)' : 'none'};
+  height: auto;
+  opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
+  padding: 0 16px 16px;
+  position: absolute;
+  transition: height transform 300ms linear, opacity 100ms linear;
+  transform: ${({ isExpanded }) =>
+    isExpanded ? 'translateY(100%)' : 'translateY(0)'};
+  width: 100%;
+  z-index: 3;
+`;
+
+export const StyledIconButton = styled(({ isExpanded, ...props }) => (
+  <IconButton {...props} />
+))`
+  marginleft: auto;
+  transform: ${({ isExpanded }) =>
+    isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
+  transition: transform 100ms linear;
+`;
+
+export const StyledStatusIconButton = styled.a`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  transition: 0.2s background-color;
+  border-radius: 2px;
+  padding: 5px 0;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+`;
+
+export const StyledIconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `;

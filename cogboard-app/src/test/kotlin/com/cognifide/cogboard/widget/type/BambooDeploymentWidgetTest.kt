@@ -24,10 +24,10 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     }
 
     @Test
-    @DisplayName("Expect success widget update message send on event bus")
-    fun successResponseGenerateValidUpdateEvent() {
+    fun `Expect success widget update message send on event bus`() {
         val (result, content) = sendResponseWithCapture(successResponse)
 
+        assertUpdateDatePresent(result)
         assertStatus("OK", result)
         assertURL("https://test.bamboo.com/deploy/viewDeploymentResult.action?deploymentResultId=47743263", content)
         assertReleaseName("release-1440", content)
@@ -36,10 +36,10 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     }
 
     @Test
-    @DisplayName("Expect fail widget update message send on event bus")
-    fun failResponseGenerateValidUpdateEvent() {
+    fun `Expect fail widget update message send on event bus`() {
         val (result, content) = sendResponseWithCapture(failResponse)
 
+        assertUpdateDatePresent(result)
         assertStatus("FAIL", result)
         assertURL("https://test.bamboo.com/deploy/viewDeploymentResult.action?deploymentResultId=47743118", content)
         assertReleaseName("release-1377", content)
@@ -48,10 +48,10 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
     }
 
     @Test
-    @DisplayName("Expect in-progress widget update message send on event bus")
-    fun inProgressResponseGenerateValidUpdateEvent() {
+    fun `Expect in-progress widget update message send on event bus`() {
         val (result, content) = sendResponseWithCapture(inProgressResponse)
 
+        assertUpdateDatePresent(result)
         assertStatus("IN_PROGRESS", result)
         assertURL("https://test.bamboo.com/deploy/viewDeploymentResult.action?deploymentResultId=47743269", content)
         assertReleaseName("release-1442", content)

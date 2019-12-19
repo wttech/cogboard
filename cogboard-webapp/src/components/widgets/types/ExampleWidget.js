@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Caption } from '../../styled';
 
-const ExampleWidget = ({ serverTime }) => {
-  const ts = serverTime ? new Date(serverTime).toLocaleString() : '';
+const ExampleWidget = ({ lastUpdated }) => {
+  const ts = lastUpdated ? new Date(lastUpdated).toLocaleString() : '';
 
   return <Caption>{ts}</Caption>;
 };

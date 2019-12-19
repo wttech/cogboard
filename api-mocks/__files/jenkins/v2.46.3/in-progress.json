@@ -1,0 +1,38 @@
+{
+  "_class": "hudson.model.FreeStyleProject",
+  "lastBuild": {
+    "_class": "hudson.model.FreeStyleBuild",
+    "actions": [
+      {
+        "_class": "hudson.model.CauseAction"
+      },
+      {
+        "_class": "hudson.plugins.git.util.BuildData",
+        "lastBuiltRevision": {
+          "branch": [
+            {
+              "name": "master-branch"
+            }
+          ]
+        }
+      },
+      {
+        "_class": "hudson.plugins.disk_usage.BuildDiskUsageAction"
+      },
+      {},
+      {}
+    ],
+    "building": true,
+    "description": null,
+    "displayName": "#6",
+    "duration": 250,
+    "estimatedDuration": 10800029,
+    "executor": {},
+    "fullDisplayName": "CogBoard » In Progress #6",
+    "id": "6",
+    "result": null,
+    "timestamp": 1574165093771,
+    "url": "http://localhost:8093/jenkins/ok.html",
+    "builtOn": "Master-executor"
+  }
+}

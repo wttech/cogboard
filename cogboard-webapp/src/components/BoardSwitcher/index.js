@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTheme } from '@material-ui/styles';
 
 import { useBoardSwitching, usePrevious } from './hooks';
 import { formatTime } from './helpers';
@@ -8,6 +9,7 @@ import { SkipPrevious, PlayArrow, SkipNext, Pause } from '@material-ui/icons';
 import { StyledTimer } from './styled';
 
 const BoardSwitcher = ({ className }) => {
+  const theme = useTheme();
   const {
     handleBoardsSwitch,
     handlePlayToggle,
@@ -35,31 +37,34 @@ const BoardSwitcher = ({ className }) => {
 
   return (
     <div className={className}>
-      <StyledTimer>{formatTime(timeLeft)}</StyledTimer>
+      <StyledTimer theme={theme}>{formatTime(timeLeft)}</StyledTimer>
       <Tooltip title={prevBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('prev')}
-          color="inherit"
-          aria-label="Next board"
+          color="primary"
+          aria-label="Previous board"
           edge="start"
+          data-cy="previous-board-button"
         >
           <SkipPrevious />
         </IconButton>
       </Tooltip>
       <IconButton
         onClick={handlePlayToggle}
-        color="inherit"
+        color="primary"
         aria-label="Auto switch boards"
         edge="start"
+        data-cy="auto-switch-board-button"
       >
         {isPlaying ? <Pause /> : <PlayArrow />}
       </IconButton>
       <Tooltip title={nextBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('next')}
-          color="inherit"
+          color="primary"
           aria-label="Next board"
           edge="start"
+          data-cy="next-board-button"
         >
           <SkipNext />
         </IconButton>

@@ -1,31 +1,37 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { amber, blue, green, red } from '@material-ui/core/colors/index';
-
-const gradientAngle = 45;
-
-const createGradient = (start, end) =>
-  `linear-gradient(${gradientAngle}deg, ${start}, ${end})`;
+import { COLORS } from './constants';
 
 export const theme = createMuiTheme({
   palette: {
     type: 'dark',
+    primary: {
+      main: COLORS.BLUE
+    },
+    secondary: {
+      main: COLORS.BKGD_DARK
+    },
     background: {
-      default: '#211F39',
-      paper: '#26243E',
+      default: COLORS.BKGD_LIGHT,
+      paper: COLORS.BKGD_DARK,
       board: {
-        card: '#5c6bc0',
-        dragged: '#353b61'
+        card: COLORS.BLUE,
+        dragged: COLORS.LIGHT_BLUE
       }
     },
     status: {
-      UNKNOWN: '#26243E',
-      OK: createGradient('#519657', '#81c784'),
-      IN_PROGRESS: createGradient('#009faf', '#4dd0e1'),
-      UNSTABLE: createGradient('#c75b39', '#ff8a65'),
-      ERROR_CONNECTION: createGradient('#af4448', '#e57373'),
-      ERROR_CONFIGURATION: createGradient('#af4448', '#e57373'),
-      ERROR: createGradient('#af4448', '#e57373'),
-      FAIL: createGradient('#af4448', '#e57373')
+      TRANSPARENT: COLORS.NONE,
+      CHECKBOX_OK: COLORS.GREEN,
+      CHECKBOX_FAIL: COLORS.RED,
+      CHECKBOX_UNKNOWN: COLORS.PURPLE,
+      UNKNOWN: COLORS.PURPLE,
+      OK: COLORS.GREEN,
+      IN_PROGRESS: COLORS.BLUE,
+      UNSTABLE: COLORS.ORANGE,
+      ERROR_CONNECTION: COLORS.RED,
+      ERROR_CONFIGURATION: COLORS.RED,
+      ERROR: COLORS.RED,
+      FAIL: COLORS.RED
     },
     snackbarVariant: {
       info: blue[100],
@@ -35,7 +41,7 @@ export const theme = createMuiTheme({
     }
   },
   shape: {
-    borderRadius: 10
+    borderRadius: 0
   },
   typography: {
     h3: {

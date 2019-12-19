@@ -27,13 +27,13 @@ internal class EndpointTest {
     }
 
     @Test
-    fun shouldRemoveCredentialsProp() {
+    fun `Should Remove Credentials Prop`() {
         assertFalse(validEndpoint.containsKey("credentials"))
         assertFalse(invalidEndpoint.containsKey("credentials"))
     }
 
     @Test
-    fun shouldAddUserAndPasswordProp() {
+    fun `Should Add User And Password Prop`() {
         assert(validEndpoint.containsKey("user"))
         assert(validEndpoint.containsKey("password"))
 
@@ -42,19 +42,19 @@ internal class EndpointTest {
     }
 
     @Test
-    fun checkIfUserAndPasswordAreCorrect() {
+    fun `Check If User And Password Are Correct`() {
         assertEquals("user1", validEndpoint.getString("user"))
         assertEquals("password1", validEndpoint.getString("password"))
     }
 
     @Test
-    fun checkIfUserAndPasswordAreEmptyForInvalidId() {
+    fun `Check If User And Password Are Empty For Invalid Id`() {
         assertEquals("", invalidEndpoint.getString("user"))
         assertEquals("", invalidEndpoint.getString("password"))
     }
 
     @Test
-    fun shouldReturnValidCredentials() {
+    fun `Should Return Valid Credentials`() {
         val validEndpointToReturn = JsonObject("""
                     {
                       "id" : "validEndpoint",
@@ -70,7 +70,7 @@ internal class EndpointTest {
     }
 
     @Test
-    fun shouldReturnEmptyCredentials() {
+    fun `Should Return Empty Credentials`() {
         val invalidEndpointToReturn = JsonObject("""
                     {
                       "id" : "invalidEndpoint",

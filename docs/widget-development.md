@@ -9,11 +9,11 @@ All available widgets are listed in `cogboard-webapp/src/components/widgets/type
 **The very basic structure of the widget component looks as follows:**
 
 ```javascript
-import React from 'react';
+import React from "react";
 
-import Typography from '@material-ui/core/Typography';
+import Typography from "@material-ui/core/Typography";
 
-const DefaultWidget = () => {
+const MyWidget = () => {
   return (
     <Typography color="textSecondary" variant="subtitle2">
       Default content
@@ -21,7 +21,7 @@ const DefaultWidget = () => {
   );
 };
 
-export default DefaultWidget;
+export default MyWidget;
 ```
 
 ### Update `index`
@@ -29,10 +29,13 @@ export default DefaultWidget;
 Also you must update `cogboard-webapp/src/components/widgets/index.js` and register your new widget.
 
 ### Create custom dialog fields (optional)
+
 `// TODO`
 
 ---
+
 ## Backend (optional)
+
 When widget doesn't do anything on backed and just displays fields given in configuration then backend part is not required.
 
 ### Add new Widget Class
@@ -40,6 +43,7 @@ When widget doesn't do anything on backed and just displays fields given in conf
 All available widgets are listed in `com.cognifide.cogboard.widget.type` package. Create new Kotlin class for new widget. Remember to keep filename convention - WidgetNameWidget.kt. Widget should extend `BaseWidget` or `AsyncWidget`. Use `AsyncWidget` when widget is communicating with 3rd party data source, `BaseWidget` otherwise.
 
 Example:
+
 ```kotlin
 class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
@@ -63,6 +67,7 @@ class JenkinsJobWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
     }
 }
 ```
+
 ### Upddate `WidgetIndex`
 
 Also you must update `com.cognifide.cogboard.widget.WidgetIndex` and register your new widget.

@@ -7,6 +7,8 @@ import { Box } from '@material-ui/core';
 import dialogFields from '../widgets/dialogFields';
 
 const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
+  //TODO refactor so sub components are not created inside another component
+
   const createField = field => {
     const {
       component: DialogField,

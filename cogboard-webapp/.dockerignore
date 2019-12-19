@@ -1,0 +1,8 @@
+node_modules
+.gradle
+src
+public
+build.gradle.kts
+package.json
+package-lock.json
+README.md

@@ -12,6 +12,7 @@ import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 import com.cognifide.cogboard.config.validation.admins.AdminsValidator
 import io.vertx.core.logging.LoggerFactory
 import java.io.File
+import java.net.URL
 
 object VolumeStorageFactory {
     private val LOGGER = LoggerFactory.getLogger(VolumeStorageFactory::class.java)
@@ -49,9 +50,16 @@ object VolumeStorageFactory {
     }
 
     private fun createFile(configPath: String) {
-        val fileContent = VolumeStorageFactory::class.java.getResource("/initData/${configPath.substringAfterLast("/")}").readText()
-        val file = File(configPath)
-        file.writeText(fileContent)
+        val fileContent = getResource(configPath).readText()
+        File(configPath).writeText(fileContent)
         LOGGER.info("Configuration file $configPath")
+    }
+
+    private fun getFileName(configPath: String): String {
+        return "/initData/${configPath.substringAfterLast("/")}"
+    }
+
+    private fun getResource(configPath: String): URL {
+        return VolumeStorageFactory::class.java.getResource(getFileName(configPath))
     }
 }

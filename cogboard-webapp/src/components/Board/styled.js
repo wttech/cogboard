@@ -1,13 +1,15 @@
 import styled from '@emotion/styled/macro';
 import { getColumns } from './helpers';
+import { COLORS } from '../../constants';
+
 import NotFound from '../NotFound';
 import NoBoards from '../NoBoards';
 
 export const StyledContainer = styled.div`
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 10px;
   grid-template-columns: repeat(${getColumns}, 1fr);
-  grid-auto-rows: 0.5fr;
+  grid-auto-rows: minmax(60px, auto);
 `;
 
 const BaseNoData = component => styled(component)`
@@ -27,7 +29,7 @@ const BaseNoData = component => styled(component)`
 `;
 
 export const StyledNotFound = styled(BaseNoData(NotFound))`
-  background: #211f39;
+  background: ${COLORS.PURPLE};
   z-index: 2000;
 `;
 
