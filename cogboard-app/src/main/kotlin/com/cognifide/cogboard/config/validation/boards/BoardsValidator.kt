@@ -9,6 +9,10 @@ import com.cognifide.cogboard.CogboardConstants as CC
 
 object BoardsValidator : Validator {
 
+    private const val TITLE_LENGTH_MIN = 1
+    private const val TITLE_LENGTH_MAX = 50
+    private const val MIN_SWITCH_INTERVAL = 3
+
     override fun validate(config: String): Boolean =
             try {
                 val boardsConfig = mapper.readValue<Config>(config)
@@ -59,13 +63,13 @@ object BoardsValidator : Validator {
             board.columns in CC.PROP_BOARD_COLUMN_MIN..CC.PROP_BOARD_COLUMN_MAX
 
     private fun checkTitleLength(board: Board) =
-            board.title.length in 1..50
+            board.title.length in TITLE_LENGTH_MIN..TITLE_LENGTH_MAX
 
     private fun checkTitleUnique(board: Board, titles: MutableSet<String>) =
             titles.add(board.title)
 
     private fun checkAutoSwitchInterval(board: Board) =
             if (board.autoSwitch) {
-                board.switchInterval >= 3
+                board.switchInterval >= MIN_SWITCH_INTERVAL
             } else true
 }

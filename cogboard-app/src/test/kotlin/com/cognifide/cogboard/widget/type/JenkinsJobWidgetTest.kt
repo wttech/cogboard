@@ -30,8 +30,7 @@ class JenkinsJobWidgetTest : WidgetTestBase() {
     }
 
     @Test
-    @DisplayName("Expect success widget update message send on event bus")
-    fun successResponseGenerateValidUpdateEvent() {
+    fun `Expect success widget update message send on event bus`() {
 
         underTest.handleResponse(successResponse)
 
@@ -47,8 +46,7 @@ class JenkinsJobWidgetTest : WidgetTestBase() {
     }
 
     @Test
-    @DisplayName("Expect fail widget update message send on event bus")
-    fun failResponseGenerateValidUpdateEvent() {
+    fun `Expect fail widget update message send on event bus`() {
 
         underTest.handleResponse(failResponse)
 
@@ -64,8 +62,7 @@ class JenkinsJobWidgetTest : WidgetTestBase() {
     }
 
     @Test
-    @DisplayName("Expect in-progress widget update message send on event bus")
-    fun inProgressResponseGenerateValidUpdateEvent() {
+    fun `Expect in-progress widget update message send on event bus`() {
 
         underTest.handleResponse(inProgressResponse)
 

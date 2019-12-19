@@ -1,0 +1,51 @@
+{
+  "results": {
+    "size": 1,
+    "expand": "result",
+    "start-index": 0,
+    "max-result": 1,
+    "result": [
+      {
+        "link": {
+          "href": "https://dummy.site/rest/api/latest/result/CGB-UKWN-1595",
+          "rel": "self"
+        },
+        "plan": {
+          "shortName": "Run AET",
+          "shortKey": "UKWN",
+          "type": "chain",
+          "enabled": true,
+          "link": {
+            "href": "https://dummy.site/rest/api/latest/plan/CGB-UKWN",
+            "rel": "self"
+          },
+          "key": "CGB-UKWN",
+          "name": "Example",
+          "planKey": {
+            "key": "CGB-UKWN"
+          }
+        },
+        "buildResultKey": "CGB-UKWN-1595",
+        "lifeCycleState": "Finished",
+        "id": 45154402,
+        "key": "CGB-UKWN-1595",
+        "planResultKey": {
+          "key": "CGB-UKWN-1595",
+          "entityKey": {
+            "key": "CGB-UKWN"
+          },
+          "resultNumber": 1595
+        },
+        "state": "Unknown",
+        "buildState": "Unknown",
+        "number": 1595,
+        "buildNumber": 1595
+      }
+    ]
+  },
+  "expand": "results",
+  "link": {
+    "href": "https://dummy.site/rest/api/latest/result/CGB-UKWN",
+    "rel": "self"
+  }
+}

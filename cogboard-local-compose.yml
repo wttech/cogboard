@@ -1,7 +1,9 @@
 version: "3.7"
 
 networks:
-  coganet:
+  cognet:
+    driver: overlay
+    attachable: true
 
 services:
   api-mocks:
@@ -11,7 +13,7 @@ services:
     ports:
       - "8093:8080"
     networks:
-      - coganet
+      - cognet
     command: ["--verbose", "--no-request-journal"]
 
   backend:
@@ -19,15 +21,15 @@ services:
     volumes:
       - "./mnt:/data"
     networks:
-      - coganet
+      - cognet
   #    ports:
   #      - "18092:18092"
 
-  frontened:
+  frontend:
     image: "cogboard/cogboard-web:${COGBOARD_VERSION}"
     depends_on:
       - "backend"
     networks:
-      - coganet
+      - cognet
     ports:
       - "80:80"

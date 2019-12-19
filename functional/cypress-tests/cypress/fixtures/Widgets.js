@@ -1,7 +1,7 @@
 module.exports = {
   aemHealthcheck: {
     name: "AEM Healthcheck",
-    endpoint: "api-mocks-endpoint",
+    endpoint: "endpoint1",
     schedulePeriod: "500",
     healthChecks: {
       activeBundles: {
@@ -64,15 +64,15 @@ module.exports = {
   },
   bambooPlan: {
     name: "Bamboo Plan",
-    endpoint: "api-mocks-endpoint",
+    endpoint: "endpoint1",
     schedulePeriod: "500",
     id: "CGB-SCS"
   },
   checkbox: {
     name: "Checkbox"
   },
-  default: {
-    name: "Default"
+  whiteSpace: {
+    name: "White Space"
   },
   example: {
     name: "Example",
@@ -84,7 +84,7 @@ module.exports = {
   },
   jenkinsJob: {
     name: "Jenkins Job",
-    endpoint: "api-mocks-endpoint",
+    endpoint: "endpoint1",
     schedulePeriod: "500",
     path: "/job/CogBoard/job/in-progress"
   },
@@ -92,7 +92,7 @@ module.exports = {
     name: "Service Check",
     schedulePeriod: "60",
     requestMethod: "GET",
-    endpoint: "api-mocks-endpoint",
+    endpoint: "endpoint1",
     path: "/service-check/post.json",
     requestBody: '{ "name": "cogboard-automation" }',
     responseBodyFragment: "Expected string",
@@ -100,7 +100,7 @@ module.exports = {
   },
   sonarQube: {
     name: "SonarQube",
-    endpoint: "api-mocks-endpoint",
+    endpoint: "endpoint1",
     schedulePeriod: "90",
     key: "fail",
     id: "316488",

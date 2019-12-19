@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { string, number } from 'prop-types';
 
-import { Popover } from '@material-ui/core';
+import { Popover, Button } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import {
   Caption,
@@ -48,6 +48,10 @@ const ServiceCheckWidget = props => {
   };
   const popoverOpen = Boolean(anchorEl);
 
+  const handleCopyResponse = () => {
+    navigator.clipboard.writeText(body);
+  };
+
   return (
     <>
       {errorStatus && <Caption>{statusMessage}</Caption>}
@@ -73,6 +77,8 @@ const ServiceCheckWidget = props => {
           horizontal: 'left'
         }}
       >
+        <Button onClick={handleCopyResponse}>Copy</Button>
+        <Button onClick={handlePopoverClose}>Close</Button>
         <StyledPopoverText>{body}</StyledPopoverText>
       </Popover>
     </>
