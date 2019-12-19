@@ -120,3 +120,36 @@ describe("Dashboard Frontend Validation", () => {
     });
   });
 });
+
+describe('Dashboard switcher', () => {
+
+  beforeEach(() => {
+    cy.visit('/');
+    cy.login();
+  })
+
+  it('Manual switching works', () => {
+    const dashboardName = dashboardNameGen();
+    cy.addDashboard(dashboardName, '8', '3');
+    cy.chooseDashboard(dashboardName);
+    cy.get('[data-cy="previous-board-button"]')
+      .click();
+    cy.contains('[data-cy="navbar-title-header"]', 'Welcome to Cogboard')
+      .should('is.visible');
+    cy.get('[data-cy="next-board-button"]')
+      .click();
+    cy.contains('[data-cy="navbar-title-header"]', dashboardName)
+      .should('is.visible');
+  })
+
+  it ('Automatic switching works', () => {
+    const dashboardName = dashboardNameGen();
+    cy.addDashboard(dashboardName, '8', '3');
+    cy.chooseDashboard(dashboardName);
+    cy.get('[data-cy="auto-switch-board-button"]')
+      .click();
+    cy.wait(3000);
+    cy.contains('[data-cy="navbar-title-header"]', 'Welcome to Cogboard')
+      .should('is.visible');
+  })
+})
