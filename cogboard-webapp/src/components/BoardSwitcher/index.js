@@ -42,8 +42,9 @@ const BoardSwitcher = ({ className }) => {
         <IconButton
           onClick={handleBoardsSwitch('prev')}
           color="primary"
-          aria-label="Next board"
+          aria-label="Previous board"
           edge="start"
+          data-cy="previous-board-button"
         >
           <SkipPrevious />
         </IconButton>
@@ -53,6 +54,7 @@ const BoardSwitcher = ({ className }) => {
         color="primary"
         aria-label="Auto switch boards"
         edge="start"
+        data-cy="auto-switch-board-button"
       >
         {isPlaying ? <Pause /> : <PlayArrow />}
       </IconButton>
@@ -62,6 +64,7 @@ const BoardSwitcher = ({ className }) => {
           color="primary"
           aria-label="Next board"
           edge="start"
+          data-cy="next-board-button"
         >
           <SkipNext />
         </IconButton>
