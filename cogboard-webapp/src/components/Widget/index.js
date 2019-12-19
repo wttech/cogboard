@@ -50,13 +50,7 @@ const Widget = ({ id, index }) => {
     openConfirmationDialog,
     closeConfirmationDialog
   ] = useToggle();
-  const [
-    dialogOpened,
-    openDialog,
-    handleDialogClose,
-    handleToggle,
-    expanded
-  ] = useToggle();
+  const [dialogOpened, handleToggle, handleExpand, expanded] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [{ isDragging }, drag] = useDrag({
@@ -104,7 +98,7 @@ const Widget = ({ id, index }) => {
 
   const handleEditClick = closeMenu => () => {
     dispatch(loadSettings());
-    openDialog();
+    handleToggle();
     closeMenu();
   };
 
@@ -177,7 +171,7 @@ const Widget = ({ id, index }) => {
           widgetStatus,
           expandContent,
           expanded,
-          handleToggle
+          handleExpand
         )}
         {expandContent && (
           <StyledCollapse
@@ -195,14 +189,14 @@ const Widget = ({ id, index }) => {
       </StyledCard>
       <AppDialog
         disableBackdropClick={true}
-        handleDialogClose={handleDialogClose}
+        handleDialogClose={handleToggle}
         open={dialogOpened}
         title={`Edit ${title}`}
         componentId={id}
         data-cy="widget-edit-dialog"
       >
         <EditWidget
-          closeDialog={handleDialogClose}
+          closeDialog={handleToggle}
           content={content}
           id={id}
           title={title}

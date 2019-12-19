@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { StyledCardContent, StyledIconButton } from './styled';
+import { StyledCardContent } from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
-import LastUpdate from '../LastUpdate';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import WidgetTypeIcon from '../WidgetTypeIcon';
-
+import WidgetFooter from '../WidgetFooter';
 export const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
 export const getWidgetOverflow = type =>
@@ -23,28 +21,6 @@ export const renderCardContent = (
   expanded,
   handleToggle
 ) => {
-  const WidgetFooter = () => {
-    return (
-      <div className="cardFootWrapper">
-        {updateTimestamp && (
-          <LastUpdate
-            lastUpdateTime={new Date(updateTimestamp).toLocaleString()}
-          />
-        )}
-        {expandContent && !content.errorMessage && (
-          <StyledIconButton
-            isExpanded={expanded}
-            onClick={handleToggle}
-            aria-expanded={expandContent}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </StyledIconButton>
-        )}
-      </div>
-    );
-  };
-
   return (
     <StyledCardContent>
       {content && content.errorMessage ? (
@@ -60,7 +36,13 @@ export const renderCardContent = (
       ) : (
         'Disabled'
       )}
-      <WidgetFooter></WidgetFooter>
+      <WidgetFooter
+        updateTimestamp={updateTimestamp}
+        expanded={expanded}
+        handleToggle={handleToggle}
+        content={content}
+        expandContent={expandContent}
+      />
     </StyledCardContent>
   );
 };

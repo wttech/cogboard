@@ -3,13 +3,14 @@ import StatusIcon from './StatusIcon';
 import { StyledStatusIconButton, StyledIconWrapper } from './Widget/styled';
 
 const WidgetTypeIcon = props => {
-  return props.type === 'AemHealthcheckWidget' ? (
-    <StyledStatusIconButton href={props.content.url} target="_blank">
-      <StatusIcon status={props.status} size="large" />
+  const { type, content, status } = props;
+  return type === 'AemHealthcheckWidget' ? (
+    <StyledStatusIconButton href={content.url} target="_blank">
+      <StatusIcon status={status} size="large" />
     </StyledStatusIconButton>
   ) : (
     <StyledIconWrapper>
-      <StatusIcon status={props.status} size="large" />
+      <StatusIcon status={status} size="large" />
     </StyledIconWrapper>
   );
 };
