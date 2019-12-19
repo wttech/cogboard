@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { saveCredential } from '../actions/thunks';
+import { addCredential } from '../actions/thunks';
 
 import AddItem from './AddItem';
 import CredentialForm from './CredentialForm';
@@ -12,7 +12,7 @@ const AddCredential = ({ largeButton }) => {
   const handleSubmitAction = values => {
     delete values.passwordConfirmation;
 
-    dispatch(saveCredential(values));
+    dispatch(addCredential(values));
   };
 
   return (

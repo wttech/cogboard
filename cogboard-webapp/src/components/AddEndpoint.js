@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { saveEndpoint } from '../actions/thunks';
+import { addEndpoint } from '../actions/thunks';
 
 import AddItem from './AddItem';
 import EndpointForm from './EndpointForm';
@@ -10,7 +10,7 @@ const AddEndpoint = ({ largeButton, dataChanged, endpointsData }) => {
   const dispatch = useDispatch();
 
   const handleSubmitAction = values => {
-    dispatch(saveEndpoint(values));
+    dispatch(addEndpoint(values));
     if (dataChanged !== undefined) {
       dataChanged();
     }

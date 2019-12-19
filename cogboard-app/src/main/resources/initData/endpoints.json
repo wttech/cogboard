@@ -1,14 +1,14 @@
 {
   "endpoints": [
     {
-      "id": "api-mocks-endpoint",
+      "id": "endpoint1",
       "label": "API Mocks Endpoint",
       "publicUrl": "http://api-mocks:8080",
       "url": "http://api-mocks:8080"
     },
     {
       "credentials": "credentials1",
-      "id": "endpoint1",
+      "id": "endpoint2",
       "label": "Example Endpoint",
       "publicUrl": "http://example.com",
       "url": "http://internal.example.com"
