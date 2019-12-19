@@ -10,25 +10,28 @@ import io.vertx.core.json.JsonObject
 class EndpointsController : AbstractVerticle() {
 
     private lateinit var endpointsService: EndpointsService
+    private val factory = ControllerFactory()
 
     override fun start() {
         endpointsService = EndpointsService(endpoints())
-        listenOnEndpointsUpdate()
-        listenOnEndpointsDelete()
+        factory.create(CogboardConstants.EVENT_ENDPOINTS, vertx, prepareConfig())
     }
 
-    private fun listenOnEndpointsUpdate() = vertx
-            .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS)
-            .handler {
-                endpointsService.save(it.body())
-            }
+    private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
+            "update" to { body -> endpointsService.save(body).encode() },
+            "delete" to { body -> delete(body) },
+            "get" to { body -> get(body) }
+    )
 
-    private fun listenOnEndpointsDelete() = vertx
-            .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_ENDPOINTS)
-            .handler {
-                val endpointId: String = it.body().getString(ENDPOINT_ID_PROP)
-                endpointsService.delete(endpointId)
-            }
+    private fun delete(body: JsonObject): String {
+        endpointsService.delete(body.getString(ENDPOINT_ID_PROP))
+        return body.encode()
+    }
+
+    private fun get(body: JsonObject) =
+        if (body.containsKey(ENDPOINT_ID_PROP)) {
+            endpointsService.getEndpoint(body.getString(ENDPOINT_ID_PROP)).encode()
+        } else {
+            endpointsService.getAllEndpoints().encode()
+        }
 }

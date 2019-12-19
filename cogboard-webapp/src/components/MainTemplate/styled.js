@@ -5,7 +5,6 @@ import { Box, Drawer, Fab } from '@material-ui/core';
 import BoardList from '../BoardList';
 import Logo from '../Logo';
 import { getBackgroundColor } from '../../utils/components';
-import SettingsMenu from '../SettingsMenu';
 
 export const StyledActions = styled(Box)`
   bottom: 50px;
@@ -41,7 +40,6 @@ export const StyledDrawerContainer = styled.div`
   flex-direction: column;
   padding-top: 32px;
   width: 250px;
-  background: #fffafa;
 `;
 
 export const StyledDrawer = styled(props => (
@@ -51,10 +49,4 @@ export const StyledDrawer = styled(props => (
     background: ${getBackgroundColor('default')};
     justify-content: space-between;
   }
-`;
-
-export const StyledSettingsMenu = styled(SettingsMenu)`
-  align-self: flex-end;
-  margin-right: 20px;
-  margin-bottom: 20px;
 `;

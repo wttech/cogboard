@@ -142,8 +142,8 @@ abstract class BaseWidget(
     }
 
     protected fun JsonObject.clearErrorMessageAndErrorCause() {
-        map.put(CC.PROP_ERROR_MESSAGE, "")
-        map.put(CC.PROP_ERROR_CAUSE, "")
+        map[CC.PROP_ERROR_MESSAGE] = ""
+        map[CC.PROP_ERROR_CAUSE] = ""
     }
 
     companion object {

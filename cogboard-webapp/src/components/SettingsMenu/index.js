@@ -11,8 +11,8 @@ import {
   loadSettings,
   deleteEndpoint,
   deleteCredential,
-  saveCredential,
-  saveEndpoint
+  addEndpoint,
+  addCredential
 } from '../../actions/thunks';
 
 import {
@@ -26,7 +26,7 @@ import {
 } from '@material-ui/core';
 import { Settings } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
-import { StyledTabs, StyledTabPanel } from './styled';
+import { StyledTabPanel, StyledTabs } from './../styled';
 import AddItem from '../AddItem';
 import EditEndpoint from '../EditEndpoint';
 import EditCredential from '../EditCredential';
@@ -54,11 +54,11 @@ const SettingsMenu = ({ className }) => {
   const handleSubmitCredential = values => {
     delete values.passwordConfirmation;
 
-    dispatch(saveCredential(values));
+    dispatch(addCredential(values));
   };
 
   const handleSubmitEndpoint = values => {
-    dispatch(saveEndpoint(values));
+    dispatch(addEndpoint(values));
   };
 
   const renderListItems = (items, name, EditComponent, deleteAction) =>
@@ -103,9 +103,10 @@ const SettingsMenu = ({ className }) => {
             value={tabValue}
             onChange={handleTabChange}
             variant="fullWidth"
+            indicatorColor="primary"
           >
-            <Tab label="Endpoints" />
-            <Tab label="Credientials" />
+            <Tab label="Endpoints" data-cy="settings-menu-endpoints-tab" />
+            <Tab label="Credentials" data-cy="settings-menu-credentials-tab" />
           </StyledTabs>
           <StyledTabPanel value={tabValue} index={0}>
             <List>

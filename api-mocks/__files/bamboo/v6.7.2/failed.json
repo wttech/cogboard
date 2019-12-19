@@ -1,0 +1,51 @@
+{
+  "results": {
+    "size": 1,
+    "expand": "result",
+    "start-index": 0,
+    "max-result": 1,
+    "result": [
+      {
+        "link": {
+          "href": "https://dummy.site/rest/api/latest/result/CGB-FLD-1596",
+          "rel": "self"
+        },
+        "plan": {
+          "shortName": "Run AET",
+          "shortKey": "FLD",
+          "type": "chain",
+          "enabled": true,
+          "link": {
+            "href": "https://dummy.site/rest/api/latest/plan/CGB-FLD",
+            "rel": "self"
+          },
+          "key": "CGB-FLD",
+          "name": "Example",
+          "planKey": {
+            "key": "CGB-FLD"
+          }
+        },
+        "buildResultKey": "CGB-FLD-1596",
+        "lifeCycleState": "Finished",
+        "id": 45154402,
+        "key": "CGB-FLD-1596",
+        "planResultKey": {
+          "key": "CGB-FLD-1596",
+          "entityKey": {
+            "key": "CGB-FLD"
+          },
+          "resultNumber": 1596
+        },
+        "state": "Failed",
+        "buildState": "Failed",
+        "number": 1596,
+        "buildNumber": 1596
+      }
+    ]
+  },
+  "expand": "results",
+  "link": {
+    "href": "https://dummy.site/rest/api/latest/result/CGB-FLD",
+    "rel": "self"
+  }
+}
