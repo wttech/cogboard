@@ -27,3 +27,13 @@ Cypress.Commands.add("logout", () => {
   ).should("is.visible");
   cy.get('[data-cy="user-login-logout-icon"]').should("not.exist");
 });
+
+Cypress.Commands.add(
+  "loginWithToken",() => {
+    cy.getAuthenticationToken()
+      .then(token => window.localStorage.setItem('token', `${token}`))
+      .then(() => {
+        cy.visit('/');
+      });
+    }
+);
