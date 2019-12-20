@@ -24,13 +24,11 @@ class WidgetRuntimeService(
     }
 
     fun deleteWidget(widgetConfig: JsonObject) {
-        stopAndRemove("Delete", widgetConfig)
+        destroyWidget("Delete", widgetConfig)
     }
 
     fun purgeWidget(widgetConfig: JsonObject) {
-        stopAndRemove("Purge", widgetConfig)?.let {
-            contentRepository.delete(it)
-        }
+        destroyWidget("Purge", widgetConfig)
     }
 
     fun createOrUpdateWidget(widgetConfig: JsonObject) {
@@ -55,6 +53,12 @@ class WidgetRuntimeService(
             vertx
                 .eventBus()
                 .publish(widgetAddress, widgetConfig)
+        }
+    }
+
+    private fun destroyWidget(action: String, widgetConfig: JsonObject) {
+        stopAndRemove(action, widgetConfig)?.let {
+            contentRepository.delete(it)
         }
     }
 
