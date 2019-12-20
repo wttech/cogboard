@@ -1,7 +1,7 @@
 import { capitalize } from '../utils/common';
 
 export const COLORS = {
-  NONE: 'transparent',
+  TRANSPARENT: 'transparent',
   WHITE: '#fff',
   BKGD_LIGHT: '#fffafa',
   BKGD_DARK: '#1c2630',
