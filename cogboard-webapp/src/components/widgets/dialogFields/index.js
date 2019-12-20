@@ -109,7 +109,7 @@ const dialogFields = {
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
-    valueUpdater: transformMinValue(4),
+    valueUpdater: transformMinValue(),
     validator: ({ min, max }) =>
       number()
         .min(min, vm.NUMBER_MIN('Columns', min))

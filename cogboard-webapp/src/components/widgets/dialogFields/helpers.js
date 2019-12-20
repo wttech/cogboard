@@ -15,16 +15,13 @@ export const parseWidgetTypes = widgetTypes => {
 };
 
 export const transformMinValue = minValue => {
+  const minimum = minValue > 1 || !minValue ? 1 : minValue;
   let prevValue;
 
   return value => {
-    if (value < minValue) {
-      return (prevValue = minValue);
+    if (value < minimum) {
+      return (prevValue = minimum);
     }
-
-    // if (prevValue === minValue) {
-    //   return (prevValue = 1);
-    // }
 
     return (prevValue =
       value < prevValue ? Math.floor(value) : Math.ceil(value));
