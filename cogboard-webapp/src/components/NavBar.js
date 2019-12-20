@@ -10,6 +10,7 @@ import { StyledTitle } from './styled';
 
 import BoardSwitcher from './BoardSwitcher';
 import UserLogin from './UserLogin';
+import SettingsMenu from './SettingsMenu';
 import { getBackgroundColor, getSize } from '../utils/components';
 
 const StyledBoardSwitcher = styled(BoardSwitcher)`
@@ -51,6 +52,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             <DashboardRounded color="primary" />
           </IconButton>
           <UserLogin />
+          <SettingsMenu />
           {!noBoardsFound && (
             <StyledTitle
               component="h2"

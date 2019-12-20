@@ -20,6 +20,7 @@ val dockerImageRef = "$buildDir/.docker/buildImage-imageId.txt"
 val dockerContainerName = project.property("docker.app.container.name")?.toString() ?: "cogboard"
 val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "cogboard/cogboard-app"
 val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
+val cypressContentPath = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/cogboard-app/src/main/resources/cypressData/config.json"
 val defaultCypressTestsDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/functional/cypress-tests"
 val functionalTestsPath = System.getProperty("functionalTestPath")?:defaultCypressTestsDir
 val cypressEnvCode = System.getProperty("cypressEnv")?:"local"
@@ -125,11 +126,18 @@ tasks.register<Exec>("functionalTests") {
     group = "docker-functional-tests"
     commandLine = listOf("docker", "run", "-v","$functionalTestsPath:/e2e","-w","/e2e","--network=$network", "cypress/included:3.8.0", "--browser", "chrome", "--config-file", "$cypressConfigPath")
 
-    dependsOn("redeployLocal")
+    dependsOn("redeployLocal", "copyCypressContent" )
     doFirst {
         logger.lifecycle("Running functional tests from $functionalTestsPath with base network: $network")
     }
 }
+
+tasks.register<Exec>("copyCypressContent") {
+    group = "docker-functional-tests"
+    commandLine = listOf("sh", "scripts/copyCypressContent.sh", "$cypressContentPath", "$mountDir")
+    mustRunAfter("redeployLocal")
+}
+
 
 tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
     branchName = changelogUpdaterBranchName
@@ -141,11 +149,3 @@ tasks.register<com.cognifide.cogboard.UpdateChangelog>("updateChangelog") {
 tasks.named("updateChangelog") {
     dependsOn("functionalTests", "release")
 }
-
-//tasks.named("gitPublishCommit") {
-//    dependsOn("updateChangelog")
-//}
-//
-//tasks.named("gitPublishPush") {
-//    dependsOn("gitPublishCommit")
-//}

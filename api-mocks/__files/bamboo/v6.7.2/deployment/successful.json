@@ -1,0 +1,221 @@
+{
+  "expand": "results",
+  "size": 29,
+  "results": [
+    {
+      "deploymentVersion": {
+        "id": 46366785,
+        "name": "3.1.43-SNAPSHOT (129)",
+        "creationDate": 1576748306000,
+        "items": [
+          {
+            "id": 46432619,
+            "name": "CogBoard",
+            "planResultKey": {
+              "key": "CGB-SCS-129",
+              "entityKey": {
+                "key": "CGB-SCS"
+              },
+              "resultNumber": 129
+            },
+            "type": "BAM_ARTIFACT",
+            "label": "CogBoard",
+            "location": "some/path",
+            "copyPattern": "*.zip",
+            "size": 95468023,
+            "artifact": {
+              "id": 46269181,
+              "label": "CogBoard",
+              "size": 95468023,
+              "isSharedArtifact": true,
+              "isGloballyStored": false,
+              "linkType": "com.atlassian.bamboo.plugin.artifact.handler.local:ServerLocalArtifactHandler",
+              "planResultKey": {
+                "key": "CGB-SCS-129",
+                "entityKey": {
+                  "key": "CGB-SCS"
+                },
+                "resultNumber": 129
+              },
+              "archiverType": "NONE"
+            }
+          },
+          {
+            "id": 46432620,
+            "name": "CogBoard",
+            "planResultKey": {
+              "key": "CGB-SCS-129",
+              "entityKey": {
+                "key": "CGB-SCS"
+              },
+              "resultNumber": 129
+            },
+            "type": "BAM_ARTIFACT",
+            "label": "CogBoard",
+            "location": "some/path",
+            "copyPattern": "*.jar",
+            "size": 1241291,
+            "artifact": {
+              "id": 46269182,
+              "label": "CogBoard",
+              "size": 1241291,
+              "isSharedArtifact": true,
+              "isGloballyStored": false,
+              "linkType": "com.atlassian.bamboo.plugin.artifact.handler.local:ServerLocalArtifactHandler",
+              "planResultKey": {
+                "key": "CGB-SCS-129",
+                "entityKey": {
+                  "key": "CGB-SCS"
+                },
+                "resultNumber": 129
+              },
+              "archiverType": "NONE"
+            }
+          },
+          {
+            "id": 46432621,
+            "name": "CogBoard",
+            "planResultKey": {
+              "key": "CGB-SCS-129",
+              "entityKey": {
+                "key": "CGB-SCS"
+              },
+              "resultNumber": 129
+            },
+            "type": "BAM_ARTIFACT",
+            "label": "CogBoard",
+            "location": "some/path",
+            "copyPattern": "*.json",
+            "size": 531,
+            "artifact": {
+              "id": 46269183,
+              "label": "CogBoard",
+              "size": 531,
+              "isSharedArtifact": true,
+              "isGloballyStored": false,
+              "linkType": "com.atlassian.bamboo.plugin.artifact.handler.local:ServerLocalArtifactHandler",
+              "planResultKey": {
+                "key": "CGB-SCS-129",
+                "entityKey": {
+                  "key": "CGB-SCS"
+                },
+                "resultNumber": 129
+              },
+              "archiverType": "NONE"
+            }
+          },
+          {
+            "id": 46432622,
+            "name": "CogBoard",
+            "planResultKey": {
+              "key": "CGB-SCS-129",
+              "entityKey": {
+                "key": "CGB-SCS"
+              },
+              "resultNumber": 129
+            },
+            "type": "BAM_ARTIFACT",
+            "label": "CogBoard",
+            "location": "",
+            "copyPattern": "variables.properties",
+            "size": 30,
+            "artifact": {
+              "id": 46269184,
+              "label": "CogBoard",
+              "size": 30,
+              "isSharedArtifact": true,
+              "isGloballyStored": false,
+              "linkType": "com.atlassian.bamboo.plugin.artifact.handler.local:ServerLocalArtifactHandler",
+              "planResultKey": {
+                "key": "CGB-SCS-129",
+                "entityKey": {
+                  "key": "CGB-SCS"
+                },
+                "resultNumber": 129
+              },
+              "archiverType": "NONE"
+            }
+          },
+          {
+            "id": 46432623,
+            "name": "CogBoard",
+            "planResultKey": {
+              "key": "CGB-SCS-129",
+              "entityKey": {
+                "key": "CGB-SCS"
+              },
+              "resultNumber": 129
+            },
+            "type": "BAM_ARTIFACT",
+            "label": "CogBoard",
+            "location": "some/path",
+            "copyPattern": "*.zip",
+            "size": 90353541,
+            "artifact": {
+              "id": 46269185,
+              "label": "CogBoard",
+              "size": 90353541,
+              "isSharedArtifact": true,
+              "isGloballyStored": false,
+              "linkType": "com.atlassian.bamboo.plugin.artifact.handler.local:ServerLocalArtifactHandler",
+              "planResultKey": {
+                "key": "CGB-SCS-129",
+                "entityKey": {
+                  "key": "CGB-SCS"
+                },
+                "resultNumber": 129
+              },
+              "archiverType": "NONE"
+            }
+          }
+        ],
+        "operations": {
+          "canView": true,
+          "canEdit": false,
+          "canDelete": false,
+          "allowedToExecute": false,
+          "canExecute": false,
+          "allowedToCreateVersion": false,
+          "allowedToSetVersionStatus": true
+        },
+        "planBranchName": "develop",
+        "ageZeroPoint": 1576748307000
+      },
+      "deploymentVersionName": "3.1.43-SNAPSHOT (129)",
+      "id": 46039156,
+      "deploymentState": "SUCCESS",
+      "lifeCycleState": "FINISHED",
+      "startedDate": 1576748307000,
+      "queuedDate": 1576748307000,
+      "executedDate": 1576748307000,
+      "finishedDate": 1576749419000,
+      "reasonSummary": "Child of <a href=\"https://bamboo.dummy/browse/CGB-SCS-129\">CGB-SCS-129</a>",
+      "key": {
+        "key": "20676615-20447252-46039156",
+        "entityKey": {
+          "key": "20676615-20447252"
+        },
+        "resultNumber": 46039156
+      },
+      "agent": {
+        "id": 18382853,
+        "name": "Agent-4",
+        "type": "LOCAL",
+        "active": true,
+        "enabled": true,
+        "busy": true
+      },
+      "operations": {
+        "canView": true,
+        "canEdit": false,
+        "canDelete": false,
+        "allowedToExecute": false,
+        "canExecute": false,
+        "allowedToCreateVersion": false,
+        "allowedToSetVersionStatus": false
+      }
+    }
+  ],
+  "start-index": 0,
+  "max-result": 1
+}

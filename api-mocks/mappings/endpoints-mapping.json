@@ -68,6 +68,110 @@
     {
       "request": {
         "method": "GET",
+        "url": "/rest/api/latest/deploy/environment/11111111/results.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/deployment/successful.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/deploy/environment/22222222/results.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/deployment/failed.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/deploy/environment/33333333/results.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/deployment/in-progress.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/deploy/environment/44444444/results.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/deployment/replaced.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/deploy/environment/55555555/results.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/deployment/skipped.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/deploy/environment/66666666/results.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/deployment/never.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/deploy/environment/77777777/results.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/deployment/queued.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rest/api/latest/deploy/environment/88888888/results.json?max-results=1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "bamboo/v6.7.2/deployment/not-built.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
         "url": "/rest/api/latest/result/CGB-SCS.json?max-results=1"
       },
       "response": {
@@ -75,7 +179,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "bamboo/v6.7.2/successful.json"
+        "bodyFileName": "bamboo/v6.7.2/plan/successful.json"
       }
     },
     {
@@ -88,7 +192,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "bamboo/v6.7.2/failed.json"
+        "bodyFileName": "bamboo/v6.7.2/plan/failed.json"
       }
     },
     {
@@ -101,7 +205,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "bamboo/v6.7.2/unknown.json"
+        "bodyFileName": "bamboo/v6.7.2/plan/unknown.json"
       }
     },
     {
