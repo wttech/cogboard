@@ -7,10 +7,11 @@ export const useToggle = (initialState = false) => {
   const [isOpened, setOpened] = useState(initialState);
   const [expanded, setExpanded] = useState(false);
 
-  const handleToggle = () => setOpened(!isOpened);
-  const handleExpand = () => setExpanded(!expanded);
+  const handleOpen = () => setOpened(true);
+  const handleClose = () => setOpened(false);
+  const handleToggle = () => setExpanded(!expanded);
 
-  return [isOpened, handleToggle, handleExpand, expanded];
+  return [isOpened, handleOpen, handleClose, handleToggle, expanded];
 };
 
 export const useFormData = (data, config = {}) => {

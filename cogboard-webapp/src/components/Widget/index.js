@@ -50,7 +50,13 @@ const Widget = ({ id, index }) => {
     openConfirmationDialog,
     closeConfirmationDialog
   ] = useToggle();
-  const [dialogOpened, handleToggle, handleExpand, expanded] = useToggle();
+  const [
+    dialogOpened,
+    openDialog,
+    handleDialogClose,
+    handleToggle,
+    expanded
+  ] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
@@ -100,7 +106,7 @@ const Widget = ({ id, index }) => {
 
   const handleEditClick = closeMenu => () => {
     dispatch(loadSettings());
-    handleToggle();
+    openDialog();
     closeMenu();
   };
 
@@ -177,7 +183,7 @@ const Widget = ({ id, index }) => {
           widgetStatus,
           expandContent,
           expanded,
-          handleExpand
+          handleToggle
         )}
         {expandContent && (
           <StyledCollapse
@@ -195,14 +201,14 @@ const Widget = ({ id, index }) => {
       </StyledCard>
       <AppDialog
         disableBackdropClick={true}
-        handleDialogClose={handleToggle}
+        handleDialogClose={handleDialogClose}
         open={dialogOpened}
         title={`Edit ${title}`}
         componentId={id}
         data-cy="widget-edit-dialog"
       >
         <EditWidget
-          closeDialog={handleToggle}
+          closeDialog={handleDialogClose}
           content={content}
           id={id}
           title={title}
