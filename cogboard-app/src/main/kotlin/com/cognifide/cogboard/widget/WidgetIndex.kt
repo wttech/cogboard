@@ -13,6 +13,7 @@ import com.cognifide.cogboard.widget.type.ServiceCheckWidget
 import com.cognifide.cogboard.widget.type.SonarQubeWidget
 import com.cognifide.cogboard.widget.type.TextWidget
 import com.cognifide.cogboard.widget.type.WorldClockWidget
+import com.cognifide.cogboard.widget.type.AemBundleInfoWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 
@@ -36,6 +37,7 @@ class WidgetIndex {
             IframeEmbedWidget::class.java.simpleName -> IframeEmbedWidget(vertx, config)
             WorldClockWidget::class.java.simpleName -> WorldClockWidget(vertx, config)
             CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)
+            AemBundleInfoWidget::class.java.simpleName -> AemBundleInfoWidget(vertx, config)
             // add here
             else -> WhiteSpaceWidget.INSTANCE
         }
