@@ -67,10 +67,10 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     private fun listenOnWidgetDelete() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_DELETE_WIDGET_CONFIG)
-            .handler { widgetRuntimeService.deleteWidget(it.body()) }
+            .handler { widgetRuntimeService.destroyWidget("Delete", it.body()) }
 
     private fun listenOnWidgetPurge() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_PURGE_WIDGET_CONFIG)
-            .handler { widgetRuntimeService.purgeWidget(it.body()) }
+            .handler { widgetRuntimeService.destroyWidget("Purge", it.body()) }
 }
