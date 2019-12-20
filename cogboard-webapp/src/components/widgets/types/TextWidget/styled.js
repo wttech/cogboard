@@ -18,7 +18,7 @@ export const CenterWrapper = styled.div`
 `;
 
 export const StyledPre = styled.pre`
-  margin: 30px 0 0 0;
+  margin: 20px 0 0 0;
   font-family: inherit;
 `;
 

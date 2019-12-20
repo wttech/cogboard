@@ -2,7 +2,11 @@ import React, { forwardRef } from 'react';
 import { bool, number, object, string } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
-import { mapStatusToColor, getWidgetOverflow } from './helpers';
+import {
+  mapStatusToColor,
+  getWidgetOverflow,
+  getWidgetPadding
+} from './helpers';
 import { COLUMN_MULTIPLIER, ROW_MULTIPLIER, COLORS } from '../../constants';
 
 import { Card, CardHeader, CardContent, Collapse } from '@material-ui/core';
@@ -45,7 +49,11 @@ export const StyledCard = styled(
   grid-row-end: span ${({ rows }) => rows * ROW_MULTIPLIER};
   position: relative;
   overflow: ${({ type }) => getWidgetOverflow(type)};
-
+  .MuiCardContent-root,
+  .MuiCardHeader-root {
+    padding: ${({ type }) => getWidgetPadding(type)};
+    padding-left: 10px;
+  }
   ${({ isDragging, isOver, theme }) =>
     isDragging &&
     `
