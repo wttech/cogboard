@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { string } from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
