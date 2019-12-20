@@ -81,7 +81,6 @@ StyledCard.propTypes = {
 
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
-  ${({ title }) => !title && `position: absolute; right: 0;`}
 `;
 
 export const StyledCardContent = styled(CardContent)`
@@ -127,7 +126,7 @@ export const StyledCollapse = styled(
 export const StyledIconButton = styled(({ isExpanded, ...props }) => (
   <IconButton {...props} />
 ))`
-  marginleft: auto;
+  margin-left: auto;
   transform: ${({ isExpanded }) =>
     isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
   transition: transform 100ms linear;
