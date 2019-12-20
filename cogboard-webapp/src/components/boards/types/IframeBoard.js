@@ -1,13 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled/macro';
-
-import IframeEmbedWidget from '../../widgets/types/IframeEmbedWidget';
-
-const StyledIframeEmbedWidget = styled(IframeEmbedWidget)`
-  width: 100%;
-  color: black;
-  height: calc(100vh - 142px);
-`;
+import { StyledIframeEmbedWidget } from './styled';
 
 const IframeBoard = ({ currentBoard: { iframeUrl } }) => {
   return <StyledIframeEmbedWidget iframeUrl={iframeUrl} />;
