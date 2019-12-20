@@ -30,26 +30,26 @@ function App() {
     dispatch(fetchInitialData());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (appInitialized) {
-  //     const socket = new WebSocket(`ws://${window.location.hostname}/ws`);
-  //     const handleMessageReceive = ({ data: dataJson }) => {
-  //       const { eventType, ...data } = JSON.parse(dataJson);
+  useEffect(() => {
+    if (appInitialized) {
+      const socket = new WebSocket(`ws://${window.location.hostname}/ws`);
+      const handleMessageReceive = ({ data: dataJson }) => {
+        const { eventType, ...data } = JSON.parse(dataJson);
 
-  //       if (eventType === 'widget-update') {
-  //         dispatch(updateWidget(data));
-  //       } else if (eventType === 'notification-config-save') {
-  //         dispatch(saveDataSuccess());
-  //       }
-  //     };
+        if (eventType === 'widget-update') {
+          dispatch(updateWidget(data));
+        } else if (eventType === 'notification-config-save') {
+          dispatch(saveDataSuccess());
+        }
+      };
 
-  //     socket.addEventListener('message', handleMessageReceive);
+      socket.addEventListener('message', handleMessageReceive);
 
-  //     return () => {
-  //       socket.removeEventListener('message', handleMessageReceive);
-  //     };
-  //   }
-  // }, [appInitialized, dispatch]);
+      return () => {
+        socket.removeEventListener('message', handleMessageReceive);
+      };
+    }
+  }, [appInitialized, dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
