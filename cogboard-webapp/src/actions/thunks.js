@@ -200,7 +200,7 @@ const deleteEndpointThunk = id =>
 
 const addCredentialThunk = credential =>
   settingItemThunk(
-    URL.ENDPOINTS_ENDPOINT,
+    URL.CREDENTIALS_ENDPOINT,
     'POST',
     'credentials',
     addSettingsItem,
