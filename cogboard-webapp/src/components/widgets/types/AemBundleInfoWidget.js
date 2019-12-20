@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from 'prop-types';
+import { object, array } from 'prop-types';
 
 import { Caption } from '../../styled';
 import { capitalize } from '../../../utils/common';
@@ -9,7 +9,11 @@ import { PopoverWithControls } from '../../PopoverWithControls';
 const bundleArrayToComponents = array => (
   <>
     {array.map(object => (
-      <Typography variant="body2">
+      <Typography
+        key={object['symbolicName'] + object['id']}
+        component="span"
+        variant="body2"
+      >
         {object['name']} - {object['state']} (id: {object['id']}, symbolicName:{' '}
         {object['symbolicName']})
       </Typography>
@@ -32,7 +36,7 @@ const AemBundleInfoWidget = ({
 }) => (
   <>
     {Object.keys(bundleStatus).map(key => (
-      <Caption>
+      <Caption key={key}>
         {capitalize(key)}: {bundleStatus[key]}
       </Caption>
     ))}
@@ -43,8 +47,8 @@ const AemBundleInfoWidget = ({
 
 AemBundleInfoWidget.propTypes = {
   bundleStatus: object.isRequired,
-  excludedBundles: object.isRequired,
-  inactiveBundles: object.isRequired
+  excludedBundles: array.isRequired,
+  inactiveBundles: array.isRequired
 };
 
 export default AemBundleInfoWidget;
