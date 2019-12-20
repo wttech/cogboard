@@ -12,8 +12,10 @@ import {
   deleteEndpoint,
   deleteCredential,
   addEndpoint,
-  addCredential
+  addCredential,
+  updateUserSettings
 } from '../../actions/thunks';
+import { getUserRole } from '../../utils/auth';
 
 import {
   Button,
@@ -33,6 +35,7 @@ import EditCredential from '../EditCredential';
 import DeleteItem from '../DeleteItem';
 import EndpointForm from '../EndpointForm';
 import CredentialForm from '../CredentialForm';
+import UserControlForm from '../UserControlForm';
 
 const SettingsMenu = ({ className }) => {
   const dispatch = useDispatch();
@@ -41,6 +44,7 @@ const SettingsMenu = ({ className }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const credentials = useSelector(getCredentials);
   const endpoints = useSelector(getEndpoints);
+  const userRole = getUserRole();
 
   const handleDialogOpen = () => {
     dispatch(loadSettings());
@@ -59,6 +63,12 @@ const SettingsMenu = ({ className }) => {
 
   const handleSubmitEndpoint = values => {
     dispatch(addEndpoint(values));
+  };
+
+  const handleSubmitUserControlForm = values => {
+    delete values.passwordConfirmation;
+
+    dispatch(updateUserSettings(values));
   };
 
   const renderListItems = (items, name, EditComponent, deleteAction) =>
@@ -107,6 +117,10 @@ const SettingsMenu = ({ className }) => {
           >
             <Tab label="Endpoints" data-cy="settings-menu-endpoints-tab" />
             <Tab label="Credentials" data-cy="settings-menu-credentials-tab" />
+            <Tab
+              label="User Control"
+              data-cy="settings-menu-user-control-tab"
+            />
           </StyledTabs>
           <StyledTabPanel value={tabValue} index={0}>
             <List>
@@ -142,6 +156,12 @@ const SettingsMenu = ({ className }) => {
             >
               <CredentialForm />
             </AddItem>
+          </StyledTabPanel>
+          <StyledTabPanel value={tabValue} index={2}>
+            <UserControlForm
+              onSubmit={handleSubmitUserControlForm}
+              user={userRole}
+            />
           </StyledTabPanel>
           <Button
             onClick={handleDialogClose}
