@@ -5,13 +5,12 @@ import { splitPropsGroupName } from '../utils/components';
 
 export const useToggle = (initialState = false) => {
   const [isOpened, setOpened] = useState(initialState);
-  const [expanded, setExpanded] = useState(false);
 
   const handleOpen = () => setOpened(true);
   const handleClose = () => setOpened(false);
-  const handleToggle = () => setExpanded(!expanded);
+  const handleToggle = () => setOpened(!isOpened);
 
-  return [isOpened, handleOpen, handleClose, handleToggle, expanded];
+  return [isOpened, handleOpen, handleClose, handleToggle];
 };
 
 export const useFormData = (data, config = {}) => {

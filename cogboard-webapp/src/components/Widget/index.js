@@ -50,13 +50,8 @@ const Widget = ({ id, index }) => {
     openConfirmationDialog,
     closeConfirmationDialog
   ] = useToggle();
-  const [
-    dialogOpened,
-    openDialog,
-    handleDialogClose,
-    handleToggle,
-    expanded
-  ] = useToggle();
+  const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+  const [expanded, handler1, handler2, handleToggle] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
