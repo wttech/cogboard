@@ -20,7 +20,7 @@ Cypress.Commands.add('getAuthenticationToken',() => {
 Cypress.Commands.add('setTestCredentials', (testCredentials, authToken) => {
   cy.request({
       method: 'POST',
-      url: `/api/endpoints`,
+      url: `/api/credentials`,
       auth: {
           'bearer': authToken.split(' ')[1]
       },
