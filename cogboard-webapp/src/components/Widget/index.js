@@ -41,7 +41,7 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const { expandContent } = widgetTypeData;
-  const widgetStatus = getWidgetStatus(content);
+  const widgetStatus = getWidgetStatus(content, type);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -53,6 +53,8 @@ const Widget = ({ id, index }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
+  const whiteSpaceInAuthenticatedMode =
+    isAuthenticated && type === 'WhiteSpaceWidget';
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
     canDrag: isAuthenticated,
@@ -121,6 +123,8 @@ const Widget = ({ id, index }) => {
   return (
     <>
       <StyledCard
+        showShadow={expanded}
+        showBorder={whiteSpaceInAuthenticatedMode}
         status={widgetStatus}
         columns={columns}
         goNewLine={goNewLine}
@@ -131,7 +135,7 @@ const Widget = ({ id, index }) => {
         isOver={isOver}
         ref={ref}
       >
-        {(isAuthenticated || title !== '') && (
+        {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
           <StyledCardHeader
             avatar={
               !expandContent && (
@@ -145,7 +149,9 @@ const Widget = ({ id, index }) => {
               color: 'textPrimary'
             }}
             action={
-              <MoreMenu>
+              <MoreMenu
+                color={whiteSpaceInAuthenticatedMode ? 'primary' : 'default'}
+              >
                 {closeMenu => (
                   <>
                     <MenuItem
