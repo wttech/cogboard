@@ -5,7 +5,7 @@ import {
   dashboardNames
 } from "../fixtures/Dashboard";
 
-xdescribe("Basic Dashboard CRUD", () => {
+describe("Basic Dashboard CRUD", () => {
   let dashboardName = dashboardNameGen();
   let editDashboardName = dashboardNameGen("Edit");
 
@@ -63,7 +63,7 @@ xdescribe("Basic Dashboard CRUD", () => {
   });
 });
 
-xdescribe("Dashboard Frontend Validation", () => {
+describe("Dashboard Frontend Validation", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.login();
