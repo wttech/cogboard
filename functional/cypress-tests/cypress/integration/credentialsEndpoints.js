@@ -5,6 +5,10 @@ import {
 
 describe('Credentials and endpoints', () => {
 
+  after(() => {
+    // remove 
+  })
+
   context('Anonymous user', () => {
     
     // Anonymous user: settings menu button is not available
@@ -22,6 +26,11 @@ describe('Credentials and endpoints', () => {
   context('Logged in user', () => {
 
     before(() => {
+      // 3. set endpoints / credentials
+      cy.loginWithToken();
+      cy.getAuthenticationToken().then(token => {
+        cy.setTestCredentials(JSON.stringify(testCredentials), token);
+      });
     });
     
     beforeEach(() => {
@@ -31,11 +40,6 @@ describe('Credentials and endpoints', () => {
 
       // 1. / 2. Login with token and visit CogBoard
       cy.loginWithToken();
-
-      // 3. set endpoints / credentials
-      cy.getAuthenticationToken().then(token => {
-        cy.setTestCredentials(JSON.stringify(testCredentials), token);
-      });
 
       // 4. Click on settings button
       cy.get('[data-cy="settings-menu-open-button"]')
@@ -157,16 +161,13 @@ describe('Credentials and endpoints', () => {
     });
 
     // User can add new endpoint. New endpoints label is visible
-    // skipped because of CLAN6-66
-    it.skip('User can add new endpoint. New endpoints label is visible', () => {});
+    it('User can add new endpoint. New endpoints label is visible', () => {});
     
     // User can edit existing endpoint
-    // skipped because of CLAN6-66
-    it.skip('User can edit existing endpoint', () => {});
+    it('User can edit existing endpoint', () => {});
     
     // User can delete existing endpoint
-    // skipped because of CLAN6-66
-    it.skip('User can delete existing endpoint', () => {});
+    it('User can delete existing endpoint', () => {});
     
     // User can add new credentials. New credentials label is visible
     it('User can add new credentials. New credentials label is visible', () => {
@@ -202,32 +203,47 @@ describe('Credentials and endpoints', () => {
 
       // 9. Check if newly added credential is displayed
       cy.get('[data-cy="app-dialog-content"]')
-        .should('contain', 'TestCredential');
+        .should('contain', testCredentials.label);
+    });
+
+    // User cannot add credentials with existing label
+    it('User cannot add credentials with existing label', () => {
+
     });
     
     // User can edit existing credentials
-    it.only('User can edit existing credentials', () => {
+    it('User can edit existing credentials', () => {
 
-      // cy.getAuthenticationToken().then(
-      //   (authToken) => {
-      //      cy.visit('/');
-      //      cy.request({
-      //          method: 'POST',
-      //          url: `http://localhost/api/config/save`,
-      //          auth: {
-      //              'bearer': authToken.split(' ')[1]
-      //          },
-      //          body: {"boards":{"boardsById":{},"allBoards":[]},"widgets":{"widgetsById":{},"allWidgets":[]}},
-      //            followRedirect: false,
-      //            failOnStatusCode: true
-      //      });     
-      //  }
-      // )
-
-      // cy.get('[data-cy="settings-menu-open-button"]')
-      //   .click();
+      // 5. Click on credentials tab
       cy.get('[data-cy="settings-menu-credentials-tab"]')
         .click();
+
+      // 6. Click on edit credentials icon
+      cy.contains('li.MuiListItem-container', testCredentials.label)
+        .find('[data-cy="edit-credential-add-button"]')
+        .click();
+
+      // 7. Edit fields
+      cy.get('[data-cy="credential-form-label-input"]')
+        .clear()
+        .type('EditedLabel')
+        .blur();
+        
+      cy.get('[data-cy="credential-form-password-input"]')
+        .type(testCredentials.password)
+        .blur();
+          
+      cy.get('[data-cy="credential-form-password-confirmation-input"]')
+        .type(testCredentials.password)
+        .blur();
+
+      // 8. Click save button
+      cy.get('[data-cy="credential-form-submit-button"]')
+        .click();
+
+      // 9. Check if changes are visible
+      cy.get('[data-cy="app-dialog-content"]')
+        .should('contain', 'EditedLabel');
 
     });
     
