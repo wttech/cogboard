@@ -135,7 +135,7 @@ const Widget = ({ id, index }) => {
         isOver={isOver}
         ref={ref}
       >
-        {(isAuthenticated || title !== '') && (
+        {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
           <StyledCardHeader
             avatar={
               !expandContent && (
