@@ -115,7 +115,6 @@ describe('Reordering', () => {
             })
             .then(() => {
                 for (let i = 0; i < widgets.length; i++) {
-                    console.log(widgets[i])
                     if (widgets[i] == dropOnWidget && widgets[i+1] == reorderedWidgetName) {
                         i = widgets.length;
                     } else if (i == widgets.length - 1 && !(widgets[i] == dropOnWidget && widgets[i+1] == reorderedWidgetName)) {
