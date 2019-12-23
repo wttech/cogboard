@@ -8,7 +8,7 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget1"]
+        "widgets": ["widget1", "widget9"]
       },
       "board2": {
         "autoSwitch": true,
@@ -44,7 +44,6 @@
         "type": "ExampleWidget",
         "disabled": false,
         "content": {},
-        "status": "UNKNOWN",
         "isUpdating": false,
         "boardId": "board1",
         "schedulePeriod": 3
@@ -60,7 +59,6 @@
         "type": "JenkinsJobWidget",
         "disabled": false,
         "content": {},
-        "status": "OK",
         "isUpdating": false,
         "boardId": "board2",
         "endpoint": "api-mocks-endpoint",
@@ -78,7 +76,6 @@
         "type": "JenkinsJobWidget",
         "disabled": false,
         "content": {},
-        "status": "FAIL",
         "isUpdating": false,
         "boardId": "board2",
         "endpoint": "api-mocks-endpoint",
@@ -96,7 +93,6 @@
         "type": "JenkinsJobWidget",
         "disabled": false,
         "content": {},
-        "status": "IN_PROGRESS",
         "isUpdating": false,
         "boardId": "board2",
         "endpoint": "api-mocks-endpoint",
@@ -114,7 +110,6 @@
         "type": "SonarQubeWidget",
         "disabled": false,
         "content": {},
-        "status": "OK",
         "isUpdating": false,
         "boardId": "board3",
         "endpoint": "api-mocks-endpoint",
@@ -139,7 +134,6 @@
         "type": "SonarQubeWidget",
         "disabled": false,
         "content": {},
-        "status": "FAIL",
         "isUpdating": false,
         "boardId": "board3",
         "selectedMetrics": [
@@ -164,7 +158,6 @@
         "type": "SonarQubeWidget",
         "disabled": false,
         "content": {},
-        "status": "UNSTABLE",
         "isUpdating": false,
         "boardId": "board3",
         "endpoint": "api-mocks-endpoint",
@@ -189,12 +182,27 @@
         "type": "TextWidget",
         "disabled": false,
         "content": {},
-        "status": "UNKNOWN",
         "isUpdating": false,
         "boardId": "board3",
         "text": "v5.6.6",
         "textSize": "h3",
         "isVertical": true
+      },
+      "widget9": {
+        "id": "widget9",
+        "title": "Check",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "CheckboxWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board1",
+        "withWidgetContentUpdate": true
       }
     },
     "allWidgets": [
@@ -205,7 +213,8 @@
       "widget5",
       "widget6",
       "widget7",
-      "widget8"
+      "widget8",
+      "widget9"
     ]
   }
 }
