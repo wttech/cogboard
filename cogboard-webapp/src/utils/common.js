@@ -3,15 +3,19 @@ export const capitalize = ([firstLetter, ...rest]) =>
 
 export const parseYupErrors = errors => {
   let result = {};
-  errors.inner.forEach(error => {
-    const { path, message } = error;
+  errors &&
+    errors.inner &&
+    errors.inner.forEach(error => {
+      const { path, message } = error;
 
-    if (path in result) {
-      result[path].push(message);
-    } else {
-      result[path] = [message];
-    }
-  });
+      if (path in result) {
+        result[path].push(message);
+      } else {
+        result[path] = [message];
+      }
+    });
 
   return result;
 };
+
+export const hasError = error => error !== undefined;

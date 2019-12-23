@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { bool, number, object, string } from 'prop-types';
+import { bool, number, object } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import { mapStatusToColor } from './helpers';
@@ -75,8 +75,7 @@ StyledCard.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   rows: number.isRequired,
-  theme: object.isRequired,
-  status: string
+  theme: object.isRequired
 };
 
 export const StyledCardHeader = styled(CardHeader)`
