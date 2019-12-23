@@ -110,7 +110,7 @@
       },
       "widget5": {
         "id": "widget5",
-        "title": "Sonarqube Success",
+        "title": "Success",
         "config": {
           "columns": 1,
           "goNewLine": false,
@@ -139,7 +139,7 @@
       },
       "widget6": {
         "id": "widget6",
-        "title": "Sonarqube Fail",
+        "title": "Fail",
         "config": {
           "columns": 1,
           "goNewLine": false,
@@ -168,7 +168,7 @@
       },
       "widget7": {
         "id": "widget7",
-        "title": "Sonarqube Warning",
+        "title": "Warning",
         "config": {
           "columns": 1,
           "goNewLine": false,
@@ -208,7 +208,7 @@
         "content": {},
         "isUpdating": false,
         "boardId": "board3",
-        "text": "v5.6.6",
+        "text": "v5.x",
         "textSize": "h3",
         "isVertical": true,
         "expandContent": false
