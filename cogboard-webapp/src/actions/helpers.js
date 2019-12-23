@@ -69,7 +69,6 @@ export const createNewWidgetData = ({
 }) => ({
   boardId: currentBoardId,
   id: createWidgetId(allWidgets),
-  status: 'UNKNOWN',
   ...mapFormValuesToWidgetData(values)
 });
 
@@ -81,7 +80,7 @@ export const createEditWidgetData = ({ id, values }) => ({
 export const mapDataToState = data => {
   const { id, title, content, type, disabled, config, ...other } = data;
 
-  const newWidgetProps = ['status', 'boardId'];
+  const newWidgetProps = ['boardId'];
   const generalData = { id, title, config, type, disabled, content };
 
   newWidgetProps.forEach(prop => {

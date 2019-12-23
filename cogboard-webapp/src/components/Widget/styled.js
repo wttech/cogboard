@@ -75,8 +75,7 @@ StyledCard.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   rows: number.isRequired,
-  theme: object.isRequired,
-  status: string
+  theme: object.isRequired
 };
 
 export const StyledCardHeader = styled(CardHeader)`
