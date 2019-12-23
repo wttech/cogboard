@@ -25,8 +25,8 @@ describe('Reordering', () => {
             .each(boardCard => {
                 cy.wrap(boardCard)
                     .find('h3')
-                        .then(heading => {
-                            boardCards.push(heading.text());
+                    .then(heading => {
+                        boardCards.push(heading.text());
                 })
             })
             .then(() => {
@@ -40,10 +40,30 @@ describe('Reordering', () => {
             });
     });
 
-    xit('Logged in user can reorder widgets', () => {
-        const dashboardName = dashboardNameGen();
+    it('Logged in user can reorder widgets', () => {
+        const reorderedWidgetName = 'Reorder Widget';
+        const dropOnWidget = 'Example Widget';
+        let widgets = [];
 
         cy.login();
+        cy.get(`h3:contains("${reorderedWidgetName}")`).drag(`h3:contains("${dropOnWidget}")`, 'left');
+        cy.get('[draggable="true"]')
+            .each(widget => {
+                cy.wrap(widget)
+                    .find('h3')
+                    .then(heading => {
+                        widgets.push(heading.text());
+                    })
+            })
+            .then(() => {
+                for (let i = 0; i < widgets.length; i++) {
+                    if (widgets[i] == reorderedWidgetName && widgets[i+1] == dropOnWidget) {
+                        i = widgets.length;
+                    } else if (i == widgets.length - 1 && !(widgets[i] == reorderedWidgetName && widgets[i+1] == dropOnWidget)) {
+                        throw new Error("Reordering of widgets is not working.");
+                    }
+                }
+            })
     })
 
     it('Logged out user can\'t reorder dashboards', () => {
@@ -73,13 +93,35 @@ describe('Reordering', () => {
                     if (boardCards[i] == dashboardName && boardCards[i+1] == dashboardName2) {
                         i = boardCards.length;
                     } else if (i == boardCards.length - 1 && !(boardCards[i] == dashboardName && boardCards[i+1] == dashboardName2)) {
-                        throw new Error("Logged out user can reorder dashboards");
+                        throw new Error("Logged out user can reorder dashboards.");
                     };
                 };
             });
     })
 
-    xit('Logged out user can\'t reorder widgets', () => {
-        
+    it('Logged out user can\'t reorder widgets', () => {
+        const reorderedWidgetName = 'Reorder Widget';
+        const dropOnWidget = 'Example Widget';
+        let widgets = [];
+
+        cy.get(`h3:contains("${reorderedWidgetName}")`).drag(`h3:contains("${dropOnWidget}")`, 'left');
+        cy.get('[draggable="true"]')
+            .each(widget => {
+                cy.wrap(widget)
+                    .find('h3')
+                    .then(heading => {
+                        widgets.push(heading.text());
+                    })
+            })
+            .then(() => {
+                for (let i = 0; i < widgets.length; i++) {
+                    console.log(widgets[i])
+                    if (widgets[i] == dropOnWidget && widgets[i+1] == reorderedWidgetName) {
+                        i = widgets.length;
+                    } else if (i == widgets.length - 1 && !(widgets[i] == dropOnWidget && widgets[i+1] == reorderedWidgetName)) {
+                        throw new Error("Logged out user can reorder widgets.");
+                    }
+                }
+            })
     })
 })
