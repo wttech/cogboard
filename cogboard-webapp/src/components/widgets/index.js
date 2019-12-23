@@ -43,10 +43,11 @@ const widgetTypes = {
     name: 'SonarQube',
     component: SonarQubeWidget,
     dialogFields: [
+      'SonarQubeVersion',
       'EndpointField',
       'SchedulePeriod',
       'Key',
-      'IdNumber',
+      'SonarQubeIdNumber',
       'SonarQubeMetricsInput',
       'ExpandableContent'
     ],

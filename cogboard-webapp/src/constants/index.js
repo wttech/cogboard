@@ -106,6 +106,17 @@ export const ALL_SONARQUBE_METRICS = [
   'vulnerabilities'
 ];
 
+export const SONARQUBE_VERSIONS = [
+  {
+    display: '7.x',
+    value: '7.x'
+  },
+  {
+    display: '5.x',
+    value: '5.x'
+  }
+];
+
 // props will be added to old configs on app init
 
 export const INITIAL_BOARD_PROPS = {

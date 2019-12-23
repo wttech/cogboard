@@ -10,7 +10,7 @@ import com.cognifide.cogboard.widget.type.ExampleWidget
 import com.cognifide.cogboard.widget.type.IframeEmbedWidget
 import com.cognifide.cogboard.widget.type.JenkinsJobWidget
 import com.cognifide.cogboard.widget.type.ServiceCheckWidget
-import com.cognifide.cogboard.widget.type.SonarQubeWidget
+import com.cognifide.cogboard.widget.type.sonarqube.SonarQubeWidget
 import com.cognifide.cogboard.widget.type.TextWidget
 import com.cognifide.cogboard.widget.type.WorldClockWidget
 import io.vertx.core.Vertx

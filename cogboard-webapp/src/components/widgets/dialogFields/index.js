@@ -9,7 +9,8 @@ import { parseWidgetTypes, transformMinValueToHalf } from './helpers';
 import {
   REQUEST_METHODS,
   TEXT_SIZES,
-  validationMessages as vm
+  validationMessages as vm,
+  SONARQUBE_VERSIONS
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
 import widgetTypes from '../../widgets';
@@ -213,8 +214,12 @@ const dialogFields = {
     label: 'ID',
     validator: () => string()
   },
-  IdNumber: {
-    component: NumberInput,
+  SonarQubeIdNumber: {
+    component: conditionallyHidden(
+      NumberInput,
+      'sonarQubeVersion',
+      value => value === '5.x'
+    ),
     name: 'idNumber',
     label: 'ID',
     step: 1,
@@ -354,6 +359,14 @@ const dialogFields = {
     label: 'Expandable Content',
     initialValue: false,
     validator: () => boolean()
+  },
+  SonarQubeVersion: {
+    component: DisplayValueSelect,
+    name: 'sonarQubeVersion',
+    label: 'SonarQube Version',
+    dropdownItems: SONARQUBE_VERSIONS,
+    initialValue: SONARQUBE_VERSIONS[0].value,
+    validator: () => string()
   }
 };
 
