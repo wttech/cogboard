@@ -25,7 +25,10 @@ import {
   PUSH_NOTIFICATION,
   DELETE_NOTIFICATION,
   SET_LOGOUT_REASON_MESSAGE,
-  SAVE_SETTINGS
+  SAVE_SETTINGS,
+  ADD_SETTINGS_ITEM,
+  EDIT_SETTINGS_ITEM,
+  DELETE_SETTINGS_ITEM
 } from './types';
 import { INITIAL_BOARD_PROPS } from '../constants';
 
@@ -158,4 +161,28 @@ export const setLogoutReasonMessage = reason => ({
 export const saveSettings = data => ({
   type: SAVE_SETTINGS,
   payload: data
+});
+
+export const addSettingsItem = (name, data) => ({
+  type: ADD_SETTINGS_ITEM,
+  payload: {
+    name,
+    item: data
+  }
+});
+
+export const editSettingsItem = (name, data) => ({
+  type: EDIT_SETTINGS_ITEM,
+  payload: {
+    name,
+    item: data
+  }
+});
+
+export const deleteSettingsItem = (name, data) => ({
+  type: DELETE_SETTINGS_ITEM,
+  payload: {
+    name,
+    item: data
+  }
 });

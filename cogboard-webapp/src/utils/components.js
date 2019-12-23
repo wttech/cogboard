@@ -22,12 +22,22 @@ export const sortByKey = (obj, key, asc = true) =>
 
 export const hasError = error => error !== undefined;
 
-export const getWidgetStatus = content =>
-  (content && content.widgetStatus) || 'UNDEFINED';
+const INITIAL_STATUSES = {
+  TextWidget: 'NONE',
+  WorldClockWidget: 'NONE',
+  WhiteSpaceWidget: 'TRANSPARENT',
+  CheckboxWidget: 'CHECKBOX_UNKNOWN'
+};
+
+export const getWidgetStatus = (content, widgetType) =>
+  (content && content.widgetStatus) ||
+  INITIAL_STATUSES[widgetType] ||
+  'UNKNOWN';
 
 export const getWidgetUpdateTime = (content, widgetType) => {
   return (
+    widgetType &&
     widgetType.showUpdateTime &&
-    ((content && content.lastUpdated) || 'UNDEFINED')
+    ((content && content.lastUpdated) || 'UNKNOWN')
   );
 };

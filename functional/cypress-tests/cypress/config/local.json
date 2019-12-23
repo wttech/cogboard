@@ -4,5 +4,6 @@
     "username": "admin",
     "password": "admin"
   },
-  "video": true
+  "video": true,
+  "videoCompression": 16
 }

@@ -5,7 +5,7 @@ import {
   GMT_TIMEZONES,
   TIME_FORMATS
 } from '../types/WorldClockWidget/helpers';
-import { parseWidgetTypes, transformMinValueToHalf } from './helpers';
+import { parseWidgetTypes, transformMinValue } from './helpers';
 import {
   REQUEST_METHODS,
   TEXT_SIZES,
@@ -110,6 +110,7 @@ const dialogFields = {
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
+    valueUpdater: transformMinValue(),
     validator: ({ min, max }) =>
       number()
         .min(min, vm.NUMBER_MIN('Columns', min))
@@ -121,7 +122,7 @@ const dialogFields = {
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
-    valueUpdater: transformMinValueToHalf(),
+    valueUpdater: transformMinValue(0.5),
     validator: ({ min, max }) =>
       number()
         .min(min, vm.NUMBER_MIN('Columns', min))
@@ -133,7 +134,7 @@ const dialogFields = {
     name: 'rows',
     label: 'Rows',
     initialValue: 1,
-    valueUpdater: transformMinValueToHalf(),
+    valueUpdater: transformMinValue(0.5),
     validator: ({ min, max }) =>
       number()
         .min(min, vm.NUMBER_MIN('Rows', min))

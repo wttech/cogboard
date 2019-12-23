@@ -7,15 +7,15 @@ import {
 
 const StatusCheckbox = ({ status, size }) => {
   const iconComponents = {
-    OK: Check,
-    FAIL: Close,
-    UNKNOWN: IndeterminateCheckBoxOutlined
+    CHECKBOX_OK: Check,
+    CHECKBOX_FAIL: Close,
+    CHECKBOX_UNKNOWN: IndeterminateCheckBoxOutlined
   };
 
   const IconComponent =
     status in iconComponents
       ? iconComponents[status]
-      : iconComponents['UNKNOWN'];
+      : iconComponents['CHECKBOX_UNKNOWN'];
 
   return <IconComponent fontSize={size} />;
 };

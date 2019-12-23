@@ -13,12 +13,12 @@ import { getWidgetStatus } from '../../../../utils/components';
 const CheckboxWidget = ({ id }) => {
   const dispatch = useDispatch();
   const { content } = useSelector(({ widgets }) => widgets.widgetsById[id]);
-  const widgetStatus = getWidgetStatus(content);
+  const widgetStatus = getWidgetStatus(content, 'CheckboxWidget');
 
   const ariaCheckedStatusMap = {
-    OK: true,
-    FAIL: false,
-    UNKNOWN: 'mixed'
+    CHECKBOX_OK: true,
+    CHECKBOX_FAIL: false,
+    CHECKBOX_UNKNOWN: 'mixed'
   };
 
   const handleChangeStatus = () => {

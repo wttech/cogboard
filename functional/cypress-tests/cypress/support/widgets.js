@@ -14,7 +14,7 @@ Cypress.Commands.add(
   ) => {
     cy.get('[data-cy="widget-form-type-input"]').click();
     cy.contains("li", type).click();
-    if (type !== "Checkbox" && type !== "Default") {
+    if (type !== "Checkbox" && type !== "White Space") {
       cy.contains("span", type).should("is.visible");
     }
     cy.get('[data-cy="widget-form-title-input"]')

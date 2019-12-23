@@ -15,14 +15,17 @@ import {
   deleteMultipleWidgets,
   sortWidgets,
   dataChanged,
-  saveDataStart,
+  saveDataSuccess,
   deleteWidget,
   loginSuccess,
   loginFailure,
   logout as logoutUser,
   initBoardProps,
   pushNotification,
-  saveSettings
+  saveSettings,
+  addSettingsItem,
+  editSettingsItem,
+  deleteSettingsItem
 } from './actionCreators';
 import {
   fetchData,
@@ -50,7 +53,7 @@ export const saveDataThunk = () => (dispatch, getState) => {
   const token = getToken();
 
   return fetchData(URL.SAVE_DATA, { method: 'POST', data, token }).then(
-    () => dispatch(saveDataStart()),
+    () => dispatch(saveDataSuccess()),
     console.error
   );
 };
@@ -154,26 +157,72 @@ const loadSettingsThunk = () => dispatch => {
     .catch(console.log);
 };
 
-const settingItemThunk = (url, method, data = {}) => dispatch => {
+const settingItemThunk = (
+  url,
+  method,
+  itemName,
+  reduxAction,
+  data = {}
+) => dispatch => {
   const token = getToken();
 
   return fetchData(url, { method, data, token }).then(
-    () => dispatch(loadSettingsThunk()),
+    response => dispatch(reduxAction(itemName, response)),
     console.error
   );
 };
 
-const saveEndpointThunk = endpoint =>
-  settingItemThunk(URL.ENDPOINTS_ENDPOINT, 'POST', endpoint);
+const addEndpointThunk = endpoint =>
+  settingItemThunk(
+    URL.ENDPOINTS_ENDPOINT,
+    'POST',
+    'endpoints',
+    addSettingsItem,
+    endpoint
+  );
+
+const editEndpointThunk = endpoint =>
+  settingItemThunk(
+    URL.ENDPOINTS_ENDPOINT,
+    'POST',
+    'endpoints',
+    editSettingsItem,
+    endpoint
+  );
 
 const deleteEndpointThunk = id =>
-  settingItemThunk(`${URL.ENDPOINTS_ENDPOINT}/${id}`, 'DELETE');
+  settingItemThunk(
+    `${URL.ENDPOINTS_ENDPOINT}/${id}`,
+    'DELETE',
+    'endpoints',
+    deleteSettingsItem
+  );
 
-const saveCredentialThunk = credential =>
-  settingItemThunk(URL.CREDENTIALS_ENDPOINT, 'POST', credential);
+const addCredentialThunk = credential =>
+  settingItemThunk(
+    URL.CREDENTIALS_ENDPOINT,
+    'POST',
+    'credentials',
+    addSettingsItem,
+    credential
+  );
+
+const editCredentialThunk = credential =>
+  settingItemThunk(
+    URL.CREDENTIALS_ENDPOINT,
+    'POST',
+    'credentials',
+    editSettingsItem,
+    credential
+  );
 
 const deleteCredentialThunk = id =>
-  settingItemThunk(`${URL.CREDENTIALS_ENDPOINT}/${id}`, 'DELETE');
+  settingItemThunk(
+    `${URL.CREDENTIALS_ENDPOINT}/${id}`,
+    'DELETE',
+    'credentials',
+    deleteSettingsItem
+  );
 
 export const addNewWidget = withAuthentication(
   makeWidgetUpdaterThunk(addWidget, createNewWidgetData)
@@ -194,7 +243,9 @@ export const deleteBoardWithWidgets = withDataChanged(
 export const setWidgetState = withDataChanged(editWidget);
 export const saveData = withAuthentication(saveDataThunk);
 export const loadSettings = withAuthentication(loadSettingsThunk);
-export const saveEndpoint = withAuthentication(saveEndpointThunk);
+export const addEndpoint = withAuthentication(addEndpointThunk);
+export const editEndpoint = withAuthentication(editEndpointThunk);
 export const deleteEndpoint = withAuthentication(deleteEndpointThunk);
-export const saveCredential = withAuthentication(saveCredentialThunk);
+export const addCredential = withAuthentication(addCredentialThunk);
+export const editCredential = withAuthentication(editCredentialThunk);
 export const deleteCredential = withAuthentication(deleteCredentialThunk);
