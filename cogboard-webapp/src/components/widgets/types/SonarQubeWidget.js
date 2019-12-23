@@ -4,7 +4,7 @@ import { number, string, object } from 'prop-types';
 import { Caption, WidgetButton } from '../../styled';
 
 const SonarQubeWidget = props => {
-  const { metrics, url, version, date, name } = props;
+  const { metrics, url, version, date } = props;
   const ts = date ? new Date(Date.parse(date)).toLocaleString() : '';
 
   return (
@@ -16,7 +16,7 @@ const SonarQubeWidget = props => {
           {metric.replace('_', ' ')}: {val}
         </Caption>
       ))}
-      <WidgetButton href={url}>{name}</WidgetButton>
+      <WidgetButton href={url}>OPEN DASHBOARD</WidgetButton>
     </>
   );
 };

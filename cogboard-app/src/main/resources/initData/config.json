@@ -8,10 +8,7 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": [
-          "widget1",
-          "widget9"
-        ]
+        "widgets": ["widget1", "widget9"]
       },
       "board2": {
         "autoSwitch": true,
@@ -20,11 +17,7 @@
         "title": "Jenkins Job Widget Examples",
         "columns": 6,
         "theme": "default",
-        "widgets": [
-          "widget2",
-          "widget3",
-          "widget4"
-        ]
+        "widgets": ["widget2", "widget3", "widget4"]
       },
       "board3": {
         "autoSwitch": true,
@@ -36,6 +29,7 @@
           "widget5",
           "widget7",
           "widget6",
+          "widget13",
           "widget10",
           "widget11",
           "widget12"
@@ -44,11 +38,7 @@
         "title": "Sonarqube Widget Examples"
       }
     },
-    "allBoards": [
-      "board1",
-      "board2",
-      "board3"
-    ]
+    "allBoards": ["board1", "board2", "board3"]
   },
   "widgets": {
     "widgetsById": {
@@ -266,7 +256,8 @@
           "code_smells",
           "vulnerabilities"
         ],
-        "expandContent": true
+        "expandContent": false,
+        "sonarQubeVersion": "7.x"
       },
       "widget11": {
         "id": "widget11",
@@ -295,7 +286,8 @@
           "code_smells",
           "vulnerabilities"
         ],
-        "expandContent": true
+        "expandContent": false,
+        "sonarQubeVersion": "7.x"
       },
       "widget12": {
         "id": "widget12",
@@ -324,7 +316,26 @@
           "code_smells",
           "vulnerabilities"
         ],
-        "expandContent": true
+        "expandContent": false,
+        "sonarQubeVersion": "7.x"
+      },
+      "widget13": {
+        "id": "widget13",
+        "title": "",
+        "config": {
+          "columns": 1,
+          "goNewLine": true,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "text": "v7.x",
+        "textSize": "h3",
+        "isVertical": true,
+        "expandContent": false
       }
     },
     "allWidgets": [
@@ -339,7 +350,8 @@
       "widget9",
       "widget10",
       "widget11",
-      "widget12"
+      "widget12",
+      "widget13"
     ]
   }
 }

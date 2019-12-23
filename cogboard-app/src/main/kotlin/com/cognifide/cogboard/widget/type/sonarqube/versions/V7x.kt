@@ -18,7 +18,7 @@ class V7x : Version {
     }
 
     override fun getMetricValue(metric: JsonObject): Int {
-        return metric.getInteger("value")
+        return metric.getString("value").toInt()
     }
 
     override fun getDashboardUrl(publicUrl: String, key: String, idNumber: Int): String {

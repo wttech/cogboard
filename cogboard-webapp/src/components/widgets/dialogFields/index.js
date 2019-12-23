@@ -224,6 +224,7 @@ const dialogFields = {
     name: 'idNumber',
     label: 'ID',
     step: 1,
+    initialValue: 0,
     validator: () => number()
   },
   Key: {
