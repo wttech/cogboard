@@ -75,13 +75,16 @@ export function fillServiceCheck() {
 
 export function fillSonarQube() {
   let metricKeys = Object.keys(Widgets.sonarQube.metrics);
+  cy.get('[data-cy="widget-form-sonar-qube-version-input"]')
+    .click();
+  cy.contains('li', '7.x')
+    .click();
   cy.get('[data-cy="widget-form-endpoint-input"]').click();
   cy.get(`[data-value="${Widgets.sonarQube.endpoint}"]`).click();
   cy.fillSchedulePeriod(Widgets.sonarQube.schedulePeriod);
   cy.get('[data-cy="widget-form-key-string-input"]').type(
     Widgets.sonarQube.key
   );
-  cy.get('[data-cy="widget-form-id-number-input"]').type(Widgets.sonarQube.id);
   cy.get('[data-cy="widget-form-selected-metrics-input"]').click();
   for (let i = 4; i < metricKeys.length; i++) {
     let metric = metricKeys[i];
