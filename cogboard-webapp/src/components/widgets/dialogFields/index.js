@@ -321,7 +321,11 @@ const dialogFields = {
     validator: () => string()
   },
   RequestBody: {
-    component: MultilineTextInput,
+    component: conditionallyHidden(
+      MultilineTextInput,
+      'requestMethod',
+      value => value === 'put' || value === 'post'
+    ),
     name: 'body',
     label: 'Request Body (Json format or empty)',
     validator: () => string()
