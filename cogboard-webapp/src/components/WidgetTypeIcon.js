@@ -2,8 +2,8 @@ import React from 'react';
 import StatusIcon from './StatusIcon';
 import { StyledStatusIconButton, StyledIconWrapper } from './Widget/styled';
 
-const WidgetTypeIcon = ({ type, content, status }) => {
-  if (type === 'AemHealthcheckWidget') {
+const WidgetTypeIcon = ({ content, status }) => {
+  if (content.url) {
     return (
       <StyledStatusIconButton href={content.url} target="_blank">
         <StatusIcon status={status} size="large" />

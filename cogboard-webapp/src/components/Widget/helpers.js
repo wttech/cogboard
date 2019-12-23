@@ -10,9 +10,6 @@ export const mapStatusToColor = (status, theme) => theme.palette.status[status];
 export const getWidgetOverflow = type =>
   type !== 'TextWidget' ? 'visible' : 'hidden';
 
-export const getWidgetPadding = type =>
-  type === 'WorldClockWidget' ? '0' : '16px';
-
 export const renderCardContent = (
   content,
   updateTimestamp,

@@ -3,6 +3,14 @@ import { amber, blue, green, red } from '@material-ui/core/colors/index';
 import { COLORS } from './constants';
 
 export const theme = createMuiTheme({
+  overrides: {
+    MuiCardHeader: {
+      action: {
+        marginTop: 0,
+        marginRight: 0
+      }
+    }
+  },
   palette: {
     type: 'dark',
     primary: {

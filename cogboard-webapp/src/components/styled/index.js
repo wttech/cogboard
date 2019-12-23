@@ -27,9 +27,9 @@ export const WidgetButton = styled(FullWidthButtonOutlined)`
 
 export const WidgetIconButton = styled(IconButton)`
   border-radius: 0;
-  height: 100%;
   padding: 0;
   display: flex;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
   width: 100%;
