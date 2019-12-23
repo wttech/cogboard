@@ -21,7 +21,7 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
 
     override fun handleResponse(responseBody: JsonObject) {
         if (checkAuthorized(responseBody)) {
-            if (!responseBody.containsKey("s")) {
+            if (!responseBody.containsKey(PROP_STATUSES_ARRAY)) {
                 sendUnknownResponseError()
                 return
             }
@@ -57,14 +57,14 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         inactiveBundles: List<JsonObject>
     ): JsonObject =
         JsonObject()
-            .put("bundleStatus", numericStatus)
+            .put(PROP_BUNDLE_STATUS, numericStatus)
             .put(PROP_EXCLUDED_BUNDLES, excludedBundles)
-            .put("inactiveBundles", inactiveBundles)
+            .put(PROP_INACTIVE_BUNDLES, inactiveBundles)
             .put(CC.PROP_WIDGET_STATUS, statusByNumbers(numericStatus))
 
     private fun statusByNumbers(numericStatus: MutableMap<String, Int>): Widget.Status {
-        val resolved = numericStatus["resolved"] ?: 0
-        val installed = numericStatus["installed"] ?: 0
+        val resolved = numericStatus[PROP_BUNDLE_STATUS_RESOLVED] ?: 0
+        val installed = numericStatus[PROP_BUNDLE_STATUS_INSTALLED] ?: 0
 
         if (resolved > 0) {
             return if (resolved < resolvedThreshold) Widget.Status.UNSTABLE else Widget.Status.ERROR
@@ -102,7 +102,7 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
 
     private fun JsonObject.getStatusMap(): MutableMap<String, Int> {
         return this
-            .getJsonArray("s", JsonArray())
+            .getJsonArray(PROP_STATUSES_ARRAY, JsonArray())
             .mapIndexed { idx, value ->
                 statusMappingList[idx] to value as Int
             }
@@ -114,6 +114,11 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         val statusMappingList = listOf("total", "active", "fragmented", "resolved", "installed")
         val inactiveBundleStatuses = listOf("Resolved", "Installed")
 
+        const val PROP_BUNDLE_STATUS = "bundleStatus"
+        const val PROP_INACTIVE_BUNDLES = "inactiveBundles"
+        const val PROP_BUNDLE_STATUS_RESOLVED = "resolved"
+        const val PROP_BUNDLE_STATUS_INSTALLED = "installed"
+        const val PROP_STATUSES_ARRAY = "s"
         const val PROP_EXCLUDED_BUNDLES = "excludedBundles"
         const val PROP_RESOLVED_THRESHOLD = "resolvedThreshold"
         const val PROP_INSTALLED_THRESHOLD = "installedThreshold"
