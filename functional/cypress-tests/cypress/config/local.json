@@ -5,5 +5,5 @@
     "password": "admin"
   },
   "video": true,
-  "videoCompression": 0
+  "videoCompression": 16
 }

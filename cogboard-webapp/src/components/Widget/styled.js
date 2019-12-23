@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { bool, number, object, string } from 'prop-types';
+import { bool, number, object } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import {
@@ -84,8 +84,7 @@ StyledCard.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   rows: number.isRequired,
-  theme: object.isRequired,
-  status: string
+  theme: object.isRequired
 };
 
 StyledCard.defaultProps = {
@@ -94,7 +93,6 @@ StyledCard.defaultProps = {
 
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
-  ${({ title }) => !title && `position: absolute; right: 0;`}
 `;
 
 export const StyledCardContent = styled(CardContent)`
@@ -140,7 +138,7 @@ export const StyledCollapse = styled(
 export const StyledIconButton = styled(({ isExpanded, ...props }) => (
   <IconButton {...props} />
 ))`
-  marginleft: auto;
+  margin-left: auto;
   transform: ${({ isExpanded }) =>
     isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
   transition: transform 100ms linear;
