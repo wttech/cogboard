@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { func } from 'prop-types';
 
-import { getIsAuthenticated } from '../selectors';
+import { getIsAuthenticated } from '../../selectors';
 
-import { Menu, MenuList, IconButton } from '@material-ui/core';
+import { Menu, MenuList } from '@material-ui/core';
+import { StyledIcon } from './styled';
 import { MoreVert } from '@material-ui/icons';
 
 const MoreMenu = ({ children, color }) => {
@@ -22,7 +23,7 @@ const MoreMenu = ({ children, color }) => {
 
   return (
     <>
-      <IconButton
+      <StyledIcon
         onClick={handleMoreButtonClick}
         aria-label="More"
         aria-controls="more-menu"
@@ -31,7 +32,7 @@ const MoreMenu = ({ children, color }) => {
         color={color}
       >
         <MoreVert />
-      </IconButton>
+      </StyledIcon>
       <Menu
         onClose={handleMoreMenuClose}
         anchorEl={anchorEl}
