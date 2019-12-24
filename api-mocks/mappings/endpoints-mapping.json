@@ -316,6 +316,19 @@
         },
         "bodyFileName": "sonarqube/v7.x/warning.json"
       }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/system/console/bundles.json"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "aem/6.5.2/bundleinfo.json"
+      }
     }
   ]
 }

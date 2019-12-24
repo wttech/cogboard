@@ -8,7 +8,7 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget1", "widget9"]
+        "widgets": ["widget1", "widget9", "widget20", "widget18", "widget19"]
       },
       "board2": {
         "autoSwitch": true,
@@ -451,6 +451,73 @@
         "textSize": "h4",
         "isVertical": true,
         "expandContent": false
+      },
+      "widget18": {
+        "id": "widget18",
+        "title": "AEM Bundle Info",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemBundleInfoWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "resolvedThreshold": 2,
+        "installedThreshold": 2,
+        "excludedBundles": "",
+        "expandContent": false
+      },
+      "widget19": {
+        "id": "widget19",
+        "title": "AEM Healthcheck",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemHealthcheckWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "selectedHealthChecks": [
+          "slingJobs",
+          "systemchecks",
+          "inactiveBundles",
+          "DiskSpaceHealthCheck",
+          "slingDiscoveryOakSynchronizedClocks",
+          "securitychecks",
+          "queryTraversalLimitsBundle",
+          "queriesStatus",
+          "requestsStatus",
+          "resourceSearchPathErrorHealthCheck",
+          "ObservationQueueLengthHealthCheck",
+          "logErrorHealthCheck",
+          "codeCacheHealthCheck",
+          "asyncIndexHealthCheck"
+        ],
+        "expandContent": true
+      },
+      "widget20": {
+        "id": "widget20",
+        "title": "",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "WhiteSpaceWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1"
       }
     },
     "allWidgets": [
@@ -470,7 +537,10 @@
       "widget14",
       "widget15",
       "widget16",
-      "widget17"
+      "widget17",
+      "widget18",
+      "widget19",
+      "widget20"
     ]
   }
 }

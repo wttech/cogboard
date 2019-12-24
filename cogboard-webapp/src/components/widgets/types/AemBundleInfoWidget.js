@@ -51,4 +51,10 @@ AemBundleInfoWidget.propTypes = {
   inactiveBundles: array.isRequired
 };
 
+AemBundleInfoWidget.defaultProps = {
+  bundleStatus: {},
+  excludedBundles: [],
+  inactiveBundles: []
+};
+
 export default AemBundleInfoWidget;
