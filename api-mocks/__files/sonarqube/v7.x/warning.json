@@ -1,0 +1,57 @@
+{
+  "component": {
+    "id": "AW7G8brhmTgqvtxUtjNO",
+    "key": "mse-core",
+    "name": "Money Saving Expert Core",
+    "description": "MSE - App",
+    "qualifier": "TRK",
+    "measures": [
+      {
+        "metric": "minor_violations",
+        "value": "144",
+        "bestValue": false
+      },
+      {
+        "metric": "info_violations",
+        "value": "6",
+        "bestValue": false
+      },
+      {
+        "metric": "alert_status",
+        "value": "WARN"
+      },
+      {
+        "metric": "blocker_violations",
+        "value": "1",
+        "bestValue": false
+      },
+      {
+        "metric": "bugs",
+        "value": "115",
+        "bestValue": false
+      },
+      {
+        "metric": "code_smells",
+        "value": "227",
+        "bestValue": false
+      },
+      {
+        "metric": "vulnerabilities",
+        "value": "0",
+        "bestValue": true
+      },
+      {
+        "metric": "critical_violations",
+        "value": "39",
+        "bestValue": false
+      },
+      {
+        "metric": "major_violations",
+        "value": "152",
+        "bestValue": false
+      }
+    ]
+  },
+  "statusCode": 200,
+  "statusMessage": ""
+}
