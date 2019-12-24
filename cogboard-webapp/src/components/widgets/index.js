@@ -10,6 +10,7 @@ import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
 import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
+import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -146,6 +147,22 @@ const widgetTypes = {
     validationConstraints: {
       SchedulePeriod: { min: 3 },
       AemHealthcheckInput: { minArrayLength: 1 }
+    }
+  },
+  AemBundleInfoWidget: {
+    name: 'AEM Bundle Info',
+    component: AemBundleInfoWidget,
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'AemBundleResolvedThreshold',
+      'AemBundleInstalledThreshold',
+      'AemBundleExcluded',
+      'ExpandableContent'
+    ],
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
     }
   }
 };

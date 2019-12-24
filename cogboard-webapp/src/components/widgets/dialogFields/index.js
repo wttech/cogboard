@@ -373,6 +373,36 @@ const dialogFields = {
     dropdownItems: SONARQUBE_VERSIONS,
     initialValue: SONARQUBE_VERSIONS[0].value,
     validator: () => string()
+  },
+  AemBundleExcluded: {
+    component: MultilineTextInput,
+    name: 'excludedBundles',
+    label: 'Excluded bundles (each line is a new entry)',
+    validator: () => string()
+  },
+  AemBundleResolvedThreshold: {
+    component: NumberInput,
+    name: 'resolvedThreshold',
+    label: 'Error threshold for bundles with "resolved" status',
+    min: 0,
+    step: 1,
+    initialValue: 2,
+    validator: () =>
+      number()
+        .moreThan(0)
+        .required(vm.FIELD_REQUIRED())
+  },
+  AemBundleInstalledThreshold: {
+    component: NumberInput,
+    name: 'installedThreshold',
+    label: 'Error threshold for bundles with "installed" status',
+    min: 0,
+    step: 1,
+    initialValue: 2,
+    validator: () =>
+      number()
+        .moreThan(0)
+        .required(vm.FIELD_REQUIRED())
   }
 };
 

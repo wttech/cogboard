@@ -27,11 +27,7 @@ class ComponentIdDisplay extends React.Component {
       return null;
     }
 
-    const copyToClipboard = id => () => {
-      if (id) {
-        copy(id);
-      }
-    };
+    const copyToClipboard = id => () => id && copy(id);
 
     return (
       <>
