@@ -84,12 +84,10 @@ export function validateSonarQube() {
         console.log(metric.text());
       });
   }
-  cy.contains("span", `${Widgets.sonarQube.id}`).should("is.visible");
   cy.contains(
     "p",
     /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/
   ).should("is.visible");
-  cy.contains("p", "6.4.2.6-SNAPSHOT").should("is.visible");
 }
 
 export function validateText() {

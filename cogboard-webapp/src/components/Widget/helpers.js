@@ -32,7 +32,7 @@ export const renderCardContent = (
       ) : !disabled && !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
-        type === 'AemHealthcheckWidget' ? (
+        content.url ? (
           <StyledStatusIconButton href={content.url} target="_blank">
             <StatusIcon status={status} size="large" />
           </StyledStatusIconButton>
