@@ -20,9 +20,7 @@ export function fillAemHealthcheck() {
 
 export function fillBambooDeployment() {
   cy.get('[data-cy="widget-form-endpoint-input"]').click();
-  cy.get(
-    `[data-value="${Widgets.bambooDeployment.endpoint}"]`
-  ).click();
+  cy.get(`[data-value="${Widgets.bambooDeployment.endpoint}"]`).click();
   cy.fillSchedulePeriod(Widgets.bambooDeployment.schedulePeriod);
   cy.get('[data-cy="widget-form-id-string-input"]').type(
     "{selectall}" + Widgets.bambooDeployment.id
@@ -75,10 +73,8 @@ export function fillServiceCheck() {
 
 export function fillSonarQube() {
   let metricKeys = Object.keys(Widgets.sonarQube.metrics);
-  cy.get('[data-cy="widget-form-sonar-qube-version-input"]')
-    .click();
-  cy.contains('li', '7.x')
-    .click();
+  cy.get('[data-cy="widget-form-sonar-qube-version-input"]').click();
+  cy.contains("li", "7.x").click();
   cy.get('[data-cy="widget-form-endpoint-input"]').click();
   cy.get(`[data-value="${Widgets.sonarQube.endpoint}"]`).click();
   cy.fillSchedulePeriod(Widgets.sonarQube.schedulePeriod);
