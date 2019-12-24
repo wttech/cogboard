@@ -249,7 +249,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "sonarqube/v5.6.6/success.json"
+        "bodyFileName": "sonarqube/v5.x/success.json"
       }
     },
     {
@@ -262,7 +262,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "sonarqube/v5.6.6/fail.json"
+        "bodyFileName": "sonarqube/v5.x/fail.json"
       }
     },
     {
@@ -275,7 +275,46 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "sonarqube/v5.6.6/warning.json"
+        "bodyFileName": "sonarqube/v5.x/warning.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/measures/component?component=success&metricKeys=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "sonarqube/v7.x/success.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/measures/component?component=fail&metricKeys=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "sonarqube/v7.x/fail.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/measures/component?component=warning&metricKeys=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,bugs,code_smells,vulnerabilities"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "sonarqube/v7.x/warning.json"
       }
     }
   ]

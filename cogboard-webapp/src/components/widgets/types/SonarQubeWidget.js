@@ -4,19 +4,19 @@ import { number, string, object } from 'prop-types';
 import { Caption, WidgetButton } from '../../styled';
 
 const SonarQubeWidget = props => {
-  const { metrics, id, url, version, date } = props;
+  const { metrics, url, version, date } = props;
   const ts = date ? new Date(Date.parse(date)).toLocaleString() : '';
 
   return (
     <>
       <Caption>{ts}</Caption>
-      <Caption>Version: {version}</Caption>
+      {version === '-' ? null : <Caption>Version: {version}</Caption>}
       {Object.entries(metrics).map(([metric, val]) => (
         <Caption key={metric}>
           {metric.replace('_', ' ')}: {val}
         </Caption>
       ))}
-      <WidgetButton href={url}>#{id}</WidgetButton>
+      <WidgetButton href={url}>OPEN DASHBOARD</WidgetButton>
     </>
   );
 };

@@ -15,7 +15,7 @@ const StatusCheckbox = ({ status, size }) => {
   const IconComponent =
     status in iconComponents
       ? iconComponents[status]
-      : iconComponents['UNKNOWN'];
+      : iconComponents['CHECKBOX_UNKNOWN'];
 
   return <IconComponent fontSize={size} />;
 };

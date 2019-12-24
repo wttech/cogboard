@@ -44,10 +44,11 @@ const widgetTypes = {
     name: 'SonarQube',
     component: SonarQubeWidget,
     dialogFields: [
+      'SonarQubeVersion',
       'EndpointField',
       'SchedulePeriod',
       'Key',
-      'IdNumber',
+      'SonarQubeIdNumber',
       'SonarQubeMetricsInput',
       'ExpandableContent'
     ],
@@ -78,7 +79,7 @@ const widgetTypes = {
   TextWidget: {
     name: 'Text',
     component: TextWidget,
-    dialogFields: ['Text', 'TextSize', 'TextOrientation', 'ExpandableContent'],
+    dialogFields: ['Text', 'TextSize', 'TextOrientation'],
     validationConstraints: {
       Text: { max: 240 }
     }

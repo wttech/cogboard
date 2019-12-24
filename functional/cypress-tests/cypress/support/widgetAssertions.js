@@ -10,22 +10,17 @@ export function validateAemHealthcheck() {
 }
 
 export function validateBambooDeployment() {
-    cy.contains("p", /^Deployment State:IN_PROGRESS/)
-        .should("is.visible");
-    cy.contains("p", /^Lifecycle State:IN_PROGRESS/)
-        .should("is.visible");
-    cy.get("circle")
-        .should("is.visible");
-    cy.contains("span", "3.1.43-SNAPSHOT (129)")
-        .should("is.visible");
-    cy.contains("h3", `Test-${Widgets.bambooDeployment.name}`)
-        .parents('[draggable="true"]')
-        .should("have.css", "background-color", "rgb(25, 140, 189)");
+  cy.contains("p", /^Deployment State:IN_PROGRESS/).should("is.visible");
+  cy.contains("p", /^Lifecycle State:IN_PROGRESS/).should("is.visible");
+  cy.get("circle").should("is.visible");
+  cy.contains("span", "3.1.43-SNAPSHOT (129)").should("is.visible");
+  cy.contains("h3", `Test-${Widgets.bambooDeployment.name}`)
+    .parents('[draggable="true"]')
+    .should("have.css", "background-color", "rgb(25, 140, 189)");
 }
 
 export function validateBambooPlan() {
-  cy.contains("p", "Finished")
-    .should("is.visible");
+  cy.contains("p", "Finished").should("is.visible");
   cy.contains("span", "1597").should("is.visible");
   cy.contains("h3", `Test-${Widgets.bambooPlan.name}`)
     .parents('[draggable="true"]')
@@ -84,12 +79,10 @@ export function validateSonarQube() {
         console.log(metric.text());
       });
   }
-  cy.contains("span", `${Widgets.sonarQube.id}`).should("is.visible");
   cy.contains(
     "p",
     /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/
   ).should("is.visible");
-  cy.contains("p", "6.4.2.6-SNAPSHOT").should("is.visible");
 }
 
 export function validateText() {

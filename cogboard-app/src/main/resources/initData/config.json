@@ -8,7 +8,7 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget1"]
+        "widgets": ["widget1", "widget9"]
       },
       "board2": {
         "autoSwitch": true,
@@ -24,7 +24,20 @@
         "switchInterval": 60,
         "id": "board3",
         "theme": "default",
-        "widgets": ["widget8", "widget5", "widget7", "widget6"],
+        "widgets": [
+          "widget8",
+          "widget5",
+          "widget7",
+          "widget6",
+          "widget17",
+          "widget14",
+          "widget15",
+          "widget16",
+          "widget13",
+          "widget10",
+          "widget11",
+          "widget12"
+        ],
         "columns": 8,
         "title": "Sonarqube Widget Examples"
       }
@@ -44,7 +57,6 @@
         "type": "ExampleWidget",
         "disabled": false,
         "content": {},
-        "status": "UNKNOWN",
         "isUpdating": false,
         "boardId": "board1",
         "schedulePeriod": 3
@@ -60,10 +72,9 @@
         "type": "JenkinsJobWidget",
         "disabled": false,
         "content": {},
-        "status": "OK",
         "isUpdating": false,
         "boardId": "board2",
-        "endpoint": "api-mocks-endpoint",
+        "endpoint": "endpoint1",
         "schedulePeriod": 120,
         "path": "/job/CogBoard/job/success"
       },
@@ -78,10 +89,9 @@
         "type": "JenkinsJobWidget",
         "disabled": false,
         "content": {},
-        "status": "FAIL",
         "isUpdating": false,
         "boardId": "board2",
-        "endpoint": "api-mocks-endpoint",
+        "endpoint": "endpoint1",
         "schedulePeriod": 120,
         "path": "/job/CogBoard/job/fail"
       },
@@ -96,16 +106,15 @@
         "type": "JenkinsJobWidget",
         "disabled": false,
         "content": {},
-        "status": "IN_PROGRESS",
         "isUpdating": false,
         "boardId": "board2",
-        "endpoint": "api-mocks-endpoint",
+        "endpoint": "endpoint1",
         "schedulePeriod": 120,
         "path": "/job/CogBoard/job/in-progress"
       },
       "widget5": {
         "id": "widget5",
-        "title": "Sonarqube Success",
+        "title": "Success",
         "config": {
           "columns": 1,
           "goNewLine": false,
@@ -114,10 +123,9 @@
         "type": "SonarQubeWidget",
         "disabled": false,
         "content": {},
-        "status": "OK",
         "isUpdating": false,
         "boardId": "board3",
-        "endpoint": "api-mocks-endpoint",
+        "endpoint": "endpoint1",
         "schedulePeriod": 120,
         "keyString": "success",
         "idNumber": 1,
@@ -125,12 +133,18 @@
           "blocker_violations",
           "critical_violations",
           "major_violations",
-          "minor_violations"
-        ]
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": false,
+        "sonarQubeVersion": "5.x"
       },
       "widget6": {
         "id": "widget6",
-        "title": "Sonarqube Fail",
+        "title": "Fail",
         "config": {
           "columns": 1,
           "goNewLine": false,
@@ -139,23 +153,28 @@
         "type": "SonarQubeWidget",
         "disabled": false,
         "content": {},
-        "status": "FAIL",
         "isUpdating": false,
         "boardId": "board3",
         "selectedMetrics": [
           "blocker_violations",
           "critical_violations",
           "major_violations",
-          "minor_violations"
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
         ],
         "idNumber": 1,
         "keyString": "fail",
-        "schedulePeriod": 120000,
-        "endpoint": "api-mocks-endpoint"
+        "schedulePeriod": 120,
+        "endpoint": "endpoint1",
+        "expandContent": false,
+        "sonarQubeVersion": "5.x"
       },
       "widget7": {
         "id": "widget7",
-        "title": "Sonarqube Warning",
+        "title": "Warning",
         "config": {
           "columns": 1,
           "goNewLine": false,
@@ -164,19 +183,24 @@
         "type": "SonarQubeWidget",
         "disabled": false,
         "content": {},
-        "status": "UNSTABLE",
         "isUpdating": false,
         "boardId": "board3",
-        "endpoint": "api-mocks-endpoint",
-        "schedulePeriod": 120000,
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
         "keyString": "warning",
         "idNumber": 1,
         "selectedMetrics": [
           "blocker_violations",
           "critical_violations",
           "major_violations",
-          "minor_violations"
-        ]
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": false,
+        "sonarQubeVersion": "5.x"
       },
       "widget8": {
         "id": "widget8",
@@ -189,12 +213,244 @@
         "type": "TextWidget",
         "disabled": false,
         "content": {},
-        "status": "UNKNOWN",
         "isUpdating": false,
         "boardId": "board3",
-        "text": "v5.6.6",
+        "text": "v5.x",
         "textSize": "h3",
-        "isVertical": true
+        "isVertical": true,
+        "expandContent": false
+      },
+      "widget9": {
+        "id": "widget9",
+        "title": "Check",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "CheckboxWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board1",
+        "withWidgetContentUpdate": true
+      },
+      "widget10": {
+        "id": "widget10",
+        "title": "Success",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "success",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": false,
+        "sonarQubeVersion": "7.x"
+      },
+      "widget11": {
+        "id": "widget11",
+        "title": "Warning",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "warning",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": false,
+        "sonarQubeVersion": "7.x"
+      },
+      "widget12": {
+        "id": "widget12",
+        "title": "Fail",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "fail",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": false,
+        "sonarQubeVersion": "7.x"
+      },
+      "widget13": {
+        "id": "widget13",
+        "title": "",
+        "config": {
+          "columns": 1,
+          "goNewLine": true,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "text": "v7.x",
+        "textSize": "h3",
+        "isVertical": true,
+        "expandContent": false
+      },
+      "widget14": {
+        "id": "widget14",
+        "title": "Success - expandable",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "sonarQubeVersion": "5.x",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "success",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": true
+      },
+      "widget15": {
+        "id": "widget15",
+        "title": "Warning - expandable",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "sonarQubeVersion": "5.x",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "warning",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": true
+      },
+      "widget16": {
+        "id": "widget16",
+        "title": "Fail - expandable",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "sonarQubeVersion": "5.x",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "fail",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": true
+      },
+      "widget17": {
+        "id": "widget17",
+        "title": "",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "text": "Expandable",
+        "textSize": "h4",
+        "isVertical": true,
+        "expandContent": false
       }
     },
     "allWidgets": [
@@ -205,7 +461,16 @@
       "widget5",
       "widget6",
       "widget7",
-      "widget8"
+      "widget8",
+      "widget9",
+      "widget10",
+      "widget11",
+      "widget12",
+      "widget13",
+      "widget14",
+      "widget15",
+      "widget16",
+      "widget17"
     ]
   }
 }

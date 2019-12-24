@@ -24,6 +24,7 @@ export const hasError = error => error !== undefined;
 
 const INITIAL_STATUSES = {
   TextWidget: 'NONE',
+  IframeEmbedWidget: 'NONE',
   WorldClockWidget: 'NONE',
   WhiteSpaceWidget: 'TRANSPARENT',
   CheckboxWidget: 'CHECKBOX_UNKNOWN'
