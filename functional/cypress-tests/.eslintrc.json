@@ -1,0 +1,24 @@
+{
+    "plugins": [
+      "cypress"
+    ],
+    "rules": {
+        "cypress/no-assigning-return-values": "error",
+        "cypress/no-unnecessary-waiting": "error",
+        "cypress/assertion-before-screenshot": "warn",
+        "quotes": ["warn", "single"],
+        "newline-per-chained-call": ["warn", {"ignoreChainWithDepth": 1}],
+        "indent": "warn",
+        "semi": ["warn", "never"],
+        "block-spacing": "warn",
+        "arrow-spacing": "warn",
+        "eol-last": "warn",
+        "prefer-const": "warn"
+    },
+    "env": {
+        "cypress/globals": true
+    },
+    "extends": [
+        "plugin:cypress/recommended"
+    ]
+}
