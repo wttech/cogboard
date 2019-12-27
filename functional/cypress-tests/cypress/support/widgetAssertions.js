@@ -1,5 +1,18 @@
 import Widgets from "../fixtures/Widgets";
 
+export function validateAemBundleInfo() {
+  cy.contains('p', /^Total: [0-9]{1,4}/)
+    .should('is.visible');
+  cy.contains('p', /^Active: [0-9]{1,4}/)
+    .should('is.visible');
+  cy.contains('p', /^Fragmented: [0-9]{1,4}/)
+    .should('is.visible');
+  cy.contains('p', /^Resolved: [0-9]{1,4}/)
+    .should('is.visible');
+  cy.contains('p', /^Installed: [0-9]{1,4}/)
+    .should('is.visible');
+}
+
 export function validateAemHealthcheck() {
   const healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
   for (let i = 0; i < healthcheckKeys.length; i++) {
@@ -98,6 +111,9 @@ export function validateWorldClock() {
 export function validateWidgetConfig(type = "Text") {
   if (type !== "WhiteSpace" && type !== "Example") {
     switch (type) {
+      case "AEM Bundle Info":
+        validateAemBundleInfo();
+        break;
       case "AEM Healthcheck":
         validateAemHealthcheck();
         break;

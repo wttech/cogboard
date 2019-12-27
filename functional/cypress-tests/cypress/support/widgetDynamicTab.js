@@ -1,5 +1,17 @@
 import Widgets from "../fixtures/Widgets";
 
+export function fillAemBundleInfo() {
+  cy.get('[data-cy="widget-form-endpoint-input"]').click();
+  cy.get(`[data-value="${Widgets.aemBundleInfo.endpoint}"]`).click();
+  cy.fillSchedulePeriod(Widgets.aemBundleInfo.schedulePeriod);
+  cy.get('[data-cy="widget-form-resolved-threshold-input"]')
+    .type('{selectall}' + `${Widgets.aemBundleInfo.resolvedThreshold}`);
+  cy.get('[data-cy="widget-form-installed-threshold-input"]')
+    .type('{selectall}' + `${Widgets.aemBundleInfo.installedThreshold}`);
+  cy.get('[data-cy="widget-form-excluded-bundles-input"]')
+    .type('{selectall}' + `${Widgets.aemBundleInfo.excludedBundles}`);
+}
+
 export function fillAemHealthcheck() {
   let healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
   cy.get('[data-cy="widget-form-endpoint-input"]').click();
@@ -117,6 +129,9 @@ export function fillDynamicTab(type = "Text") {
   if (type !== "White Space" && type !== "Checkbox") {
     cy.get('[data-cy="widget-form-dynamic-tab"]').click();
     switch (type) {
+      case "AEM Bundle Info":
+        fillAemBundleInfo();
+        break;
       case "AEM Healthcheck":
         fillAemHealthcheck();
         break;
