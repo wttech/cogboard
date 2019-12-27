@@ -10,7 +10,7 @@ before_script:
     fi
   - if [[ "$TRAVIS_BRANCH" != "master" && "$TRAVIS_EVENT_TYPE" == "push" ]]; then export DEV_BUILD=1; fi
   - export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
-  - npx eslint "functional/cypress-tests/cypress/**/*.js"
+  - cd functional/cypress-tests && npm install && npx eslint "cypress/**/*.js" && cd ../..
 script:
   - if [[ "$RELEASE" == "1" ]]; then ./gradlew release -Prelease.useAutomaticVersion=true -DcypressEnv=travis
     --info; fi
