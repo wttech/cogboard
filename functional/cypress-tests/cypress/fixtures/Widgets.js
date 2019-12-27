@@ -110,6 +110,7 @@ module.exports = {
     endpoint: "endpoint1",
     schedulePeriod: "90",
     key: "fail",
+    id: "316488",
     metrics: {
       blocker_violations: {
         dataValue: "blocker_violations",
