@@ -24,6 +24,7 @@ const bundleArrayToComponents = array => (
 const BundlesInfoWithPopover = ({ bundleArray, name }) =>
   bundleArray.length ? (
     <PopoverWithControls
+      isCentered={true}
       title={`${name} bundles: ${bundleArray.length}`}
       body={bundleArrayToComponents(bundleArray)}
     />
