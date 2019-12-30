@@ -91,6 +91,11 @@ export const StyledCardHeader = styled(CardHeader)`
   padding: 8px;
 `;
 
+export const StyledEmptyCardHeader = styled(StyledCardHeader)`
+  position: absolute;
+  width: 100%;
+`;
+
 export const StyledCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
