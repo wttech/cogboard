@@ -17,10 +17,10 @@ import { renderCardContent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
 import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
+import WidgetContent from '../WidgetContent';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
-import WidgetContent from '../WidgetContent';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
@@ -51,6 +51,7 @@ const Widget = ({ id, index }) => {
     closeConfirmationDialog
   ] = useToggle();
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+  const [expanded, , , handleToggle] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
@@ -96,8 +97,6 @@ const Widget = ({ id, index }) => {
     })
   });
 
-  const [expanded, setExpanded] = React.useState(false);
-
   drag(drop(ref));
 
   const handleEditClick = closeMenu => () => {
@@ -116,10 +115,6 @@ const Widget = ({ id, index }) => {
     closeConfirmationDialog();
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   return (
     <>
       <StyledCard
@@ -134,8 +129,10 @@ const Widget = ({ id, index }) => {
         isDragging={isDragging}
         isOver={isOver}
         ref={ref}
+        type={type}
+        expanded
       >
-        {(isAuthenticated || title !== '') && (
+        {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
           <StyledCardHeader
             avatar={
               !expandContent && (
@@ -181,7 +178,7 @@ const Widget = ({ id, index }) => {
           widgetStatus,
           expandContent,
           expanded,
-          handleExpandClick
+          handleToggle
         )}
         {expandContent && (
           <StyledCollapse

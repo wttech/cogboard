@@ -5,11 +5,12 @@ import {
   GMT_TIMEZONES,
   TIME_FORMATS
 } from '../types/WorldClockWidget/helpers';
-import { parseWidgetTypes, transformMinValueToHalf } from './helpers';
+import { parseWidgetTypes, transformMinValue } from './helpers';
 import {
   REQUEST_METHODS,
   TEXT_SIZES,
-  validationMessages as vm
+  validationMessages as vm,
+  SONARQUBE_VERSIONS
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
 import widgetTypes from '../../widgets';
@@ -109,6 +110,7 @@ const dialogFields = {
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
+    valueUpdater: transformMinValue(),
     validator: ({ min, max }) =>
       number()
         .min(min, vm.NUMBER_MIN('Columns', min))
@@ -120,7 +122,7 @@ const dialogFields = {
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
-    valueUpdater: transformMinValueToHalf(),
+    valueUpdater: transformMinValue(0.5),
     validator: ({ min, max }) =>
       number()
         .min(min, vm.NUMBER_MIN('Columns', min))
@@ -132,7 +134,7 @@ const dialogFields = {
     name: 'rows',
     label: 'Rows',
     initialValue: 1,
-    valueUpdater: transformMinValueToHalf(),
+    valueUpdater: transformMinValue(0.5),
     validator: ({ min, max }) =>
       number()
         .min(min, vm.NUMBER_MIN('Rows', min))
@@ -213,11 +215,16 @@ const dialogFields = {
     label: 'ID',
     validator: () => string()
   },
-  IdNumber: {
-    component: NumberInput,
+  SonarQubeIdNumber: {
+    component: conditionallyHidden(
+      NumberInput,
+      'sonarQubeVersion',
+      value => value === '5.x'
+    ),
     name: 'idNumber',
     label: 'ID',
     step: 1,
+    initialValue: 0,
     validator: () => number()
   },
   Key: {
@@ -314,7 +321,11 @@ const dialogFields = {
     validator: () => string()
   },
   RequestBody: {
-    component: MultilineTextInput,
+    component: conditionallyHidden(
+      MultilineTextInput,
+      'requestMethod',
+      value => value === 'put' || value === 'post'
+    ),
     name: 'body',
     label: 'Request Body (Json format or empty)',
     validator: () => string()
@@ -354,6 +365,44 @@ const dialogFields = {
     label: 'Expandable Content',
     initialValue: false,
     validator: () => boolean()
+  },
+  SonarQubeVersion: {
+    component: DisplayValueSelect,
+    name: 'sonarQubeVersion',
+    label: 'SonarQube Version',
+    dropdownItems: SONARQUBE_VERSIONS,
+    initialValue: SONARQUBE_VERSIONS[0].value,
+    validator: () => string()
+  },
+  AemBundleExcluded: {
+    component: MultilineTextInput,
+    name: 'excludedBundles',
+    label: 'Excluded bundles (each line is a new entry)',
+    validator: () => string()
+  },
+  AemBundleResolvedThreshold: {
+    component: NumberInput,
+    name: 'resolvedThreshold',
+    label: 'Error threshold for bundles with "resolved" status',
+    min: 0,
+    step: 1,
+    initialValue: 2,
+    validator: () =>
+      number()
+        .moreThan(0)
+        .required(vm.FIELD_REQUIRED())
+  },
+  AemBundleInstalledThreshold: {
+    component: NumberInput,
+    name: 'installedThreshold',
+    label: 'Error threshold for bundles with "installed" status',
+    min: 0,
+    step: 1,
+    initialValue: 2,
+    validator: () =>
+      number()
+        .moreThan(0)
+        .required(vm.FIELD_REQUIRED())
   }
 };
 

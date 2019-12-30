@@ -10,6 +10,7 @@ import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
 import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
+import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -43,10 +44,11 @@ const widgetTypes = {
     name: 'SonarQube',
     component: SonarQubeWidget,
     dialogFields: [
+      'SonarQubeVersion',
       'EndpointField',
       'SchedulePeriod',
       'Key',
-      'IdNumber',
+      'SonarQubeIdNumber',
       'SonarQubeMetricsInput',
       'ExpandableContent'
     ],
@@ -77,7 +79,7 @@ const widgetTypes = {
   TextWidget: {
     name: 'Text',
     component: TextWidget,
-    dialogFields: ['Text', 'TextSize', 'TextOrientation', 'ExpandableContent'],
+    dialogFields: ['Text', 'TextSize', 'TextOrientation'],
     validationConstraints: {
       Text: { max: 240 }
     }
@@ -145,6 +147,22 @@ const widgetTypes = {
     validationConstraints: {
       SchedulePeriod: { min: 3 },
       AemHealthcheckInput: { minArrayLength: 1 }
+    }
+  },
+  AemBundleInfoWidget: {
+    name: 'AEM Bundle Info',
+    component: AemBundleInfoWidget,
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'AemBundleResolvedThreshold',
+      'AemBundleInstalledThreshold',
+      'AemBundleExcluded',
+      'ExpandableContent'
+    ],
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
     }
   }
 };
