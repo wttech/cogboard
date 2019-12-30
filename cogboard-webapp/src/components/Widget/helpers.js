@@ -10,6 +10,13 @@ export const mapStatusToColor = (status, theme) => theme.palette.status[status];
 export const getWidgetOverflow = type =>
   type !== 'TextWidget' ? 'visible' : 'hidden';
 
+export const dispatchEvent = (customEvent, data) => {
+  if (customEvent) {
+    const Event = new CustomEvent(customEvent, { detail: data });
+    document.dispatchEvent(Event);
+  }
+};
+
 export const renderCardContent = (
   content,
   updateTimestamp,
@@ -19,7 +26,8 @@ export const renderCardContent = (
   status,
   expandContent,
   expanded,
-  handleToggle
+  handleToggle,
+  closeWidgets
 ) => {
   return (
     <StyledCardContent>
@@ -42,6 +50,8 @@ export const renderCardContent = (
         handleToggle={handleToggle}
         content={content}
         expandContent={expandContent}
+        closeWidgets={closeWidgets}
+        id={id}
       />
     </StyledCardContent>
   );
