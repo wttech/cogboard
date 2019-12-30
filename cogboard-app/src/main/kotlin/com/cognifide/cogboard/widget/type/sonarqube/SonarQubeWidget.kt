@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.widget.type
+package com.cognifide.cogboard.widget.type.sonarqube
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.widget.AsyncWidget
@@ -12,23 +12,24 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     private val key: String = config.getString("keyString", "")
     private val idNumber: Int = config.getInteger("idNumber", 0)
     private val selectedMetrics: JsonArray = config.getJsonArray("selectedMetrics")
+    private val version: Version = Version.getVersion(config.getString("sonarQubeVersion", ""))
 
     override fun handleResponse(responseBody: JsonObject) {
         if (checkAuthorized(responseBody)) {
             val data = getData(responseBody)
-            if (data.containsKey("msr")) {
+            if (data.containsKey(version.getMeasureKey())) {
                 sendSuccess(data)
             } else sendUnknownResponseError()
         }
     }
 
     private fun sendSuccess(data: JsonObject) {
-        data.getJsonArray("msr")?.let {
-            data.remove("msr")
+        data.getJsonArray(version.getMeasureKey())?.let {
+            data.remove(version.getMeasureKey())
             val content = data.copy()
 
             attachMetrics(content, it)
-            content.put(CogboardConstants.PROP_URL, "$publicUrl/dashboard/index/$idNumber")
+            content.put(CogboardConstants.PROP_URL, version.getDashboardUrl(publicUrl, key, idNumber))
                     .put(CogboardConstants.PROP_WIDGET_STATUS, extractStatus(it))
 
             content.clearErrorMessageAndErrorCause()
@@ -41,15 +42,14 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     override fun updateState() {
         if (url.isNotBlank() && key.isNotBlank()) {
             val joinedMetrics = selectedMetrics.joinToString(separator = ",")
-            httpGet(url = "$url/api/resources?resource=$key&metrics=alert_status,$joinedMetrics")
+            httpGet(url = version.getUrl(url, key, joinedMetrics))
         } else {
             sendConfigurationError("Endpoint URL or Key is blank.")
         }
     }
 
     private fun getData(responseBody: JsonObject): JsonObject {
-        val data = responseBody.getJsonArray("array")?.list?.get(0) ?: JsonObject()
-        return data as JsonObject
+        return version.getJson(responseBody)
     }
 
     private fun attachMetrics(content: JsonObject, metrics: JsonArray) {
@@ -62,9 +62,9 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
                     metrics.list
                             .stream()
                             .map { it as JsonObject }
-                            .filter { it.getString("key") != "alert_status" && it.getString("key") == metricName }
+                            .filter { it.getString(version.getMetricKey()) != "alert_status" && it.getString(version.getMetricKey()) == metricName }
                             .findFirst()
-                            .ifPresent { result.put(metricName, it.getDouble("val")?.toInt()) }
+                            .ifPresent { result.put(metricName, version.getMetricValue(it)) }
                 }
     }
 
@@ -72,9 +72,9 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
         return metrics.list
                 .stream()
                 .map { it as JsonObject }
-                .filter { it.getString("key") == "alert_status" }
+                .filter { it.getString(version.getMetricKey()) == "alert_status" }
                 .findFirst()
-                .map { Widget.Status.from(it.getString("data")) }
+                .map { Widget.Status.from(it.getString(version.getStatusValueKey())) }
                 .orElse(Widget.Status.UNKNOWN)
     }
 }

@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
-import { bool, number, object, string } from 'prop-types';
+import { bool, number, object } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
-import { mapStatusToColor } from './helpers';
+import { mapStatusToColor, getWidgetOverflow } from './helpers';
 import { COLUMN_MULTIPLIER, ROW_MULTIPLIER, COLORS } from '../../constants';
 
 import { Card, CardHeader, CardContent, Collapse } from '@material-ui/core';
@@ -22,6 +22,7 @@ export const StyledCard = styled(
         isOver,
         rows,
         theme,
+        type,
         ...other
       },
       ref
@@ -43,7 +44,10 @@ export const StyledCard = styled(
   grid-column-end: span ${({ columns }) => columns * COLUMN_MULTIPLIER};
   grid-row-end: span ${({ rows }) => rows * ROW_MULTIPLIER};
   position: relative;
-  overflow: visible;
+  overflow: ${({ type }) => getWidgetOverflow(type)};
+  .MuiCardContent-root {
+    padding: 8px;
+  }
 
   ${({ isDragging, isOver, theme }) =>
     isDragging &&
@@ -75,12 +79,16 @@ StyledCard.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   rows: number.isRequired,
-  theme: object.isRequired,
-  status: string
+  theme: object.isRequired
+};
+
+StyledCard.defaultProps = {
+  status: ''
 };
 
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
+  padding: 8px;
 `;
 
 export const StyledCardContent = styled(CardContent)`
@@ -134,6 +142,8 @@ export const StyledIconButton = styled(({ isExpanded, ...props }) => (
 
 export const StyledStatusIconButton = styled.a`
   display: flex;
+  flex-grow: 1;
+  align-items: center;
   justify-content: center;
   width: 100%;
   transition: 0.2s background-color;

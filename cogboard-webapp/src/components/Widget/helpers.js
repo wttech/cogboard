@@ -1,18 +1,14 @@
 import React from 'react';
 
-import {
-  StyledCardContent,
-  StyledIconButton,
-  StyledStatusIconButton,
-  StyledIconWrapper
-} from './styled';
+import { StyledCardContent } from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
-import LastUpdate from '../LastUpdate';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import StatusIcon from '../StatusIcon';
-
+import WidgetTypeIcon from '../WidgetTypeIcon';
+import WidgetFooter from '../WidgetFooter';
 export const mapStatusToColor = (status, theme) => theme.palette.status[status];
+
+export const getWidgetOverflow = type =>
+  type !== 'TextWidget' ? 'visible' : 'hidden';
 
 export const renderCardContent = (
   content,
@@ -23,7 +19,7 @@ export const renderCardContent = (
   status,
   expandContent,
   expanded,
-  handleExpandClick
+  handleToggle
 ) => {
   return (
     <StyledCardContent>
@@ -32,35 +28,21 @@ export const renderCardContent = (
       ) : !disabled && !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
-        type === 'AemHealthcheckWidget' ? (
-          <StyledStatusIconButton href={content.url} target="_blank">
-            <StatusIcon status={status} size="large" />
-          </StyledStatusIconButton>
-        ) : (
-          <StyledIconWrapper>
-            <StatusIcon status={status} size="large" />
-          </StyledIconWrapper>
-        )
+        <WidgetTypeIcon
+          type={type}
+          status={status}
+          content={content}
+        ></WidgetTypeIcon>
       ) : (
         'Disabled'
       )}
-      <div className="cardFootWrapper">
-        {updateTimestamp && (
-          <LastUpdate
-            lastUpdateTime={new Date(updateTimestamp).toLocaleString()}
-          />
-        )}
-        {expandContent && !content.errorMessage && (
-          <StyledIconButton
-            isExpanded={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expandContent}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </StyledIconButton>
-        )}
-      </div>
+      <WidgetFooter
+        updateTimestamp={updateTimestamp}
+        expanded={expanded}
+        handleToggle={handleToggle}
+        content={content}
+        expandContent={expandContent}
+      />
     </StyledCardContent>
   );
 };

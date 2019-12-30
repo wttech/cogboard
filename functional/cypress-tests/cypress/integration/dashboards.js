@@ -129,28 +129,47 @@ describe("Dashboard switcher", () => {
 
   it("Manual switching works", () => {
     const dashboardName = dashboardNameGen();
+    let prevDashboardName, nextDashboardName;
+
     cy.addDashboard(dashboardName, "8", "3");
     cy.chooseDashboard(dashboardName);
-    cy.get('[data-cy="previous-board-button"]').click();
-    cy.contains(
-      '[data-cy="navbar-title-header"]',
-      "Welcome to Cogboard"
-    ).should("is.visible");
-    cy.get('[data-cy="next-board-button"]').click();
-    cy.contains('[data-cy="navbar-title-header"]', dashboardName).should(
-      "is.visible"
-    );
+    cy.contains('[data-cy="navbar-title-header"]', `${dashboardName}`)
+      .should('is.visible');
+    prevDashboardName = cy.get('[data-cy="previous-board-button"]')
+      .invoke('attr', 'title')
+      .then(title => {
+        prevDashboardName = title.toString();
+        cy.get('[data-cy="previous-board-button"]')
+          .click();
+        cy.contains('[data-cy="navbar-title-header"]', `${prevDashboardName}`)
+          .should("is.visible");
+      })
+      .toString();
+    cy.get('[data-cy="next-board-button"]')
+      .invoke('attr', 'title')
+      .then(title => {
+        nextDashboardName = title.toString();
+        cy.get('[data-cy="next-board-button"]')
+          .click();
+        cy.contains('[data-cy="navbar-title-header"]', `${nextDashboardName}`)
+          .should("is.visible");
+      });
   });
 
   it("Automatic switching works", () => {
     const dashboardName = dashboardNameGen();
+    let nextDashboardName;
+
     cy.addDashboard(dashboardName, "8", "3");
     cy.chooseDashboard(dashboardName);
-    cy.get('[data-cy="auto-switch-board-button"]').click();
-    cy.wait(3000);
-    cy.contains(
-      '[data-cy="navbar-title-header"]',
-      "Welcome to Cogboard"
-    ).should("is.visible");
+    cy.get('[data-cy="next-board-button"]')
+      .invoke('attr', 'title')
+      .then(title => {
+        nextDashboardName = title.toString();
+        cy.get('[data-cy="auto-switch-board-button"]').click();
+        cy.wait(3000);
+        cy.contains('[data-cy="navbar-title-header"]', `${nextDashboardName}`)
+          .should("is.visible");
+      })
   });
 });

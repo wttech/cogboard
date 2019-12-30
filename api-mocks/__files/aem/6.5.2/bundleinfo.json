@@ -1,0 +1,6516 @@
+{
+  "status": "Bundle information: 651 bundles in total - all 651 bundles active.",
+  "s": [651, 651, 5, 0, 0],
+  "data": [
+    {
+      "id": 0,
+      "name": "System Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.0.2",
+      "symbolicName": "org.apache.felix.framework",
+      "category": ""
+    },
+    {
+      "id": 174,
+      "name": "Abdera Client",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0.R783018",
+      "symbolicName": "org.apache.abdera.client",
+      "category": ""
+    },
+    {
+      "id": 175,
+      "name": "Abdera Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0.R783018",
+      "symbolicName": "org.apache.abdera.core",
+      "category": ""
+    },
+    {
+      "id": 176,
+      "name": "Abdera Extensions - Media",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0.R783018",
+      "symbolicName": "org.apache.abdera.extensions-media",
+      "category": ""
+    },
+    {
+      "id": 177,
+      "name": "Abdera Extensions - OpenSearch",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0.R783018",
+      "symbolicName": "org.apache.abdera.extensions-opensearch",
+      "category": ""
+    },
+    {
+      "id": 179,
+      "name": "Abdera Parser",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0.R783018",
+      "symbolicName": "org.apache.abdera.parser",
+      "category": ""
+    },
+    {
+      "id": 180,
+      "name": "Abdera Server",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0.R783018",
+      "symbolicName": "org.apache.abdera.server",
+      "category": ""
+    },
+    {
+      "id": 656,
+      "name": "Accelerator Statistics Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "statistics.accelerator-bundle",
+      "category": ""
+    },
+    {
+      "id": 189,
+      "name": "Adaptive Forms Core API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.0.96",
+      "symbolicName": "com.adobe.aemds.guide.aemds-guide-core",
+      "category": ""
+    },
+    {
+      "id": 190,
+      "name": "Adaptive Forms Core Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.0.96",
+      "symbolicName": "com.adobe.aemds.guide.aemds-guide-core-impl",
+      "category": ""
+    },
+    {
+      "id": 502,
+      "name": "Adobe - XMPFiles Worker host",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.6",
+      "symbolicName": "com.adobe.xmp.worker.files.host",
+      "category": ""
+    },
+    {
+      "id": 503,
+      "name": "Adobe - XMPFiles Worker platform fragment linux",
+      "fragment": true,
+      "stateRaw": 4,
+      "state": "Fragment",
+      "version": "1.0.8",
+      "symbolicName": "com.adobe.xmp.worker.files.native.fragment.linux",
+      "category": ""
+    },
+    {
+      "id": 504,
+      "name": "Adobe - XMPFiles Worker platform fragment macosx",
+      "fragment": true,
+      "stateRaw": 4,
+      "state": "Fragment",
+      "version": "1.0.8",
+      "symbolicName": "com.adobe.xmp.worker.files.native.fragment.macosx",
+      "category": ""
+    },
+    {
+      "id": 505,
+      "name": "Adobe - XMPFiles Worker platform fragment win",
+      "fragment": true,
+      "stateRaw": 4,
+      "state": "Fragment",
+      "version": "1.0.8",
+      "symbolicName": "com.adobe.xmp.worker.files.native.fragment.win",
+      "category": ""
+    },
+    {
+      "id": 298,
+      "name": "Adobe :: SuiteTech :: Nativecomm",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.8",
+      "symbolicName": "com.adobe.suitetech.nativecomm",
+      "category": "sharedcloud"
+    },
+    {
+      "id": 217,
+      "name": "Adobe AEM - WCM Asynchronous Jobs support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.16",
+      "symbolicName": "com.adobe.cq.wcm.com.adobe.cq.wcm.jobs.async",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 31,
+      "name": "Adobe AEM Configuration Updater",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.0",
+      "symbolicName": "com.day.cq.cq-compat-configupdate",
+      "category": "cq5"
+    },
+    {
+      "id": 39,
+      "name": "Adobe AEM Deserialization Firewall",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.24",
+      "symbolicName": "com.adobe.cq.cq-deserialization-firewall",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 315,
+      "name": "Adobe Communique 5 Commerce Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.17.12",
+      "symbolicName": "com.adobe.cq.commerce.cq-commerce-core",
+      "category": "cq5"
+    },
+    {
+      "id": 316,
+      "name": "Adobe Communique 5 Commerce Product Information Manager",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.14.6",
+      "symbolicName": "com.adobe.cq.commerce.cq-commerce-pim",
+      "category": "cq5"
+    },
+    {
+      "id": 317,
+      "name": "Adobe Communique 5 Commerce Social",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.10.4",
+      "symbolicName": "com.adobe.cq.commerce.cq-commerce-social",
+      "category": "cq5"
+    },
+    {
+      "id": 347,
+      "name": "Adobe Communique 5 Dashboards",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.9.2",
+      "symbolicName": "com.adobe.cq.cq-dashboards",
+      "category": "cq5"
+    },
+    {
+      "id": 358,
+      "name": "Adobe Communique 5 History",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.10.6",
+      "symbolicName": "com.adobe.cq.cq-history",
+      "category": "cq5"
+    },
+    {
+      "id": 361,
+      "name": "Adobe Communique 5 Launches API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.2",
+      "symbolicName": "com.adobe.cq.cq-launches-api",
+      "category": "cq5"
+    },
+    {
+      "id": 390,
+      "name": "Adobe Communique 5 Scheduled Exporter",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.10.2",
+      "symbolicName": "com.adobe.cq.cq-scheduled-exporter",
+      "category": "cq5"
+    },
+    {
+      "id": 576,
+      "name": "Adobe Communique 5 Upgrades Executor",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.8",
+      "symbolicName": "com.day.cq.cq-upgrades-executor",
+      "category": "cq5"
+    },
+    {
+      "id": 468,
+      "name": "Adobe Communique 5 WCM Launches Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.13.28",
+      "symbolicName": "com.adobe.cq.wcm.cq-wcm-launches-core",
+      "category": "cq5"
+    },
+    {
+      "id": 350,
+      "name": "Adobe CQ - DTM Integration Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.5.8",
+      "symbolicName": "com.adobe.cq.cq-dtm",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 307,
+      "name": "Adobe CQ Account Management",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "com.adobe.cq.cq-account",
+      "category": ""
+    },
+    {
+      "id": 499,
+      "name": "Adobe CQ Activation DTM Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.8",
+      "symbolicName": "com.adobe.cq.dtm-reactor.core",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 500,
+      "name": "Adobe CQ Activation DTM UI Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "com.adobe.cq.dtm-reactor.ui",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 309,
+      "name": "Adobe CQ Address",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.4",
+      "symbolicName": "com.adobe.cq.cq-address",
+      "category": "cq6"
+    },
+    {
+      "id": 196,
+      "name": "Adobe CQ Cloud Config Components Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "com.adobe.cq.cloud-config.components",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 197,
+      "name": "Adobe CQ Cloud Config Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.12",
+      "symbolicName": "com.adobe.cq.cloud-config.core",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 198,
+      "name": "Adobe CQ Cloud Config UI Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.14",
+      "symbolicName": "com.adobe.cq.cloud-config.ui",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 321,
+      "name": "Adobe CQ Content Insight and Recommendations",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.8",
+      "symbolicName": "com.adobe.cq.cq-content-insight",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 323,
+      "name": "Adobe CQ ContextHub Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.4",
+      "symbolicName": "com.adobe.cq.cq-contexthub-commons",
+      "category": "cq5"
+    },
+    {
+      "id": 344,
+      "name": "Adobe CQ Creative Cloud APIs - DAM SVG Asset Handler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.4.4",
+      "symbolicName": "com.adobe.cq.dam.cq-dam-svg-handler",
+      "category": ""
+    },
+    {
+      "id": 336,
+      "name": "Adobe CQ DAM - Adobe Marketing Cloud Synchronisation Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.16.B002",
+      "symbolicName": "com.adobe.cq.cq-dam-mac-sync",
+      "category": ""
+    },
+    {
+      "id": 337,
+      "name": "Adobe CQ DAM - Adobe Marketing Cloud Synchronisation Helper",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.8",
+      "symbolicName": "com.adobe.cq.cq-dam-mac-sync-helper",
+      "category": ""
+    },
+    {
+      "id": 335,
+      "name": "Adobe CQ DAM - Index Builder",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.4",
+      "symbolicName": "com.adobe.cq.cq-dam-index-builder",
+      "category": "cq5"
+    },
+    {
+      "id": 324,
+      "name": "Adobe CQ DAM annotation print implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.2",
+      "symbolicName": "com.day.cq.dam.cq-dam-annotation-print",
+      "category": "cq5"
+    },
+    {
+      "id": 348,
+      "name": "Adobe CQ DAM Delivery API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.8",
+      "symbolicName": "com.adobe.cq.dam.cq-delivery-api",
+      "category": ""
+    },
+    {
+      "id": 349,
+      "name": "Adobe CQ DAM Delivery Internal API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.8",
+      "symbolicName": "com.adobe.cq.dam.cq-delivery-internal-api",
+      "category": ""
+    },
+    {
+      "id": 332,
+      "name": "Adobe CQ DAM Entitlement Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.26",
+      "symbolicName": "com.day.cq.dam.cq-dam-entitlement",
+      "category": "cq5"
+    },
+    {
+      "id": 388,
+      "name": "Adobe CQ DAM Scene7 Dynamic Imaging",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.50.CQ650-B0008",
+      "symbolicName": "com.adobe.cq.dam.cq-scene7-imaging",
+      "category": ""
+    },
+    {
+      "id": 343,
+      "name": "Adobe CQ DAM Stock Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "com.day.cq.dam.cq-dam-stock-integration",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 355,
+      "name": "Adobe CQ Experience Log Client Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.12",
+      "symbolicName": "com.adobe.cq.cq-experiencelog",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 356,
+      "name": "Adobe CQ Graphics Rendering API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.4",
+      "symbolicName": "com.adobe.cq.cq-gfx",
+      "category": ""
+    },
+    {
+      "id": 202,
+      "name": "Adobe CQ JSON Exporter",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.6",
+      "symbolicName": "com.adobe.cq.export.json",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 203,
+      "name": "Adobe CQ JSON Exporter Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.6",
+      "symbolicName": "com.adobe.cq.export.json.impl",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 339,
+      "name": "Adobe CQ Nui API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "com.adobe.cq.dam.cq-dam-processor-api",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 340,
+      "name": "Adobe CQ Nui Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.8",
+      "symbolicName": "com.adobe.cq.dam.cq-dam-processor-nui",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 379,
+      "name": "Adobe CQ Remote Dam Client Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.18",
+      "symbolicName": "com.adobe.cq.remotedam.cq-remotedam-client-core",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 380,
+      "name": "Adobe CQ Remote DAM Server Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.6",
+      "symbolicName": "com.adobe.cq.remotedam.cq-remotedam-server-core",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 383,
+      "name": "Adobe CQ REST API Sites",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "com.adobe.cq.cq-rest-sites",
+      "category": ""
+    },
+    {
+      "id": 392,
+      "name": "Adobe CQ Search Extension",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.4",
+      "symbolicName": "com.day.cq.cq-search-ext",
+      "category": "cq"
+    },
+    {
+      "id": 391,
+      "name": "Adobe CQ Search QueryBuilder",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.14",
+      "symbolicName": "com.day.cq.cq-search",
+      "category": "cq5"
+    },
+    {
+      "id": 393,
+      "name": "Adobe CQ Search Suggestions",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.2",
+      "symbolicName": "com.day.cq.cq-search-suggest",
+      "category": "cq5"
+    },
+    {
+      "id": 397,
+      "name": "Adobe CQ Security Health Checks",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.8",
+      "symbolicName": "com.adobe.cq.cq-security-hc",
+      "category": "cq"
+    },
+    {
+      "id": 479,
+      "name": "Adobe CQ Translation Workflow",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.58",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-translation",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 467,
+      "name": "Adobe CQ WCM Foundation Components",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.20",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-foundation",
+      "category": "cq5"
+    },
+    {
+      "id": 476,
+      "name": "Adobe CQ WCM Scripting Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.6",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-scripting-support",
+      "category": ""
+    },
+    {
+      "id": 182,
+      "name": "Adobe DAM InDesign Print",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.4.4",
+      "symbolicName": "com.day.cq.dam.adobe-dam-idsprint",
+      "category": ""
+    },
+    {
+      "id": 489,
+      "name": "Adobe DAM WebDAV Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.2",
+      "symbolicName": "com.day.cq.dam.dam-webdav-support",
+      "category": "cq5"
+    },
+    {
+      "id": 314,
+      "name": "Adobe Experience Manager Command Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.0",
+      "symbolicName": "com.day.cq.wcm.cq-command",
+      "category": "cq5"
+    },
+    {
+      "id": 579,
+      "name": "Adobe Experience Manager Core WCM Components Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.2",
+      "symbolicName": "com.adobe.cq.core.wcm.components.core",
+      "category": ""
+    },
+    {
+      "id": 580,
+      "name": "Adobe Experience Manager Core WCM Components Extension - Structured Content Fragment Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.12",
+      "symbolicName": "com.adobe.cq.core.wcm.components.extension.contentfragment.bundle",
+      "category": ""
+    },
+    {
+      "id": 477,
+      "name": "Adobe Experience Manager HTL Extension",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.0",
+      "symbolicName": "com.adobe.cq.sightly.cq-wcm-sightly-extension",
+      "category": ""
+    },
+    {
+      "id": 192,
+      "name": "Adobe FO Markup Layout Library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.595117",
+      "symbolicName": "afml",
+      "category": "coretech"
+    },
+    {
+      "id": 79,
+      "name": "Adobe Font Engine",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1326433.2",
+      "symbolicName": "afe",
+      "category": "coretech"
+    },
+    {
+      "id": 183,
+      "name": "Adobe FormsPortal Services Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "8.0.50",
+      "symbolicName": "com.adobe.livecycle.formsportal-bundle",
+      "category": ""
+    },
+    {
+      "id": 80,
+      "name": "Adobe GLobalization Library(Min)",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.698416.2",
+      "symbolicName": "AGL_min",
+      "category": "coretech"
+    },
+    {
+      "id": 228,
+      "name": "Adobe Granite - SAML 2.0 Authentication Handler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.24.CQ650-B0004",
+      "symbolicName": "com.adobe.granite.auth.saml",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 220,
+      "name": "Adobe Granite ACP Platform",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.3.10",
+      "symbolicName": "com.adobe.granite.acp.platform",
+      "category": "granite,acp"
+    },
+    {
+      "id": 221,
+      "name": "Adobe Granite Activity Streams",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.46",
+      "symbolicName": "com.adobe.granite.activitystreams",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 30,
+      "name": "Adobe Granite API Controller",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "com.adobe.granite.apicontroller",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 222,
+      "name": "Adobe Granite Asset API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.10",
+      "symbolicName": "com.adobe.granite.asset.api",
+      "category": "granite,asset"
+    },
+    {
+      "id": 223,
+      "name": "Adobe Granite Asset API Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2.64",
+      "symbolicName": "com.adobe.granite.asset.core",
+      "category": "granite,asset"
+    },
+    {
+      "id": 251,
+      "name": "Adobe Granite Async Jobs",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.28",
+      "symbolicName": "com.adobe.granite.jobs.async",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 224,
+      "name": "Adobe Granite Authentication Handler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.6.92",
+      "symbolicName": "com.day.cq.cq-authhandler",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 50,
+      "name": "Adobe Granite Bundles: json-20090211",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "20090211.0.0.1",
+      "symbolicName": "com.adobe.granite.bundles.json",
+      "category": ""
+    },
+    {
+      "id": 225,
+      "name": "Adobe Granite Certificate Authentication Handler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.16",
+      "symbolicName": "com.adobe.granite.auth.cert",
+      "category": "granite"
+    },
+    {
+      "id": 231,
+      "name": "Adobe Granite Cloud Settings Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.4",
+      "symbolicName": "com.adobe.granite.cloudsettings.core",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 232,
+      "name": "Adobe Granite Commenting Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.34",
+      "symbolicName": "com.adobe.granite.comments",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 495,
+      "name": "Adobe Granite Commons Library - JavaServer Pages Standard Tag Library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "day-commons-jstl",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 233,
+      "name": "Adobe Granite Compat Router",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "com.adobe.granite.compat-router",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 236,
+      "name": "Adobe Granite Conf Manager",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.18",
+      "symbolicName": "com.adobe.granite.confmgr",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 235,
+      "name": "Adobe Granite Configuration Manager UI Core Module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.30",
+      "symbolicName": "com.adobe.granite.conf.ui.core",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 234,
+      "name": "Adobe Granite Context-Aware Configuration Extension",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.20",
+      "symbolicName": "com.adobe.granite.conf",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 237,
+      "name": "Adobe Granite ContextHub Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.6",
+      "symbolicName": "com.adobe.granite.contexthub.commons",
+      "category": "granite"
+    },
+    {
+      "id": 238,
+      "name": "Adobe Granite CORS Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.10",
+      "symbolicName": "com.adobe.granite.cors",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 239,
+      "name": "Adobe Granite CRX Explorer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.14",
+      "symbolicName": "com.adobe.granite.crx-explorer",
+      "category": "jcr,granite,crx"
+    },
+    {
+      "id": 240,
+      "name": "Adobe Granite CRX Package Manager",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.74",
+      "symbolicName": "com.adobe.granite.crx-packagemgr",
+      "category": "jcr,crx"
+    },
+    {
+      "id": 241,
+      "name": "Adobe Granite CRXDE Lite",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.42",
+      "symbolicName": "com.adobe.granite.crxde-lite",
+      "category": "jcr,crx"
+    },
+    {
+      "id": 25,
+      "name": "Adobe Granite Crypto Bundle Key Provider",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.16",
+      "symbolicName": "com.adobe.granite.crypto.file",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 26,
+      "name": "Adobe Granite Crypto Configuraton",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.4",
+      "symbolicName": "com.adobe.granite.crypto.config",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 242,
+      "name": "Adobe Granite Crypto Extension",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.6",
+      "symbolicName": "com.adobe.granite.crypto.extension",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 243,
+      "name": "Adobe Granite Crypto JCR Key Provider",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.6",
+      "symbolicName": "com.adobe.granite.crypto.jcr",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 244,
+      "name": "Adobe Granite Crypto Keystore",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.3.8",
+      "symbolicName": "com.adobe.granite.crypto.keystore",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 22,
+      "name": "Adobe Granite Crypto Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.4.16",
+      "symbolicName": "com.adobe.granite.crypto",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 245,
+      "name": "Adobe Granite CSRF Framework",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.20.CQ650-B0002",
+      "symbolicName": "com.adobe.granite.csrf",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 247,
+      "name": "Adobe Granite Frags",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.2",
+      "symbolicName": "com.adobe.granite.frags.impl",
+      "category": "granite"
+    },
+    {
+      "id": 267,
+      "name": "Adobe Granite Health Checks for the Repository",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.58",
+      "symbolicName": "com.adobe.granite.repository.hc.impl",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 230,
+      "name": "Adobe Granite Health Checks related to bundles",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.42",
+      "symbolicName": "com.adobe.granite.bundles.hc.impl",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 265,
+      "name": "Adobe Granite Health Checks related to Replication",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.30",
+      "symbolicName": "com.adobe.granite.replication.hc.impl",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 248,
+      "name": "Adobe Granite HTTP Cache - Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.8",
+      "symbolicName": "com.adobe.granite.httpcache.core",
+      "category": "Adobe Granite"
+    },
+    {
+      "id": 249,
+      "name": "Adobe Granite I18N Module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.5.16",
+      "symbolicName": "com.day.cq.cq-i18n",
+      "category": "granite"
+    },
+    {
+      "id": 226,
+      "name": "Adobe Granite IMSAuthentication Handler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.8",
+      "symbolicName": "com.adobe.granite.auth.ims",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 146,
+      "name": "Adobe Granite Installer for Content Packages",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.14",
+      "symbolicName": "com.adobe.granite.installer.factory.packages",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 147,
+      "name": "Adobe Granite JCR Cluster Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.7.2",
+      "symbolicName": "com.day.cq.cq-jcrclustersupport",
+      "category": "granite"
+    },
+    {
+      "id": 126,
+      "name": "Adobe Granite JMX Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.3.4",
+      "symbolicName": "com.adobe.granite.jmx",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 75,
+      "name": "Adobe Granite License Module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.10",
+      "symbolicName": "com.adobe.granite.license",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 253,
+      "name": "Adobe Granite Maintenance Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.40",
+      "symbolicName": "com.adobe.granite.maintenance.core",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 254,
+      "name": "Adobe Granite Monitoring Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.8",
+      "symbolicName": "com.adobe.granite.monitoring.core",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 227,
+      "name": "Adobe Granite OAuth Authentication Handler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.44",
+      "symbolicName": "com.adobe.granite.auth.oauth",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 169,
+      "name": "Adobe Granite OAuth Server",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.28",
+      "symbolicName": "com.adobe.granite.oauth.server",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 256,
+      "name": "Adobe Granite Offloading Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.74",
+      "symbolicName": "com.adobe.granite.offloading.core",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 257,
+      "name": "Adobe Granite Offloading Workflow",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.14",
+      "symbolicName": "com.adobe.granite.offloading.workflow",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 258,
+      "name": "Adobe Granite Omnisearch Core Module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.88",
+      "symbolicName": "com.adobe.granite.omnisearch.core",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 259,
+      "name": "Adobe Granite Operations Dashboard UI Core Package",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.60",
+      "symbolicName": "com.adobe.granite.operations.ui.core",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 260,
+      "name": "Adobe Granite Opt-Out Module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "com.adobe.granite.optout",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 263,
+      "name": "Adobe Granite References Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.0",
+      "symbolicName": "com.adobe.granite.references.core",
+      "category": "granite,ui,references"
+    },
+    {
+      "id": 264,
+      "name": "Adobe Granite Replication",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.2.86.CQ650-B0002",
+      "symbolicName": "com.day.cq.cq-replication",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 266,
+      "name": "Adobe Granite Repository Check bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "com.adobe.granite.repository.checker",
+      "category": "jcr,crx"
+    },
+    {
+      "id": 270,
+      "name": "Adobe Granite Resource Status Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "com.adobe.granite.resourcestatus",
+      "category": "granite"
+    },
+    {
+      "id": 269,
+      "name": "Adobe Granite ResourceResolver Helper",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "com.adobe.granite.resourceresolverhelper",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 272,
+      "name": "Adobe Granite RESTful API Assets",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.58",
+      "symbolicName": "com.adobe.granite.rest.assets",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 271,
+      "name": "Adobe Granite RESTful API Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.16",
+      "symbolicName": "com.adobe.granite.rest.api",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 277,
+      "name": "Adobe Granite Security Module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.4.56",
+      "symbolicName": "com.adobe.granite.security.user",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 275,
+      "name": "Adobe Granite Security Permissions Module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.14",
+      "symbolicName": "com.adobe.granite.security.permissions",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 276,
+      "name": "Adobe Granite Security UI Module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.58",
+      "symbolicName": "com.adobe.granite.security.ui",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 246,
+      "name": "Adobe Granite Sling Distribution - Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.40",
+      "symbolicName": "com.adobe.granite.distribution.core",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 278,
+      "name": "Adobe Granite Social Graph",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.1.4",
+      "symbolicName": "com.adobe.granite.socialgraph",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 279,
+      "name": "Adobe Granite SocketIO - Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "com.adobe.granite.socketio",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 250,
+      "name": "Adobe Granite SSL ContextFactory for Jetty",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4.CQ650-B0002",
+      "symbolicName": "com.adobe.granite.jetty.ssl",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 229,
+      "name": "Adobe Granite SSO Authentication Handler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.28",
+      "symbolicName": "com.adobe.granite.auth.sso",
+      "category": "granite"
+    },
+    {
+      "id": 38,
+      "name": "Adobe Granite Startup Module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.6.6",
+      "symbolicName": "com.adobe.granite.startup",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 280,
+      "name": "Adobe Granite Taskmanagement API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "com.adobe.granite.taskmanagement.api",
+      "category": "granite"
+    },
+    {
+      "id": 281,
+      "name": "Adobe Granite Taskmanagement Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.54",
+      "symbolicName": "com.adobe.granite.taskmanagement.core",
+      "category": "granite,taskmanagement"
+    },
+    {
+      "id": 282,
+      "name": "Adobe Granite Taskmanagement Workflow Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.10",
+      "symbolicName": "com.adobe.granite.taskmanagement.workflow",
+      "category": "granite,taskmanagement"
+    },
+    {
+      "id": 283,
+      "name": "Adobe Granite Thread Dumps collector",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.36",
+      "symbolicName": "com.adobe.granite.threaddump",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 284,
+      "name": "Adobe Granite Timeline Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.24",
+      "symbolicName": "com.adobe.granite.timeline",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 488,
+      "name": "Adobe Granite Token Authentication",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.5.42",
+      "symbolicName": "com.day.crx.sling.crx-auth-token",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 288,
+      "name": "Adobe Granite UI Clientlibs",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.92",
+      "symbolicName": "com.adobe.granite.ui.clientlibs",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 290,
+      "name": "Adobe Granite UI Clientlibs - Google Closure Compiler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.14",
+      "symbolicName": "com.adobe.granite.ui.clientlibs.processor.gcc",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 289,
+      "name": "Adobe Granite UI Clientlibs - Less Compiler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.6",
+      "symbolicName": "com.adobe.granite.ui.clientlibs.compiler.less",
+      "category": "granite"
+    },
+    {
+      "id": 291,
+      "name": "Adobe Granite UI Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.10.14",
+      "symbolicName": "com.adobe.granite.ui.commons",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 292,
+      "name": "Adobe Granite UI Tags",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "com.adobe.granite.ui.tags",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 301,
+      "name": "Adobe Granite UI Widgets",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.0.8",
+      "symbolicName": "com.day.cq.cq-widgets",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 294,
+      "name": "Adobe Granite Workflow API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.22",
+      "symbolicName": "com.adobe.granite.workflow.api",
+      "category": "granite,workflow"
+    },
+    {
+      "id": 295,
+      "name": "Adobe Granite Workflow Console",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.118",
+      "symbolicName": "com.adobe.granite.workflow.console",
+      "category": "granite,workflow"
+    },
+    {
+      "id": 296,
+      "name": "Adobe Granite Workflow Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.240.CQ650-B0002",
+      "symbolicName": "com.adobe.granite.workflow.core",
+      "category": "granite,workflow"
+    },
+    {
+      "id": 297,
+      "name": "Adobe Granite XSS Protection",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.8.0",
+      "symbolicName": "com.day.cq.cq-xssprotection",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 186,
+      "name": "Adobe IMS Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.16",
+      "symbolicName": "com.adobe.cq.adobeims.core",
+      "category": "cq5"
+    },
+    {
+      "id": 89,
+      "name": "Adobe PDF Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.604301",
+      "symbolicName": "pdfcore",
+      "category": "coretech"
+    },
+    {
+      "id": 90,
+      "name": "Adobe PDF Encryption",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.604301",
+      "symbolicName": "pdfencryption",
+      "category": "coretech"
+    },
+    {
+      "id": 91,
+      "name": "Adobe PDF Extraction services",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.604301",
+      "symbolicName": "PDFServices_extraction",
+      "category": "coretech"
+    },
+    {
+      "id": 81,
+      "name": "Adobe PDF Java Toolkit",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "com.adobe.granite.gibson",
+      "category": "granite"
+    },
+    {
+      "id": 570,
+      "name": "Adobe PDF Manipulation services",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.604301",
+      "symbolicName": "PDFServices_manipulations",
+      "category": "coretech"
+    },
+    {
+      "id": 571,
+      "name": "Adobe PDF Security services",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.604301",
+      "symbolicName": "PDFServices_security",
+      "category": "coretech"
+    },
+    {
+      "id": 572,
+      "name": "Adobe Reef Siren",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "com.adobe.reef.siren.core",
+      "category": ""
+    },
+    {
+      "id": 92,
+      "name": "Adobe Rideau(I/O)",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.0",
+      "symbolicName": "rideau",
+      "category": "coretech"
+    },
+    {
+      "id": 212,
+      "name": "Adobe Screens Apache ActiveMQ Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "com.adobe.cq.screens.com.adobe.cq.screens.mq.activemq",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 213,
+      "name": "Adobe Screens JMS implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.0",
+      "symbolicName": "com.adobe.cq.screens.com.adobe.cq.screens.mq.core",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 573,
+      "name": "Adobe Stock Apis SDK",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "com.adobe.stock.api",
+      "category": ""
+    },
+    {
+      "id": 87,
+      "name": "Adobe XMP Core Duo",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "com.adobe.xmp.core",
+      "category": ""
+    },
+    {
+      "id": 93,
+      "name": "Adobe XMP RNG Parser",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.7",
+      "symbolicName": "com.adobe.xmp.schema.rngparser",
+      "category": "granite"
+    },
+    {
+      "id": 88,
+      "name": "Adobe XMP Schema Model",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.9",
+      "symbolicName": "com.adobe.xmp.schema.model",
+      "category": "granite"
+    },
+    {
+      "id": 94,
+      "name": "Adobe XMP Schema Service",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.0",
+      "symbolicName": "com.adobe.xmp.schema.service",
+      "category": "granite"
+    },
+    {
+      "id": 97,
+      "name": "Adobe XMPCore",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.2.6",
+      "symbolicName": "com.adobe.xmp.xmpcore",
+      "category": "granite"
+    },
+    {
+      "id": 586,
+      "name": "AEM - DAM Sling Model Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.8",
+      "symbolicName": "com.adobe.cq.dam.cq-dam-ui-models",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 353,
+      "name": "AEM - Experience Fragments",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.56",
+      "symbolicName": "com.adobe.cq.cq-experience-fragments",
+      "category": "aem"
+    },
+    {
+      "id": 354,
+      "name": "AEM - Experience Fragments Social",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "com.adobe.cq.cq-experience-fragments-social",
+      "category": "aem"
+    },
+    {
+      "id": 359,
+      "name": "AEM - Inbox Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.4",
+      "symbolicName": "com.adobe.cq.inbox.cq-inbox",
+      "category": ""
+    },
+    {
+      "id": 360,
+      "name": "AEM - Inbox UI",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.4",
+      "symbolicName": "com.adobe.cq.inbox.cq-inbox-ui",
+      "category": ""
+    },
+    {
+      "id": 377,
+      "name": "AEM - Reference Update Processor API bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "com.adobe.cq.cq-ref-update-processor-api",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 378,
+      "name": "AEM - Reference Update Processor Impl bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.10",
+      "symbolicName": "com.adobe.cq.cq-ref-update-processor-impl",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 587,
+      "name": "AEM - Reference Update Processor Utility bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "com.adobe.cq.cq-ref-update-processor-util",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 455,
+      "name": "AEM - Social Media Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.4",
+      "symbolicName": "com.adobe.cq.cq-socialmedia-integration",
+      "category": "aem"
+    },
+    {
+      "id": 394,
+      "name": "AEM 6 - Adobe Search&Promote Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.10",
+      "symbolicName": "com.adobe.cq.cq-searchpromote-integration",
+      "category": "aem6"
+    },
+    {
+      "id": 459,
+      "name": "AEM 6 - Adobe Target integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.28",
+      "symbolicName": "com.adobe.cq.cq-target-integration",
+      "category": "cq5"
+    },
+    {
+      "id": 460,
+      "name": "AEM 6 - Adobe Target Recommendations Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.4",
+      "symbolicName": "com.adobe.cq.cq-targetrecommendations",
+      "category": "aem6"
+    },
+    {
+      "id": 372,
+      "name": "AEM 6 - MSM Support for Adobe Target integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "com.adobe.cq.cq-multisite-targeting",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 308,
+      "name": "AEM 6 ActivityMap Integration Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.6",
+      "symbolicName": "com.adobe.cq.cq-activitymap-integration",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 310,
+      "name": "AEM 6 Analytics Integration Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.28",
+      "symbolicName": "com.adobe.cq.cq-analytics-integration",
+      "category": "cq5"
+    },
+    {
+      "id": 610,
+      "name": "AEM Actions API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.4.0",
+      "symbolicName": "com.cognifide.cq.actions.api",
+      "category": ""
+    },
+    {
+      "id": 611,
+      "name": "AEM Actions Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.4.0",
+      "symbolicName": "com.cognifide.cq.actions.core",
+      "category": ""
+    },
+    {
+      "id": 612,
+      "name": "AEM Actions Replication Message",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.4.0",
+      "symbolicName": "com.cognifide.cq.actions.msg.replication",
+      "category": ""
+    },
+    {
+      "id": 187,
+      "name": "AEM API metrics agent",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.6.4",
+      "symbolicName": "aem-api-metrics",
+      "category": "maem"
+    },
+    {
+      "id": 188,
+      "name": "AEM API metrics agent add-on for registry-based vault package analysis",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "aem-api-metrics-registry-based-vault-addon",
+      "category": "maem"
+    },
+    {
+      "id": 621,
+      "name": "AEM Bulk Resource Activator",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.4.0",
+      "symbolicName": "aem-bulk-resource-activator",
+      "category": "cognifide"
+    },
+    {
+      "id": 313,
+      "name": "AEM Cloud Services - Provisioning Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.4",
+      "symbolicName": "com.adobe.cq.cq-cloudservices-provisioning",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 398,
+      "name": "AEM Communities ActivityStreams - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.16",
+      "symbolicName": "com.adobe.cq.social.cq-social-activitystreams",
+      "category": "social"
+    },
+    {
+      "id": 399,
+      "name": "AEM Communities AdobeSocial Resource Provider - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.7",
+      "symbolicName": "com.adobe.cq.social.cq-social-as-provider",
+      "category": "social"
+    },
+    {
+      "id": 402,
+      "name": "AEM Communities Badging - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.2",
+      "symbolicName": "com.adobe.cq.social.cq-social-badging-impl",
+      "category": "social"
+    },
+    {
+      "id": 400,
+      "name": "AEM Communities Badging API - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.0",
+      "symbolicName": "com.adobe.cq.social.cq-social-badging-api",
+      "category": "social"
+    },
+    {
+      "id": 401,
+      "name": "AEM Communities Basic Badging - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.0",
+      "symbolicName": "com.adobe.cq.social.cq-social-badging-basic-impl",
+      "category": "social"
+    },
+    {
+      "id": 403,
+      "name": "AEM Communities Calendar - API Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.4",
+      "symbolicName": "com.adobe.cq.social.cq-social-calendar-api",
+      "category": "social"
+    },
+    {
+      "id": 404,
+      "name": "AEM Communities Calendar - Impl Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.16",
+      "symbolicName": "com.adobe.cq.social.cq-social-calendar-impl",
+      "category": "social"
+    },
+    {
+      "id": 405,
+      "name": "AEM Communities Commons - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.74",
+      "symbolicName": "com.adobe.cq.social.cq-social-commons",
+      "category": "social"
+    },
+    {
+      "id": 406,
+      "name": "AEM Communities Commons Oauth - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7.11",
+      "symbolicName": "com.adobe.cq.social.cq-social-commons-oauth",
+      "category": "social"
+    },
+    {
+      "id": 417,
+      "name": "AEM Communities CommunityGroup - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7.12",
+      "symbolicName": "com.adobe.cq.social.cq-social-group",
+      "category": "social"
+    },
+    {
+      "id": 407,
+      "name": "AEM Communities Console - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.40",
+      "symbolicName": "com.adobe.cq.social.cq-social-console",
+      "category": "social"
+    },
+    {
+      "id": 408,
+      "name": "AEM Communities Content Fragments Impl - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.0",
+      "symbolicName": "com.adobe.cq.social.cq-social-content-fragments-impl",
+      "category": "social"
+    },
+    {
+      "id": 409,
+      "name": "AEM Communities Enablement Api - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.5",
+      "symbolicName": "com.adobe.cq.social.cq-social-enablement-api",
+      "category": "social"
+    },
+    {
+      "id": 410,
+      "name": "AEM Communities Enablement Impl - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.18",
+      "symbolicName": "com.adobe.cq.social.cq-social-enablement-impl",
+      "category": "social"
+    },
+    {
+      "id": 437,
+      "name": "AEM Communities Enablement Reporting Management- Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.3",
+      "symbolicName": "com.adobe.cq.social.cq-social-reporting-management",
+      "category": "social"
+    },
+    {
+      "id": 411,
+      "name": "AEM Communities File Library - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.6",
+      "symbolicName": "com.adobe.cq.social.cq-social-filelibrary",
+      "category": "social"
+    },
+    {
+      "id": 412,
+      "name": "AEM Communities Forum - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.8.11",
+      "symbolicName": "com.adobe.cq.social.cq-social-forum",
+      "category": "social"
+    },
+    {
+      "id": 413,
+      "name": "AEM Communities Gamification API - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "com.adobe.cq.social.cq-social-gamification-api",
+      "category": "social"
+    },
+    {
+      "id": 414,
+      "name": "AEM Communities Gamification Impl - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.3",
+      "symbolicName": "com.adobe.cq.social.cq-social-gamification-impl",
+      "category": "social"
+    },
+    {
+      "id": 418,
+      "name": "AEM Communities Handlebars Scripting Engine - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.17",
+      "symbolicName": "com.adobe.cq.social.cq-social-handlebars",
+      "category": "social"
+    },
+    {
+      "id": 420,
+      "name": "AEM Communities Ideation - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.10",
+      "symbolicName": "com.adobe.cq.social.cq-social-ideation-impl",
+      "category": "social"
+    },
+    {
+      "id": 419,
+      "name": "AEM Communities Ideation API - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.5",
+      "symbolicName": "com.adobe.cq.social.cq-social-ideation-api",
+      "category": "social"
+    },
+    {
+      "id": 421,
+      "name": "AEM Communities JCR Resource Provider (6.2+ glue) - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.7",
+      "symbolicName": "com.adobe.cq.social.cq-social-jcr-provider",
+      "category": "social"
+    },
+    {
+      "id": 422,
+      "name": "AEM Communities JCR Resource Provider Common Code - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.10",
+      "symbolicName": "com.adobe.cq.social.cq-social-jcr-provider-common",
+      "category": "social"
+    },
+    {
+      "id": 423,
+      "name": "AEM Communities Journal - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.13",
+      "symbolicName": "com.adobe.cq.social.cq-social-journal",
+      "category": "social"
+    },
+    {
+      "id": 425,
+      "name": "AEM Communities Members API - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.3",
+      "symbolicName": "com.adobe.cq.social.cq-social-members-api",
+      "category": "social"
+    },
+    {
+      "id": 426,
+      "name": "AEM Communities Members Impl - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.9",
+      "symbolicName": "com.adobe.cq.social.cq-social-members-impl",
+      "category": "social"
+    },
+    {
+      "id": 427,
+      "name": "AEM Communities Messaging - API Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.6",
+      "symbolicName": "com.adobe.cq.social.cq-social-messaging-api",
+      "category": "social"
+    },
+    {
+      "id": 428,
+      "name": "AEM Communities Messaging - Impl Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.12",
+      "symbolicName": "com.adobe.cq.social.cq-social-messaging-impl",
+      "category": "social"
+    },
+    {
+      "id": 429,
+      "name": "AEM Communities Moderation - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.5.8",
+      "symbolicName": "com.adobe.cq.social.cq-social-moderation",
+      "category": "social"
+    },
+    {
+      "id": 431,
+      "name": "AEM Communities Mongo Storage Resource Provider - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.8",
+      "symbolicName": "com.adobe.cq.social.cq-social-ms-provider",
+      "category": "social"
+    },
+    {
+      "id": 432,
+      "name": "AEM Communities Notifications - API Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.7",
+      "symbolicName": "com.adobe.cq.social.cq-social-notifications-api",
+      "category": "social"
+    },
+    {
+      "id": 434,
+      "name": "AEM Communities Notifications - IMPL Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.12",
+      "symbolicName": "com.adobe.cq.social.cq-social-notifications-impl",
+      "category": "social"
+    },
+    {
+      "id": 433,
+      "name": "AEM Communities Notifications - Web Channel",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.11",
+      "symbolicName": "com.adobe.cq.social.cq-social-notifications-channels-web",
+      "category": "social"
+    },
+    {
+      "id": 435,
+      "name": "AEM Communities QnA - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7.10",
+      "symbolicName": "com.adobe.cq.social.cq-social-qna",
+      "category": "social"
+    },
+    {
+      "id": 436,
+      "name": "AEM Communities Relational Social Resource Provider - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.13",
+      "symbolicName": "com.adobe.cq.social.cq-social-rdb-provider",
+      "category": "social"
+    },
+    {
+      "id": 438,
+      "name": "AEM Communities Review - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.5",
+      "symbolicName": "com.adobe.cq.social.cq-social-review",
+      "category": "social"
+    },
+    {
+      "id": 439,
+      "name": "AEM Communities SCF - API Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2.7",
+      "symbolicName": "com.adobe.cq.social.cq-social-scf-api",
+      "category": "social"
+    },
+    {
+      "id": 440,
+      "name": "AEM Communities SCF - Impl Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2.11",
+      "symbolicName": "com.adobe.cq.social.cq-social-scf-impl",
+      "category": "social"
+    },
+    {
+      "id": 443,
+      "name": "AEM Communities Scoring - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.2",
+      "symbolicName": "com.adobe.cq.social.cq-social-scoring-impl",
+      "category": "social"
+    },
+    {
+      "id": 441,
+      "name": "AEM Communities Scoring API - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.0",
+      "symbolicName": "com.adobe.cq.social.cq-social-scoring-api",
+      "category": "social"
+    },
+    {
+      "id": 442,
+      "name": "AEM Communities Scoring Basic - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.0",
+      "symbolicName": "com.adobe.cq.social.cq-social-scoring-basic-impl",
+      "category": "social"
+    },
+    {
+      "id": 444,
+      "name": "AEM Communities Service Users - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.0",
+      "symbolicName": "com.adobe.cq.social.cq-social-serviceusers-api",
+      "category": "social"
+    },
+    {
+      "id": 445,
+      "name": "AEM Communities Service Users - Impl Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.0",
+      "symbolicName": "com.adobe.cq.social.cq-social-serviceusers-impl",
+      "category": "social"
+    },
+    {
+      "id": 415,
+      "name": "AEM Communities SocialGraph API - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.0",
+      "symbolicName": "com.adobe.cq.social.cq-social-graph-api",
+      "category": "social"
+    },
+    {
+      "id": 416,
+      "name": "AEM Communities SocialGraph Impl - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.3",
+      "symbolicName": "com.adobe.cq.social.cq-social-graph-impl",
+      "category": "social"
+    },
+    {
+      "id": 430,
+      "name": "AEM Communities Spam Detection Core - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.2.11",
+      "symbolicName": "com.adobe.cq.social.cq-social-moderation-spamdetector-core",
+      "category": "social"
+    },
+    {
+      "id": 447,
+      "name": "AEM Communities SRP - Impl Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.16",
+      "symbolicName": "com.adobe.cq.social.cq-social-srp-impl",
+      "category": "social"
+    },
+    {
+      "id": 446,
+      "name": "AEM Communities SRP Base - API Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.11",
+      "symbolicName": "com.adobe.cq.social.cq-social-srp-api",
+      "category": "social"
+    },
+    {
+      "id": 448,
+      "name": "AEM Communities Sync - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.5",
+      "symbolicName": "com.adobe.cq.social.cq-social-sync",
+      "category": "social"
+    },
+    {
+      "id": 449,
+      "name": "AEM Communities Tally - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.1",
+      "symbolicName": "com.adobe.cq.social.cq-social-tally",
+      "category": "social"
+    },
+    {
+      "id": 450,
+      "name": "AEM Communities Translation - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.1",
+      "symbolicName": "com.adobe.cq.social.cq-social-translation",
+      "category": "social"
+    },
+    {
+      "id": 452,
+      "name": "AEM Communities UGC Base - API Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.5.1",
+      "symbolicName": "com.adobe.cq.social.cq-social-ugcbase-api",
+      "category": "social"
+    },
+    {
+      "id": 453,
+      "name": "AEM Communities UGC Base - Impl Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.5.2",
+      "symbolicName": "com.adobe.cq.social.cq-social-ugcbase-impl",
+      "category": "social"
+    },
+    {
+      "id": 451,
+      "name": "AEM Communities UGC SearchCollections - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.5.3",
+      "symbolicName": "com.adobe.cq.social.cq-social-ugc-search-collections",
+      "category": "social"
+    },
+    {
+      "id": 454,
+      "name": "AEM Communities User Ugc Moderation - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.6",
+      "symbolicName": "com.adobe.cq.social.cq-social-user-ugc-management",
+      "category": "social"
+    },
+    {
+      "id": 352,
+      "name": "AEM Dynamic Media Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.88",
+      "symbolicName": "com.adobe.cq.dam.cq-dynamicmedia-core",
+      "category": "cq5"
+    },
+    {
+      "id": 351,
+      "name": "AEM Dynamic Media Integration API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "com.adobe.cq.dam.cq-dynamicmedia-api",
+      "category": "cq5"
+    },
+    {
+      "id": 181,
+      "name": "AEM Forms and Documents Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "8.0.70",
+      "symbolicName": "com.adobe.aemds.formsmanager.adobe-aemds-formsanddocuments-core",
+      "category": "adobe-aem-formsndocuments"
+    },
+    {
+      "id": 200,
+      "name": "AEM Forms Transaction Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.38",
+      "symbolicName": "com.adobe.aem.transaction-core",
+      "category": ""
+    },
+    {
+      "id": 614,
+      "name": "AEM Groovy Console",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "13.0.0",
+      "symbolicName": "aem-groovy-console",
+      "category": ""
+    },
+    {
+      "id": 615,
+      "name": "AEM Groovy Extension Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "7.0.0",
+      "symbolicName": "aem-groovy-extension-bundle",
+      "category": ""
+    },
+    {
+      "id": 424,
+      "name": "AEM Livefyre - Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2.6",
+      "symbolicName": "com.adobe.cq.social.cq-social-livefyre",
+      "category": "social"
+    },
+    {
+      "id": 205,
+      "name": "AEM MSM - UI Utilities",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.10",
+      "symbolicName": "com.adobe.cq.com.adobe.cq.msm.ui",
+      "category": ""
+    },
+    {
+      "id": 613,
+      "name": "AEM Permission Management",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.2.2",
+      "symbolicName": "com.cognifide.cq.cqsm",
+      "category": "apm"
+    },
+    {
+      "id": 375,
+      "name": "AEM Personalization",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.38",
+      "symbolicName": "com.day.cq.cq-personalization",
+      "category": "aem"
+    },
+    {
+      "id": 577,
+      "name": "AEM Pre-Upgrade Maintenance Tasks",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.44",
+      "symbolicName": "com.day.cq.pre-upgrade-tasks",
+      "category": ""
+    },
+    {
+      "id": 210,
+      "name": "AEM Screens - Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.178",
+      "symbolicName": "com.adobe.cq.screens.com.adobe.cq.screens",
+      "category": "cq5"
+    },
+    {
+      "id": 214,
+      "name": "AEM Screens - Core (Session Support)",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.4",
+      "symbolicName": "com.adobe.cq.screens.com.adobe.cq.screens.sessions",
+      "category": "cq5"
+    },
+    {
+      "id": 211,
+      "name": "AEM Screens - DCC",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.10",
+      "symbolicName": "com.adobe.cq.screens.com.adobe.cq.screens.dcc",
+      "category": "cq5"
+    },
+    {
+      "id": 215,
+      "name": "AEM Sites - UI Utilities",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.3.10",
+      "symbolicName": "com.adobe.cq.com.adobe.cq.sites.ui",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 216,
+      "name": "AEM UI WCM Commons Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.16",
+      "symbolicName": "com.adobe.cq.com.adobe.cq.ui.commons",
+      "category": "cq5"
+    },
+    {
+      "id": 201,
+      "name": "AEM UI WCM Editor Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.18",
+      "symbolicName": "com.adobe.cq.com.adobe.cq.editor",
+      "category": "cq5"
+    },
+    {
+      "id": 472,
+      "name": "AEM WCM - Models Extension",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-models-extension",
+      "category": ""
+    },
+    {
+      "id": 219,
+      "name": "AEM WCM Components - UI Utilities",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "com.day.cq.com.adobe.cq.wcm.ui.components",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 218,
+      "name": "AEM WCM Style API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "com.adobe.cq.com.adobe.cq.wcm.style",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 601,
+      "name": "aem-commons api",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.0",
+      "symbolicName": "aem-commons-api",
+      "category": "aem"
+    },
+    {
+      "id": 602,
+      "name": "aem-commons configuration page module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.1",
+      "symbolicName": "aem-commons-app-config",
+      "category": "aem"
+    },
+    {
+      "id": 603,
+      "name": "aem-commons email module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.1",
+      "symbolicName": "aem-commons-app-email",
+      "category": "aem"
+    },
+    {
+      "id": 604,
+      "name": "aem-commons link module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.1",
+      "symbolicName": "aem-commons-app-link",
+      "category": "aem"
+    },
+    {
+      "id": 605,
+      "name": "aem-commons navigation module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.1",
+      "symbolicName": "aem-commons-app-navi",
+      "category": "aem"
+    },
+    {
+      "id": 606,
+      "name": "aem-commons sling module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.1",
+      "symbolicName": "aem-commons-app-sling",
+      "category": "aem"
+    },
+    {
+      "id": 607,
+      "name": "aem-commons taglib module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.1",
+      "symbolicName": "aem-commons-app-taglib",
+      "category": "aem"
+    },
+    {
+      "id": 608,
+      "name": "aem-commons touch module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.1",
+      "symbolicName": "aem-commons-app-touch",
+      "category": "aem"
+    },
+    {
+      "id": 609,
+      "name": "aem-commons validation module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.1",
+      "symbolicName": "aem-commons-app-validation",
+      "category": "aem"
+    },
+    {
+      "id": 660,
+      "name": "AMP Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "com.cognifide.amp.core",
+      "category": "zen-garden"
+    },
+    {
+      "id": 661,
+      "name": "AMP Zen Garden",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "com.cognifide.amp.zg",
+      "category": "zen-garden"
+    },
+    {
+      "id": 193,
+      "name": "ANTLR 4 Runtime",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.7.1",
+      "symbolicName": "org.antlr.antlr4-runtime",
+      "category": ""
+    },
+    {
+      "id": 590,
+      "name": "AOP Alliance API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "com.springsource.org.aopalliance",
+      "category": ""
+    },
+    {
+      "id": 48,
+      "name": "Apache Apache HttpClient OSGi bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.5.4",
+      "symbolicName": "org.apache.httpcomponents.httpclient",
+      "category": ""
+    },
+    {
+      "id": 49,
+      "name": "Apache Apache HttpCore OSGi bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.4.8",
+      "symbolicName": "org.apache.httpcomponents.httpcore",
+      "category": ""
+    },
+    {
+      "id": 32,
+      "name": "Apache Aries JMX API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.5",
+      "symbolicName": "org.apache.aries.jmx.api",
+      "category": ""
+    },
+    {
+      "id": 33,
+      "name": "Apache Aries JMX Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.5",
+      "symbolicName": "org.apache.aries.jmx.core",
+      "category": ""
+    },
+    {
+      "id": 35,
+      "name": "Apache Aries Transaction Manager",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.0",
+      "symbolicName": "org.apache.aries.transaction.manager",
+      "category": ""
+    },
+    {
+      "id": 18,
+      "name": "Apache Aries Util",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.1",
+      "symbolicName": "org.apache.aries.util",
+      "category": ""
+    },
+    {
+      "id": 34,
+      "name": "Apache Aries Whiteboard support for JMX DynamicMBean services",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.0",
+      "symbolicName": "org.apache.aries.jmx.whiteboard",
+      "category": ""
+    },
+    {
+      "id": 199,
+      "name": "Apache Cocoon XML Utilities",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.2",
+      "symbolicName": "org.apache.cocoon.cocoon-xml",
+      "category": ""
+    },
+    {
+      "id": 675,
+      "name": "Apache Commons Codec",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.11.0",
+      "symbolicName": "org.apache.commons.codec",
+      "category": ""
+    },
+    {
+      "id": 584,
+      "name": "Apache Commons Codec",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.12.0",
+      "symbolicName": "org.apache.commons.commons-codec",
+      "category": ""
+    },
+    {
+      "id": 68,
+      "name": "Apache Commons Collections",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.2.2",
+      "symbolicName": "org.apache.commons.collections",
+      "category": ""
+    },
+    {
+      "id": 69,
+      "name": "Apache Commons Collections",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.1.0",
+      "symbolicName": "org.apache.commons.collections4",
+      "category": ""
+    },
+    {
+      "id": 86,
+      "name": "Apache Commons Compress",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.18.0",
+      "symbolicName": "org.apache.commons.commons-compress",
+      "category": ""
+    },
+    {
+      "id": 302,
+      "name": "Apache Commons Email",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.0",
+      "symbolicName": "org.apache.commons.email",
+      "category": ""
+    },
+    {
+      "id": 303,
+      "name": "Apache Commons Exec",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.0",
+      "symbolicName": "org.apache.commons.exec",
+      "category": ""
+    },
+    {
+      "id": 46,
+      "name": "Apache Commons FileUpload",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.3",
+      "symbolicName": "org.apache.commons.fileupload",
+      "category": ""
+    },
+    {
+      "id": 304,
+      "name": "Apache Commons Imaging",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0.R1725432-B002",
+      "symbolicName": "org.apache.commons.commons-imaging",
+      "category": ""
+    },
+    {
+      "id": 4,
+      "name": "Apache Commons IO",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.6.0",
+      "symbolicName": "org.apache.commons.io",
+      "category": ""
+    },
+    {
+      "id": 47,
+      "name": "Apache Commons Lang",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.9.0",
+      "symbolicName": "org.apache.commons.lang3",
+      "category": ""
+    },
+    {
+      "id": 645,
+      "name": "Apache Commons Text",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.0",
+      "symbolicName": "org.apache.commons.text",
+      "category": ""
+    },
+    {
+      "id": 666,
+      "name": "Apache Commons Text",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.0",
+      "symbolicName": "org.apache.commons.commons-text",
+      "category": ""
+    },
+    {
+      "id": 646,
+      "name": "Apache Commons Validator",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.0",
+      "symbolicName": "org.apache.commons.validator",
+      "category": ""
+    },
+    {
+      "id": 154,
+      "name": "Apache Felix - System Ready",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.4.0",
+      "symbolicName": "org.apache.felix.systemready",
+      "category": ""
+    },
+    {
+      "id": 19,
+      "name": "Apache Felix Configuration Admin Service",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.9.12",
+      "symbolicName": "org.apache.felix.configadmin",
+      "category": "osgi"
+    },
+    {
+      "id": 27,
+      "name": "Apache Felix Converter",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.felix.converter",
+      "category": ""
+    },
+    {
+      "id": 16,
+      "name": "Apache Felix Coordinator Service",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.felix.coordinator",
+      "category": "osgi"
+    },
+    {
+      "id": 42,
+      "name": "Apache Felix Declarative Services",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.1.16",
+      "symbolicName": "org.apache.felix.scr",
+      "category": "osgi"
+    },
+    {
+      "id": 40,
+      "name": "Apache Felix EventAdmin",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.0",
+      "symbolicName": "org.apache.felix.eventadmin",
+      "category": ""
+    },
+    {
+      "id": 51,
+      "name": "Apache Felix Http Jetty",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.0.8",
+      "symbolicName": "org.apache.felix.http.jetty",
+      "category": ""
+    },
+    {
+      "id": 72,
+      "name": "Apache Felix Http SSL Filter",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.6",
+      "symbolicName": "org.apache.felix.http.sslfilter",
+      "category": ""
+    },
+    {
+      "id": 53,
+      "name": "Apache Felix Http Whiteboard",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.0.0",
+      "symbolicName": "org.apache.felix.http.whiteboard",
+      "category": ""
+    },
+    {
+      "id": 54,
+      "name": "Apache Felix Inventory",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.6",
+      "symbolicName": "org.apache.felix.inventory",
+      "category": "osgi"
+    },
+    {
+      "id": 64,
+      "name": "Apache Felix JAAS Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.felix.jaas",
+      "category": ""
+    },
+    {
+      "id": 41,
+      "name": "Apache Felix Metatype Service",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "org.apache.felix.metatype",
+      "category": "osgi"
+    },
+    {
+      "id": 52,
+      "name": "Apache Felix Servlet API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "org.apache.felix.http.servlet-api",
+      "category": ""
+    },
+    {
+      "id": 55,
+      "name": "Apache Felix Thread Dump",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "org.apache.felix.org.apache.felix.threaddump",
+      "category": ""
+    },
+    {
+      "id": 58,
+      "name": "Apache Felix Web Console Event Plugin",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.8",
+      "symbolicName": "org.apache.felix.webconsole.plugins.event",
+      "category": ""
+    },
+    {
+      "id": 59,
+      "name": "Apache Felix Web Console Memory Usage Plugin",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.10",
+      "symbolicName": "org.apache.felix.webconsole.plugins.memoryusage",
+      "category": ""
+    },
+    {
+      "id": 60,
+      "name": "Apache Felix Web Console Package Admin Service Plugin",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "org.apache.felix.webconsole.plugins.packageadmin",
+      "category": ""
+    },
+    {
+      "id": 57,
+      "name": "Apache Felix Web Console Service Component Runtime/Declarative Services Plugin",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.1.0",
+      "symbolicName": "org.apache.felix.webconsole.plugins.ds",
+      "category": ""
+    },
+    {
+      "id": 56,
+      "name": "Apache Felix Web Management Console",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.3.12",
+      "symbolicName": "org.apache.felix.webconsole",
+      "category": ""
+    },
+    {
+      "id": 299,
+      "name": "Apache FOP bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.16.0",
+      "symbolicName": "com.day.commons.osgi.wrapper.fop",
+      "category": ""
+    },
+    {
+      "id": 20,
+      "name": "Apache Geronimo Annotation Spec 1.3",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0",
+      "symbolicName": "org.apache.geronimo.specs.geronimo-annotation_1.3_spec",
+      "category": ""
+    },
+    {
+      "id": 508,
+      "name": "Apache Geronimo JSR-330 Spec API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0",
+      "symbolicName": "org.apache.geronimo.specs.geronimo-atinject_1.0_spec",
+      "category": ""
+    },
+    {
+      "id": 132,
+      "name": "Apache Jackrabbit API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.18.2",
+      "symbolicName": "org.apache.jackrabbit.jackrabbit-api",
+      "category": "jcr,jackrabbit"
+    },
+    {
+      "id": 150,
+      "name": "Apache Jackrabbit FileVault Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.2.8",
+      "symbolicName": "org.apache.jackrabbit.vault",
+      "category": "jackrabbit"
+    },
+    {
+      "id": 515,
+      "name": "Apache Oltu - Commons - Encoded Token",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1",
+      "symbolicName": "org.apache.oltu.commons.encodedtoken",
+      "category": ""
+    },
+    {
+      "id": 517,
+      "name": "Apache Oltu - JOSE - JWS",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1",
+      "symbolicName": "org.apache.oltu.jose.jws",
+      "category": ""
+    },
+    {
+      "id": 171,
+      "name": "Apache Oltu - OAuth 2.0 - Common",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1",
+      "symbolicName": "org.apache.oltu.oauth2.common",
+      "category": ""
+    },
+    {
+      "id": 518,
+      "name": "Apache Oltu - OAuth 2.0 - JWT",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.3",
+      "symbolicName": "org.apache.oltu.oauth2.jwt",
+      "category": ""
+    },
+    {
+      "id": 514,
+      "name": "Apache OpenNLP Tools",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.0",
+      "symbolicName": "org.apache.opennlp.tools",
+      "category": ""
+    },
+    {
+      "id": 17,
+      "name": "Apache ServiceMix :: Bundles :: jaxb-impl",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2.11.1",
+      "symbolicName": "org.apache.servicemix.bundles.jaxb-impl",
+      "category": ""
+    },
+    {
+      "id": 519,
+      "name": "Apache ServiceMix :: Bundles :: rhino",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7.7.1_1",
+      "symbolicName": "org.apache.servicemix.bundles.rhino",
+      "category": ""
+    },
+    {
+      "id": 24,
+      "name": "Apache ServiceMix :: Bundles :: saaj-impl",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.23.2",
+      "symbolicName": "org.apache.servicemix.bundles.saaj-impl",
+      "category": ""
+    },
+    {
+      "id": 14,
+      "name": "Apache ServiceMix :: Specs :: JAXB API 2.2",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.9.0",
+      "symbolicName": "org.apache.servicemix.specs.jaxb-api-2.2",
+      "category": ""
+    },
+    {
+      "id": 6,
+      "name": "Apache ServiceMix :: Specs :: JAXWS API 2.2",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.9.0",
+      "symbolicName": "org.apache.servicemix.specs.jaxws-api-2.2",
+      "category": ""
+    },
+    {
+      "id": 13,
+      "name": "Apache ServiceMix :: Specs :: SAAJ API 1.3",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.8.0",
+      "symbolicName": "org.apache.servicemix.specs.saaj-api-1.3",
+      "category": ""
+    },
+    {
+      "id": 155,
+      "name": "Apache Sling Adapter Manager Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.1.10",
+      "symbolicName": "org.apache.sling.adapter",
+      "category": "sling"
+    },
+    {
+      "id": 77,
+      "name": "Apache Sling API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.20.0",
+      "symbolicName": "org.apache.sling.api",
+      "category": "sling"
+    },
+    {
+      "id": 520,
+      "name": "Apache Sling Atom Tag Library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.9.0.R988585",
+      "symbolicName": "org.apache.sling.atom.taglib",
+      "category": "sling"
+    },
+    {
+      "id": 156,
+      "name": "Apache Sling Authentication Service",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.2",
+      "symbolicName": "org.apache.sling.auth.core",
+      "category": "sling"
+    },
+    {
+      "id": 521,
+      "name": "Apache Sling Bundle Resource Provider",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.2",
+      "symbolicName": "org.apache.sling.bundleresource.impl",
+      "category": "sling"
+    },
+    {
+      "id": 527,
+      "name": "Apache Sling Commons FileSystem ClassLoader",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.10",
+      "symbolicName": "org.apache.sling.commons.fsclassloader",
+      "category": "sling"
+    },
+    {
+      "id": 528,
+      "name": "Apache Sling Commons HTML Utilities",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.sling.commons.html",
+      "category": "sling"
+    },
+    {
+      "id": 525,
+      "name": "Apache Sling Commons Java Compiler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.6",
+      "symbolicName": "org.apache.sling.commons.compiler",
+      "category": "sling"
+    },
+    {
+      "id": 134,
+      "name": "Apache Sling Commons Johnzon Wrapper Library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "org.apache.sling.commons.johnzon",
+      "category": "sling"
+    },
+    {
+      "id": 12,
+      "name": "Apache Sling Commons Log",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.1.10",
+      "symbolicName": "org.apache.sling.commons.log",
+      "category": "sling"
+    },
+    {
+      "id": 136,
+      "name": "Apache Sling Commons MIME type mapping support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2.0",
+      "symbolicName": "org.apache.sling.commons.mime",
+      "category": "sling"
+    },
+    {
+      "id": 43,
+      "name": "Apache Sling Commons OSGi support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.4.0",
+      "symbolicName": "org.apache.sling.commons.osgi",
+      "category": "sling"
+    },
+    {
+      "id": 526,
+      "name": "Apache Sling Content Detection Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.sling.commons.contentdetection",
+      "category": "sling"
+    },
+    {
+      "id": 522,
+      "name": "Apache Sling Context-Aware Configuration API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "org.apache.sling.caconfig.api",
+      "category": "sling"
+    },
+    {
+      "id": 523,
+      "name": "Apache Sling Context-Aware Configuration Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.14",
+      "symbolicName": "org.apache.sling.caconfig.impl",
+      "category": "sling"
+    },
+    {
+      "id": 524,
+      "name": "Apache Sling Context-Aware Configuration SPI",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.4",
+      "symbolicName": "org.apache.sling.caconfig.spi",
+      "category": "sling"
+    },
+    {
+      "id": 65,
+      "name": "Apache Sling DataSource Provider",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "org.apache.sling.datasource",
+      "category": "sling"
+    },
+    {
+      "id": 564,
+      "name": "Apache Sling Default GET Servlets",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.1.38",
+      "symbolicName": "org.apache.sling.servlets.get",
+      "category": "sling"
+    },
+    {
+      "id": 565,
+      "name": "Apache Sling Default POST Servlets",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.26",
+      "symbolicName": "org.apache.sling.servlets.post",
+      "category": "sling"
+    },
+    {
+      "id": 36,
+      "name": "Apache Sling Discovery API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "org.apache.sling.discovery.api",
+      "category": "sling"
+    },
+    {
+      "id": 159,
+      "name": "Apache Sling Discovery Base",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.8",
+      "symbolicName": "org.apache.sling.discovery.base",
+      "category": "sling"
+    },
+    {
+      "id": 160,
+      "name": "Apache Sling Discovery Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.20",
+      "symbolicName": "org.apache.sling.discovery.commons",
+      "category": "sling"
+    },
+    {
+      "id": 162,
+      "name": "Apache Sling Discovery Support Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.4",
+      "symbolicName": "org.apache.sling.discovery.support",
+      "category": "sling"
+    },
+    {
+      "id": 534,
+      "name": "Apache Sling Distributed Event Admin",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.4",
+      "symbolicName": "org.apache.sling.event.dea",
+      "category": "sling"
+    },
+    {
+      "id": 530,
+      "name": "Apache Sling Distribution API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.3.0",
+      "symbolicName": "org.apache.sling.distribution.api",
+      "category": "sling"
+    },
+    {
+      "id": 531,
+      "name": "Apache Sling Distribution Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.4.0",
+      "symbolicName": "org.apache.sling.distribution.core",
+      "category": "sling"
+    },
+    {
+      "id": 157,
+      "name": "Apache Sling Dynamic Class Loader Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.2",
+      "symbolicName": "org.apache.sling.commons.classloader",
+      "category": "sling"
+    },
+    {
+      "id": 532,
+      "name": "Apache Sling Engine Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.6.18",
+      "symbolicName": "org.apache.sling.engine",
+      "category": "sling"
+    },
+    {
+      "id": 533,
+      "name": "Apache Sling Event Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.2.12",
+      "symbolicName": "org.apache.sling.event",
+      "category": "sling"
+    },
+    {
+      "id": 163,
+      "name": "Apache Sling Feature Flags",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "org.apache.sling.featureflags",
+      "category": "sling"
+    },
+    {
+      "id": 8,
+      "name": "Apache Sling File Installer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.0",
+      "symbolicName": "org.apache.sling.installer.provider.file",
+      "category": "sling"
+    },
+    {
+      "id": 44,
+      "name": "Apache Sling Health Check API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.sling.hc.api",
+      "category": "sling"
+    },
+    {
+      "id": 536,
+      "name": "Apache Sling Health Check Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.10",
+      "symbolicName": "org.apache.sling.hc.core",
+      "category": "sling"
+    },
+    {
+      "id": 537,
+      "name": "Apache Sling Health Check Webconsole Plugin",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "org.apache.sling.hc.webconsole",
+      "category": "sling"
+    },
+    {
+      "id": 535,
+      "name": "Apache Sling Hypermedia API tools",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.0",
+      "symbolicName": "org.apache.sling.hapi",
+      "category": "sling"
+    },
+    {
+      "id": 538,
+      "name": "Apache Sling I18N Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.5.14",
+      "symbolicName": "org.apache.sling.i18n",
+      "category": "sling"
+    },
+    {
+      "id": 152,
+      "name": "Apache Sling Initial Content Loader",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2.6",
+      "symbolicName": "org.apache.sling.jcr.contentloader",
+      "category": "sling,jcr,jackrabbit"
+    },
+    {
+      "id": 11,
+      "name": "Apache Sling Installer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.9.0",
+      "symbolicName": "org.apache.sling.installer.core",
+      "category": "sling"
+    },
+    {
+      "id": 7,
+      "name": "Apache Sling Installer Configuration Admin Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.4",
+      "symbolicName": "org.apache.sling.installer.factory.configuration",
+      "category": "sling"
+    },
+    {
+      "id": 62,
+      "name": "Apache Sling Installer WebConsole Plugin",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.sling.installer.console",
+      "category": "sling"
+    },
+    {
+      "id": 546,
+      "name": "Apache Sling Inventory Printer Based on Resources",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.8",
+      "symbolicName": "org.apache.sling.resource.inventory",
+      "category": "sling"
+    },
+    {
+      "id": 1,
+      "name": "Apache Sling javax.activation bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.1.0",
+      "symbolicName": "org.apache.sling.javax.activation",
+      "category": "sling"
+    },
+    {
+      "id": 140,
+      "name": "Apache Sling JCR Base Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.4",
+      "symbolicName": "org.apache.sling.jcr.base",
+      "category": "sling,jcr,jackrabbit"
+    },
+    {
+      "id": 539,
+      "name": "Apache Sling JCR DavEx",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.10",
+      "symbolicName": "org.apache.sling.jcr.davex",
+      "category": "sling,jcr"
+    },
+    {
+      "id": 151,
+      "name": "Apache Sling JCR Installer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.1.26",
+      "symbolicName": "org.apache.sling.installer.provider.jcr",
+      "category": "sling"
+    },
+    {
+      "id": 143,
+      "name": "Apache Sling JCR RepoInit module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.8",
+      "symbolicName": "org.apache.sling.jcr.repoinit",
+      "category": "sling"
+    },
+    {
+      "id": 142,
+      "name": "Apache Sling JCR Repository Registration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.6",
+      "symbolicName": "org.apache.sling.jcr.registration",
+      "category": "sling,jcr"
+    },
+    {
+      "id": 164,
+      "name": "Apache Sling JCR Resource Resolver",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.18",
+      "symbolicName": "org.apache.sling.jcr.resource",
+      "category": "sling"
+    },
+    {
+      "id": 540,
+      "name": "Apache Sling JCR Resource Security",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.sling.jcr.resourcesecurity",
+      "category": "sling"
+    },
+    {
+      "id": 542,
+      "name": "Apache Sling JMX Resource Provider",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.sling.jmx.provider",
+      "category": "sling"
+    },
+    {
+      "id": 135,
+      "name": "Apache Sling JSON Library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.20",
+      "symbolicName": "org.apache.sling.commons.json",
+      "category": "sling"
+    },
+    {
+      "id": 23,
+      "name": "Apache Sling Launchpad Installer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "org.apache.sling.launchpad.installer",
+      "category": "sling"
+    },
+    {
+      "id": 568,
+      "name": "Apache Sling Log Tracer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.6",
+      "symbolicName": "org.apache.sling.tracer",
+      "category": "sling"
+    },
+    {
+      "id": 61,
+      "name": "Apache Sling Log WebConsole",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "org.apache.sling.commons.log.webconsole",
+      "category": "sling"
+    },
+    {
+      "id": 73,
+      "name": "Apache Sling Metrics",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.6",
+      "symbolicName": "org.apache.sling.commons.metrics",
+      "category": "sling"
+    },
+    {
+      "id": 543,
+      "name": "Apache Sling Models API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.8",
+      "symbolicName": "org.apache.sling.models.api",
+      "category": "sling"
+    },
+    {
+      "id": 544,
+      "name": "Apache Sling Models Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.10",
+      "symbolicName": "org.apache.sling.models.impl",
+      "category": "sling"
+    },
+    {
+      "id": 545,
+      "name": "Apache Sling Models Model Exporter - Jackson",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.8",
+      "symbolicName": "org.apache.sling.models.jacksonexporter",
+      "category": "sling"
+    },
+    {
+      "id": 161,
+      "name": "Apache Sling Oak-Based Discovery Service",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.22",
+      "symbolicName": "org.apache.sling.discovery.oak",
+      "category": "sling"
+    },
+    {
+      "id": 2,
+      "name": "Apache Sling OSGi LogService Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.6",
+      "symbolicName": "org.apache.sling.commons.logservice",
+      "category": "sling"
+    },
+    {
+      "id": 37,
+      "name": "Apache Sling Provisioning Model",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.8.4",
+      "symbolicName": "org.apache.sling.provisioning.model",
+      "category": "sling"
+    },
+    {
+      "id": 618,
+      "name": "Apache Sling Query",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.0",
+      "symbolicName": "org.apache.sling.query",
+      "category": "sling"
+    },
+    {
+      "id": 144,
+      "name": "Apache Sling RepoInit Parser",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "org.apache.sling.repoinit.parser",
+      "category": "sling"
+    },
+    {
+      "id": 139,
+      "name": "Apache Sling Repository API Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.4.0",
+      "symbolicName": "org.apache.sling.jcr.api",
+      "category": "sling,jcr,jackrabbit"
+    },
+    {
+      "id": 165,
+      "name": "Apache Sling Resource Access Security",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "org.apache.sling.resourceaccesssecurity",
+      "category": "sling"
+    },
+    {
+      "id": 547,
+      "name": "Apache Sling Resource Collection API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.sling.resourcecollection",
+      "category": "sling"
+    },
+    {
+      "id": 548,
+      "name": "Apache Sling Resource Merger",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.10",
+      "symbolicName": "org.apache.sling.resourcemerger",
+      "category": "sling"
+    },
+    {
+      "id": 166,
+      "name": "Apache Sling Resource Resolver",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.8",
+      "symbolicName": "org.apache.sling.resourceresolver",
+      "category": "sling"
+    },
+    {
+      "id": 549,
+      "name": "Apache Sling Rewriter",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.2",
+      "symbolicName": "org.apache.sling.rewriter",
+      "category": "sling"
+    },
+    {
+      "id": 529,
+      "name": "Apache Sling RRD4J metrics reporter",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.2",
+      "symbolicName": "org.apache.sling.commons.metrics-rrd4j",
+      "category": "sling"
+    },
+    {
+      "id": 158,
+      "name": "Apache Sling Scheduler Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.7.2",
+      "symbolicName": "org.apache.sling.commons.scheduler",
+      "category": "sling"
+    },
+    {
+      "id": 550,
+      "name": "Apache Sling Scripting Core implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.56",
+      "symbolicName": "org.apache.sling.scripting.core",
+      "category": "sling"
+    },
+    {
+      "id": 559,
+      "name": "Apache Sling Scripting HTL Compiler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2.1_4_0",
+      "symbolicName": "org.apache.sling.scripting.sightly.compiler",
+      "category": "sling"
+    },
+    {
+      "id": 558,
+      "name": "Apache Sling Scripting HTL Engine",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2.1_4_0",
+      "symbolicName": "org.apache.sling.scripting.sightly",
+      "category": "sling"
+    },
+    {
+      "id": 560,
+      "name": "Apache Sling Scripting HTL Java Compiler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2.1_4_0",
+      "symbolicName": "org.apache.sling.scripting.sightly.compiler.java",
+      "category": "sling"
+    },
+    {
+      "id": 561,
+      "name": "Apache Sling Scripting HTL JavaScript Use Provider",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.28",
+      "symbolicName": "org.apache.sling.scripting.sightly.js.provider",
+      "category": "sling"
+    },
+    {
+      "id": 563,
+      "name": "Apache Sling Scripting HTL Runtime",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.0.1_4_0",
+      "symbolicName": "org.apache.sling.scripting.sightly.runtime",
+      "category": "sling"
+    },
+    {
+      "id": 562,
+      "name": "Apache Sling Scripting HTL Sling Models Use Provider",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.8",
+      "symbolicName": "org.apache.sling.scripting.sightly.models.provider",
+      "category": "sling"
+    },
+    {
+      "id": 167,
+      "name": "Apache Sling Scripting Implementation API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2.0",
+      "symbolicName": "org.apache.sling.scripting.api",
+      "category": "sling"
+    },
+    {
+      "id": 552,
+      "name": "Apache Sling Scripting Java Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.1.2",
+      "symbolicName": "org.apache.sling.scripting.java",
+      "category": "sling"
+    },
+    {
+      "id": 553,
+      "name": "Apache Sling Scripting JavaScript Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.4",
+      "symbolicName": "org.apache.sling.scripting.javascript",
+      "category": "sling"
+    },
+    {
+      "id": 554,
+      "name": "Apache Sling Scripting JSP Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.4",
+      "symbolicName": "org.apache.sling.scripting.jsp",
+      "category": "sling"
+    },
+    {
+      "id": 556,
+      "name": "Apache Sling Scripting JSP Tag Library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.4.0",
+      "symbolicName": "org.apache.sling.scripting.jsp.taglib",
+      "category": "sling"
+    },
+    {
+      "id": 557,
+      "name": "Apache Sling Scripting JST Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.6",
+      "symbolicName": "org.apache.sling.scripting.jst",
+      "category": "sling"
+    },
+    {
+      "id": 78,
+      "name": "Apache Sling Security",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.16",
+      "symbolicName": "org.apache.sling.security",
+      "category": "sling"
+    },
+    {
+      "id": 74,
+      "name": "Apache Sling Service User Mapper",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.5.T20181201004400-4799433",
+      "symbolicName": "org.apache.sling.serviceusermapper",
+      "category": "sling"
+    },
+    {
+      "id": 566,
+      "name": "Apache Sling Servlet Resolver",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.5.4",
+      "symbolicName": "org.apache.sling.servlets.resolver",
+      "category": "sling"
+    },
+    {
+      "id": 3,
+      "name": "Apache Sling Settings",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.10",
+      "symbolicName": "org.apache.sling.settings",
+      "category": "sling"
+    },
+    {
+      "id": 541,
+      "name": "Apache Sling Simple WebDAV Access to repositories",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.3.8",
+      "symbolicName": "org.apache.sling.jcr.webdav",
+      "category": "sling,jcr"
+    },
+    {
+      "id": 63,
+      "name": "Apache Sling Startup Filter",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.1.Rev1764485",
+      "symbolicName": "org.apache.sling.startupfilter",
+      "category": "sling"
+    },
+    {
+      "id": 578,
+      "name": "Apache Sling Startup Filter Disabler",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.1.Rev1758544",
+      "symbolicName": "org.apache.sling.startupfilter.disabler",
+      "category": "sling"
+    },
+    {
+      "id": 567,
+      "name": "Apache Sling Tenant",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.4",
+      "symbolicName": "org.apache.sling.tenant",
+      "category": "sling"
+    },
+    {
+      "id": 137,
+      "name": "Apache Sling Thread Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.2.18",
+      "symbolicName": "org.apache.sling.commons.threads",
+      "category": "sling"
+    },
+    {
+      "id": 138,
+      "name": "Apache Sling Web Console Security Provider",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.0",
+      "symbolicName": "org.apache.sling.extensions.webconsolesecurityprovider",
+      "category": "sling"
+    },
+    {
+      "id": 551,
+      "name": "Apache Sling Wrapper Bundle for Apache Tomcat EL API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "org.apache.sling.scripting.el-api",
+      "category": "sling"
+    },
+    {
+      "id": 555,
+      "name": "Apache Sling Wrapper Bundle for Apache Tomcat JSP API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "org.apache.sling.scripting.jsp-api",
+      "category": "sling"
+    },
+    {
+      "id": 141,
+      "name": "Apache Sling Wrapper Bundle for the JCR API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.0",
+      "symbolicName": "org.apache.sling.jcr.jcr-wrapper",
+      "category": "sling"
+    },
+    {
+      "id": 569,
+      "name": "Apache Sling XSS Protection",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.1.8",
+      "symbolicName": "org.apache.sling.xss",
+      "category": "sling"
+    },
+    {
+      "id": 95,
+      "name": "Apache Tika core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.21.0",
+      "symbolicName": "org.apache.tika.core",
+      "category": ""
+    },
+    {
+      "id": 96,
+      "name": "Apache Tika parsers",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.21.0",
+      "symbolicName": "org.apache.tika.parsers",
+      "category": ""
+    },
+    {
+      "id": 652,
+      "name": "Apache Velocity",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7",
+      "symbolicName": "org.apache.velocity",
+      "category": ""
+    },
+    {
+      "id": 622,
+      "name": "Async Task Monitor",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.3",
+      "symbolicName": "async-task-monitor",
+      "category": "cognifide"
+    },
+    {
+      "id": 663,
+      "name": "Audits",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "com.cognifide.audits",
+      "category": "zen-garden"
+    },
+    {
+      "id": 664,
+      "name": "Blocks - AEM API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1.SNAPSHOT",
+      "symbolicName": "com.cognifide.products.blocks.api",
+      "category": "blocks"
+    },
+    {
+      "id": 665,
+      "name": "Blocks - AEM Application",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1.SNAPSHOT",
+      "symbolicName": "com.cognifide.products.blocks",
+      "category": "blocks"
+    },
+    {
+      "id": 681,
+      "name": "Bridge - AEM API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1.SNAPSHOT",
+      "symbolicName": "com.cognifide.products.bridge.api",
+      "category": "bridge"
+    },
+    {
+      "id": 685,
+      "name": "Bridge - Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1.SNAPSHOT",
+      "symbolicName": "com.cognifide.products.bridge",
+      "category": "bridge"
+    },
+    {
+      "id": 693,
+      "name": "Bridge Knot.x",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1.SNAPSHOT",
+      "symbolicName": "com.cognifide.products.bridge.knotx",
+      "category": "bridge"
+    },
+    {
+      "id": 694,
+      "name": "Bridge Knot.x - Sample Extensions",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1.SNAPSHOT",
+      "symbolicName": "com.cognifide.products.bridge.knotx-sample-extensions",
+      "category": "bridge"
+    },
+    {
+      "id": 659,
+      "name": "Bridge Knot.x - ZG Components",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "com.cognifide.bridge.knotx-zg-components",
+      "category": "zen-garden"
+    },
+    {
+      "id": 692,
+      "name": "Bridge Sample Extensions",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1.SNAPSHOT",
+      "symbolicName": "com.cognifide.products.bridge.samples",
+      "category": "bridge"
+    },
+    {
+      "id": 695,
+      "name": "Bridge Zen Garden Connectors",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "com.cognifide.bridge.zg-connectors",
+      "category": "zen-garden"
+    },
+    {
+      "id": 195,
+      "name": "CDN Integration Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2.0",
+      "symbolicName": "com.adobe.cq.cdn.cdn-rewriter",
+      "category": "cq5"
+    },
+    {
+      "id": 643,
+      "name": "Commons BeanUtils",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.8.3",
+      "symbolicName": "org.apache.commons.beanutils",
+      "category": ""
+    },
+    {
+      "id": 644,
+      "name": "Commons Digester",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.8.1",
+      "symbolicName": "org.apache.commons.digester",
+      "category": ""
+    },
+    {
+      "id": 67,
+      "name": "Commons Lang",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.6",
+      "symbolicName": "com.day.commons.osgi.wrapper.commons-lang2",
+      "category": ""
+    },
+    {
+      "id": 305,
+      "name": "Commons Math",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.2",
+      "symbolicName": "org.apache.commons.math",
+      "category": ""
+    },
+    {
+      "id": 667,
+      "name": "Composites - AEM Application",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1.SNAPSHOT",
+      "symbolicName": "com.cognifide.products.composites",
+      "category": "composites"
+    },
+    {
+      "id": 327,
+      "name": "ContentFragmentManagement - API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.4",
+      "symbolicName": "com.adobe.dam.cq-dam-cfm-api",
+      "category": ""
+    },
+    {
+      "id": 328,
+      "name": "ContentFragmentManagement - HTTP API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.6",
+      "symbolicName": "com.adobe.dam.cq-dam-cfm-haf",
+      "category": ""
+    },
+    {
+      "id": 329,
+      "name": "ContentFragmentManagement - Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.11.54",
+      "symbolicName": "com.adobe.dam.cq-dam-cfm-impl",
+      "category": ""
+    },
+    {
+      "id": 357,
+      "name": "CQ Health Check Services",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.2",
+      "symbolicName": "com.adobe.cq.cq-healthcheck",
+      "category": "cq"
+    },
+    {
+      "id": 619,
+      "name": "CQ Internal Cache",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.7.0",
+      "symbolicName": "com.cognifide.cq.internal-cache",
+      "category": ""
+    },
+    {
+      "id": 127,
+      "name": "CQ Pre-upgrade Backup",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.4.2",
+      "symbolicName": "com.adobe.cq.cq-pre-upgrade-backup",
+      "category": ""
+    },
+    {
+      "id": 128,
+      "name": "CQ Pre-upgrade Cleanup",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.3.8",
+      "symbolicName": "com.adobe.cq.cq-pre-upgrade-cleanup",
+      "category": ""
+    },
+    {
+      "id": 76,
+      "name": "CQ ProductInfo Provider",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.6",
+      "symbolicName": "com.adobe.cq.cq-product-info-provider",
+      "category": "adobe,aem"
+    },
+    {
+      "id": 206,
+      "name": "CQ Projects - API Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.5.2",
+      "symbolicName": "com.adobe.cq.com.adobe.cq.projects.api",
+      "category": "cq,projectmanagment"
+    },
+    {
+      "id": 207,
+      "name": "CQ Projects - Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.5.26",
+      "symbolicName": "com.adobe.cq.com.adobe.cq.projects.core",
+      "category": "cq,projectmanagement"
+    },
+    {
+      "id": 208,
+      "name": "CQ Projects - UI Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.5.0",
+      "symbolicName": "com.adobe.cq.com.adobe.cq.projects.ui",
+      "category": "cq,projectmanagment"
+    },
+    {
+      "id": 647,
+      "name": "CQ Search - Query Builder module",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "cq-search-querybuilder",
+      "category": "cq5"
+    },
+    {
+      "id": 674,
+      "name": "Creative Exchange - AEM Application",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.1.SNAPSHOT",
+      "symbolicName": "com.cognifide.products.creativeexchange",
+      "category": "creative-exchange"
+    },
+    {
+      "id": 342,
+      "name": "DAM Similarity Search Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.16",
+      "symbolicName": "com.day.cq.dam.cq-dam-similaritysearch",
+      "category": ""
+    },
+    {
+      "id": 498,
+      "name": "Day Commons Library - Data Source Pool",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.10",
+      "symbolicName": "day.commons.datasource.poolservice",
+      "category": "day-commons"
+    },
+    {
+      "id": 490,
+      "name": "Day Commons Library - Diff (Diff utilities)",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.6",
+      "symbolicName": "day-commons-diff",
+      "category": "day-commons"
+    },
+    {
+      "id": 491,
+      "name": "Day Commons Library - Durbo Content Packaging",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.1.6",
+      "symbolicName": "day-commons-durbo",
+      "category": "day-commons"
+    },
+    {
+      "id": 492,
+      "name": "Day Commons Library - Graphics Support Library (gfx)",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.1.50",
+      "symbolicName": "day-commons-gfx",
+      "category": "commons"
+    },
+    {
+      "id": 153,
+      "name": "Day Commons Library - HTTP Client 3.1 Bundling",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.1.0.018",
+      "symbolicName": "com.day.commons.osgi.wrapper.commons-httpclient",
+      "category": "day-commons"
+    },
+    {
+      "id": 493,
+      "name": "Day Commons Library - Input/Output Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.8",
+      "symbolicName": "day-commons-io",
+      "category": "day-commons"
+    },
+    {
+      "id": 497,
+      "name": "Day Commons Library - JDBC pool provider for the Data Source Pool",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.24",
+      "symbolicName": "day.commons.datasource.jdbcpool",
+      "category": "day-commons"
+    },
+    {
+      "id": 494,
+      "name": "Day Commons Library - jrawio bundling",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.0.006",
+      "symbolicName": "day-commons-jrawio",
+      "category": "commons"
+    },
+    {
+      "id": 496,
+      "name": "Day Commons Library - Miscellaneous Functions",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "day-commons-misc",
+      "category": "day-commons"
+    },
+    {
+      "id": 300,
+      "name": "Day Commons Library - Simple JNDI",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.11.14.1_0010",
+      "symbolicName": "com.day.commons.osgi.wrapper.simple-jndi",
+      "category": "day-commons"
+    },
+    {
+      "id": 130,
+      "name": "Day Commons Library - Text Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.14",
+      "symbolicName": "com.day.commons.day-commons-text",
+      "category": "day-commons"
+    },
+    {
+      "id": 363,
+      "name": "Day Communique 5 Adobe Campaign Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.12",
+      "symbolicName": "com.day.cq.mcm.cq-mcm-campaign",
+      "category": "cq5"
+    },
+    {
+      "id": 341,
+      "name": "Day Communique 5 Assets Rating",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "com.day.cq.dam.cq-dam-rating",
+      "category": "cq5"
+    },
+    {
+      "id": 311,
+      "name": "Day Communique 5 Audit Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.3.6",
+      "symbolicName": "com.day.cq.cq-audit",
+      "category": "cq5"
+    },
+    {
+      "id": 312,
+      "name": "Day Communique 5 Charting",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.10.2",
+      "symbolicName": "com.day.cq.cq-chart",
+      "category": "cq5"
+    },
+    {
+      "id": 575,
+      "name": "Day Communique 5 Code Upgrade service",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7.102",
+      "symbolicName": "com.day.cq.cq-compat-codeupgrade",
+      "category": "cq5"
+    },
+    {
+      "id": 318,
+      "name": "Day Communique 5 Commons Library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.16",
+      "symbolicName": "com.day.cq.cq-commons",
+      "category": "cq5"
+    },
+    {
+      "id": 319,
+      "name": "Day Communique 5 Compatiblity: Apache Sling Commons Auth Interim API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.1.6",
+      "symbolicName": "com.day.cq.cq-compat-commons-auth",
+      "category": "cq5"
+    },
+    {
+      "id": 70,
+      "name": "Day Communique 5 Compatiblity: Apache Sling Runmode",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.0",
+      "symbolicName": "com.day.cq.cq-compat-runmode",
+      "category": "cq5"
+    },
+    {
+      "id": 322,
+      "name": "Day Communique 5 Content Sync",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.24",
+      "symbolicName": "com.day.cq.cq-content-sync",
+      "category": "cq5"
+    },
+    {
+      "id": 185,
+      "name": "Day Communique 5 DAM Adobe extension",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.6",
+      "symbolicName": "com.day.cq.dam.adobe-xmp",
+      "category": "cq5"
+    },
+    {
+      "id": 325,
+      "name": "Day Communique 5 DAM API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.0.20",
+      "symbolicName": "com.day.cq.dam.cq-dam-api",
+      "category": "cq5"
+    },
+    {
+      "id": 333,
+      "name": "Day Communique 5 DAM Asset Handler Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.10",
+      "symbolicName": "com.day.cq.dam.cq-dam-handler",
+      "category": "cq5"
+    },
+    {
+      "id": 330,
+      "name": "Day Communique 5 DAM Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.70",
+      "symbolicName": "com.day.cq.dam.cq-dam-commons",
+      "category": "cq5"
+    },
+    {
+      "id": 331,
+      "name": "Day Communique 5 DAM Core Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.194",
+      "symbolicName": "com.day.cq.dam.cq-dam-core",
+      "category": "cq5"
+    },
+    {
+      "id": 334,
+      "name": "Day Communique 5 DAM InDesign Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.18",
+      "symbolicName": "com.day.cq.dam.cq-dam-indesign",
+      "category": "cq5"
+    },
+    {
+      "id": 338,
+      "name": "Day Communique 5 DAM PIM Integration Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.5.4",
+      "symbolicName": "com.day.cq.dam.cq-dam-pim",
+      "category": "cq5"
+    },
+    {
+      "id": 389,
+      "name": "Day Communique 5 DAM Scene7 API Wrapper Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.6",
+      "symbolicName": "com.day.cq.dam.cq-scene7-wsdl",
+      "category": "cq5"
+    },
+    {
+      "id": 386,
+      "name": "Day Communique 5 DAM Scene7 Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.22",
+      "symbolicName": "com.day.cq.dam.cq-scene7-api",
+      "category": "cq5"
+    },
+    {
+      "id": 387,
+      "name": "Day Communique 5 DAM Scene7 Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.74",
+      "symbolicName": "com.day.cq.dam.cq-scene7-core",
+      "category": "cq5"
+    },
+    {
+      "id": 345,
+      "name": "Day Communique 5 DAM Video Extensions",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.4",
+      "symbolicName": "com.day.cq.dam.cq-dam-video",
+      "category": ""
+    },
+    {
+      "id": 346,
+      "name": "Day Communique 5 DAM Word Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.6",
+      "symbolicName": "com.day.cq.dam.cq-dam-word",
+      "category": "cq5"
+    },
+    {
+      "id": 484,
+      "name": "Day Communique 5 Ext Widgets",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.8.4",
+      "symbolicName": "com.day.cq.cq-widgets-ext",
+      "category": ""
+    },
+    {
+      "id": 320,
+      "name": "Day Communique 5 JCR Connector Integration",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.10.2",
+      "symbolicName": "com.day.cq.cq-connector",
+      "category": "cq5"
+    },
+    {
+      "id": 71,
+      "name": "Day Communique 5 License Branding",
+      "fragment": true,
+      "stateRaw": 4,
+      "state": "Fragment",
+      "version": "6.5.2",
+      "symbolicName": "com.day.cq.cq-licensebranding",
+      "category": "cq5"
+    },
+    {
+      "id": 362,
+      "name": "Day Communique 5 Mailer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.14.2",
+      "symbolicName": "com.day.cq.cq-mailer",
+      "category": "cq5"
+    },
+    {
+      "id": 364,
+      "name": "Day Communique 5 MCM Core Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.4",
+      "symbolicName": "com.day.cq.mcm.cq-mcm-core",
+      "category": "cq5"
+    },
+    {
+      "id": 365,
+      "name": "Day Communique 5 MCM External Email Provider Interface",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.4",
+      "symbolicName": "com.day.cq.mcm.cq-mcm-emailprovider",
+      "category": "cq5"
+    },
+    {
+      "id": 366,
+      "name": "Day Communique 5 MCM Landing Page Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.4",
+      "symbolicName": "com.day.cq.mcm.cq-mcm-landingpage",
+      "category": "cq5"
+    },
+    {
+      "id": 367,
+      "name": "Day Communique 5 Media Articles Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.10.2",
+      "symbolicName": "com.adobe.cq.media.cq-media-articles",
+      "category": "cq5"
+    },
+    {
+      "id": 373,
+      "name": "Day Communique 5 Notification API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.8.2",
+      "symbolicName": "com.day.cq.cq-notifcation-api",
+      "category": "cq5"
+    },
+    {
+      "id": 374,
+      "name": "Day Communique 5 Notification Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.9.2",
+      "symbolicName": "com.day.cq.cq-notifcation-impl",
+      "category": "cq5"
+    },
+    {
+      "id": 376,
+      "name": "Day Communique 5 Polling Importer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.4",
+      "symbolicName": "com.day.cq.cq-polling-importer",
+      "category": "cq5"
+    },
+    {
+      "id": 381,
+      "name": "Day Communique 5 Replication - Auditing",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.6",
+      "symbolicName": "com.day.cq.cq-replication-audit",
+      "category": "cq5"
+    },
+    {
+      "id": 382,
+      "name": "Day Communique 5 Reporting",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.10",
+      "symbolicName": "com.day.cq.cq-reporting",
+      "category": "cq5"
+    },
+    {
+      "id": 384,
+      "name": "Day Communique 5 Retriever",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.8.2",
+      "symbolicName": "com.day.cq.cq-retriever",
+      "category": "sling"
+    },
+    {
+      "id": 385,
+      "name": "Day Communique 5 Rewriter",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.4",
+      "symbolicName": "com.day.cq.cq-rewriter",
+      "category": "sling"
+    },
+    {
+      "id": 395,
+      "name": "Day Communique 5 Security",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.8",
+      "symbolicName": "com.day.cq.cq-security",
+      "category": ""
+    },
+    {
+      "id": 396,
+      "name": "Day Communique 5 Security API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.9.4",
+      "symbolicName": "com.day.cq.cq-security-api",
+      "category": ""
+    },
+    {
+      "id": 456,
+      "name": "Day Communique 5 Spellchecker",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.10.2",
+      "symbolicName": "com.day.cq.cq-spellchecker",
+      "category": ""
+    },
+    {
+      "id": 457,
+      "name": "Day Communique 5 Statistics",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.4",
+      "symbolicName": "com.day.cq.cq-statistics",
+      "category": ""
+    },
+    {
+      "id": 458,
+      "name": "Day Communique 5 Tagging",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.2",
+      "symbolicName": "com.day.cq.cq-tagging",
+      "category": ""
+    },
+    {
+      "id": 461,
+      "name": "Day Communique 5 WCM API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.26",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-api",
+      "category": "cq5"
+    },
+    {
+      "id": 462,
+      "name": "Day Communique 5 WCM Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.2",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-commons",
+      "category": "cq5"
+    },
+    {
+      "id": 463,
+      "name": "Day Communique 5 WCM Content Sync Extensions",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.8",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-content-sync",
+      "category": "cq5"
+    },
+    {
+      "id": 464,
+      "name": "Day Communique 5 WCM Core Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.102",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-core",
+      "category": "cq5"
+    },
+    {
+      "id": 465,
+      "name": "Day Communique 5 WCM Design Importer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.10",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-designimporter",
+      "category": "cq5"
+    },
+    {
+      "id": 466,
+      "name": "Day Communique 5 WCM Emulator",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.8.2",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-emulator",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 469,
+      "name": "Day Communique 5 WCM Mobile API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.4",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-mobile-api",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 470,
+      "name": "Day Communique 5 WCM Mobile Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.10",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-mobile-core",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 368,
+      "name": "Day Communique 5 WCM Multi Site Management API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.4",
+      "symbolicName": "com.day.cq.wcm.cq-msm-api",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 369,
+      "name": "Day Communique 5 WCM Multi Site Management Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.2",
+      "symbolicName": "com.day.cq.wcm.cq-msm-commons",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 370,
+      "name": "Day Communique 5 WCM Multi Site Management Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.36",
+      "symbolicName": "com.day.cq.wcm.cq-msm-core",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 371,
+      "name": "Day Communique 5 WCM Multi Site Management Move Handle API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.0.4",
+      "symbolicName": "com.day.cq.wcm.cq-msm-move-api",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 473,
+      "name": "Day Communique 5 WCM Notification Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.10",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-notification",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 474,
+      "name": "Day Communique 5 WCM Offline Editor",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.10.2",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-offline",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 478,
+      "name": "Day Communique 5 WCM Tag Lib",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.13.6",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-taglib",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 480,
+      "name": "Day Communique 5 WCM Undo",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.2",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-undo",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 481,
+      "name": "Day Communique 5 WCM Webservice Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.12.10",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-webservice-support",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 482,
+      "name": "Day Communique 5 WCM Workflow",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.11.22",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-workflow",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 483,
+      "name": "Day Communique 5 WCM Workflow API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.9.2",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-workflow-api",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 485,
+      "name": "Day Communique 5 Workflow API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.0.4",
+      "symbolicName": "com.day.cq.workflow.cq-workflow-api",
+      "category": "cq5-workflow"
+    },
+    {
+      "id": 486,
+      "name": "Day Communique 5 Workflow Console",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.2.2",
+      "symbolicName": "com.day.cq.workflow.cq-workflow-console",
+      "category": "cq5-workflow"
+    },
+    {
+      "id": 487,
+      "name": "Day Communique 5 Workflow Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.3.8",
+      "symbolicName": "com.day.cq.workflow.cq-workflow-impl",
+      "category": "cq5-workflow"
+    },
+    {
+      "id": 585,
+      "name": "Day Communique 6 DAM Asset Sourcing Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.16",
+      "symbolicName": "com.day.cq.dam.cq-dam-asset-sourcing",
+      "category": "cq5"
+    },
+    {
+      "id": 326,
+      "name": "Day Communique 6.0 DAM Asset Usage Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.10",
+      "symbolicName": "com.day.cq.dam.cq-dam-asset-usage",
+      "category": "cq5"
+    },
+    {
+      "id": 475,
+      "name": "Day Communique WCM Resource Details",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.10",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-resource-details",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 129,
+      "name": "Day CRX API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.6.6",
+      "symbolicName": "com.day.crx.crx-api",
+      "category": ""
+    },
+    {
+      "id": 191,
+      "name": "Expression Editor Utils Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.0.42",
+      "symbolicName": "com.adobe.aemfd.expeditor.aemfd-expeditor-utils-bundle",
+      "category": ""
+    },
+    {
+      "id": 5,
+      "name": "Extended StAX API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7.6",
+      "symbolicName": "org.jvnet.staxex.stax-ex",
+      "category": ""
+    },
+    {
+      "id": 131,
+      "name": "Forms Foundation Base Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.0.74",
+      "symbolicName": "com.adobe.forms.foundation-forms-foundation-base",
+      "category": ""
+    },
+    {
+      "id": 507,
+      "name": "Forms Foundation Cloud Configurations Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.0.74",
+      "symbolicName": "com.adobe.forms.foundation-forms-foundation-cloud-config",
+      "category": ""
+    },
+    {
+      "id": 506,
+      "name": "Forms Foundation Layer Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.0.74",
+      "symbolicName": "forms-foundation-bundle",
+      "category": ""
+    },
+    {
+      "id": 145,
+      "name": "Granite Info Collector",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.20",
+      "symbolicName": "com.adobe.granite.infocollector",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 252,
+      "name": "Granite Logging - Analysis",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.26",
+      "symbolicName": "com.adobe.granite.logging",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 168,
+      "name": "Granite Maintenance OAK",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.54",
+      "symbolicName": "com.adobe.granite.maintenance.oak",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 255,
+      "name": "Granite OAuth JWT",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.1.0",
+      "symbolicName": "com.adobe.granite.oauth.jwt",
+      "category": "granite"
+    },
+    {
+      "id": 262,
+      "name": "Granite Queries",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.64",
+      "symbolicName": "com.adobe.granite.queries",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 268,
+      "name": "Granite Requests Logging",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.20",
+      "symbolicName": "com.adobe.granite.requests.logging",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 286,
+      "name": "Granite Translation - Microsoft Connector Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.26",
+      "symbolicName": "com.adobe.granite.translation.connector.msft.core",
+      "category": "granite"
+    },
+    {
+      "id": 285,
+      "name": "Granite Translation - Translation API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.4",
+      "symbolicName": "com.adobe.granite.translation.api",
+      "category": "granite"
+    },
+    {
+      "id": 287,
+      "name": "Granite Translation - Translation Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.60",
+      "symbolicName": "com.adobe.granite.translation.core",
+      "category": "granite"
+    },
+    {
+      "id": 293,
+      "name": "Granite Webconsole Plugins",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.12",
+      "symbolicName": "com.adobe.granite.webconsole.plugins",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 617,
+      "name": "Groover",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.13.0",
+      "symbolicName": "groover",
+      "category": ""
+    },
+    {
+      "id": 616,
+      "name": "Groovy Runtime",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.4.15",
+      "symbolicName": "groovy-all",
+      "category": ""
+    },
+    {
+      "id": 204,
+      "name": "Gson",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.8.5",
+      "symbolicName": "com.adobe.cq.gson",
+      "category": ""
+    },
+    {
+      "id": 98,
+      "name": "Guava Wrapper bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "15.0.0.0002",
+      "symbolicName": "com.adobe.granite.osgi.wrapper.guava",
+      "category": "granite"
+    },
+    {
+      "id": 591,
+      "name": "guice",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0.0",
+      "symbolicName": "com.google.inject",
+      "category": ""
+    },
+    {
+      "id": 592,
+      "name": "guice-multibindings",
+      "fragment": true,
+      "stateRaw": 4,
+      "state": "Fragment",
+      "version": "3.0.0",
+      "symbolicName": "com.google.inject.multibindings",
+      "category": ""
+    },
+    {
+      "id": 100,
+      "name": "H2 MVStore",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.4.194",
+      "symbolicName": "org.h2.mvstore",
+      "category": "utility"
+    },
+    {
+      "id": 509,
+      "name": "Handlebars",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.0.5",
+      "symbolicName": "com.github.jknack.handlebars",
+      "category": ""
+    },
+    {
+      "id": 178,
+      "name": "I18N Libraries",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0.R783018",
+      "symbolicName": "org.apache.abdera.i18n",
+      "category": ""
+    },
+    {
+      "id": 101,
+      "name": "Jackrabbit Data",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.18.2",
+      "symbolicName": "org.apache.jackrabbit.jackrabbit-data",
+      "category": "jcr,jackrabbit"
+    },
+    {
+      "id": 133,
+      "name": "Jackrabbit JCR Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.18.2",
+      "symbolicName": "org.apache.jackrabbit.jackrabbit-jcr-commons",
+      "category": "jcr,jackrabbit"
+    },
+    {
+      "id": 148,
+      "name": "Jackrabbit SPI",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.18.2",
+      "symbolicName": "org.apache.jackrabbit.jackrabbit-spi",
+      "category": "jcr,jackrabbit"
+    },
+    {
+      "id": 149,
+      "name": "Jackrabbit SPI Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.18.2",
+      "symbolicName": "org.apache.jackrabbit.jackrabbit-spi-commons",
+      "category": "jcr,jackrabbit"
+    },
+    {
+      "id": 510,
+      "name": "Jackrabbit WebDAV Library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.18.2",
+      "symbolicName": "org.apache.jackrabbit.jackrabbit-webdav",
+      "category": "jcr,jackrabbit"
+    },
+    {
+      "id": 649,
+      "name": "Jackson module: JAXB Annotations",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.9.5",
+      "symbolicName": "com.fasterxml.jackson.module.jackson-module-jaxb-annotations",
+      "category": ""
+    },
+    {
+      "id": 102,
+      "name": "Jackson-annotations",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.9.8",
+      "symbolicName": "com.fasterxml.jackson.core.jackson-annotations",
+      "category": ""
+    },
+    {
+      "id": 103,
+      "name": "Jackson-core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.9.8",
+      "symbolicName": "com.fasterxml.jackson.core.jackson-core",
+      "category": ""
+    },
+    {
+      "id": 104,
+      "name": "jackson-databind",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.9.8",
+      "symbolicName": "com.fasterxml.jackson.core.jackson-databind",
+      "category": ""
+    },
+    {
+      "id": 648,
+      "name": "Jackson-dataformat-XML",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.9.5",
+      "symbolicName": "com.fasterxml.jackson.dataformat.jackson-dataformat-xml",
+      "category": ""
+    },
+    {
+      "id": 588,
+      "name": "JavaMail API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.2",
+      "symbolicName": "com.sun.mail.javax.mail",
+      "category": ""
+    },
+    {
+      "id": 512,
+      "name": "JavaMail API (compat)",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.5.0.b01",
+      "symbolicName": "javax.mail",
+      "category": ""
+    },
+    {
+      "id": 21,
+      "name": "jcl-over-slf4j",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7.25",
+      "symbolicName": "jcl.over.slf4j",
+      "category": ""
+    },
+    {
+      "id": 45,
+      "name": "Joda-Time",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.9.1",
+      "symbolicName": "com.adobe.granite.joda-time",
+      "category": ""
+    },
+    {
+      "id": 511,
+      "name": "JSON Schema Parser Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.0.56",
+      "symbolicName": "com.adobe.cq.json-schema-parser",
+      "category": ""
+    },
+    {
+      "id": 650,
+      "name": "jsoup Java HTML Parser",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.11.2",
+      "symbolicName": "org.jsoup",
+      "category": ""
+    },
+    {
+      "id": 501,
+      "name": "JSPEL Expression Resolver Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.0.42",
+      "symbolicName": "com.adobe.cq.exp-jspel-resolver",
+      "category": ""
+    },
+    {
+      "id": 15,
+      "name": "log4j-over-slf4j",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7.25",
+      "symbolicName": "log4j.over.slf4j",
+      "category": ""
+    },
+    {
+      "id": 261,
+      "name": "MarkdownJ Wrapper bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.3.0.2_0_2b4-002",
+      "symbolicName": "com.adobe.granite.osgi.wrapper.markdownj",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 66,
+      "name": "Metrics Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.2.4",
+      "symbolicName": "com.adobe.granite.dropwizard.metrics",
+      "category": ""
+    },
+    {
+      "id": 184,
+      "name": "Mobile Forms Common Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "8.0.74",
+      "symbolicName": "com.adobe.forms.common.adobe-xfaforms-common",
+      "category": ""
+    },
+    {
+      "id": 471,
+      "name": "Mobile QR Code Generator",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.9.6",
+      "symbolicName": "com.day.cq.wcm.cq-wcm-mobile-qrcode",
+      "category": "cq5-wcm"
+    },
+    {
+      "id": 105,
+      "name": "mongo-java-driver",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.8.2",
+      "symbolicName": "org.mongodb.mongo-java-driver",
+      "category": ""
+    },
+    {
+      "id": 194,
+      "name": "Multi Channel Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.66",
+      "symbolicName": "com.adobe.aemfd.ccm.multichannel-ccm-multi-channel-core",
+      "category": ""
+    },
+    {
+      "id": 513,
+      "name": "MySpell",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.4",
+      "symbolicName": "com.adobe.cq.myspell",
+      "category": ""
+    },
+    {
+      "id": 106,
+      "name": "Oak API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-api",
+      "category": "oak"
+    },
+    {
+      "id": 111,
+      "name": "Oak Azure Cloud Blob Store",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-blob-cloud-azure",
+      "category": "oak"
+    },
+    {
+      "id": 112,
+      "name": "Oak Blob Plugins",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-blob-plugins",
+      "category": "oak"
+    },
+    {
+      "id": 110,
+      "name": "Oak Blob Store",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-blob",
+      "category": "oak"
+    },
+    {
+      "id": 113,
+      "name": "Oak Commons",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-commons",
+      "category": "oak"
+    },
+    {
+      "id": 123,
+      "name": "Oak Composite Store",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-store-composite",
+      "category": "oak"
+    },
+    {
+      "id": 99,
+      "name": "Oak content repository",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.6.28",
+      "symbolicName": "com.adobe.granite.repository",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 114,
+      "name": "Oak Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-core",
+      "category": "oak"
+    },
+    {
+      "id": 115,
+      "name": "Oak Core SPI",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-core-spi",
+      "category": "oak"
+    },
+    {
+      "id": 109,
+      "name": "Oak CUG Authorization",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-authorization-cug",
+      "category": "oak"
+    },
+    {
+      "id": 124,
+      "name": "Oak DocumentNodeStore",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-store-document",
+      "category": "oak"
+    },
+    {
+      "id": 107,
+      "name": "Oak External Authentication Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-auth-external",
+      "category": "oak"
+    },
+    {
+      "id": 116,
+      "name": "Oak JCR Binding",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-jcr",
+      "category": "oak"
+    },
+    {
+      "id": 108,
+      "name": "Oak LDAP Authentication Support",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-auth-ldap",
+      "category": "oak"
+    },
+    {
+      "id": 117,
+      "name": "Oak Lucene",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-lucene",
+      "category": "oak"
+    },
+    {
+      "id": 125,
+      "name": "Oak NodeStore and Commit SPI",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-store-spi",
+      "category": "oak"
+    },
+    {
+      "id": 118,
+      "name": "Oak Query SPI",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-query-spi",
+      "category": "oak"
+    },
+    {
+      "id": 119,
+      "name": "Oak Security SPI",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-security-spi",
+      "category": "oak"
+    },
+    {
+      "id": 120,
+      "name": "Oak Segment Azure",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-segment-azure",
+      "category": "oak"
+    },
+    {
+      "id": 121,
+      "name": "Oak Segment Tar",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-segment-tar",
+      "category": "oak"
+    },
+    {
+      "id": 122,
+      "name": "Oak Solr OSGi",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.10.3",
+      "symbolicName": "org.apache.jackrabbit.oak-solr-osgi",
+      "category": "oak"
+    },
+    {
+      "id": 516,
+      "name": "org.apache.oltu.commons.json",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "org.apache.oltu.commons.json",
+      "category": ""
+    },
+    {
+      "id": 170,
+      "name": "org.apache.oltu.oauth2.authzserver",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "org.apache.oltu.oauth2.authzserver",
+      "category": ""
+    },
+    {
+      "id": 172,
+      "name": "org.apache.oltu.oauth2.resourceserver",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.0.0",
+      "symbolicName": "org.apache.oltu.oauth2.resourceserver",
+      "category": ""
+    },
+    {
+      "id": 28,
+      "name": "org.osgi:org.osgi.util.function",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.0.201802012106",
+      "symbolicName": "org.osgi.util.function",
+      "category": ""
+    },
+    {
+      "id": 29,
+      "name": "org.osgi:org.osgi.util.promise",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.0.201802012106",
+      "symbolicName": "org.osgi.util.promise",
+      "category": ""
+    },
+    {
+      "id": 82,
+      "name": "OSGi bundle wrapper for the Apache POI library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.28",
+      "symbolicName": "com.adobe.granite.poi",
+      "category": "adobe,granite"
+    },
+    {
+      "id": 273,
+      "name": "OSGi bundle wrapper for the Scribe library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.8",
+      "symbolicName": "com.adobe.granite.scribe",
+      "category": "granite"
+    },
+    {
+      "id": 84,
+      "name": "OSGi bundle wrapper for the Tagsoup library",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.1",
+      "symbolicName": "com.adobe.granite.tagsoup",
+      "category": "granite"
+    },
+    {
+      "id": 593,
+      "name": "peaberry - Dynamic services for Google-Guice",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.3.0",
+      "symbolicName": "org.ops4j.peaberry",
+      "category": ""
+    },
+    {
+      "id": 83,
+      "name": "RELAX NG Object Model / Parser",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "20120531.0.0",
+      "symbolicName": "com.adobe.granite.rngom",
+      "category": "granite"
+    },
+    {
+      "id": 589,
+      "name": "Remote Content Renderer",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "2.0.4",
+      "symbolicName": "com.day.cq.remote.content.renderer",
+      "category": "cq5"
+    },
+    {
+      "id": 658,
+      "name": "Resource Script Mapper",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "com.cognifide.resourcescriptmapper",
+      "category": "zen-garden"
+    },
+    {
+      "id": 173,
+      "name": "Screens WeRetail",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.0",
+      "symbolicName": "com.adobe.cq.screens.com.adobe.cq.screens.apps.we_retail",
+      "category": ""
+    },
+    {
+      "id": 654,
+      "name": "Site Wizard",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "sitewizard-bundle",
+      "category": "aem"
+    },
+    {
+      "id": 657,
+      "name": "Sitemap Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "sitemap-bundle",
+      "category": "aem"
+    },
+    {
+      "id": 10,
+      "name": "slf4j-api",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.7.25",
+      "symbolicName": "slf4j.api",
+      "category": ""
+    },
+    {
+      "id": 600,
+      "name": "Slice - AEM 6.0 Add-on",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.2.0",
+      "symbolicName": "slice-aem60",
+      "category": ""
+    },
+    {
+      "id": 594,
+      "name": "Slice - Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.4.0",
+      "symbolicName": "slice-core",
+      "category": ""
+    },
+    {
+      "id": 595,
+      "name": "Slice - Core API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.4.0",
+      "symbolicName": "slice-core-api",
+      "category": ""
+    },
+    {
+      "id": 596,
+      "name": "Slice - Mapper",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.4.0",
+      "symbolicName": "slice-mapper",
+      "category": ""
+    },
+    {
+      "id": 597,
+      "name": "Slice - Mapper API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.4.0",
+      "symbolicName": "slice-mapper-api",
+      "category": ""
+    },
+    {
+      "id": 598,
+      "name": "Slice - Persistence",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.4.0",
+      "symbolicName": "slice-persistence",
+      "category": ""
+    },
+    {
+      "id": 599,
+      "name": "Slice - Persistence API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.4.0",
+      "symbolicName": "slice-persistence-api",
+      "category": ""
+    },
+    {
+      "id": 306,
+      "name": "SmartContent - Core Implementation",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.2.8",
+      "symbolicName": "com.adobe.cq.smartcontent-core",
+      "category": ""
+    },
+    {
+      "id": 655,
+      "name": "Statistics Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "statistics.core-bundle",
+      "category": "aem"
+    },
+    {
+      "id": 651,
+      "name": "Stax2 API",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.1.4",
+      "symbolicName": "stax2-api",
+      "category": ""
+    },
+    {
+      "id": 620,
+      "name": "Variants Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "6.5.0.8-SNAPSHOT",
+      "symbolicName": "variants-bundle",
+      "category": "aem"
+    },
+    {
+      "id": 209,
+      "name": "WCM Projects - Core Bundle",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "0.5.0",
+      "symbolicName": "com.adobe.cq.com.adobe.cq.projects.wcm.core",
+      "category": "cq,projectmanagement"
+    },
+    {
+      "id": 581,
+      "name": "We.Retail - Core",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "4.0.0",
+      "symbolicName": "com.adobe.cq.sample.we.retail.core",
+      "category": ""
+    },
+    {
+      "id": 9,
+      "name": "Web Services Metadata 2.0",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "1.1.3",
+      "symbolicName": "org.apache.geronimo.specs.geronimo-ws-metadata_2.0_spec",
+      "category": ""
+    },
+    {
+      "id": 653,
+      "name": "Woodstox",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "5.0.3",
+      "symbolicName": "com.fasterxml.woodstox.woodstox-core",
+      "category": ""
+    },
+    {
+      "id": 574,
+      "name": "xtg",
+      "fragment": false,
+      "stateRaw": 32,
+      "state": "Active",
+      "version": "3.0",
+      "symbolicName": "xtg",
+      "category": ""
+    }
+  ]
+}
