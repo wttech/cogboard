@@ -29,8 +29,8 @@ Cypress.Commands.add('setTestCredentials', (testCredentials, authToken) => {
           'Accept': '*/*',
           'Sec-Fetch-Site': 'same-origin',
           'Sec-Fetch-Mode': 'cors',
-          'Referer': 'http://localhost/',
-          'Host': 'localhost'
+          // 'Referer': 'http://localhost/',
+          // 'Host': 'localhost'
       },
       body: testCredentials,
         followRedirect: false,
@@ -38,3 +38,23 @@ Cypress.Commands.add('setTestCredentials', (testCredentials, authToken) => {
   });     
 });
 
+Cypress.Commands.add('setTestEndpoints', (testEndpoints, authToken) => {
+  cy.request({
+      method: 'POST',
+      url: `/api/endpoints`,
+      auth: {
+          'bearer': authToken.split(' ')[1]
+      },
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*/*',
+          'Sec-Fetch-Site': 'same-origin',
+          'Sec-Fetch-Mode': 'cors',
+          // 'Referer': 'http://localhost/',
+          // 'Host': 'localhost'
+      },
+      body: testEndpoints,
+        followRedirect: false,
+        failOnStatusCode: true
+  });     
+});
