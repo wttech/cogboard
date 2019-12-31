@@ -100,6 +100,10 @@ export const StyledCardHeader = styled(CardHeader)`
 export const StyledEmptyCardHeader = styled(StyledCardHeader)`
   position: absolute;
   right: 0;
+
+  & .MuiCardHeader-avatar {
+    margin-right: 0;
+  }
 `;
 
 export const StyledCardContent = styled(CardContent)`
