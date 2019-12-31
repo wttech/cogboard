@@ -19,7 +19,7 @@ Cypress.Commands.add(
 
 Cypress.Commands.add("logout", () => {
   cy.get('[data-cy="user-login-logout-icon"]').click();
-  let username =
+  const username =
     Cypress.env("username")[0].toUpperCase() + Cypress.env("username").slice(1);
   cy.contains(
     '[data-cy="notification-snackbar"]',

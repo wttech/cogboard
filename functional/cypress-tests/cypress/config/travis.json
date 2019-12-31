@@ -4,5 +4,6 @@
     "username": "admin",
     "password": "admin"
   },
-  "video": false
+  "video": false,
+  "defaultCommandTimeout": 10000
 }

@@ -2,7 +2,7 @@ import Widgets from "../fixtures/Widgets";
 import { fillDynamicTab } from "../support/widgetDynamicTab";
 import { dashboardNameGen } from "../fixtures/Dashboard";
 
-let example = Widgets.example;
+const example = Widgets.example;
 
 describe("Dashboard Persistence", () => {
   beforeEach(() => {
@@ -10,8 +10,8 @@ describe("Dashboard Persistence", () => {
     cy.login();
   });
 
-  it("Not saved dashboard isn't displayed after refresh", () => {
-    let name = dashboardNameGen();
+  it("Not saved dashboard is not displayed after refresh", () => {
+    const name = dashboardNameGen();
     cy.addDashboard(name);
     cy.visit("/");
     cy.get('[data-cy="navbar-show-drawer-button"]').click();
@@ -19,7 +19,7 @@ describe("Dashboard Persistence", () => {
   });
 
   it("Saved dashboard is displayed after refresh", () => {
-    let name = dashboardNameGen();
+    const name = dashboardNameGen();
     cy.addDashboard(name);
     cy.saveState();
     cy.visit("/");
@@ -37,8 +37,8 @@ describe("Dashboard Persistence", () => {
 });
 
 describe("Widget Persistence", () => {
-  let dashboardName = "Welcome to Cogboard";
-  let title = `Test-${example.name}`;
+  const dashboardName = "Welcome to Cogboard";
+  const title = `Test-${example.name}`;
   beforeEach(() => {
     cy.visit("/");
     cy.login();
@@ -47,7 +47,7 @@ describe("Widget Persistence", () => {
     cy.clickAddWidgetButton();
   });
 
-  it("Not saved Example widget isn't displayed after refresh", () => {
+  it("Not saved Example widget is not displayed after refresh", () => {
     cy.fillNewWidgetGeneral(example.name, title, false, false, 4, 2);
     fillDynamicTab(example.name);
     cy.confirmAddWidget();

@@ -31,7 +31,7 @@ describe("Widgets", () => {
   }
 
   it("Example widget can be disabled", () => {
-    let title = `Test-${example.name}`;
+    const title = `Test-${example.name}`;
     cy.fillNewWidgetGeneral(example.name, title, false, true, 4, 2);
     fillDynamicTab(example.name);
     cy.confirmAddWidget();
