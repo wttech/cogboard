@@ -87,7 +87,8 @@ describe('Dashboard Frontend Validation', () => {
         value, '8', '10', true
       );
       if (value.length > 25) {
-        cy.contains('[data-cy="board-form-title-input-error"]', 'Title length')
+        cy.contains('[data-cy="board-form-title-input-error"]',
+          'Title length')
           .should('is.visible');
       } else {
         cy.get('[data-cy="board-form-title-input-error"]')
@@ -143,13 +144,15 @@ describe('Dashboard switcher', () => {
     cy.chooseDashboard(dashboardName);
     cy.contains('[data-cy="navbar-title-header"]', `${dashboardName}`)
       .should('is.visible');
-    prevDashboardName = cy.get('[data-cy="previous-board-button"]')
+    prevDashboardName = cy
+      .get('[data-cy="previous-board-button"]')
       .invoke('attr', 'title')
       .then(title => {
         prevDashboardName = title.toString();
         cy.get('[data-cy="previous-board-button"]')
           .click();
-        cy.contains('[data-cy="navbar-title-header"]', `${prevDashboardName}`)
+        cy.contains('[data-cy="navbar-title-header"]',
+          `${prevDashboardName}`)
           .should('is.visible');
       })
       .toString();
@@ -159,7 +162,8 @@ describe('Dashboard switcher', () => {
         nextDashboardName = title.toString();
         cy.get('[data-cy="next-board-button"]')
           .click();
-        cy.contains('[data-cy="navbar-title-header"]', `${nextDashboardName}`)
+        cy.contains('[data-cy="navbar-title-header"]',
+          `${nextDashboardName}`)
           .should('is.visible');
       });
   });
@@ -178,7 +182,8 @@ describe('Dashboard switcher', () => {
         nextDashboardName = title.toString();
         cy.get('[data-cy="auto-switch-board-button"]')
           .click();
-        cy.contains('[data-cy="navbar-title-header"]', `${nextDashboardName}`)
+        cy.contains('[data-cy="navbar-title-header"]',
+          `${nextDashboardName}`)
           .should('is.visible');
       });
   });

@@ -1,5 +1,18 @@
 import Widgets from '../fixtures/Widgets';
 
+export function validateAemBundleInfo() {
+  cy.contains('p', /^Total: [0-9]{1,4}/)
+    .should('is.visible');
+  cy.contains('p', /^Active: [0-9]{1,4}/)
+    .should('is.visible');
+  cy.contains('p', /^Fragmented: [0-9]{1,4}/)
+    .should('is.visible');
+  cy.contains('p', /^Resolved: [0-9]{1,4}/)
+    .should('is.visible');
+  cy.contains('p', /^Installed: [0-9]{1,4}/)
+    .should('is.visible');
+}
+
 export function validateAemHealthcheck() {
   const healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
   for (let i = 0; i < healthcheckKeys.length; i++) {
@@ -22,9 +35,7 @@ export function validateBambooDeployment() {
   cy.contains('h3', `Test-${Widgets.bambooDeployment.name}`)
     .parents('[draggable="true"]')
     .should(
-      'have.css', 
-      'background-color', 
-      'rgb(25, 140, 189)'
+      'have.css', 'background-color', 'rgb(25, 140, 189)'
     );
 }
 
@@ -36,9 +47,7 @@ export function validateBambooPlan() {
   cy.contains('h3', `Test-${Widgets.bambooPlan.name}`)
     .parents('[draggable="true"]')
     .should(
-      'have.css', 
-      'background-color', 
-      'rgb(1, 148, 48)'
+      'have.css', 'background-color', 'rgb(1, 148, 48)'
     );
 }
 
@@ -48,27 +57,21 @@ export function validateCheckbox() {
   cy.get('[data-cy="checkbox"]')
     .parents('[draggable="true"]')
     .should(
-      'have.css', 
-      'background-color', 
-      'rgb(1, 148, 48)'
+      'have.css', 'background-color', 'rgb(1, 148, 48)'
     );
   cy.get('[data-cy="checkbox"]')
     .click();
   cy.get('[data-cy="checkbox"]')
     .parents('[draggable="true"]')
     .should(
-      'have.css', 
-      'background-color', 
-      'rgb(225, 49, 47)'
+      'have.css', 'background-color', 'rgb(225, 49, 47)'
     );
   cy.get('[data-cy="checkbox"]')
     .click();
   cy.get('[data-cy="checkbox"]')
     .parents('[draggable="true"]')
     .should(
-      'have.css', 
-      'background-color', 
-      'rgb(38, 36, 62)'
+      'have.css', 'background-color', 'rgb(38, 36, 62)'
     );
 }
 
@@ -82,7 +85,8 @@ export function validateJenkinsJob() {
     .should('is.visible');
   cy.contains('p', 'master-branch')
     .should('is.visible');
-  cy.contains('p', /[0-9]{2}.[0-9]{2}.[0-9]{4}, [0-9]{2}:[0-9]{2}:[0-9]{2}/)
+  cy.contains('p',
+    /[0-9]{2}.[0-9]{2}.[0-9]{4}, [0-9]{2}:[0-9]{2}:[0-9]{2}/)
     .should('is.visible');
   cy.contains('p', '0.25 [s]')
     .should('is.visible');
@@ -94,9 +98,7 @@ export function validateServiceCheck() {
   cy.contains('h3', `Test-${Widgets.serviceCheck.name}`)
     .parents('[draggable="true"]')
     .should(
-      'have.css', 
-      'background-color', 
-      'rgb(1, 148, 48)'
+      'have.css', 'background-color', 'rgb(1, 148, 48)'
     );
   cy.contains('p', 'MATCH')
     .should('is.visible');
@@ -116,7 +118,8 @@ export function validateSonarQube() {
         console.log(metric.text());
       });
   }
-  cy.contains('p', /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/)
+  cy.contains('p',
+    /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/)
     .should('is.visible');
 }
 
@@ -133,6 +136,9 @@ export function validateWorldClock() {
 export function validateWidgetConfig(type = 'Text') {
   if (type !== 'WhiteSpace' && type !== 'Example') {
     switch (type) {
+    case 'AEM Bundle Info':
+      validateAemBundleInfo();
+      break;
     case 'AEM Healthcheck':
       validateAemHealthcheck();
       break;

@@ -1,4 +1,12 @@
 module.exports = {
+  aemBundleInfo: {
+    name: 'AEM Bundle Info',
+    endpoint: 'endpoint1',
+    schedulePeriod: '3',
+    resolvedThreshold: '2',
+    installedThreshold: '2',
+    excludedBundles: ''
+  },
   aemHealthcheck: {
     name: 'AEM Healthcheck',
     endpoint: 'endpoint1',

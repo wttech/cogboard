@@ -1,5 +1,19 @@
 import Widgets from '../fixtures/Widgets';
 
+export function fillAemBundleInfo() {
+  cy.get('[data-cy="widget-form-endpoint-input"]')
+    .click();
+  cy.get(`[data-value="${Widgets.aemBundleInfo.endpoint}"]`)
+    .click();
+  cy.fillSchedulePeriod(Widgets.aemBundleInfo.schedulePeriod);
+  cy.get('[data-cy="widget-form-resolved-threshold-input"]')
+    .type('{selectall}' + `${Widgets.aemBundleInfo.resolvedThreshold}`);
+  cy.get('[data-cy="widget-form-installed-threshold-input"]')
+    .type('{selectall}' + `${Widgets.aemBundleInfo.installedThreshold}`);
+  cy.get('[data-cy="widget-form-excluded-bundles-input"]')
+    .type('{selectall}' + `${Widgets.aemBundleInfo.excludedBundles}`);
+}
+
 export function fillAemHealthcheck() {
   const healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
   cy.get('[data-cy="widget-form-endpoint-input"]')
@@ -15,8 +29,7 @@ export function fillAemHealthcheck() {
     if ((i > 0 && i < 3) || (i > 3 && i < 11)) {
       cy.contains('span', `${label}`)
         .click();
-    }
-    else if (i == 12) {
+    } else if (i == 12) {
       cy.contains('span', `${label}`)
         .type('{esc}');
     }
@@ -75,7 +88,8 @@ export function fillServiceCheck() {
   cy.get('[data-cy="widget-form-path-input"]')
     .type(Widgets.serviceCheck.path);
   cy.get('[data-cy="widget-form-body-input"]')
-    .type(Widgets.serviceCheck.requestBody, { parseSpecialCharSequences: false });
+    .type(Widgets.serviceCheck.requestBody,
+      { parseSpecialCharSequences: false });
   cy.get('[data-cy="widget-form-expected-response-body-input"]')
     .type(Widgets.serviceCheck.responseBodyFragment);
   cy.get('[data-cy="widget-form-expected-status-code-input"]')
@@ -146,6 +160,9 @@ export function fillDynamicTab(type = 'Text') {
     cy.get('[data-cy="widget-form-dynamic-tab"]')
       .click();
     switch (type) {
+    case 'AEM Bundle Info':
+      fillAemBundleInfo();
+      break;
     case 'AEM Healthcheck':
       fillAemHealthcheck();
       break;
