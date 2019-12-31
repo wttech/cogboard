@@ -18,16 +18,20 @@ describe('Widgets', () => {
     const widget = widgetsKeys[i];
     const name = Widgets[widget].name;
     const title = `Test-${name}`;
+    let version = '';
+    if (name == 'SonarQube') {
+      version = ` ${Widgets[widget].version}`;
+    }
 
-    it(`${name} can be configured and added by logged in user`, () => {
+    it(`${name}${version} can be configured and added by logged in user`, () => {
       cy.fillNewWidgetGeneral(
         name, title, false, false, 4, 2
       );
-      fillDynamicTab(name);
+      fillDynamicTab(name, version);
       cy.confirmAddWidget();
       cy.contains('h3', title)
         .should('is.visible');
-      validateWidgetConfig(name);
+      validateWidgetConfig(name, version);
       cy.removeWidget(title);
       cy.contains('h3', title)
         .should('not.exist');

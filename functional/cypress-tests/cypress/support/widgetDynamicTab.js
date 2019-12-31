@@ -96,24 +96,54 @@ export function fillServiceCheck() {
     .type('{selectall}' + Widgets.serviceCheck.expectedStatusCode);
 }
 
-export function fillSonarQube() {
-  const metricKeys = Object.keys(Widgets.sonarQube.metrics);
+export function fillSonarQube5x() {
+  const metricKeys = Object.keys(Widgets.sonarQube5x.metrics);
   cy.get('[data-cy="widget-form-sonar-qube-version-input"]')
     .click();
-  cy.contains('li', '7.x')
+  cy.contains('li', `${Widgets.sonarQube5x.version}`)
     .click();
   cy.get('[data-cy="widget-form-endpoint-input"]')
     .click();
-  cy.get(`[data-value="${Widgets.sonarQube.endpoint}"]`)
+  cy.get(`[data-value="${Widgets.sonarQube5x.endpoint}"]`)
     .click();
-  cy.fillSchedulePeriod(Widgets.sonarQube.schedulePeriod);
+  cy.fillSchedulePeriod(Widgets.sonarQube5x.schedulePeriod);
   cy.get('[data-cy="widget-form-key-string-input"]')
-    .type(Widgets.sonarQube.key);
+    .type(Widgets.sonarQube5x.key);
+  cy.get('[data-cy="widget-form-id-number-input"]')
+    .type('{selectall}' + `${Widgets.sonarQube5x.id}`);
   cy.get('[data-cy="widget-form-selected-metrics-input"]')
     .click();
   for (let i = 4; i < metricKeys.length; i++) {
     const metric = metricKeys[i];
-    const dataValue = Widgets.sonarQube.metrics[metric].dataValue;
+    const dataValue = Widgets.sonarQube5x.metrics[metric].dataValue;
+    if (i == metricKeys.length - 1) {
+      cy.get(`[data-value="${dataValue}"]`)
+        .type('{esc}');
+    } else {
+      cy.get(`[data-value="${dataValue}"]`)
+        .click();
+    }
+  }
+}
+
+export function fillSonarQube7x() {
+  const metricKeys = Object.keys(Widgets.sonarQube7x.metrics);
+  cy.get('[data-cy="widget-form-sonar-qube-version-input"]')
+    .click();
+  cy.contains('li', `${Widgets.sonarQube7x.version}`)
+    .click();
+  cy.get('[data-cy="widget-form-endpoint-input"]')
+    .click();
+  cy.get(`[data-value="${Widgets.sonarQube7x.endpoint}"]`)
+    .click();
+  cy.fillSchedulePeriod(Widgets.sonarQube7x.schedulePeriod);
+  cy.get('[data-cy="widget-form-key-string-input"]')
+    .type(Widgets.sonarQube7x.key);
+  cy.get('[data-cy="widget-form-selected-metrics-input"]')
+    .click();
+  for (let i = 4; i < metricKeys.length; i++) {
+    const metric = metricKeys[i];
+    const dataValue = Widgets.sonarQube7x.metrics[metric].dataValue;
     if (i == metricKeys.length - 1) {
       cy.get(`[data-value="${dataValue}"]`)
         .type('{esc}');
@@ -155,11 +185,12 @@ export function fillWorldClock() {
     .click();
 }
 
-export function fillDynamicTab(type = 'Text') {
-  if (type !== 'White Space' && type !== 'Checkbox') {
+export function fillDynamicTab(type = 'Text', version = '') {
+  const name = `${type}${version}`;
+  if (name !== 'White Space' && name !== 'Checkbox') {
     cy.get('[data-cy="widget-form-dynamic-tab"]')
       .click();
-    switch (type) {
+    switch (name) {
     case 'AEM Bundle Info':
       fillAemBundleInfo();
       break;
@@ -184,8 +215,11 @@ export function fillDynamicTab(type = 'Text') {
     case 'Service Check':
       fillServiceCheck();
       break;
-    case 'SonarQube':
-      fillSonarQube();
+    case 'SonarQube 5.x':
+      fillSonarQube5x();
+      break;
+    case 'SonarQube 7.x':
+      fillSonarQube7x();
       break;
     case 'Text':
       fillText();

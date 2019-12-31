@@ -106,21 +106,31 @@ export function validateServiceCheck() {
     .should('is.visible');
 }
 
-export function validateSonarQube() {
-  const metricKeys = Object.keys(Widgets.sonarQube.metrics);
+export function validateSonarQube5x(type) {
+  const metricKeys = Object.keys(Widgets.sonarQube5x.metrics);
   for (let i = 0; i < metricKeys.length; i++) {
     const metric = metricKeys[i];
-    const label = Widgets.sonarQube.metrics[metric].label;
-    const value = Widgets.sonarQube.metrics[metric].value;
+    const label = Widgets.sonarQube5x.metrics[metric].label;
+    const value = Widgets.sonarQube5x.metrics[metric].value;
     cy.contains('p', `${label}`)
-      .should('is.visible')
-      .then(metric => {
-        console.log(metric.text());
-      });
+      .should('is.visible');
   }
-  cy.contains('p',
-    /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/)
+  cy.contains('h3', `${type}`)
+    .parents('[draggable="true"]')
+    .contains('p',
+      /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/)
     .should('is.visible');
+}
+
+export function validateSonarQube7x(type) {
+  const metricKeys = Object.keys(Widgets.sonarQube7x.metrics);
+  for (let i = 0; i < metricKeys.length; i++) {
+    const metric = metricKeys[i];
+    const label = Widgets.sonarQube7x.metrics[metric].label;
+    const value = Widgets.sonarQube7x.metrics[metric].value;
+    cy.contains('p', `${label}`)
+      .should('is.visible');
+  }
 }
 
 export function validateText() {
@@ -133,9 +143,10 @@ export function validateWorldClock() {
     .should('is.visible');
 }
 
-export function validateWidgetConfig(type = 'Text') {
-  if (type !== 'WhiteSpace' && type !== 'Example') {
-    switch (type) {
+export function validateWidgetConfig(type = 'Text', version = '') {
+  const name = `${type}${version}`;
+  if (name !== 'WhiteSpace' && name !== 'Example') {
+    switch (name) {
     case 'AEM Bundle Info':
       validateAemBundleInfo();
       break;
@@ -157,8 +168,11 @@ export function validateWidgetConfig(type = 'Text') {
     case 'Service Check':
       validateServiceCheck();
       break;
-    case 'SonarQube':
-      validateSonarQube();
+    case 'SonarQube 5.x':
+      validateSonarQube5x(type);
+      break;
+    case 'SonarQube 7.x':
+      validateSonarQube7x(type);
       break;
     case 'Text':
       validateText();
