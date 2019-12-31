@@ -41,7 +41,7 @@ export const Caption = props => (
 
 export const CaptionWithPointer = styled(Caption)`
   cursor: pointer;
-  ${({ isCentered }) => isCentered && `text-align: center;`}
+  text-align: center;
   &:hover {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 5px;
