@@ -108,10 +108,6 @@ export const StyledCardContent = styled(CardContent)`
   position: relative;
   justify-content: space-between;
 
-  &:last-child {
-    padding-bottom: 16px;
-  }
-
   .cardFootWrapper {
     display: inherit;
     align-items: center;
