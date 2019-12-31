@@ -89,6 +89,11 @@ StyledCard.defaultProps = {
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
   padding: 8px;
+
+  & .MuiCardHeader-action {
+    height: 21px;
+    width: 21px;
+  }
 `;
 
 export const StyledEmptyCardHeader = styled(StyledCardHeader)`
