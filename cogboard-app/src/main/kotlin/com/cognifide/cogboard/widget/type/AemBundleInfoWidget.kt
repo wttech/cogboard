@@ -55,12 +55,16 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         numericStatus: MutableMap<String, Int>,
         excludedBundles: List<JsonObject>,
         inactiveBundles: List<JsonObject>
-    ): JsonObject =
-        JsonObject()
+    ): JsonObject {
+        val url = "$url/system/console/bundles"
+
+        return JsonObject()
+            .put(CC.PROP_URL, url)
             .put(PROP_BUNDLE_STATUS, numericStatus)
             .put(PROP_EXCLUDED_BUNDLES, excludedBundles)
             .put(PROP_INACTIVE_BUNDLES, inactiveBundles)
             .put(CC.PROP_WIDGET_STATUS, statusByNumbers(numericStatus))
+    }
 
     private fun statusByNumbers(numericStatus: MutableMap<String, Int>): Widget.Status {
         val resolved = numericStatus[PROP_BUNDLE_STATUS_RESOLVED] ?: 0

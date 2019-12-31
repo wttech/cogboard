@@ -1,7 +1,7 @@
 import React from 'react';
 import { object, array } from 'prop-types';
 
-import { Caption } from '../../styled';
+import { Caption, WidgetButton } from '../../styled';
 import { capitalize } from '../../../utils/common';
 import { Typography } from '@material-ui/core';
 import { PopoverWithControls } from '../../PopoverWithControls';
@@ -30,18 +30,22 @@ const BundlesInfoWithPopover = ({ bundleArray, name }) =>
   ) : null;
 
 const AemBundleInfoWidget = ({
+  url,
   bundleStatus,
   excludedBundles,
   inactiveBundles
 }) => (
   <>
-    {Object.keys(bundleStatus).map(key => (
-      <Caption key={key}>
-        {capitalize(key)}: {bundleStatus[key]}
-      </Caption>
-    ))}
-    <BundlesInfoWithPopover bundleArray={excludedBundles} name="Excluded" />
-    <BundlesInfoWithPopover bundleArray={inactiveBundles} name="Inactive" />
+    <div>
+      {Object.keys(bundleStatus).map(key => (
+        <Caption key={key}>
+          {capitalize(key)}: {bundleStatus[key]}
+        </Caption>
+      ))}
+      <BundlesInfoWithPopover bundleArray={excludedBundles} name="Excluded" />
+      <BundlesInfoWithPopover bundleArray={inactiveBundles} name="Inactive" />
+    </div>
+    <WidgetButton href={url}>Bundles</WidgetButton>
   </>
 );
 
