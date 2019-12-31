@@ -37,14 +37,20 @@ const DragSimulator = {
         .then(() => this.dragover());
     }
     if (!this.dropped) {
-      return this.drop().then(() => {
-        console.error(`Exceeded maximum tries of: ${this.MAX_TRIES}, aborting`);
-        return false;
-      });
+      return this.drop()
+        .then(() => {
+          console.error(`Exceeded maximum tries of: ${this.MAX_TRIES}, aborting`);
+          return false;
+        });
     }
-    return this.drop().then(() => true);
+    return this.drop()
+      .then(() => true);
   },
-  init(source, target, position) {
+  init(
+    source, 
+    target, 
+    position
+  ) {
     this.source = source;
     this.target = target;
     this.position = position;
@@ -52,17 +58,28 @@ const DragSimulator = {
 
     this.dragstart();
 
-    return cy.wait(this.DELAY_INTERVAL_MS).then(() => {
-      this.initialSourcePosition = this.source.getBoundingClientRect();
-      return this.dragover();
-    });
+    return cy.wait(this.DELAY_INTERVAL_MS)
+      .then(() => {
+        this.initialSourcePosition = this.source.getBoundingClientRect();
+        return this.dragover();
+      });
   },
-  simulate(sourceWrapper, targetSelector, position = 'top') {
+  simulate(
+    sourceWrapper, 
+    targetSelector, 
+    position = 'top'
+  ) {
     return cy.get(targetSelector)
-      .then(targetWrapper => this.init(sourceWrapper.get(0), targetWrapper.get(0), position));
+      .then(targetWrapper => this.init(
+        sourceWrapper.get(0), 
+        targetWrapper.get(0), 
+        position
+      ));
   },
 };
 
-Cypress.Commands.add('drag', {
-  prevSubject: 'element',
-}, (...args) => DragSimulator.simulate(...args));
+Cypress.Commands.add(
+  'drag', 
+  {prevSubject: 'element',}, 
+  (...args) => DragSimulator.simulate(...args)
+);

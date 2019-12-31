@@ -1,13 +1,13 @@
-import Widgets from "../fixtures/Widgets";
-import { fillDynamicTab } from "../support/widgetDynamicTab";
-import { validateWidgetConfig } from "../support/widgetAssertions";
+import Widgets from '../fixtures/Widgets';
+import { fillDynamicTab } from '../support/widgetDynamicTab';
+import { validateWidgetConfig } from '../support/widgetAssertions';
 const example = Widgets.example;
-const dashboardName = "Welcome to Cogboard";
+const dashboardName = 'Welcome to Cogboard';
 const widgetsKeys = Object.keys(Widgets);
 
-describe("Widgets", () => {
+describe('Widgets', () => {
   beforeEach(() => {
-    cy.visit("/");
+    cy.visit('/');
     cy.login();
     cy.openDrawer();
     cy.chooseDashboard(dashboardName);
@@ -20,21 +20,28 @@ describe("Widgets", () => {
     const title = `Test-${name}`;
 
     it(`${name} can be configured and added by logged in user`, () => {
-      cy.fillNewWidgetGeneral(name, title, false, false, 4, 2);
+      cy.fillNewWidgetGeneral(
+        name, title, false, false, 4, 2
+      );
       fillDynamicTab(name);
       cy.confirmAddWidget();
-      cy.contains("h3", title).should("is.visible");
+      cy.contains('h3', title)
+        .should('is.visible');
       validateWidgetConfig(name);
       cy.removeWidget(title);
-      cy.contains("h3", title).should("not.exist");
+      cy.contains('h3', title)
+        .should('not.exist');
     });
   }
 
-  it("Example widget can be disabled", () => {
-    let title = `Test-${example.name}`;
-    cy.fillNewWidgetGeneral(example.name, title, false, true, 4, 2);
+  it('Example widget can be disabled', () => {
+    const title = `Test-${example.name}`;
+    cy.fillNewWidgetGeneral(
+      example.name, title, false, true, 4, 2
+    );
     fillDynamicTab(example.name);
     cy.confirmAddWidget();
-    cy.contains("Disabled").should("is.visible");
+    cy.contains('Disabled')
+      .should('is.visible');
   });
 });
