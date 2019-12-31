@@ -5,7 +5,7 @@ export const validFormEndpoint = {
   credential: 'TestCredential'
 };
 
-export const testCredentials = (timestamp) => {
+export const testCredential = (timestamp) => {
   return {
     password: "TestPassword1",
     user: "TestUser1",
@@ -13,7 +13,7 @@ export const testCredentials = (timestamp) => {
   };
 };
 
-export const testEndpoints = (timestamp) => {
+export const testEndpoint = (timestamp) => {
   return {
     label: `TE-${timestamp}`,
     url: "http://cognifide.com",
@@ -22,3 +22,7 @@ export const testEndpoints = (timestamp) => {
     id: `TE-${timestamp}`
   };
 };
+
+export const testLbl = 'test';
+
+export const editedLbl = 'EditedLabel';

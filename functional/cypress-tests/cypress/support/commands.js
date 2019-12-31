@@ -3,20 +3,6 @@ Cypress.Commands.add("saveState", () => {
   cy.wait(200);
 });
 
-Cypress.Commands.add('getAuthenticationToken',() => {
-  cy.request({
-    method: 'POST',
-    url: '/api/login',
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Sec-Fetch-Site': 'same-origin',
-        'Sec-Fetch-Mode': 'cors'
-    },
-    body: {'username': "admin", 'password': "admin"}
-  }).then(result => `${result.body.token}`)
-});
-
 Cypress.Commands.add('setTestCredentials', (testCredentials, authToken) => {
   cy.request({
       method: 'POST',
@@ -28,9 +14,7 @@ Cypress.Commands.add('setTestCredentials', (testCredentials, authToken) => {
           'Content-Type': 'application/json',
           'Accept': '*/*',
           'Sec-Fetch-Site': 'same-origin',
-          'Sec-Fetch-Mode': 'cors',
-          // 'Referer': 'http://localhost/',
-          // 'Host': 'localhost'
+          'Sec-Fetch-Mode': 'cors'
       },
       body: testCredentials,
         followRedirect: false,
@@ -49,9 +33,7 @@ Cypress.Commands.add('setTestEndpoints', (testEndpoints, authToken) => {
           'Content-Type': 'application/json',
           'Accept': '*/*',
           'Sec-Fetch-Site': 'same-origin',
-          'Sec-Fetch-Mode': 'cors',
-          // 'Referer': 'http://localhost/',
-          // 'Host': 'localhost'
+          'Sec-Fetch-Mode': 'cors'
       },
       body: testEndpoints,
         followRedirect: false,

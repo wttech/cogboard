@@ -28,6 +28,20 @@ Cypress.Commands.add("logout", () => {
   cy.get('[data-cy="user-login-logout-icon"]').should("not.exist");
 });
 
+Cypress.Commands.add('getAuthenticationToken',() => {
+  cy.request({
+    method: 'POST',
+    url: '/api/login',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Sec-Fetch-Site': 'same-origin',
+        'Sec-Fetch-Mode': 'cors'
+    },
+    body: {'username': "admin", 'password': "admin"}
+  }).then(result => `${result.body.token}`)
+});
+
 Cypress.Commands.add(
   "loginWithToken",() => {
     cy.getAuthenticationToken()

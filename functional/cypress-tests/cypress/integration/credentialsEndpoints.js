@@ -1,7 +1,9 @@
 /// <reference types="Cypress" />
 import {
-  testCredentials,
-  testEndpoints
+  testCredential,
+  testEndpoint,
+  testLbl,
+  editedLbl
 } from '../fixtures/credentialsEndpoints'
 
 describe('Credentials and endpoints', () => {
@@ -9,22 +11,16 @@ describe('Credentials and endpoints', () => {
 
   before(() => {
     cy.getAuthenticationToken().then(token => {
-      cy.setTestCredentials(JSON.stringify(testCredentials(timestamp)), token);
+      cy.setTestCredentials(JSON.stringify(testCredential(timestamp)), token);
     });
     cy.getAuthenticationToken().then(token => {
-      cy.setTestEndpoints(JSON.stringify(testEndpoints(timestamp)), token);
+      cy.setTestEndpoints(JSON.stringify(testEndpoint(timestamp)), token);
     });
   });
 
   context('Anonymous user', () => {
-
-    // Anonymous user: settings menu button is not available
     it('Anonymous user: settings menu button is not available', () => {
-      
-      // 1. Enter CogBoard
       cy.visit('/');
-
-      // 3. Assert that settings button is not available
       cy.get('[data-cy="settings-menu-open-button"]')
         .should('not.be.visible');
     });
@@ -33,22 +29,13 @@ describe('Credentials and endpoints', () => {
   context('Logged in user - general check', () => {
 
     beforeEach(() => {
-  
-      // 1. Enter CogBoard
       cy.visit('/');
-
-      // 1. / 2. Login with token and visit CogBoard
       cy.loginWithToken();
-
-      // 4. Click on settings button
       cy.get('[data-cy="settings-menu-open-button"]')
         .click();
     });
 
-    // Logged-in user: settings panel is available with its elements
     it('Logged-in user: settings panel is available with its elements', () => {
-  
-      // 5. Check if all elements are visible (heading, tabs, edit icon, delete icon, add endpoint btn, exit btn)
       cy.get('[data-cy="app-dialog-title"]')
         .find('h2')
         .should('have.text', 'Settings');
@@ -56,13 +43,10 @@ describe('Credentials and endpoints', () => {
         .should('have.text', 'Endpoints');
       cy.get('[data-cy="add-endpoint-add-button"]')
         .should('exist');
-        // TODO - check other elements
-  
-      // 6. Click on credentials tab
+
       cy.get('[data-cy="settings-menu-credentials-tab"]')
         .click();
   
-      // 7. Check if all elements are visible (heading, tabs, edit icon, delete icon, add credential btn, exit btn)
       cy.get('[data-cy="app-dialog-title"]')
         .find('h2')
         .should('have.text', 'Settings');
@@ -71,11 +55,9 @@ describe('Credentials and endpoints', () => {
       cy.get('[data-cy="add-credential-add-button"]')
         .should('exist');
   
-      // 8. Click on endpoints tab
       cy.get('[data-cy="settings-menu-endpoints-tab"]')
         .click();
-  
-      // 9. Check if all elements are visible (heading, tabs, edit icon, delete icon, add endpoint btn, exit btn)
+
       cy.get('[data-cy="app-dialog-title"]')
         .find('h2')
         .should('have.text', 'Settings');
@@ -85,18 +67,11 @@ describe('Credentials and endpoints', () => {
         .should('exist');
     });
 
-    // User can switch to add new credential form directly from add new endpoint form
     it('User can switch to add new credential form directly from add new endpoint form', () => {
-  
-      // 5. Click on add endpoint button
       cy.get('[data-cy="add-endpoint-add-button"]')
         .click();
-  
-      // 6. Click on add credential button
       cy.get('[data-cy="add-credential-add-button-small"]')
         .click();
-  
-      // 7. Assert that odd new credential form is displayed
       cy.contains('[data-cy="app-dialog-title"]', 'Add new credential')
         .should('exist');
     });
@@ -105,36 +80,21 @@ describe('Credentials and endpoints', () => {
   context('Logged in user - endpoints', () => {
 
     beforeEach(() => {
-  
-      // 1. Enter CogBoard
       cy.visit('/');
-
-      // 1. / 2. Login with token and visit CogBoard
       cy.loginWithToken();
-
-      // 4. Click on settings button
       cy.get('[data-cy="settings-menu-open-button"]')
         .click();
     });
 
-    // Error messages are displayed when user submits empty / non valid form at endpoints tab
     it('Error messages are displayed when user submits empty / non valid form at endpoints tab', () => {
-  
-      // 5. Click on add endpoint button
       cy.get('[data-cy="add-endpoint-add-button"]')
         .click();
-  
-      // 6. Fill-in the form with incorrect / empty values
       cy.get('[data-cy="endpoint-form-url-input"]')
         .type(' ');
       cy.get('[data-cy="endpoint-form-public-url-input"]')
         .type(' ');
-  
-      // 7. Click on save button
       cy.get('[data-cy="endpoint-form-submit-button"]')
         .click();
-  
-      // 8. Assert that all error msgs are displayed
       cy.get('[data-cy="endpoint-form-label-input-error"]')
         .should('be.visible');
       cy.get('[data-cy="endpoint-form-url-input-error"]')
@@ -145,136 +105,87 @@ describe('Credentials and endpoints', () => {
         .should('be.visible');
       });
 
-      // User can add new endpoint. New endpoints label is visible
       it('User can add new endpoint. New endpoints label is visible', () => {
-
-        // 6. Click on add credential button
         cy.get('[data-cy="add-endpoint-add-button"]')
           .click();
-  
-        // 7. Fill-in the form with correct values
         cy.get('[data-cy="endpoint-form-label-input"]')
-          .type(testEndpoints('test').label)
+          .type(testEndpoint(testLbl).label)
           .blur();
   
         cy.get('[data-cy="endpoint-form-url-input"]')
-          .type(testEndpoints('test').url)
+          .type(testEndpoint(testLbl).url)
           .blur();
           
         cy.get('[data-cy="endpoint-form-public-url-input"]')
-          .type(testEndpoints('test').publicUrl)
+          .type(testEndpoint(testLbl).publicUrl)
           .blur();
         
         cy.get('[data-cy="endpoint-form-credentials-input"]')
           .click();
         cy.get('[role="listbox"]').within(() => {
-          cy.contains('li', `${testCredentials(timestamp).label}`)
+          cy.contains('li', `${testCredential(timestamp).label}`)
             .click();
         });
-        
-        // 8. Click on save button
         cy.get('[data-cy="endpoint-form-submit-button"]')
           .click();
-  
-        // 9. Check if newly added endpoint is displayed
         cy.get('[data-cy="app-dialog-content"]')
-          .should('contain', testEndpoints('test').label);
+          .should('contain', testEndpoint(testLbl).label);
       });
 
-      // User cannot add endpoints with existing label
       it('User cannot add endpoints with existing label', () => {
-  
-        // 6. Click on add endpoint button
         cy.get('[data-cy="add-endpoint-add-button"]')
           .click();
-  
-        // 7. Fill-in the form with correct values
         cy.get('[data-cy="endpoint-form-label-input"]')
-          .type(testEndpoints('test').label)
+          .type(testEndpoint(timestamp).label)
           .blur();
-  
-        // 8. Assert that error msg is displayed
         cy.get('[data-cy="endpoint-form-label-input-error"]')
           .should('be.visible')
           .and('contain.text', 'This field must be unique.')
       });
       
-      // User can edit existing endpoint
       it('User can edit existing endpoint', () => {
-
-        // 6. Click on edit endpoint icon
-        cy.contains('li.MuiListItem-container', testEndpoints('test').label)
+        cy.contains('li.MuiListItem-container', testEndpoint(testLbl).label) // <= no data-cy for this one
           .find('[data-cy="edit-endpoint-edit-button"]')
           .click();
-  
-        // 7. Edit fields
         cy.get('[data-cy="endpoint-form-label-input"]')
           .clear()
-          .type(testEndpoints('EditedLabel').label)
+          .type(testEndpoint(editedLbl).label)
           .blur();
-
-        // 8. Click save button
         cy.get('[data-cy="endpoint-form-submit-button"]')
           .click();
-  
-        // 9. Check if changes are visible
         cy.get('[data-cy="app-dialog-content"]')
-          .should('contain', testEndpoints('EditedLabel').label);
+          .should('contain', testEndpoint(editedLbl).label);
       });
       
-      // User can delete existing endpoint
       it('User can delete existing endpoint', () => {
-
-        // 6. Click on delete endpoint icon
-        cy.contains('li.MuiListItem-container', testEndpoints(timestamp).label)
+        cy.contains('li.MuiListItem-container', testEndpoint(timestamp).label)
           .find('[data-cy="delete-endpoint-delete-button"]')
           .click();
-  
-        // 7. Confirm by clicking on delete button
         cy.get('[data-cy="confirmation-dialog-ok"]')
           .click();
-  
-        // 8. Assert that deleted endpoint is removed from the list
         cy.get('[data-cy="app-dialog-content"]')
-          .should('not.contain', testEndpoints(timestamp).label);
+          .should('not.contain', testEndpoint(timestamp).label);
       });
   });
   
   context('Logged in user - credentials', () => {
     
     beforeEach(() => {
-  
-      // 1. Enter CogBoard
       cy.visit('/');
-
-      // 1. / 2. Login with token and visit CogBoard
       cy.loginWithToken();
-
-      // 4. Click on settings button
       cy.get('[data-cy="settings-menu-open-button"]')
         .click();
-
-      // 5. Click on credentials tab
       cy.get('[data-cy="settings-menu-credentials-tab"]')
         .click();
     });
 
-    // Error messages are displayed when user submits empty / non valid form at credentials tab
     it('Error messages are displayed when user submits empty / non valid form at credentials tab', () => {
-
-      // 6. Click on add credential button
       cy.get('[data-cy="add-credential-add-button"]')
         .click();
-
-      // 7. Fill-in the form with incorrect values
       cy.get('[data-cy="credential-form-password-confirmation-input"]')
         .type(' ');
-
-      // 8. Click on save button
       cy.get('[data-cy="credential-form-submit-button"]')
         .click();
-
-      // 9. Assert that all error msgs are displayed
       cy.get('[data-cy="credential-form-label-input-error"]')
         .should('be.visible');
       cy.get('[data-cy="credential-form-user-input-error"]')
@@ -285,104 +196,69 @@ describe('Credentials and endpoints', () => {
         .should('be.visible');
     });
 
-    // User can add new credentials. New credentials label is visible
     it('User can add new credentials. New credentials label is visible', () => {
-
-      // 6. Click on add credential button
       cy.get('[data-cy="add-credential-add-button"]')
         .click();
-
-      // 7. Fill-in the form with correct values
       cy.get('[data-cy="credential-form-label-input"]')
-        .type(testCredentials('test').label)
+        .type(testCredential(testLbl).label)
         .blur();
 
       cy.get('[data-cy="credential-form-user-input"]')
-        .type(testCredentials('test').user)
+        .type(testCredential(testLbl).user)
         .blur();
         
       cy.get('[data-cy="credential-form-password-input"]')
-        .type(testCredentials('test').password)
+        .type(testCredential(testLbl).password)
         .blur();
         
       cy.get('[data-cy="credential-form-password-confirmation-input"]')
-        .type(testCredentials('test').password)
+        .type(testCredential(testLbl).password)
         .blur();
-      
-      // 8. Click on save button
       cy.get('[data-cy="credential-form-submit-button"]')
         .click();
-
-      // 9. Check if newly added credential is displayed
       cy.get('[data-cy="app-dialog-content"]')
-        .should('contain', testCredentials('test').label);
+        .should('contain', testCredential(testLbl).label);
     });
 
-    // User cannot add credentials with existing label
     it('User cannot add credentials with existing label', () => {
-
-      // 6. Click on add credential button
       cy.get('[data-cy="add-credential-add-button"]')
         .click();
-
-      // 7. Fill-in the form with correct values
       cy.get('[data-cy="credential-form-label-input"]')
-        .type(testCredentials('test').label)
+        .type(testCredential(timestamp).label)
         .blur();
-
-      // 8. Assert that error msg is displayed
       cy.get('[data-cy="credential-form-label-input-error"]')
         .should('be.visible')
         .and('contain.text', 'This field must be unique.')
     });
     
-    // User can edit existing credentials
     it('User can edit existing credentials', () => {
-
-      // 6. Click on edit credentials icon
-      cy.contains('li.MuiListItem-container', testCredentials('test').label)
+      cy.contains('li.MuiListItem-container', testCredential(testLbl).label) // <= no data-cy for this one
         .find('[data-cy="edit-credential-edit-button"]')
         .click();
-
-      // 7. Edit fields
       cy.get('[data-cy="credential-form-label-input"]')
         .clear()
         .type('TC-EditedLabel')
         .blur();
-        
       cy.get('[data-cy="credential-form-password-input"]')
-        .type(testCredentials(timestamp).password)
+        .type(testCredential(timestamp).password)
         .blur();
-          
       cy.get('[data-cy="credential-form-password-confirmation-input"]')
-        .type(testCredentials(timestamp).password)
+        .type(testCredential(timestamp).password)
         .blur();
-
-      // 8. Click save button
       cy.get('[data-cy="credential-form-submit-button"]')
         .click();
-
-      // 9. Check if changes are visible
       cy.get('[data-cy="app-dialog-content"]')
         .should('contain', 'TC-EditedLabel');
-
     });
     
-    // User can delete existing credentials
     it('User can delete existing credentials', () => {
-
-      // 6. Click on delete credentials icon
-      cy.contains('li.MuiListItem-container', testCredentials(timestamp).label)
+      cy.contains('li.MuiListItem-container', testCredential(timestamp).label)
         .find('[data-cy="delete-credential-delete-button"]')
         .click();
-
-      // 7. Confirm by clicking on delete button
       cy.get('[data-cy="confirmation-dialog-ok"]')
         .click();
-
-      // 8. Assert that deleted credential is removed from the list
       cy.get('[data-cy="app-dialog-content"]')
-        .should('not.contain', testCredentials(timestamp).label);
+        .should('not.contain', testCredential(timestamp).label);
     });
   });
 });
