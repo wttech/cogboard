@@ -18,9 +18,9 @@ describe("Widgets", () => {
     const widget = widgetsKeys[i];
     const name = Widgets[widget].name;
     const title = `Test-${name}`;
-    let version = '';
+    let version = "";
     if (name == "SonarQube") {
-      version = ` ${Widgets[widget].version}`
+      version = ` ${Widgets[widget].version}`;
     }
 
     it(`${name}${version} can be configured and added by logged in user`, () => {
@@ -35,7 +35,7 @@ describe("Widgets", () => {
   }
 
   it("Example widget can be disabled", () => {
-    let title = `Test-${example.name}`;
+    const title = `Test-${example.name}`;
     cy.fillNewWidgetGeneral(example.name, title, false, true, 4, 2);
     fillDynamicTab(example.name);
     cy.confirmAddWidget();

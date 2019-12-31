@@ -1,5 +1,13 @@
 import Widgets from "../fixtures/Widgets";
 
+export function validateAemBundleInfo() {
+  cy.contains("p", /^Total: [0-9]{1,4}/).should("is.visible");
+  cy.contains("p", /^Active: [0-9]{1,4}/).should("is.visible");
+  cy.contains("p", /^Fragmented: [0-9]{1,4}/).should("is.visible");
+  cy.contains("p", /^Resolved: [0-9]{1,4}/).should("is.visible");
+  cy.contains("p", /^Installed: [0-9]{1,4}/).should("is.visible");
+}
+
 export function validateAemHealthcheck() {
   const healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
   for (let i = 0; i < healthcheckKeys.length; i++) {
@@ -73,14 +81,13 @@ export function validateSonarQube5x(type) {
     const metric = metricKeys[i];
     const label = Widgets.sonarQube5x.metrics[metric].label;
     const value = Widgets.sonarQube5x.metrics[metric].value;
-    cy.contains('p', `${label}`)
-      .should('is.visible');
+    cy.contains("p", `${label}`).should("is.visible");
   }
-  cy.contains('h3', `${type}`)
+  cy.contains("h3", `${type}`)
     .parents('[draggable="true"]')
     .contains(
-    "p",
-    /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/
+      "p",
+      /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/
     )
     .should("is.visible");
 }
@@ -91,8 +98,7 @@ export function validateSonarQube7x(type) {
     const metric = metricKeys[i];
     const label = Widgets.sonarQube7x.metrics[metric].label;
     const value = Widgets.sonarQube7x.metrics[metric].value;
-    cy.contains("p", `${label}`)
-      .should("is.visible");
+    cy.contains("p", `${label}`).should("is.visible");
   }
 }
 
@@ -106,10 +112,13 @@ export function validateWorldClock() {
   );
 }
 
-export function validateWidgetConfig(type = 'Text', version = '') {
-  const name = `${type}${version}`
+export function validateWidgetConfig(type = "Text", version = "") {
+  const name = `${type}${version}`;
   if (name !== "WhiteSpace" && name !== "Example") {
     switch (name) {
+      case "AEM Bundle Info":
+        validateAemBundleInfo();
+        break;
       case "AEM Healthcheck":
         validateAemHealthcheck();
         break;
