@@ -1,10 +1,3 @@
-export const validFormEndpoint = {
-  label: 'TestLabel',
-  url: 'http://www.google.com',
-  publicUrl: 'https://google.com',
-  credential: 'TestCredential'
-};
-
 export const testCredential = (timestamp) => {
   return {
     password: "TestPassword1",

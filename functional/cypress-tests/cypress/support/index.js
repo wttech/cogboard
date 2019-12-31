@@ -19,6 +19,7 @@ import "./widgets";
 import "./user";
 import "./dashboards";
 import "./reorder";
+import "./credentialsEndpoints";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
