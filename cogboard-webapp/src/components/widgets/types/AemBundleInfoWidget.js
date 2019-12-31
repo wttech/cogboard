@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, array } from 'prop-types';
+import { object, array, string } from 'prop-types';
 
 import { Caption, WidgetButton } from '../../styled';
 import { capitalize } from '../../../utils/common';
@@ -50,6 +50,7 @@ const AemBundleInfoWidget = ({
 );
 
 AemBundleInfoWidget.propTypes = {
+  url: string.isRequired,
   bundleStatus: object.isRequired,
   excludedBundles: array.isRequired,
   inactiveBundles: array.isRequired

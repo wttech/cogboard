@@ -1,5 +1,5 @@
 import React from 'react';
-import { object } from 'prop-types';
+import { object, string } from 'prop-types';
 
 import { Link } from '@material-ui/core';
 import { Caption, WidgetButton } from '../../../styled';
@@ -24,6 +24,7 @@ const AemHealthcheckWidget = ({ url, healthChecks }) => {
 };
 
 AemHealthcheckWidget.propTypes = {
+  url: string.isRequired,
   healthChecks: object
 };
 
