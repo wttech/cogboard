@@ -13,7 +13,7 @@ import {
 import widgetTypes from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
-import { renderCardContent } from './helpers';
+import { renderCardContent, dispatchEvent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
 import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
@@ -99,6 +99,20 @@ const Widget = ({ id, index }) => {
 
   drag(drop(ref));
 
+  document.addEventListener('CloseAllWidgets', event => {
+    if (event.detail === id) {
+      return;
+    }
+    if (!expanded) {
+      return;
+    }
+    handleToggle();
+  });
+
+  const closeWidgets = widgetId => {
+    dispatchEvent('CloseAllWidgets', widgetId);
+  };
+
   const handleEditClick = closeMenu => () => {
     dispatch(loadSettings());
     openDialog();
@@ -178,7 +192,8 @@ const Widget = ({ id, index }) => {
           widgetStatus,
           expandContent,
           expanded,
-          handleToggle
+          handleToggle,
+          closeWidgets
         )}
         {expandContent && (
           <StyledCollapse
