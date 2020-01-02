@@ -2,7 +2,7 @@
 
 [![Build Status](https://api.travis-ci.org/Cognifide/cogboard.svg?branch=master)](https://travis-ci.org/Cognifide/cogboard)
 
-#Cogboard
+# Cogboard
 
 <p align="center">
   <img src="https://github.com/Cognifide/cogboard/blob/master/docs/images/logo.png?raw=true"
