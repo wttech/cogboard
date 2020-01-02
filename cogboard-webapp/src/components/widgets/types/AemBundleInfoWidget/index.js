@@ -1,13 +1,9 @@
 import React from 'react';
 import { object, array, string } from 'prop-types';
 
-import {
-  WidgetButton,
-  StyledContainerBox,
-  CaptionWithMargin
-} from '../../../styled';
+import { StyledContainerBox, CaptionWithMargin } from '../../../styled';
 import { capitalize } from '../../../../utils/common';
-import { Typography } from '@material-ui/core';
+import { Typography, Link } from '@material-ui/core';
 import { StyledPopoverWithControls } from './styled';
 
 const bundleArrayToComponents = array => (
@@ -42,14 +38,15 @@ const AemBundleInfoWidget = ({
   <>
     <StyledContainerBox>
       {Object.keys(bundleStatus).map(key => (
-        <CaptionWithMargin key={key}>
-          {capitalize(key)}: {bundleStatus[key]}
-        </CaptionWithMargin>
+        <Link href={url} target="_blank">
+          <CaptionWithMargin key={key}>
+            {capitalize(key)}: {bundleStatus[key]}
+          </CaptionWithMargin>
+        </Link>
       ))}
       <BundlesInfoWithPopover bundleArray={excludedBundles} name="Excluded" />
       <BundlesInfoWithPopover bundleArray={inactiveBundles} name="Inactive" />
     </StyledContainerBox>
-    <WidgetButton href={url}>Bundles</WidgetButton>
   </>
 );
 

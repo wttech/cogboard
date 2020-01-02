@@ -2,11 +2,7 @@ import React from 'react';
 import { object, string } from 'prop-types';
 
 import { Link } from '@material-ui/core';
-import {
-  WidgetButton,
-  StyledContainerBox,
-  CaptionWithMargin
-} from '../../../styled';
+import { StyledContainerBox, CaptionWithMargin } from '../../../styled';
 
 import { AEM_HEALTH_CHECKS } from '../../../../constants';
 
@@ -22,7 +18,6 @@ const AemHealthcheckWidget = ({ url, healthChecks }) => {
           </Link>
         ))}
       </StyledContainerBox>
-      <WidgetButton href={url}>Healthchecks</WidgetButton>
     </>
   );
 };
