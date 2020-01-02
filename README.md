@@ -1,7 +1,13 @@
-![logo](docs/images/logo.png)
+![Cognifide logo](http://cognifide.github.io/images/cognifide-logo.png)
 
 [![Build Status](https://api.travis-ci.org/Cognifide/cogboard.svg?branch=master)](https://travis-ci.org/Cognifide/cogboard)
 
+#Cogboard
+
+<p align="center">
+  <img src="https://github.com/Cognifide/cogboard/blob/master/docs/images/logo.png?raw=true"
+         alt="Cogboard Logo"/>
+</p>
 
 ## What's Cogboard
 
