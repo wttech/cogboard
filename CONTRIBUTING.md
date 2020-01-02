@@ -37,6 +37,60 @@ CogBoard's documentation can be found in [CogBoard Wiki](https://github.com/Cogn
 
 ### JavaScript
 
+#### Style guide
+
+[Prettier](https://prettier.io/) is used to automatically format code before commiting changes (using pre-commit hook).
+
+#### Import order
+
+For the imports we use the order:
+
+1. Libraries and absolute imports.
+2. Helpers, utils, redux actions etc.
+3. Components.
+
+```javascript
+import React from 'react';
+import { func, object, string, bool, number } from 'prop-types';
+import { useDispatch } from 'react-redux';
+
+import { saveWidget } from '../actions/thunks';
+
+import WidgetForm from './WidgetForm';
+```
+
+#### Prop Types
+
+The project is using PropTypes to ensure that the data component receives is valid. Warning is shown in the JavaScript console when an invalid value is provided for a prop. Provide defaultProps for props that are not required.
+
+```javascript
+import { string, number, bool } from 'prop-types';
+
+TheComponent.propTypes = {
+  firstProperty: string.isRequired,
+  secondProperty: number,
+  thirdProperty: bool.isRequired
+}
+
+TheComponent.defaultProps = {
+  secondProperty: 1
+}
+
+```
+
+[More info](https://reactjs.org/docs/typechecking-with-proptypes.html)
+
+#### Props
+
+Destructure props in function's inputs declaration.
+
+```javascript
+const TheComponent = ({ firstProperty, secondProperty, thirdProperty }) -> {
+  // Component's code
+}
+```
+
+[More info](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 
 ## Automation - Cypress
 
