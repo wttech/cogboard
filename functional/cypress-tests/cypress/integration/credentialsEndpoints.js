@@ -4,18 +4,21 @@ import {
   testEndpoint,
   testLbl,
   editedLbl
-} from '../fixtures/credentialsEndpoints'
+} from '../fixtures/credentialsEndpoints';
 
 describe('Credentials and endpoints', () => {
-  let timestamp = Date.now().toString();
+  const timestamp = Date.now()
+    .toString();
 
   before(() => {
-    cy.getAuthenticationToken().then(token => {
-      cy.setTestCredentials(JSON.stringify(testCredential(timestamp)), token);
-    });
-    cy.getAuthenticationToken().then(token => {
-      cy.setTestEndpoints(JSON.stringify(testEndpoint(timestamp)), token);
-    });
+    cy.getAuthenticationToken()
+      .then(token => {
+        cy.setTestCredentials(JSON.stringify(testCredential(timestamp)), token);
+      });
+    cy.getAuthenticationToken()
+      .then(token => {
+        cy.setTestEndpoints(JSON.stringify(testEndpoint(timestamp)), token);
+      });
   });
 
   context('Anonymous user', () => {
@@ -103,69 +106,70 @@ describe('Credentials and endpoints', () => {
         .should('be.visible');
       cy.get('p.MuiFormHelperText-root.Mui-error') // <= needs data-cy
         .should('be.visible');
-      });
+    });
 
-      it('User can add new endpoint. New endpoints label is visible', () => {
-        cy.get('[data-cy="add-endpoint-add-button"]')
-          .click();
-        cy.get('[data-cy="endpoint-form-label-input"]')
-          .type(testEndpoint(testLbl).label)
-          .blur();
+    it('User can add new endpoint. New endpoints label is visible', () => {
+      cy.get('[data-cy="add-endpoint-add-button"]')
+        .click();
+      cy.get('[data-cy="endpoint-form-label-input"]')
+        .type(testEndpoint(testLbl).label)
+        .blur();
   
-        cy.get('[data-cy="endpoint-form-url-input"]')
-          .type(testEndpoint(testLbl).url)
-          .blur();
+      cy.get('[data-cy="endpoint-form-url-input"]')
+        .type(testEndpoint(testLbl).url)
+        .blur();
           
-        cy.get('[data-cy="endpoint-form-public-url-input"]')
-          .type(testEndpoint(testLbl).publicUrl)
-          .blur();
+      cy.get('[data-cy="endpoint-form-public-url-input"]')
+        .type(testEndpoint(testLbl).publicUrl)
+        .blur();
         
-        cy.get('[data-cy="endpoint-form-credentials-input"]')
-          .click();
-        cy.get('[role="listbox"]').within(() => {
+      cy.get('[data-cy="endpoint-form-credentials-input"]')
+        .click();
+      cy.get('[role="listbox"]')
+        .within(() => {
           cy.contains('li', `${testCredential(timestamp).label}`)
             .click();
         });
-        cy.get('[data-cy="endpoint-form-submit-button"]')
-          .click();
-        cy.get('[data-cy="app-dialog-content"]')
-          .should('contain', testEndpoint(testLbl).label);
-      });
+      cy.get('[data-cy="endpoint-form-submit-button"]')
+        .click();
+      cy.get('[data-cy="app-dialog-content"]')
+        .should('contain', testEndpoint(testLbl).label);
+    });
 
-      it('User cannot add endpoints with existing label', () => {
-        cy.get('[data-cy="add-endpoint-add-button"]')
-          .click();
-        cy.get('[data-cy="endpoint-form-label-input"]')
-          .type(testEndpoint(timestamp).label)
-          .blur();
-        cy.get('[data-cy="endpoint-form-label-input-error"]')
-          .should('be.visible')
-          .and('contain.text', 'This field must be unique.')
-      });
+    it('User cannot add endpoints with existing label', () => {
+      cy.get('[data-cy="add-endpoint-add-button"]')
+        .click();
+      cy.get('[data-cy="endpoint-form-label-input"]')
+        .type(testEndpoint(timestamp).label)
+        .blur();
+      cy.get('[data-cy="endpoint-form-label-input-error"]')
+        .should('be.visible')
+        .and('contain.text', 'This field must be unique.');
+    });
       
-      it('User can edit existing endpoint', () => {
-        cy.contains('li.MuiListItem-container', testEndpoint(testLbl).label) // <= no data-cy for this one
-          .find('[data-cy="edit-endpoint-edit-button"]')
-          .click();
-        cy.get('[data-cy="endpoint-form-label-input"]')
-          .clear()
-          .type(testEndpoint(editedLbl).label)
-          .blur();
-        cy.get('[data-cy="endpoint-form-submit-button"]')
-          .click();
-        cy.get('[data-cy="app-dialog-content"]')
-          .should('contain', testEndpoint(editedLbl).label);
-      });
+    it('User can edit existing endpoint', () => {
+      cy.contains('li.MuiListItem-container', testEndpoint(testLbl).label) // <= no data-cy for this one
+        .find('[data-cy="edit-endpoint-edit-button"]')
+        .click();
+      cy.get('[data-cy="endpoint-form-label-input"]')
+        .clear()
+        .type(testEndpoint(editedLbl).label)
+        .blur();
+      cy.get('[data-cy="endpoint-form-submit-button"]')
+        .click();
+      cy.get('[data-cy="app-dialog-content"]')
+        .should('contain', testEndpoint(editedLbl).label);
+    });
       
-      it('User can delete existing endpoint', () => {
-        cy.contains('li.MuiListItem-container', testEndpoint(timestamp).label)
-          .find('[data-cy="delete-endpoint-delete-button"]')
-          .click();
-        cy.get('[data-cy="confirmation-dialog-ok"]')
-          .click();
-        cy.get('[data-cy="app-dialog-content"]')
-          .should('not.contain', testEndpoint(timestamp).label);
-      });
+    it('User can delete existing endpoint', () => {
+      cy.contains('li.MuiListItem-container', testEndpoint(timestamp).label)
+        .find('[data-cy="delete-endpoint-delete-button"]')
+        .click();
+      cy.get('[data-cy="confirmation-dialog-ok"]')
+        .click();
+      cy.get('[data-cy="app-dialog-content"]')
+        .should('not.contain', testEndpoint(timestamp).label);
+    });
   });
   
   context('Logged in user - credentials', () => {
@@ -228,7 +232,7 @@ describe('Credentials and endpoints', () => {
         .blur();
       cy.get('[data-cy="credential-form-label-input-error"]')
         .should('be.visible')
-        .and('contain.text', 'This field must be unique.')
+        .and('contain.text', 'This field must be unique.');
     });
     
     it('User can edit existing credentials', () => {
