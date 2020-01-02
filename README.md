@@ -1,5 +1,3 @@
-## Please go to our [Cogboard GitHub pages](https://cognifide.github.io/cogboard/) for more info and documentation.
-
 ![Cognifide logo](http://cognifide.github.io/images/cognifide-logo.png)
 
 [![Build Status](https://api.travis-ci.org/Cognifide/cogboard.svg?branch=master)](https://travis-ci.org/Cognifide/cogboard)
