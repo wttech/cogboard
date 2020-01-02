@@ -1,10 +1,14 @@
 import React from 'react';
 import { object, array, string } from 'prop-types';
 
-import { Caption, WidgetButton } from '../../styled';
-import { capitalize } from '../../../utils/common';
+import {
+  WidgetButton,
+  StyledContainerBox,
+  CaptionWithMargin
+} from '../../../styled';
+import { capitalize } from '../../../../utils/common';
 import { Typography } from '@material-ui/core';
-import { PopoverWithControls } from '../../PopoverWithControls';
+import { StyledPopoverWithControls } from './styled';
 
 const bundleArrayToComponents = array => (
   <>
@@ -23,7 +27,7 @@ const bundleArrayToComponents = array => (
 
 const BundlesInfoWithPopover = ({ bundleArray, name }) =>
   bundleArray.length ? (
-    <PopoverWithControls
+    <StyledPopoverWithControls
       title={`${name} bundles: ${bundleArray.length}`}
       body={bundleArrayToComponents(bundleArray)}
     />
@@ -36,15 +40,15 @@ const AemBundleInfoWidget = ({
   inactiveBundles
 }) => (
   <>
-    <div>
+    <StyledContainerBox>
       {Object.keys(bundleStatus).map(key => (
-        <Caption key={key}>
+        <CaptionWithMargin key={key}>
           {capitalize(key)}: {bundleStatus[key]}
-        </Caption>
+        </CaptionWithMargin>
       ))}
       <BundlesInfoWithPopover bundleArray={excludedBundles} name="Excluded" />
       <BundlesInfoWithPopover bundleArray={inactiveBundles} name="Inactive" />
-    </div>
+    </StyledContainerBox>
     <WidgetButton href={url}>Bundles</WidgetButton>
   </>
 );

@@ -2,22 +2,26 @@ import React from 'react';
 import { object, string } from 'prop-types';
 
 import { Link } from '@material-ui/core';
-import { Caption, WidgetButton } from '../../../styled';
+import {
+  WidgetButton,
+  StyledContainerBox,
+  CaptionWithMargin
+} from '../../../styled';
 
 import { AEM_HEALTH_CHECKS } from '../../../../constants';
 
 const AemHealthcheckWidget = ({ url, healthChecks }) => {
   return (
     <>
-      <div>
+      <StyledContainerBox>
         {Object.entries(healthChecks).map(([name, data]) => (
           <Link href={data['url']} target="_blank">
-            <Caption key={name}>
+            <CaptionWithMargin key={name}>
               {AEM_HEALTH_CHECKS[name]}: {data['status']}
-            </Caption>
+            </CaptionWithMargin>
           </Link>
         ))}
-      </div>
+      </StyledContainerBox>
       <WidgetButton href={url}>Healthchecks</WidgetButton>
     </>
   );
