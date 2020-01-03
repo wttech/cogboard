@@ -31,7 +31,7 @@ import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
 
 const selectors = {
-  collapse: '[class*="-StyledCollapse"]'
+  collapse: '[class*="MuiCollapse-container"]'
 };
 
 const Widget = ({ id, index }) => {

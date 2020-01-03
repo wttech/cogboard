@@ -5,5 +5,6 @@
     "password": "admin"
   },
   "video": true,
-  "videoCompression": 16
+  "videoCompression": 16,
+  "defaultCommandTimeout": 10000
 }
