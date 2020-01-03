@@ -7,7 +7,8 @@ import {
   FormControl,
   Typography,
   IconButton,
-  Tabs
+  Tabs,
+  Box
 } from '@material-ui/core';
 import IframeEmbed from '../IframeEmbed';
 import { getColor, getSize } from '../../utils/components';
@@ -105,4 +106,13 @@ export const StyledTabs = styled(Tabs)`
 
 export const StyledTabPanel = styled(TabPanel)`
   margin-bottom: 12px;
+`;
+
+export const StyledContainerBox = styled(Box)`
+  padding-left: 6px;
+  padding-right: 6px;
+`;
+
+export const CaptionWithMargin = styled(Caption)`
+  margin-bottom: 10px;
 `;

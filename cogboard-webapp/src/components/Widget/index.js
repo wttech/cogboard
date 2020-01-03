@@ -13,7 +13,7 @@ import {
 import widgetTypes from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
-import { renderCardContent } from './helpers';
+import { renderCardContent, dispatchEvent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
 import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
@@ -24,6 +24,10 @@ import MoreMenu from '../MoreMenu';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
+
+const selectors = {
+  collapse: '[class*="-StyledCollapse"]'
+};
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -99,6 +103,20 @@ const Widget = ({ id, index }) => {
 
   drag(drop(ref));
 
+  document.addEventListener('CloseAllWidgets', event => {
+    if (event.detail === id) {
+      return;
+    }
+    if (!expanded) {
+      return;
+    }
+    handleToggle();
+  });
+
+  const closeWidgets = widgetId => {
+    dispatchEvent('CloseAllWidgets', widgetId);
+  };
+
   const handleEditClick = closeMenu => () => {
     dispatch(loadSettings());
     openDialog();
@@ -113,6 +131,20 @@ const Widget = ({ id, index }) => {
   const deleteWidget = () => {
     dispatch(removeWidget(id));
     closeConfirmationDialog();
+  };
+
+  const handleCollapseScrollIntoView = () => {
+    const { top, height } = ref.current
+      .querySelectorAll(selectors.collapse)[0]
+      .getBoundingClientRect();
+    const collapseVerticalOffset = top + height;
+
+    if (collapseVerticalOffset > window.innerHeight) {
+      window.scrollTo({
+        top: collapseVerticalOffset,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
@@ -178,7 +210,8 @@ const Widget = ({ id, index }) => {
           widgetStatus,
           expandContent,
           expanded,
-          handleToggle
+          handleToggle,
+          closeWidgets
         )}
         {expandContent && (
           <StyledCollapse
@@ -188,6 +221,7 @@ const Widget = ({ id, index }) => {
             isDragging={isDragging}
             in={expanded}
             timeout="auto"
+            onEntered={() => handleCollapseScrollIntoView()}
             unmountOnExit
           >
             <WidgetContent id={id} type={type} content={content} />

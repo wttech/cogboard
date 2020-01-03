@@ -8,7 +8,9 @@ const WidgetFooter = ({
   content,
   expanded,
   handleToggle,
-  expandContent
+  expandContent,
+  closeWidgets,
+  id
 }) => {
   return (
     <div className="cardFootWrapper">
@@ -20,7 +22,10 @@ const WidgetFooter = ({
       {expandContent && !content.errorMessage && (
         <StyledIconButton
           isExpanded={expanded}
-          onClick={handleToggle}
+          onClick={() => {
+            handleToggle();
+            closeWidgets(id);
+          }}
           aria-expanded={expandContent}
           aria-label="show more"
         >
