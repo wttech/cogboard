@@ -119,7 +119,7 @@ export const StyledCollapse = styled(
       ? mapStatusToColor(status, theme)
       : theme.palette.background.paper};
   box-shadow: ${({ isExpanded }) =>
-    isExpanded ? '4px 4px 4px rgba(0,0,0,0.3);' : 'none'};
+    isExpanded ? '4px 4px 4px rgba(0,0,0,0.3)' : 'none'};
   height: auto;
   opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
   padding: 0 16px 16px;
