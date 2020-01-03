@@ -327,7 +327,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "bodyFileName": "aem/6.5.2/bundleinfo.json"
+        "bodyFileName": "aem/v6.5.2/bundleinfo.json"
       }
     }
   ]

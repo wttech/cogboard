@@ -34,21 +34,19 @@ const ServiceCheckWidget = ({
   return (
     <>
       {errorStatus && <Caption>{statusMessage}</Caption>}
-      <Caption>
-        <WidgetButton href={url}>
-          {!statusCode ? (
-            <Loader text="Pending update" size={20} />
-          ) : (
-            statusCodeMessage
-          )}
-          <StyledOpenInNewIcon />
-        </WidgetButton>
-      </Caption>
       <PopoverWithControls
         title={`Response: ${bodyMessage}`}
         body={body}
         withCopy={true}
       />
+      <WidgetButton href={url}>
+        {!statusCode ? (
+          <Loader text="Pending update" size={20} />
+        ) : (
+          statusCodeMessage
+        )}
+        <StyledOpenInNewIcon />
+      </WidgetButton>
     </>
   );
 };

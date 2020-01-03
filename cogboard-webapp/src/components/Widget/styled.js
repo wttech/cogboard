@@ -113,6 +113,10 @@ export const StyledCardContent = styled(CardContent)`
   position: relative;
   justify-content: space-between;
 
+  &:last-child {
+    padding-bottom: 8px;
+  }
+
   .cardFootWrapper {
     display: inherit;
     align-items: center;
@@ -124,13 +128,13 @@ export const StyledCollapse = styled(
     <Collapse {...props} />
   )
 )`
-  bottom: 1px;
+  bottom: 2px;
   background-color: ${({ isDragging, status, theme }) =>
     !isDragging
       ? mapStatusToColor(status, theme)
       : theme.palette.background.paper};
   box-shadow: ${({ isExpanded }) =>
-    isExpanded ? '2px 4px 4px 2px rgba(0,0,0,0.3)' : 'none'};
+    isExpanded ? '4px 4px 4px rgba(0,0,0,0.3)' : 'none'};
   height: auto;
   opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
   padding: 0 16px 16px;
@@ -169,5 +173,7 @@ export const StyledStatusIconButton = styled.a`
 export const StyledIconWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
+  height: 100%;
 `;
