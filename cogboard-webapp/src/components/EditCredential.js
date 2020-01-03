@@ -47,7 +47,7 @@ const EditCredential = ({ id }) => {
     <>
       <IconButton
         onClick={handleAddEndpointClick}
-        data-cy="edit-credential-add-button"
+        data-cy="edit-credential-edit-button"
       >
         <Build />
       </IconButton>
