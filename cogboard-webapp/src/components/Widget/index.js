@@ -25,6 +25,10 @@ import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
 
+const selectors = {
+  collapse: '[class*="-StyledCollapse"]'
+};
+
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
     ({ widgets }) => widgets.widgetsById[id],
@@ -129,6 +133,20 @@ const Widget = ({ id, index }) => {
     closeConfirmationDialog();
   };
 
+  const handleCollapseScrollIntoView = () => {
+    const { top, height } = ref.current
+      .querySelectorAll(selectors.collapse)[0]
+      .getBoundingClientRect();
+    const collapseVerticalOffset = top + height;
+
+    if (collapseVerticalOffset > window.innerHeight) {
+      window.scrollTo({
+        top: collapseVerticalOffset,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <>
       <StyledCard
@@ -203,6 +221,7 @@ const Widget = ({ id, index }) => {
             isDragging={isDragging}
             in={expanded}
             timeout="auto"
+            onEntered={() => handleCollapseScrollIntoView()}
             unmountOnExit
           >
             <WidgetContent id={id} type={type} content={content} />
