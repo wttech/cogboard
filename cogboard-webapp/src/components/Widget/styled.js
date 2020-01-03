@@ -90,8 +90,8 @@ export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
   padding: 8px;
 
-  & .MuiCardHeader-action,
-  & .MuiSvgIcon-root {
+  .MuiCardHeader-action,
+  .MuiSvgIcon-root {
     height: 21px;
     width: 21px;
   }
@@ -101,7 +101,7 @@ export const StyledEmptyCardHeader = styled(StyledCardHeader)`
   position: absolute;
   right: 0;
 
-  & .MuiCardHeader-avatar {
+  .MuiCardHeader-avatar {
     margin-right: 0;
   }
 `;
