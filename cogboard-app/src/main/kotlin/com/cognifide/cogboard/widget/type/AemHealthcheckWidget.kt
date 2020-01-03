@@ -47,8 +47,10 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
 
     private fun attachHealthChecks(content: JsonObject, healthChecksResponse: JsonObject): Widget.Status {
         var widgetStatus = OK
+        val overviewUrl = "$publicUrl/$OVERVIEW_PATH"
         val result = JsonObject()
         content.put(CogboardConstants.PROP_ERROR_MESSAGE, "")
+        content.put(CogboardConstants.PROP_URL, overviewUrl)
         content.put("healthChecks", result)
 
         selectedHealthChecks
@@ -72,6 +74,7 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
     }
 
     companion object {
+        const val OVERVIEW_PATH = "libs/granite/operations/content/healthreports/healthreportlist.html"
         const val DETAILS_PATH = "libs/granite/operations/content/healthreports/healthreport.html" +
                 "/system/sling/monitoring/mbeans/org/apache/sling/healthcheck/HealthCheck"
     }

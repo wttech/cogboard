@@ -1,10 +1,10 @@
 import React from 'react';
-import { object, array } from 'prop-types';
+import { object, array, string } from 'prop-types';
 
-import { Caption } from '../../styled';
-import { capitalize } from '../../../utils/common';
-import { Typography } from '@material-ui/core';
-import { PopoverWithControls } from '../../PopoverWithControls';
+import { StyledContainerBox, CaptionWithMargin } from '../../../styled';
+import { capitalize } from '../../../../utils/common';
+import { Typography, Link } from '@material-ui/core';
+import { StyledPopoverWithControls } from './styled';
 
 const bundleArrayToComponents = array => (
   <>
@@ -23,29 +23,35 @@ const bundleArrayToComponents = array => (
 
 const BundlesInfoWithPopover = ({ bundleArray, name }) =>
   bundleArray.length ? (
-    <PopoverWithControls
+    <StyledPopoverWithControls
       title={`${name} bundles: ${bundleArray.length}`}
       body={bundleArrayToComponents(bundleArray)}
     />
   ) : null;
 
 const AemBundleInfoWidget = ({
+  url,
   bundleStatus,
   excludedBundles,
   inactiveBundles
 }) => (
   <>
-    {Object.keys(bundleStatus).map(key => (
-      <Caption key={key}>
-        {capitalize(key)}: {bundleStatus[key]}
-      </Caption>
-    ))}
-    <BundlesInfoWithPopover bundleArray={excludedBundles} name="Excluded" />
-    <BundlesInfoWithPopover bundleArray={inactiveBundles} name="Inactive" />
+    <StyledContainerBox>
+      {Object.keys(bundleStatus).map(key => (
+        <Link href={url} target="_blank">
+          <CaptionWithMargin key={key}>
+            {capitalize(key)}: {bundleStatus[key]}
+          </CaptionWithMargin>
+        </Link>
+      ))}
+      <BundlesInfoWithPopover bundleArray={excludedBundles} name="Excluded" />
+      <BundlesInfoWithPopover bundleArray={inactiveBundles} name="Inactive" />
+    </StyledContainerBox>
   </>
 );
 
 AemBundleInfoWidget.propTypes = {
+  url: string.isRequired,
   bundleStatus: object.isRequired,
   excludedBundles: array.isRequired,
   inactiveBundles: array.isRequired
