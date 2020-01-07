@@ -73,14 +73,13 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         val resolved = numericStatus[PROP_BUNDLE_STATUS_RESOLVED] ?: 0
         val installed = numericStatus[PROP_BUNDLE_STATUS_INSTALLED] ?: 0
 
-        if (resolved > 0) {
-            return if (resolved < resolvedThreshold) Widget.Status.UNSTABLE else Widget.Status.ERROR
-        }
-        if (installed > 0) {
-            return if (installed < installedThreshold) Widget.Status.UNSTABLE else Widget.Status.ERROR
+        if (resolved >= resolvedThreshold
+            || installed >= installedThreshold) {
+            return Widget.Status.ERROR
         }
 
-        return Widget.Status.OK
+        return if (resolved == 0 && installed == 0) Widget.Status.OK
+            else Widget.Status.UNSTABLE
     }
 
     private fun updateNumericStatusForExcluded(
