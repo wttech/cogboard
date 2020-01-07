@@ -1,10 +1,15 @@
 import React from 'react';
 import { object, array, string } from 'prop-types';
 
-import { StyledContainerBox, CaptionWithMargin } from '../../../styled';
+import { StyledContainerBox } from '../../../styled';
 import { capitalize } from '../../../../utils/common';
 import { Typography, Link } from '@material-ui/core';
-import { StyledPopoverWithControls } from './styled';
+import { CaptionWithMargin, StyledPopoverWithControls } from './styled';
+
+const bundleArrayToHoverText = array =>
+  array
+    .map(object => `${object['name']} - ${object['state']}`)
+    .reduce((accumulator, pilot) => accumulator + '\n' + pilot);
 
 const bundleArrayToComponents = array => (
   <>
@@ -12,6 +17,7 @@ const bundleArrayToComponents = array => (
       <Typography
         key={object['symbolicName'] + object['id']}
         component="span"
+        display="block"
         variant="body2"
       >
         {object['name']} - {object['state']} (id: {object['id']}, symbolicName:{' '}
@@ -25,6 +31,7 @@ const BundlesInfoWithPopover = ({ bundleArray, name }) =>
   bundleArray.length ? (
     <StyledPopoverWithControls
       title={`${name} bundles: ${bundleArray.length}`}
+      titleHover={`${name} bundles:\n${bundleArrayToHoverText(bundleArray)}`}
       body={bundleArrayToComponents(bundleArray)}
     />
   ) : null;

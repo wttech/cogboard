@@ -42,7 +42,10 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
     private fun getFilteredBundles(bundles: List<Any?>): Pair<List<JsonObject>, List<JsonObject>> {
         return bundles
             .mapNotNull { it as JsonObject }
-            .partition { exclusions.contains(it.getString("symbolicName")) }
+            .partition {
+                exclusions.contains(it.getString("symbolicName"))
+                    || exclusions.contains(it.getString("name"))
+            }
             .let { pair ->
                 Pair(
                     pair.first,
@@ -98,7 +101,7 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
 
     override fun updateState() {
         if (url.isNotBlank()) {
-            httpGet("$url/system/console/bundles.json")
+            httpGet("${url.trimEnd('/')}/system/console/bundles.json")
         } else {
             sendConfigurationError("Endpoint URL is blank")
         }
