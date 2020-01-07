@@ -361,7 +361,7 @@ const dialogFields = {
         .of(string())
   },
   DailySwitch: {
-    component: SwitchInput,
+    component: CheckboxInput,
     name: 'personDrawDailySwitch',
     label: 'Daily',
     initialValue: false,

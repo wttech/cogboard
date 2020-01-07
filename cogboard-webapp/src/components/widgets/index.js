@@ -149,7 +149,7 @@ const widgetTypes = {
     }
   },
   PersonDrawWidget: {
-    name: 'Person Draw Widget',
+    name: 'Person Draw',
     component: PersonDrawWidget,
     dialogFields: [
       'RandomCheckbox',

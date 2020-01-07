@@ -1,35 +1,34 @@
-package com.cognifide.cogboard.widget.type
+package com.cognifide.cogboard.widget.type.persondraw
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.widget.BaseWidget
+import com.cognifide.cogboard.widget.type.persondraw.PersonDrawDateUtil.Companion.calculateNextUpdateDate
+import com.cognifide.cogboard.widget.type.persondraw.PersonDrawDateUtil.Companion.parseLocalDateTime
+import com.cognifide.cogboard.widget.type.persondraw.PersonDrawIndexer.Companion.getNextListIndex
+import com.cognifide.cogboard.widget.type.persondraw.PersonDrawIndexer.Companion.getRandomListIndex
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
-import java.time.Instant
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.ZoneOffset
-import kotlin.random.Random
 
 class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsConfigService = BoardsConfigService()) :
-    BaseWidget(vertx, config, boardService) {
+        BaseWidget(vertx, config, boardService) {
 
-    private val valuesArch: MutableList<String> = mutableListOf()
+    private var valuesArch: List<String> = listOf()
     private var updateDate: LocalDateTime = LocalDateTime.now()
     private var currentIndex: Int = -1
-    private var usedIndexes: MutableList<Int> = mutableListOf()
+    private var usedIndexes: List<Int> = listOf()
 
     init {
         super.config.put(CogboardConstants.PROP_SCHEDULE_PERIOD, SYNC_INTERVAL)
-        if (currentIndex == -1) {
-            currentIndex = ContentRepository().get(id).getInteger(PROP_CONTENT_INDEX, -1)
-            val updateDateMillis = ContentRepository().get(id).getLong(PROP_CONTENT_UPDATE_DATE, -1)
-            if (updateDateMillis > 0) {
-                val ofEpochMilli = Instant.ofEpochMilli(updateDateMillis)
-                updateDate = ofEpochMilli.atZone(ZoneId.systemDefault()).toLocalDateTime()
-            }
+        val widgetObject = ContentRepository().get(id)
+        currentIndex = widgetObject.getInteger(PROP_CONTENT_INDEX, -1)
+        val updateDateMillis = widgetObject.getLong(PROP_CONTENT_UPDATE_DATE, -1)
+        if (updateDateMillis > 0) {
+            updateDate = parseLocalDateTime(updateDateMillis)
         }
 
         createDynamicChangeSubscriber()
@@ -40,34 +39,40 @@ class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsCon
         cycle()
     }
 
+    // Todo: check if is possible to operate only on content fields
     private fun cycle(forceCycle: Boolean = false) {
         val isDaily = config.getBoolean(PROP_IS_DAILY, false)
         val values = toStringList(config.getJsonArray(PROP_VALUES, JsonArray()))
         val randomize = config.getBoolean(PROP_RANDOMIZE, false)
         val interval = config.getLong(PROP_INTERVAL, SELECT_INTERVAL)
 
+        // Handle user changes between interval or daily cycle events
         if (!isDaily && updateDate.isAfter(LocalDateTime.now().plusMinutes(interval))) {
             updateDate = LocalDateTime.now()
         }
 
         if (forceCycle || shouldCycle(currentIndex, updateDate) || values != valuesArch) {
-            syncValues(values)
-            currentIndex = newIndex(randomize, currentIndex, values, usedIndexes)
+            currentIndex = calculateIndex(randomize, values)
             updateDate = calculateNextUpdateDate(isDaily, interval)
             sendUpdate(currentIndex, updateDate)
         }
     }
 
-    private fun syncValues(values: MutableList<String>) {
-        valuesArch.clear()
-        valuesArch.addAll(values)
+    private fun calculateIndex(randomize: Boolean, values: List<String>): Int {
+        val index = newIndex(randomize, currentIndex, values, usedIndexes)
+
+        if (index >= 0) {
+            usedIndexes = usedIndexes.plus(index)
+        }
+
+        if (usedIndexes.size == values.size) {
+            usedIndexes = emptyList()
+        }
+
+        return index
     }
 
-    private fun toStringList(values: JsonArray): MutableList<String> {
-        val list = mutableListOf<String>()
-        for (i in 0 until values.size()) list.add(values.getString(i))
-        return list
-    }
+    private fun toStringList(values: JsonArray) = values.filterIsInstance<String>()
 
     private fun shouldCycle(currentIndex: Int, updateDate: LocalDateTime) =
             currentIndex < 0 || LocalDateTime.now().isAfter(updateDate)
@@ -81,32 +86,8 @@ class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsCon
         send(JsonObject().put(CogboardConstants.PROP_CONTENT, content))
     }
 
-    private fun calculateNextUpdateDate(isDaily: Boolean, interval: Long): LocalDateTime = if (isDaily) {
-        LocalDateTime.now().apply {
-            plusDays(1)
-            withHour(0)
-            withMinute(1)
-        }
-    } else {
-        LocalDateTime.now().plusMinutes(interval)
-    }
-
-    private fun newIndex(randomize: Boolean, currentIndex: Int, values: List<String>, usedIndexes: MutableList<Int>) =
-            if (randomize) getRandomIndex(currentIndex, values, usedIndexes) else getNextIndex(currentIndex, values)
-
-    private fun getNextIndex(currentIndex: Int, values: List<String>): Int {
-        val nextIndex = currentIndex + 1
-        return if (values.isNotEmpty() && nextIndex < values.size) nextIndex else 0
-    }
-
-    private fun getRandomIndex(currentIndex: Int, values: List<String>, usedIndexes: MutableList<Int>): Int {
-        usedIndexes.add(currentIndex)
-        val indexes = values.mapIndexed { index, _ -> index }.filter { i -> !usedIndexes.contains(i) }
-
-        return if (indexes.isNotEmpty()) indexes[(getRandomNumber(indexes.size))] else getRandomNumber(values.size)
-    }
-
-    private fun getRandomNumber(size: Int): Int = Random.nextInt(0, size)
+    private fun newIndex(randomize: Boolean, currentIndex: Int, values: List<String>, usedIndexes: List<Int>) =
+            if (randomize) getRandomListIndex(values, usedIndexes) else getNextListIndex(currentIndex, values)
 
     companion object {
         const val SELECT_INTERVAL = 120L
