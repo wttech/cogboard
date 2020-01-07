@@ -14,6 +14,7 @@ class PersonDrawIndexerTest {
         Assertions.assertEquals(1, PersonDrawIndexer.getNextListIndex(0, SAMPLE_LIST))
         Assertions.assertEquals(2, PersonDrawIndexer.getNextListIndex(1, SAMPLE_LIST))
         Assertions.assertEquals(0, PersonDrawIndexer.getNextListIndex(2, SAMPLE_LIST))
+        Assertions.assertEquals(1, PersonDrawIndexer.getNextListIndex(0, SAMPLE_LIST))
     }
 
     @Test
@@ -49,5 +50,6 @@ class PersonDrawIndexerTest {
     @Test
     fun `Expect getRandomListIndex to get last missing index`(){
         Assertions.assertEquals(0, PersonDrawIndexer.getRandomListIndex(SAMPLE_LIST, listOf(2,1)))
+        Assertions.assertEquals(2, PersonDrawIndexer.getRandomListIndex(SAMPLE_LIST, listOf(0,1)))
     }
 }

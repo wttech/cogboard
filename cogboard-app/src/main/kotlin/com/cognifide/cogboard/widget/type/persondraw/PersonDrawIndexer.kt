@@ -11,6 +11,7 @@ class PersonDrawIndexer {
             }
 
             val nextIndex = if (currentIndex >= 0) currentIndex + 1 else 0
+
             return if (values.isNotEmpty() && nextIndex < values.size) nextIndex else 0
         }
 
@@ -23,12 +24,16 @@ class PersonDrawIndexer {
             val indexes = values.mapIndexed { index, _ -> index }
                     .filter { i -> !usedIndexes.contains(i) }
 
-            // If there is one index, there is no need to randomize
+            // If there is one index, there is no need to use random function
             if (indexes.size == 1) {
                 return indexes[0]
             }
 
-            return if (indexes.isNotEmpty()) indexes[(getRandomNumber(indexes.size))] else getRandomNumber(values.size)
+            return if (indexes.isNotEmpty()) {
+                indexes[(getRandomNumber(indexes.size))]
+            } else {
+                getRandomNumber(values.size)
+            }
         }
 
         private fun getRandomNumber(size: Int): Int = Random.nextInt(0, size)

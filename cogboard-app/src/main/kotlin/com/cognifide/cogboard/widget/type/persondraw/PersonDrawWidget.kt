@@ -17,77 +17,74 @@ import java.time.ZoneOffset
 class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsConfigService = BoardsConfigService()) :
         BaseWidget(vertx, config, boardService) {
 
-    private var valuesArch: List<String> = listOf()
-    private var updateDate: LocalDateTime = LocalDateTime.now()
-    private var currentIndex: Int = -1
-    private var usedIndexes: List<Int> = listOf()
-
     init {
         super.config.put(CogboardConstants.PROP_SCHEDULE_PERIOD, SYNC_INTERVAL)
-        val widgetObject = ContentRepository().get(id)
-        currentIndex = widgetObject.getInteger(PROP_CONTENT_INDEX, -1)
-        val updateDateMillis = widgetObject.getLong(PROP_CONTENT_UPDATE_DATE, -1)
-        if (updateDateMillis > 0) {
-            updateDate = parseLocalDateTime(updateDateMillis)
-        }
-
         createDynamicChangeSubscriber()
-                .handler { cycle(forceCycle = true) }
+                .handler { userEventCycle() }
     }
 
     override fun updateState() {
-        cycle()
+        timeoutCycle()
     }
 
-    // Todo: check if is possible to operate only on content fields
+    private fun timeoutCycle() {
+        cycle(forceCycle = false)
+    }
+
+    private fun userEventCycle() {
+        cycle(forceCycle = true)
+    }
+
     private fun cycle(forceCycle: Boolean = false) {
         val isDaily = config.getBoolean(PROP_IS_DAILY, false)
-        val values = toStringList(config.getJsonArray(PROP_VALUES, JsonArray()))
+        val values = config.getJsonArray(PROP_VALUES, JsonArray()).filterIsInstance<String>()
         val randomize = config.getBoolean(PROP_RANDOMIZE, false)
         val interval = config.getLong(PROP_INTERVAL, SELECT_INTERVAL)
 
+        val widgetObject = ContentRepository().get(id)
+        val currentIndex = widgetObject.getInteger(PROP_CONTENT_INDEX, -1)
+        val updateDateMillis = widgetObject
+                .getLong(PROP_CONTENT_UPDATE_DATE, LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli())
+        val usedIndexes = widgetObject
+                .getJsonArray(PROP_CONTENT_USED_INDEXES, JsonArray()).filterIsInstance<Int>()
+
         // Handle user changes between interval or daily cycle events
+        var updateDate = parseLocalDateTime(updateDateMillis)
         if (!isDaily && updateDate.isAfter(LocalDateTime.now().plusMinutes(interval))) {
             updateDate = LocalDateTime.now()
         }
 
-        if (forceCycle || shouldCycle(currentIndex, updateDate) || values != valuesArch) {
-            currentIndex = calculateIndex(randomize, values)
-            updateDate = calculateNextUpdateDate(isDaily, interval)
-            sendUpdate(currentIndex, updateDate)
+        // Handle text items values change
+        val valuesContentHash = widgetObject.getInteger(PROP_CONTENT_VALUE_HASH, -1)
+        val valuesChanged = values.toTypedArray().contentHashCode() != valuesContentHash
+
+        if (shouldCycle(forceCycle, currentIndex, updateDate, valuesChanged)) {
+            val nextIndex = calculateNextIndex(randomize, currentIndex, values, usedIndexes)
+            val nextUpdateDate = calculateNextUpdateDate(isDaily, interval)
+            val usedIndexesContent = updateUsedIndexes(usedIndexes, values, nextIndex)
+            sendUpdate(nextIndex, nextUpdateDate, usedIndexesContent, valuesContentHash)
         }
     }
 
-    private fun calculateIndex(randomize: Boolean, values: List<String>): Int {
-        val index = newIndex(randomize, currentIndex, values, usedIndexes)
-
-        if (index >= 0) {
-            usedIndexes = usedIndexes.plus(index)
-        }
-
-        if (usedIndexes.size == values.size) {
-            usedIndexes = emptyList()
-        }
-
-        return index
-    }
-
-    private fun toStringList(values: JsonArray) = values.filterIsInstance<String>()
-
-    private fun shouldCycle(currentIndex: Int, updateDate: LocalDateTime) =
-            currentIndex < 0 || LocalDateTime.now().isAfter(updateDate)
-
-    private fun sendUpdate(nextIndex: Int, updateDate: LocalDateTime) {
+    private fun sendUpdate(nextIndex: Int, updateDate: LocalDateTime, usedIndexes: List<Int>, valuesContentHash: Int) {
         val content = JsonObject().apply {
             put(PROP_CONTENT_INDEX, nextIndex)
+            put(PROP_CONTENT_USED_INDEXES, usedIndexes)
             put(PROP_CONTENT_UPDATE_DATE, updateDate.toInstant(ZoneOffset.UTC).toEpochMilli())
+            put(PROP_CONTENT_VALUE_HASH, valuesContentHash)
             put(PROP_VALUES, config.getValue(PROP_VALUES))
         }
         send(JsonObject().put(CogboardConstants.PROP_CONTENT, content))
     }
 
-    private fun newIndex(randomize: Boolean, currentIndex: Int, values: List<String>, usedIndexes: List<Int>) =
-            if (randomize) getRandomListIndex(values, usedIndexes) else getNextListIndex(currentIndex, values)
+    private fun updateUsedIndexes(usedIndexes: List<Int>, values: List<String>, nextIndex: Int) =
+            if (usedIndexes.size <= values.size - 1) usedIndexes.plus(nextIndex) else emptyList()
+
+    private fun shouldCycle(forceCycle: Boolean, currentIndex: Int, updateDate: LocalDateTime, valuesChanged: Boolean) =
+            valuesChanged || forceCycle || currentIndex < 0 || LocalDateTime.now().isAfter(updateDate)
+
+    private fun calculateNextIndex(randomize: Boolean, curIndex: Int, values: List<String>, usedIndexes: List<Int>) =
+            if (randomize) getRandomListIndex(values, usedIndexes) else getNextListIndex(curIndex, values)
 
     companion object {
         const val SELECT_INTERVAL = 120L
@@ -97,6 +94,8 @@ class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsCon
         const val PROP_RANDOMIZE = "randomizeCheckbox"
         const val PROP_INTERVAL = "personDrawInterval"
         const val PROP_CONTENT_INDEX = "index"
+        const val PROP_CONTENT_USED_INDEXES = "usedIndexes"
         const val PROP_CONTENT_UPDATE_DATE = "updateDate"
+        const val PROP_CONTENT_VALUE_HASH = "valueHash"
     }
 }
