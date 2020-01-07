@@ -1,0 +1,53 @@
+{
+  "boards": {
+    "boardsById": {
+      "board1": {
+        "autoSwitch": true,
+        "switchInterval": 3,
+        "id": "board1",
+        "title": "Welcome to Cogboard",
+        "columns": 8,
+        "theme": "default",
+        "widgets": ["widget1", "widget2"]
+      }
+    },
+    "allBoards": ["board1"]
+  },
+  "widgets": {
+    "widgetsById": {
+      "widget1": {
+        "id": "widget1",
+        "title": "Example Widget",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ExampleWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board1",
+        "schedulePeriod": 3
+      },
+      "widget2": {
+        "id": "widget2",
+        "title": "Reorder Widget",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ExampleWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board1",
+        "schedulePeriod": 120
+      }
+    },
+    "allWidgets": ["widget1", "widget2"]
+  }
+}

@@ -1,5 +1,19 @@
 import { capitalize } from '../utils/common';
 
+export const COLORS = {
+  TRANSPARENT: 'transparent',
+  WHITE: '#fff',
+  BKGD_LIGHT: '#fffafa',
+  BKGD_DARK: '#1c2630',
+  BLACK: '#000',
+  GREEN: '#019430',
+  ORANGE: '#ff9724',
+  RED: '#e1312f',
+  LIGHT_BLUE: '#bbdefb',
+  BLUE: '#198cbd',
+  PURPLE: '#26243e'
+};
+
 export const URL = {
   LOAD_DATA: '/api/config',
   SAVE_DATA: '/api/config/save',
@@ -12,7 +26,6 @@ export const URL = {
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;
 export const BOARD_COLUMNS_MIN = 4;
-export const BOARD_COLUMNS_DEFAULT = 8;
 export const BOARD_COLUMNS_MAX = 20;
 export const BOARD_TITLE_LENGTH_LIMIT = 50;
 export const SWITCH_INTERVAL_MIN = 3;
@@ -104,6 +117,17 @@ export const ALL_SONARQUBE_METRICS = [
   'bugs',
   'code_smells',
   'vulnerabilities'
+];
+
+export const SONARQUBE_VERSIONS = [
+  {
+    display: '7.x',
+    value: '7.x'
+  },
+  {
+    display: '5.x',
+    value: '5.x'
+  }
 ];
 
 // props will be added to old configs on app init

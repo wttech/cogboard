@@ -4,5 +4,7 @@
     "username": "admin",
     "password": "admin"
   },
-  "video": true
+  "video": true,
+  "videoCompression": 16,
+  "defaultCommandTimeout": 10000
 }

@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { func } from 'prop-types';
 
-import { getIsAuthenticated } from '../selectors';
+import { getIsAuthenticated } from '../../selectors';
 
-import { Menu, MenuList, IconButton } from '@material-ui/core';
+import { Menu, MenuList } from '@material-ui/core';
+import { StyledIcon } from './styled';
 import { MoreVert } from '@material-ui/icons';
 
-const MoreMenu = ({ children }) => {
+const MoreMenu = ({ children, color }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
 
@@ -22,15 +23,16 @@ const MoreMenu = ({ children }) => {
 
   return (
     <>
-      <IconButton
+      <StyledIcon
         onClick={handleMoreButtonClick}
         aria-label="More"
         aria-controls="more-menu"
         aria-haspopup="true"
         data-cy="more-menu-button"
+        color={color}
       >
         <MoreVert />
-      </IconButton>
+      </StyledIcon>
       <Menu
         onClose={handleMoreMenuClose}
         anchorEl={anchorEl}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
-import { hasError } from '../helpers';
+import { hasError } from '../utils/components';
 
 import {
   FormControl,

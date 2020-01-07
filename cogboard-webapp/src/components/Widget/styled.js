@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
-import { bool, number, object, string } from 'prop-types';
+import { bool, number, object } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
-import { mapStatusToColor } from './helpers';
-import { COLUMN_MULTIPLIER, ROW_MULTIPLIER } from '../../constants';
+import { mapStatusToColor, getWidgetOverflow } from './helpers';
+import { COLUMN_MULTIPLIER, ROW_MULTIPLIER, COLORS } from '../../constants';
 
 import { Card, CardHeader, CardContent, Collapse } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,6 +13,8 @@ export const StyledCard = styled(
     (
       {
         status,
+        showShadow,
+        showBorder,
         columns,
         goNewLine,
         isLoggedIn,
@@ -20,6 +22,7 @@ export const StyledCard = styled(
         isOver,
         rows,
         theme,
+        type,
         ...other
       },
       ref
@@ -30,7 +33,10 @@ export const StyledCard = styled(
     !isDragging
       ? mapStatusToColor(status, theme)
       : theme.palette.background.paper};
-  box-shadow: none;
+  box-shadow: ${({ showShadow }) =>
+    showShadow ? '2px 0px 4px 2px rgba(0,0,0,0.3)' : 'none'};
+  border: ${({ showBorder }) =>
+    showBorder ? '1px solid rgba(0,0,0,0.3)' : 'none'};
   cursor: ${({ isLoggedIn }) => (isLoggedIn ? 'move' : 'default')};
   display: flex;
   flex-direction: column;
@@ -38,7 +44,10 @@ export const StyledCard = styled(
   grid-column-end: span ${({ columns }) => columns * COLUMN_MULTIPLIER};
   grid-row-end: span ${({ rows }) => rows * ROW_MULTIPLIER};
   position: relative;
-  overflow: visible;
+  overflow: ${({ type }) => getWidgetOverflow(type)};
+  .MuiCardContent-root {
+    padding: 8px;
+  }
 
   ${({ isDragging, isOver, theme }) =>
     isDragging &&
@@ -58,7 +67,7 @@ export const StyledCard = styled(
   `}
 
   a {
-    color: #fff;
+    color: ${COLORS.WHITE};
 
     &:hover {
       text-decoration: none;
@@ -70,13 +79,16 @@ StyledCard.propTypes = {
   columns: number.isRequired,
   goNewLine: bool.isRequired,
   rows: number.isRequired,
-  theme: object.isRequired,
-  status: string
+  theme: object.isRequired
+};
+
+StyledCard.defaultProps = {
+  status: ''
 };
 
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
-  ${({ title }) => !title && `position: absolute; right: 0;`}
+  padding: 8px;
 `;
 
 export const StyledCardContent = styled(CardContent)`
@@ -87,7 +99,7 @@ export const StyledCardContent = styled(CardContent)`
   justify-content: space-between;
 
   &:last-child {
-    padding-bottom: 16px;
+    padding-bottom: 8px;
   }
 
   .cardFootWrapper {
@@ -101,11 +113,13 @@ export const StyledCollapse = styled(
     <Collapse {...props} />
   )
 )`
-  bottom: 1px;
+  bottom: 2px;
   background-color: ${({ isDragging, status, theme }) =>
     !isDragging
       ? mapStatusToColor(status, theme)
       : theme.palette.background.paper};
+  box-shadow: ${({ isExpanded }) =>
+    isExpanded ? '4px 4px 4px rgba(0,0,0,0.3)' : 'none'};
   height: auto;
   opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
   padding: 0 16px 16px;
@@ -120,7 +134,7 @@ export const StyledCollapse = styled(
 export const StyledIconButton = styled(({ isExpanded, ...props }) => (
   <IconButton {...props} />
 ))`
-  marginleft: auto;
+  margin-left: auto;
   transform: ${({ isExpanded }) =>
     isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
   transition: transform 100ms linear;
@@ -128,6 +142,8 @@ export const StyledIconButton = styled(({ isExpanded, ...props }) => (
 
 export const StyledStatusIconButton = styled.a`
   display: flex;
+  flex-grow: 1;
+  align-items: center;
   justify-content: center;
   width: 100%;
   transition: 0.2s background-color;
@@ -142,5 +158,7 @@ export const StyledStatusIconButton = styled.a`
 export const StyledIconWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
+  height: 100%;
 `;

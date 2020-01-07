@@ -62,6 +62,10 @@ Use helpers below to minimize specfiles size. Keep in mind that some of those he
 
 `cy.logout()` - Log out of the application
 
+`getAuthenticationToken()` - Returns authentication token for username: admin
+
+`loginWithToken()` - Log in as admin
+
 ### Dashboard
 
 `cy.openDrawer()` - Open the Dashboard Drawer
@@ -87,3 +91,9 @@ Use helpers below to minimize specfiles size. Keep in mind that some of those he
 `cy.confirmAddWidget()` - Confirm creation of a widget.
 
 `cy.removeWidget(name)` - Remove a widget on the page, specified by its name (title).
+
+### Widget
+
+`setTestCredentials(testCredentials, authToken)` - API call which adds new testCredentials
+
+`setTestEndpoints(testEndpoints, authToken)` - API call which adds new testEndpoints

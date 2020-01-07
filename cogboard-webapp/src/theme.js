@@ -1,32 +1,46 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { amber, blue, green, red } from '@material-ui/core/colors/index';
+import { COLORS } from './constants';
 
 export const theme = createMuiTheme({
+  overrides: {
+    MuiCardHeader: {
+      action: {
+        marginTop: 0,
+        marginRight: 0
+      }
+    }
+  },
   palette: {
     type: 'dark',
     primary: {
-      main: '#198cbd'
+      main: COLORS.BLUE
     },
     secondary: {
-      main: '#1c2630'
+      main: COLORS.BKGD_DARK
     },
     background: {
-      default: '#fffafa',
-      paper: '#1c2630',
+      default: COLORS.BKGD_LIGHT,
+      paper: COLORS.BKGD_DARK,
       board: {
-        card: '#198cbd',
-        dragged: '#bbdefb'
+        card: COLORS.BLUE,
+        dragged: COLORS.LIGHT_BLUE
       }
     },
     status: {
-      UNKNOWN: '#26243e',
-      OK: '#019430',
-      IN_PROGRESS: '#198cbd',
-      UNSTABLE: '#ff5219',
-      ERROR_CONNECTION: '#e1312f',
-      ERROR_CONFIGURATION: '#e1312f',
-      ERROR: '#e1312f',
-      FAIL: '#e1312f'
+      TRANSPARENT: COLORS.TRANSPARENT,
+      CHECKBOX_OK: COLORS.GREEN,
+      CHECKBOX_FAIL: COLORS.RED,
+      CHECKBOX_UNKNOWN: COLORS.PURPLE,
+      NONE: COLORS.PURPLE,
+      UNKNOWN: COLORS.PURPLE,
+      OK: COLORS.GREEN,
+      IN_PROGRESS: COLORS.BLUE,
+      UNSTABLE: COLORS.ORANGE,
+      ERROR_CONNECTION: COLORS.RED,
+      ERROR_CONFIGURATION: COLORS.RED,
+      ERROR: COLORS.RED,
+      FAIL: COLORS.RED
     },
     snackbarVariant: {
       info: blue[100],

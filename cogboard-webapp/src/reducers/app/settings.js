@@ -1,13 +1,12 @@
 import {
-  mergeRight,
-  lensProp,
-  lensIndex,
-  set,
-  view,
-  reject,
-  append,
+  path,
   findIndex,
-  propEq
+  propEq,
+  assoc,
+  append,
+  update,
+  reject,
+  mergeRight
 } from 'ramda';
 
 import {
@@ -22,31 +21,24 @@ const initState = {
   credentials: []
 };
 
-const itemLens = name => lensProp(name);
-const viewItem = (state, name) => view(itemLens(name), state);
-
 const saveSettings = (state, payload) => mergeRight(state, payload);
 
 const addSettingsItem = (state, { name, item }) =>
-  set(itemLens(name), append(item, viewItem(state, name)), state);
+  assoc(name, append(item, path([name], state)), state);
 
 const editSettingsItem = (state, { name, item }) =>
-  set(
-    itemLens(name),
-    set(
-      lensIndex(findIndex(propEq('id', item.id))(viewItem(state, name))),
+  assoc(
+    name,
+    update(
+      findIndex(propEq('id', item.id))(path([name], state)),
       item,
-      viewItem(state, name)
+      path([name], state)
     ),
     state
   );
 
 const deleteSettingsItem = (state, { name, item }) =>
-  set(
-    itemLens(name),
-    reject(el => el.id === item.id, viewItem(state, name)),
-    state
-  );
+  assoc(name, reject(el => el.id === item.id, path([name], state)), state);
 
 const settings = (state = initState, { type, payload }) => {
   switch (type) {

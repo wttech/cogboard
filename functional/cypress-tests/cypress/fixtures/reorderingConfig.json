@@ -31,7 +31,7 @@
         "id": "widget_1",
         "title": "This is first Widget",
         "disabled": false,
-        "type": "DefaultWidget",
+        "type": "WhiteSpaceWidget",
         "scheduleDelay": 500,
         "config": {
           "columns": 1,
@@ -48,7 +48,7 @@
         "id": "widget_2",
         "title": "This is second Widget",
         "disabled": false,
-        "type": "DefaultWidget",
+        "type": "WhiteSpaceWidget",
         "scheduleDelay": 500,
         "config": {
           "columns": 1,
@@ -65,7 +65,7 @@
         "id": "widget_3",
         "title": "This is third Widget",
         "disabled": false,
-        "type": "DefaultWidget",
+        "type": "WhiteSpaceWidget",
         "scheduleDelay": 500,
         "config": {
           "columns": 1,

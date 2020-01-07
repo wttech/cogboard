@@ -1,9 +1,9 @@
 import Widgets from "../fixtures/Widgets";
 import { fillDynamicTab } from "../support/widgetDynamicTab";
 import { validateWidgetConfig } from "../support/widgetAssertions";
-let example = Widgets.example;
-let dashboardName = "Welcome to Cogboard";
-let widgetsKeys = Object.keys(Widgets);
+const example = Widgets.example;
+const dashboardName = "Welcome to Cogboard";
+const widgetsKeys = Object.keys(Widgets);
 
 describe("Widgets", () => {
   beforeEach(() => {
@@ -15,23 +15,27 @@ describe("Widgets", () => {
   });
 
   for (let i = 0; i < widgetsKeys.length; i++) {
-    let widget = widgetsKeys[i];
-    let name = Widgets[widget].name;
-    let title = `Test-${name}`;
+    const widget = widgetsKeys[i];
+    const name = Widgets[widget].name;
+    const title = `Test-${name}`;
+    let version = "";
+    if (name == "SonarQube") {
+      version = ` ${Widgets[widget].version}`;
+    }
 
-    it(`${name} can be configured and added by logged in user`, () => {
+    it(`${name}${version} can be configured and added by logged in user`, () => {
       cy.fillNewWidgetGeneral(name, title, false, false, 4, 2);
-      fillDynamicTab(name);
+      fillDynamicTab(name, version);
       cy.confirmAddWidget();
       cy.contains("h3", title).should("is.visible");
-      validateWidgetConfig(name);
+      validateWidgetConfig(name, version);
       cy.removeWidget(title);
       cy.contains("h3", title).should("not.exist");
     });
   }
 
   it("Example widget can be disabled", () => {
-    let title = `Test-${example.name}`;
+    const title = `Test-${example.name}`;
     cy.fillNewWidgetGeneral(example.name, title, false, true, 4, 2);
     fillDynamicTab(example.name);
     cy.confirmAddWidget();

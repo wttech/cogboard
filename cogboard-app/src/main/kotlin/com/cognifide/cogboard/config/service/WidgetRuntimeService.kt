@@ -23,12 +23,8 @@ class WidgetRuntimeService(
         return this
     }
 
-    fun deleteWidget(widgetConfig: JsonObject) {
-        stopAndRemove("Delete", widgetConfig)
-    }
-
-    fun purgeWidget(widgetConfig: JsonObject) {
-        stopAndRemove("Purge", widgetConfig)?.let {
+    fun destroyWidget(action: String, widgetConfig: JsonObject) {
+        stopAndRemove(action, widgetConfig)?.let {
             contentRepository.delete(it)
         }
     }
