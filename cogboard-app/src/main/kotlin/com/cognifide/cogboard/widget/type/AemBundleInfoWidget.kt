@@ -43,8 +43,8 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         return bundles
             .mapNotNull { it as JsonObject }
             .partition {
-                exclusions.contains(it.getString("symbolicName"))
-                    || exclusions.contains(it.getString("name"))
+                exclusions.contains(it.getString("symbolicName")) ||
+                    exclusions.contains(it.getString("name"))
             }
             .let { pair ->
                 Pair(
@@ -73,8 +73,8 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         val resolved = numericStatus[PROP_BUNDLE_STATUS_RESOLVED] ?: 0
         val installed = numericStatus[PROP_BUNDLE_STATUS_INSTALLED] ?: 0
 
-        if (resolved >= resolvedThreshold
-            || installed >= installedThreshold) {
+        if (resolved >= resolvedThreshold ||
+            installed >= installedThreshold) {
             return Widget.Status.ERROR
         }
 
