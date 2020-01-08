@@ -167,7 +167,8 @@ const Widget = ({ id, index }) => {
         {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
           <StyledCardHeader
             avatar={
-              !expandContent && (
+              !expandContent &&
+              !content.errorMessage && (
                 <StatusIcon status={widgetStatus} size="small" />
               )
             }
