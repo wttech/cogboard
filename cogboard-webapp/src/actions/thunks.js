@@ -225,7 +225,8 @@ const deleteCredentialThunk = id =>
   );
 
 const updateUserSettingsThunk = user => dispatch =>
-  fetchData(URL.UPDATE_USER_SETTINGS, { method: 'POST', data: user }).catch(
+  fetchData(URL.UPDATE_USER_SETTINGS, { method: 'POST', data: user }).then(
+    value => value,
     error => console.log(error)
   );
 
