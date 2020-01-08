@@ -12,6 +12,6 @@ categories:
   - title: 'Maintenance'
     label: 'maintenance'
   - title: 'Documentation'
-    label: 'docs'
+    label: 'documentation'
   - title: 'Dependency Updates'
     label: 'dependencies'
