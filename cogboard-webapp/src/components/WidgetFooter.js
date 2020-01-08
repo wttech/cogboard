@@ -1,7 +1,13 @@
 import React from 'react';
+import styled from '@emotion/styled/macro';
+
 import LastUpdate from './LastUpdate';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { StyledIconButton } from './Widget/styled';
+
+const CardFooterWrapper = styled.div`
+  height: 48px;
+`;
 
 const WidgetFooter = ({
   updateTimestamp,
@@ -13,7 +19,7 @@ const WidgetFooter = ({
   id
 }) => {
   return (
-    <div className="cardFootWrapper">
+    <CardFooterWrapper className="cardFootWrapper">
       {updateTimestamp && (
         <LastUpdate
           lastUpdateTime={new Date(updateTimestamp).toLocaleString()}
@@ -32,7 +38,7 @@ const WidgetFooter = ({
           <ExpandMoreIcon />
         </StyledIconButton>
       )}
-    </div>
+    </CardFooterWrapper>
   );
 };
 
