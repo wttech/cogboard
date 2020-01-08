@@ -73,13 +73,14 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         val resolved = numericStatus[PROP_BUNDLE_STATUS_RESOLVED] ?: 0
         val installed = numericStatus[PROP_BUNDLE_STATUS_INSTALLED] ?: 0
 
-        if (resolved >= resolvedThreshold ||
+        return if (resolved >= resolvedThreshold ||
             installed >= installedThreshold) {
-            return Widget.Status.ERROR
+            Widget.Status.ERROR
+        } else if (resolved == 0 && installed == 0) {
+            Widget.Status.OK
+        } else {
+            Widget.Status.UNSTABLE
         }
-
-        return if (resolved == 0 && installed == 0) Widget.Status.OK
-            else Widget.Status.UNSTABLE
     }
 
     private fun updateNumericStatusForExcluded(
@@ -100,7 +101,7 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
 
     override fun updateState() {
         if (url.isNotBlank()) {
-            httpGet("${url.trimEnd('/')}/system/console/bundles.json")
+            httpGet("$url/system/console/bundles.json")
         } else {
             sendConfigurationError("Endpoint URL is blank")
         }
