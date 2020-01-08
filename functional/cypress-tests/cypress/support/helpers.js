@@ -4,12 +4,8 @@ export const renewConfig = (config, newConfig) => {
     widgets: { allWidgets }
   } = config;
 
-  const filteredBoards = allBoards.filter(
-    id => !newConfig.boards.allBoards.includes(id)
-  );
-  const filteredWidgets = allWidgets.filter(
-    id => !newConfig.widgets.allWidgets.includes(id)
-  );
+  const filteredBoards = allBoards.filter(id => !newConfig.boards.allBoards.includes(id));
+  const filteredWidgets = allWidgets.filter(id => !newConfig.widgets.allWidgets.includes(id));
 
   const result = {
     ...config,
