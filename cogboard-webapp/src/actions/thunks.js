@@ -224,11 +224,10 @@ const deleteCredentialThunk = id =>
     deleteSettingsItem
   );
 
-const updateUserSettingsThunk = user => dispatch => {
+const updateUserSettingsThunk = user => dispatch =>
   fetchData(URL.UPDATE_USER_SETTINGS, { method: 'POST', data: user }).catch(
     error => console.log(error)
   );
-};
 
 export const addNewWidget = withAuthentication(
   makeWidgetUpdaterThunk(addWidget, createNewWidgetData)
