@@ -385,7 +385,8 @@ const dialogFields = {
   AemBundleExcluded: {
     component: MultilineTextInput,
     name: 'excludedBundles',
-    label: 'Excluded bundles (each line is a new entry)',
+    label:
+      'Excluded bundles (either symbolic or display name; each line is a new entry)',
     validator: () => string()
   },
   AemBundleResolvedThreshold: {
@@ -397,7 +398,7 @@ const dialogFields = {
     initialValue: 2,
     validator: () =>
       number()
-        .moreThan(0)
+        .min(0)
         .required(vm.FIELD_REQUIRED())
   },
   AemBundleInstalledThreshold: {
@@ -409,7 +410,7 @@ const dialogFields = {
     initialValue: 2,
     validator: () =>
       number()
-        .moreThan(0)
+        .min(0)
         .required(vm.FIELD_REQUIRED())
   }
 };
