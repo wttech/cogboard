@@ -22,7 +22,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "[skip travis] Bumb version" -a
+          # git commit -m "[skip travis] Bumb version" -a
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
