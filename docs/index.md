@@ -19,7 +19,6 @@
 
 ### Widgets:
 
-- [AEM Bundle info](./widget-aem-bundle-info)
 - [AEM Healthcheck](./widget-aem-healtcheck)
 - [Bamboo Deploy](./widget-bamboo-deploy)
 - [Bamboo Plan](./widget-bamboo-plan)
