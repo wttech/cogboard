@@ -34,8 +34,7 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
         results.getJsonArray("result")?.first().let {
             val result = it as JsonObject
 
-            result.put(CC.PROP_ERROR_MESSAGE, "")
-                    .put(CC.PROP_URL, extractUrl(result.getString("buildResultKey")))
+            result.put(CC.PROP_URL, extractUrl(result.getString("buildResultKey")))
                     .put(CC.PROP_WIDGET_STATUS, Widget.Status.from(result.getString("state")))
 
             send(JsonObject().put(CC.PROP_CONTENT, result))

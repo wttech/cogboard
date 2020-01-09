@@ -29,6 +29,9 @@ const updateWidget = (state, { payload }) => {
   const { id, content, ...other } = payload;
   const widget = state[id];
   const prevContent = widget.content;
+  prevContent.widgetStatus = null;
+  prevContent.errorMessage = null;
+  prevContent.errorCause = null;
 
   return {
     ...state,

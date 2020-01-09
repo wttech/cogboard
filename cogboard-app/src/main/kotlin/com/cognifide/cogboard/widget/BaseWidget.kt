@@ -118,8 +118,6 @@ abstract class BaseWidget(
 
     protected fun updateStateByCopingPropsToContent(props: Set<String>) {
         val content = JsonObject()
-        content.put(CC.PROP_ERROR_MESSAGE, "")
-                .put(CC.PROP_ERROR_CAUSE, "")
         props.forEach {
             content.put(it, config.getValue(it))
         }
@@ -141,11 +139,6 @@ abstract class BaseWidget(
 
     protected fun JsonObject.endpointProp(prop: String): String {
         return this.getJsonObject(CC.PROP_ENDPOINT)?.getString(prop) ?: ""
-    }
-
-    protected fun JsonObject.clearErrorMessageAndErrorCause() {
-        map[CC.PROP_ERROR_MESSAGE] = ""
-        map[CC.PROP_ERROR_CAUSE] = ""
     }
 
     companion object {

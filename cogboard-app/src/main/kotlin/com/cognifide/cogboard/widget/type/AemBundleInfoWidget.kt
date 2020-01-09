@@ -91,8 +91,6 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
     }
 
     private fun sendSuccess(content: JsonObject) {
-        content.put(CC.PROP_ERROR_MESSAGE, "")
-
         send(JsonObject().put(CC.PROP_CONTENT, content))
     }
 
