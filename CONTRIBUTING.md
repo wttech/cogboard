@@ -34,6 +34,7 @@ CogBoard's documentation can be found in [CogBoard Wiki](https://github.com/Cogn
 
 ### Kotlin
 
+[Detekt](https://github.com/arturbosch/detekt) is used to automatically check and format code on each build.
 
 ### JavaScript
 
