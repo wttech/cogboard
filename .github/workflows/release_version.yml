@@ -1,9 +1,7 @@
 on:
   create:
-    # Sequence of patterns matched against refs/tags
     tags:
-      - 'v*' # create events to matching v*, i.e. v1.0, v20.15.10
-
+      - 'v*'
 
 name: Release version
 
@@ -16,10 +14,25 @@ jobs:
         uses: actions/checkout@master
       - name: Release
         run: |
-          echo lets do the release
+          echo lets do the release.
       - name: Bump version
         run: |
           echo bumb version
-      - name: Create draft release
+      - name: Commit files
         run: |
-          echo create draft release
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "[skip travis] Bumb version" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create draft release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: new_version
+          draft: true
+          prerelease: false
