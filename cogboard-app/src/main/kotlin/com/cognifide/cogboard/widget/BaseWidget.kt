@@ -2,9 +2,7 @@ package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.config.service.WidgetRuntimeService
-import io.vertx.core.Handler
 import io.vertx.core.Vertx
-import io.vertx.core.eventbus.Message
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 import java.util.Date
@@ -115,9 +113,11 @@ abstract class BaseWidget(
         return config
     }
 
-    protected fun createDynamicChangeSubscriber(handler: Handler<Message<JsonObject>>) {
+    protected fun createDynamicChangeSubscriber(): MessageConsumer<JsonObject>? {
         consumer = vertx.eventBus()
-                .consumer<JsonObject>(WidgetRuntimeService.createWidgetContentUpdateAddress(id), handler)
+                .consumer<JsonObject>(WidgetRuntimeService.createWidgetContentUpdateAddress(id))
+
+        return consumer
     }
 
     protected fun updateStateByCopingPropsToContent(props: Set<String>) {
