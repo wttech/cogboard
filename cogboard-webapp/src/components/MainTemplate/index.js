@@ -82,18 +82,16 @@ const MainTemplate = () => {
             <Board path="/:boardId" />
           </Router>
           <StyledActions>
-            {isAuthenticated &&
-              isDataChanged &&
-              currentBoardType.type !== 'IframeBoard' && (
-                <StyledSaveFab
-                  onClick={handleSaveDataClick}
-                  aria-label="Save Data"
-                  color="secondary"
-                  data-cy="main-template-save-data-button"
-                >
-                  <Save />
-                </StyledSaveFab>
-              )}
+            {isAuthenticated && isDataChanged && (
+              <StyledSaveFab
+                onClick={handleSaveDataClick}
+                aria-label="Save Data"
+                color="secondary"
+                data-cy="main-template-save-data-button"
+              >
+                <Save />
+              </StyledSaveFab>
+            )}
             {isAuthenticated &&
               currentBoardId &&
               currentBoardType.type !== 'IframeBoard' && (

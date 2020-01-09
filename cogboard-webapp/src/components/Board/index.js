@@ -27,7 +27,11 @@ const Board = ({ boardId, className }) => {
   }
 
   return (
-    <StyledContainer className={className} columns={currentBoard.columns}>
+    <StyledContainer
+      className={className}
+      columns={currentBoard.columns}
+      boardType={currentBoard.type}
+    >
       <BoardType currentBoard={currentBoard} />
     </StyledContainer>
   );
