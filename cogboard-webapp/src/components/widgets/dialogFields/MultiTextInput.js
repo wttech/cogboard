@@ -14,10 +14,14 @@ import { v4 } from 'uuid';
 import { prepareChangeEvent } from './helpers';
 
 const MultiTextInput = ({ value, onChange }) => {
-  const [items, setItems] = useState(() => value || []);
+  const [items, setItems] = useState(() =>
+    (value || []).map(i => {
+      return { id: v4(), text: i };
+    })
+  );
   const [formValue, setFormValue] = useState('');
 
-  const handleChangeVal = e => setFormValue(e.target.value);
+  const handleChangeVal = event => setFormValue(event.target.value);
   const resetInput = () => setFormValue('');
   const handleDelete = itemIndex => {
     let itemList = remove(itemIndex, 1, items);
@@ -28,15 +32,16 @@ const MultiTextInput = ({ value, onChange }) => {
   const handleSave = itemText => {
     const trimmedText = itemText.trim();
     if (trimmedText.length > 0) {
-      let updatedItems = [...items, itemText];
+      const updatedItems = [...items, { id: v4(), text: itemText }];
+      const updatedItemsValues = updatedItems.map(item => item.text);
       setItems(updatedItems);
-      onChange(prepareChangeEvent(updatedItems, 'array'));
+      onChange(prepareChangeEvent(updatedItemsValues, 'array'));
     }
   };
 
-  const handleKeyPressed = (e, _) => {
-    if (e.which === 13 || e.key === 'Enter') {
-      e.preventDefault();
+  const handleKeyPressed = (event, _) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
 
       if (!formValue) {
         return false;
@@ -64,8 +69,8 @@ const MultiTextInput = ({ value, onChange }) => {
       />
       <List>
         {items.map((item, index) => (
-          <ListItem key={v4()} dense button>
-            <ListItemText primary={item} />
+          <ListItem key={item.id} dense button>
+            <ListItemText primary={item.text} />
             <ListItemSecondaryAction>
               <IconButton
                 aria-label="Delete"

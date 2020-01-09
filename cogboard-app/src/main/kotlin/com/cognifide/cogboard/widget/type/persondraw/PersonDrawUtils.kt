@@ -5,15 +5,10 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import kotlin.random.Random
 
-fun <T> List<T>.getNextListIndex(currentIndex: Int): Int {
-
-    if (this.isEmpty()) {
-        return -1
-    }
-
-    val nextIndex = if (currentIndex >= 0) currentIndex + 1 else 0
-
-    return if (this.isNotEmpty() && nextIndex < this.size) nextIndex else 0
+fun <T> List<T>.getNextListIndex(currentIndex: Int): Int = when {
+    this.isEmpty() -> -1
+    currentIndex in 0..(size - 2) -> currentIndex + 1
+    else -> 0
 }
 
 fun <T> List<T>.getRandomListIndex(usedIndexes: List<Int>): Int {

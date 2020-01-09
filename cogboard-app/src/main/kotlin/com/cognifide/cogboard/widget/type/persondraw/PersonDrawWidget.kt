@@ -13,6 +13,11 @@ import java.time.ZoneOffset
 class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsConfigService = BoardsConfigService()) :
         BaseWidget(vertx, config, boardService) {
 
+    private val interval: Long = config.getLong(PROP_INTERVAL, SELECT_INTERVAL)
+    private val randomize: Boolean = config.getBoolean(PROP_RANDOMIZE, false)
+    private val values: List<String> = config.getJsonArray(PROP_VALUES, JsonArray()).filterIsInstance<String>()
+    private val isDaily: Boolean = config.getBoolean(PROP_IS_DAILY, false)
+
     init {
         super.config.put(CogboardConstants.PROP_SCHEDULE_PERIOD, SYNC_INTERVAL)
         createDynamicChangeSubscriber()
@@ -32,11 +37,6 @@ class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsCon
     }
 
     private fun cycle(forceCycle: Boolean = false) {
-        val isDaily = config.getBoolean(PROP_IS_DAILY, false)
-        val values = config.getJsonArray(PROP_VALUES, JsonArray()).filterIsInstance<String>()
-        val randomize = config.getBoolean(PROP_RANDOMIZE, false)
-        val interval = config.getLong(PROP_INTERVAL, SELECT_INTERVAL)
-
         val widgetObject = ContentRepository().get(id)
         val currentIndex = widgetObject.getInteger(PROP_CONTENT_INDEX, -1)
         val updateDateMillis = widgetObject

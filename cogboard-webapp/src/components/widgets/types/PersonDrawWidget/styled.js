@@ -2,6 +2,6 @@ import styled from '@emotion/styled/macro';
 
 import { Typography } from '@material-ui/core';
 
-export const TypographyVariant = styled(Typography)`
+export const StyledTypography = styled(Typography)`
   height: 100%;
 `;

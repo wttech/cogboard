@@ -1,7 +1,7 @@
 import React from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
-import { TypographyVariant } from './styled';
+import { StyledTypography } from './styled';
 import { CenterWrapper } from '../TextWidget/styled';
 import { Refresh } from '@material-ui/icons';
 import { getIsAuthenticated } from '../../../../selectors';
@@ -25,7 +25,7 @@ const PersonDrawWidget = ({ id, multiTextInput, index }) => {
   return (
     <>
       <CenterWrapper>
-        <TypographyVariant>{caption}</TypographyVariant>
+        <StyledTypography>{caption}</StyledTypography>
       </CenterWrapper>
       {isAuthenticated && (
         <IconButton
