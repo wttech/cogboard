@@ -62,7 +62,6 @@ detekt {
 apply(from = "gradle/distribution.gradle.kts")
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
 apply(from = "gradle/docker.gradle.kts")
-apply(from = "gradle/release.gradle")
 
 //gradle.taskGraph.whenReady {
 //    this.allTasks.forEach { logger.error(it.path + " " + it.name) }
