@@ -39,7 +39,7 @@ class WidgetIndex {
             CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)
             AemBundleInfoWidget::class.java.simpleName -> AemBundleInfoWidget(vertx, config)
             // add here
-            else -> WhiteSpaceWidget.INSTANCE
+            else -> WhiteSpaceWidget(vertx, config)
         }
     }
 }

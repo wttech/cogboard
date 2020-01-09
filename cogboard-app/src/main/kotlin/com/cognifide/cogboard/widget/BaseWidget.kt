@@ -118,6 +118,8 @@ abstract class BaseWidget(
 
     protected fun updateStateByCopingPropsToContent(props: Set<String>) {
         val content = JsonObject()
+        content.put(CC.PROP_ERROR_MESSAGE, "")
+                .put(CC.PROP_ERROR_CAUSE, "")
         props.forEach {
             content.put(it, config.getValue(it))
         }
