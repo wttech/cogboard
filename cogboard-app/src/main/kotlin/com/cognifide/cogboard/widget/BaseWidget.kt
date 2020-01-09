@@ -2,12 +2,12 @@ package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.config.service.WidgetRuntimeService
+import io.vertx.core.Handler
 import io.vertx.core.Vertx
+import io.vertx.core.eventbus.Message
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
-import java.util.Date
-import java.util.Timer
-import java.util.TimerTask
+import java.util.*
 import kotlin.concurrent.timerTask
 import com.cognifide.cogboard.CogboardConstants as CC
 
@@ -16,10 +16,12 @@ import com.cognifide.cogboard.CogboardConstants as CC
  * This widget is meant for tasks that are not requesting 3rd party endpoints.
  */
 abstract class BaseWidget(
-    val vertx: Vertx,
-    val config: JsonObject,
-    private var boardService: BoardsConfigService = BoardsConfigService()
+        val vertx: Vertx,
+        val config: JsonObject,
+        private var boardService: BoardsConfigService = BoardsConfigService()
 ) : Widget {
+
+    private var consumer: MessageConsumer<JsonObject>? = null
 
     override val id: String
         get() = config.getString(CC.PROP_ID)
@@ -102,6 +104,7 @@ abstract class BaseWidget(
      * Will stop scheduled task from `start` method
      */
     override fun stop(): Widget {
+        consumer?.unregister()
         task?.cancel()
         return this
     }
@@ -110,10 +113,9 @@ abstract class BaseWidget(
         return config
     }
 
-    protected fun createDynamicChangeSubscriber(): MessageConsumer<JsonObject> {
-        return vertx
-            .eventBus()
-            .consumer<JsonObject>(WidgetRuntimeService.createWidgetContentUpdateAddress(id))
+    protected fun createDynamicChangeSubscriber(handler: Handler<Message<JsonObject>>) {
+        consumer = vertx.eventBus()
+                .consumer<JsonObject>(WidgetRuntimeService.createWidgetContentUpdateAddress(id), handler)
     }
 
     protected fun updateStateByCopingPropsToContent(props: Set<String>) {
