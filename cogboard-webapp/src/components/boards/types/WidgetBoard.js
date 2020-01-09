@@ -1,5 +1,5 @@
 import React from 'react';
-import { array } from 'prop-types';
+import { array, shape } from 'prop-types';
 import Widget from '../../Widget';
 
 const WidgetBoard = ({ currentBoard: { widgets: widgetIds } }) => {
@@ -9,7 +9,9 @@ const WidgetBoard = ({ currentBoard: { widgets: widgetIds } }) => {
 };
 
 WidgetBoard.propTypes = {
-  widgets: array.isRequired
+  currentBoard: shape({
+    widgets: array.isRequired
+  }).isRequired
 };
 
 export default WidgetBoard;
