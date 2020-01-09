@@ -7,9 +7,7 @@ import { Typography, Link } from '@material-ui/core';
 import { CaptionWithMargin, StyledPopoverWithControls } from './styled';
 
 const bundleArrayToHoverText = array =>
-  array
-    .map(object => `${object['name']} - ${object['state']}`)
-    .reduce((accumulator, pilot) => accumulator + '\n' + pilot);
+  array.map(object => `${object['name']} - ${object['state']}`).join('\n');
 
 const bundleArrayToComponents = array => (
   <>
