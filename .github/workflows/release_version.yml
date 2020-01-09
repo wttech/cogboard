@@ -1,0 +1,25 @@
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+
+name: Release version
+
+jobs:
+  build:
+    name: Release version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Release
+        run: |
+          echo lets do the release
+      - name: Bump version
+        run: |
+          echo bumb version
+      - name: Create draft release
+        run: |
+          echo create draft release
