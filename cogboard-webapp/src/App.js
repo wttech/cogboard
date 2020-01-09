@@ -5,12 +5,8 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { Router } from '@reach/router';
 
-import { fetchInitialData } from './actions/thunks';
-import {
-  updateWidget,
-  saveDataSuccess,
-  loginSuccess
-} from './actions/actionCreators';
+import { fetchInitialData, updateWidgetContent } from './actions/thunks';
+import { saveDataSuccess, loginSuccess } from './actions/actionCreators';
 import { theme } from './theme';
 
 import MainTemplate from './components/MainTemplate';
@@ -37,7 +33,7 @@ function App() {
         const { eventType, ...data } = JSON.parse(dataJson);
 
         if (eventType === 'widget-update') {
-          dispatch(updateWidget(data));
+          dispatch(updateWidgetContent(data));
         } else if (eventType === 'notification-config-save') {
           dispatch(saveDataSuccess());
         }
