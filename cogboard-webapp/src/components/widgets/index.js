@@ -79,7 +79,7 @@ const widgetTypes = {
   TextWidget: {
     name: 'Text',
     component: TextWidget,
-    dialogFields: ['Text', 'TextSize', 'TextOrientation'],
+    dialogFields: ['Text', 'TextSize', 'TextOrientation', 'ExpandableContent'],
     validationConstraints: {
       Text: { max: 240 }
     }

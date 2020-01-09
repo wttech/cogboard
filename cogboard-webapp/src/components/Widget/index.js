@@ -162,7 +162,7 @@ const Widget = ({ id, index }) => {
         isOver={isOver}
         ref={ref}
         type={type}
-        expanded
+        expanded={expanded}
       >
         {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
           <StyledCardHeader
@@ -216,6 +216,7 @@ const Widget = ({ id, index }) => {
         {expandContent && (
           <StyledCollapse
             isExpanded={expanded}
+            type={type}
             status={widgetStatus}
             theme={theme}
             isDragging={isDragging}
