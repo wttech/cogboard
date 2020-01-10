@@ -20,7 +20,8 @@ jobs:
           export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
           echo current version $VERSION
           export NEXT_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-          sed -i "s%version=.*%version=NEXT_$VERSION%g" gradle.properties
+          echo current version NEXT_VERSION
+          sed -i "s%version=.*%version=$NEXT_VERSION%g" gradle.properties
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
