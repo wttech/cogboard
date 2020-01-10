@@ -9,6 +9,7 @@ import com.cognifide.cogboard.widget.type.WhiteSpaceWidget
 import com.cognifide.cogboard.widget.type.ExampleWidget
 import com.cognifide.cogboard.widget.type.IframeEmbedWidget
 import com.cognifide.cogboard.widget.type.JenkinsJobWidget
+import com.cognifide.cogboard.widget.type.persondraw.PersonDrawWidget
 import com.cognifide.cogboard.widget.type.ServiceCheckWidget
 import com.cognifide.cogboard.widget.type.sonarqube.SonarQubeWidget
 import com.cognifide.cogboard.widget.type.TextWidget
@@ -37,6 +38,7 @@ class WidgetIndex {
             IframeEmbedWidget::class.java.simpleName -> IframeEmbedWidget(vertx, config)
             WorldClockWidget::class.java.simpleName -> WorldClockWidget(vertx, config)
             CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)
+            PersonDrawWidget::class.java.simpleName -> PersonDrawWidget(vertx, config)
             AemBundleInfoWidget::class.java.simpleName -> AemBundleInfoWidget(vertx, config)
             // add here
             else -> WhiteSpaceWidget.INSTANCE

@@ -224,6 +224,15 @@ const deleteCredentialThunk = id =>
     deleteSettingsItem
   );
 
+export const updateWidgetContent = data => (dispatch, getState) => {
+  const { id } = data;
+  const { widgetsById } = getState().widgets;
+
+  if (id in widgetsById) {
+    dispatch(updateWidget(data));
+  }
+};
+
 export const addNewWidget = withAuthentication(
   makeWidgetUpdaterThunk(addWidget, createNewWidgetData)
 );
