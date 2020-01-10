@@ -2,7 +2,7 @@ import Widgets from '../fixtures/Widgets';
 import { fillDynamicTab } from '../support/widgetDynamicTab';
 import { dashboardNameGen } from '../fixtures/Dashboard';
 
-const example = Widgets.example;
+const example = Widgets.whiteSpace;
 
 describe('Dashboard Persistence', () => {
   beforeEach(() => {

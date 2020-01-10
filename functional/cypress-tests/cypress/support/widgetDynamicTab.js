@@ -57,7 +57,7 @@ export function fillBambooPlan() {
 }
 
 export function fillExample() {
-  cy.fillSchedulePeriod(Widgets.example.schedulePeriod);
+  cy.fillSchedulePeriod(Widgets.whiteSpace.schedulePeriod);
 }
 
 export function fillIframeEmbed() {
