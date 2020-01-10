@@ -91,12 +91,7 @@ export const ItemTypes = {
   BOARD: 'board'
 };
 
-export const BoardTypes = {
-  WIDGET_BOARD: 'WidgetBoard',
-  IFRAME_BOARD: 'IframeBoard'
-};
-
-export const DEFAULT_BOARD_TYPE = BoardTypes.WIDGET_BOARD;
+export const DEFAULT_BOARD_TYPE = 'WidgetBoard';
 
 export const AEM_HEALTH_CHECKS = {
   inactiveBundles: 'Active Bundles',

@@ -15,7 +15,8 @@ import {
   BOARD_TITLE_LENGTH_LIMIT,
   BOARD_COLUMNS_MIN,
   BOARD_COLUMNS_MAX,
-  SWITCH_INTERVAL_MIN
+  SWITCH_INTERVAL_MIN,
+  DEFAULT_BOARD_TYPE
 } from '../../constants';
 
 const BoardForm = ({
@@ -108,7 +109,7 @@ BoardForm.defaultProps = {
   columns: 8,
   switchInterval: 60,
   title: 'Board',
-  type: 'WidgetBoard'
+  type: DEFAULT_BOARD_TYPE
 };
 
 export default BoardForm;
