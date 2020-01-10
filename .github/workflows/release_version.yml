@@ -20,8 +20,8 @@ jobs:
           export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
           echo current version $VERSION
           export NEXT_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-          echo current version NEXT_VERSION
-          sed -i "s%version=.*%version=$NEXT_VERSION%g" gradle.properties
+          echo current version $NEXT_VERSION
+          sed -i "1s%version=.*%version=$NEXT_VERSION%g" gradle.properties
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
@@ -36,7 +36,7 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NEXT_VERSION: $(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
+          NEXT_VERSION: ${{ sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties }}
         with:
           tag_name: v$NEXT_VERSION
           release_name: draft
