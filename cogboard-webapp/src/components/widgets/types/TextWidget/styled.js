@@ -24,6 +24,7 @@ export const StyledPre = styled.pre`
 
 export const RotatedStyledPre = styled(StyledPre)`
   transform: rotate(-90deg);
+  white-space: nowrap;
 `;
 
 export const OverflowingText = component => styled(component)`
