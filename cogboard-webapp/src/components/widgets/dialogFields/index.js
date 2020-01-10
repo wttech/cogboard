@@ -286,7 +286,11 @@ const dialogFields = {
     validator: () => string()
   },
   DateFormat: {
-    component: DisplayValueSelect,
+    component: conditionallyHidden(
+      DisplayValueSelect,
+      'displayDate',
+      value => value
+    ),
     name: 'dateFormat',
     label: 'Date Format',
     dropdownItems: DATE_FORMATS,
@@ -294,7 +298,11 @@ const dialogFields = {
     validator: () => string()
   },
   TimeFormat: {
-    component: DisplayValueSelect,
+    component: conditionallyHidden(
+      DisplayValueSelect,
+      'displayTime',
+      value => value
+    ),
     name: 'timeFormat',
     label: 'Time Format',
     dropdownItems: TIME_FORMATS,
@@ -419,7 +427,8 @@ const dialogFields = {
   AemBundleExcluded: {
     component: MultilineTextInput,
     name: 'excludedBundles',
-    label: 'Excluded bundles (each line is a new entry)',
+    label:
+      'Excluded bundles (either symbolic or display name; each line is a new entry)',
     validator: () => string()
   },
   AemBundleResolvedThreshold: {
@@ -431,7 +440,7 @@ const dialogFields = {
     initialValue: 2,
     validator: () =>
       number()
-        .moreThan(0)
+        .min(0)
         .required(vm.FIELD_REQUIRED())
   },
   AemBundleInstalledThreshold: {
@@ -443,7 +452,7 @@ const dialogFields = {
     initialValue: 2,
     validator: () =>
       number()
-        .moreThan(0)
+        .min(0)
         .required(vm.FIELD_REQUIRED())
   }
 };

@@ -118,10 +118,10 @@ const widgetTypes = {
     component: WorldClockWidget,
     dialogFields: [
       'TimeZoneId',
-      'DateFormat',
-      'TimeFormat',
       'DisplayDate',
+      'DateFormat',
       'DisplayTime',
+      'TimeFormat',
       'TextSize'
     ]
   },

@@ -162,7 +162,7 @@ const Widget = ({ id, index }) => {
         isOver={isOver}
         ref={ref}
         type={type}
-        expanded
+        expanded="true"
       >
         {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
           <StyledCardHeader
