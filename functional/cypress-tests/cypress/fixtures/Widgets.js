@@ -88,10 +88,6 @@ module.exports = {
   whiteSpace: {
     name: 'White Space'
   },
-  example: {
-    name: 'Example',
-    schedulePeriod: '100'
-  },
   iframeEmbed: {
     name: 'Iframe Embed',
     url: 'http://www.example.com/'

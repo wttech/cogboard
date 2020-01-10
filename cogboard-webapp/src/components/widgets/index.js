@@ -1,5 +1,4 @@
 import WhiteSpaceWidget from './types/WhiteSpaceWidget';
-import ExampleWidget from './types/ExampleWidget';
 import JenkinsJobWidget from './types/JenkinsJobWidget';
 import SonarQubeWidget from './types/SonarQubeWidget';
 import ServiceCheckWidget from './types/ServiceCheckWidget';
@@ -18,15 +17,6 @@ const widgetTypes = {
     name: 'White Space',
     component: WhiteSpaceWidget,
     initialStatus: 'NONE'
-  },
-  ExampleWidget: {
-    name: 'Example',
-    component: ExampleWidget,
-    dialogFields: ['SchedulePeriod'],
-    showUpdateTime: true,
-    validationConstraints: {
-      SchedulePeriod: { min: 3 }
-    }
   },
   JenkinsJobWidget: {
     name: 'Jenkins Job',
