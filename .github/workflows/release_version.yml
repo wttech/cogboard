@@ -21,7 +21,7 @@ jobs:
           echo current version $VERSION
           export NEXT_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
           echo current version $NEXT_VERSION
-          sed -i "s%version=.*%version=$NEXT_VERSION%g" gradle.properties
+          sed -i "1s%version=.*%version=$NEXT_VERSION%g" gradle.properties
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
