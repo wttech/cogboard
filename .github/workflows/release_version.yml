@@ -17,7 +17,7 @@ jobs:
           echo lets do the release.
       - name: Bump version
         run: |
-          sed -i "s%version=.*%version=$VERSION%g" gradle.properties
+          sed -i "s%version=.*%version=${{ VERSION }}%g" gradle.properties
         env:
           VERSION: $(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
       - name: Commit files
