@@ -16,7 +16,7 @@ const widgetTypes = {
   WhiteSpaceWidget: {
     name: 'White Space',
     component: WhiteSpaceWidget,
-    initialStatus: 'NONE'
+    initialStatus: 'TRANSPARENT'
   },
   JenkinsJobWidget: {
     name: 'Jenkins Job',

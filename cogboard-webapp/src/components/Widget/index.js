@@ -49,7 +49,6 @@ const Widget = ({ id, index }) => {
   const widgetTypeConfig = widgetTypes[type];
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
-  const { alwaysShowHeader } = widgetTypeConfig;
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -169,10 +168,7 @@ const Widget = ({ id, index }) => {
         type={type}
         expanded="true"
       >
-        {(isAuthenticated ||
-          widgetStatus !== 'NONE' ||
-          title !== '' ||
-          alwaysShowHeader) && (
+        {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
           <WidgetHeader
             isEmptyHeader={isEmptyHeader}
             avatar={
