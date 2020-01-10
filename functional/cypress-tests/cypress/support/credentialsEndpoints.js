@@ -3,18 +3,18 @@ Cypress.Commands.add('setTestCredentials', (testCredentials, authToken) => {
     method: 'POST',
     url: '/api/credentials',
     auth: {
-      'bearer': authToken.split(' ')[1]
+      bearer: authToken.split(' ')[1]
     },
     headers: {
       'Content-Type': 'application/json',
-      'Accept': '*/*',
+      Accept: '*/*',
       'Sec-Fetch-Site': 'same-origin',
       'Sec-Fetch-Mode': 'cors'
     },
     body: testCredentials,
     followRedirect: false,
     failOnStatusCode: true
-  });     
+  });
 });
 
 Cypress.Commands.add('setTestEndpoints', (testEndpoints, authToken) => {
@@ -22,16 +22,16 @@ Cypress.Commands.add('setTestEndpoints', (testEndpoints, authToken) => {
     method: 'POST',
     url: '/api/endpoints',
     auth: {
-      'bearer': authToken.split(' ')[1]
+      bearer: authToken.split(' ')[1]
     },
     headers: {
       'Content-Type': 'application/json',
-      'Accept': '*/*',
+      Accept: '*/*',
       'Sec-Fetch-Site': 'same-origin',
       'Sec-Fetch-Mode': 'cors'
     },
     body: testEndpoints,
     followRedirect: false,
     failOnStatusCode: true
-  });     
+  });
 });

@@ -24,28 +24,21 @@ describe('Widgets', () => {
     }
 
     it(`${name}${version} can be configured and added by logged in user`, () => {
-      cy.fillNewWidgetGeneral(
-        name, title, false, false, 4, 2
-      );
+      cy.fillNewWidgetGeneral(name, title, false, false, 4, 2);
       fillDynamicTab(name, version);
       cy.confirmAddWidget();
-      cy.contains('h3', title)
-        .should('is.visible');
+      cy.contains('h3', title).should('is.visible');
       validateWidgetConfig(name, version);
       cy.removeWidget(title);
-      cy.contains('h3', title)
-        .should('not.exist');
+      cy.contains('h3', title).should('not.exist');
     });
   }
 
   it('Example widget can be disabled', () => {
     const title = `Test-${example.name}`;
-    cy.fillNewWidgetGeneral(
-      example.name, title, false, true, 4, 2
-    );
+    cy.fillNewWidgetGeneral(example.name, title, false, true, 4, 2);
     fillDynamicTab(example.name);
     cy.confirmAddWidget();
-    cy.contains('Disabled')
-      .should('is.visible');
+    cy.contains('Disabled').should('is.visible');
   });
 });
