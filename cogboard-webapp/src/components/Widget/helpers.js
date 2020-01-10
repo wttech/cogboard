@@ -38,7 +38,7 @@ export const renderCardContent = (
       ) : !disabled && !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
-        <AlwaysVisibleContent
+        <ExpandableContent
           type={type}
           status={status}
           content={content}
@@ -60,7 +60,7 @@ export const renderCardContent = (
   );
 };
 
-const AlwaysVisibleContent = ({ type, status, content, expanded }) => {
+const ExpandableContent = ({ type, status, content, expanded }) => {
   return type !== 'TextWidget' ? (
     <WidgetTypeIcon type={type} status={status} content={content} />
   ) : expanded ? null : (
