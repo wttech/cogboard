@@ -92,11 +92,16 @@ export const StyledCardHeader = styled(CardHeader)`
   min-height: 40px;
 `;
 
-export const StyledEmptyCardHeader = styled(StyledCardHeader)`
+export const StyledEmptyCardHeader = styled(props => (
+  <StyledCardHeader
+    classes={{ avatar: 'avatar' }}
+    {...props}
+  ></StyledCardHeader>
+))`
   position: absolute;
   right: 0;
 
-  .MuiCardHeader-avatar {
+  & .avatar {
     margin-right: 0;
   }
 `;
