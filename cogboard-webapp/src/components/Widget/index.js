@@ -60,6 +60,7 @@ const Widget = ({ id, index }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
     isAuthenticated && type === 'WhiteSpaceWidget';
+  const isError = content === undefined ? false : !!content.errorMessage;
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
     canDrag: isAuthenticated,
@@ -168,9 +169,7 @@ const Widget = ({ id, index }) => {
           <StyledCardHeader
             avatar={
               !expandContent &&
-              !content.errorMessage && (
-                <StatusIcon status={widgetStatus} size="small" />
-              )
+              !isError && <StatusIcon status={widgetStatus} size="small" />
             }
             title={title}
             titleTypographyProps={{
