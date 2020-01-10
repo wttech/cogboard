@@ -16,11 +16,13 @@ jobs:
         run: |
           echo lets do the release.
       - name: Bump version
+        id: bump_version
         run: |
           export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
           echo current version $VERSION
           export NEXT_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
           echo current version $NEXT_VERSION
+          echo "::set-output name=next_ver::$NEXT_VERSION"
           sed -i "1s%version=.*%version=$NEXT_VERSION%g" gradle.properties
       - name: Commit files
         run: |
@@ -36,9 +38,8 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NEXT_VERSION: ${{ sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties }}
         with:
-          tag_name: v$NEXT_VERSION
+          tag_name: v${{ steps.bump_version.outputs.next_ver }}
           release_name: draft
           draft: true
           prerelease: false
