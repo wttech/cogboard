@@ -45,8 +45,10 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const { expandContent } = widgetTypeData;
-  const widgetStatus = getWidgetStatus(content, type);
-  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
+  const widgetTypeConfig = widgetTypes[type];
+  const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
+  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
+  const { alwaysShowHeader } = widgetTypeConfig;
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -164,9 +166,7 @@ const Widget = ({ id, index }) => {
         type={type}
         expanded="true"
       >
-        {(isAuthenticated ||
-          widgetStatus !== 'NONE' ||
-          type === 'TextWidget') && (
+        {(isAuthenticated || widgetStatus !== 'NONE' || alwaysShowHeader) && (
           <StyledCardHeader
             avatar={
               !expandContent && (
