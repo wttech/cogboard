@@ -46,6 +46,23 @@
   },
   "widgets": {
     "widgetsById": {
+      "widget1": {
+        "id": "widget1",
+        "title": "Example Widget",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1",
+        "text": "Example Text Widget",
+        "textSize": "h5",
+        "isVertical": false
+      },
       "widget2": {
         "id": "widget2",
         "title": "Jenkins Success",
