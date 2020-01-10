@@ -20,7 +20,7 @@ class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsCon
 
     init {
         super.config.put(CogboardConstants.PROP_SCHEDULE_PERIOD, SYNC_INTERVAL)
-        createDynamicChangeSubscriber()?.handler{ userEventCycle() }
+        createDynamicChangeSubscriber()?.handler { userEventCycle() }
     }
 
     override fun updateState() {
