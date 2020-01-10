@@ -16,12 +16,8 @@ import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent, dispatchEvent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import {
-  StyledCard,
-  StyledCardHeader,
-  StyledEmptyCardHeader,
-  StyledCollapse
-} from './styled';
+import { StyledCard, StyledCollapse } from './styled';
+import WidgetHeader from '../WidgetHeader';
 import WidgetContent from '../WidgetContent';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
@@ -139,14 +135,6 @@ const Widget = ({ id, index }) => {
     closeConfirmationDialog();
   };
 
-  const RenderedCardHeader = ({ isEmptyHeader, ...otherProps }) => {
-    if (isEmptyHeader) {
-      return <StyledEmptyCardHeader {...otherProps} />;
-    }
-
-    return <StyledCardHeader {...otherProps} />;
-  };
-
   const handleCollapseScrollIntoView = () => {
     const { top, height } = ref.current
       .querySelectorAll(selectors.collapse)[0]
@@ -179,7 +167,7 @@ const Widget = ({ id, index }) => {
         expanded
       >
         {(isAuthenticated || !isEmptyHeader) && (
-          <RenderedCardHeader
+          <WidgetHeader
             isEmptyHeader={isEmptyHeader}
             avatar={
               !expandContent && (
