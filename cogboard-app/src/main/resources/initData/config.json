@@ -46,21 +46,6 @@
   },
   "widgets": {
     "widgetsById": {
-      "widget1": {
-        "id": "widget1",
-        "title": "Example Widget",
-        "config": {
-          "columns": 1,
-          "goNewLine": false,
-          "rows": 1
-        },
-        "type": "ExampleWidget",
-        "disabled": false,
-        "content": {},
-        "isUpdating": false,
-        "boardId": "board1",
-        "schedulePeriod": 3
-      },
       "widget2": {
         "id": "widget2",
         "title": "Jenkins Success",
