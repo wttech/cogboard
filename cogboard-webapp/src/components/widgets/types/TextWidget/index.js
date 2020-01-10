@@ -68,4 +68,8 @@ TextWidget.propTypes = {
   singleLine: bool
 };
 
+TextWidget.defaultProps = {
+  singleLine: false
+};
+
 export default TextWidget;
