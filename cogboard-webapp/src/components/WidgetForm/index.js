@@ -111,7 +111,7 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
         variant="contained"
         data-cy="widget-form-submit-button"
       >
-        Save
+        Ok
       </Button>
       <StyledCancelButton
         handleCancelClick={handleCancel}

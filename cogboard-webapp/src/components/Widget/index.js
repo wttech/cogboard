@@ -46,8 +46,10 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const { expandContent } = widgetTypeData;
-  const widgetStatus = getWidgetStatus(content, type);
-  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
+  const widgetTypeConfig = widgetTypes[type];
+  const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
+  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
+  const { alwaysShowHeader } = widgetTypeConfig;
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -61,7 +63,8 @@ const Widget = ({ id, index }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
     isAuthenticated && type === 'WhiteSpaceWidget';
-  const isEmptyHeader = widgetStatus === 'NONE' && title === '';
+  const isEmptyHeader = title === '';
+  const isError = content === undefined ? false : !!content.errorMessage;
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
     canDrag: isAuthenticated,
@@ -164,15 +167,14 @@ const Widget = ({ id, index }) => {
         isOver={isOver}
         ref={ref}
         type={type}
-        expanded
+        expanded="true"
       >
-        {(isAuthenticated || !isEmptyHeader) && (
+        {(isAuthenticated || widgetStatus !== 'NONE' || alwaysShowHeader) && (
           <WidgetHeader
             isEmptyHeader={isEmptyHeader}
             avatar={
-              !expandContent && (
-                <StatusIcon status={widgetStatus} size="small" />
-              )
+              !expandContent &&
+              !isError && <StatusIcon status={widgetStatus} size="small" />
             }
             title={title}
             titleTypographyProps={{

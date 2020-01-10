@@ -10,12 +10,14 @@ import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
 import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
+import PersonDrawWidget from './types/PersonDrawWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
     name: 'White Space',
-    component: WhiteSpaceWidget
+    component: WhiteSpaceWidget,
+    initialStatus: 'NONE'
   },
   ExampleWidget: {
     name: 'Example',
@@ -82,7 +84,9 @@ const widgetTypes = {
     dialogFields: ['Text', 'TextSize', 'TextOrientation'],
     validationConstraints: {
       Text: { max: 240 }
-    }
+    },
+    initialStatus: 'NONE',
+    alwaysShowHeader: true
   },
   BambooPlanWidget: {
     name: 'Bamboo Plan',
@@ -117,22 +121,25 @@ const widgetTypes = {
     component: WorldClockWidget,
     dialogFields: [
       'TimeZoneId',
-      'DateFormat',
-      'TimeFormat',
       'DisplayDate',
+      'DateFormat',
       'DisplayTime',
+      'TimeFormat',
       'TextSize'
-    ]
+    ],
+    initialStatus: 'NONE'
   },
   IframeEmbedWidget: {
     name: 'Iframe Embed',
     component: IframeEmbedWidget,
-    dialogFields: ['IFrameURL']
+    dialogFields: ['IFrameURL'],
+    initialStatus: 'NONE'
   },
   CheckboxWidget: {
     name: 'Checkbox',
     component: CheckboxWidget,
-    showUpdateTime: true
+    showUpdateTime: true,
+    initialStatus: 'NONE'
   },
   AemHealthcheckWidget: {
     name: 'AEM Healthcheck',
@@ -148,6 +155,18 @@ const widgetTypes = {
       SchedulePeriod: { min: 3 },
       AemHealthcheckInput: { minArrayLength: 1 }
     }
+  },
+  PersonDrawWidget: {
+    name: 'Person Draw',
+    component: PersonDrawWidget,
+    dialogFields: [
+      'RandomCheckbox',
+      'DailySwitch',
+      'PersonDrawInterval',
+      'MultiTextInput'
+    ],
+    showUpdateTime: false,
+    validationConstraints: {}
   },
   AemBundleInfoWidget: {
     name: 'AEM Bundle Info',

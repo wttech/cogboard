@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import widgetTypes from '../../../widgets';
+
 import { setWidgetState } from '../../../../actions/thunks';
 import getNextStatus from './helpers';
 
@@ -13,7 +15,7 @@ import { getWidgetStatus } from '../../../../utils/components';
 const CheckboxWidget = ({ id }) => {
   const dispatch = useDispatch();
   const { content } = useSelector(({ widgets }) => widgets.widgetsById[id]);
-  const widgetStatus = getWidgetStatus(content, 'CheckboxWidget');
+  const widgetStatus = getWidgetStatus(content, widgetTypes['CheckboxWidget']);
 
   const ariaCheckedStatusMap = {
     CHECKBOX_OK: true,

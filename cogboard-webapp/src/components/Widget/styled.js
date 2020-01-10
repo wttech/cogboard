@@ -90,7 +90,6 @@ export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
   padding: 8px;
   min-height: 40px;
-`;
 
 export const StyledEmptyCardHeader = styled(props => (
   <StyledCardHeader classes={{ avatar: 'avatar' }} {...props} />

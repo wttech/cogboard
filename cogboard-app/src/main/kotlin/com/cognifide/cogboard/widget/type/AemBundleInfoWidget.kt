@@ -42,7 +42,10 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
     private fun getFilteredBundles(bundles: List<Any?>): Pair<List<JsonObject>, List<JsonObject>> {
         return bundles
             .mapNotNull { it as JsonObject }
-            .partition { exclusions.contains(it.getString("symbolicName")) }
+            .partition {
+                exclusions.contains(it.getString("symbolicName")) ||
+                    exclusions.contains(it.getString("name"))
+            }
             .let { pair ->
                 Pair(
                     pair.first,
@@ -70,14 +73,14 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         val resolved = numericStatus[PROP_BUNDLE_STATUS_RESOLVED] ?: 0
         val installed = numericStatus[PROP_BUNDLE_STATUS_INSTALLED] ?: 0
 
-        if (resolved > 0) {
-            return if (resolved < resolvedThreshold) Widget.Status.UNSTABLE else Widget.Status.ERROR
+        return if (resolved >= resolvedThreshold ||
+            installed >= installedThreshold) {
+            Widget.Status.ERROR
+        } else if (resolved == 0 && installed == 0) {
+            Widget.Status.OK
+        } else {
+            Widget.Status.UNSTABLE
         }
-        if (installed > 0) {
-            return if (installed < installedThreshold) Widget.Status.UNSTABLE else Widget.Status.ERROR
-        }
-
-        return Widget.Status.OK
     }
 
     private fun updateNumericStatusForExcluded(

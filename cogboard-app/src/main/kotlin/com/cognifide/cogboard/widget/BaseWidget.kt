@@ -21,6 +21,8 @@ abstract class BaseWidget(
     private var boardService: BoardsConfigService = BoardsConfigService()
 ) : Widget {
 
+    private var consumer: MessageConsumer<JsonObject>? = null
+
     override val id: String
         get() = config.getString(CC.PROP_ID)
 
@@ -102,6 +104,7 @@ abstract class BaseWidget(
      * Will stop scheduled task from `start` method
      */
     override fun stop(): Widget {
+        consumer?.unregister()
         task?.cancel()
         return this
     }
@@ -110,10 +113,11 @@ abstract class BaseWidget(
         return config
     }
 
-    protected fun createDynamicChangeSubscriber(): MessageConsumer<JsonObject> {
-        return vertx
-            .eventBus()
-            .consumer<JsonObject>(WidgetRuntimeService.createWidgetContentUpdateAddress(id))
+    protected fun createDynamicChangeSubscriber(): MessageConsumer<JsonObject>? {
+        consumer = vertx.eventBus()
+                .consumer<JsonObject>(WidgetRuntimeService.createWidgetContentUpdateAddress(id))
+
+        return consumer
     }
 
     protected fun updateStateByCopingPropsToContent(props: Set<String>) {
