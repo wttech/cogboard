@@ -129,7 +129,7 @@ const widgetTypes = {
     name: 'Checkbox',
     component: CheckboxWidget,
     showUpdateTime: true,
-    initialStatus: 'NONE'
+    initialStatus: 'CHECKBOX_UNKNOWN'
   },
   AemHealthcheckWidget: {
     name: 'AEM Healthcheck',
