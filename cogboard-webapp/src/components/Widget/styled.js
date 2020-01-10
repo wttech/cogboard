@@ -93,10 +93,7 @@ export const StyledCardHeader = styled(CardHeader)`
 `;
 
 export const StyledEmptyCardHeader = styled(props => (
-  <StyledCardHeader
-    classes={{ avatar: 'avatar' }}
-    {...props}
-  ></StyledCardHeader>
+  <StyledCardHeader classes={{ avatar: 'avatar' }} {...props} />
 ))`
   position: absolute;
   right: 0;
