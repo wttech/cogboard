@@ -169,7 +169,10 @@ const Widget = ({ id, index }) => {
         type={type}
         expanded="true"
       >
-        {(isAuthenticated || widgetStatus !== 'NONE' || alwaysShowHeader) && (
+        {(isAuthenticated ||
+          widgetStatus !== 'NONE' ||
+          title !== '' ||
+          alwaysShowHeader) && (
           <WidgetHeader
             isEmptyHeader={isEmptyHeader}
             avatar={

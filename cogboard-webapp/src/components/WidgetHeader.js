@@ -3,12 +3,12 @@ import { bool, object } from 'prop-types';
 
 import { StyledCardHeader, StyledEmptyCardHeader } from './Widget/styled';
 
-const WidgetHeader = ({ isEmptyHeader, ...otherProps }) => {
+const WidgetHeader = ({ isEmptyHeader, ...other }) => {
   if (isEmptyHeader) {
-    return <StyledEmptyCardHeader {...otherProps} />;
+    return <StyledEmptyCardHeader {...other} />;
   }
 
-  return <StyledCardHeader {...otherProps} />;
+  return <StyledCardHeader {...other} />;
 };
 
 WidgetHeader.propTypes = {
