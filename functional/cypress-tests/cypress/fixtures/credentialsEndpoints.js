@@ -1,4 +1,4 @@
-export const testCredential = (timestamp) => {
+export const testCredential = timestamp => {
   return {
     password: 'TestPassword1',
     user: 'TestUser1',
@@ -6,7 +6,7 @@ export const testCredential = (timestamp) => {
   };
 };
 
-export const testEndpoint = (timestamp) => {
+export const testEndpoint = timestamp => {
   return {
     label: `TE-${timestamp}`,
     url: 'http://cognifide.com',
