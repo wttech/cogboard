@@ -61,9 +61,9 @@ export const renderCardContent = (
 };
 
 const ExpandableContent = ({ type, status, content, expanded }) => {
-  return type !== 'TextWidget' ? (
-    <WidgetTypeIcon type={type} status={status} content={content} />
-  ) : expanded ? null : (
-    <TextWidget {...content} singleLine={true} />
-  );
+  if (type !== 'TextWidget') {
+    return <WidgetTypeIcon type={type} status={status} content={content} />;
+  } else {
+    return !expanded ? <TextWidget {...content} singleLine={true} /> : null;
+  }
 };
