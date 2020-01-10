@@ -3,8 +3,8 @@ import boardTypes from '../boards';
 
 export const getColumns = props => props.columns * COLUMN_MULTIPLIER;
 
-export const getBoardType = currentBoard => {
-  return currentBoard.type
-    ? boardTypes[currentBoard.type].component
+export const getBoardConstructor = boardType => {
+  return boardType
+    ? boardTypes[boardType].component
     : boardTypes[DEFAULT_BOARD_TYPE].component;
 };
