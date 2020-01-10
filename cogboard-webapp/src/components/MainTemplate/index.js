@@ -28,7 +28,7 @@ import {
 
 const MainTemplate = () => {
   const currentBoardId = useSelector(({ ui }) => ui.currentBoard) || '';
-  const currentBoardType = useSelector(
+  const currentBoard = useSelector(
     ({ boards }) => boards.boardsById[currentBoardId]
   );
   const isDataChanged = useSelector(({ app }) => app.isDataChanged);
@@ -94,7 +94,7 @@ const MainTemplate = () => {
             )}
             {isAuthenticated &&
               currentBoardId &&
-              currentBoardType.type !== 'IframeBoard' && (
+              currentBoard.type !== 'IframeBoard' && (
                 <Fab
                   onClick={handleAddWidgetClick}
                   aria-label="Add Widget"

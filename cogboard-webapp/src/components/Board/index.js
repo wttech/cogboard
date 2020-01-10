@@ -2,17 +2,17 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setCurrentBoard } from '../../actions/actionCreators';
+import { DEFAULT_BOARD_TYPE } from '../../constants';
 
+import { getBoardType } from './helpers';
 import { StyledContainer, StyledNotFound, StyledNoBoards } from './styled';
-import boardTypes from '../boards';
 
 const Board = ({ boardId, className }) => {
   const currentBoard = useSelector(({ boards }) => boards.boardsById[boardId]);
   const allBoardsLength = useSelector(({ boards }) => boards.allBoards).length;
   const dispatch = useDispatch();
-  const BoardType = currentBoard.type
-    ? boardTypes[currentBoard.type].component
-    : '';
+  const BoardType = getBoardType(currentBoard);
+  const { columns, type = DEFAULT_BOARD_TYPE } = currentBoard;
 
   useEffect(() => {
     boardId && dispatch(setCurrentBoard(boardId));
@@ -27,11 +27,7 @@ const Board = ({ boardId, className }) => {
   }
 
   return (
-    <StyledContainer
-      className={className}
-      columns={currentBoard.columns}
-      boardType={currentBoard.type}
-    >
+    <StyledContainer className={className} columns={columns} boardType={type}>
       <BoardType currentBoard={currentBoard} />
     </StyledContainer>
   );
