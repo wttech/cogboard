@@ -19,7 +19,14 @@ import { StyledCard, StyledCardActions } from './styled';
 import ConfirmationDialog from '../ConfirmationDialog';
 
 const BoardCard = ({ boardData, index, className }) => {
-  const { autoSwitch, columns, id, switchInterval, title } = boardData;
+  const {
+    autoSwitch,
+    id,
+    switchInterval,
+    title,
+    type,
+    ...boardTypeData
+  } = boardData;
   const [open, openDialog, handleDialogClose] = useToggle();
   const [
     confirmationDialogOpened,
@@ -144,12 +151,13 @@ const BoardCard = ({ boardData, index, className }) => {
         data-cy="board-card-edit-dialog"
       >
         <EditBoard
+          type={type}
           closeDialog={handleDialogClose}
           autoSwitch={autoSwitch}
-          columns={columns}
           id={id}
           switchInterval={switchInterval}
           title={title}
+          {...boardTypeData}
         />
       </AppDialog>
       <ConfirmationDialog
