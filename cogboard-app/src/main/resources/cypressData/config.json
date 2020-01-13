@@ -8,10 +8,15 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget1", "widget2"]
+        "widgets": [
+          "widget1",
+          "widget2"
+        ]
       }
     },
-    "allBoards": ["board1"]
+    "allBoards": [
+      "board1"
+    ]
   },
   "widgets": {
     "widgetsById": {
@@ -44,6 +49,9 @@
         "boardId": "board1"
       }
     },
-    "allWidgets": ["widget1", "widget2"]
+    "allWidgets": [
+      "widget1",
+      "widget2"
+    ]
   }
 }

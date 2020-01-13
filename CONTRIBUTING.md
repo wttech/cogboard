@@ -52,13 +52,13 @@ For the imports we use the order:
 3. Components.
 
 ```javascript
-import React from "react";
-import { func, object, string, bool, number } from "prop-types";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { func, object, string, bool, number } from 'prop-types';
+import { useDispatch } from 'react-redux';
 
-import { saveWidget } from "../actions/thunks";
+import { saveWidget } from '../actions/thunks';
 
-import WidgetForm from "./WidgetForm";
+import WidgetForm from './WidgetForm';
 ```
 
 #### Prop Types
@@ -66,17 +66,18 @@ import WidgetForm from "./WidgetForm";
 The project is using PropTypes to ensure that the data component receives is valid. Warning is shown in the JavaScript console when an invalid value is provided for a prop. Provide defaultProps for props that are not required.
 
 ```javascript
-import { string, number, bool } from "prop-types";
+import { string, number, bool } from 'prop-types';
 
 TheComponent.propTypes = {
   firstProperty: string.isRequired,
   secondProperty: number,
   thirdProperty: bool.isRequired
-};
+}
 
 TheComponent.defaultProps = {
   secondProperty: 1
-};
+}
+
 ```
 
 [More info](https://reactjs.org/docs/typechecking-with-proptypes.html)
@@ -107,7 +108,6 @@ All paths are relative to `$PROJECT_ROOT/functional/cypress-tests/`
 ### Coding convention
 
 Existing ESLint rules:
-
 - Unnecessary use of cy.wait(),
 - No assigning of return values,
 - Assertion before using cy.screenshot(),
