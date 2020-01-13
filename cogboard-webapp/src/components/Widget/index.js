@@ -45,7 +45,9 @@ const Widget = ({ id, index }) => {
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
-  const { expandContent } = widgetTypeData;
+  const { expandContent: isExpandContent, isVertical } = widgetTypeData;
+  const expandContent =
+    type === 'TextWidget' && isVertical ? false : isExpandContent;
   const widgetTypeConfig = widgetTypes[type];
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
@@ -164,6 +166,7 @@ const Widget = ({ id, index }) => {
         isLoggedIn={isAuthenticated}
         isDragging={isDragging}
         isOver={isOver}
+        isVertical={isVertical}
         ref={ref}
         type={type}
         expanded={expanded}
