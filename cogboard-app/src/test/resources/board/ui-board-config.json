@@ -22,17 +22,17 @@
     "widgetsById": {
       "widget1": {
         "id": "widget1",
-        "title": "This is first Widget",
-        "disabled": false,
-        "type": "ExampleWidget",
-        "scheduleDelay": 500,
+        "title": "Example Widget",
         "config": {
           "columns": 1,
-          "goNewLine": false
+          "goNewLine": false,
+          "rows": 1
         },
-        "content": {
-          "serverTime": "no data"
-        }
+        "type": "WhiteSpaceWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1"
       }
     },
     "allWidgets": ["widget1"]

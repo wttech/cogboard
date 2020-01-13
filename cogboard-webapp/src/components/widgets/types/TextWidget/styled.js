@@ -18,12 +18,13 @@ export const CenterWrapper = styled.div`
 `;
 
 export const StyledPre = styled.pre`
-  margin: 20px 0 0 0;
+  margin: 0;
   font-family: inherit;
 `;
 
 export const RotatedStyledPre = styled(StyledPre)`
   transform: rotate(-90deg);
+  margin-top: 20px;
   white-space: nowrap;
 `;
 

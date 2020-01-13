@@ -90,6 +90,7 @@ StyledCard.defaultProps = {
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
   padding: 8px;
+  min-height: 40px;
 `;
 
 export const StyledCardContent = styled(CardContent)`

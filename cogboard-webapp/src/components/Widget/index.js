@@ -45,8 +45,10 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const { expandContent } = widgetTypeData;
-  const widgetStatus = getWidgetStatus(content, type);
-  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
+  const widgetTypeConfig = widgetTypes[type];
+  const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
+  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
+  const { alwaysShowHeader } = widgetTypeConfig;
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -60,6 +62,7 @@ const Widget = ({ id, index }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
     isAuthenticated && type === 'WhiteSpaceWidget';
+  const isError = content === undefined ? false : !!content.errorMessage;
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
     canDrag: isAuthenticated,
@@ -164,12 +167,11 @@ const Widget = ({ id, index }) => {
         type={type}
         expanded={expanded}
       >
-        {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
+        {(isAuthenticated || widgetStatus !== 'NONE' || alwaysShowHeader) && (
           <StyledCardHeader
             avatar={
-              !expandContent && (
-                <StatusIcon status={widgetStatus} size="small" />
-              )
+              !expandContent &&
+              !isError && <StatusIcon status={widgetStatus} size="small" />
             }
             title={title}
             titleTypographyProps={{
