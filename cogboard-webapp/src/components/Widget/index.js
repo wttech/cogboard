@@ -10,7 +10,7 @@ import {
   reorderWidgets,
   loadSettings
 } from '../../actions/thunks';
-import widgetTypes from '../widgets';
+import { getWidgetType } from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent, dispatchEvent } from './helpers';
@@ -45,7 +45,7 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const { expandContent } = widgetTypeData;
-  const widgetTypeConfig = widgetTypes[type];
+  const widgetTypeConfig = getWidgetType(type);
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
   const { alwaysShowHeader } = widgetTypeConfig;
