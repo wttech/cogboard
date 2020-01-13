@@ -48,7 +48,6 @@ const Widget = ({ id, index }) => {
   const widgetTypeConfig = widgetTypes[type];
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
-  const { alwaysShowHeader } = widgetTypeConfig;
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
