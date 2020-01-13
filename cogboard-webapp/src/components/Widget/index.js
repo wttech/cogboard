@@ -16,7 +16,8 @@ import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent, dispatchEvent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
+import { StyledCard, StyledCollapse } from './styled';
+import WidgetHeader from '../WidgetHeader';
 import WidgetContent from '../WidgetContent';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
@@ -48,7 +49,6 @@ const Widget = ({ id, index }) => {
   const widgetTypeConfig = widgetTypes[type];
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
-  const { alwaysShowHeader } = widgetTypeConfig;
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -62,6 +62,7 @@ const Widget = ({ id, index }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
     isAuthenticated && type === 'WhiteSpaceWidget';
+  const isEmptyHeader = title === '';
   const isError = content === undefined ? false : !!content.errorMessage;
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
@@ -167,8 +168,9 @@ const Widget = ({ id, index }) => {
         type={type}
         expanded={expanded}
       >
-        {(isAuthenticated || widgetStatus !== 'NONE' || alwaysShowHeader) && (
-          <StyledCardHeader
+        {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
+          <WidgetHeader
+            isEmptyHeader={isEmptyHeader}
             avatar={
               !expandContent &&
               !isError && <StatusIcon status={widgetStatus} size="small" />

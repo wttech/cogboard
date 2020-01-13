@@ -16,7 +16,7 @@ const widgetTypes = {
   WhiteSpaceWidget: {
     name: 'White Space',
     component: WhiteSpaceWidget,
-    initialStatus: 'NONE'
+    initialStatus: 'TRANSPARENT'
   },
   JenkinsJobWidget: {
     name: 'Jenkins Job',
@@ -129,7 +129,7 @@ const widgetTypes = {
     name: 'Checkbox',
     component: CheckboxWidget,
     showUpdateTime: true,
-    initialStatus: 'NONE'
+    initialStatus: 'CHECKBOX_UNKNOWN'
   },
   AemHealthcheckWidget: {
     name: 'AEM Healthcheck',
