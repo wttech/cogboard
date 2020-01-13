@@ -1,7 +1,7 @@
 import Widgets from '../fixtures/Widgets';
 import { fillDynamicTab } from '../support/widgetDynamicTab';
 import { validateWidgetConfig } from '../support/widgetAssertions';
-const example = Widgets.example;
+const example = Widgets.whiteSpace;
 const dashboardName = 'Welcome to Cogboard';
 const widgetsKeys = Object.keys(Widgets);
 
@@ -29,6 +29,8 @@ describe('Widgets', () => {
       );
       fillDynamicTab(name, version);
       cy.confirmAddWidget();
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(300);
       cy.contains('h3', title)
         .should('is.visible');
       validateWidgetConfig(name, version);

@@ -66,7 +66,7 @@ const BoardForm = ({
         type="submit"
         data-cy="board-form-submit-button"
       >
-        Save
+        Ok
       </Button>
       <StyledCancelButton
         handleCancelClick={handleCancel}

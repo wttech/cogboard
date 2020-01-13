@@ -54,12 +54,14 @@
           "goNewLine": false,
           "rows": 1
         },
-        "type": "ExampleWidget",
+        "type": "TextWidget",
         "disabled": false,
         "content": {},
         "isUpdating": false,
         "boardId": "board1",
-        "schedulePeriod": 3
+        "text": "Example Text Widget",
+        "textSize": "h5",
+        "isVertical": false
       },
       "widget2": {
         "id": "widget2",

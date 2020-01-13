@@ -13,6 +13,7 @@ export const StyledCard = styled(
     (
       {
         status,
+        expanded,
         showShadow,
         showBorder,
         columns,
@@ -44,7 +45,7 @@ export const StyledCard = styled(
   grid-column-end: span ${({ columns }) => columns * COLUMN_MULTIPLIER};
   grid-row-end: span ${({ rows }) => rows * ROW_MULTIPLIER};
   position: relative;
-  overflow: ${({ type }) => getWidgetOverflow(type)};
+  overflow: ${({ type, expanded }) => getWidgetOverflow(type, expanded)};
   .MuiCardContent-root {
     padding: 8px;
   }
@@ -89,6 +90,18 @@ StyledCard.defaultProps = {
 export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
   padding: 8px;
+  min-height: 40px;
+`;
+
+export const StyledEmptyCardHeader = styled(props => (
+  <StyledCardHeader classes={{ avatar: 'avatar' }} {...props} />
+))`
+  position: absolute;
+  right: 0;
+
+  & .avatar {
+    margin-right: 0;
+  }
 `;
 
 export const StyledCardContent = styled(CardContent)`
@@ -109,11 +122,12 @@ export const StyledCardContent = styled(CardContent)`
 `;
 
 export const StyledCollapse = styled(
-  ({ isExpanded, isDragging, status, theme, ...props }) => (
+  ({ isExpanded, isDragging, status, type, theme, ...props }) => (
     <Collapse {...props} />
   )
 )`
-  bottom: 2px;
+  bottom: ${({ type }) =>
+    type === 'TextWidget' ? 'calc(100% - 96px)' : '2px'};
   background-color: ${({ isDragging, status, theme }) =>
     !isDragging
       ? mapStatusToColor(status, theme)

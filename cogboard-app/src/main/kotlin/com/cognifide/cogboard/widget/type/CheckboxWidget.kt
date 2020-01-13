@@ -7,8 +7,7 @@ import io.vertx.core.json.JsonObject
 class CheckboxWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
 
     init {
-        createDynamicChangeSubscriber()
-            .handler { send(it.body()) }
+        createDynamicChangeSubscriber()?.handler { send(it.body()) }
     }
 
     override fun updateState() {
