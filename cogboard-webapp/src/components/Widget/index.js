@@ -167,7 +167,7 @@ const Widget = ({ id, index }) => {
         type={type}
         expanded="true"
       >
-        {(isAuthenticated || widgetStatus !== 'NONE' || alwaysShowHeader) && (
+        {(isAuthenticated || widgetStatus !== 'NONE') && (
           <StyledCardHeader
             avatar={
               !expandContent &&

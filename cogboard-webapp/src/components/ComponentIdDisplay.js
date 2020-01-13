@@ -16,7 +16,7 @@ const StyledTooltip = styled(Tooltip)`
 
 const StyledTypography = styled(Typography)`
   margin-left: 5px;
-  color: ${grey[500]};
+  color: ${grey[100]};
 `;
 
 class ComponentIdDisplay extends React.Component {
