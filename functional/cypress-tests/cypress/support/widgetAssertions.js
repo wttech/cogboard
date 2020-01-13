@@ -57,7 +57,7 @@ export function validateCheckbox() {
   cy.get('[data-cy="checkbox"]')
     .parents('[draggable="true"]')
     .should(
-      'have.css', 'background-color', 'rgb(38, 36, 62)'
+      'have.css', 'background-color', 'rgb(1, 148, 48)'
     );
   cy.get('[data-cy="checkbox"]')
     .click();
