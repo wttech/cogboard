@@ -26,6 +26,15 @@ To ensure commit messages are easy to read and descriptive enough please follow 
 
 Pull requests need to follow provided [Pull Request Template](FILL)
 
+Please add the following lines to your pull request description:
+
+```
+---
+
+I hereby agree to the terms of the Knot.x Contributor License Agreement.
+```
+
+
 ## Documentation
 
 CogBoard's documentation can be found in [CogBoard Wiki](https://github.com/Cognifide/cogboard/wiki). 
