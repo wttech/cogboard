@@ -33,6 +33,12 @@ export const OverflowingText = component => styled(component)`
   text-overflow: ellipsis;
 `;
 
+export const SingleLineText = component => styled(component)`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
 export const SetWidth = (component, componentWidth) => styled(component)`
   min-width: ${componentWidth}px;
   max-width: ${componentWidth}px;

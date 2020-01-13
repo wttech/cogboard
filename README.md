@@ -35,6 +35,7 @@ You can help make Cogboard more awesome by raising any encountered issues or fea
 [Contribution Guide](https://github.com/Cognifide/cogboard/blob/collaboration-info/CONTRIBUTING.md)
 
 [Code Of Conduct](https://github.com/Cognifide/cogboard/blob/master/CODE_OF_CONDUCT.md)
+
 ## Documentation
 
 See our [wiki](https://github.com/Cognifide/cogboard/wiki) for examples and documentation of all features.
