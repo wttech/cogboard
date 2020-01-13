@@ -20,6 +20,7 @@ const AddEndpoint = ({ largeButton, dataChanged, endpointsData }) => {
     <AddItem
       itemName="endpoint"
       largeButton={largeButton}
+      buttonColor="white"
       submitAction={handleSubmitAction}
     >
       <EndpointForm />

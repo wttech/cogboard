@@ -27,7 +27,10 @@ import {
 } from './styled';
 
 const MainTemplate = () => {
-  const currentBoardId = useSelector(({ ui }) => ui.currentBoard);
+  const currentBoardId = useSelector(({ ui }) => ui.currentBoard) || '';
+  const currentBoard = useSelector(
+    ({ boards }) => boards.boardsById[currentBoardId]
+  );
   const isDataChanged = useSelector(({ app }) => app.isDataChanged);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [drawerOpened, setDrawerOpened] = useState(false);
@@ -89,16 +92,18 @@ const MainTemplate = () => {
                 <Save />
               </StyledSaveFab>
             )}
-            {isAuthenticated && currentBoardId && (
-              <Fab
-                onClick={handleAddWidgetClick}
-                aria-label="Add Widget"
-                color="primary"
-                data-cy="main-template-add-widget-button"
-              >
-                <Add />
-              </Fab>
-            )}
+            {isAuthenticated &&
+              currentBoardId &&
+              currentBoard.type !== 'IframeBoard' && (
+                <Fab
+                  onClick={handleAddWidgetClick}
+                  aria-label="Add Widget"
+                  color="primary"
+                  data-cy="main-template-add-widget-button"
+                >
+                  <Add />
+                </Fab>
+              )}
           </StyledActions>
         </Container>
       </StyledMain>
