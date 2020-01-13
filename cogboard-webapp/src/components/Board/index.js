@@ -11,8 +11,7 @@ const Board = ({ boardId, className }) => {
   const currentBoard = useSelector(({ boards }) => boards.boardsById[boardId]);
   const allBoardsLength = useSelector(({ boards }) => boards.allBoards).length;
   const dispatch = useDispatch();
-  const { columns, type = DEFAULT_BOARD_TYPE } = currentBoard;
-  const BoardType = getBoardConstructor(type);
+  let columns, type, BoardType;
 
   useEffect(() => {
     boardId && dispatch(setCurrentBoard(boardId));
@@ -24,6 +23,10 @@ const Board = ({ boardId, className }) => {
 
   if (!currentBoard) {
     return <StyledNotFound />;
+  } else {
+    columns = currentBoard.columns;
+    type = currentBoard.type || DEFAULT_BOARD_TYPE;
+    BoardType = getBoardConstructor(type);
   }
 
   return (
