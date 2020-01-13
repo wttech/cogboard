@@ -107,7 +107,7 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
       )}
       <Button
         type="submit"
-        color="primary"
+        color="secondary"
         variant="contained"
         data-cy="widget-form-submit-button"
       >

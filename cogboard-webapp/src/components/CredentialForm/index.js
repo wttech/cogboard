@@ -51,7 +51,7 @@ const CredentialsForm = ({
         rootName="credential-form"
       />
       <Button
-        color="primary"
+        color="secondary"
         variant="contained"
         type="submit"
         data-cy="credential-form-submit-button"

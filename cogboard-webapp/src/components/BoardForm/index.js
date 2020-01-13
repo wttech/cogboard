@@ -81,7 +81,7 @@ const BoardForm = ({
         rootName="board-form"
       />
       <Button
-        color="primary"
+        color="secondary"
         variant="contained"
         type="submit"
         data-cy="board-form-submit-button"
