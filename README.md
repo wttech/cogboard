@@ -1,4 +1,4 @@
-![Cognifide logo](http://cognifide.github.io/images/cognifide-logo.png)
+![Cognifide logo](https://cognifide.github.io/images/cognifide-logo.png)
 
 [![Build Status](https://api.travis-ci.org/Cognifide/cogboard.svg?branch=master)](https://travis-ci.org/Cognifide/cogboard)
 
