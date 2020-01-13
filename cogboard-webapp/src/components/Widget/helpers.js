@@ -5,10 +5,12 @@ import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
 import WidgetTypeIcon from '../WidgetTypeIcon';
 import WidgetFooter from '../WidgetFooter';
+import TextWidget from '../widgets/types/TextWidget';
+
 export const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
-export const getWidgetOverflow = type =>
-  type !== 'TextWidget' ? 'visible' : 'hidden';
+export const getWidgetOverflow = (type, expanded) =>
+  type !== 'TextWidget' || expanded ? 'visible' : 'hidden';
 
 export const dispatchEvent = (customEvent, data) => {
   if (customEvent) {
@@ -36,11 +38,12 @@ export const renderCardContent = (
       ) : !disabled && !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
-        <WidgetTypeIcon
+        <ExpandableContent
           type={type}
           status={status}
           content={content}
-        ></WidgetTypeIcon>
+          expanded={expanded}
+        />
       ) : (
         'Disabled'
       )}
@@ -55,4 +58,12 @@ export const renderCardContent = (
       />
     </StyledCardContent>
   );
+};
+
+const ExpandableContent = ({ type, status, content, expanded }) => {
+  if (type !== 'TextWidget') {
+    return <WidgetTypeIcon type={type} status={status} content={content} />;
+  } else {
+    return !expanded ? <TextWidget {...content} singleLine={true} /> : null;
+  }
 };
