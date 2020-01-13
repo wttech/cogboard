@@ -36,9 +36,7 @@ export function validateBambooPlan() {
 }
 
 export function validateCheckbox() {
-  cy.get('[data-cy="checkbox"]')
-    .click()
-    .click();
+  cy.get('[data-cy="checkbox"]').click();
   cy.get('[data-cy="checkbox"]')
     .parents('[draggable="true"]')
     .should("have.css", "background-color", "rgb(1, 148, 48)");

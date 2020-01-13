@@ -176,9 +176,3 @@ const widgetTypes = {
 };
 
 export default widgetTypes;
-
-export function getWidgetType(widgetType) {
-  return widgetTypes.hasOwnProperty(widgetType)
-    ? widgetTypes[widgetType]
-    : widgetTypes['WhiteSpaceWidget'];
-}

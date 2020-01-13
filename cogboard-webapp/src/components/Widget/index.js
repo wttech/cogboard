@@ -10,7 +10,7 @@ import {
   reorderWidgets,
   loadSettings
 } from '../../actions/thunks';
-import { getWidgetType } from '../widgets';
+import widgetTypes from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent, dispatchEvent } from './helpers';
@@ -48,7 +48,7 @@ const Widget = ({ id, index }) => {
   const { expandContent: isExpandContent, isVertical } = widgetTypeData;
   const expandContent =
     type === 'TextWidget' && isVertical ? false : isExpandContent;
-  const widgetTypeConfig = getWidgetType(type);
+  const widgetTypeConfig = widgetTypes[type] | widgetTypes['WhiteSpaceWidget'];
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
   const dispatch = useDispatch();
