@@ -21,7 +21,7 @@ const AddItem = ({ itemName, largeButton, submitAction, children }) => {
   return (
     <>
       <AddButton
-        color="primary"
+        color="secondary"
         onClick={handleAddItemClick}
         data-cy={`add-${itemName}-add-button${!largeButton ? '-small' : ''}`}
         largeButton={largeButton}

@@ -24,7 +24,6 @@ export const StyledPre = styled.pre`
 
 export const RotatedStyledPre = styled(StyledPre)`
   transform: rotate(-90deg);
-  margin-top: 20px;
   white-space: nowrap;
 `;
 
