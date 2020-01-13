@@ -8,6 +8,7 @@ import {
   StyledPre,
   RotatedStyledPre,
   OverflowingText,
+  SingleLineText,
   SetWidth
 } from './styled';
 
@@ -19,13 +20,21 @@ export const ModifiedWidth = (component, height) => {
   return component;
 };
 
-const TruncatedText = ({ isVertical, parentDimensions, children }) => {
+const TruncatedText = ({
+  isVertical,
+  parentDimensions,
+  children,
+  singleLine
+}) => {
   let TruncatedPre = null;
 
   if (isVertical && parentDimensions !== null) {
     const { height } = parentDimensions;
     const ModifiedPre = ModifiedWidth(RotatedStyledPre, height);
+
     TruncatedPre = OverflowingText(ModifiedPre);
+  } else if (singleLine) {
+    TruncatedPre = SingleLineText(StyledPre);
   } else {
     TruncatedPre = OverflowingText(StyledPre);
   }
@@ -33,7 +42,7 @@ const TruncatedText = ({ isVertical, parentDimensions, children }) => {
   return <TruncatedPre>{children}</TruncatedPre>;
 };
 
-const TextWidget = ({ text, textSize, isVertical }) => {
+const TextWidget = ({ text, textSize, isVertical, singleLine }) => {
   const targetRef = useRef();
   const centerWrapperDimensions = useSize(targetRef);
 
@@ -43,6 +52,7 @@ const TextWidget = ({ text, textSize, isVertical }) => {
         <TruncatedText
           isVertical={isVertical}
           parentDimensions={centerWrapperDimensions}
+          singleLine={singleLine}
         >
           {text}
         </TruncatedText>
@@ -54,7 +64,12 @@ const TextWidget = ({ text, textSize, isVertical }) => {
 TextWidget.propTypes = {
   text: string.isRequired,
   textSize: string.isRequired,
-  isVertical: bool.isRequired
+  isVertical: bool.isRequired,
+  singleLine: bool
+};
+
+TextWidget.defaultProps = {
+  singleLine: false
 };
 
 export default TextWidget;

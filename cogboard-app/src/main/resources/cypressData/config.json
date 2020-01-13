@@ -28,13 +28,11 @@
           "goNewLine": false,
           "rows": 1
         },
-        "type": "ExampleWidget",
+        "type": "WhiteSpaceWidget",
         "disabled": false,
         "content": {},
-        "status": "UNKNOWN",
         "isUpdating": false,
-        "boardId": "board1",
-        "schedulePeriod": 3
+        "boardId": "board1"
       },
       "widget2": {
         "id": "widget2",
@@ -44,13 +42,11 @@
           "goNewLine": false,
           "rows": 1
         },
-        "type": "ExampleWidget",
+        "type": "WhiteSpaceWidget",
         "disabled": false,
         "content": {},
-        "status": "UNKNOWN",
         "isUpdating": false,
-        "boardId": "board1",
-        "schedulePeriod": 120
+        "boardId": "board1"
       }
     },
     "allWidgets": [
