@@ -8,10 +8,7 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": [
-          "widget1",
-          "widget9"
-        ]
+        "widgets": ["widget1", "widget9", "widget20", "widget18", "widget19"]
       },
       "board2": {
         "autoSwitch": true,
@@ -20,11 +17,7 @@
         "title": "Jenkins Job Widget Examples",
         "columns": 6,
         "theme": "default",
-        "widgets": [
-          "widget2",
-          "widget3",
-          "widget4"
-        ]
+        "widgets": ["widget2", "widget3", "widget4"]
       },
       "board3": {
         "autoSwitch": true,
@@ -36,6 +29,11 @@
           "widget5",
           "widget7",
           "widget6",
+          "widget17",
+          "widget14",
+          "widget15",
+          "widget16",
+          "widget13",
           "widget10",
           "widget11",
           "widget12"
@@ -44,11 +42,7 @@
         "title": "Sonarqube Widget Examples"
       }
     },
-    "allBoards": [
-      "board1",
-      "board2",
-      "board3"
-    ]
+    "allBoards": ["board1", "board2", "board3"]
   },
   "widgets": {
     "widgetsById": {
@@ -60,12 +54,14 @@
           "goNewLine": false,
           "rows": 1
         },
-        "type": "ExampleWidget",
+        "type": "TextWidget",
         "disabled": false,
         "content": {},
         "isUpdating": false,
         "boardId": "board1",
-        "schedulePeriod": 3
+        "text": "Example Text Widget",
+        "textSize": "h5",
+        "isVertical": false
       },
       "widget2": {
         "id": "widget2",
@@ -120,11 +116,11 @@
       },
       "widget5": {
         "id": "widget5",
-        "title": "Sonarqube Success",
+        "title": "Success",
         "config": {
           "columns": 1,
           "goNewLine": false,
-          "rows": 2
+          "rows": 1
         },
         "type": "SonarQubeWidget",
         "disabled": false,
@@ -145,15 +141,16 @@
           "code_smells",
           "vulnerabilities"
         ],
-        "expandContent": false
+        "expandContent": false,
+        "sonarQubeVersion": "5.x"
       },
       "widget6": {
         "id": "widget6",
-        "title": "Sonarqube Fail",
+        "title": "Fail",
         "config": {
           "columns": 1,
           "goNewLine": false,
-          "rows": 2
+          "rows": 1
         },
         "type": "SonarQubeWidget",
         "disabled": false,
@@ -172,17 +169,18 @@
         ],
         "idNumber": 1,
         "keyString": "fail",
-        "schedulePeriod": 120000,
+        "schedulePeriod": 120,
         "endpoint": "endpoint1",
-        "expandContent": false
+        "expandContent": false,
+        "sonarQubeVersion": "5.x"
       },
       "widget7": {
         "id": "widget7",
-        "title": "Sonarqube Warning",
+        "title": "Warning",
         "config": {
           "columns": 1,
           "goNewLine": false,
-          "rows": 2
+          "rows": 1
         },
         "type": "SonarQubeWidget",
         "disabled": false,
@@ -190,7 +188,7 @@
         "isUpdating": false,
         "boardId": "board3",
         "endpoint": "endpoint1",
-        "schedulePeriod": 120000,
+        "schedulePeriod": 120,
         "keyString": "warning",
         "idNumber": 1,
         "selectedMetrics": [
@@ -203,7 +201,8 @@
           "code_smells",
           "vulnerabilities"
         ],
-        "expandContent": false
+        "expandContent": false,
+        "sonarQubeVersion": "5.x"
       },
       "widget8": {
         "id": "widget8",
@@ -211,14 +210,14 @@
         "config": {
           "columns": 1,
           "goNewLine": false,
-          "rows": 2
+          "rows": 1
         },
         "type": "TextWidget",
         "disabled": false,
         "content": {},
         "isUpdating": false,
         "boardId": "board3",
-        "text": "v5.6.6",
+        "text": "v5.x",
         "textSize": "h3",
         "isVertical": true,
         "expandContent": false
@@ -266,7 +265,8 @@
           "code_smells",
           "vulnerabilities"
         ],
-        "expandContent": true
+        "expandContent": false,
+        "sonarQubeVersion": "7.x"
       },
       "widget11": {
         "id": "widget11",
@@ -295,7 +295,8 @@
           "code_smells",
           "vulnerabilities"
         ],
-        "expandContent": true
+        "expandContent": false,
+        "sonarQubeVersion": "7.x"
       },
       "widget12": {
         "id": "widget12",
@@ -324,7 +325,201 @@
           "code_smells",
           "vulnerabilities"
         ],
+        "expandContent": false,
+        "sonarQubeVersion": "7.x"
+      },
+      "widget13": {
+        "id": "widget13",
+        "title": "",
+        "config": {
+          "columns": 1,
+          "goNewLine": true,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "text": "v7.x",
+        "textSize": "h3",
+        "isVertical": true,
+        "expandContent": false
+      },
+      "widget14": {
+        "id": "widget14",
+        "title": "Success - expandable",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "sonarQubeVersion": "5.x",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "success",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
         "expandContent": true
+      },
+      "widget15": {
+        "id": "widget15",
+        "title": "Warning - expandable",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "sonarQubeVersion": "5.x",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "warning",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": true
+      },
+      "widget16": {
+        "id": "widget16",
+        "title": "Fail - expandable",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "sonarQubeVersion": "5.x",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "fail",
+        "idNumber": 1,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "info_violations",
+          "bugs",
+          "code_smells",
+          "vulnerabilities"
+        ],
+        "expandContent": true
+      },
+      "widget17": {
+        "id": "widget17",
+        "title": "",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board3",
+        "text": "Expandable",
+        "textSize": "h4",
+        "isVertical": true,
+        "expandContent": false
+      },
+      "widget18": {
+        "id": "widget18",
+        "title": "AEM Bundle Info",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemBundleInfoWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "resolvedThreshold": 2,
+        "installedThreshold": 2,
+        "excludedBundles": "",
+        "expandContent": false
+      },
+      "widget19": {
+        "id": "widget19",
+        "title": "AEM Healthcheck",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemHealthcheckWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "selectedHealthChecks": [
+          "slingJobs",
+          "systemchecks",
+          "inactiveBundles",
+          "DiskSpaceHealthCheck",
+          "slingDiscoveryOakSynchronizedClocks",
+          "securitychecks",
+          "queryTraversalLimitsBundle",
+          "queriesStatus",
+          "requestsStatus",
+          "resourceSearchPathErrorHealthCheck",
+          "ObservationQueueLengthHealthCheck",
+          "logErrorHealthCheck",
+          "codeCacheHealthCheck",
+          "asyncIndexHealthCheck"
+        ],
+        "expandContent": true
+      },
+      "widget20": {
+        "id": "widget20",
+        "title": "",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "WhiteSpaceWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1"
       }
     },
     "allWidgets": [
@@ -339,7 +534,15 @@
       "widget9",
       "widget10",
       "widget11",
-      "widget12"
+      "widget12",
+      "widget13",
+      "widget14",
+      "widget15",
+      "widget16",
+      "widget17",
+      "widget18",
+      "widget19",
+      "widget20"
     ]
   }
 }

@@ -7,7 +7,8 @@ import {
   FormControl,
   Typography,
   IconButton,
-  Tabs
+  Tabs,
+  Box
 } from '@material-ui/core';
 import IframeEmbed from '../IframeEmbed';
 import { getColor, getSize } from '../../utils/components';
@@ -27,12 +28,11 @@ export const WidgetButton = styled(FullWidthButtonOutlined)`
 
 export const WidgetIconButton = styled(IconButton)`
   border-radius: 0;
-  height: 100%;
-  left: 0;
   padding: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 `;
 
@@ -106,4 +106,13 @@ export const StyledTabs = styled(Tabs)`
 
 export const StyledTabPanel = styled(TabPanel)`
   margin-bottom: 12px;
+`;
+
+export const StyledContainerBox = styled(Box)`
+  padding-left: 6px;
+  padding-right: 6px;
+`;
+
+export const CaptionWithMargin = styled(Caption)`
+  margin-bottom: 10px;
 `;

@@ -1,5 +1,13 @@
 import Widgets from "../fixtures/Widgets";
 
+export function validateAemBundleInfo() {
+  cy.contains("p", /^Total: [0-9]{1,4}/).should("is.visible");
+  cy.contains("p", /^Active: [0-9]{1,4}/).should("is.visible");
+  cy.contains("p", /^Fragmented: [0-9]{1,4}/).should("is.visible");
+  cy.contains("p", /^Resolved: [0-9]{1,4}/).should("is.visible");
+  cy.contains("p", /^Installed: [0-9]{1,4}/).should("is.visible");
+}
+
 export function validateAemHealthcheck() {
   const healthcheckKeys = Object.keys(Widgets.aemHealthcheck.healthChecks);
   for (let i = 0; i < healthcheckKeys.length; i++) {
@@ -10,22 +18,17 @@ export function validateAemHealthcheck() {
 }
 
 export function validateBambooDeployment() {
-    cy.contains("p", /^Deployment State:IN_PROGRESS/)
-        .should("is.visible");
-    cy.contains("p", /^Lifecycle State:IN_PROGRESS/)
-        .should("is.visible");
-    cy.get("circle")
-        .should("is.visible");
-    cy.contains("span", "3.1.43-SNAPSHOT (129)")
-        .should("is.visible");
-    cy.contains("h3", `Test-${Widgets.bambooDeployment.name}`)
-        .parents('[draggable="true"]')
-        .should("have.css", "background-color", "rgb(25, 140, 189)");
+  cy.contains("p", /^Deployment state: IN_PROGRESS/).should("is.visible");
+  cy.contains("p", /^Lifecycle state: IN_PROGRESS/).should("is.visible");
+  cy.get("circle").should("is.visible");
+  cy.contains("span", "3.1.43-SNAPSHOT (129)").should("is.visible");
+  cy.contains("h3", `Test-${Widgets.bambooDeployment.name}`)
+    .parents('[draggable="true"]')
+    .should("have.css", "background-color", "rgb(25, 140, 189)");
 }
 
 export function validateBambooPlan() {
-  cy.contains("p", "Finished")
-    .should("is.visible");
+  cy.contains("p", "Finished").should("is.visible");
   cy.contains("span", "1597").should("is.visible");
   cy.contains("h3", `Test-${Widgets.bambooPlan.name}`)
     .parents('[draggable="true"]')
@@ -45,6 +48,8 @@ export function validateCheckbox() {
   cy.get('[data-cy="checkbox"]')
     .parents('[draggable="true"]')
     .should("have.css", "background-color", "rgb(38, 36, 62)");
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(200);
 }
 
 export function validateIframeEmbed() {
@@ -72,28 +77,41 @@ export function validateServiceCheck() {
   );
 }
 
-export function validateSonarQube() {
-  const metricKeys = Object.keys(Widgets.sonarQube.metrics);
+export function validateSonarQube5x(type) {
+  const metricKeys = Object.keys(Widgets.sonarQube5x.metrics);
   for (let i = 0; i < metricKeys.length; i++) {
     const metric = metricKeys[i];
-    const label = Widgets.sonarQube.metrics[metric].label;
-    const value = Widgets.sonarQube.metrics[metric].value;
-    cy.contains("p", `${label}`)
-      .should("is.visible")
-      .then(metric => {
-        console.log(metric.text());
-      });
+    const label = Widgets.sonarQube5x.metrics[metric].label;
+    const value = Widgets.sonarQube5x.metrics[metric].value;
+    cy.contains("p", `${label}`).should("is.visible");
   }
-  cy.contains("span", `${Widgets.sonarQube.id}`).should("is.visible");
-  cy.contains(
-    "p",
-    /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/
-  ).should("is.visible");
-  cy.contains("p", "6.4.2.6-SNAPSHOT").should("is.visible");
+  cy.contains("h3", `${type}`)
+    .parents('[draggable="true"]')
+    .contains(
+      "p",
+      /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/
+    )
+    .should("is.visible");
+}
+
+export function validateSonarQube7x(type) {
+  const metricKeys = Object.keys(Widgets.sonarQube7x.metrics);
+  for (let i = 0; i < metricKeys.length; i++) {
+    const metric = metricKeys[i];
+    const label = Widgets.sonarQube7x.metrics[metric].label;
+    const value = Widgets.sonarQube7x.metrics[metric].value;
+    cy.contains("p", `${label}`).should("is.visible");
+  }
 }
 
 export function validateText() {
   cy.contains("h3", `${Widgets.text.text}`).should("is.visible");
+}
+
+export function validateWhiteSpace() {
+  cy.contains("h3", "White Space")
+    .parents('[draggable="true"]')
+    .should("have.css", "color", "rgb(255, 255, 255)");
 }
 
 export function validateWorldClock() {
@@ -102,11 +120,18 @@ export function validateWorldClock() {
   );
 }
 
-export function validateWidgetConfig(type = "Text") {
-  if (type !== "WhiteSpace" && type !== "Example") {
-    switch (type) {
+export function validateWidgetConfig(type = "Text", version = "") {
+  const name = `${type}${version}`;
+  if (name !== "Example") {
+    switch (name) {
+      case "AEM Bundle Info":
+        validateAemBundleInfo();
+        break;
       case "AEM Healthcheck":
         validateAemHealthcheck();
+        break;
+      case "Bamboo Deployment":
+        validateBambooDeployment();
         break;
       case "Bamboo Plan":
         validateBambooPlan();
@@ -123,11 +148,17 @@ export function validateWidgetConfig(type = "Text") {
       case "Service Check":
         validateServiceCheck();
         break;
-      case "SonarQube":
-        validateSonarQube();
+      case "SonarQube 5.x":
+        validateSonarQube5x(type);
+        break;
+      case "SonarQube 7.x":
+        validateSonarQube7x(type);
         break;
       case "Text":
         validateText();
+        break;
+      case "White Space":
+        validateWhiteSpace();
         break;
       case "World Clock":
         validateWorldClock();

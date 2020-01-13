@@ -1,4 +1,12 @@
 module.exports = {
+  aemBundleInfo: {
+    name: "AEM Bundle Info",
+    endpoint: "endpoint1",
+    schedulePeriod: "3",
+    resolvedThreshold: "2",
+    installedThreshold: "2",
+    excludedBundles: ""
+  },
   aemHealthcheck: {
     name: "AEM Healthcheck",
     endpoint: "endpoint1",
@@ -80,10 +88,6 @@ module.exports = {
   whiteSpace: {
     name: "White Space"
   },
-  example: {
-    name: "Example",
-    schedulePeriod: "100"
-  },
   iframeEmbed: {
     name: "Iframe Embed",
     url: "http://www.example.com/"
@@ -104,12 +108,62 @@ module.exports = {
     responseBodyFragment: "Expected string",
     expectedStatusCode: "200"
   },
-  sonarQube: {
+  sonarQube5x: {
     name: "SonarQube",
+    version: "5.x",
     endpoint: "endpoint1",
     schedulePeriod: "90",
     key: "fail",
     id: "316488",
+    metrics: {
+      blocker_violations: {
+        dataValue: "blocker_violations",
+        label: "blocker violations",
+        value: "0"
+      },
+      critical_violations: {
+        dataValue: "critical_violations",
+        label: "critical violations",
+        value: "0"
+      },
+      major_violations: {
+        dataValue: "major_violations",
+        label: "major violations",
+        value: "3"
+      },
+      minor_violations: {
+        dataValue: "minor_violations",
+        label: "minor violations",
+        value: "4"
+      },
+      info_violations: {
+        dataValue: "info_violations",
+        label: "info violations",
+        value: "15"
+      },
+      bugs: {
+        dataValue: "bugs",
+        label: "bugs",
+        value: "7"
+      },
+      code_smells: {
+        dataValue: "code_smells",
+        label: "code smells",
+        value: "5"
+      },
+      vulnerabilities: {
+        dataValue: "vulnerabilities",
+        label: "vulnerabilities",
+        value: "3"
+      }
+    }
+  },
+  sonarQube7x: {
+    name: "SonarQube",
+    version: "7.x",
+    endpoint: "endpoint1",
+    schedulePeriod: "90",
+    key: "fail",
     metrics: {
       blocker_violations: {
         dataValue: "blocker_violations",

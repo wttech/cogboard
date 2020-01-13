@@ -1,26 +1,29 @@
 import React from 'react';
-import { object } from 'prop-types';
+import { object, string } from 'prop-types';
 
 import { Link } from '@material-ui/core';
-import { Caption } from '../../../styled';
+import { StyledContainerBox, CaptionWithMargin } from '../../../styled';
 
 import { AEM_HEALTH_CHECKS } from '../../../../constants';
 
-const AemHealthcheckWidget = ({ healthChecks }) => {
+const AemHealthcheckWidget = ({ url, healthChecks }) => {
   return (
     <>
-      {Object.entries(healthChecks).map(([name, data]) => (
-        <Link href={data['url']} target="_blank">
-          <Caption key={name}>
-            {AEM_HEALTH_CHECKS[name]}: {data['status']}
-          </Caption>
-        </Link>
-      ))}
+      <StyledContainerBox>
+        {Object.entries(healthChecks).map(([name, data]) => (
+          <Link href={data['url']} target="_blank">
+            <CaptionWithMargin key={name}>
+              {AEM_HEALTH_CHECKS[name]}: {data['status']}
+            </CaptionWithMargin>
+          </Link>
+        ))}
+      </StyledContainerBox>
     </>
   );
 };
 
 AemHealthcheckWidget.propTypes = {
+  url: string.isRequired,
   healthChecks: object
 };
 

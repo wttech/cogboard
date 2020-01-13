@@ -9,9 +9,9 @@ All available widgets are listed in `cogboard-webapp/src/components/widgets/type
 **The very basic structure of the widget component looks as follows:**
 
 ```javascript
-import React from 'react';
+import React from "react";
 
-import Typography from '@material-ui/core/Typography';
+import Typography from "@material-ui/core/Typography";
 
 const MyWidget = () => {
   return (

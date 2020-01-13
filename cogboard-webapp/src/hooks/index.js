@@ -8,8 +8,9 @@ export const useToggle = (initialState = false) => {
 
   const handleOpen = () => setOpened(true);
   const handleClose = () => setOpened(false);
+  const handleToggle = () => setOpened(!isOpened);
 
-  return [isOpened, handleOpen, handleClose];
+  return [isOpened, handleOpen, handleClose, handleToggle];
 };
 
 export const useFormData = (data, config = {}) => {

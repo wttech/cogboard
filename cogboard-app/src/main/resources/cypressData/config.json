@@ -8,7 +8,7 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget1"]
+        "widgets": ["widget1", "widget2"]
       }
     },
     "allBoards": ["board1"]
@@ -23,15 +23,27 @@
           "goNewLine": false,
           "rows": 1
         },
-        "type": "ExampleWidget",
+        "type": "WhiteSpaceWidget",
         "disabled": false,
         "content": {},
-        "status": "UNKNOWN",
         "isUpdating": false,
-        "boardId": "board1",
-        "schedulePeriod": 3
+        "boardId": "board1"
+      },
+      "widget2": {
+        "id": "widget2",
+        "title": "Reorder Widget",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "WhiteSpaceWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1"
       }
     },
-    "allWidgets": ["widget1"]
+    "allWidgets": ["widget1", "widget2"]
   }
 }

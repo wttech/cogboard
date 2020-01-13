@@ -13,17 +13,22 @@ import {
 import widgetTypes from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
-import { renderCardContent } from './helpers';
+import { renderCardContent, dispatchEvent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
+import { StyledCard, StyledCollapse } from './styled';
+import WidgetHeader from '../WidgetHeader';
+import WidgetContent from '../WidgetContent';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
-import WidgetContent from '../WidgetContent';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
+
+const selectors = {
+  collapse: '[class*="MuiCollapse-container"]'
+};
 
 const Widget = ({ id, index }) => {
   const widgetData = useSelector(
@@ -41,8 +46,9 @@ const Widget = ({ id, index }) => {
     ...widgetTypeData
   } = widgetData;
   const { expandContent } = widgetTypeData;
-  const widgetStatus = getWidgetStatus(content, type);
-  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
+  const widgetTypeConfig = widgetTypes[type];
+  const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
+  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -51,10 +57,13 @@ const Widget = ({ id, index }) => {
     closeConfirmationDialog
   ] = useToggle();
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+  const [expanded, , , handleToggle] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
     isAuthenticated && type === 'WhiteSpaceWidget';
+  const isEmptyHeader = title === '';
+  const isError = content === undefined ? false : !!content.errorMessage;
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
     canDrag: isAuthenticated,
@@ -96,9 +105,21 @@ const Widget = ({ id, index }) => {
     })
   });
 
-  const [expanded, setExpanded] = React.useState(false);
-
   drag(drop(ref));
+
+  document.addEventListener('CloseAllWidgets', event => {
+    if (event.detail === id) {
+      return;
+    }
+    if (!expanded) {
+      return;
+    }
+    handleToggle();
+  });
+
+  const closeWidgets = widgetId => {
+    dispatchEvent('CloseAllWidgets', widgetId);
+  };
 
   const handleEditClick = closeMenu => () => {
     dispatch(loadSettings());
@@ -116,8 +137,18 @@ const Widget = ({ id, index }) => {
     closeConfirmationDialog();
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleCollapseScrollIntoView = () => {
+    const { top, height } = ref.current
+      .querySelectorAll(selectors.collapse)[0]
+      .getBoundingClientRect();
+    const collapseVerticalOffset = top + height;
+
+    if (collapseVerticalOffset > window.innerHeight) {
+      window.scrollTo({
+        top: collapseVerticalOffset,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
@@ -134,13 +165,15 @@ const Widget = ({ id, index }) => {
         isDragging={isDragging}
         isOver={isOver}
         ref={ref}
+        type={type}
+        expanded={expanded}
       >
         {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
-          <StyledCardHeader
+          <WidgetHeader
+            isEmptyHeader={isEmptyHeader}
             avatar={
-              !expandContent && (
-                <StatusIcon status={widgetStatus} size="small" />
-              )
+              !expandContent &&
+              !isError && <StatusIcon status={widgetStatus} size="small" />
             }
             title={title}
             titleTypographyProps={{
@@ -181,16 +214,19 @@ const Widget = ({ id, index }) => {
           widgetStatus,
           expandContent,
           expanded,
-          handleExpandClick
+          handleToggle,
+          closeWidgets
         )}
         {expandContent && (
           <StyledCollapse
             isExpanded={expanded}
+            type={type}
             status={widgetStatus}
             theme={theme}
             isDragging={isDragging}
             in={expanded}
             timeout="auto"
+            onEntered={() => handleCollapseScrollIntoView()}
             unmountOnExit
           >
             <WidgetContent id={id} type={type} content={content} />

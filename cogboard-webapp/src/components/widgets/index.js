@@ -1,5 +1,4 @@
 import WhiteSpaceWidget from './types/WhiteSpaceWidget';
-import ExampleWidget from './types/ExampleWidget';
 import JenkinsJobWidget from './types/JenkinsJobWidget';
 import SonarQubeWidget from './types/SonarQubeWidget';
 import ServiceCheckWidget from './types/ServiceCheckWidget';
@@ -10,20 +9,14 @@ import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
 import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
+import PersonDrawWidget from './types/PersonDrawWidget';
+import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
     name: 'White Space',
-    component: WhiteSpaceWidget
-  },
-  ExampleWidget: {
-    name: 'Example',
-    component: ExampleWidget,
-    dialogFields: ['SchedulePeriod'],
-    showUpdateTime: true,
-    validationConstraints: {
-      SchedulePeriod: { min: 3 }
-    }
+    component: WhiteSpaceWidget,
+    initialStatus: 'TRANSPARENT'
   },
   JenkinsJobWidget: {
     name: 'Jenkins Job',
@@ -43,10 +36,11 @@ const widgetTypes = {
     name: 'SonarQube',
     component: SonarQubeWidget,
     dialogFields: [
+      'SonarQubeVersion',
       'EndpointField',
       'SchedulePeriod',
       'Key',
-      'IdNumber',
+      'SonarQubeIdNumber',
       'SonarQubeMetricsInput',
       'ExpandableContent'
     ],
@@ -80,7 +74,9 @@ const widgetTypes = {
     dialogFields: ['Text', 'TextSize', 'TextOrientation', 'ExpandableContent'],
     validationConstraints: {
       Text: { max: 240 }
-    }
+    },
+    initialStatus: 'NONE',
+    alwaysShowHeader: true
   },
   BambooPlanWidget: {
     name: 'Bamboo Plan',
@@ -115,22 +111,25 @@ const widgetTypes = {
     component: WorldClockWidget,
     dialogFields: [
       'TimeZoneId',
-      'DateFormat',
-      'TimeFormat',
       'DisplayDate',
+      'DateFormat',
       'DisplayTime',
+      'TimeFormat',
       'TextSize'
-    ]
+    ],
+    initialStatus: 'NONE'
   },
   IframeEmbedWidget: {
     name: 'Iframe Embed',
     component: IframeEmbedWidget,
-    dialogFields: ['IFrameURL']
+    dialogFields: ['IFrameURL'],
+    initialStatus: 'NONE'
   },
   CheckboxWidget: {
     name: 'Checkbox',
     component: CheckboxWidget,
-    showUpdateTime: true
+    showUpdateTime: true,
+    initialStatus: 'CHECKBOX_UNKNOWN'
   },
   AemHealthcheckWidget: {
     name: 'AEM Healthcheck',
@@ -145,6 +144,34 @@ const widgetTypes = {
     validationConstraints: {
       SchedulePeriod: { min: 3 },
       AemHealthcheckInput: { minArrayLength: 1 }
+    }
+  },
+  PersonDrawWidget: {
+    name: 'Person Draw',
+    component: PersonDrawWidget,
+    dialogFields: [
+      'RandomCheckbox',
+      'DailySwitch',
+      'PersonDrawInterval',
+      'MultiTextInput'
+    ],
+    showUpdateTime: false,
+    validationConstraints: {}
+  },
+  AemBundleInfoWidget: {
+    name: 'AEM Bundle Info',
+    component: AemBundleInfoWidget,
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'AemBundleResolvedThreshold',
+      'AemBundleInstalledThreshold',
+      'AemBundleExcluded',
+      'ExpandableContent'
+    ],
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
     }
   }
 };

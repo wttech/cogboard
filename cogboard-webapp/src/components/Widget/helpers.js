@@ -1,18 +1,23 @@
 import React from 'react';
 
-import {
-  StyledCardContent,
-  StyledIconButton,
-  StyledStatusIconButton,
-  StyledIconWrapper
-} from './styled';
+import { StyledCardContent } from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
-import LastUpdate from '../LastUpdate';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import StatusIcon from '../StatusIcon';
+import WidgetTypeIcon from '../WidgetTypeIcon';
+import WidgetFooter from '../WidgetFooter';
+import TextWidget from '../widgets/types/TextWidget';
 
 export const mapStatusToColor = (status, theme) => theme.palette.status[status];
+
+export const getWidgetOverflow = (type, expanded) =>
+  type !== 'TextWidget' || expanded ? 'visible' : 'hidden';
+
+export const dispatchEvent = (customEvent, data) => {
+  if (customEvent) {
+    const Event = new CustomEvent(customEvent, { detail: data });
+    document.dispatchEvent(Event);
+  }
+};
 
 export const renderCardContent = (
   content,
@@ -23,44 +28,42 @@ export const renderCardContent = (
   status,
   expandContent,
   expanded,
-  handleExpandClick
+  handleToggle,
+  closeWidgets
 ) => {
   return (
     <StyledCardContent>
       {content && content.errorMessage ? (
-        <ErrorMessage {...content} />
+        <ErrorMessage {...content} status={status} />
       ) : !disabled && !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
-        type === 'AemHealthcheckWidget' ? (
-          <StyledStatusIconButton href={content.url} target="_blank">
-            <StatusIcon status={status} size="large" />
-          </StyledStatusIconButton>
-        ) : (
-          <StyledIconWrapper>
-            <StatusIcon status={status} size="large" />
-          </StyledIconWrapper>
-        )
+        <ExpandableContent
+          type={type}
+          status={status}
+          content={content}
+          expanded={expanded}
+        />
       ) : (
         'Disabled'
       )}
-      <div className="cardFootWrapper">
-        {updateTimestamp && (
-          <LastUpdate
-            lastUpdateTime={new Date(updateTimestamp).toLocaleString()}
-          />
-        )}
-        {expandContent && !content.errorMessage && (
-          <StyledIconButton
-            isExpanded={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expandContent}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </StyledIconButton>
-        )}
-      </div>
+      <WidgetFooter
+        updateTimestamp={updateTimestamp}
+        expanded={expanded}
+        handleToggle={handleToggle}
+        content={content}
+        expandContent={expandContent}
+        closeWidgets={closeWidgets}
+        id={id}
+      />
     </StyledCardContent>
   );
+};
+
+const ExpandableContent = ({ type, status, content, expanded }) => {
+  if (type !== 'TextWidget') {
+    return <WidgetTypeIcon type={type} status={status} content={content} />;
+  } else {
+    return !expanded ? <TextWidget {...content} singleLine={true} /> : null;
+  }
 };

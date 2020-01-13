@@ -9,7 +9,7 @@ export const StyledContainer = styled.div`
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(${getColumns}, 1fr);
-  grid-auto-rows: minmax(60px, auto);
+  grid-auto-rows: minmax(60px, 120px);
 `;
 
 const BaseNoData = component => styled(component)`

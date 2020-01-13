@@ -9,7 +9,8 @@ import { parseWidgetTypes, transformMinValue } from './helpers';
 import {
   REQUEST_METHODS,
   TEXT_SIZES,
-  validationMessages as vm
+  validationMessages as vm,
+  SONARQUBE_VERSIONS
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
 import widgetTypes from '../../widgets';
@@ -27,6 +28,7 @@ import SwitchInput from './SwitchInput';
 import { StyledNumberInput } from './styled';
 import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
+import MultiTextInput from './MultiTextInput';
 
 const dialogFields = {
   LabelField: {
@@ -214,11 +216,16 @@ const dialogFields = {
     label: 'ID',
     validator: () => string()
   },
-  IdNumber: {
-    component: NumberInput,
+  SonarQubeIdNumber: {
+    component: conditionallyHidden(
+      NumberInput,
+      'sonarQubeVersion',
+      value => value === '5.x'
+    ),
     name: 'idNumber',
     label: 'ID',
     step: 1,
+    initialValue: 0,
     validator: () => number()
   },
   Key: {
@@ -279,7 +286,11 @@ const dialogFields = {
     validator: () => string()
   },
   DateFormat: {
-    component: DisplayValueSelect,
+    component: conditionallyHidden(
+      DisplayValueSelect,
+      'displayDate',
+      value => value
+    ),
     name: 'dateFormat',
     label: 'Date Format',
     dropdownItems: DATE_FORMATS,
@@ -287,7 +298,11 @@ const dialogFields = {
     validator: () => string()
   },
   TimeFormat: {
-    component: DisplayValueSelect,
+    component: conditionallyHidden(
+      DisplayValueSelect,
+      'displayTime',
+      value => value
+    ),
     name: 'timeFormat',
     label: 'Time Format',
     dropdownItems: TIME_FORMATS,
@@ -315,7 +330,11 @@ const dialogFields = {
     validator: () => string()
   },
   RequestBody: {
-    component: MultilineTextInput,
+    component: conditionallyHidden(
+      MultilineTextInput,
+      'requestMethod',
+      value => value === 'put' || value === 'post'
+    ),
     name: 'body',
     label: 'Request Body (Json format or empty)',
     validator: () => string()
@@ -349,12 +368,92 @@ const dialogFields = {
     initialValue: false,
     validator: () => boolean()
   },
+  MultiTextInput: {
+    component: MultiTextInput,
+    name: 'multiTextInput',
+    label: 'Multi Text Component',
+    initialValue: [],
+    validator: () =>
+      array()
+        .ensure()
+        .min(1, vm.FIELD_MIN_ITEMS())
+        .of(string())
+  },
+  DailySwitch: {
+    component: CheckboxInput,
+    name: 'personDrawDailySwitch',
+    label: 'Daily',
+    initialValue: false,
+    validator: () => boolean()
+  },
+  PersonDrawInterval: {
+    component: conditionallyHidden(
+      NumberInput,
+      'personDrawDailySwitch',
+      value => !value
+    ),
+    name: 'personDrawInterval',
+    label: 'Interval [min]',
+    initialValue: 120,
+    validator: () =>
+      number().when('personDrawDailySwitch', {
+        is: true,
+        then: number().required(),
+        otherwise: number().notRequired()
+      })
+  },
+  RandomCheckbox: {
+    component: CheckboxInput,
+    name: 'randomizeCheckbox',
+    label: 'Randomize',
+    initialValue: false,
+    validator: () => boolean()
+  },
   ExpandableContent: {
     component: CheckboxInput,
     name: 'expandContent',
     label: 'Expandable Content',
     initialValue: false,
     validator: () => boolean()
+  },
+  SonarQubeVersion: {
+    component: DisplayValueSelect,
+    name: 'sonarQubeVersion',
+    label: 'SonarQube Version',
+    dropdownItems: SONARQUBE_VERSIONS,
+    initialValue: SONARQUBE_VERSIONS[0].value,
+    validator: () => string()
+  },
+  AemBundleExcluded: {
+    component: MultilineTextInput,
+    name: 'excludedBundles',
+    label:
+      'Excluded bundles (either symbolic or display name; each line is a new entry)',
+    validator: () => string()
+  },
+  AemBundleResolvedThreshold: {
+    component: NumberInput,
+    name: 'resolvedThreshold',
+    label: 'Error threshold for bundles with "resolved" status',
+    min: 0,
+    step: 1,
+    initialValue: 2,
+    validator: () =>
+      number()
+        .min(0)
+        .required(vm.FIELD_REQUIRED())
+  },
+  AemBundleInstalledThreshold: {
+    component: NumberInput,
+    name: 'installedThreshold',
+    label: 'Error threshold for bundles with "installed" status',
+    min: 0,
+    step: 1,
+    initialValue: 2,
+    validator: () =>
+      number()
+        .min(0)
+        .required(vm.FIELD_REQUIRED())
   }
 };
 
