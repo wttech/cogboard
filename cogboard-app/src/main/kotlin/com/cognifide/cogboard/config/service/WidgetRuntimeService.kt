@@ -30,15 +30,16 @@ class WidgetRuntimeService(
     }
 
     fun createOrUpdateWidget(widgetConfig: JsonObject) {
+        var newConfig = widgetConfig
         val id = widgetConfig.getId()
 
         if (id != null) {
             widgets[id]?.let {
                 it.stop()
+                newConfig = it.config().mergeIn(widgetConfig, true)
             }
-
-            widgetConfig.attachEndpoint()
-            widgets[id] = WidgetIndex.create(widgetConfig, vertx).start()
+            newConfig.attachEndpoint()
+            widgets[id] = WidgetIndex.create(newConfig, vertx).start()
         } else {
             LOGGER.error("Widget Update / Create | " +
                     "There is no widget with given ID in configuration: $widgetConfig")
