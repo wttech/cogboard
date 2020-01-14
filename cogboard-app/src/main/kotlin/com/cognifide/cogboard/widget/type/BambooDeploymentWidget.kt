@@ -40,6 +40,7 @@ class BambooDeploymentWidget(
         val deploymentResultId = result.getInteger("id")
 
         result.apply {
+            put(CC.PROP_ERROR_MESSAGE, "")
             put(CC.PROP_URL, constructUrl(deploymentResultId))
             put(CC.PROP_RELEASE_NAME, deploymentVersionName)
             put(CC.PROP_WIDGET_STATUS, getStatus(result))
