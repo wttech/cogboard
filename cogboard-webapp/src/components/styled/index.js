@@ -102,6 +102,10 @@ export const StyledPopoverText = styled(Typography)`
 
 export const StyledTabs = styled(Tabs)`
   margin-bottom: 12px;
+
+  .MuiTabs-indicator {
+    background-color: white;
+  }
 `;
 
 export const StyledTabPanel = styled(TabPanel)`
