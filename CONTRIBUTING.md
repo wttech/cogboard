@@ -28,7 +28,7 @@ Pull requests need to follow provided [Pull Request Template](https://github.com
 
 ## Documentation
 
-CogBoard's documentation can be found in [CogBoard Wiki](https://github.com/Cognifide/cogboard/wiki). 
+CogBoard's documentation can be found in [CogBoard Wiki](https://github.com/Cognifide/cogboard/wiki).
 
 ## Coding conventions
 
