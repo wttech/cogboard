@@ -32,7 +32,7 @@ List of all available [Widgets](https://github.com/Cognifide/cogboard/wiki#Widge
 
 You can help make Cogboard more awesome by raising any encountered issues or feature requests here on [Github](https://github.com/Cognifide/cogboard/issues).
 
-[Contribution Guide](https://github.com/Cognifide/cogboard/blob/collaboration-info/CONTRIBUTING.md)
+[Contribution Guide](https://github.com/Cognifide/cogboard/blob/master/CONTRIBUTING.md)
 
 [Code Of Conduct](https://github.com/Cognifide/cogboard/blob/master/CODE_OF_CONDUCT.md)
 
