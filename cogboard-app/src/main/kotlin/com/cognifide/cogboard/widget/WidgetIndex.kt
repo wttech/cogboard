@@ -39,7 +39,7 @@ class WidgetIndex {
             PersonDrawWidget::class.java.simpleName -> PersonDrawWidget(vertx, config)
             AemBundleInfoWidget::class.java.simpleName -> AemBundleInfoWidget(vertx, config)
             // add here
-            else -> WhiteSpaceWidget.INSTANCE
+            else -> WhiteSpaceWidget(vertx, config)
         }
     }
 }

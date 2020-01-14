@@ -15,6 +15,22 @@ export const StyledActions = styled(Box)`
 
 export const StyledSaveFab = styled(Fab)`
   margin-right: 16px;
+  animation: pulse 2s infinite;
+
+  @keyframes pulse {
+    0% {
+      opacity: 0.7;
+      box-shadow: 0 0 0 0 rgba(28, 38, 48, 0.4);
+    }
+    70% {
+      opacity: 1;
+      box-shadow: 0 0 0 10px rgba(28, 38, 48, 0);
+    }
+    100% {
+      opacity: 0.7;
+      box-shadow: 0 0 0 0 rgba(28, 38, 48, 0);
+    }
+  }
 `;
 
 export const StyledBoardList = styled(BoardList)`

@@ -32,8 +32,6 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
             content.put(CogboardConstants.PROP_URL, version.getDashboardUrl(publicUrl, key, idNumber))
                     .put(CogboardConstants.PROP_WIDGET_STATUS, extractStatus(it))
 
-            content.clearErrorMessageAndErrorCause()
-
             send(JsonObject()
                     .put(CogboardConstants.PROP_CONTENT, content))
         }
