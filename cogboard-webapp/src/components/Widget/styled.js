@@ -93,6 +93,17 @@ export const StyledCardHeader = styled(CardHeader)`
   min-height: 40px;
 `;
 
+export const StyledEmptyCardHeader = styled(props => (
+  <StyledCardHeader classes={{ avatar: 'avatar' }} {...props} />
+))`
+  position: absolute;
+  right: 0;
+
+  & .avatar {
+    margin-right: 0;
+  }
+`;
+
 export const StyledCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
