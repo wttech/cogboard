@@ -26,6 +26,7 @@
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 - [ ] My code follows the [code style](/CONTRIBUTING.md#coding-conventions) of this project.
 - [ ] My change requires a change to the documentation.
+- [ ] Automated functional tests have been added or modified to cover my changes (if applicable)
 - [ ] I have updated the documentation accordingly.
 
 ---
