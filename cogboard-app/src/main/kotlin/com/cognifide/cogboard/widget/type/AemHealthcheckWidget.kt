@@ -49,7 +49,6 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
         var widgetStatus = OK
         val overviewUrl = "$publicUrl/$OVERVIEW_PATH"
         val result = JsonObject()
-        content.put(CogboardConstants.PROP_ERROR_MESSAGE, "")
         content.put(CogboardConstants.PROP_URL, overviewUrl)
         content.put("healthChecks", result)
 
