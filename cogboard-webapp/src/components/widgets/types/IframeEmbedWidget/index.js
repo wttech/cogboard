@@ -1,16 +1,18 @@
 import React from 'react';
 import { string } from 'prop-types';
-
 import { attachHttp } from './helpers';
-
 import { StyledIframe } from '../../../styled';
 import { Typography } from '@material-ui/core';
 
-const IframeEmbedWidget = ({ iframeUrl }) => {
+const IframeEmbedWidget = ({ iframeUrl, className }) => {
   if (iframeUrl) {
-    return <StyledIframe url={attachHttp(iframeUrl)} />;
+    return <StyledIframe className={className} url={attachHttp(iframeUrl)} />;
   } else {
-    return <Typography variant="h5">URL is blank</Typography>;
+    return (
+      <Typography className={className} variant="h5">
+        URL is blank
+      </Typography>
+    );
   }
 };
 

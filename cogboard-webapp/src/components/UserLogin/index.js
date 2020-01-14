@@ -106,7 +106,7 @@ const UserLogin = () => {
             inputProps={{ 'data-cy': 'user-login-password-input' }}
           />
           <Button
-            color="primary"
+            color="secondary"
             onClick={handleLoginButtonClick}
             variant="contained"
             data-cy="user-login-submit-button"

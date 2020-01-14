@@ -75,8 +75,7 @@ const widgetTypes = {
     validationConstraints: {
       Text: { max: 240 }
     },
-    initialStatus: 'NONE',
-    alwaysShowHeader: true
+    initialStatus: 'NONE'
   },
   BambooPlanWidget: {
     name: 'Bamboo Plan',

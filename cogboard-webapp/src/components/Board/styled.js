@@ -1,6 +1,5 @@
 import styled from '@emotion/styled/macro';
-import { getColumns } from './helpers';
-import { COLORS } from '../../constants';
+import { COLORS, COLUMN_MULTIPLIER } from '../../constants';
 
 import NotFound from '../NotFound';
 import NoBoards from '../NoBoards';
@@ -8,8 +7,11 @@ import NoBoards from '../NoBoards';
 export const StyledContainer = styled.div`
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(${getColumns}, 1fr);
   grid-auto-rows: minmax(60px, 120px);
+  grid-template-columns: ${({ boardType, columns }) =>
+    boardType === 'WidgetBoard'
+      ? `repeat(${columns * COLUMN_MULTIPLIER}, 1fr)`
+      : 'auto'};
 `;
 
 const BaseNoData = component => styled(component)`

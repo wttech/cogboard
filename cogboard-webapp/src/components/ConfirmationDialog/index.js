@@ -29,7 +29,7 @@ const ConfirmationDialog = props => {
           <Button
             onClick={handleOk}
             variant="contained"
-            color="primary"
+            color="secondary"
             autoFocus
             data-cy="confirmation-dialog-ok"
           >
@@ -39,7 +39,7 @@ const ConfirmationDialog = props => {
             <StyledCancelButton
               onClick={handleCancel}
               variant="outlined"
-              color="primary"
+              color="default"
               data-cy="confirmation-dialog-cancel"
             >
               {labelCancel}

@@ -74,7 +74,7 @@ module.exports = {
     name: 'Bamboo Deployment',
     endpoint: 'endpoint1',
     schedulePeriod: '500',
-    id: '33333333'
+    id: '3'
   },
   bambooPlan: {
     name: 'Bamboo Plan',
