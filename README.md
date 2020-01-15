@@ -4,6 +4,10 @@
 
 # Cogboard
 
+<p align="center">
+  <img src="docs/images/logo.png" alt="Cogboard Logo"/>
+</p>
+
 ## What's Cogboard
 
 CogBoard is a tool that provides your team with a continous information about your project delivery status and as a result of this allows for a continous reaction to any inadequacies.
