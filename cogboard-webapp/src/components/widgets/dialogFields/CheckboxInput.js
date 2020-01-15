@@ -3,10 +3,9 @@ import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/styles';
 
 import { Checkbox, FormControlLabel } from '@material-ui/core';
-import { getColor } from '../../../utils/components';
 
 export const StyledCheckbox = styled(Checkbox)`
-  color: ${getColor('primary')};
+  color: 'white';
 `;
 
 const CheckboxInput = ({ value, onChange, dataCy, ...other }) => {
@@ -16,7 +15,7 @@ const CheckboxInput = ({ value, onChange, dataCy, ...other }) => {
     <FormControlLabel
       control={
         <StyledCheckbox
-          color="primary"
+          color="secondary"
           checked={value}
           onChange={onChange}
           data-cy={dataCy}

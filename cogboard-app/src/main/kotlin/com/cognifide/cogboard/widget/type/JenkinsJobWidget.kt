@@ -29,8 +29,7 @@ class JenkinsJobWidget(
         val status = if (lastBuild.getBoolean("building", false)) Widget.Status.IN_PROGRESS
         else Widget.Status.from(lastBuild.getString("result", ""))
 
-        lastBuild.put(CC.PROP_ERROR_MESSAGE, "")
-            .put("branch", extractBranchInfo(lastBuild))
+        lastBuild.put("branch", extractBranchInfo(lastBuild))
             .put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
             .put(CC.PROP_WIDGET_STATUS, status)
 

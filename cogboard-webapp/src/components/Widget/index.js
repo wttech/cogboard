@@ -16,7 +16,8 @@ import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent, dispatchEvent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
+import { StyledCard, StyledCollapse } from './styled';
+import WidgetHeader from '../WidgetHeader';
 import WidgetContent from '../WidgetContent';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
@@ -44,11 +45,12 @@ const Widget = ({ id, index }) => {
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
-  const { expandContent } = widgetTypeData;
+  const { expandContent: isExpandContent, isVertical } = widgetTypeData;
+  const expandContent =
+    type === 'TextWidget' && isVertical ? false : isExpandContent;
   const widgetTypeConfig = widgetTypes[type];
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
-  const { alwaysShowHeader } = widgetTypeConfig;
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -62,6 +64,7 @@ const Widget = ({ id, index }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
     isAuthenticated && type === 'WhiteSpaceWidget';
+  const isEmptyHeader = title === '';
   const isError = content === undefined ? false : !!content.errorMessage;
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
@@ -163,12 +166,14 @@ const Widget = ({ id, index }) => {
         isLoggedIn={isAuthenticated}
         isDragging={isDragging}
         isOver={isOver}
+        isVertical={isVertical}
         ref={ref}
         type={type}
         expanded={expanded}
       >
-        {(isAuthenticated || widgetStatus !== 'NONE' || alwaysShowHeader) && (
-          <StyledCardHeader
+        {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
+          <WidgetHeader
+            isEmptyHeader={isEmptyHeader}
             avatar={
               !expandContent &&
               !isError && <StatusIcon status={widgetStatus} size="small" />

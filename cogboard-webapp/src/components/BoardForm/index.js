@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { string, number, bool } from 'prop-types';
 
@@ -9,12 +9,14 @@ import { createValidationSchema } from '../validation';
 import { Button } from '@material-ui/core';
 import DynamicForm from '../DynamicForm';
 import { StyledCancelButton } from './styled';
+import boardTypes from '../boards';
 
 import {
   BOARD_TITLE_LENGTH_LIMIT,
   BOARD_COLUMNS_MIN,
   BOARD_COLUMNS_MAX,
-  SWITCH_INTERVAL_MIN
+  SWITCH_INTERVAL_MIN,
+  DEFAULT_BOARD_TYPE
 } from '../../constants';
 
 const BoardForm = ({
@@ -24,12 +26,13 @@ const BoardForm = ({
   ...initialFormValues
 }) => {
   const boards = useSelector(getBoards);
-  const formFields = [
+  const generalFields = [
     'UniqueTitleField',
-    'ColumnField',
+    'BoardTypeField',
     'AutoSwitchField',
     'SwitchInterval'
   ];
+
   const constraints = {
     UniqueTitleField: {
       max: BOARD_TITLE_LENGTH_LIMIT,
@@ -45,23 +48,40 @@ const BoardForm = ({
     }
   };
 
-  const validationSchema = createValidationSchema(formFields, constraints);
-  const { values, handleChange, withValidation, errors } = useFormData(
-    initialFormValues,
-    { initialSchema: validationSchema, onChange: true }
-  );
+  const {
+    values,
+    handleChange,
+    withValidation,
+    errors,
+    setValidationSchema
+  } = useFormData(initialFormValues, {
+    initialSchema: createValidationSchema(generalFields, constraints),
+    onChange: true
+  });
+
+  const boardType = boardTypes[values.type];
+  const dialogFields =
+    boardType && boardType.dialogFields
+      ? [...generalFields, ...boardType.dialogFields]
+      : [];
+
+  useEffect(() => {
+    const validationSchema = createValidationSchema(dialogFields, constraints);
+    setValidationSchema(validationSchema);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values.type]);
 
   return (
     <form onSubmit={withValidation(handleSubmit)} noValidate="novalidate">
       <DynamicForm
-        fields={formFields}
+        fields={dialogFields}
         values={values}
         handleChange={handleChange}
         errors={errors}
         rootName="board-form"
       />
       <Button
-        color="primary"
+        color="secondary"
         variant="contained"
         type="submit"
         data-cy="board-form-submit-button"
@@ -80,14 +100,16 @@ BoardForm.propTypes = {
   autoSwitch: bool,
   columns: number,
   switchInterval: number,
-  title: string
+  title: string,
+  type: string
 };
 
 BoardForm.defaultProps = {
-  autoSwitch: true,
+  autoSwitch: false,
   columns: 8,
   switchInterval: 60,
-  title: 'Board'
+  title: 'Board',
+  type: DEFAULT_BOARD_TYPE
 };
 
 export default BoardForm;

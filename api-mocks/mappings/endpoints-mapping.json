@@ -68,7 +68,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/rest/api/latest/deploy/environment/11111111/results.json?max-results=1"
+        "url": "/rest/api/latest/deploy/environment/1/results.json?max-results=1"
       },
       "response": {
         "status": 200,
@@ -81,7 +81,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/rest/api/latest/deploy/environment/22222222/results.json?max-results=1"
+        "url": "/rest/api/latest/deploy/environment/2/results.json?max-results=1"
       },
       "response": {
         "status": 200,
@@ -94,7 +94,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/rest/api/latest/deploy/environment/33333333/results.json?max-results=1"
+        "url": "/rest/api/latest/deploy/environment/3/results.json?max-results=1"
       },
       "response": {
         "status": 200,
@@ -107,7 +107,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/rest/api/latest/deploy/environment/44444444/results.json?max-results=1"
+        "url": "/rest/api/latest/deploy/environment/4/results.json?max-results=1"
       },
       "response": {
         "status": 200,
@@ -120,7 +120,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/rest/api/latest/deploy/environment/55555555/results.json?max-results=1"
+        "url": "/rest/api/latest/deploy/environment/5/results.json?max-results=1"
       },
       "response": {
         "status": 200,
@@ -133,7 +133,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/rest/api/latest/deploy/environment/66666666/results.json?max-results=1"
+        "url": "/rest/api/latest/deploy/environment/6/results.json?max-results=1"
       },
       "response": {
         "status": 200,
@@ -146,7 +146,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/rest/api/latest/deploy/environment/77777777/results.json?max-results=1"
+        "url": "/rest/api/latest/deploy/environment/7/results.json?max-results=1"
       },
       "response": {
         "status": 200,
@@ -159,7 +159,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/rest/api/latest/deploy/environment/88888888/results.json?max-results=1"
+        "url": "/rest/api/latest/deploy/environment/8/results.json?max-results=1"
       },
       "response": {
         "status": 200,
