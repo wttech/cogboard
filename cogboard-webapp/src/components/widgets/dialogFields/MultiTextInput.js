@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import {
+  Box,
   FormControl,
   IconButton,
+  InputLabel,
   List,
   ListItem,
   ListItemSecondaryAction,
@@ -12,6 +14,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
 import { prepareChangeEvent } from './helpers';
+import styled from '@emotion/styled/macro';
+import { Add } from '@material-ui/icons';
+import Input from '@material-ui/core/Input';
+
+const StyledWrapper = styled(Box)`
+  display: flex;
+`;
 
 const MultiTextInput = ({ value, onChange }) => {
   const [items, setItems] = useState(() =>
@@ -56,17 +65,27 @@ const MultiTextInput = ({ value, onChange }) => {
     return false;
   };
 
+  const handleAdd = () => {
+    handleSave(formValue);
+    resetInput();
+  };
+
   return (
     <FormControl>
-      <TextField
-        label="Entries:"
-        placeholder="..."
-        fullWidth
-        margin="normal"
-        value={formValue}
-        onChange={handleChangeVal}
-        onKeyPress={handleKeyPressed}
-      />
+      <StyledWrapper>
+        <InputLabel shrink>Entries</InputLabel>
+        <Input
+          placeholder="..."
+          fullWidth
+          margin="normal"
+          value={formValue}
+          onChange={handleChangeVal}
+          onKeyPress={handleKeyPressed}
+        />
+        <IconButton aria-label="Add" onClick={handleAdd}>
+          <Add />
+        </IconButton>
+      </StyledWrapper>
       <List>
         {items.map((item, index) => (
           <ListItem key={item.id} dense button>

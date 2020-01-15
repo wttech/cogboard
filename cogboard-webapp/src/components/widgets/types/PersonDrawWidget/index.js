@@ -1,13 +1,13 @@
 import React from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
-import { StyledTypography } from './styled';
 import { CenterWrapper } from '../TextWidget/styled';
 import { Refresh } from '@material-ui/icons';
 import { getIsAuthenticated } from '../../../../selectors';
 import { useSelector } from 'react-redux';
 import { array, bool, number } from 'prop-types';
 import { postWidgetContentUpdate } from '../../../../utils/fetch';
+import { CenterHorizontal } from './styled';
 
 const PersonDrawWidget = ({ id, multiTextInput, index }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
@@ -25,17 +25,19 @@ const PersonDrawWidget = ({ id, multiTextInput, index }) => {
   return (
     <>
       <CenterWrapper>
-        <StyledTypography>{caption}</StyledTypography>
+        <p>{caption}</p>
       </CenterWrapper>
       {isAuthenticated && (
-        <IconButton
-          color="primary"
-          aria-label="refresh"
-          component="span"
-          onClick={handleForceCycle}
-        >
-          <Refresh />
-        </IconButton>
+        <CenterHorizontal>
+          <IconButton
+            color="primary"
+            aria-label="refresh"
+            component="span"
+            onClick={handleForceCycle}
+          >
+            <Refresh />
+          </IconButton>
+        </CenterHorizontal>
       )}
     </>
   );
