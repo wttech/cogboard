@@ -35,7 +35,7 @@ const MultiTextInput = ({ value, onChange }) => {
   const handleDelete = itemIndex => {
     let itemList = remove(itemIndex, 1, items);
     setItems(itemList);
-    onChange(prepareChangeEvent(itemList, 'array'));
+    onChange(prepareChangeEvent(itemList.map(item => item.text), 'array'));
   };
 
   const handleSave = itemText => {
