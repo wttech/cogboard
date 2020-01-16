@@ -16,15 +16,16 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
 
+val projectDir = rootProject.projectDir.absolutePath.replace("\\", "/");
 val dockerImageRef = "$buildDir/.docker/buildImage-imageId.txt"
 val dockerContainerName = project.property("docker.app.container.name")?.toString() ?: "cogboard"
 val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "cogboard/cogboard-app"
-val mountDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/mnt"
-val cypressContentPath = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/cogboard-app/src/main/resources/cypressData/config.json"
-val defaultCypressTestsDir = "${rootProject.projectDir.absolutePath.replace("\\", "/")}/functional/cypress-tests"
+val mountDir = "$projectDir/mnt"
+val cypressContentPath = "$projectDir/cogboard-app/src/main/resources/cypressData/config.json"
+val defaultCypressTestsDir = "$projectDir/functional/cypress-tests"
 val functionalTestsPath = System.getProperty("functionalTestPath") ?: defaultCypressTestsDir
 val cypressEnvCode = System.getProperty("cypressEnv") ?: "local"
-val cypressConfigPath = "cypress/config/" + cypressEnvCode + ".json"
+val cypressConfigPath = "cypress/config/$cypressEnvCode.json"
 val network = "${project.name}-local_cognet"
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
@@ -33,6 +34,7 @@ logger.lifecycle(">> dockerContainerName: $dockerContainerName")
 logger.lifecycle(">> dockerImageName: $dockerImageName")
 logger.lifecycle(">> mountDir: $mountDir")
 logger.lifecycle(">> functionalTestsPath: $functionalTestsPath")
+logger.lifecycle(">> cypressConfigPath: $cypressConfigPath")
 
 tasks {
 
@@ -107,8 +109,16 @@ tasks {
     }
 
     register<Exec>("functionalTests") {
-        group = "docker-functional-tests"
-        commandLine = listOf("docker", "run", "-v", "$functionalTestsPath:/e2e", "-w", "/e2e", "--network=$network", "cypress/included:3.8.0", "--browser", "chrome", "--config-file", "$cypressConfigPath")
+        group = "Docker Functional Tests"
+        commandLine = listOf(
+                "docker", "run",
+                "-v", "$functionalTestsPath:/e2e",
+                "-w", "/e2e",
+                "--network=$network",
+                "cypress/included:3.8.0",
+                "--browser", "chrome",
+                "--config-file", cypressConfigPath
+        )
 
         dependsOn("redeployLocal", "copyCypressContent")
         doFirst {
@@ -117,11 +127,13 @@ tasks {
     }
 
     register<Copy>("copyCypressContent") {
-        group = "docker-functional-tests"
+        group = "Docker Functional Tests"
 
         from(cypressContentPath)
         into(mountDir)
-        logger.lifecycle("Automated testing data has been successfully copied")
+        doLast {
+            logger.lifecycle(">> Automated testing data has been successfully copied")
+        }
         mustRunAfter("redeployLocal")
     }
 }
