@@ -156,6 +156,7 @@ export function validateWorldClock() {
 export function validateWidgetConfig(type = 'Text', version = '') {
   const name = `${type}${version}`;
   if (name !== 'Example') {
+    cy.wait(5000);
     switch (name) {
     case 'AEM Bundle Info':
       validateAemBundleInfo();
