@@ -30,7 +30,7 @@ describe('Widgets', () => {
       fillDynamicTab(name, version);
       cy.confirmAddWidget();
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(300);
+      cy.wait(5000);
       cy.contains('h3', title)
         .should('is.visible');
       validateWidgetConfig(name, version);
