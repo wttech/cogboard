@@ -54,8 +54,7 @@ tasks {
         group = "docker"
 
         inputDir.set(file("$buildDir"))
-
-        imageId.set("$dockerImageName:$version")
+        images.add("$dockerImageName:$version")
         dependsOn("prepareDocker", "build")
     }
 
