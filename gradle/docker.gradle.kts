@@ -116,9 +116,12 @@ tasks {
         }
     }
 
-    register<Exec>("copyCypressContent") {
+    register<Copy>("copyCypressContent") {
         group = "docker-functional-tests"
-        commandLine = listOf("sh", "scripts/copyCypressContent.sh", "$cypressContentPath", "$mountDir")
+
+        from(cypressContentPath)
+        into(mountDir)
+        logger.lifecycle("Automated testing data has been successfully copied")
         mustRunAfter("redeployLocal")
     }
 }
