@@ -13,14 +13,10 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
+import { StyledWrapper } from './styled';
 import { prepareChangeEvent } from './helpers';
-import styled from '@emotion/styled/macro';
 import { Add } from '@material-ui/icons';
 import Input from '@material-ui/core/Input';
-
-const StyledWrapper = styled(Box)`
-  display: flex;
-`;
 
 const MultiTextInput = ({ value, onChange }) => {
   const [items, setItems] = useState(() =>
@@ -45,6 +41,7 @@ const MultiTextInput = ({ value, onChange }) => {
       const updatedItemsValues = updatedItems.map(item => item.text);
       setItems(updatedItems);
       onChange(prepareChangeEvent(updatedItemsValues, 'array'));
+      resetInput();
     }
   };
 
@@ -57,17 +54,11 @@ const MultiTextInput = ({ value, onChange }) => {
       }
 
       handleSave(formValue);
-      resetInput();
 
       return true;
     }
 
     return false;
-  };
-
-  const handleAdd = () => {
-    handleSave(formValue);
-    resetInput();
   };
 
   return (
@@ -82,7 +73,7 @@ const MultiTextInput = ({ value, onChange }) => {
           onChange={handleChangeVal}
           onKeyPress={handleKeyPressed}
         />
-        <IconButton aria-label="Add" onClick={handleAdd}>
+        <IconButton aria-label="Add" onClick={() => handleSave(formValue)}>
           <Add />
         </IconButton>
       </StyledWrapper>
