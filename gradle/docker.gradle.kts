@@ -38,43 +38,39 @@ logger.lifecycle(">> cypressConfigPath: $cypressConfigPath")
 
 tasks {
 
-    register<DockerRemoveImage>("removeImage") {
-        group = "docker"
-
-        onlyIf { File(dockerImageRef).exists() }
-
-        targetImageId(if (File(dockerImageRef).exists()) File(dockerImageRef).readText() else "")
-        onError {
-            if (!this.message!!.contains("No such image"))
-                throw this
-        }
-    }
-
-    register<DockerBuildImage>("buildImage") {
-        group = "docker"
-
-        inputDir.set(file("$buildDir"))
-        images.add("$dockerImageName:$version")
-        dependsOn("prepareDocker", "build")
-    }
-
-    register<Exec>("updateLocal") {
-        group = "docker"
-        commandLine = listOf("docker", "service", "update", "--force", "${project.name}-local_cogboard")
-    }
-
-    register<Exec>("updateMocks") {
-        group = "docker"
-        commandLine = listOf("docker", "service", "update", "--force", "${project.name}-local_api-mocks")
-    }
-
+    // SWARM
     register<Exec>("initSwarm") {
         group = "swarm"
+
         commandLine = listOf("docker", "swarm", "init")
         isIgnoreExitValue = true
     }
 
+    register<Exec>("deployLocal") {
+        group = "swarm"
+
+        environment = mapOf("COGBOARD_VERSION" to version)
+        commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
+        dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed")
+        mustRunAfter("undeployLocal")
+    }
+
+    register<Exec>("undeployLocal") {
+        group = "swarm"
+
+        commandLine = listOf("docker", "stack", "rm", "${project.name}-local")
+        dependsOn("initSwarm")
+    }
+
+    register("redeployLocal") {
+        group = "swarm"
+
+        dependsOn("undeployLocal", "deployLocal")
+    }
+
     register<Exec>("awaitLocalStackUndeployed") {
+        group = "swarm"
+
         commandLine = listOf("docker", "network", "inspect", network)
         isIgnoreExitValue = true
         errorOutput = java.io.ByteArrayOutputStream()
@@ -88,27 +84,45 @@ tasks {
         mustRunAfter("build")
     }
 
-    register<Exec>("deployLocal") {
-        environment = mapOf("COGBOARD_VERSION" to version)
-        group = "swarm"
-        commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
-        dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed")
-        mustRunAfter("undeployLocal")
+    // DOCKER
+    register<DockerRemoveImage>("removeImage") {
+        group = "docker"
+
+        onlyIf { File(dockerImageRef).exists() }
+        targetImageId(if (File(dockerImageRef).exists()) File(dockerImageRef).readText() else "")
+        onError {
+            if (!this.message!!.contains("No such image"))
+                throw this
+        }
     }
 
-    register<Exec>("undeployLocal") {
-        group = "swarm"
-        commandLine = listOf("docker", "stack", "rm", "${project.name}-local")
-        dependsOn("initSwarm")
+    register<DockerBuildImage>("buildImage") {
+        group = "docker"
+
+        inputDir.set(file(buildDir))
+        images.add("$dockerImageName:$version")
+        dependsOn("removeImage", "prepareDocker")
     }
 
-    register("redeployLocal") {
-        group = "swarm"
-        dependsOn("undeployLocal", "deployLocal")
+    register<Exec>("updateLocal") {
+        group = "docker"
+
+        commandLine = listOf("docker", "service", "update", "--force", "${project.name}-local_cogboard")
     }
 
+    register<Exec>("updateMocks") {
+        group = "docker"
+
+        commandLine = listOf("docker", "service", "update", "--force", "${project.name}-local_api-mocks")
+    }
+
+    // TEST
     register<Exec>("functionalTests") {
         group = "Docker Functional Tests"
+
+        doFirst {
+            logger.lifecycle("Running functional tests from $functionalTestsPath with base network: $network")
+        }
         commandLine = listOf(
                 "docker", "run",
                 "-v", "$functionalTestsPath:/e2e",
@@ -118,11 +132,7 @@ tasks {
                 "--browser", "chrome",
                 "--config-file", cypressConfigPath
         )
-
         dependsOn("redeployLocal", "copyCypressContent")
-        doFirst {
-            logger.lifecycle("Running functional tests from $functionalTestsPath with base network: $network")
-        }
     }
 
     register<Copy>("copyCypressContent") {
@@ -134,5 +144,30 @@ tasks {
             logger.lifecycle(">> Automated testing data has been successfully copied")
         }
         mustRunAfter("redeployLocal")
+    }
+
+    // DIST
+    register<Copy>("copyDockerfile") {
+        group = "distribution"
+
+        from("docker")
+        into(buildDir)
+        include("Dockerfile")
+        expand("knotx_version" to project.property("knotx.version"))
+        mustRunAfter("copyConfigs")
+    }
+
+    register<Copy>("copyWsConf") {
+        group = "distribution"
+
+        from("knotx/conf")
+        into("$buildDir/out/knotx/conf")
+        include("openapi.yaml", "cogboard.conf")
+        expand("ws_port" to project.property("ws.port"))
+        mustRunAfter("copyConfigs")
+    }
+
+    register("prepareDocker") {
+        dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf")
     }
 }
