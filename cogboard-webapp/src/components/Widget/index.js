@@ -48,7 +48,7 @@ const Widget = ({ id, index }) => {
   const { expandContent: isExpandContent, isVertical } = widgetTypeData;
   const expandContent =
     type === 'TextWidget' && isVertical ? false : isExpandContent;
-  const widgetTypeConfig = widgetTypes[type] | widgetTypes['WhiteSpaceWidget'];
+  const widgetTypeConfig = widgetTypes[type] || widgetTypes['WhiteSpaceWidget'];
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
   const dispatch = useDispatch();
