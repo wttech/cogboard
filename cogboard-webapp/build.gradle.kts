@@ -1,5 +1,4 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
-import com.moowork.gradle.node.NodeExtension
 import com.moowork.gradle.node.npm.NpmTask
 
 plugins {
@@ -8,7 +7,7 @@ plugins {
     id("com.bmuschko.docker-remote-api")
 }
 
-configure<NodeExtension> {
+node {
     version = "10.16.0"
     download = true
 }
@@ -24,10 +23,11 @@ tasks {
         inputs.dir("public")
         outputs.dir(buildDir)
     }
-    register<DockerBuildImage> ("buildImage") {
+
+    register<DockerBuildImage>("buildImage") {
         group = "docker"
         inputDir.set(file("$projectDir"))
-        tags.add("${rootProject.property("docker.web.image.name")}:$version")
+        images.add("${rootProject.property("docker.web.image.name")}:$version")
         dependsOn("buildReactApp")
     }
 }
