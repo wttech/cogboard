@@ -6,6 +6,6 @@ export const StyledNumberInput = styled(NumberInput)`
   flex-basis: calc(50% - 18px);
 `;
 
-export const StyledWrapper = styled(Box)`
+export const FlexBoxWrapped = styled(Box)`
   display: flex;
 `;

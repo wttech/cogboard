@@ -13,7 +13,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
-import { StyledWrapper } from './styled';
+import { FlexBoxWrapped } from './styled';
 import { prepareChangeEvent } from './helpers';
 import { Add } from '@material-ui/icons';
 import Input from '@material-ui/core/Input';
@@ -63,7 +63,7 @@ const MultiTextInput = ({ value, onChange }) => {
 
   return (
     <FormControl>
-      <StyledWrapper>
+      <FlexBoxWrapped>
         <InputLabel shrink>Entries</InputLabel>
         <Input
           placeholder="..."
@@ -76,7 +76,7 @@ const MultiTextInput = ({ value, onChange }) => {
         <IconButton aria-label="Add" onClick={() => handleSave(formValue)}>
           <Add />
         </IconButton>
-      </StyledWrapper>
+      </FlexBoxWrapped>
       <List>
         {items.map((item, index) => (
           <ListItem key={item.id} dense button>

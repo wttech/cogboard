@@ -7,7 +7,7 @@ import { getIsAuthenticated } from '../../../../selectors';
 import { useSelector } from 'react-redux';
 import { array, bool, number } from 'prop-types';
 import { postWidgetContentUpdate } from '../../../../utils/fetch';
-import { CenterHorizontal } from './styled';
+import { CenteredTypography } from './styled';
 
 const PersonDrawWidget = ({ id, multiTextInput, index }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
@@ -28,7 +28,7 @@ const PersonDrawWidget = ({ id, multiTextInput, index }) => {
         <p>{caption}</p>
       </CenterWrapper>
       {isAuthenticated && (
-        <CenterHorizontal>
+        <CenteredTypography>
           <IconButton
             color="primary"
             aria-label="refresh"
@@ -37,7 +37,7 @@ const PersonDrawWidget = ({ id, multiTextInput, index }) => {
           >
             <Refresh />
           </IconButton>
-        </CenterHorizontal>
+        </CenteredTypography>
       )}
     </>
   );
