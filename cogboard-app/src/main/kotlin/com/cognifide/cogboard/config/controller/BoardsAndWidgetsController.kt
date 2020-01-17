@@ -43,7 +43,7 @@ class BoardsAndWidgetsController : AbstractVerticle() {
 
     private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
             "update" to { body -> update(body) },
-            "get" to { body -> boardsConfigService.loadBoardsConfig().toString() }
+            "get" to { _ -> boardsConfigService.loadBoardsConfig().toString() }
     )
 
     private fun update(body: JsonObject): String {
