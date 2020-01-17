@@ -74,7 +74,7 @@ module.exports = {
     name: 'Bamboo Deployment',
     endpoint: 'endpoint1',
     schedulePeriod: '500',
-    id: '33333333'
+    id: '3'
   },
   bambooPlan: {
     name: 'Bamboo Plan',
@@ -87,10 +87,6 @@ module.exports = {
   },
   whiteSpace: {
     name: 'White Space'
-  },
-  example: {
-    name: 'Example',
-    schedulePeriod: '100'
   },
   iframeEmbed: {
     name: 'Iframe Embed',

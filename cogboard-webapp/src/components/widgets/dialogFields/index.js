@@ -5,7 +5,7 @@ import {
   GMT_TIMEZONES,
   TIME_FORMATS
 } from '../types/WorldClockWidget/helpers';
-import { parseWidgetTypes, transformMinValue } from './helpers';
+import { parseTypes, transformMinValue } from './helpers';
 import {
   REQUEST_METHODS,
   TEXT_SIZES,
@@ -14,6 +14,7 @@ import {
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
 import widgetTypes from '../../widgets';
+import boardTypes from '../../boards';
 
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
@@ -28,6 +29,7 @@ import SwitchInput from './SwitchInput';
 import { StyledNumberInput } from './styled';
 import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
+import MultiTextInput from './MultiTextInput';
 
 const dialogFields = {
   LabelField: {
@@ -80,7 +82,14 @@ const dialogFields = {
     component: DisplayValueSelect,
     name: 'type',
     label: 'Type',
-    dropdownItems: parseWidgetTypes(widgetTypes),
+    dropdownItems: parseTypes(widgetTypes),
+    validator: () => string().required(vm.FIELD_REQUIRED())
+  },
+  BoardTypeField: {
+    component: DisplayValueSelect,
+    name: 'type',
+    label: 'Type',
+    dropdownItems: parseTypes(boardTypes),
     validator: () => string().required(vm.FIELD_REQUIRED())
   },
   TitleField: {
@@ -364,6 +373,47 @@ const dialogFields = {
     component: CheckboxInput,
     name: 'isVertical',
     label: 'Vertical Text',
+    initialValue: false,
+    validator: () => boolean()
+  },
+  MultiTextInput: {
+    component: MultiTextInput,
+    name: 'multiTextInput',
+    label: 'Multi Text Component',
+    initialValue: [],
+    validator: () =>
+      array()
+        .ensure()
+        .min(1, vm.FIELD_MIN_ITEMS())
+        .of(string())
+  },
+  DailySwitch: {
+    component: CheckboxInput,
+    name: 'personDrawDailySwitch',
+    label: 'Daily',
+    initialValue: false,
+    validator: () => boolean()
+  },
+  PersonDrawInterval: {
+    component: conditionallyHidden(
+      NumberInput,
+      'personDrawDailySwitch',
+      value => !value
+    ),
+    name: 'personDrawInterval',
+    label: 'Interval [min]',
+    initialValue: 120,
+    validator: () =>
+      number().when('personDrawDailySwitch', {
+        is: true,
+        then: number().required(),
+        otherwise: number().notRequired()
+      })
+  },
+  RandomCheckbox: {
+    component: CheckboxInput,
+    name: 'randomizeCheckbox',
+    label: 'Randomize',
     initialValue: false,
     validator: () => boolean()
   },

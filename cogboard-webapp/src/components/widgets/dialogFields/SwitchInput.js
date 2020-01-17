@@ -17,7 +17,7 @@ const SwitchInput = ({
           <Switch
             checked={value}
             onChange={onChange}
-            color="primary"
+            color="secondary"
             value={checkboxValue}
             inputProps={{ 'data-cy': dataCy }}
             {...other}

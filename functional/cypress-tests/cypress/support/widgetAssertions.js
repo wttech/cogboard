@@ -18,8 +18,8 @@ export function validateAemHealthcheck() {
 }
 
 export function validateBambooDeployment() {
-  cy.contains('p', /^Deployment State:IN_PROGRESS/).should('is.visible');
-  cy.contains('p', /^Lifecycle State:IN_PROGRESS/).should('is.visible');
+  cy.contains('p', /^Deployment state: IN_PROGRESS/).should('is.visible');
+  cy.contains('p', /^Lifecycle state: IN_PROGRESS/).should('is.visible');
   cy.get('circle').should('is.visible');
   cy.contains('span', '3.1.43-SNAPSHOT (129)').should('is.visible');
   cy.contains('h3', `Test-${Widgets.bambooDeployment.name}`)
@@ -48,6 +48,8 @@ export function validateCheckbox() {
   cy.get('[data-cy="checkbox"]')
     .parents('[draggable="true"]')
     .should('have.css', 'background-color', 'rgb(38, 36, 62)');
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(200);
 }
 
 export function validateIframeEmbed() {
@@ -106,6 +108,12 @@ export function validateText() {
   cy.contains('h3', `${Widgets.text.text}`).should('is.visible');
 }
 
+export function validateWhiteSpace() {
+  cy.contains('h3', 'White Space')
+    .parents('[draggable="true"]')
+    .should('have.css', 'color', 'rgb(255, 255, 255)');
+}
+
 export function validateWorldClock() {
   cy.contains('h6', /^[0-9]{2}:[0-9]{2}:[0-9]{4}\/[0-9]{2}\/[0-9]{4}/).should(
     'is.visible'
@@ -114,13 +122,16 @@ export function validateWorldClock() {
 
 export function validateWidgetConfig(type = 'Text', version = '') {
   const name = `${type}${version}`;
-  if (name !== 'WhiteSpace' && name !== 'Example') {
+  if (name !== 'Example') {
     switch (name) {
       case 'AEM Bundle Info':
         validateAemBundleInfo();
         break;
       case 'AEM Healthcheck':
         validateAemHealthcheck();
+        break;
+      case 'Bamboo Deployment':
+        validateBambooDeployment();
         break;
       case 'Bamboo Plan':
         validateBambooPlan();
@@ -145,6 +156,9 @@ export function validateWidgetConfig(type = 'Text', version = '') {
         break;
       case 'Text':
         validateText();
+        break;
+      case 'White Space':
+        validateWhiteSpace();
         break;
       case 'World Clock':
         validateWorldClock();

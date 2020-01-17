@@ -18,7 +18,7 @@ export const CenterWrapper = styled.div`
 `;
 
 export const StyledPre = styled.pre`
-  margin: 20px 0 0 0;
+  margin: 0;
   font-family: inherit;
 `;
 
@@ -30,6 +30,12 @@ export const RotatedStyledPre = styled(StyledPre)`
 export const OverflowingText = component => styled(component)`
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+export const SingleLineText = component => styled(component)`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const SetWidth = (component, componentWidth) => styled(component)`

@@ -212,36 +212,30 @@ describe('Credentials and endpoints', () => {
         .and('contain.text', 'This field must be unique.');
     });
 
-    it('User can edit existing credentials', () => {
-      cy.contains('li.MuiListItem-container', testCredential(testLbl).label) // <= no data-cy for this one
-        .find('[data-cy="edit-credential-edit-button"]')
-        .click();
-      cy.get('[data-cy="credential-form-label-input"]')
-        .clear()
-        .type('TC-EditedLabel')
-        .blur();
-      cy.get('[data-cy="credential-form-password-input"]')
-        .type(testCredential(timestamp).password)
-        .blur();
-      cy.get('[data-cy="credential-form-password-confirmation-input"]')
-        .type(testCredential(timestamp).password)
-        .blur();
-      cy.get('[data-cy="credential-form-submit-button"]').click();
-      cy.get('[data-cy="app-dialog-content"]').should(
-        'contain',
-        'TC-EditedLabel'
-      );
-    });
+    cy.contains('li.MuiListItem-container', testCredential(testLbl).label) // <= no data-cy for this one
+      .find('[data-cy="edit-credential-edit-button"]')
+      .blur();
+    cy.get('[data-cy="credential-form-password-input"]')
+      .type(testCredential(timestamp).password)
+      .blur();
+    cy.get('[data-cy="credential-form-password-confirmation-input"]')
+      .type(testCredential(timestamp).password)
+      .blur();
+    cy.get('[data-cy="credential-form-submit-button"]').click();
+    cy.get('[data-cy="app-dialog-content"]').should(
+      'contain',
+      'TC-EditedLabel'
+    );
+  });
 
-    it('User can delete existing credentials', () => {
-      cy.contains('li.MuiListItem-container', testCredential(timestamp).label)
-        .find('[data-cy="delete-credential-delete-button"]')
-        .click();
-      cy.get('[data-cy="confirmation-dialog-ok"]').click();
-      cy.get('[data-cy="app-dialog-content"]').should(
-        'not.contain',
-        testCredential(timestamp).label
-      );
-    });
+  it('User can delete existing credentials', () => {
+    cy.contains('li.MuiListItem-container', testCredential(timestamp).label)
+      .find('[data-cy="delete-credential-delete-button"]')
+      .click();
+    cy.get('[data-cy="confirmation-dialog-ok"]').click();
+    cy.get('[data-cy="app-dialog-content"]').should(
+      'not.contain',
+      testCredential(timestamp).label
+    );
   });
 });

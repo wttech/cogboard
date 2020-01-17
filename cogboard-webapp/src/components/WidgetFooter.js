@@ -18,6 +18,10 @@ const WidgetFooter = ({
   closeWidgets,
   id
 }) => {
+  if (!expandContent && !updateTimestamp) {
+    return null;
+  }
+
   return (
     <CardFooterWrapper className="cardFootWrapper">
       {updateTimestamp && (
