@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import {
   FormControl,
   IconButton,
+  InputLabel,
   List,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText,
-  TextField
+  ListItemText
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
+import { FlexBoxWrapped } from './styled';
 import { prepareChangeEvent } from './helpers';
+import { Add } from '@material-ui/icons';
+import Input from '@material-ui/core/Input';
 
 const MultiTextInput = ({ value, onChange }) => {
   const [items, setItems] = useState(() =>
@@ -26,7 +29,7 @@ const MultiTextInput = ({ value, onChange }) => {
   const handleDelete = itemIndex => {
     let itemList = remove(itemIndex, 1, items);
     setItems(itemList);
-    onChange(prepareChangeEvent(itemList, 'array'));
+    onChange(prepareChangeEvent(itemList.map(item => item.text), 'array'));
   };
 
   const handleSave = itemText => {
@@ -36,6 +39,7 @@ const MultiTextInput = ({ value, onChange }) => {
       const updatedItemsValues = updatedItems.map(item => item.text);
       setItems(updatedItems);
       onChange(prepareChangeEvent(updatedItemsValues, 'array'));
+      resetInput();
     }
   };
 
@@ -48,7 +52,6 @@ const MultiTextInput = ({ value, onChange }) => {
       }
 
       handleSave(formValue);
-      resetInput();
 
       return true;
     }
@@ -58,15 +61,20 @@ const MultiTextInput = ({ value, onChange }) => {
 
   return (
     <FormControl>
-      <TextField
-        label="Entries:"
-        placeholder="..."
-        fullWidth
-        margin="normal"
-        value={formValue}
-        onChange={handleChangeVal}
-        onKeyPress={handleKeyPressed}
-      />
+      <FlexBoxWrapped>
+        <InputLabel shrink>Entries</InputLabel>
+        <Input
+          placeholder="..."
+          fullWidth
+          margin="normal"
+          value={formValue}
+          onChange={handleChangeVal}
+          onKeyPress={handleKeyPressed}
+        />
+        <IconButton aria-label="Add" onClick={() => handleSave(formValue)}>
+          <Add />
+        </IconButton>
+      </FlexBoxWrapped>
       <List>
         {items.map((item, index) => (
           <ListItem key={item.id} dense button>
