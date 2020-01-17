@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import {
-  Box,
   FormControl,
   IconButton,
   InputLabel,
   List,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText,
-  TextField
+  ListItemText
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { remove } from 'ramda';
