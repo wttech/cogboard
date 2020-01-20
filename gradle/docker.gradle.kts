@@ -135,4 +135,29 @@ tasks {
         }
         mustRunAfter("redeployLocal")
     }
+
+    // DIST
+    register<Copy>("copyDockerfile") {
+        group = "distribution"
+
+        from("docker")
+        into(buildDir)
+        include("Dockerfile")
+        expand("knotx_version" to project.property("knotx.version"))
+        mustRunAfter("copyConfigs")
+    }
+
+    register<Copy>("copyWsConf") {
+        group = "distribution"
+
+        from("knotx/conf")
+        into("$buildDir/out/knotx/conf")
+        include("openapi.yaml", "cogboard.conf")
+        expand("ws_port" to project.property("ws.port"))
+        mustRunAfter("copyConfigs")
+    }
+
+    register("prepareDocker") {
+        dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf")
+    }
 }

@@ -26,7 +26,7 @@ tasks {
 
     register<DockerBuildImage>("buildImage") {
         group = "docker"
-        inputDir.set(file("$projectDir"))
+        inputDir.set(file(projectDir))
         images.add("${rootProject.property("docker.web.image.name")}:$version")
         dependsOn("buildReactApp")
     }
