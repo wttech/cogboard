@@ -24,7 +24,7 @@ const Add = props => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <StyledActionButton
         aria-label={ariaLabel}
         color={color}
@@ -42,7 +42,7 @@ const Add = props => {
       >
         <AddWidget closeDialog={handleDialogClose} />
       </AppDialog>
-    </React.Fragment>
+    </>
   );
 };
 
