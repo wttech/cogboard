@@ -89,7 +89,7 @@ export function fillServiceCheck() {
     .type(Widgets.serviceCheck.path);
   cy.get('[data-cy="widget-form-body-input"]')
     .type(Widgets.serviceCheck.requestBody,
-      { parseSpecialCharSequences: false });
+      {parseSpecialCharSequences: false});
   cy.get('[data-cy="widget-form-expected-response-body-input"]')
     .type(Widgets.serviceCheck.responseBodyFragment);
   cy.get('[data-cy="widget-form-expected-status-code-input"]')
@@ -185,50 +185,53 @@ export function fillWorldClock() {
     .click();
 }
 
-export function fillDynamicTab(type = 'Text', version = '') {
-  const name = `${type}${version}`;
-  if (name !== 'White Space' && name !== 'Checkbox') {
-    cy.get('[data-cy="widget-form-dynamic-tab"]')
-      .click();
-    switch (name) {
+function selectTabAndFillData(fillData) {
+  cy.get('[data-cy="widget-form-dynamic-tab"]')
+    .click();
+  fillData();
+}
+
+export function fillDynamicTab(widget) {
+  const name = widget.version !== undefined ? `${widget.name} ${widget.version}` : widget.name;
+
+  switch (name) {
     case 'AEM Bundle Info':
-      fillAemBundleInfo();
+      selectTabAndFillData(fillAemBundleInfo);
       break;
     case 'AEM Healthcheck':
-      fillAemHealthcheck();
+      selectTabAndFillData(fillAemHealthcheck);
       break;
     case 'Bamboo Deployment':
-      fillBambooDeployment();
+      selectTabAndFillData(fillBambooDeployment);
       break;
     case 'Bamboo Plan':
-      fillBambooPlan();
+      selectTabAndFillData(fillBambooPlan);
       break;
     case 'Example':
-      fillExample();
+      selectTabAndFillData(fillExample);
       break;
     case 'Iframe Embed':
-      fillIframeEmbed();
+      selectTabAndFillData(fillIframeEmbed);
       break;
     case 'Jenkins Job':
-      fillJenkinsJob();
+      selectTabAndFillData(fillJenkinsJob);
       break;
     case 'Service Check':
-      fillServiceCheck();
+      selectTabAndFillData(fillServiceCheck);
       break;
     case 'SonarQube 5.x':
-      fillSonarQube5x();
+      selectTabAndFillData(fillSonarQube5x);
       break;
     case 'SonarQube 7.x':
-      fillSonarQube7x();
+      selectTabAndFillData(fillSonarQube7x);
       break;
     case 'Text':
-      fillText();
+      selectTabAndFillData(fillText);
       break;
     case 'World Clock':
-      fillWorldClock();
+      selectTabAndFillData(fillWorldClock);
       break;
     default:
       break;
-    }
   }
 }
