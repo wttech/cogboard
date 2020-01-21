@@ -13,11 +13,12 @@ describe('Widgets', () => {
     cy.clickAddWidgetButton();
   });
 
-  for (let config of Object.keys(Widgets)) {
+  for (let key of Object.keys(Widgets)) {
+    const config = Widgets[key];
     const name = config.name;
     const version = config.version !== undefined ? config.version : '';
 
-    it(`${name} ${version} can be configured and added by logged in user`, () => {
+    it(`${name}${version} can be configured and added by logged in user`, () => {
       let widget = createWidget(name)
         .configure( false);
 
