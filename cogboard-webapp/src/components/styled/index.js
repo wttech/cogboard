@@ -15,7 +15,7 @@ import { getColor, getSize } from '../../utils/components';
 import TabPanel from '../TabPanel';
 
 const StyledTypography = styled(Typography)`
-  margin-bottom: 5px;
+  margin: auto auto 5px;
 `;
 
 const FullWidthButtonOutlined = props => (
@@ -43,6 +43,7 @@ export const Caption = props => (
 export const CaptionWithPointer = styled(Caption)`
   cursor: pointer;
   text-align: center;
+  margin: auto;
   &:hover {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 5px;
@@ -102,6 +103,10 @@ export const StyledPopoverText = styled(Typography)`
 
 export const StyledTabs = styled(Tabs)`
   margin-bottom: 12px;
+
+  .MuiTabs-indicator {
+    background-color: white;
+  }
 `;
 
 export const StyledTabPanel = styled(TabPanel)`

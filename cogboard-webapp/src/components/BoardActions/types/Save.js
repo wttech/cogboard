@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { saveData } from '../../../actions/thunks';
 
-import { StyledActionButton } from '../styled';
+import { StyledSaveActionButton } from '../styled';
 
 const Save = props => {
   const {
@@ -20,14 +20,14 @@ const Save = props => {
 
   return (
     isDataChanged && (
-      <StyledActionButton
+      <StyledSaveActionButton
         aria-label={ariaLabel}
         color={color}
         data-cy={cypressData}
         onClick={handleSaveDataClick}
       >
         <SaveIcon />
-      </StyledActionButton>
+      </StyledSaveActionButton>
     )
   );
 };
