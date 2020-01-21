@@ -9,7 +9,7 @@ import { createValidationSchema } from '../validation';
 import { Button } from '@material-ui/core';
 import DynamicForm from '../DynamicForm';
 import { StyledCancelButton } from './styled';
-import boardTypesConfig from '../boards/config';
+import boardTypes from '../boards/config';
 
 import {
   BOARD_TITLE_LENGTH_LIMIT,
@@ -59,7 +59,7 @@ const BoardForm = ({
     onChange: true
   });
 
-  const boardType = boardTypesConfig[values.type];
+  const boardType = boardTypes[values.type];
   const dialogFields =
     boardType && boardType.dialogFields
       ? [...generalFields, ...boardType.dialogFields]

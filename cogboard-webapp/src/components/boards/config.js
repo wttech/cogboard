@@ -5,7 +5,7 @@ import boardActionsConfig from '../BoardActions/config';
 
 const { Add, Save } = boardActionsConfig;
 
-const boardTypesConfig = {
+const boardTypes = {
   WidgetBoard: {
     component: WidgetBoard,
     dialogFields: ['ColumnField'],
@@ -18,4 +18,4 @@ const boardTypesConfig = {
   }
 };
 
-export default boardTypesConfig;
+export default boardTypes;
