@@ -1,6 +1,6 @@
 import Widgets from '../fixtures/Widgets';
-import {validateWidgetConfig} from '../support/widgetAssertions';
-import {createWidget} from '../support/widget';
+import { validateWidgetConfig } from '../support/widgetAssertions';
+import { createWidget } from '../support/widget';
 
 const dashboardName = 'Welcome to Cogboard';
 
@@ -20,7 +20,7 @@ describe('Widgets', () => {
 
     it(`${name}${version} can be configured and added by logged in user`, () => {
       let widget = createWidget(name)
-        .configure( false);
+        .configure(false);
 
       validateWidgetConfig(widget);
       widget.remove();
@@ -29,7 +29,7 @@ describe('Widgets', () => {
 
   it('Example widget can be disabled', () => {
     createWidget(Widgets.whiteSpace.name)
-      .configure( true)
+      .configure(true)
       .isDisabled()
       .remove();
   });

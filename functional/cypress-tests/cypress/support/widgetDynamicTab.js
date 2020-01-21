@@ -89,7 +89,7 @@ export function fillServiceCheck() {
     .type(Widgets.serviceCheck.path);
   cy.get('[data-cy="widget-form-body-input"]')
     .type(Widgets.serviceCheck.requestBody,
-      {parseSpecialCharSequences: false});
+      { parseSpecialCharSequences: false });
   cy.get('[data-cy="widget-form-expected-response-body-input"]')
     .type(Widgets.serviceCheck.responseBodyFragment);
   cy.get('[data-cy="widget-form-expected-status-code-input"]')

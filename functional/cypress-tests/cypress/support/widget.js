@@ -1,4 +1,4 @@
-import {fillDynamicTab} from './widgetDynamicTab'
+import { fillDynamicTab } from './widgetDynamicTab'
 
 class Widget {
   constructor(name, version) {
