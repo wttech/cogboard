@@ -151,49 +151,53 @@ export function fillWorldClock() {
   cy.get(`[data-value="${Widgets.worldClock.textsize}"]`).click();
 }
 
-export function fillDynamicTab(type = 'Text', version = '') {
-  const name = `${type}${version}`;
-  if (name !== 'White Space' && name !== 'Checkbox') {
-    cy.get('[data-cy="widget-form-dynamic-tab"]').click();
-    switch (name) {
-      case 'AEM Bundle Info':
-        fillAemBundleInfo();
-        break;
-      case 'AEM Healthcheck':
-        fillAemHealthcheck();
-        break;
-      case 'Bamboo Deployment':
-        fillBambooDeployment();
-        break;
-      case 'Bamboo Plan':
-        fillBambooPlan();
-        break;
-      case 'Example':
-        fillExample();
-        break;
-      case 'Iframe Embed':
-        fillIframeEmbed();
-        break;
-      case 'Jenkins Job':
-        fillJenkinsJob();
-        break;
-      case 'Service Check':
-        fillServiceCheck();
-        break;
-      case 'SonarQube 5.x':
-        fillSonarQube5x();
-        break;
-      case 'SonarQube 7.x':
-        fillSonarQube7x();
-        break;
-      case 'Text':
-        fillText();
-        break;
-      case 'World Clock':
-        fillWorldClock();
-        break;
-      default:
-        break;
-    }
+function selectTabAndFillData(fillData) {
+  cy.get('[data-cy="widget-form-dynamic-tab"]')
+    .click();
+  fillData();
+}
+
+export function fillDynamicTab(widget) {
+  const name = widget.version !== undefined ? `${widget.name} ${widget.version}` : widget.name;
+
+  switch (name) {
+    case 'AEM Bundle Info':
+      selectTabAndFillData(fillAemBundleInfo);
+      break;
+    case 'AEM Healthcheck':
+      selectTabAndFillData(fillAemHealthcheck);
+      break;
+    case 'Bamboo Deployment':
+      selectTabAndFillData(fillBambooDeployment);
+      break;
+    case 'Bamboo Plan':
+      selectTabAndFillData(fillBambooPlan);
+      break;
+    case 'Example':
+      selectTabAndFillData(fillExample);
+      break;
+    case 'Iframe Embed':
+      selectTabAndFillData(fillIframeEmbed);
+      break;
+    case 'Jenkins Job':
+      selectTabAndFillData(fillJenkinsJob);
+      break;
+    case 'Service Check':
+      selectTabAndFillData(fillServiceCheck);
+      break;
+    case 'SonarQube 5.x':
+      selectTabAndFillData(fillSonarQube5x);
+      break;
+    case 'SonarQube 7.x':
+      selectTabAndFillData(fillSonarQube7x);
+      break;
+    case 'Text':
+      selectTabAndFillData(fillText);
+      break;
+    case 'World Clock':
+      selectTabAndFillData(fillWorldClock);
+      break;
+    default:
+      break;
   }
 }
