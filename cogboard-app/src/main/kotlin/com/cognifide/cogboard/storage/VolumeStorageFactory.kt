@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.storage
 
 import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.config.ConfigType.INFO
 import com.cognifide.cogboard.config.ConfigType.BOARDS
 import com.cognifide.cogboard.config.ConfigType.CREDENTIALS
 import com.cognifide.cogboard.config.ConfigType.ENDPOINTS
@@ -10,6 +11,7 @@ import com.cognifide.cogboard.config.validation.boards.BoardsValidator
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 import com.cognifide.cogboard.config.validation.admins.AdminsValidator
+import com.cognifide.cogboard.config.validation.info.InfoValidator
 import io.vertx.core.logging.LoggerFactory
 import java.io.File
 import java.net.URL
@@ -17,10 +19,15 @@ import java.net.URL
 object VolumeStorageFactory {
     private val LOGGER = LoggerFactory.getLogger(VolumeStorageFactory::class.java)
 
+    private const val INFO_CONFIG_FILE_PATH = "/data/info.json"
     private const val BOARDS_CONFIG_FILE_PATH = "/data/config.json"
     private const val ENDPOINTS_CONFIG_FILE_PATH = "/data/endpoints.json"
     private const val CREDENTIALS_CONFIG_FILE_PATH = "/data/credentials.json"
     private const val ADMINS_CONFIG_FILE_PATH = "/data/admins.json"
+
+    fun info(): VolumeStorage {
+        return createVolumeStorage(INFO, INFO_CONFIG_FILE_PATH, InfoValidator)
+    }
 
     fun boards(): VolumeStorage {
         return createVolumeStorage(BOARDS, BOARDS_CONFIG_FILE_PATH, BoardsValidator)

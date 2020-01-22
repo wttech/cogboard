@@ -27,6 +27,12 @@ servers:
         default: "$ws_port"
 
 paths:
+  /api/version:
+    get:
+      operationId: app-version-handler
+      responses:
+        default:
+          description: App Version Handler
   /api/config:
     get:
       operationId: boards-get-handler
