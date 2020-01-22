@@ -1,5 +1,5 @@
 import { COLUMN_MULTIPLIER, DEFAULT_BOARD_TYPE } from '../../constants';
-import boardTypes from '../boards';
+import boardTypes from '../boards/config';
 
 export const getColumns = props => props.columns * COLUMN_MULTIPLIER;
 

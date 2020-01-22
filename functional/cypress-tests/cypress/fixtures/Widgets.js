@@ -158,6 +158,55 @@ module.exports = {
       }
     }
   },
+  sonarQube6x: {
+    name: 'SonarQube',
+    version: '6.x',
+    endpoint: 'endpoint1',
+    schedulePeriod: '90',
+    key: 'fail',
+    metrics: {
+      blocker_violations: {
+        dataValue: 'blocker_violations',
+        label: 'blocker violations',
+        value: '0'
+      },
+      critical_violations: {
+        dataValue: 'critical_violations',
+        label: 'critical violations',
+        value: '0'
+      },
+      major_violations: {
+        dataValue: 'major_violations',
+        label: 'major violations',
+        value: '3'
+      },
+      minor_violations: {
+        dataValue: 'minor_violations',
+        label: 'minor violations',
+        value: '4'
+      },
+      info_violations: {
+        dataValue: 'info_violations',
+        label: 'info violations',
+        value: '15'
+      },
+      bugs: {
+        dataValue: 'bugs',
+        label: 'bugs',
+        value: '7'
+      },
+      code_smells: {
+        dataValue: 'code_smells',
+        label: 'code smells',
+        value: '5'
+      },
+      vulnerabilities: {
+        dataValue: 'vulnerabilities',
+        label: 'vulnerabilities',
+        value: '3'
+      }
+    }
+  },
   sonarQube7x: {
     name: 'SonarQube',
     version: '7.x',
