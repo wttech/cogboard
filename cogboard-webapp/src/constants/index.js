@@ -127,6 +127,10 @@ export const SONARQUBE_VERSIONS = [
     value: '7.x'
   },
   {
+    display: '6.x',
+    value: '6.x'
+  },
+  {
     display: '5.x',
     value: '5.x'
   }
