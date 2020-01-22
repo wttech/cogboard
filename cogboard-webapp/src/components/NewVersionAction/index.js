@@ -31,19 +31,22 @@ export const newVersionActionCreator = (
 const NewVersionAction = ({ version, url, handleClose }) => {
   const [, setCookie] = useCookies(['skipVersion']);
 
-  const handleSkipVersion = event => {
+  const handleSkipVersion = time => event => {
     event.stopPropagation();
-    setCookie('skipVersion', version, { path: '/', maxAge: 31556926 });
+    setCookie('skipVersion', version, { path: '/', maxAge: time });
     handleClose();
   };
 
   return (
     <>
-      <Button color="secondary" onClick={handleSkipVersion}>
+      <Button color="secondary" onClick={handleSkipVersion(31556926)}>
         Skip version
       </Button>
+      <Button color="secondary" onClick={handleSkipVersion(86400)}>
+        Remind me later
+      </Button>
       <Button href={url} target="_blank" color="primary">
-        Learn more!
+        Get new version!
       </Button>
     </>
   );
