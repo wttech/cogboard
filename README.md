@@ -20,7 +20,7 @@ CogBoard is designed to be easy to setup. Please follow the [Getting started](ht
 
 How it’s built. We’ve been using new technologies when working on CogBoard. Please see our [Tech Stack](https://github.com/Cognifide/cogboard/wiki#stack) in order to learn more.
 
-How it works. CogBoard allows for gathering data from a wide range of external data sources such as AEM, Bamboo, Jenkins, SonarQube etc, and gives a possibility of monitoring the data on your personalised dashboards, while using available [widgets](https://github.com/Cognifide/cogboard/wiki#widgets), or by creating [new widgets](https://github.com/Cognifide/cogboard/wiki#widget-development). 
+How it works. CogBoard allows for gathering data from a wide range of external data sources such as AEM, Bamboo, Jenkins, SonarQube etc, and gives a possibility of monitoring the data on your personalised dashboards, while using available [widgets](https://github.com/Cognifide/cogboard/wiki#widgets), or by creating [new widgets](https://github.com/Cognifide/cogboard/wiki#widget-development).
 
 ## Example dashboard
 
@@ -36,7 +36,7 @@ We would love you to join our community and contribute into this project via [Gi
 
 ## Documentation
 
-Please see the link in order to get access to our complete [Documentation](https://github.com/Cognifide/cogboard/wiki). 
+Please see the link in order to get access to our complete [Documentation](https://github.com/Cognifide/cogboard/wiki).
 
 ## License
 

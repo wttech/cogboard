@@ -1,17 +1,10 @@
-import WidgetBoard from './types/WidgetBoard';
-import IframeBoard from './types/IframeBoard';
-
-const boardTypes = {
+const availableBoardTypes = {
   WidgetBoard: {
-    name: 'Widget Board',
-    component: WidgetBoard,
-    dialogFields: ['ColumnField']
+    name: 'Widget Board'
   },
   IframeBoard: {
-    name: 'Iframe Board',
-    component: IframeBoard,
-    dialogFields: ['IFrameURL']
+    name: 'Iframe Board'
   }
 };
 
-export default boardTypes;
+export default availableBoardTypes;

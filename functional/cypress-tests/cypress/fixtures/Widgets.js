@@ -10,7 +10,7 @@ module.exports = {
   aemHealthcheck: {
     name: 'AEM Healthcheck',
     endpoint: 'endpoint1',
-    schedulePeriod: '500',
+    schedulePeriod: '3',
     healthChecks: {
       activeBundles: {
         dataValue: 'inactiveBundles',
@@ -73,13 +73,13 @@ module.exports = {
   bambooDeployment: {
     name: 'Bamboo Deployment',
     endpoint: 'endpoint1',
-    schedulePeriod: '500',
+    schedulePeriod: '3',
     id: '3'
   },
   bambooPlan: {
     name: 'Bamboo Plan',
     endpoint: 'endpoint1',
-    schedulePeriod: '500',
+    schedulePeriod: '3',
     id: 'CGB-SCS'
   },
   checkbox: {
@@ -95,12 +95,12 @@ module.exports = {
   jenkinsJob: {
     name: 'Jenkins Job',
     endpoint: 'endpoint1',
-    schedulePeriod: '500',
+    schedulePeriod: '3',
     path: '/job/CogBoard/job/in-progress'
   },
   serviceCheck: {
     name: 'Service Check',
-    schedulePeriod: '60',
+    schedulePeriod: '3',
     requestMethod: 'GET',
     endpoint: 'endpoint1',
     path: '/service-check/post.json',
@@ -112,7 +112,7 @@ module.exports = {
     name: 'SonarQube',
     version: '5.x',
     endpoint: 'endpoint1',
-    schedulePeriod: '90',
+    schedulePeriod: '3',
     key: 'fail',
     id: '316488',
     metrics: {
@@ -211,7 +211,7 @@ module.exports = {
     name: 'SonarQube',
     version: '7.x',
     endpoint: 'endpoint1',
-    schedulePeriod: '90',
+    schedulePeriod: '3',
     key: 'fail',
     metrics: {
       blocker_violations: {

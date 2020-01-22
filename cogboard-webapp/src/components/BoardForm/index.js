@@ -9,7 +9,7 @@ import { createValidationSchema } from '../validation';
 import { Button } from '@material-ui/core';
 import DynamicForm from '../DynamicForm';
 import { StyledCancelButton } from './styled';
-import boardTypes from '../boards';
+import boardTypes from '../boards/config';
 
 import {
   BOARD_TITLE_LENGTH_LIMIT,
