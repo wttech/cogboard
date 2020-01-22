@@ -5,7 +5,11 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { Router } from '@reach/router';
 
-import { fetchInitialData, updateWidgetContent } from './actions/thunks';
+import {
+  fetchAppInfo,
+  fetchInitialData,
+  updateWidgetContent
+} from './actions/thunks';
 import { saveDataSuccess, loginSuccess } from './actions/actionCreators';
 import { theme } from './theme';
 
@@ -13,10 +17,12 @@ import MainTemplate from './components/MainTemplate';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { isAuthenticated } from './utils/auth';
 import ServerErrorPage from './components/ServerErrorPage';
+import { useCookies } from 'react-cookie';
 
 function App() {
   const appInitialized = useSelector(({ app }) => app.initialized);
   const dispatch = useDispatch();
+  const [cookies] = useCookies();
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -24,6 +30,7 @@ function App() {
     }
 
     dispatch(fetchInitialData());
+    dispatch(fetchAppInfo(cookies.skipVersion));
   }, [dispatch]);
 
   useEffect(() => {

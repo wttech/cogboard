@@ -37,6 +37,7 @@ import {
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
 import { setToken, removeToken, getToken, getUserRole } from '../utils/auth';
+import { newVersionActionCreator } from '../components/NewVersionAction';
 
 export const fetchInitialData = () => dispatch => {
   dispatch(requestData());
@@ -44,6 +45,22 @@ export const fetchInitialData = () => dispatch => {
   return fetchData(URL.LOAD_DATA).then(data => {
     dispatch(receiveData(data));
     dispatch(initBoardProps());
+  }, console.error);
+};
+
+export const fetchAppInfo = skipVersion => dispatch => {
+  return Promise.all(
+    [URL.LOAD_INFO, URL.REPOSITORY_LATEST_RELEASE].map(item => fetchData(item))
+  ).then(([appInfo, githubResponse]) => {
+    const action = newVersionActionCreator(
+      appInfo,
+      githubResponse,
+      skipVersion
+    );
+
+    if (action) {
+      dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
+    }
   }, console.error);
 };
 
