@@ -19,8 +19,7 @@ describe('Widgets', () => {
     const version = config.version !== undefined ? config.version : '';
 
     it(`${name}${version} can be configured and added by logged in user`, () => {
-      let widget = createWidget(name)
-        .configure(false);
+      let widget = createWidget(name).configure(false);
 
       validateWidgetConfig(widget);
       widget.remove();

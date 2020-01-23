@@ -1,5 +1,5 @@
 import Widgets from '../fixtures/Widgets';
-import { fillDynamicTab } from '../support/widgetDynamicTab';
+import { createWidget } from '../support/widget';
 import { dashboardNameGen } from '../fixtures/Dashboard';
 
 const example = Widgets.whiteSpace;
@@ -14,10 +14,8 @@ describe('Dashboard Persistence', () => {
     const name = dashboardNameGen();
     cy.addDashboard(name);
     cy.visit('/');
-    cy.get('[data-cy="navbar-show-drawer-button"]')
-      .click();
-    cy.contains('[data-cy="board-card"]', name)
-      .should('not.visible');
+    cy.get('[data-cy="navbar-show-drawer-button"]').click();
+    cy.contains('[data-cy="board-card"]', name).should('not.visible');
   });
 
   it('Saved dashboard is displayed after refresh', () => {
@@ -25,8 +23,7 @@ describe('Dashboard Persistence', () => {
     cy.addDashboard(name);
     cy.saveState();
     cy.visit('/');
-    cy.get('[data-cy="navbar-show-drawer-button"]')
-      .click();
+    cy.get('[data-cy="navbar-show-drawer-button"]').click();
     cy.contains('[data-cy="board-card"]', name)
       .scrollIntoView()
       .should('is.visible');
@@ -34,8 +31,7 @@ describe('Dashboard Persistence', () => {
       .find('[data-cy="board-card-delete-button"]')
       .scrollIntoView()
       .click();
-    cy.get('[data-cy="confirmation-dialog-ok"]')
-      .click();
+    cy.get('[data-cy="confirmation-dialog-ok"]').click();
     cy.saveState();
   });
 });
@@ -52,34 +48,24 @@ describe('Widget Persistence', () => {
   });
 
   it('Not saved Example widget is not displayed after refresh', () => {
-    cy.fillNewWidgetGeneral(
-      example.name, title, false, false, 4, 2
-    );
-    fillDynamicTab(example.name);
-    cy.confirmAddWidget();
-    cy.contains('h3', title)
-      .should('is.visible');
+    const widget = createWidget(Widgets.whiteSpace.name)
+      .configure(true)
+      .assertTitle();
     cy.visit('/');
     cy.openDrawer();
     cy.chooseDashboard(dashboardName);
-    cy.contains('h3', title)
-      .should('not.visible');
+    cy.contains('h3', widget.title).should('not.visible');
   });
 
   it('Saved Example widget is displayed after refresh', () => {
-    cy.fillNewWidgetGeneral(
-      example.name, title, false, false, 4, 2
-    );
-    fillDynamicTab(example.name);
-    cy.confirmAddWidget();
-    cy.contains('h3', title)
-      .should('is.visible');
+    const widget = createWidget(Widgets.whiteSpace.name)
+      .configure(true)
+      .assertTitle();
     cy.saveState();
     cy.visit('/');
     cy.openDrawer();
     cy.chooseDashboard(dashboardName);
-    cy.contains('h3', title)
-      .should('is.visible');
+    widget.assertTitle();
     cy.removeWidget(title);
     cy.saveState();
   });

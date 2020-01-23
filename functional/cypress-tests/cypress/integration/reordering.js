@@ -15,11 +15,11 @@ describe('Reordering', () => {
     cy.closeDrawer();
     cy.addDashboard(dashboardName2);
 
-    cy.get(`h3:contains("${dashboardName2}")`)
-      .drag(`h3:contains("${dashboardName}")`);
+    cy.get(`h3:contains("${dashboardName2}")`).drag(
+      `h3:contains("${dashboardName}")`
+    );
 
-    cy.get('[alt="Cogboard logo"]')
-      .type('{esc}');
+    cy.get('[alt="Cogboard logo"]').type('{esc}');
     cy.openDrawer();
     cy.get('[data-cy="board-card"]')
       .each(boardCard => {
@@ -55,9 +55,10 @@ describe('Reordering', () => {
     const widgets = [];
 
     cy.login();
-    cy.get(`h3:contains("${reorderedWidgetName}")`)
-      .drag(`h3:contains("${dropOnWidget}")`,
-        'left');
+    cy.get(`h3:contains("${reorderedWidgetName}")`).drag(
+      `h3:contains("${dropOnWidget}")`,
+      'left'
+    );
     cy.get('[draggable="true"]')
       .each(widget => {
         cy.wrap(widget)
@@ -86,7 +87,7 @@ describe('Reordering', () => {
       });
   });
 
-  it('Logged out user can\'t reorder dashboards', () => {
+  it("Logged out user can't reorder dashboards", () => {
     const dashboardName = dashboardNameGen();
     const dashboardName2 = dashboardNameGen() + 1;
     const boardCards = [];
@@ -95,12 +96,12 @@ describe('Reordering', () => {
     cy.addDashboard(dashboardName);
     cy.closeDrawer();
     cy.addDashboard(dashboardName2);
-    cy.get('[alt="Cogboard logo"]')
-      .type('{esc}');
+    cy.get('[alt="Cogboard logo"]').type('{esc}');
     cy.logout();
     cy.openDrawer();
-    cy.get(`h3:contains("${dashboardName2}")`)
-      .drag(`h3:contains("${dashboardName}")`);
+    cy.get(`h3:contains("${dashboardName2}")`).drag(
+      `h3:contains("${dashboardName}")`
+    );
     cy.get('[data-cy="board-card"]')
       .each(boardCard => {
         cy.wrap(boardCard)
@@ -129,14 +130,15 @@ describe('Reordering', () => {
       });
   });
 
-  it('Logged out user can\'t reorder widgets', () => {
+  it("Logged out user can't reorder widgets", () => {
     const reorderedWidgetName = 'Reorder Widget';
     const dropOnWidget = 'Example Widget';
     const widgets = [];
 
-    cy.get(`h3:contains("${reorderedWidgetName}")`)
-      .drag(`h3:contains("${dropOnWidget}")`,
-        'left');
+    cy.get(`h3:contains("${reorderedWidgetName}")`).drag(
+      `h3:contains("${dropOnWidget}")`,
+      'left'
+    );
     cy.get('[draggable="true"]')
       .each(widget => {
         cy.wrap(widget)
