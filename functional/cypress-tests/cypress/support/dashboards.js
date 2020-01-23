@@ -1,4 +1,5 @@
 import { renewConfig } from './helpers';
+import { dashboardTypes } from '../fixtures/Dashboard';
 
 Cypress.Commands.add('openDrawer', () => {
   cy.get('[data-cy="navbar-show-drawer-button"]').click();
@@ -22,22 +23,25 @@ Cypress.Commands.add(
     dashboardName = 'Dashboard' + Date.now().toString(),
     columns = '4',
     switchInterval = '10',
-    expectedFailure = false
+    expectedFailure = false,
+    dashboardType = dashboardTypes.widgets
   ) => {
     cy.get('[data-cy="navbar-show-drawer-button"]').click();
     cy.get('[data-cy="add-board-add-button"]').click();
     cy.get('[data-cy="board-form-title-input"]')
       .clear()
       .type(dashboardName);
-    cy.get('[data-cy="board-form-columns-input"]').type(
-      '{selectall}' + columns
-    );
+    cy.get('[data-cy="board-form-type-input"]').click();
+    cy.contains('li', dashboardType).click();
     cy.get('[data-cy="board-form-auto-switch-input"]').click();
     cy.get('[data-cy="board-form-switch-interval-input"]').type(
       '{selectall}' + switchInterval
     );
+    cy.get('[data-cy="board-form-columns-input"]').type(
+      '{selectall}' + columns
+    );
     cy.get('[data-cy="board-form-submit-button"]').click();
-    if (expectedFailure == false) {
+    if (expectedFailure === false) {
       cy.contains('[data-cy="board-card"]', dashboardName)
         .scrollIntoView()
         .should('is.visible');
