@@ -1,7 +1,8 @@
 import Widgets from '../fixtures/Widgets';
 
 export function validateAemBundleInfo(widget) {
-  widget.assertText('p', /^Total: [0-9]{1,4}/)
+  widget
+    .assertText('p', /^Total: [0-9]{1,4}/)
     .assertText('p', /^Active: [0-9]{1,4}/)
     .assertText('p', /^Fragmented: [0-9]{1,4}/)
     .assertText('p', /^Resolved: [0-9]{1,4}/)
@@ -18,7 +19,8 @@ export function validateAemHealthcheck(widget) {
 }
 
 export function validateBambooDeployment(widget) {
-  widget.assertBackground('rgb(25, 140, 189)')
+  widget
+    .assertBackground('rgb(25, 140, 189)')
     .assertText('p', /^Deployment state: IN_PROGRESS/)
     .assertText('p', /^Lifecycle state: IN_PROGRESS/)
     .assertText('span', '3.1.43-SNAPSHOT (129)')
@@ -27,7 +29,8 @@ export function validateBambooDeployment(widget) {
 }
 
 export function validateBambooPlan(widget) {
-  widget.assertBackground('rgb(1, 148, 48)')
+  widget
+    .assertBackground('rgb(1, 148, 48)')
     .assertText('p', 'Finished')
     .assertText('span', '1597');
 }
@@ -47,7 +50,8 @@ export function validateIframeEmbed(widget) {
 }
 
 export function validateJenkinsJob(widget) {
-  widget.assertText('p', 'master-branch')
+  widget
+    .assertText('p', 'master-branch')
     .assertText('p', /[0-9]{2}.[0-9]{2}.[0-9]{4}, [0-9]{2}:[0-9]{2}:[0-9]{2}/)
     .assertText('p', '0.25 [s]')
     .assertText('span', '#6')
@@ -55,7 +59,8 @@ export function validateJenkinsJob(widget) {
 }
 
 export function validateServiceCheck(widget) {
-  widget.assertBackground('rgb(1, 148, 48)')
+  widget
+    .assertBackground('rgb(1, 148, 48)')
     .assertText('p', 'MATCH')
     .assertText('span', `${Widgets.serviceCheck.expectedStatusCode}`);
 }
@@ -69,8 +74,10 @@ export function validateSonarQube5x(widget) {
   }
   cy.contains('h3', widget.title)
     .parents('[draggable="true"]')
-    .contains('p',
-      /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/)
+    .contains(
+      'p',
+      /[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}, [0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}/
+    )
     .should('is.visible');
 }
 
@@ -96,7 +103,10 @@ export function validateWorldClock(widget) {
 }
 
 export function validateWidgetConfig(widget) {
-  const name = widget.version !== undefined ? `${widget.name} ${widget.version}` : widget.name;
+  const name =
+    widget.version !== undefined
+      ? `${widget.name} ${widget.version}`
+      : widget.name;
 
   widget.assertTitle();
 
