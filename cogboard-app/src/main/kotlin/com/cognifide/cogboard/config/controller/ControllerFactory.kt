@@ -6,10 +6,10 @@ import io.vertx.core.json.JsonObject
 
 class ControllerFactory {
     fun create(
-            address: String,
-            vertx: Vertx,
-            configuration: Map<String, (JsonObject) -> String>
-    ) = vertx.eventBus()
+        address: String,
+        vertx: Vertx,
+        configuration: Map<String, (JsonObject) -> String>
+    ): MessageConsumer<JsonObject> = vertx.eventBus()
             .consumer<JsonObject>(address)
             .handler {
                 val body = it.body()
