@@ -68,7 +68,7 @@ describe('Dashboard Input Validation', () => {
   });
 
   dashboardNames.forEach(value => {
-    it(`Name input accepts strings not exceeding 50 characters. Current: ${value.length}`, () => {
+    it(`Name input accepts strings not exceeding 50 characters. Tested value: ${value.length}`, () => {
       const board = addWidgetsDashboard(value);
       if (value.length > 50) {
         board
@@ -83,7 +83,7 @@ describe('Dashboard Input Validation', () => {
   });
 
   columnEdgeValues.forEach(value => {
-    it(`Columns input accepts only values from 4 to 20. Current: ${value}`, () => {
+    it(`Columns input accepts only values from 4 to 20. Tested value: ${value}`, () => {
       const board = addWidgetsDashboard(undefined, value);
       if (value < 4) {
         board
@@ -100,7 +100,7 @@ describe('Dashboard Input Validation', () => {
   });
 
   switchIntervalEdgeValues.forEach(value => {
-    it(`Switch interval input accepts only values grater than 2. Current: ${value}`, () => {
+    it(`Switch interval input accepts only values grater than 2. Tested value: ${value}`, () => {
       const board = addWidgetsDashboard(undefined, undefined, value);
       if (value < 3) {
         board
