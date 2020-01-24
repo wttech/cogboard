@@ -2,12 +2,13 @@ import {
   dashboardNameGen,
   columnEdgeValues,
   switchIntervalEdgeValues,
-  dashboardNames
+  dashboardNames,
+  dashboardTypes
 } from '../fixtures/Dashboard';
+import { addWidgetsDashboard } from '../support/dashboard';
 
 describe('Basic Dashboard CRUD', () => {
-  const dashboardName = dashboardNameGen();
-  const editDashboardName = dashboardNameGen('Edit');
+  const newTitle = dashboardNameGen('Edit');
 
   beforeEach(() => {
     cy.visit('/');
@@ -15,51 +16,33 @@ describe('Basic Dashboard CRUD', () => {
   });
 
   it('Logged user can add new dashboard', () => {
-    cy.addDashboard(dashboardName);
+    addWidgetsDashboard();
   });
 
   it('Logged user can choose dashboard', () => {
-    cy.addDashboard(dashboardName);
-    cy.contains('[data-cy="board-card"]', dashboardName).click();
-    cy.contains('[data-cy="navbar-title-header"]', dashboardName).should(
-      'exist'
-    );
+    addWidgetsDashboard().canBeSelected();
   });
 
   it('Anonymous user can choose dashboard', () => {
-    cy.addDashboard(dashboardName);
+    const board = addWidgetsDashboard();
     cy.closeDrawer();
     cy.logout();
     cy.get('[data-cy="navbar-show-drawer-button"]').click();
-    cy.contains('[data-cy="board-card"]', dashboardName).click();
-    cy.contains('[data-cy="navbar-title-header"]', dashboardName).should(
-      'exist'
-    );
+    board.canBeSelected();
   });
 
   it('Logged user can edit dashboard', () => {
-    cy.addDashboard(dashboardName);
-    cy.contains('[data-cy="board-card"]', dashboardName)
-      .find('[data-cy="board-card-edit-button"]')
-      .scrollIntoView()
-      .click();
-    cy.get('[data-cy="board-form-title-input"]')
-      .clear()
-      .type(editDashboardName);
-    cy.get('[data-cy="board-form-submit-button"]').click();
-    cy.contains('[data-cy="board-card"]', editDashboardName)
-      .scrollIntoView()
-      .should('is.visible');
+    addWidgetsDashboard()
+      .openEditDialog()
+      .setTitle(newTitle)
+      .confirmChanges()
+      .assertCardTitle(newTitle);
   });
 
   it('Logged user can remove dashboard', () => {
-    cy.addDashboard(dashboardName);
-    cy.contains('[data-cy="board-card"]', dashboardName)
-      .find('[data-cy="board-card-delete-button"]')
-      .scrollIntoView()
-      .click();
-    cy.get('[data-cy="confirmation-dialog-ok"]').click();
-    cy.contains('[data-cy="board-card"]', dashboardName).should('not.exist');
+    addWidgetsDashboard()
+      .delete()
+      .assertNotVisible();
   });
 });
 
@@ -70,52 +53,56 @@ describe('Dashboard Frontend Validation', () => {
   });
 
   it(' For empty dashboard name is displayed and submit is impossible', () => {
-    cy.addDashboard(' ', '4', '10', true);
-    cy.get('[data-cy="board-form-title-input-error"]').should('is.visible');
+    addWidgetsDashboard(' ', '4', '10', true).assertErrorMessageVisible(
+      'This field is required'
+    );
   });
 
   dashboardNames.forEach(value => {
     it(` For too long dashboard name is displayed and submit is impossible. Length: ${value.length}`, () => {
-      cy.addDashboard(value, '8', '10', true);
-      if (value.length > 25) {
-        cy.contains(
-          '[data-cy="board-form-title-input-error"]',
-          'Title length'
-        ).should('is.visible');
-      } else {
-        cy.get('[data-cy="board-form-title-input-error"]').should(
-          'not.visible'
+      const board = addWidgetsDashboard(
+        value,
+        dashboardTypes.widgets,
+        '8',
+        '10',
+        true
+      );
+      if (value.length > 50) {
+        board.assertErrorMessageVisible(
+          'Title length must be less or equal to 50.'
         );
+      } else {
+        board.assertErrorNotVisible();
       }
     });
   });
 
   columnEdgeValues.forEach(value => {
     it(` For Columns input is displayed and submit is impossible for incorrect values. Edge value : ${value}`, () => {
-      cy.addDashboard(dashboardNameGen(), value, '10', true);
-      if (value == '3' || value == '21') {
-        cy.get('[data-cy="board-form-columns-input-error"]').should(
-          'is.visible'
+      const board = addWidgetsDashboard(undefined, value, '10', true);
+      if (value === '3') {
+        board.assertErrorMessageVisible(
+          'Columns number cannot be less than 4.'
+        );
+      } else if (value === '21') {
+        board.assertErrorMessageVisible(
+          'Columns number cannot be more than 20.'
         );
       } else {
-        cy.get('[data-cy="board-form-columns-input-error"]').should(
-          'not.visible'
-        );
+        board.assertErrorNotVisible();
       }
     });
   });
 
   switchIntervalEdgeValues.forEach(value => {
     it(` For Switch Interval input is displayed and submit is impossible for incorrect values. Edge value: ${value}`, () => {
-      cy.addDashboard(dashboardNameGen(), '8', value, true);
-      if (value == '2') {
-        cy.get('[data-cy="board-form-switch-interval-input"]').should(
-          'is.visible'
+      const board = addWidgetsDashboard(undefined, '8', value, true);
+      if (value === '2') {
+        board.assertErrorMessageVisible(
+          'Switch interval number cannot be less than 3.'
         );
       } else {
-        cy.get('[data-cy="board-form-switch-interval-input"]').should(
-          'not.visible'
-        );
+        board.assertErrorNotVisible();
       }
     });
   });
@@ -128,14 +115,12 @@ describe('Dashboard switcher', () => {
   });
 
   it('Manual switching works', () => {
-    const dashboardName = dashboardNameGen();
     let prevDashboardName, nextDashboardName;
 
-    cy.addDashboard(dashboardName, '8', '3');
-    cy.chooseDashboard(dashboardName);
-    cy.contains('[data-cy="navbar-title-header"]', `${dashboardName}`).should(
-      'is.visible'
-    );
+    addWidgetsDashboard()
+      .select()
+      .assertTitle();
+
     prevDashboardName = cy
       .get('[data-cy="previous-board-button"]')
       .invoke('attr', 'title')
@@ -161,11 +146,12 @@ describe('Dashboard switcher', () => {
   });
 
   it('Automatic switching works', () => {
-    const dashboardName = dashboardNameGen();
     let nextDashboardName;
 
-    cy.addDashboard(dashboardName, '8', '3');
-    cy.chooseDashboard(dashboardName);
+    addWidgetsDashboard(undefined, undefined, '3')
+      .select()
+      .assertTitle();
+
     cy.get('[data-cy="next-board-button"]')
       .invoke('attr', 'title')
       .then(title => {
