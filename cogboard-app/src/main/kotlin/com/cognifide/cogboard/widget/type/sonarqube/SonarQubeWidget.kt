@@ -60,7 +60,10 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
                     metrics.list
                             .stream()
                             .map { it as JsonObject }
-                            .filter { it.getString(version.getMetricKey()) != "alert_status" && it.getString(version.getMetricKey()) == metricName }
+                            .filter {
+                                it.getString(version.getMetricKey()) != "alert_status" &&
+                                        it.getString(version.getMetricKey()) == metricName
+                            }
                             .findFirst()
                             .ifPresent { result.put(metricName, version.getMetricValue(it)) }
                 }
