@@ -20,10 +20,9 @@ Cypress.Commands.add('chooseDashboard', dashboardName => {
 Cypress.Commands.add(
   'addDashboard',
   (
-    dashboardName = 'Dashboard' + Date.now().toString(),
+    dashboardName = 'Dashboard_' + Date.now().toString(),
     columns = '4',
     switchInterval = '10',
-    expectedFailure = false,
     dashboardType = dashboardTypes.widgets
   ) => {
     cy.get('[data-cy="navbar-show-drawer-button"]').click();
@@ -37,17 +36,17 @@ Cypress.Commands.add(
     cy.get('[data-cy="board-form-switch-interval-input"]').type(
       '{selectall}' + switchInterval
     );
-    cy.get('[data-cy="board-form-columns-input"]').type(
-      '{selectall}' + columns
-    );
-    cy.get('[data-cy="board-form-submit-button"]').click();
-    if (expectedFailure === false) {
-      cy.contains('[data-cy="board-card"]', dashboardName)
-        .scrollIntoView()
-        .should('is.visible');
-    } else {
-      cy.contains('h2', 'Add new board').should('is.visible');
+    if (dashboardType !== dashboardTypes.iframe) {
+      cy.get('[data-cy="board-form-columns-input"]').type(
+        '{selectall}' + columns
+      );
     }
+    if (dashboardType === dashboardTypes.iframe) {
+      cy.get('[data-cy="board-form-iframe-url-input"]')
+        .clear()
+        .type('http://localhost:8093/jenkins/ok.html');
+    }
+    cy.get('[data-cy="board-form-submit-button"]').click();
   }
 );
 

@@ -76,7 +76,11 @@ const dialogFields = {
     component: TextInput,
     name: 'publicUrl',
     label: 'Public URL',
-    validator: () => string().url(vm.INVALID_URL())
+    validator: () =>
+      string().matches(
+        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
+        { message: vm.INVALID_URL(), excludeEmptyString: true }
+      )
   },
   WidgetTypeField: {
     component: DisplayValueSelect,
@@ -210,13 +214,21 @@ const dialogFields = {
     component: TextInput,
     name: 'url',
     label: 'URL',
-    validator: () => string().url(vm.INVALID_URL())
+    validator: () =>
+      string().matches(
+        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
+        { message: vm.INVALID_URL(), excludeEmptyString: true }
+      )
   },
   IFrameURL: {
     component: TextInput,
     name: 'iframeUrl',
     label: 'URL',
-    validator: () => string().url(vm.INVALID_URL())
+    validator: () =>
+      string().matches(
+        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
+        { message: vm.INVALID_URL(), excludeEmptyString: true }
+      )
   },
   IdString: {
     component: TextInput,

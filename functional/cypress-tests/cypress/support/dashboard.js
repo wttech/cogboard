@@ -1,20 +1,19 @@
 import { dashboardNameGen, dashboardTypes } from '../fixtures/Dashboard';
 
 class Dashboard {
-  constructor(
-    name = dashboardNameGen(),
-    type,
-    columns,
-    switchInterval,
-    expectedFailure
-  ) {
+  constructor(name = dashboardNameGen(), type, columns, switchInterval) {
     this.name = name;
-    cy.addDashboard(this.name, columns, switchInterval, expectedFailure, type);
+    cy.addDashboard(this.name, columns, switchInterval, type);
   }
 
   canBeSelected() {
     cy.contains('[data-cy="board-card"]', this.name).click();
     cy.contains('[data-cy="navbar-title-header"]', this.name).should('exist');
+    return this;
+  }
+
+  assertIframeExists() {
+    cy.get('iframe').should('is.visible');
     return this;
   }
 
@@ -65,13 +64,21 @@ class Dashboard {
     cy.contains('[data-cy="board-card"]', this.name).should('not.exist');
   }
 
-  assertErrorNotVisible() {
+  assertErrorMessageVisible(message) {
+    cy.contains('[data-cy^="board-form-"]', message).should('is.visible');
+    return this;
+  }
+
+  expectConfigToBeValid() {
+    cy.contains('[data-cy="board-card"]', this.name)
+      .scrollIntoView()
+      .should('is.visible');
     cy.get('[data-cy="board-form-title-input-error"]').should('not.visible');
     return this;
   }
 
-  assertErrorMessageVisible(message) {
-    cy.contains('[data-cy^="board-form-"]', message).should('is.visible');
+  expectConfigToBeInvalid() {
+    cy.contains('h2', 'Add new board').should('is.visible');
     return this;
   }
 
@@ -81,32 +88,10 @@ class Dashboard {
   }
 }
 
-export function addWidgetsDashboard(
-  name,
-  columns,
-  switchInterval,
-  expectedFailure
-) {
-  return new Dashboard(
-    name,
-    dashboardTypes.widgets,
-    columns,
-    switchInterval,
-    expectedFailure
-  );
+export function addWidgetsDashboard(name, columns, switchInterval) {
+  return new Dashboard(name, dashboardTypes.widgets, columns, switchInterval);
 }
 
-export function addIframeDashboard(
-  name,
-  columns,
-  switchInterval,
-  expectedFailure
-) {
-  return new Dashboard(
-    name,
-    dashboardTypes.iframe,
-    columns,
-    switchInterval,
-    expectedFailure
-  );
+export function addIframeDashboard(name, columns, switchInterval) {
+  return new Dashboard(name, dashboardTypes.iframe, columns, switchInterval);
 }
