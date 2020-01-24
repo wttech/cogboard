@@ -12,23 +12,17 @@ fun <T> List<T>.getNextListIndex(currentIndex: Int): Int = when {
 }
 
 fun <T> List<T>.getRandomListIndex(usedIndexes: List<Int>): Int {
-
-    if (this.isEmpty()) {
-        return -1
-    }
-
-    val indexes = this.mapIndexed { index, _ -> index }
-            .filter { i -> !usedIndexes.contains(i) }
-
-    // If there is one index, there is no need to use random function
-    if (indexes.size == 1) {
-        return indexes[0]
-    }
-
-    return if (indexes.isNotEmpty()) {
-        indexes[Random.nextInt(0, indexes.size)]
+    return if (this.isEmpty()) {
+        -1
     } else {
-        Random.nextInt(0, this.size)
+        val indexes = this.mapIndexed { index, _ -> index }
+                .filter { i -> !usedIndexes.contains(i) }
+        when {
+            // If there is one index, there is no need to use random function
+            indexes.size == 1 -> return indexes[0]
+            indexes.isNotEmpty() -> indexes[Random.nextInt(0, indexes.size)]
+            else -> Random.nextInt(0, this.size)
+        }
     }
 }
 

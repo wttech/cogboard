@@ -15,11 +15,8 @@ interface Version {
     fun getMetricValue(metric: JsonObject): Int
 
     companion object Test {
-        fun getVersion(version: String): Version {
-            if (version.equals("5.x"))
-                return V5x()
-            else
-                return V7x()
-        }
+        fun getVersion(version: String) =
+                if (version == "5.x") V5x()
+                else V7x()
     }
 }

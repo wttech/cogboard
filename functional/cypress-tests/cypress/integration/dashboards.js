@@ -2,10 +2,9 @@ import {
   dashboardNameGen,
   columnEdgeValues,
   switchIntervalEdgeValues,
-  dashboardNames,
-  dashboardTypes
+  dashboardNames
 } from '../fixtures/Dashboard';
-import { addWidgetsDashboard } from '../support/dashboard';
+import { addIframeDashboard, addWidgetsDashboard } from '../support/dashboard';
 
 describe('Basic Dashboard CRUD', () => {
   const newTitle = dashboardNameGen('Edit');
@@ -15,12 +14,22 @@ describe('Basic Dashboard CRUD', () => {
     cy.login();
   });
 
-  it('Logged user can add new dashboard', () => {
+  it('Logged user can add new widgets dashboard', () => {
     addWidgetsDashboard();
   });
 
-  it('Logged user can choose dashboard', () => {
+  it('Logged user can choose widgets dashboard', () => {
     addWidgetsDashboard().canBeSelected();
+  });
+
+  it('Logged user can add new iframe dashboard', () => {
+    addIframeDashboard();
+  });
+
+  it('Logged user can choose iframe dashboard', () => {
+    addIframeDashboard()
+      .canBeSelected()
+      .assertIframeExists();
   });
 
   it('Anonymous user can choose dashboard', () => {
@@ -46,63 +55,61 @@ describe('Basic Dashboard CRUD', () => {
   });
 });
 
-describe('Dashboard Frontend Validation', () => {
+describe('Dashboard Input Validation', () => {
   beforeEach(() => {
     cy.visit('/');
     cy.login();
   });
 
-  it(' For empty dashboard name is displayed and submit is impossible', () => {
-    addWidgetsDashboard(' ', '4', '10', true).assertErrorMessageVisible(
-      'This field is required'
-    );
+  it('Name input do not accept empty strings', () => {
+    addWidgetsDashboard(' ')
+      .expectConfigToBeInvalid()
+      .assertErrorMessageVisible('This field is required');
   });
 
   dashboardNames.forEach(value => {
-    it(` For too long dashboard name is displayed and submit is impossible. Length: ${value.length}`, () => {
-      const board = addWidgetsDashboard(
-        value,
-        dashboardTypes.widgets,
-        '8',
-        '10',
-        true
-      );
+    it(`Name input accepts strings not exceeding 50 characters. Tested value: ${value.length}`, () => {
+      const board = addWidgetsDashboard(value);
       if (value.length > 50) {
-        board.assertErrorMessageVisible(
-          'Title length must be less or equal to 50.'
-        );
+        board
+          .expectConfigToBeInvalid()
+          .assertErrorMessageVisible(
+            'Title length must be less or equal to 50.'
+          );
       } else {
-        board.assertErrorNotVisible();
+        board.expectConfigToBeValid();
       }
     });
   });
 
   columnEdgeValues.forEach(value => {
-    it(` For Columns input is displayed and submit is impossible for incorrect values. Edge value : ${value}`, () => {
-      const board = addWidgetsDashboard(undefined, value, '10', true);
-      if (value === '3') {
-        board.assertErrorMessageVisible(
-          'Columns number cannot be less than 4.'
-        );
-      } else if (value === '21') {
-        board.assertErrorMessageVisible(
-          'Columns number cannot be more than 20.'
-        );
+    it(`Columns input accepts only values from 4 to 20. Tested value: ${value}`, () => {
+      const board = addWidgetsDashboard(undefined, value);
+      if (value < 4) {
+        board
+          .expectConfigToBeInvalid()
+          .assertErrorMessageVisible('Columns number cannot be less than 4.');
+      } else if (value > 20) {
+        board
+          .expectConfigToBeInvalid()
+          .assertErrorMessageVisible('Columns number cannot be more than 20.');
       } else {
-        board.assertErrorNotVisible();
+        board.expectConfigToBeValid();
       }
     });
   });
 
   switchIntervalEdgeValues.forEach(value => {
-    it(` For Switch Interval input is displayed and submit is impossible for incorrect values. Edge value: ${value}`, () => {
-      const board = addWidgetsDashboard(undefined, '8', value, true);
-      if (value === '2') {
-        board.assertErrorMessageVisible(
-          'Switch interval number cannot be less than 3.'
-        );
+    it(`Switch interval input accepts only values grater than 2. Tested value: ${value}`, () => {
+      const board = addWidgetsDashboard(undefined, undefined, value);
+      if (value < 3) {
+        board
+          .expectConfigToBeInvalid()
+          .assertErrorMessageVisible(
+            'Switch interval number cannot be less than 3.'
+          );
       } else {
-        board.assertErrorNotVisible();
+        board.expectConfigToBeValid();
       }
     });
   });

@@ -1,5 +1,5 @@
 export function dashboardNameGen(name = 'Dashboard') {
-  return `name_${Date.now().toString()}`;
+  return `${name}_${Date.now().toString()}`;
 }
 
 export const columnEdgeValues = ['3', '4', '20', '21'];
