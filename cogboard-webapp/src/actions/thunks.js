@@ -49,14 +49,9 @@ export const fetchInitialData = () => dispatch => {
 };
 
 export const fetchAppInfo = skipVersion => dispatch => {
-  return Promise.all(
-    [URL.LOAD_INFO, URL.REPOSITORY_LATEST_RELEASE].map(item => fetchData(item))
-  ).then(([appInfo, githubResponse]) => {
-    const action = newVersionActionCreator(
-      appInfo,
-      githubResponse,
-      skipVersion
-    );
+  return fetchData(URL.LOAD_INFO).then(appInfo => {
+    console.log(appInfo);
+    const action = newVersionActionCreator(appInfo, skipVersion);
 
     if (action) {
       dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));

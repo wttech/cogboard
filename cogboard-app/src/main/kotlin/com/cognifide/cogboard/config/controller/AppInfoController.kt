@@ -7,9 +7,12 @@ import io.vertx.core.json.JsonObject
 
 class AppInfoController : AbstractVerticle() {
 
-    private val appInfoService: AppInfoService by lazy { AppInfoService() }
+    private lateinit var appInfoService: AppInfoService
     private val factory = ControllerFactory()
     override fun start() {
+        appInfoService = AppInfoService(vertx)
+
+        appInfoService.createCronTask()
         listenOnAppInfo()
     }
 

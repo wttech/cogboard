@@ -158,9 +158,12 @@ tasks {
     }
 
     register("createInfoFile") {
-        File(mountDir, "info.json").writeText("""
+        File(mountDir, ".version").writeText("""
             {
-              "version": "$version"
+              "version": "0.100.0",
+              "latestVersion": "$version",
+              "status": "freshInstall",
+              "latestResponse": {}
             }
         """.trimIndent())
         mustRunAfter("copyConfigs")

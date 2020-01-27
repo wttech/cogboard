@@ -2,23 +2,17 @@ import React from 'react';
 import { useCookies } from 'react-cookie';
 
 import { Button } from '@material-ui/core';
+import { URL } from '../constants';
 
-import { compareVersionNumbers } from './helper';
+export const newVersionActionCreator = (appInfo, skipVersion) => {
+  const { latestVersion, status, latestResponse } = appInfo;
+  const { html_url: url } = latestResponse;
 
-export const newVersionActionCreator = (
-  appInfo,
-  githubResponse,
-  skipVersion
-) => {
-  const { version: currentVersion } = appInfo;
-  const { tag_name: latestVersion, html_url: url } = githubResponse;
-
-  if (
-    latestVersion === skipVersion ||
-    compareVersionNumbers(currentVersion, latestVersion.substring(1)) !== -1
-  ) {
+  console.log(skipVersion);
+  if (status !== 'newVersion' || latestVersion === skipVersion) {
     return;
   }
+
   return handleClose => (
     <NewVersionAction
       version={latestVersion}
@@ -42,11 +36,20 @@ const NewVersionAction = ({ version, url, handleClose }) => {
       <Button color="secondary" onClick={handleSkipVersion(31556926)}>
         Skip version
       </Button>
-      <Button color="secondary" onClick={handleSkipVersion(86400)}>
+      {/* 86400 - one day  */}
+      <Button color="secondary" onClick={handleSkipVersion(10)}>
         Remind me later
       </Button>
+      <Button
+        href={URL.UPDATE_INFO}
+        target="_blank"
+        color="primary"
+        onClick={handleClose}
+      >
+        Get new version
+      </Button>
       <Button href={url} target="_blank" color="primary">
-        Get new version!
+        Release note
       </Button>
     </>
   );

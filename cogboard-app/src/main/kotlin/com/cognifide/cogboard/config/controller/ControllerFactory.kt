@@ -14,5 +14,4 @@ class ControllerFactory {
                         it.reply(method(body.getJsonObject("payload")))
                     }
                 }
-    }
 }

@@ -19,7 +19,7 @@ import java.net.URL
 object VolumeStorageFactory {
     private val LOGGER = LoggerFactory.getLogger(VolumeStorageFactory::class.java)
 
-    private const val INFO_CONFIG_FILE_PATH = "/data/info.json"
+    private const val INFO_CONFIG_FILE_PATH = "/data/.version"
     private const val BOARDS_CONFIG_FILE_PATH = "/data/config.json"
     private const val ENDPOINTS_CONFIG_FILE_PATH = "/data/endpoints.json"
     private const val CREDENTIALS_CONFIG_FILE_PATH = "/data/credentials.json"

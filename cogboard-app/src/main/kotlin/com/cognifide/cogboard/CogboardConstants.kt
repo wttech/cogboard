@@ -66,6 +66,10 @@ class CogboardConstants {
         const val REQUEST_METHOD_PUT = "put"
         const val REQUEST_METHOD_DELETE = "delete"
 
+        const val GITHUB_API = "api.github.com"
+        const val GITHUB_REPOSITORY_LATEST_VERSION_URL =
+                "/repos/cognifide/cogboard/releases/latest"
+
         val DEFAULT_VALUES: JsonObject = JsonObject()
                 .put(PROP_SCHEDULE_PERIOD, PROP_SCHEDULE_PERIOD_DEFAULT)
 

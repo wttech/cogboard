@@ -30,8 +30,11 @@ function App() {
     }
 
     dispatch(fetchInitialData());
-    dispatch(fetchAppInfo(cookies.skipVersion));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchAppInfo(cookies.skipVersion));
+  }, [dispatch, cookies.skipVersion]);
 
   useEffect(() => {
     if (appInitialized) {
