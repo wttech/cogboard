@@ -25,7 +25,8 @@ import {
   saveSettings,
   addSettingsItem,
   editSettingsItem,
-  deleteSettingsItem
+  deleteSettingsItem,
+  setNewVersionNotificationVisible
 } from './actionCreators';
 import {
   fetchData,
@@ -48,13 +49,13 @@ export const fetchInitialData = () => dispatch => {
   }, console.error);
 };
 
-export const fetchAppInfo = skipVersion => dispatch => {
+export const fetchAppInfo = () => dispatch => {
   return fetchData(URL.LOAD_INFO).then(appInfo => {
-    console.log(appInfo);
-    const action = newVersionActionCreator(appInfo, skipVersion);
+    const action = newVersionActionCreator(appInfo);
 
     if (action) {
       dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
+      dispatch(setNewVersionNotificationVisible());
     }
   }, console.error);
 };

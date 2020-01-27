@@ -28,7 +28,9 @@ import {
   SAVE_SETTINGS,
   ADD_SETTINGS_ITEM,
   EDIT_SETTINGS_ITEM,
-  DELETE_SETTINGS_ITEM
+  DELETE_SETTINGS_ITEM,
+  SET_NEW_VERSION_NOTIFICATION_VISIBLE,
+  SET_NEW_VERSION_NOTIFICATION_INVISIBLE
 } from './types';
 import { INITIAL_BOARD_PROPS } from '../constants';
 
@@ -185,4 +187,12 @@ export const deleteSettingsItem = (name, data) => ({
     name,
     item: data
   }
+});
+
+export const setNewVersionNotificationVisible = () => ({
+  type: SET_NEW_VERSION_NOTIFICATION_VISIBLE
+});
+
+export const setNewVersionNotificationInvisible = () => ({
+  type: SET_NEW_VERSION_NOTIFICATION_INVISIBLE
 });

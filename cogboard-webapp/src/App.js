@@ -11,18 +11,22 @@ import {
   updateWidgetContent
 } from './actions/thunks';
 import { saveDataSuccess, loginSuccess } from './actions/actionCreators';
+import { useInterval } from './hooks';
+import { getIsNewVersionNotificationVisible } from './selectors';
 import { theme } from './theme';
 
 import MainTemplate from './components/MainTemplate';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { isAuthenticated } from './utils/auth';
 import ServerErrorPage from './components/ServerErrorPage';
-import { useCookies } from 'react-cookie';
+import { CHECK_NEW_VERSION_DELAY } from './constants';
 
 function App() {
   const appInitialized = useSelector(({ app }) => app.initialized);
   const dispatch = useDispatch();
-  const [cookies] = useCookies();
+  const isNewVersionNotificationVisible = useSelector(
+    getIsNewVersionNotificationVisible
+  );
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -30,11 +34,17 @@ function App() {
     }
 
     dispatch(fetchInitialData());
+    dispatch(fetchAppInfo());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchAppInfo(cookies.skipVersion));
-  }, [dispatch, cookies.skipVersion]);
+  useInterval(
+    () => {
+      if (!isNewVersionNotificationVisible) {
+        dispatch(fetchAppInfo());
+      }
+    },
+    isNewVersionNotificationVisible ? null : CHECK_NEW_VERSION_DELAY
+  );
 
   useEffect(() => {
     if (appInitialized) {

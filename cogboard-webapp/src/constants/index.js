@@ -40,6 +40,8 @@ export const WIDGET_ROWS_MAX = 4;
 
 export const WIDGET_TITLE_LENGTH_LIMIT = 25;
 
+export const CHECK_NEW_VERSION_DELAY = 3 * 60 * 60 * 1000; // 3h
+
 export const TEXT_SIZES = [
   {
     display: 'XXL',

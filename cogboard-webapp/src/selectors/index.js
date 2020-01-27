@@ -63,6 +63,11 @@ export const getAllNotifications = createSelector(
   ({ allNotifications }) => allNotifications
 );
 
+export const getIsNewVersionNotificationVisible = createSelector(
+  [getNotifications],
+  ({ isNewVersionNotificationVisible }) => isNewVersionNotificationVisible
+);
+
 export const getBoards = createSelector(
   [getBoardsById],
   boardsById => Object.values(boardsById)

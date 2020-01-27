@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.config.service
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Companion.GITHUB_API
+import com.cognifide.cogboard.CogboardConstants.Companion.GITHUB_REPOSITORY_LATEST_VERSION_URL
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.info
 import io.vertx.core.Handler
@@ -21,7 +22,7 @@ class AppInfoService(
 
     private val request: HttpRequest<JsonObject> by lazy {
         WebClient.create(vertx)
-            .get(CogboardConstants.GITHUB_API, CogboardConstants.GITHUB_REPOSITORY_LATEST_VERSION_URL)
+            .get(GITHUB_API, GITHUB_REPOSITORY_LATEST_VERSION_URL)
             .putHeader("User-Agent", "Cogboard")
             .`as`(BodyCodec.jsonObject())
             .timeout(TIMEOUT)

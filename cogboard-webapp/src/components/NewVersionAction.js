@@ -1,14 +1,17 @@
 import React from 'react';
-import { useCookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+
+import Cookies from 'js-cookie';
 
 import { Button } from '@material-ui/core';
 import { URL } from '../constants';
+import { setNewVersionNotificationInvisible } from '../actions/actionCreators';
 
-export const newVersionActionCreator = (appInfo, skipVersion) => {
+export const newVersionActionCreator = appInfo => {
   const { latestVersion, status, latestResponse } = appInfo;
   const { html_url: url } = latestResponse;
+  const skipVersion = Cookies.get('skipVersion');
 
-  console.log(skipVersion);
   if (status !== 'newVersion' || latestVersion === skipVersion) {
     return;
   }
@@ -23,28 +26,31 @@ export const newVersionActionCreator = (appInfo, skipVersion) => {
 };
 
 const NewVersionAction = ({ version, url, handleClose }) => {
-  const [, setCookie] = useCookies(['skipVersion']);
+  const dispatch = useDispatch();
 
-  const handleSkipVersion = time => event => {
-    event.stopPropagation();
-    setCookie('skipVersion', version, { path: '/', maxAge: time });
+  const handleCloseWithStateChange = () => {
+    dispatch(setNewVersionNotificationInvisible());
     handleClose();
+  };
+
+  const handleSkipVersion = time => () => {
+    Cookies.set('skipVersion', version, { path: '/', expires: time });
+    handleCloseWithStateChange();
   };
 
   return (
     <>
-      <Button color="secondary" onClick={handleSkipVersion(31556926)}>
+      <Button color="secondary" onClick={handleSkipVersion(1000)}>
         Skip version
       </Button>
-      {/* 86400 - one day  */}
-      <Button color="secondary" onClick={handleSkipVersion(10)}>
+      <Button color="secondary" onClick={handleSkipVersion(1)}>
         Remind me later
       </Button>
       <Button
         href={URL.UPDATE_INFO}
         target="_blank"
         color="primary"
-        onClick={handleClose}
+        onClick={handleCloseWithStateChange}
       >
         Get new version
       </Button>

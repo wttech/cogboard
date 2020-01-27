@@ -160,7 +160,7 @@ tasks {
     register("createInfoFile") {
         File(mountDir, ".version").writeText("""
             {
-              "version": "0.100.0",
+              "version": "$version",
               "latestVersion": "$version",
               "status": "freshInstall",
               "latestResponse": {}
