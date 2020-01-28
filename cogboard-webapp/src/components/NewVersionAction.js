@@ -1,15 +1,18 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-
 import Cookies from 'js-cookie';
 
-import { Button } from '@material-ui/core';
 import { URL } from '../constants';
 import { setNewVersionNotificationInvisible } from '../actions/actionCreators';
 
+import { Button } from '@material-ui/core';
+
 export const newVersionActionCreator = appInfo => {
-  const { latestVersion, status, latestResponse } = appInfo;
-  const { html_url: url } = latestResponse;
+  const {
+    latestVersion,
+    status,
+    latestResponse: { html_url: url }
+  } = appInfo;
   const skipVersion = Cookies.get('skipVersion');
 
   if (status !== 'newVersion' || latestVersion === skipVersion) {

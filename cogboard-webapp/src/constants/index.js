@@ -23,8 +23,6 @@ export const URL = {
   LOGIN: '/api/login',
   ENDPOINTS_ENDPOINT: '/api/endpoints',
   CREDENTIALS_ENDPOINT: '/api/credentials',
-  REPOSITORY_LATEST_RELEASE:
-    'https://api.github.com/repos/cognifide/cogboard/releases/latest',
   UPDATE_INFO: 'https://github.com/Cognifide/cogboard/wiki#update'
 };
 export const COLUMN_MULTIPLIER = 2;

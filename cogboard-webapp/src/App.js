@@ -11,15 +11,15 @@ import {
   updateWidgetContent
 } from './actions/thunks';
 import { saveDataSuccess, loginSuccess } from './actions/actionCreators';
-import { useInterval } from './hooks';
 import { getIsNewVersionNotificationVisible } from './selectors';
+import { useInterval } from './hooks';
 import { theme } from './theme';
+import { CHECK_NEW_VERSION_DELAY } from './constants';
 
 import MainTemplate from './components/MainTemplate';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { isAuthenticated } from './utils/auth';
 import ServerErrorPage from './components/ServerErrorPage';
-import { CHECK_NEW_VERSION_DELAY } from './constants';
 
 function App() {
   const appInitialized = useSelector(({ app }) => app.initialized);
