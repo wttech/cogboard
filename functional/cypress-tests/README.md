@@ -36,7 +36,7 @@ All cypress related commits should be done on branches starting with `automation
 
 ### Coding conventions
 
-All tests should be written according to [Cypress.io Best Practices guide](https://docs.cypress.io/guides/references/best-practices.html "Best Practices | Cypress Documentation"). Read it before starting to contribute.
+All tests should be written according to [Cypress.io Best Practices guide](https://docs.cypress.io/guides/references/best-practices.html 'Best Practices | Cypress Documentation'). Read it before starting to contribute.
 
 Additional project specific conventions:
 
@@ -81,6 +81,8 @@ Use helpers below to minimize specfiles size. Keep in mind that some of those he
 `cy.renewDashboards(username, password)` - API call which generates dashboard specified in `../fixtures/reorderingConfig.json`
 
 ### Widget
+
+`createWidget(name)` - use any name from `functional/cypress-tests/cypress/fixtures/Widgets.js` for example: `Widgets.whiteSpace.name` - this will add configured widget to current board. Widget type will be deducted from name prop.
 
 `cy.clickAddWidgetButton()` - Click the Add Widget button visible after login.
 

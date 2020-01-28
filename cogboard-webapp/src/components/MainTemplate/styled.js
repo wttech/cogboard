@@ -1,37 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
-import { Box, Drawer, Fab } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import BoardList from '../BoardList';
 import Logo from '../Logo';
 import { getBackgroundColor } from '../../utils/components';
-
-export const StyledActions = styled(Box)`
-  bottom: 50px;
-  position: fixed;
-  right: 50px;
-  z-index: 10000;
-`;
-
-export const StyledSaveFab = styled(Fab)`
-  margin-right: 16px;
-  animation: pulse 2s infinite;
-
-  @keyframes pulse {
-    0% {
-      opacity: 0.7;
-      box-shadow: 0 0 0 0 rgba(28, 38, 48, 0.4);
-    }
-    70% {
-      opacity: 1;
-      box-shadow: 0 0 0 10px rgba(28, 38, 48, 0);
-    }
-    100% {
-      opacity: 0.7;
-      box-shadow: 0 0 0 0 rgba(28, 38, 48, 0);
-    }
-  }
-`;
 
 export const StyledBoardList = styled(BoardList)`
   padding: 32px;
