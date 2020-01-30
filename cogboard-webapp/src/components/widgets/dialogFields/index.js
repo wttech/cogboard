@@ -78,7 +78,7 @@ const dialogFields = {
     label: 'Public URL',
     validator: () =>
       string().matches(
-        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
+        /^(http|https|ws|ftp):\/\/.*([:.]).*/,
         { message: vm.INVALID_URL(), excludeEmptyString: true }
       )
   },
@@ -216,7 +216,7 @@ const dialogFields = {
     label: 'URL',
     validator: () =>
       string().matches(
-        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
+        /^(http|https|ws|ftp):\/\/.*([:.]).*/,
         { message: vm.INVALID_URL(), excludeEmptyString: true }
       )
   },
@@ -226,7 +226,7 @@ const dialogFields = {
     label: 'URL',
     validator: () =>
       string().matches(
-        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
+        /^(http|https|ws|ftp):\/\/.*([:.]).*/,
         { message: vm.INVALID_URL(), excludeEmptyString: true }
       )
   },
