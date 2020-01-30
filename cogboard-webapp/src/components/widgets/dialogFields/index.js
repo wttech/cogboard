@@ -48,7 +48,7 @@ const dialogFields = {
     component: CredentialInput,
     name: 'credentials',
     label: 'Credential',
-    validator: () => string().required(vm.FIELD_REQUIRED())
+    validator: () => string()
   },
   UsernameField: {
     component: TextInput,
