@@ -84,8 +84,6 @@ describe('Credentials and endpoints', () => {
       cy.get('[data-cy="endpoint-form-public-url-input-error"]').should(
         'be.visible'
       );
-      cy.get('p.MuiFormHelperText-root.Mui-error') // <= needs data-cy
-        .should('be.visible');
     });
 
     it('User can add new endpoint. New endpoints label is visible', () => {
