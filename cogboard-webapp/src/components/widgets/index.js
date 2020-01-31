@@ -11,6 +11,7 @@ import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
 import PersonDrawWidget from './types/PersonDrawWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
+import CatsWidget from './types/CatsWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -156,6 +157,17 @@ const widgetTypes = {
     ],
     showUpdateTime: false,
     validationConstraints: {}
+  },
+  CatsWidget: {
+    name: 'Cute Cats',
+    component: CatsWidget,
+    dialogFields: [
+      'SchedulePeriod',
+    ],
+    showUpdateTime: false,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
   },
   AemBundleInfoWidget: {
     name: 'AEM Bundle Info',
