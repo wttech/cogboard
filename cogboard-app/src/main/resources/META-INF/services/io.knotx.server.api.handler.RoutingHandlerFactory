@@ -1,4 +1,5 @@
 com.cognifide.cogboard.config.handler.ConfigApiHandler
+com.cognifide.cogboard.config.handler.VersionHandler
 com.cognifide.cogboard.widget.handler.UpdateWidget
 com.cognifide.cogboard.widget.handler.DeleteWidget
 com.cognifide.cogboard.widget.handler.ContentUpdateWidget

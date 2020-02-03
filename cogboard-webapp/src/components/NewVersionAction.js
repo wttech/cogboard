@@ -10,12 +10,11 @@ import { Button } from '@material-ui/core';
 export const newVersionActionCreator = appInfo => {
   const {
     latestVersion,
-    status,
     latestResponse: { html_url: url }
   } = appInfo;
   const skipVersion = Cookies.get('skipVersion');
 
-  if (status !== 'newVersion' || latestVersion === skipVersion) {
+  if (latestVersion === skipVersion) {
     return;
   }
 
@@ -44,7 +43,7 @@ const NewVersionAction = ({ version, url, handleClose }) => {
   return (
     <>
       <Button color="secondary" onClick={handleSkipVersion(1000)}>
-        Skip version
+        Skip
       </Button>
       <Button color="secondary" onClick={handleSkipVersion(1)}>
         Remind me later
@@ -55,7 +54,7 @@ const NewVersionAction = ({ version, url, handleClose }) => {
         color="primary"
         onClick={handleCloseWithStateChange}
       >
-        Get new version
+        Update
       </Button>
       <Button href={url} target="_blank" color="primary">
         Release note

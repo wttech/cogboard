@@ -25,8 +25,7 @@ import {
   saveSettings,
   addSettingsItem,
   editSettingsItem,
-  deleteSettingsItem,
-  setNewVersionNotificationVisible
+  deleteSettingsItem
 } from './actionCreators';
 import {
   fetchData,
@@ -38,7 +37,6 @@ import {
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
 import { setToken, removeToken, getToken, getUserRole } from '../utils/auth';
-import { newVersionActionCreator } from '../components/NewVersionAction';
 
 export const fetchInitialData = () => dispatch => {
   dispatch(requestData());
@@ -50,14 +48,7 @@ export const fetchInitialData = () => dispatch => {
 };
 
 export const fetchAppInfo = () => dispatch => {
-  return fetchData(URL.LOAD_INFO).then(appInfo => {
-    const action = newVersionActionCreator(appInfo);
-
-    if (action) {
-      dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
-      dispatch(setNewVersionNotificationVisible());
-    }
-  }, console.error);
+  return fetch(URL.LOAD_INFO, { method: 'GET' });
 };
 
 export const saveDataThunk = () => (dispatch, getState) => {

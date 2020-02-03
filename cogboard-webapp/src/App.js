@@ -10,16 +10,22 @@ import {
   fetchInitialData,
   updateWidgetContent
 } from './actions/thunks';
-import { saveDataSuccess, loginSuccess } from './actions/actionCreators';
+import {
+  saveDataSuccess,
+  loginSuccess,
+  pushNotification,
+  setNewVersionNotificationVisible
+} from './actions/actionCreators';
 import { getIsNewVersionNotificationVisible } from './selectors';
 import { useInterval } from './hooks';
 import { theme } from './theme';
-import { CHECK_NEW_VERSION_DELAY } from './constants';
+import { CHECK_NEW_VERSION_DELAY, NOTIFICATIONS } from './constants';
 
 import MainTemplate from './components/MainTemplate';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { isAuthenticated } from './utils/auth';
 import ServerErrorPage from './components/ServerErrorPage';
+import { newVersionActionCreator } from './components/NewVersionAction';
 
 function App() {
   const appInitialized = useSelector(({ app }) => app.initialized);
@@ -34,7 +40,6 @@ function App() {
     }
 
     dispatch(fetchInitialData());
-    dispatch(fetchAppInfo());
   }, [dispatch]);
 
   useInterval(
@@ -56,16 +61,26 @@ function App() {
           dispatch(updateWidgetContent(data));
         } else if (eventType === 'notification-config-save') {
           dispatch(saveDataSuccess());
+        } else if (eventType === 'new-version') {
+          // TODO fix multiple notification
+          // if (!isNewVersionNotificationVisible) {
+          //   const action = newVersionActionCreator(data.content);
+          //   if (action) {
+          //     dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
+          //     dispatch(setNewVersionNotificationVisible());
+          //   }
+          // }
         }
       };
 
       socket.addEventListener('message', handleMessageReceive);
 
+      dispatch(fetchAppInfo());
       return () => {
         socket.removeEventListener('message', handleMessageReceive);
       };
     }
-  }, [appInitialized, dispatch]);
+  }, [appInitialized, dispatch, isNewVersionNotificationVisible]);
 
   return (
     <ThemeProvider theme={theme}>

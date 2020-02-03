@@ -160,10 +160,7 @@ tasks {
     register("createInfoFile") {
         File(mountDir, ".version").writeText("""
             {
-              "version": "$version",
-              "latestVersion": "$version",
-              "status": "freshInstall",
-              "latestResponse": {}
+              "version": "$version"
             }
         """.trimIndent())
         mustRunAfter("copyConfigs")

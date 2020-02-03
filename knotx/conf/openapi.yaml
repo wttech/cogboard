@@ -29,7 +29,7 @@ servers:
 paths:
   /api/version:
     get:
-      operationId: app-version-handler
+      operationId: version-handler
       responses:
         default:
           description: App Version Handler
