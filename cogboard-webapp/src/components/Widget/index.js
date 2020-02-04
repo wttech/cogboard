@@ -166,7 +166,7 @@ const Widget = ({ id, index }) => {
         isLoggedIn={isAuthenticated}
         isDragging={isDragging}
         isOver={isOver}
-        isVertical={isVertical}
+        isvertical={isVertical}
         ref={ref}
         type={type}
         expanded={expanded}
