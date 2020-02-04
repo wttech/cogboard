@@ -144,7 +144,7 @@ describe('Credentials and endpoints', () => {
       cy.get('[data-cy="endpoint-form-label-input"]')
         .type(testEndpoint(testLbl).label)
         .blur();
-      cy.get('[data-cy="endpoint-form-label-input-error"]', { timeout: 20000 })
+      cy.get('[data-cy="endpoint-form-label-input-error"]')
         .should('be.visible')
         .and('contain.text', 'This field must be unique.');
     });
