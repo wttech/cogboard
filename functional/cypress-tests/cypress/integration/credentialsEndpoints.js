@@ -2,6 +2,7 @@
 import {
   testCredential,
   testEndpoint,
+  testEndpointByIp,
   testLbl,
   editedLbl
 } from '../fixtures/credentialsEndpoints';
@@ -102,7 +103,9 @@ describe('Credentials and endpoints', () => {
 
       cy.get('[data-cy="endpoint-form-credentials-input"]').click();
       cy.get('[role="listbox"]').within(() => {
-        cy.contains('li', `${testCredential(timestamp).label}`).click();
+        cy.contains('li', `${testCredential(timestamp).label}`)
+          .scrollIntoView()
+          .click();
       });
       cy.get('[data-cy="endpoint-form-submit-button"]').click();
       cy.get('[data-cy="app-dialog-content"]').should(
@@ -111,10 +114,35 @@ describe('Credentials and endpoints', () => {
       );
     });
 
+    it('User can add new endpoint by IP and with port number. New endpoints label is visible', () => {
+      cy.get('[data-cy="add-endpoint-add-button"]').click();
+      cy.get('[data-cy="endpoint-form-label-input"]')
+        .type(testEndpointByIp(testLbl).label + '2')
+        .blur();
+
+      cy.get('[data-cy="endpoint-form-url-input"]')
+        .type(testEndpointByIp(testLbl).url)
+        .blur();
+
+      cy.get('[data-cy="endpoint-form-public-url-input"]')
+        .type(testEndpointByIp(testLbl).publicUrl)
+        .blur();
+
+      cy.get('[data-cy="endpoint-form-credentials-input"]').click();
+      cy.get('[role="listbox"]').within(() => {
+        cy.contains('li', `${testCredential(timestamp).label}`).click();
+      });
+      cy.get('[data-cy="endpoint-form-submit-button"]').click();
+      cy.get('[data-cy="app-dialog-content"]').should(
+        'contain',
+        testEndpointByIp(testLbl).label + '2'
+      );
+    });
+
     it('User cannot add endpoints with existing label', () => {
       cy.get('[data-cy="add-endpoint-add-button"]').click();
       cy.get('[data-cy="endpoint-form-label-input"]')
-        .type(testEndpoint(timestamp).label)
+        .type(testEndpoint(testLbl).label)
         .blur();
       cy.get('[data-cy="endpoint-form-label-input-error"]')
         .should('be.visible')
@@ -144,6 +172,22 @@ describe('Credentials and endpoints', () => {
       cy.get('[data-cy="app-dialog-content"]').should(
         'not.contain',
         testEndpoint(timestamp).label
+      );
+      cy.contains('li.MuiListItem-container', testEndpoint(testLbl).label + '2')
+        .find('[data-cy="delete-endpoint-delete-button"]')
+        .click();
+      cy.get('[data-cy="confirmation-dialog-ok"]').click();
+      cy.get('[data-cy="app-dialog-content"]').should(
+        'not.contain',
+        testEndpoint(testLbl).label + '2'
+      );
+      cy.contains('li.MuiListItem-container', testEndpoint('EditedLabel').label)
+        .find('[data-cy="delete-endpoint-delete-button"]')
+        .click();
+      cy.get('[data-cy="confirmation-dialog-ok"]').click();
+      cy.get('[data-cy="app-dialog-content"]').should(
+        'not.contain',
+        testEndpoint('EditedLabel').label
       );
     });
   });
@@ -239,6 +283,17 @@ describe('Credentials and endpoints', () => {
       cy.get('[data-cy="app-dialog-content"]').should(
         'not.contain',
         testCredential(timestamp).label
+      );
+      cy.contains(
+        'li.MuiListItem-container',
+        testCredential('EditedLabel').label
+      )
+        .find('[data-cy="delete-credential-delete-button"]')
+        .click();
+      cy.get('[data-cy="confirmation-dialog-ok"]').click();
+      cy.get('[data-cy="app-dialog-content"]').should(
+        'not.contain',
+        testCredential('EditedLabel').label
       );
     });
   });
