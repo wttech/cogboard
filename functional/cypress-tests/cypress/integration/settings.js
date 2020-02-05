@@ -1,15 +1,5 @@
 /// <reference types="Cypress" />
-import {
-  testCredentials,
-  testEndpoint,
-  testEndpointByIp,
-  badEndpoint,
-  badCredentials,
-  ENDPOINT_LABEL_PREFIX,
-  CREDENTIAL_LABEL_PREFIX
-} from '../fixtures/credentialsEndpoints';
-import { addEndpoint, loadEndpoint } from '../support/endpoint';
-import { addCredentials, loadCredentials } from '../support/credential';
+import { testCredentials } from '../fixtures/credentialsEndpoints';
 
 describe('Settings', () => {
   const uid = Date.now().toString();
