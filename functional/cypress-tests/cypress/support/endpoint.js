@@ -1,9 +1,3 @@
-import {
-  testCredential,
-  testEndpoint,
-  testLbl
-} from '../fixtures/credentialsEndpoints';
-
 class Endpoint {
   constructor(config, existing) {
     this.config = config;
