@@ -63,9 +63,9 @@ export const getAllNotifications = createSelector(
   ({ allNotifications }) => allNotifications
 );
 
-export const getIsNewVersionNotificationVisible = createSelector(
+export const getIsWaitingForNewVersion = createSelector(
   [getNotifications],
-  ({ isNewVersionNotificationVisible }) => isNewVersionNotificationVisible
+  ({ isWaitingForNewVersion }) => isWaitingForNewVersion
 );
 
 export const getBoards = createSelector(

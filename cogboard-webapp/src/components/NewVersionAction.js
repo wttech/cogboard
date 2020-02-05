@@ -2,8 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 
+import { waitingForNewVersion } from '../actions/actionCreators';
 import { URL } from '../constants';
-import { setNewVersionNotificationInvisible } from '../actions/actionCreators';
 
 import { Button } from '@material-ui/core';
 
@@ -31,7 +31,6 @@ const NewVersionAction = ({ version, url, handleClose }) => {
   const dispatch = useDispatch();
 
   const handleCloseWithStateChange = () => {
-    dispatch(setNewVersionNotificationInvisible());
     handleClose();
   };
 

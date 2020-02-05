@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 
 import notificationsById from './notificationsById';
 import allNotifications from './allNotifications';
-import isNewVersionNotificationVisible from './isNewVersionNotificationVisible';
+import isWaitingForNewVersion from './isWaitingForNewVersion';
 
 const notifications = combineReducers({
   notificationsById,
   allNotifications,
-  isNewVersionNotificationVisible
+  isWaitingForNewVersion
 });
 
 export default notifications;

@@ -25,7 +25,8 @@ import {
   saveSettings,
   addSettingsItem,
   editSettingsItem,
-  deleteSettingsItem
+  deleteSettingsItem,
+  waitingForNewVersion
 } from './actionCreators';
 import {
   fetchData,
@@ -33,10 +34,12 @@ import {
   createEditWidgetData,
   mapDataToState,
   withAuthentication,
-  withDataChanged
+  withDataChanged,
+  checkIfNotificationExist
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
 import { setToken, removeToken, getToken, getUserRole } from '../utils/auth';
+import { newVersionActionCreator } from '../components/NewVersionAction';
 
 export const fetchInitialData = () => dispatch => {
   dispatch(requestData());
@@ -48,7 +51,9 @@ export const fetchInitialData = () => dispatch => {
 };
 
 export const fetchAppInfo = () => dispatch => {
-  return fetch(URL.LOAD_INFO, { method: 'GET' });
+  return fetch(URL.LOAD_INFO, { method: 'GET' }).then(() =>
+    dispatch(waitingForNewVersion(true))
+  );
 };
 
 export const saveDataThunk = () => (dispatch, getState) => {
@@ -227,6 +232,26 @@ const deleteCredentialThunk = id =>
     'credentials',
     deleteSettingsItem
   );
+
+export const pushNewVersionNotification = ({ content }) => (
+  dispatch,
+  getState
+) => {
+  const {
+    notifications: { isWaitingForNewVersion, notificationsById }
+  } = getState();
+  const action = newVersionActionCreator(content);
+
+  if (isWaitingForNewVersion) {
+    dispatch(waitingForNewVersion(false));
+  }
+
+  if (!action || checkIfNotificationExist(notificationsById)) {
+    return;
+  }
+
+  dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
+};
 
 export const updateWidgetContent = data => (dispatch, getState) => {
   const { id } = data;

@@ -6,10 +6,10 @@ import java.time.LocalDateTime
 import java.time.Month
 import java.time.temporal.ChronoUnit
 
-class VersionService() {
+class VersionService {
 
     private var config = info().loadConfig()
-    private var lastCheck: LocalDateTime = LocalDateTime.of(2000, Month.FEBRUARY, 1, 0, 0)
+    private var lastCheck: LocalDateTime = LocalDateTime.of(YEAR_INIT, Month.FEBRUARY, DAY_INIT, HOUR_INIT, MINUTE_INIT)
     private var latestVersion: String = "0.0.0"
     private var latestResponse: JsonObject = JsonObject()
 
@@ -34,8 +34,7 @@ class VersionService() {
             this.latestVersion = latestVersion
             this.latestResponse = body
             true
-        } else
-            false
+        } else false
     }
 
     private fun String.compareVersionNumbers(version: String): Int {
@@ -48,5 +47,12 @@ class VersionService() {
         }
 
         return v1parts.size.compareTo(v2parts.size)
+    }
+
+    companion object {
+        const val YEAR_INIT = 2000
+        const val DAY_INIT = 1
+        const val HOUR_INIT = 0
+        const val MINUTE_INIT = 0
     }
 }

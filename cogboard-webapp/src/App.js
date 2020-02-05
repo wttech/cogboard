@@ -8,31 +8,24 @@ import { Router } from '@reach/router';
 import {
   fetchAppInfo,
   fetchInitialData,
-  updateWidgetContent
+  updateWidgetContent,
+  pushNewVersionNotification
 } from './actions/thunks';
-import {
-  saveDataSuccess,
-  loginSuccess,
-  pushNotification,
-  setNewVersionNotificationVisible
-} from './actions/actionCreators';
-import { getIsNewVersionNotificationVisible } from './selectors';
+import { saveDataSuccess, loginSuccess } from './actions/actionCreators';
+import { getIsWaitingForNewVersion } from './selectors';
 import { useInterval } from './hooks';
 import { theme } from './theme';
-import { CHECK_NEW_VERSION_DELAY, NOTIFICATIONS } from './constants';
+import { CHECK_NEW_VERSION_DELAY } from './constants';
 
 import MainTemplate from './components/MainTemplate';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { isAuthenticated } from './utils/auth';
 import ServerErrorPage from './components/ServerErrorPage';
-import { newVersionActionCreator } from './components/NewVersionAction';
 
 function App() {
   const appInitialized = useSelector(({ app }) => app.initialized);
   const dispatch = useDispatch();
-  const isNewVersionNotificationVisible = useSelector(
-    getIsNewVersionNotificationVisible
-  );
+  const isWaitingForNewVersion = useSelector(getIsWaitingForNewVersion);
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -44,11 +37,11 @@ function App() {
 
   useInterval(
     () => {
-      if (!isNewVersionNotificationVisible) {
+      if (!isWaitingForNewVersion) {
         dispatch(fetchAppInfo());
       }
     },
-    isNewVersionNotificationVisible ? null : CHECK_NEW_VERSION_DELAY
+    isWaitingForNewVersion ? null : CHECK_NEW_VERSION_DELAY
   );
 
   useEffect(() => {
@@ -62,14 +55,7 @@ function App() {
         } else if (eventType === 'notification-config-save') {
           dispatch(saveDataSuccess());
         } else if (eventType === 'new-version') {
-          // TODO fix multiple notification
-          // if (!isNewVersionNotificationVisible) {
-          //   const action = newVersionActionCreator(data.content);
-          //   if (action) {
-          //     dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
-          //     dispatch(setNewVersionNotificationVisible());
-          //   }
-          // }
+          dispatch(pushNewVersionNotification(data));
         }
       };
 
@@ -80,7 +66,7 @@ function App() {
         socket.removeEventListener('message', handleMessageReceive);
       };
     }
-  }, [appInitialized, dispatch, isNewVersionNotificationVisible]);
+  }, [appInitialized, dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
