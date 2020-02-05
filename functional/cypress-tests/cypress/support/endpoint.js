@@ -27,14 +27,19 @@ class Endpoint {
       .type(this.config.publicUrl)
       .blur();
 
-    if (this.config.credentials) {
-      cy.get('[data-cy="endpoint-form-credentials-input"]').click();
-      cy.get('[role="listbox"]').within(() => {
+    cy.get('[data-cy="endpoint-form-credentials-input"]').click();
+
+    cy.get('[role="listbox"]').within(() => {
+      if (this.config.credentials) {
         cy.contains('li', this.config.credentials)
           .scrollIntoView()
           .click();
-      });
-    }
+      } else {
+        cy.get('li')
+          .first()
+          .click();
+      }
+    });
     return this;
   }
 
