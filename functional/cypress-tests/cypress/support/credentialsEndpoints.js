@@ -17,6 +17,15 @@ Cypress.Commands.add('setTestCredentials', (testCredentials, authToken) => {
   });
 });
 
+Cypress.Commands.add('openSettings', selectedTab => {
+  cy.visit('/');
+  cy.loginWithToken();
+  cy.get('[data-cy="settings-menu-open-button"]').click();
+  if (selectedTab) {
+    cy.get(`[data-cy="${selectedTab}"]`).click();
+  }
+});
+
 Cypress.Commands.add('setTestEndpoints', (testEndpoints, authToken) => {
   cy.request({
     method: 'POST',

@@ -150,6 +150,7 @@ export const validationMessages = {
   NUMBER_MIN: (name, min) => `${name} number cannot be less than ${min}.`,
   NUMBER_MAX: (name, max) => `${name} number cannot be more than ${max}.`,
   INVALID_URL: () => 'Invalid URL',
+  INVALID_PUBLIC_URL: () => 'Invalid Public URL',
   FIELD_MIN_ITEMS: () => 'This field must have at least 1 item.',
   UNIQUE_FIELD: () => 'This field must be unique.',
   PASSWORD_MATCH: () => 'Password must match.'
