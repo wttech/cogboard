@@ -242,16 +242,12 @@ export const pushNewVersionNotification = ({ content }) => (
   } = getState();
   const action = newVersionActionCreator(content);
 
-  if (
-    !isWaitingForNewVersion ||
-    !action ||
-    checkIfNotificationExist(notificationsById)
-  ) {
-    return;
+  if (isWaitingForNewVersion) {
+    if (action && !checkIfNotificationExist(notificationsById)) {
+      dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
+    }
+    dispatch(waitingForNewVersion(false));
   }
-
-  dispatch(waitingForNewVersion(false));
-  dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
 };
 
 export const updateWidgetContent = data => (dispatch, getState) => {
