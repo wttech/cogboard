@@ -1,8 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 
-import { waitingForNewVersion } from '../actions/actionCreators';
 import { URL } from '../constants';
 
 import { Button } from '@material-ui/core';
@@ -28,8 +26,6 @@ export const newVersionActionCreator = appInfo => {
 };
 
 const NewVersionAction = ({ version, url, handleClose }) => {
-  const dispatch = useDispatch();
-
   const handleCloseWithStateChange = () => {
     handleClose();
   };

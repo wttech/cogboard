@@ -242,14 +242,15 @@ export const pushNewVersionNotification = ({ content }) => (
   } = getState();
   const action = newVersionActionCreator(content);
 
-  if (isWaitingForNewVersion) {
-    dispatch(waitingForNewVersion(false));
-  }
-
-  if (!action || checkIfNotificationExist(notificationsById)) {
+  if (
+    !isWaitingForNewVersion ||
+    !action ||
+    checkIfNotificationExist(notificationsById)
+  ) {
     return;
   }
 
+  dispatch(waitingForNewVersion(false));
   dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
 };
 
