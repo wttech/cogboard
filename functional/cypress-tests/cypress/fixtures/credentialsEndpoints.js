@@ -1,31 +1,47 @@
-export const testCredential = timestamp => {
+export const badCredentials = () => {
+  return {
+    password: 'xxxxxxxxxxx',
+    passwordConf: 'zzz',
+    user: ' ',
+    label: ' '
+  };
+};
+
+export const testCredentials = uid => {
   return {
     password: 'TestPassword1',
     user: 'TestUser1',
-    label: `TC-${timestamp}`
+    label: `${CREDENTIAL_LABEL_PREFIX}${uid}`
   };
 };
 
-export const testEndpoint = timestamp => {
+export const badEndpoint = () => {
   return {
-    label: `TE-${timestamp}`,
+    label: ' ',
+    url: 'xxx',
+    publicUrl: 'zzz'
+  };
+};
+
+export const testEndpoint = uid => {
+  return {
+    label: `${ENDPOINT_LABEL_PREFIX}${uid}`,
     url: 'http://cognifide.com',
     publicUrl: 'http://cognifide.com',
-    credentials: `TC-${timestamp}`,
-    id: `TE-${timestamp}`
+    credentials: `${CREDENTIAL_LABEL_PREFIX}${uid}`,
+    id: uid
   };
 };
 
-export const testEndpointByIp = timestamp => {
+export const testEndpointByIp = uid => {
   return {
-    label: `TE-${timestamp}`,
+    label: `${ENDPOINT_LABEL_PREFIX}ip-${uid}`,
     url: 'https://123.123.123.13:9082',
     publicUrl: 'https://123.123.123.13:9082',
-    credentials: `TC-${timestamp}`,
-    id: `TE-${timestamp}`
+    credentials: `${CREDENTIAL_LABEL_PREFIX}${uid}`,
+    id: uid
   };
 };
 
-export const testLbl = 'test';
-
-export const editedLbl = 'EditedLabel';
+export const ENDPOINT_LABEL_PREFIX = 'TE-';
+export const CREDENTIAL_LABEL_PREFIX = 'TC-';

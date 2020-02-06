@@ -10,11 +10,13 @@ import AddCredential from '../../AddCredential';
 
 const CredentialInput = props => {
   const credentials = useSelector(getCredentials);
+  const noValue = { id: '', label: '', user: ''};
+  const extendedCredentials = [noValue, ...credentials];
 
   return (
     <DropdownField
       optionalButton={<AddCredential />}
-      dropdownItems={credentials}
+      dropdownItems={extendedCredentials}
       {...props}
     >
       {credentials =>
