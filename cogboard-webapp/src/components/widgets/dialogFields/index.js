@@ -48,7 +48,7 @@ const dialogFields = {
     component: CredentialInput,
     name: 'credentials',
     label: 'Credential',
-    validator: () => string().required(vm.FIELD_REQUIRED())
+    validator: () => string()
   },
   UsernameField: {
     component: TextInput,
@@ -77,10 +77,10 @@ const dialogFields = {
     name: 'publicUrl',
     label: 'Public URL',
     validator: () =>
-      string().matches(
-        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
-        { message: vm.INVALID_URL(), excludeEmptyString: true }
-      )
+      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+        message: vm.INVALID_PUBLIC_URL(),
+        excludeEmptyString: true
+      })
   },
   WidgetTypeField: {
     component: DisplayValueSelect,
@@ -215,20 +215,20 @@ const dialogFields = {
     name: 'url',
     label: 'URL',
     validator: () =>
-      string().matches(
-        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
-        { message: vm.INVALID_URL(), excludeEmptyString: true }
-      )
+      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+        message: vm.INVALID_URL(),
+        excludeEmptyString: true
+      })
   },
   IFrameURL: {
     component: TextInput,
     name: 'iframeUrl',
     label: 'URL',
     validator: () =>
-      string().matches(
-        /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
-        { message: vm.INVALID_URL(), excludeEmptyString: true }
-      )
+      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+        message: vm.INVALID_URL(),
+        excludeEmptyString: true
+      })
   },
   IdString: {
     component: TextInput,

@@ -17,6 +17,27 @@ Cypress.Commands.add('setTestCredentials', (testCredentials, authToken) => {
   });
 });
 
+Cypress.Commands.add('openSettings', selectedTab => {
+  cy.visit('/');
+  cy.loginWithToken();
+  cy.get('[data-cy="settings-menu-open-button"]').click();
+  if (selectedTab) {
+    cy.get(`[data-cy="${selectedTab}"]`).click();
+  }
+});
+
+Cypress.Commands.add('deleteAll', (prefix, deleteButtonId) => {
+  cy.get('li.MuiListItem-container').each($li => {
+    const label = $li
+      .find('.MuiListItem-root .MuiListItemText-root span')
+      .text();
+    if (label.indexOf(prefix) === 0) {
+      cy.wrap($li.find(`[data-cy="${deleteButtonId}"]`)).click();
+      cy.get('[data-cy="confirmation-dialog-ok"]').click();
+    }
+  });
+});
+
 Cypress.Commands.add('setTestEndpoints', (testEndpoints, authToken) => {
   cy.request({
     method: 'POST',

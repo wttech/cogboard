@@ -10,11 +10,13 @@ import AddEndpoint from '../../AddEndpoint';
 
 const EndpointInput = props => {
   const endpoints = useSelector(getEndpoints);
+  const noValue = { id: '', label: '', user: ''};
+  const extendedEndpoints = [noValue, ...endpoints];
 
   return (
     <DropdownField
       optionalButton={<AddEndpoint />}
-      dropdownItems={endpoints}
+      dropdownItems={extendedEndpoints}
       {...props}
     >
       {endpoints =>

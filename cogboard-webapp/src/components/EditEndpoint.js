@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useToggle } from '../hooks';
@@ -20,26 +20,23 @@ const EditEndpoint = ({ id }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
 
   const handleAddEndpointClick = () => {
-    openDialog();
+      const headers = isAuthenticated
+        ? { headers: { Authorization: getToken() } }
+        : undefined;
+
+      fetch(`${URL.ENDPOINTS_ENDPOINT}/${id}`, headers)
+        .then(response => response.json())
+        .then(data => {
+          setEndpointData(data);
+          openDialog();
+        })
+        .catch(console.error);
   };
 
   const handleSubmit = values => {
     dispatch(editEndpoint({ id, ...values }));
     handleDialogClose();
   };
-
-  useEffect(() => {
-    if (dialogOpened) {
-      const init = isAuthenticated
-        ? { headers: { Authorization: getToken() } }
-        : undefined;
-
-      fetch(`${URL.ENDPOINTS_ENDPOINT}/${id}`, init)
-        .then(response => response.json())
-        .then(data => setEndpointData(data))
-        .catch(console.error);
-    }
-  }, [isAuthenticated, id, dialogOpened]);
 
   return (
     <>
