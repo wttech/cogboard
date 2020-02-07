@@ -35,6 +35,6 @@
         "boardId": "board1"
       }
     },
-    "allWidgets": ["widget1"]
+    "allWidgets": ["serverWidget1"]
   }
 }
