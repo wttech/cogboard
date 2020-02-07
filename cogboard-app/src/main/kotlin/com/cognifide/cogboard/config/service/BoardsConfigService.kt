@@ -4,6 +4,7 @@ import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CONTENT
 import com.cognifide.cogboard.config.ConfigType.BOARDS
 import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.storage.ContentRepository
+import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.get
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
@@ -16,8 +17,9 @@ class BoardsConfigService(
 
     fun saveBoardsConfig(boardsConfig: JsonObject): JsonObject {
         val cleanBoardsConfig = executeForWidgets(boardsConfig, this::resetContentNode)
-        handleDeletedEntities(cleanBoardsConfig)
-        get(BOARDS, configFile).saveConfig(cleanBoardsConfig)
+        val storage = get(BOARDS, configFile)
+        handleDeletedEntities(cleanBoardsConfig, storage)
+        storage.saveConfig(cleanBoardsConfig)
         return boardsConfig
     }
 
@@ -58,9 +60,9 @@ class BoardsConfigService(
         return boardsConfig
     }
 
-    private fun handleDeletedEntities(boardsConfig: JsonObject) {
+    private fun handleDeletedEntities(boardsConfig: JsonObject, storage: Storage) {
         entityCleanupHelper
-            ?.handle(get(BOARDS, configFile).loadConfig(), boardsConfig)
+            ?.handle(storage.loadConfig(), boardsConfig)
             ?.forEach {
                 boardsConfig
                     .getJsonObject(CC.PROP_WIDGETS)

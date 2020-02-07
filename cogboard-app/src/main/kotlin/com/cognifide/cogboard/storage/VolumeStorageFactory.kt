@@ -21,16 +21,17 @@ object VolumeStorageFactory {
     }
 
     private fun createFile(configPath: String) {
-        val fileContent = getResource(configPath).readText()
+        val initFileName = getInitFileName(configPath)
+        val fileContent = getResource(initFileName).readText()
         File(configPath).writeText(fileContent)
         LOGGER.info("Configuration file $configPath")
     }
 
-    private fun getFileName(configPath: String): String {
+    private fun getInitFileName(configPath: String): String {
         return "/initData/${configPath.substringAfterLast("/")}"
     }
 
-    private fun getResource(configPath: String): URL {
-        return VolumeStorageFactory::class.java.getResource(getFileName(configPath))
+    private fun getResource(initFileName: String): URL {
+        return VolumeStorageFactory::class.java.getResource(initFileName)
     }
 }
