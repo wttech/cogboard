@@ -1,7 +1,8 @@
 package com.cognifide.cogboard.security
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.storage.VolumeStorageFactory
+import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.storage.VolumeStorageFactory.get
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
 import io.vertx.core.json.JsonArray
@@ -24,7 +25,7 @@ class LoginHandler : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> {
         this.vertx = vertx
         this.config = config ?: JsonObject()
-        loadAdmins(VolumeStorageFactory.admins().loadConfig().getJsonArray("admins") ?: JsonArray())
+        loadAdmins(get(ConfigType.ADMINS).loadConfig().getJsonArray("admins") ?: JsonArray())
         val wrongUserMsg = config?.getString("wrongUserMsg") ?: "Please, enter correct Username"
         val wrongPassMsg = config?.getString("wrongPassMsg") ?: "Please, enter correct Password"
 

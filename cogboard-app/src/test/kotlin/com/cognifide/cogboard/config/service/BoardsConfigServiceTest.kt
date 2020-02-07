@@ -4,7 +4,7 @@ import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.validation.boards.BoardsValidator
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.VolumeStorage
-import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
+import com.cognifide.cogboard.storage.VolumeStorageFactory.get
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
@@ -16,14 +16,13 @@ internal class BoardsConfigServiceTest {
     fun `Expect board config saved without content`() {
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
-
         val boardConfig = "$boardPath/server-config.json"
-        val uiBoardConfigState = File("$boardPath/ui-board-config.json").readText()
-        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
-        val contentRepository = ContentRepository("$boardPath/content")
-        val underTest = BoardsConfigService(storage, contentRepository)
+
+        val contentRepository = ContentRepository(boardPath)
+        val underTest = BoardsConfigService(contentRepository, configFile = boardConfig)
 
         //when
+        val uiBoardConfigState = File("$boardPath/ui-board-config.json").readText()
         underTest.saveBoardsConfig(JsonObject(uiBoardConfigState))
 
         //then
@@ -39,9 +38,9 @@ internal class BoardsConfigServiceTest {
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
         val boardConfig = "$boardPath/server-board-config.json"
-        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
-        val contentRepository = ContentRepository("$boardPath/content")
-        val underTest = BoardsConfigService(storage, contentRepository)
+
+        val contentRepository = ContentRepository(boardPath)
+        val underTest = BoardsConfigService(contentRepository, configFile = boardConfig)
 
         //when
         val config = underTest.loadBoardsConfig()
@@ -58,8 +57,8 @@ internal class BoardsConfigServiceTest {
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
         val boardConfig = "$boardPath/server-board-config.json"
-        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
-        val underTest = BoardsConfigService(storage)
+        val contentRepository = ContentRepository(boardPath)
+        val underTest = BoardsConfigService(contentRepository, configFile = boardConfig)
 
         //when
         val allWidget = underTest.getAllWidgets()
@@ -73,10 +72,10 @@ internal class BoardsConfigServiceTest {
     fun `Expect content saved`(){
         //given
         val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
-        val contentRepository = ContentRepository("$boardPath/content")
         val boardConfig = "$boardPath/server-board-config.json"
-        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
-        val underTest = BoardsConfigService(storage, contentRepository)
+
+        val contentRepository = ContentRepository(boardPath)
+        val underTest = BoardsConfigService(contentRepository, configFile = boardConfig)
 
         //when
         underTest.saveContent("testWidget", JsonObject().put("someKey", "someValue"))

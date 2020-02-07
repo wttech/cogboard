@@ -10,16 +10,17 @@ import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 import com.cognifide.cogboard.storage.Storage
-import com.cognifide.cogboard.storage.VolumeStorageFactory.endpoints
+import com.cognifide.cogboard.storage.VolumeStorageFactory.get
+import com.cognifide.cogboard.config.ConfigType.ENDPOINTS
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class EndpointsService(
     private var storage: Storage,
-    private val config: JsonObject = endpoints().loadConfig()
+    private val config: JsonObject = get(ENDPOINTS).loadConfig()
 ) {
 
-    fun loadConfig(): JsonObject = endpoints().loadConfig()
+    fun loadConfig(): JsonObject = get(ENDPOINTS).loadConfig()
 
     fun getAllEndpoints(): JsonArray = loadConfig().getJsonArray(ENDPOINTS_ARRAY)
 

@@ -1,34 +1,34 @@
 package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CONTENT
+import com.cognifide.cogboard.config.ConfigType.BOARDS
 import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.storage.ContentRepository
-import com.cognifide.cogboard.storage.Storage
-import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
+import com.cognifide.cogboard.storage.VolumeStorageFactory.get
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
 class BoardsConfigService(
-    private val storage: Storage = boards(),
     private val contentRepository: ContentRepository = ContentRepository(),
-    private val entityCleanupHelper: EntityCleanupHelper? = null
+    private val entityCleanupHelper: EntityCleanupHelper? = null,
+    private val configFile: String = BOARDS.configFile()
 ) {
 
     fun saveBoardsConfig(boardsConfig: JsonObject): JsonObject {
         val cleanBoardsConfig = executeForWidgets(boardsConfig, this::resetContentNode)
         handleDeletedEntities(cleanBoardsConfig)
-        storage.saveConfig(cleanBoardsConfig)
+        get(BOARDS, configFile).saveConfig(cleanBoardsConfig)
         return boardsConfig
     }
 
     fun loadBoardsConfig(): JsonObject {
-        val config = storage.loadConfig()
+        val config = get(BOARDS, configFile).loadConfig()
         executeForWidgets(config, this::addContent)
 
         return config
     }
 
-    fun getAllWidgets() = getWidgetById(storage.loadConfig())
+    fun getAllWidgets() = getWidgetById(get(BOARDS, configFile).loadConfig())
 
     fun saveContent(widgetId: String, content: JsonObject) {
         contentRepository.save(widgetId, content)
@@ -60,7 +60,7 @@ class BoardsConfigService(
 
     private fun handleDeletedEntities(boardsConfig: JsonObject) {
         entityCleanupHelper
-            ?.handle(storage.loadConfig(), boardsConfig)
+            ?.handle(get(BOARDS, configFile).loadConfig(), boardsConfig)
             ?.forEach {
                 boardsConfig
                     .getJsonObject(CC.PROP_WIDGETS)
