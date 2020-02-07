@@ -1,10 +1,8 @@
 package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.service.EndpointsService
-import com.cognifide.cogboard.storage.VolumeStorageFactory.get
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
 
@@ -14,7 +12,7 @@ class EndpointsController : AbstractVerticle() {
     private val factory = ControllerFactory()
 
     override fun start() {
-        endpointsService = EndpointsService(get(ConfigType.ENDPOINTS))
+        endpointsService = EndpointsService()
         factory.create(CogboardConstants.EVENT_ENDPOINTS, vertx, prepareConfig())
     }
 
