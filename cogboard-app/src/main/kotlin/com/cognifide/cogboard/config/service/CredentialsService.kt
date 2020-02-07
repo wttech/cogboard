@@ -21,7 +21,7 @@ class CredentialsService(
 
     fun loadConfig(): JsonObject = get(CREDENTIALS).loadConfig()
 
-    fun getCredentials(): JsonArray = get(CREDENTIALS).loadConfig().getJsonArray(CREDENTIALS_ARRAY)
+    fun getCredentials(): JsonArray = loadConfig().getJsonArray(CREDENTIALS_ARRAY)
 
     fun getCredential(credentialId: String): JsonObject {
         return getCredentials().findById(credentialId)

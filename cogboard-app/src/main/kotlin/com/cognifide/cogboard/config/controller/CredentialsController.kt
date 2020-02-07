@@ -4,7 +4,6 @@ import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.PASSWORD_PROP
 import com.cognifide.cogboard.config.service.CredentialsService
-import com.cognifide.cogboard.storage.VolumeStorageFactory.get
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
 
