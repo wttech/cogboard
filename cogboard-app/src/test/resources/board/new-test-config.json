@@ -6,7 +6,9 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": ["widget1"]
+        "widgets": [
+          "newWidget1,widgetThatIsNotEdited"
+        ]
       },
       "board2": {
         "id": "board2",
@@ -16,13 +18,30 @@
         "widgets": []
       }
     },
-    "allBoards": ["board1", "board2"]
+    "allBoards": [
+      "board1",
+      "board2"
+    ]
   },
   "widgets": {
     "widgetsById": {
-      "widget1": {
-        "id": "widget1",
+      "newWidget": {
+        "id": "newWidget",
         "title": "Example Widget",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "WhiteSpaceWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1"
+      },
+      "widgetThatIsNotEdited": {
+        "id": "widgetThatIsNotEdited",
+        "title": "This is first Widget",
         "config": {
           "columns": 1,
           "goNewLine": false,
@@ -35,6 +54,8 @@
         "boardId": "board1"
       }
     },
-    "allWidgets": ["widget1"]
+    "allWidgets": [
+      "newWidget,widgetThatIsNotEdited"
+    ]
   }
 }
