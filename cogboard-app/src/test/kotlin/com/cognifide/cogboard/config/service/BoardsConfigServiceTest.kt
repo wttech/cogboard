@@ -21,7 +21,7 @@ internal class BoardsConfigServiceTest {
     }
 
     @Test
-    fun `Expect board config saved without content data`() {
+    fun `Expect no widget content in saved config`() {
         // given
         val newConfigState = File("$boardPath/new-test-config.json").readText()
 
@@ -37,7 +37,7 @@ internal class BoardsConfigServiceTest {
     }
 
     @Test
-    fun `Expect config merged from server board config and widget states`() {
+    fun `Expect widget content merged to config`() {
         //when
         val config = underTest.loadBoardsConfig()
 
