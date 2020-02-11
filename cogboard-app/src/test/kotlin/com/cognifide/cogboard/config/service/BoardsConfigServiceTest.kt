@@ -5,32 +5,29 @@ import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
 
 internal class BoardsConfigServiceTest {
 
     private val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
-    private val boardConfig = "$boardPath/config-on-backend.json"
 
-    private lateinit var underTest: BoardsConfigService
-
-    @BeforeEach
-    fun initService() {
-        underTest = BoardsConfigService(ContentRepository(boardPath), storage = boards(boardConfig))
+    private fun initService(configFilePath: String = "$boardPath/config-on-backend.json"): BoardsConfigService {
+        return BoardsConfigService(ContentRepository(boardPath), storage = boards(configFilePath))
     }
 
     @Test
     fun `Expect no widget content in saved config`() {
         // given
+        val differentConfigPathForSave = "$boardPath/config.json"
+        val underTest = initService(differentConfigPathForSave)
         val newConfigState = File("$boardPath/config-from-frontend.json").readText()
 
         //when
         underTest.saveBoardsConfig(JsonObject(newConfigState))
 
         //then
-        val contentOnServer = JsonObject(File(boardConfig).readText()).getJsonObject("widgets")
+        val contentOnServer = JsonObject(File(differentConfigPathForSave).readText()).getJsonObject("widgets")
                 .getJsonObject("widgetsById")
                 .getJsonObject("newWidget")
                 .getJsonObject("content")
@@ -39,6 +36,9 @@ internal class BoardsConfigServiceTest {
 
     @Test
     fun `Expect widget content merged to config`() {
+        // given
+        val underTest = initService()
+
         //when
         val config = underTest.loadBoardsConfig()
 
@@ -51,16 +51,23 @@ internal class BoardsConfigServiceTest {
 
     @Test
     fun `Expect all widgets returned`() {
+        // given
+        val underTest = initService()
+
         //when
         val allWidget = underTest.getAllWidgets()
 
         //then
+        assertTrue(allWidget.containsKey("widgetThatWillBeReplaced"))
         assertTrue(allWidget.containsKey("widgetThatIsNotEdited"))
         assertTrue(allWidget.size() == 2)
     }
 
     @Test
     fun `Expect content saved`() {
+        // given
+        val underTest = initService()
+
         //when
         underTest.saveContent("testWidget", JsonObject().put("someKey", "someValue"))
 
