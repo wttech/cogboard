@@ -14,13 +14,13 @@ class VolumeStorage(
 
     override fun loadConfig(): JsonObject {
             val conf = File(configFile).readText()
-            return if (type.validator.validate(conf)) JsonObject(conf)
+            return if (type.validate(conf)) JsonObject(conf)
             else CogboardConstants.errorResponse("$type config not valid")
         }
 
     override fun saveConfig(configJson: JsonObject): Boolean {
         val conf = configJson.toString()
-        if (type.validator.validate(conf)) {
+        if (type.validate(conf)) {
             File(configFile).writeText(conf)
             return true
         }
