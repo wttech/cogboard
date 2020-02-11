@@ -1,7 +1,7 @@
 package com.cognifide.cogboard.config.storage
 
 import com.cognifide.cogboard.config.ConfigType
-import com.cognifide.cogboard.storage.VolumeStorageFactory
+import com.cognifide.cogboard.storage.VolumeStorage
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -10,9 +10,9 @@ import org.junit.jupiter.api.TestFactory
 import java.io.File
 import java.util.stream.Stream
 
-internal class VolumeStorageFactoryTest {
+internal class VolumeStorageTest {
 
-    private val storagePath = VolumeStorageFactoryTest::class.java.getResource("/board").path
+    private val storagePath = VolumeStorageTest::class.java.getResource("/board").path
 
     private val configs = listOf(
             Triple(ConfigType.ADMINS, "admins.json", "admins"),
@@ -36,7 +36,7 @@ internal class VolumeStorageFactoryTest {
                 assertFalse(File(filePath).exists())
 
                 //when
-                VolumeStorageFactory.create(type, filePath)
+                VolumeStorage(type, filePath).loadConfig()
 
                 //then
                 val content = JsonObject(File(filePath).readText())

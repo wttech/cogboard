@@ -12,25 +12,24 @@ import com.cognifide.cogboard.CogboardConstants as CC
 class BoardsConfigService(
     private val contentRepository: ContentRepository = ContentRepository(),
     private val entityCleanupHelper: EntityCleanupHelper? = null,
-    private val configFile: String = BOARDS.configFilePath()
+    private val storage: Storage = boards()
 ) {
 
     fun saveBoardsConfig(boardsConfig: JsonObject): JsonObject {
         val cleanBoardsConfig = executeForWidgets(boardsConfig, this::resetContentNode)
-        val storage = boards(configFile)
-        handleDeletedEntities(cleanBoardsConfig, storage)
+        handleDeletedEntities(cleanBoardsConfig)
         storage.saveConfig(cleanBoardsConfig)
         return boardsConfig
     }
 
     fun loadBoardsConfig(): JsonObject {
-        val config = boards(configFile).loadConfig()
+        val config = storage.loadConfig()
         executeForWidgets(config, this::addContent)
 
         return config
     }
 
-    fun getAllWidgets() = getWidgetById(boards(configFile).loadConfig())
+    fun getAllWidgets() = getWidgetById(storage.loadConfig())
 
     fun saveContent(widgetId: String, content: JsonObject) {
         contentRepository.save(widgetId, content)
@@ -60,7 +59,7 @@ class BoardsConfigService(
         return boardsConfig
     }
 
-    private fun handleDeletedEntities(boardsConfig: JsonObject, storage: Storage) {
+    private fun handleDeletedEntities(boardsConfig: JsonObject) {
         entityCleanupHelper
             ?.handle(storage.loadConfig(), boardsConfig)
             ?.forEach {

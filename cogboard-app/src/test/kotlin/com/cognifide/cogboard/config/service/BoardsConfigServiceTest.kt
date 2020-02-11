@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.storage.ContentRepository
+import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -17,7 +18,7 @@ internal class BoardsConfigServiceTest {
 
     @BeforeEach
     fun initService() {
-        underTest = BoardsConfigService(ContentRepository(boardPath), configFile = boardConfig)
+        underTest = BoardsConfigService(ContentRepository(boardPath), storage = boards(boardConfig))
     }
 
     @Test
