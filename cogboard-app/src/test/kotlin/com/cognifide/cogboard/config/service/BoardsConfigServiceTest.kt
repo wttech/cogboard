@@ -55,8 +55,6 @@ internal class BoardsConfigServiceTest {
         val allWidget = underTest.getAllWidgets()
 
         //then
-        assertTrue(allWidget.containsKey("newWidget")
-                || allWidget.containsKey("widgetThatWillBeReplaced")) // depends on execution order
         assertTrue(allWidget.containsKey("widgetThatIsNotEdited"))
         assertTrue(allWidget.size() == 2)
     }
