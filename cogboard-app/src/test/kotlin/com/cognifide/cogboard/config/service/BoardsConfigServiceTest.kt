@@ -11,7 +11,7 @@ import java.io.File
 internal class BoardsConfigServiceTest {
 
     private val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
-    private val boardConfig = "$boardPath/initial-test-config.json"
+    private val boardConfig = "$boardPath/config-on-backend.json"
 
     private lateinit var underTest: BoardsConfigService
 
@@ -23,7 +23,7 @@ internal class BoardsConfigServiceTest {
     @Test
     fun `Expect no widget content in saved config`() {
         // given
-        val newConfigState = File("$boardPath/new-test-config.json").readText()
+        val newConfigState = File("$boardPath/config-from-frontend.json").readText()
 
         //when
         underTest.saveBoardsConfig(JsonObject(newConfigState))
