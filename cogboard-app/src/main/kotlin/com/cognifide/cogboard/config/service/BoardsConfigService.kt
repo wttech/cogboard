@@ -1,7 +1,6 @@
 package com.cognifide.cogboard.config.service
 
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CONTENT
-import com.cognifide.cogboard.config.ConfigType.BOARDS
 import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.Storage
