@@ -13,6 +13,6 @@ enum class ConfigType(private val fileName: String, private val validator: Valid
     ENDPOINTS("endpoints.json", EndpointsValidator),
     ADMINS("admins.json", AdminsValidator);
 
-    fun configFile() = "/data/$fileName"
+    fun configFilePath() = "/data/$fileName"
     fun validate(config: String) = validator.validate(config)
 }

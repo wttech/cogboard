@@ -12,7 +12,7 @@ import com.cognifide.cogboard.CogboardConstants as CC
 class BoardsConfigService(
     private val contentRepository: ContentRepository = ContentRepository(),
     private val entityCleanupHelper: EntityCleanupHelper? = null,
-    private val configFile: String = BOARDS.configFile()
+    private val configFile: String = BOARDS.configFilePath()
 ) {
 
     fun saveBoardsConfig(boardsConfig: JsonObject): JsonObject {

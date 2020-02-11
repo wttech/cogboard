@@ -13,10 +13,10 @@ import java.net.URL
 object VolumeStorageFactory {
     private val LOGGER = LoggerFactory.getLogger(VolumeStorageFactory::class.java)
 
-    fun admins(configFile: String = ADMINS.configFile()) = create(ADMINS, configFile)
-    fun endpoints(configFile: String = ENDPOINTS.configFile()) = create(ENDPOINTS, configFile)
-    fun credentials(configFile: String = CREDENTIALS.configFile()) = create(CREDENTIALS, configFile)
-    fun boards(configFile: String = BOARDS.configFile()) = create(BOARDS, configFile)
+    fun admins(configFile: String = ADMINS.configFilePath()) = create(ADMINS, configFile)
+    fun endpoints(configFile: String = ENDPOINTS.configFilePath()) = create(ENDPOINTS, configFile)
+    fun credentials(configFile: String = CREDENTIALS.configFilePath()) = create(CREDENTIALS, configFile)
+    fun boards(configFile: String = BOARDS.configFilePath()) = create(BOARDS, configFile)
 
     internal fun create(type: ConfigType, configFile: String): VolumeStorage {
         createIfDoesNotExist(configFile)

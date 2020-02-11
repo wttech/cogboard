@@ -9,7 +9,7 @@ import java.io.File
 
 class VolumeStorage(
     private val type: ConfigType,
-    private val configFile: String = type.configFile()
+    private val configFile: String = type.configFilePath()
 ) : Storage {
 
     override fun loadConfig(): JsonObject {
