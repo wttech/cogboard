@@ -1,6 +1,10 @@
 package com.cognifide.cogboard.storage
 
 import com.cognifide.cogboard.config.ConfigType
+import com.cognifide.cogboard.config.ConfigType.BOARDS
+import com.cognifide.cogboard.config.ConfigType.CREDENTIALS
+import com.cognifide.cogboard.config.ConfigType.ENDPOINTS
+import com.cognifide.cogboard.config.ConfigType.ADMINS
 
 import io.vertx.core.logging.LoggerFactory
 import java.io.File
@@ -9,7 +13,12 @@ import java.net.URL
 object VolumeStorageFactory {
     private val LOGGER = LoggerFactory.getLogger(VolumeStorageFactory::class.java)
 
-    fun get(type: ConfigType, configFile: String = type.configFile()): VolumeStorage {
+    fun admins(configFile: String = ADMINS.configFile()) = create(ADMINS, configFile)
+    fun endpoints(configFile: String = ENDPOINTS.configFile()) = create(ENDPOINTS, configFile)
+    fun credentials(configFile: String = CREDENTIALS.configFile()) = create(CREDENTIALS, configFile)
+    fun boards(configFile: String = BOARDS.configFile()) = create(BOARDS, configFile)
+
+    internal fun create(type: ConfigType, configFile: String): VolumeStorage {
         createIfDoesNotExist(configFile)
         return VolumeStorage(type, configFile)
     }
@@ -24,7 +33,7 @@ object VolumeStorageFactory {
         val initFileName = getInitFileName(configPath)
         val fileContent = getResource(initFileName).readText()
         File(configPath).writeText(fileContent)
-        LOGGER.info("Configuration file $configPath")
+        LOGGER.info("Configuration file created: $configPath")
     }
 
     private fun getInitFileName(configPath: String): String {

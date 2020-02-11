@@ -9,17 +9,16 @@ import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
 import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.storage.Storage
-import com.cognifide.cogboard.storage.VolumeStorageFactory.get
-import com.cognifide.cogboard.config.ConfigType.CREDENTIALS
+import com.cognifide.cogboard.storage.VolumeStorageFactory.credentials
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class CredentialsService(
-    private val storage: Storage = get(CREDENTIALS),
+    private val storage: Storage = credentials(),
     private val config: JsonObject = storage.loadConfig()
 ) {
 
-    fun loadConfig(): JsonObject = get(CREDENTIALS).loadConfig()
+    fun loadConfig(): JsonObject = credentials().loadConfig()
 
     fun getCredentials(): JsonArray = loadConfig().getJsonArray(CREDENTIALS_ARRAY)
 
