@@ -41,13 +41,13 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admins()) : Routi
     }
 
     private fun getAdmin(name: String): Admin? {
-        return storage
+        val data = storage
                 .loadConfig()
                 .getJsonArray("admins")
                 ?.map { it as JsonObject }
-                ?.filter { it.getString("name") == name }
-                ?.map { Admin(it.getString("name"), it.getString("pass")) }
-                ?.first()
+                ?.firstOrNull { it.getString("name") == name }
+        return if (data != null) Admin(data.getString("name"), data.getString("pass"))
+        else null
     }
 
     private fun sendJWT(ctx: RoutingContext, user: String) {
@@ -74,7 +74,7 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admins()) : Routi
         return "{\"token\":\"Bearer $token\"}"
     }
 
-    private class Admin(name: String, val password: String) {
+    private class Admin(val name: String, val password: String) {
         fun isNotAuthorized(password: String): Boolean {
             return password.isBlank() || this.password != password
         }
