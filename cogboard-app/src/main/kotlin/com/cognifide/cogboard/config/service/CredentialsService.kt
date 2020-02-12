@@ -14,13 +14,13 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class CredentialsService(
-    private val storage: Storage,
-    private val config: JsonObject = credentials().loadConfig()
+    private val storage: Storage = credentials(),
+    private val config: JsonObject = storage.loadConfig()
 ) {
 
     fun loadConfig(): JsonObject = credentials().loadConfig()
 
-    fun getCredentials(): JsonArray = credentials().loadConfig().getJsonArray(CREDENTIALS_ARRAY)
+    fun getCredentials(): JsonArray = loadConfig().getJsonArray(CREDENTIALS_ARRAY)
 
     fun getCredential(credentialId: String): JsonObject {
         return getCredentials().findById(credentialId)
