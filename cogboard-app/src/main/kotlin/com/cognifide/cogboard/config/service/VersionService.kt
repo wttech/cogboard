@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.config.service
 
-import com.cognifide.cogboard.storage.VolumeStorageFactory.info
+import com.cognifide.cogboard.storage.VolumeStorageFactory.version
 import io.vertx.core.json.JsonObject
 import java.time.LocalDateTime
 import java.time.Month
@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit
 
 class VersionService {
 
-    private var config = info().loadConfig()
+    private var config = version().loadConfig()
     private var lastCheck: LocalDateTime = LocalDateTime.of(YEAR_INIT, Month.FEBRUARY, DAY_INIT, HOUR_INIT, MINUTE_INIT)
     private var latestVersion: String = "0.0.0"
     private var latestResponse: JsonObject = JsonObject()

@@ -1,5 +1,5 @@
 package com.cognifide.cogboard.config.model
 
-data class Info(
+data class Version(
     val version: String
 )
