@@ -9,22 +9,22 @@ import java.io.File
 import java.net.URL
 
 class VolumeStorage(
-    private val type: ConfigType,
-    private val configFile: String = type.configFilePath()
+        private val type: ConfigType,
+        private val configPath: String = type.configFilePath()
 ) : Storage {
 
     override fun loadConfig(): JsonObject {
-        createIfDoesNotExist(configFile)
-        val conf = File(configFile).readText()
+        val file = getOrCreate()
+        val conf = file.readText()
         return if (type.validate(conf)) JsonObject(conf)
         else CogboardConstants.errorResponse("$type config not valid")
     }
 
     override fun saveConfig(configJson: JsonObject): Boolean {
-        createIfDoesNotExist(configFile)
+        val file = getOrCreate()
         val conf = configJson.toString()
         if (type.validate(conf)) {
-            File(configFile).writeText(conf)
+            file.writeText(conf)
             return true
         }
 
@@ -32,16 +32,18 @@ class VolumeStorage(
         return false
     }
 
-    private fun createIfDoesNotExist(configPath: String) {
+    private fun getOrCreate(): File {
+        val file = File(configPath)
         if (!File(configPath).exists()) {
-            createFile(configPath)
+            createFile(file)
         }
+        return file
     }
 
-    private fun createFile(configPath: String) {
+    private fun createFile(file: File) {
         val initFileName = getInitFileName(configPath)
         val fileContent = getResource(initFileName).readText()
-        File(configPath).writeText(fileContent)
+        file.writeText(fileContent)
         LOGGER.info("Configuration file created: $configPath")
     }
 
