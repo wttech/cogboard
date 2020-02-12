@@ -10,7 +10,7 @@ internal class VersionServiceTest {
         val first = "0.0.0"
         val second = "0.0.14"
 
-        Assertions.assertEquals(false, VersionService.isNewer(first, second))
+        Assertions.assertFalse(VersionService.isNewer(first, second))
     }
 
     @Test
@@ -18,7 +18,7 @@ internal class VersionServiceTest {
         val first = "20.0.0"
         val second = "1.0.0"
 
-        Assertions.assertEquals(true, VersionService.isNewer(first, second))
+        Assertions.assertTrue(VersionService.isNewer(first, second))
     }
 
     @Test
@@ -26,6 +26,6 @@ internal class VersionServiceTest {
         val first = "1.0.0"
         val second = "1.0.0"
 
-        Assertions.assertEquals(false, VersionService.isNewer(first, second))
+        Assertions.assertFalse(VersionService.isNewer(first, second))
     }
 }

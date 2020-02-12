@@ -39,7 +39,7 @@ import {
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
 import { setToken, removeToken, getToken, getUserRole } from '../utils/auth';
-import { newVersionActionCreator } from '../components/NewVersionAction';
+import { newVersionButtonsCreator } from '../components/NewVersionButtons/helpers';
 
 export const fetchInitialData = () => dispatch => {
   dispatch(requestData());
@@ -51,7 +51,7 @@ export const fetchInitialData = () => dispatch => {
 };
 
 export const fetchAppInfo = () => dispatch => {
-  return fetch(URL.LOAD_INFO, { method: 'GET' }).then(() =>
+  return fetchData(URL.LOAD_INFO).then(_ =>
     dispatch(waitingForNewVersion(true))
   );
 };
@@ -240,11 +240,11 @@ export const pushNewVersionNotification = ({ content }) => (
   const {
     notifications: { isWaitingForNewVersion, notificationsById }
   } = getState();
-  const action = newVersionActionCreator(content);
+  const buttons = newVersionButtonsCreator(content);
 
   if (isWaitingForNewVersion) {
-    if (action && !checkIfNotificationExist(notificationsById)) {
-      dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(action)));
+    if (buttons && !checkIfNotificationExist(notificationsById)) {
+      dispatch(pushNotification(NOTIFICATIONS.NEW_VERSION(buttons)));
     }
     dispatch(waitingForNewVersion(false));
   }

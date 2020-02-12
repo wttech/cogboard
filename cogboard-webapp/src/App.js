@@ -26,6 +26,9 @@ function App() {
   const appInitialized = useSelector(({ app }) => app.initialized);
   const dispatch = useDispatch();
   const isWaitingForNewVersion = useSelector(getIsWaitingForNewVersion);
+  const pullingNewVersionInfoDelay = isWaitingForNewVersion
+    ? null
+    : CHECK_NEW_VERSION_DELAY;
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -35,14 +38,11 @@ function App() {
     dispatch(fetchInitialData());
   }, [dispatch]);
 
-  useInterval(
-    () => {
-      if (!isWaitingForNewVersion) {
-        dispatch(fetchAppInfo());
-      }
-    },
-    isWaitingForNewVersion ? null : CHECK_NEW_VERSION_DELAY
-  );
+  useInterval(() => {
+    if (!isWaitingForNewVersion) {
+      dispatch(fetchAppInfo());
+    }
+  }, pullingNewVersionInfoDelay);
 
   useEffect(() => {
     if (appInitialized) {
