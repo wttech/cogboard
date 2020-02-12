@@ -50,10 +50,8 @@ abstract class WidgetTestBase {
 
     fun initService(): BoardsConfigService {
         val boardPath = JenkinsJobWidgetTest::class.java.getResource("/board").path
-        val contentRepository = ContentRepository("$boardPath/content")
-        val boardConfig = "$boardPath/server-board-config.json"
-        val storage = VolumeStorage(ConfigType.BOARDS, boardConfig, BoardsValidator)
-        return BoardsConfigService(storage, contentRepository)
+        val contentRepository = ContentRepository(boardPath)
+        return BoardsConfigService(contentRepository)
     }
 
 

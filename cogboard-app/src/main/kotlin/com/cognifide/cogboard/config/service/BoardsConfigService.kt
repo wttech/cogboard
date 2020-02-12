@@ -9,9 +9,9 @@ import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
 class BoardsConfigService(
-    private val storage: Storage = boards(),
     private val contentRepository: ContentRepository = ContentRepository(),
-    private val entityCleanupHelper: EntityCleanupHelper? = null
+    private val entityCleanupHelper: EntityCleanupHelper? = null,
+    private val storage: Storage = boards()
 ) {
 
     fun saveBoardsConfig(boardsConfig: JsonObject): JsonObject {

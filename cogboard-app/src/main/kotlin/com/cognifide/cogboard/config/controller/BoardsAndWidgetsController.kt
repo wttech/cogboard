@@ -6,7 +6,6 @@ import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.config.service.WidgetRuntimeService
 import com.cognifide.cogboard.storage.ContentRepository
-import com.cognifide.cogboard.storage.VolumeStorageFactory
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
 
@@ -19,7 +18,6 @@ class BoardsAndWidgetsController : AbstractVerticle() {
     override fun start() {
         val contentRepository = ContentRepository()
         boardsConfigService = BoardsConfigService(
-                VolumeStorageFactory.boards(),
                 contentRepository,
                 EntityCleanupHelper(vertx))
 
