@@ -23,14 +23,14 @@ class VersionService {
 
     fun isLatestVersionAvailable(): Boolean =
             ChronoUnit.SECONDS.between(lastCheck, LocalDateTime.now()) < ChronoUnit.DAYS.duration.seconds &&
-            compareVersionNumbers(latestVersion, config.getString("version")) > 0
+            isNewer(latestVersion, config.getString("version"))
 
     fun checkVersion(body: JsonObject): Boolean {
         val currentVersion = config.getString("version")
         val latestVersion = body.getString("tag_name")?.substring(1) ?: ""
 
         this.lastCheck = LocalDateTime.now()
-        return if (compareVersionNumbers(latestVersion, currentVersion) > 0) {
+        return if (isNewer(latestVersion, currentVersion)) {
             this.latestVersion = latestVersion
             this.latestResponse = body
             true
@@ -43,16 +43,16 @@ class VersionService {
         const val HOUR_INIT = 0
         const val MINUTE_INIT = 0
 
-        fun compareVersionNumbers(v1: String, v2: String): Int {
-            val v1parts = v1.split('.').map { it.toInt() }
-            val v2parts = v2.split('.').map { it.toInt() }
+        fun isNewer(newValue: String, oldValue: String): Boolean {
+            val v1parts = newValue.split('.').map { it.toInt() }
+            val v2parts = oldValue.split('.').map { it.toInt() }
 
             for ((p1, p2) in v1parts.zip(v2parts)) {
                 if (p1 == p2) continue
-                return if (p1 > p2) 1 else -1
+                return p1 > p2
             }
 
-            return v1parts.size.compareTo(v2parts.size)
+            return v1parts.size.compareTo(v2parts.size) == 1
         }
     }
 }
