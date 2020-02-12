@@ -1,10 +1,10 @@
 package com.cognifide.cogboard.security
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory
 import io.knotx.server.api.handler.RoutingHandlerFactory
 import io.vertx.core.Handler
-import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.ext.auth.KeyStoreOptions
 import io.vertx.ext.auth.jwt.JWTAuthOptions
@@ -13,10 +13,9 @@ import io.vertx.reactivex.core.Vertx
 import io.vertx.reactivex.ext.auth.jwt.JWTAuth
 import io.vertx.reactivex.ext.web.RoutingContext
 
-class LoginHandler : RoutingHandlerFactory {
+class LoginHandler(val storage: Storage = VolumeStorageFactory.admins()) : RoutingHandlerFactory {
 
     private var vertx: Vertx? = null
-    private var admins: MutableMap<String, String> = mutableMapOf()
     private lateinit var config: JsonObject
 
     override fun getName(): String = "login-handler"
@@ -24,29 +23,31 @@ class LoginHandler : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> {
         this.vertx = vertx
         this.config = config ?: JsonObject()
-        loadAdmins(VolumeStorageFactory.admins().loadConfig().getJsonArray("admins") ?: JsonArray())
         val wrongUserMsg = config?.getString("wrongUserMsg") ?: "Please, enter correct Username"
         val wrongPassMsg = config?.getString("wrongPassMsg") ?: "Please, enter correct Password"
 
         return Handler { ctx ->
             ctx.bodyAsJson?.let {
-                val user = it.getString("username", "")
+                val username = it.getString("username", "")
                 val password = it.getString("password", "")
+                val admin = getAdmin(username)
                 when {
-                    isNotExisting(user) -> sendUnauthorized(ctx, wrongUserMsg)
-                    isNotAuthorized(user, password) -> sendUnauthorized(ctx, wrongPassMsg)
-                    else -> sendJWT(ctx, user)
+                    admin == null -> sendUnauthorized(ctx, wrongUserMsg)
+                    admin.isNotAuthorized(password) -> sendUnauthorized(ctx, wrongPassMsg)
+                    else -> sendJWT(ctx, username)
                 }
             }
         }
     }
 
-    private fun loadAdmins(jsonArray: JsonArray) {
-        jsonArray.stream()
-                .map { it as JsonObject }
-                .forEach {
-                    admins[it.getString("name")] = it.getString("pass")
-                }
+    private fun getAdmin(name: String): Admin? {
+        return storage
+                .loadConfig()
+                .getJsonArray("admins")
+                ?.map { it as JsonObject }
+                ?.filter { it.getString("name") == name }
+                ?.map { Admin(it.getString("name"), it.getString("pass")) }
+                ?.first()
     }
 
     private fun sendJWT(ctx: RoutingContext, user: String) {
@@ -55,14 +56,6 @@ class LoginHandler : RoutingHandlerFactory {
 
     private fun sendUnauthorized(ctx: RoutingContext, message: String) {
         ctx.response().setStatusMessage(message).setStatusCode(CogboardConstants.STATUS_CODE_401).end()
-    }
-
-    private fun isNotExisting(user: String): Boolean {
-        return admins[user] == null
-    }
-
-    private fun isNotAuthorized(user: String, password: String): Boolean {
-        return password.isBlank() || admins[user] != password
     }
 
     private fun generateJWT(username: String): String {
@@ -79,6 +72,12 @@ class LoginHandler : RoutingHandlerFactory {
                 JWTOptions().setExpiresInSeconds(SESSION_DURATION_IN_SECONDS)
         ) ?: "no data"
         return "{\"token\":\"Bearer $token\"}"
+    }
+
+    private class Admin(name: String, val password: String) {
+        fun isNotAuthorized(password: String): Boolean {
+            return password.isBlank() || this.password != password
+        }
     }
 
     companion object {
