@@ -17,6 +17,6 @@ class VersionHandler : RoutingHandlerFactory {
                 ?.publish(CogboardConstants.EVENT_VERSION_CONFIG, JsonObject())
         event
                 .response()
-                .end()
+                .end(JsonObject().toString())
     }
 }

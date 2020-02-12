@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, oneOf, string, node } from 'prop-types';
+import { func, oneOf, string, elementType } from 'prop-types';
 import { useTheme } from '@material-ui/styles';
 
 import { Box } from '@material-ui/core';
@@ -27,7 +27,7 @@ const SnackbarVariantContent = ({ message, variant, action }) => {
 SnackbarVariantContent.propTypes = {
   variant: oneOf(['error', 'info', 'success', 'warning']).isRequired,
   message: string,
-  action: node,
+  action: elementType,
   onClose: func
 };
 

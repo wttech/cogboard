@@ -1,31 +1,11 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 
-import { URL } from '../constants';
+import { URL } from '../../constants';
 
 import { Button } from '@material-ui/core';
 
-export const newVersionActionCreator = appInfo => {
-  const {
-    latestVersion,
-    latestResponse: { html_url: url }
-  } = appInfo;
-  const skipVersion = Cookies.get('skipVersion');
-
-  if (latestVersion === skipVersion) {
-    return;
-  }
-
-  return handleClose => (
-    <NewVersionAction
-      version={latestVersion}
-      url={url}
-      handleClose={handleClose}
-    />
-  );
-};
-
-const NewVersionAction = ({ version, url, handleClose }) => {
+const NewVersionButtons = ({ version, url, handleClose }) => {
   const handleCloseWithStateChange = () => {
     handleClose();
   };
@@ -58,4 +38,4 @@ const NewVersionAction = ({ version, url, handleClose }) => {
   );
 };
 
-export default NewVersionAction;
+export default NewVersionButtons;
