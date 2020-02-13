@@ -157,7 +157,7 @@ tasks {
         mustRunAfter("copyConfigs")
     }
 
-    register("createInfoFile") {
+    register("createVersionFile") {
         File(mountDir, ".version").writeText("""
             {
               "version": "$version"
@@ -167,6 +167,6 @@ tasks {
     }
 
     register("prepareDocker") {
-        dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf", "createInfoFile")
+        dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf", "createVersionFile")
     }
 }

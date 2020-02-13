@@ -51,8 +51,9 @@ export const fetchInitialData = () => dispatch => {
 };
 
 export const fetchAppInfo = () => dispatch => {
-  return fetchData(URL.LOAD_INFO).then(_ =>
-    dispatch(waitingForNewVersion(true))
+  return fetchData(URL.LOAD_INFO).then(
+    () => dispatch(waitingForNewVersion(true)),
+    console.error
   );
 };
 
