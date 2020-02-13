@@ -15,13 +15,15 @@ export const COLORS = {
 };
 
 export const URL = {
+  LOAD_INFO: '/api/version',
   LOAD_DATA: '/api/config',
   SAVE_DATA: '/api/config/save',
   UPDATE_WIDGET: '/api/widget/update',
   DELETE_WIDGET: '/api/widget/delete',
   LOGIN: '/api/login',
   ENDPOINTS_ENDPOINT: '/api/endpoints',
-  CREDENTIALS_ENDPOINT: '/api/credentials'
+  CREDENTIALS_ENDPOINT: '/api/credentials',
+  UPDATE_INFO: 'https://github.com/Cognifide/cogboard/wiki#update'
 };
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;
@@ -35,6 +37,8 @@ export const WIDGET_ROWS_MIN = 0.5;
 export const WIDGET_ROWS_MAX = 4;
 
 export const WIDGET_TITLE_LENGTH_LIMIT = 25;
+
+export const CHECK_NEW_VERSION_DELAY = 3 * 60 * 60 * 1000; // 3h
 
 export const TEXT_SIZES = [
   {
@@ -168,5 +172,10 @@ export const NOTIFICATIONS = {
       reason ? ' - ' : ''
     }${reason}`,
     duration: 3000
+  }),
+  NEW_VERSION: action => ({
+    type: 'info',
+    message: 'New version available!',
+    action
   })
 };

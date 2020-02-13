@@ -9,8 +9,8 @@ import java.io.File
 import java.net.URL
 
 class VolumeStorage(
-        private val type: ConfigType,
-        private val configPath: String = type.configFilePath()
+    private val type: ConfigType,
+    private val configPath: String = type.configFilePath()
 ) : Storage {
 
     override fun loadConfig(): JsonObject {

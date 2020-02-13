@@ -16,7 +16,7 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
 
-val projectDir = rootProject.projectDir.absolutePath.replace("\\", "/");
+val projectDir = rootProject.projectDir.absolutePath.replace("\\", "/")
 val dockerImageRef = "$buildDir/.docker/buildImage-imageId.txt"
 val dockerContainerName = project.property("docker.app.container.name")?.toString() ?: "cogboard"
 val dockerImageName = project.property("docker.app.image.name")?.toString() ?: "cogboard/cogboard-app"
@@ -157,7 +157,16 @@ tasks {
         mustRunAfter("copyConfigs")
     }
 
+    register("createVersionFile") {
+        File(mountDir, ".version").writeText("""
+            {
+              "version": "$version"
+            }
+        """.trimIndent())
+        mustRunAfter("copyConfigs")
+    }
+
     register("prepareDocker") {
-        dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf")
+        dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf", "createVersionFile")
     }
 }

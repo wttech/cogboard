@@ -63,6 +63,11 @@ export const getAllNotifications = createSelector(
   ({ allNotifications }) => allNotifications
 );
 
+export const getIsWaitingForNewVersion = createSelector(
+  [getNotifications],
+  ({ isWaitingForNewVersion }) => isWaitingForNewVersion
+);
+
 export const getBoards = createSelector(
   [getBoardsById],
   boardsById => Object.values(boardsById)

@@ -11,7 +11,7 @@ import SnackbarVariantContent from './SnackbarVariantContent';
 const SnackbarWithVariant = React.memo(
   ({ notificationId, vertical, horizontal, 'data-cy': dataCy }) => {
     const getNotification = useMemo(createGetNotification, []);
-    const { type, message, duration } = useSelector(state =>
+    const { type, message, action, duration } = useSelector(state =>
       getNotification(state, notificationId)
     );
     const dispatch = useDispatch();
@@ -37,7 +37,11 @@ const SnackbarWithVariant = React.memo(
         open={isOpened}
         data-cy={dataCy}
       >
-        <SnackbarVariantContent variant={type} message={message} />
+        <SnackbarVariantContent
+          variant={type}
+          message={message}
+          action={action && action(closeSnackbar)}
+        />
       </Snackbar>
     );
   }
