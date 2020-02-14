@@ -52,7 +52,10 @@ export function validateIframeEmbed(widget) {
 export function validateJenkinsJob(widget) {
   widget
     .assertText('p', 'master-branch')
-    .assertText('p', /[0-9]{2}.[0-9]{2}.[0-9]{4}, [0-9]{2}:[0-9]{2}:[0-9]{2}/)
+    .assertText(
+      'p',
+      /[0-9]{2}[.|/][0-9]{2}[.|/][0-9]{4}, [0-9][0-9]?:[0-9]{2}:[0-9]{2}/
+    )
     .assertText('p', '0.25 [s]')
     .assertText('span', '#6')
     .progressVisible();
