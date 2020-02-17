@@ -49,7 +49,7 @@ describe('Reordering', () => {
       });
   });
 
-  it('Logged in user can reorder widgets', () => {
+  it("Logged in user can reorder widgets, logged out user can't", () => {
     const dashboardName = dashboardNameGen('ReorderWidgetsTest');
     const firstWidgetsName = 'First Widget';
     const secondWidgetsName = 'Second Widget';
