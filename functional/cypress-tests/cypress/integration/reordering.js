@@ -50,15 +50,25 @@ describe('Reordering', () => {
   });
 
   it('Logged in user can reorder widgets', () => {
-    const reorderedWidgetName = 'Reorder Widget';
-    const dropOnWidget = 'Example Widget';
-    const widgets = [];
+    const dashboardName = dashboardNameGen('ReorderWidgetsTest');
+    const firstWidgetsName = 'First Widget';
+    const secondWidgetsName = 'Second Widget';
+    const thirdWidgetsName = 'Third Widget';
+    let widgets = [];
 
     cy.login();
-    cy.get(`h3:contains("${reorderedWidgetName}")`).drag(
-      `h3:contains("${dropOnWidget}")`,
-      'left'
-    );
+    cy.addDashboard(dashboardName);
+    cy.chooseDashboard(dashboardName);
+    cy.clickAddWidgetButton();
+    cy.fillNewWidgetGeneral('Checkbox', firstWidgetsName, false, false, 1, 1);
+    cy.confirmAddWidget();
+    cy.clickAddWidgetButton();
+    cy.fillNewWidgetGeneral('Checkbox', secondWidgetsName, false, false, 1, 1);
+    cy.confirmAddWidget();
+    cy.clickAddWidgetButton();
+    cy.fillNewWidgetGeneral('Checkbox', thirdWidgetsName, false, false, 1, 1);
+    cy.confirmAddWidget();
+
     cy.get('[draggable="true"]')
       .each(widget => {
         cy.wrap(widget)
@@ -68,23 +78,64 @@ describe('Reordering', () => {
           });
       })
       .then(() => {
-        for (let i = 0; i < widgets.length; i++) {
-          if (
-            widgets[i] == reorderedWidgetName &&
-            widgets[i + 1] == dropOnWidget
-          ) {
-            i = widgets.length;
-          } else if (
-            i == widgets.length - 1 &&
-            !(
-              widgets[i] == reorderedWidgetName &&
-              widgets[i + 1] == dropOnWidget
-            )
-          ) {
-            throw new Error('Reordering of widgets is not working.');
-          }
-        }
+        expect(widgets, 'Verifying the initial state').to.deep.equal([
+          firstWidgetsName,
+          secondWidgetsName,
+          thirdWidgetsName
+        ]);
+        widgets = [];
       });
+
+    cy.get(`h3:contains("${thirdWidgetsName}")`).drag(
+      `h3:contains("${firstWidgetsName}")`,
+      'left'
+    );
+
+    cy.get('[draggable="true"]')
+      .each(widget => {
+        cy.wrap(widget)
+          .find('h3')
+          .then(heading => {
+            widgets.push(heading.text());
+          });
+      })
+      .then(() => {
+        expect(widgets, 'Verifying if reordering widgets works').to.deep.equal([
+          thirdWidgetsName,
+          firstWidgetsName,
+          secondWidgetsName
+        ]);
+        widgets = [];
+      });
+
+    cy.logout();
+
+    cy.get(`h3:contains("${firstWidgetsName}")`).drag(
+      `h3:contains("${thirdWidgetsName}")`,
+      'left'
+    );
+
+    cy.get('[draggable="true"]')
+      .each(widget => {
+        cy.wrap(widget)
+          .find('h3')
+          .then(heading => {
+            widgets.push(heading.text());
+          });
+      })
+      .then(() => {
+        expect(
+          widgets,
+          'Verifying if user is unable to reorder widgets when logged out'
+        ).to.not.deep.equal([
+          firstWidgetsName,
+          thirdWidgetsName,
+          secondWidgetsName
+        ]);
+      });
+
+    cy.login();
+    cy.removeDashboard(dashboardName);
   });
 
   it("Logged out user can't reorder dashboards", () => {
@@ -125,43 +176,6 @@ describe('Reordering', () => {
             )
           ) {
             throw new Error('Logged out user can reorder dashboards.');
-          }
-        }
-      });
-  });
-
-  it("Logged out user can't reorder widgets", () => {
-    const reorderedWidgetName = 'Reorder Widget';
-    const dropOnWidget = 'Example Widget';
-    const widgets = [];
-
-    cy.get(`h3:contains("${reorderedWidgetName}")`).drag(
-      `h3:contains("${dropOnWidget}")`,
-      'left'
-    );
-    cy.get('[draggable="true"]')
-      .each(widget => {
-        cy.wrap(widget)
-          .find('h3')
-          .then(heading => {
-            widgets.push(heading.text());
-          });
-      })
-      .then(() => {
-        for (let i = 0; i < widgets.length; i++) {
-          if (
-            widgets[i] == dropOnWidget &&
-            widgets[i + 1] == reorderedWidgetName
-          ) {
-            i = widgets.length;
-          } else if (
-            i == widgets.length - 1 &&
-            !(
-              widgets[i] == dropOnWidget &&
-              widgets[i + 1] == reorderedWidgetName
-            )
-          ) {
-            throw new Error('Logged out user can reorder widgets.');
           }
         }
       });
