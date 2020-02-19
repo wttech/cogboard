@@ -1,76 +1,72 @@
 import { dashboardNameGen } from '../fixtures/Dashboard';
+import { createWidget } from '../support/widget';
+import Widgets from '../fixtures/Widgets';
+import { addWidgetsDashboard } from '../support/dashboard';
 
 describe('Reordering widgets', () => {
-  beforeEach(() => {
+  const firstWidgetsTitle = 'First Widget';
+  const secondWidgetsTitle = 'Second Widget';
+  const thirdWidgetsTitle = 'Third Widget';
+  let first, second, third, dashboard;
+
+  before(() => {
     cy.visit('/');
+    cy.login();
+    dashboard = addWidgetsDashboard(
+      dashboardNameGen('ReorderWidgetsTest')
+    ).select();
+
+    first = createCheckboxWidget(firstWidgetsTitle);
+    second = createCheckboxWidget(secondWidgetsTitle);
+    third = createCheckboxWidget(thirdWidgetsTitle);
   });
 
   it("Logged in user can reorder widgets, logged out user can't", () => {
-    const dashboardName = dashboardNameGen('ReorderWidgetsTest');
-    const firstWidgetsName = 'First Widget';
-    const secondWidgetsName = 'Second Widget';
-    const thirdWidgetsName = 'Third Widget';
-    let widgets = [];
+    validateOrder('Verifying the initial order', [
+      firstWidgetsTitle,
+      secondWidgetsTitle,
+      thirdWidgetsTitle
+    ]);
 
-    cy.login();
-    cy.addDashboard(dashboardName);
-    cy.chooseDashboard(dashboardName);
-    cy.clickAddWidgetButton();
-    cy.fillNewWidgetGeneral('Checkbox', firstWidgetsName, false, false, 1, 1);
-    cy.confirmAddWidget();
-    cy.clickAddWidgetButton();
-    cy.fillNewWidgetGeneral('Checkbox', secondWidgetsName, false, false, 1, 1);
-    cy.confirmAddWidget();
-    cy.clickAddWidgetButton();
-    cy.fillNewWidgetGeneral('Checkbox', thirdWidgetsName, false, false, 1, 1);
-    cy.confirmAddWidget();
+    third.move(firstWidgetsTitle);
 
-    cy.get('[draggable="true"]')
-      .each(widget => {
-        cy.wrap(widget)
-          .find('h3')
-          .then(heading => {
-            widgets.push(heading.text());
-          });
-      })
-      .then(() => {
-        expect(widgets, 'Verifying the initial state').to.deep.equal([
-          firstWidgetsName,
-          secondWidgetsName,
-          thirdWidgetsName
-        ]);
-        widgets = [];
-      });
+    validateOrder('Verifying if reordering widgets works', [
+      thirdWidgetsTitle,
+      firstWidgetsTitle,
+      secondWidgetsTitle
+    ]);
 
-    cy.get(`h3:contains("${thirdWidgetsName}")`).drag(
-      `h3:contains("${firstWidgetsName}")`,
-      'left'
-    );
+    first.move(thirdWidgetsTitle);
 
-    cy.get('[draggable="true"]')
-      .each(widget => {
-        cy.wrap(widget)
-          .find('h3')
-          .then(heading => {
-            widgets.push(heading.text());
-          });
-      })
-      .then(() => {
-        expect(widgets, 'Verifying if reordering widgets works').to.deep.equal([
-          thirdWidgetsName,
-          firstWidgetsName,
-          secondWidgetsName
-        ]);
-        widgets = [];
-      });
+    validateOrder('Verifying if reordering widgets works', [
+      firstWidgetsTitle,
+      thirdWidgetsTitle,
+      secondWidgetsTitle
+    ]);
 
     cy.logout();
+    second.move(firstWidgetsTitle);
 
-    cy.get(`h3:contains("${firstWidgetsName}")`).drag(
-      `h3:contains("${thirdWidgetsName}")`,
-      'left'
+    validateOrder(
+      'Verifying if user is unable to reorder widgets when logged out',
+      [firstWidgetsTitle, thirdWidgetsTitle, secondWidgetsTitle]
     );
 
+    cy.login();
+    cy.get('[data-cy="navbar-show-drawer-button"]').click();
+    dashboard.delete();
+  });
+
+  function createCheckboxWidget(title) {
+    cy.clickAddWidgetButton();
+    const widget = createWidget(Widgets.checkbox.name);
+    widget.title = title;
+    widget.configure(false);
+    return widget;
+  }
+
+  function validateOrder(message, order) {
+    let widgets = [];
     cy.get('[draggable="true"]')
       .each(widget => {
         cy.wrap(widget)
@@ -80,17 +76,7 @@ describe('Reordering widgets', () => {
           });
       })
       .then(() => {
-        expect(
-          widgets,
-          'Verifying if user is unable to reorder widgets when logged out'
-        ).to.not.deep.equal([
-          firstWidgetsName,
-          thirdWidgetsName,
-          secondWidgetsName
-        ]);
+        expect(widgets, message).to.deep.equal(order);
       });
-
-    cy.login();
-    cy.removeDashboard(dashboardName);
-  });
+  }
 });
