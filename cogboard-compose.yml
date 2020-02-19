@@ -2,12 +2,12 @@ version: "3.7"
 
 services:
   backend:
-    image: "cogboard/cogboard-app:latest"
+    image: "cogboard/cogboard-app:version_placeholder"
     volumes:
       - "./mnt:/data"
 
   frontend:
-    image: "cogboard/cogboard-web:latest"
+    image: "cogboard/cogboard-web:version_placeholder"
     depends_on:
       - "backend"
     ports:
