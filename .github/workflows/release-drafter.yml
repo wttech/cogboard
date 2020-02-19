@@ -18,7 +18,8 @@ jobs:
         uses: actions/checkout@master
       - name: Build asset
         run: |
-          export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
+          export VERSION=${${{ steps.release_draft.outputs.html_url }}/*v./v.}
+          echo $VERSION
           sed -i "s/version_placeholder/${VERSION}/" cogboard-compose.yml
           cat cogboard-compose.yml
           zip -r release-package cogboard-compose.yml mnt
