@@ -90,6 +90,7 @@ class HttpClient : AbstractVerticle() {
         if (user.isNotBlank() && pass.isNotBlank()) {
             request.basicAuthentication(user, pass)
             request.putHeader("Content-Type", "application/json")
+            request.putHeader("Cookie", "WSL-credential=XHA1sV5RaTEBADEABHVzZXJpZD1wY29nbmlmaQBpcGFkZHI9OTEuMjAyLjEwMC41AAAAQ049d3NsdjQtaW50ZXJuYWwAPP6wfOI17UVCS6HAzb2JaImFXmBxirkDqXJvtgeQFXS1Wq8YTeIrDxN1dD4V9iC2UmJb8vk+oY3XOwavHNTg/VJD8VH+jqR35DbKPHgCOEAXk01HPywnyW6g6JloM/9T6LetU/kxzdD7Cr880qOBgP8/DBm/69PdR8Rbz2XzLe4=")
         }
 
         headers
