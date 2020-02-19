@@ -18,6 +18,21 @@ jobs:
           echo "::set-output name=current_version::$VERSION"
           export NEXT_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
           echo "::set-output name=next_ver::$NEXT_VERSION"
+      - name: Build asset
+        run: |
+          sed -i "s/version_placeholder/${{ steps.props.outputs.current_version }}/" cogboard-compose.yml
+          cat cogboard-compose.yml
+          zip -r release-package cogboard-compose.yml mnt
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release_draft.outputs.upload_url }}
+          asset_path: ./release-package.zip
+          asset_name: release-package.zip
+          asset_content_type: application/zip
       - name: Publish App to DockerHub
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
