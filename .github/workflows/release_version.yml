@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: "${{ steps.props.outputs.current_version }},latest"
-          workdir: cogboard/build
+          workdir: build
       - name: Publish Webapp to DockerHub
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
