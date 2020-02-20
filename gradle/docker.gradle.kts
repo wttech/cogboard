@@ -114,7 +114,7 @@ tasks {
                 "-v", "$functionalTestsPath:/e2e",
                 "-w", "/e2e",
                 "--network=$network",
-                "cypress/included:3.8.0",
+                "cypress/included:4.0.2",
                 "--browser", "chrome",
                 "--config-file", cypressConfigPath
         )
