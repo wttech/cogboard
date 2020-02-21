@@ -7,6 +7,13 @@ class Widget {
     this.title = `Test-${name}`;
   }
 
+  configure(disabled) {
+    cy.fillNewWidgetGeneral(this.name, this.title, false, disabled, 1, 1);
+    fillDynamicTab(this);
+    cy.confirmAddWidget();
+    return this;
+  }
+
   assertBackground(color) {
     cy.contains('h3', this.title)
       .parents('[draggable="true"]')
@@ -40,13 +47,6 @@ class Widget {
     return this;
   }
 
-  configure(disabled) {
-    cy.fillNewWidgetGeneral(this.name, this.title, false, disabled, 4, 2);
-    fillDynamicTab(this);
-    cy.confirmAddWidget();
-    return this;
-  }
-
   assertTitle() {
     this.assertText('h3', this.title);
     return this;
@@ -60,6 +60,14 @@ class Widget {
 
   isDisabled() {
     cy.contains('Disabled').should('is.visible');
+    return this;
+  }
+
+  move(movetoTarget) {
+    cy.get(`h3:contains("${this.title}")`).drag(
+      `h3:contains("${movetoTarget}")`,
+      'left'
+    );
     return this;
   }
 }
