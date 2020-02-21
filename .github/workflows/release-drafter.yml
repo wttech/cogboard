@@ -9,18 +9,19 @@ jobs:
   update_release_draft:
     runs-on: ubuntu-latest
     steps:
-      - name: Release draft
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Update Release Draft
         id: release_draft
         uses: release-drafter/release-drafter@v5.6.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build asset
+      - name: Build Release Asset
         run: |
           ./gradlew prepareCogboardCompose
           cat cogboard-compose.yml
           zip -r cogboard cogboard-compose.yml mnt
-      - name: Upload Release Asset
-        id: upload-release-asset
+      - name: Upload Release asset
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
