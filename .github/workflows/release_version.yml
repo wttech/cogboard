@@ -20,7 +20,7 @@ jobs:
           echo "::set-output name=next_ver::$NEXT_VERSION"
       - name: Build app
         run: |
-          ./gradlew prepareDocker
+          ./gradlew
 #      - name: Build asset
 #        run: |
 #          sed -i "s/version_placeholder/${{ steps.props.outputs.current_version }}/" cogboard-compose.yml
