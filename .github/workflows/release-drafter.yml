@@ -19,7 +19,6 @@ jobs:
       - name: Build Release Asset
         run: |
           ./gradlew prepareCogboardCompose
-          cat cogboard-compose.yml
           zip -r cogboard cogboard-compose.yml mnt
       - name: Upload Release asset
         uses: actions/upload-release-asset@v1.0.1
