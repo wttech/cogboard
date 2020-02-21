@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: "${{ steps.props.outputs.current_version }},latest"
           workdir: cogboard-webapp
-      - name: Bump version
+      - name: Bump Version
         id: bump_version
         run: |
           sed -i "1s%version=.*%version=${{ steps.props.outputs.next_ver }}%g" gradle.properties
@@ -46,7 +46,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "[skip travis] Bump version" -a
-      - name: Push changes
+      - name: Push Changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
