@@ -58,6 +58,7 @@ detekt {
 
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
 apply(from = "gradle/docker.gradle.kts")
+apply(from = "gradle/prepareCogboardCompose.gradle.kts")
 
 // Uncomment lines below so you can print tasks execution order easily
 //gradle.taskGraph.whenReady {
