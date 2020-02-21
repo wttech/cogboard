@@ -11,22 +11,42 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
-      - name: Release
-        run: |
-          echo lets do the release.
-      - name: Bump version
-        id: bump_version
+      - name: Prepare props
+        id: props
         run: |
           export VERSION=$(sed -n '1s/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' gradle.properties)
+          echo "::set-output name=current_version::$VERSION"
           export NEXT_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
           echo "::set-output name=next_ver::$NEXT_VERSION"
-          sed -i "1s%version=.*%version=$NEXT_VERSION%g" gradle.properties
+      - name: Build app
+        run: |
+          ./gradlew
+      - name: Publish App to DockerHub
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: cogboard/cogboard-app
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "${{ steps.props.outputs.current_version }},latest"
+          workdir: build
+      - name: Publish Webapp to DockerHub
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: cogboard/cogboard-web
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "${{ steps.props.outputs.current_version }},latest"
+          workdir: cogboard-webapp
+      - name: Bump Version
+        id: bump_version
+        run: |
+          sed -i "1s%version=.*%version=${{ steps.props.outputs.next_ver }}%g" gradle.properties
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "[skip travis] Bump version" -a
-      - name: Push changes
+      - name: Push Changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,7 +56,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.bump_version.outputs.next_ver }}
-          release_name: ${{ steps.bump_version.outputs.next_ver }}
+          tag_name: v${{ steps.props.outputs.next_ver }}
+          release_name: ${{ steps.props.outputs.next_ver }}
           draft: true
           prerelease: false

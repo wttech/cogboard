@@ -1,17 +1,13 @@
-name-template: 'v$NEXT_PATCH_VERSION'
-tag-template: 'v$NEXT_PATCH_VERSION'
 template: |
-  # What's Changed
+  ## What's Changed
 
   $CHANGES
 categories:
-  - title: 'New'
+  - title: '🚀 New'
     label: 'enhancement'
-  - title: 'Bug Fixes'
+  - title: '🐛 Bug Fixes'
     label: 'bug'
-  - title: 'Maintenance'
-    label: 'maintenance'
-  - title: 'Documentation'
-    label: 'documentation'
-  - title: 'Dependency Updates'
-    label: 'dependencies'
+  - title: '🧰 Maintenance'
+    labels:
+    - 'maintenance'
+    - 'documentation'
