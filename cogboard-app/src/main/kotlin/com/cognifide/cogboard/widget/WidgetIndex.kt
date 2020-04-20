@@ -12,6 +12,7 @@ import com.cognifide.cogboard.widget.type.persondraw.PersonDrawWidget
 import com.cognifide.cogboard.widget.type.ServiceCheckWidget
 import com.cognifide.cogboard.widget.type.sonarqube.SonarQubeWidget
 import com.cognifide.cogboard.widget.type.TextWidget
+import com.cognifide.cogboard.widget.type.JiraBucketWidget
 import com.cognifide.cogboard.widget.type.WorldClockWidget
 import com.cognifide.cogboard.widget.type.AemBundleInfoWidget
 import io.vertx.core.Vertx
@@ -33,6 +34,7 @@ class WidgetIndex {
             BambooPlanWidget::class.java.simpleName -> BambooPlanWidget(vertx, config)
             AemHealthcheckWidget::class.java.simpleName -> AemHealthcheckWidget(vertx, config)
             TextWidget::class.java.simpleName -> TextWidget(vertx, config)
+            JiraBucketWidget::class.java.simpleName -> JiraBucketWidget(vertx, config)
             IframeEmbedWidget::class.java.simpleName -> IframeEmbedWidget(vertx, config)
             WorldClockWidget::class.java.simpleName -> WorldClockWidget(vertx, config)
             CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)
