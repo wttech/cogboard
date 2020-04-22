@@ -74,11 +74,12 @@ class HttpClient : AbstractVerticle() {
         val request = initRequest(httpRequest, config)
         val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
         val body = config.getJsonObject(CogboardConstants.PROP_BODY)
+        val requestId = config.getString(CogboardConstants.PROP_REQUEST_ID) ?: ""
 
         body?.let {
             executeCheckRequest(request, address, body)
         } ?: run {
-            executeRequest(request, address)
+            executeRequest(request, address, requestId)
         }
     }
 
@@ -111,17 +112,19 @@ class HttpClient : AbstractVerticle() {
         }
     }
 
-    private fun executeRequest(request: HttpRequest<Buffer>, address: String?) {
+    private fun executeRequest(request: HttpRequest<Buffer>, address: String?, requestId: String) {
         request.send {
             if (!it.succeeded()) {
                 vertx.eventBus().send(address, JsonObject()
                         .put(CogboardConstants.PROP_ERROR_MESSAGE, "Http Error")
-                        .put(CogboardConstants.PROP_ERROR_CAUSE, it.cause()?.message))
+                        .put(CogboardConstants.PROP_ERROR_CAUSE, it.cause()?.message)
+                        .put(CogboardConstants.PROP_REQUEST_ID, requestId))
                 LOGGER.error(it.cause()?.message)
             } else {
                 toJson(it.result()).let { json ->
                     json.put(PROP_STATUS_CODE, it.result().statusCode())
                     json.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
+                    json.put(CogboardConstants.PROP_REQUEST_ID, requestId)
                     vertx.eventBus().send(address, json)
                 }
             }

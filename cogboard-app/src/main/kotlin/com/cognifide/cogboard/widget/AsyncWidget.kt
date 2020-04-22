@@ -49,10 +49,11 @@ abstract class AsyncWidget(
      */
     abstract fun handleResponse(responseBody: JsonObject)
 
-    protected fun httpGet(url: String) {
+    protected fun httpGet(url: String, requestId: String = "") {
         vertx.eventBus().send(CogboardConstants.EVENT_HTTP_GET,
                 JsonObject()
                         .put(CogboardConstants.PROP_URL, url)
+                        .put(CogboardConstants.PROP_REQUEST_ID, requestId)
                         .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)
                         .put(CogboardConstants.PROP_USER, user)
                         .put(CogboardConstants.PROP_PASSWORD, password)
