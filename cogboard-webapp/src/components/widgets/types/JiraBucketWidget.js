@@ -1,31 +1,43 @@
 import React from 'react';
 import { array } from 'prop-types';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
 
-const JiraBucketWidget = ({ buckets }) => {
-  const issueURL = 'https://jira.cognifide.com/jira/browse/';
-  const bucketIssues = buckets.map(bucket => (
-    <ul>
-      {bucket.map(issue => (
-        <li>
-          <a href={issueURL + issue.key}>{issue.key}</a>
-        </li>
-      ))}
-    </ul>
+const JiraBucketWidget = ({ bucketNames, issueCounts }) => {
+  const buckets = bucketNames.map((bucket, index) => (
+    <TableRow>
+      <TableCell>{bucket}</TableCell>
+      <TableCell>{issueCounts[index]}</TableCell>
+    </TableRow>
   ));
 
   return (
     <>
-      <div>{bucketIssues}</div>
+      <div>
+        <table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Bucket name</TableCell>
+              <TableCell>Issues</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{buckets}</TableBody>
+        </table>
+      </div>
     </>
   );
 };
 
 JiraBucketWidget.propTypes = {
-  buckets: array.isRequired
+  bucketNames: array.isRequired,
+  issueCounts: array.isRequired
 };
 
 JiraBucketWidget.defaultProps = {
-  buckets: []
+  bucketNames: [],
+  issueCounts: []
 };
 
 export default JiraBucketWidget;

@@ -81,7 +81,11 @@ const widgetTypes = {
   JiraBucketWidget: {
     name: 'Jira Bucket',
     component: JiraBucketWidget,
-    dialogFields: ['EndpointField', 'JiraBuckets']
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'JiraBuckets'],
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
   },
   BambooPlanWidget: {
     name: 'Bamboo Plan',
