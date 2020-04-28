@@ -9,17 +9,34 @@ import com.cognifide.cogboard.CogboardConstants as CC
 class JiraBucketWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val bucketQueries: JsonArray = config.getJsonArray("bucketQueries")
-    private val bucketNames: JsonArray = JsonArray()
-    private val issueCounts: JsonArray = JsonArray()
+
+    private val buckets: JsonArray = prepareBuckets()
+
+    private fun prepareBuckets(): JsonArray {
+        val preparedBuckets = JsonArray()
+        bucketQueries.forEach {
+            if (it is JsonObject) {
+                val bucket = JsonObject()
+                bucket.put("id", it.getString("id"))
+                bucket.put("name", it.getString("bucketName"))
+                preparedBuckets.add(bucket)
+            }
+        }
+        return preparedBuckets
+    }
 
     override fun handleResponse(responseBody: JsonObject) {
         val response = JsonObject()
         val issues = responseBody.getJsonArray("issues").size()
+        val bucketId = responseBody.getString("requestId")
 
-        bucketNames.add(responseBody.getString("requestId"))
-        issueCounts.add(issues)
-        response.put("bucketNames", bucketNames)
-        response.put("issueCounts", issueCounts)
+        buckets.forEach {
+            val key = (it as JsonObject).getString("id")
+            if (bucketId == key) {
+                it.put("issueCounts", issues)
+            }
+        }
+        response.put("buckets", buckets)
         send(JsonObject()
                 .put(CC.PROP_CONTENT, response))
     }
@@ -28,9 +45,9 @@ class JiraBucketWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
         if (url.isNotBlank()) {
             for (bucketQuery in bucketQueries.list) {
                 if (bucketQuery is JsonObject) {
-                    val bucketName = bucketQuery.getString("bucketName")
+                    val bucketId = bucketQuery.getString("id")
                     val jqlQuery = bucketQuery.getString("jqlQuery")
-                    httpGet(url = "$url/jira/rest/api/2/search?jql=$jqlQuery", requestId = bucketName)
+                    httpGet(url = "$url/jira/rest/api/2/search?jql=$jqlQuery&maxResults=500", requestId = bucketId)
                 }
             }
         } else {

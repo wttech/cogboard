@@ -5,14 +5,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 
-const JiraBucketWidget = ({ bucketNames, issueCounts }) => {
-  const buckets = bucketNames.map((bucket, index) => (
-    <TableRow>
-      <TableCell>{bucket}</TableCell>
-      <TableCell>{issueCounts[index]}</TableCell>
-    </TableRow>
-  ));
-
+const JiraBucketWidget = ({ buckets }) => {
   return (
     <>
       <div>
@@ -23,7 +16,14 @@ const JiraBucketWidget = ({ bucketNames, issueCounts }) => {
               <TableCell>Issues</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>{buckets}</TableBody>
+          <TableBody>
+            {buckets.map(bucket => (
+              <TableRow>
+                <TableCell>{bucket.name}</TableCell>
+                <TableCell>{bucket.issueCounts}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </table>
       </div>
     </>
@@ -31,13 +31,11 @@ const JiraBucketWidget = ({ bucketNames, issueCounts }) => {
 };
 
 JiraBucketWidget.propTypes = {
-  bucketNames: array.isRequired,
-  issueCounts: array.isRequired
+  buckets: array.isRequired
 };
 
 JiraBucketWidget.defaultProps = {
-  bucketNames: [],
-  issueCounts: []
+  buckets: []
 };
 
 export default JiraBucketWidget;

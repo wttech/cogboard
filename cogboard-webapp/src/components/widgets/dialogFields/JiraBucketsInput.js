@@ -17,6 +17,19 @@ import { prepareChangeEvent } from './helpers';
 import AddIcon from '@material-ui/icons/Add';
 import Input from '@material-ui/core/Input';
 import Fab from '@material-ui/core/Fab';
+import styled from '@emotion/styled/macro';
+
+const CustomInput = styled(Input)`
+  margin-top: 16px;
+  margin-bottom: 8px;
+`;
+const CustomFab = styled(Fab)`
+  margin-top: 16px;
+  margin-bottom: 8px;
+`;
+const CustomList = styled(List)`
+  margin-top: 16px;
+`;
 
 const JiraBucketsInput = ({ value, onChange }) => {
   const [buckets, setBuckets] = useState(() =>
@@ -33,57 +46,42 @@ const JiraBucketsInput = ({ value, onChange }) => {
     setFormValue('');
     setFormValueBucket('');
   };
-  const handleDelete = itemIndex => {
-    let itemList = remove(itemIndex, 1, buckets);
-    setBuckets(itemList);
-    onChange(
-      prepareChangeEvent(
-        itemList.map(item => ({
-          bucketName: item.bucketName,
-          jqlQuery: item.jqlQuery
-        })),
-        'array'
-      )
-    );
+  const handleDelete = bucketIndex => {
+    let bucketList = remove(bucketIndex, 1, buckets);
+    setBuckets(bucketList);
+    onChange(prepareChangeEvent(bucketList, 'array'));
   };
-  const handleSave = items => {
-    if (editMode && items.jqlQuery.length && items.bucketName.length) {
-      const updatedItemId = buckets.findIndex(el => el.id === editMode);
-      const updatedItems = buckets;
-      updatedItems[updatedItemId] = {
-        bucketName: items.bucketName,
-        jqlQuery: items.jqlQuery
+  const handleSave = buckets => {
+    if (editMode && buckets.jqlQuery.length && buckets.bucketName.length) {
+      const updatedBucketId = buckets.findIndex(el => el.id === editMode);
+      const updatedBuckets = buckets;
+      updatedBuckets[updatedBucketId] = {
+        id: buckets.id,
+        bucketName: buckets.bucketName,
+        jqlQuery: buckets.jqlQuery
       };
-      const updatedItemsValues = updatedItems.map(item => ({
-        bucketName: item.bucketName,
-        jqlQuery: item.jqlQuery
-      }));
-      setBuckets(updatedItems);
-      onChange(prepareChangeEvent(updatedItemsValues, 'array'));
+      setBuckets(updatedBuckets);
+      onChange(prepareChangeEvent(updatedBuckets, 'array'));
       resetInput();
       setEditMode(false);
     }
-    if (!editMode && items.jqlQuery.length && items.bucketName.length) {
-      const updatedItems = [
+    if (!editMode && buckets.jqlQuery.length && buckets.bucketName.length) {
+      const updatedBuckets = [
         ...buckets,
-        { id: v4(), bucketName: items.bucketName, jqlQuery: items.jqlQuery }
+        { id: v4(), bucketName: buckets.bucketName, jqlQuery: buckets.jqlQuery }
       ];
-      const updatedItemsValues = updatedItems.map(item => ({
-        bucketName: item.bucketName,
-        jqlQuery: item.jqlQuery
-      }));
-      setBuckets(updatedItems);
-      onChange(prepareChangeEvent(updatedItemsValues, 'array'));
+      setBuckets(updatedBuckets);
+      onChange(prepareChangeEvent(updatedBuckets, 'array'));
       resetInput();
     }
   };
-  const handleKeyPressed = (event, items) => {
+  const handleKeyPressed = (event, buckets) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       if (!formValue) {
         return false;
       }
-      handleSave(items);
+      handleSave(buckets);
       return true;
     }
     return false;
@@ -97,7 +95,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
   return (
     <FormControl>
       <InputLabel shrink>Buckets</InputLabel>
-      <Input
+      <CustomInput
         placeholder="Bucket Name"
         margin="normal"
         value={formValueBucket}
@@ -109,7 +107,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
           })
         }
       />
-      <Input
+      <CustomInput
         placeholder="JQL Query"
         margin="normal"
         value={formValue}
@@ -121,7 +119,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
           })
         }
       />
-      <Fab
+      <CustomFab
         onClick={() => {
           handleSave({ jqlQuery: formValue, bucketName: formValueBucket });
         }}
@@ -132,31 +130,39 @@ const JiraBucketsInput = ({ value, onChange }) => {
       >
         {editMode ? (
           <>
-            <CheckIcon /> Edit Bucket
+            <CheckIcon /> Save Bucket
           </>
         ) : (
           <>
             <AddIcon /> Add bucket
           </>
         )}
-      </Fab>
-      <List>
-        {buckets.map((item, index) => (
-          <ListItem key={item.id} dense button selected={editMode === item.id}>
-            <ListItemText primary={item.bucketName} secondary={item.jqlQuery} />
+      </CustomFab>
+      <CustomList>
+        {buckets.map((bucket, index) => (
+          <ListItem
+            onClick={() => {
+              handleEdit(bucket.id);
+            }}
+            key={bucket.id}
+            dense
+            button
+            selected={editMode === bucket.id}
+          >
+            <ListItemText primary={bucket.bucketName} />
             <ListItemSecondaryAction>
               <IconButton
                 aria-label="Edit"
-                disabled={editMode === item.id}
+                disabled={editMode === bucket.id}
                 onClick={() => {
-                  handleEdit(item.id);
+                  handleEdit(bucket.id);
                 }}
               >
                 <EditIcon />
               </IconButton>
               <IconButton
                 aria-label="Delete"
-                disabled={editMode === item.id}
+                disabled={editMode === bucket.id}
                 onClick={() => {
                   handleDelete(index);
                 }}
@@ -166,7 +172,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
             </ListItemSecondaryAction>
           </ListItem>
         ))}
-      </List>
+      </CustomList>
     </FormControl>
   );
 };
