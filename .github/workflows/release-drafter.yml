@@ -1,0 +1,31 @@
+name: Update Release Draft
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update_release_draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Update Release Draft
+        id: release_draft
+        uses: release-drafter/release-drafter@v5.6.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Release Asset
+        run: |
+          ./gradlew prepareCogboardCompose
+          zip -r cogboard cogboard-compose.yml mnt
+      - name: Upload Release asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release_draft.outputs.upload_url }}
+          asset_path: ./cogboard.zip
+          asset_name: cogboard.zip
+          asset_content_type: application/zip

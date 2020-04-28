@@ -77,6 +77,11 @@ export const createEditWidgetData = ({ id, values }) => ({
   ...mapFormValuesToWidgetData(values)
 });
 
+export const checkIfNotificationExist = notifications =>
+  Object.values(notifications).find(
+    ({ message }) => message === 'New version available!'
+  );
+
 export const mapDataToState = data => {
   const { id, title, content, type, disabled, config, ...other } = data;
 

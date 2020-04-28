@@ -16,7 +16,8 @@ import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent, dispatchEvent } from './helpers';
 
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCardHeader, StyledCollapse } from './styled';
+import { StyledCard, StyledCollapse } from './styled';
+import WidgetHeader from '../WidgetHeader';
 import WidgetContent from '../WidgetContent';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
@@ -44,9 +45,12 @@ const Widget = ({ id, index }) => {
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
-  const { expandContent } = widgetTypeData;
-  const widgetStatus = getWidgetStatus(content, type);
-  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypes[type]);
+  const { expandContent: isExpandContent, isVertical } = widgetTypeData;
+  const expandContent =
+    type === 'TextWidget' && isVertical ? false : isExpandContent;
+  const widgetTypeConfig = widgetTypes[type] || widgetTypes['WhiteSpaceWidget'];
+  const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
+  const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
   const dispatch = useDispatch();
   const theme = useTheme();
   const [
@@ -60,6 +64,8 @@ const Widget = ({ id, index }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const whiteSpaceInAuthenticatedMode =
     isAuthenticated && type === 'WhiteSpaceWidget';
+  const isEmptyHeader = title === '';
+  const isError = content === undefined ? false : !!content.errorMessage;
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
     canDrag: isAuthenticated,
@@ -160,16 +166,17 @@ const Widget = ({ id, index }) => {
         isLoggedIn={isAuthenticated}
         isDragging={isDragging}
         isOver={isOver}
+        isVertical={isVertical}
         ref={ref}
         type={type}
-        expanded
+        expanded={expanded}
       >
         {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
-          <StyledCardHeader
+          <WidgetHeader
+            isEmptyHeader={isEmptyHeader}
             avatar={
-              !expandContent && (
-                <StatusIcon status={widgetStatus} size="small" />
-              )
+              !expandContent &&
+              !isError && <StatusIcon status={widgetStatus} size="small" />
             }
             title={title}
             titleTypographyProps={{
@@ -216,6 +223,7 @@ const Widget = ({ id, index }) => {
         {expandContent && (
           <StyledCollapse
             isExpanded={expanded}
+            type={type}
             status={widgetStatus}
             theme={theme}
             isDragging={isDragging}

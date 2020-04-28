@@ -166,7 +166,7 @@ const SettingsMenu = ({ className }) => {
           <Button
             onClick={handleDialogClose}
             variant="contained"
-            color="secondary"
+            color="default"
             data-cy="settings-menu-exit-button"
             fullWidth
           >

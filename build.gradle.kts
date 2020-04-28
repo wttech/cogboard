@@ -17,17 +17,13 @@ plugins {
     id("com.bmuschko.docker-remote-api")
     id("java")
     id("io.gitlab.arturbosch.detekt") version "1.1.0"
-    id("net.researchgate.release")
+    id("io.knotx.distribution")
 }
 
 val dockerContainerName = project.property("docker.app.container.name") ?: "cogboard"
 val dockerImageName = project.property("docker.app.image.name") ?: "cogboard/cogboard-app"
 
 defaultTasks("redeployLocal")
-
-configurations {
-    register("dist")
-}
 
 dependencies {
     subprojects.forEach { "dist"(project(":${it.name}")) }
@@ -40,9 +36,11 @@ allprojects {
     repositories {
         jcenter()
         mavenLocal()
-        maven { url = uri("https://plugins.gradle.org/m2/") }
-        maven { url = uri("https://oss.sonatype.org/content/groups/staging/") }
-        maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+            url = uri("https://oss.sonatype.org/content/groups/staging/")
+            url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+        }
     }
 }
 
@@ -58,13 +56,11 @@ detekt {
     failFast = true
 }
 
-
-
-apply(from = "gradle/distribution.gradle.kts")
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
 apply(from = "gradle/docker.gradle.kts")
-apply(from = "gradle/release.gradle")
+apply(from = "gradle/prepareCogboardCompose.gradle.kts")
 
+// Uncomment lines below so you can print tasks execution order easily
 //gradle.taskGraph.whenReady {
 //    this.allTasks.forEach { logger.error(it.path + " " + it.name) }
 //}

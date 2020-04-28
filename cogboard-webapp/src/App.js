@@ -5,13 +5,17 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { Router } from '@reach/router';
 
-import { fetchInitialData } from './actions/thunks';
 import {
-  updateWidget,
-  saveDataSuccess,
-  loginSuccess
-} from './actions/actionCreators';
+  fetchAppInfo,
+  fetchInitialData,
+  updateWidgetContent,
+  pushNewVersionNotification
+} from './actions/thunks';
+import { saveDataSuccess, loginSuccess } from './actions/actionCreators';
+import { getIsWaitingForNewVersion } from './selectors';
+import { useInterval } from './hooks';
 import { theme } from './theme';
+import { CHECK_NEW_VERSION_DELAY } from './constants';
 
 import MainTemplate from './components/MainTemplate';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,6 +25,10 @@ import ServerErrorPage from './components/ServerErrorPage';
 function App() {
   const appInitialized = useSelector(({ app }) => app.initialized);
   const dispatch = useDispatch();
+  const isWaitingForNewVersion = useSelector(getIsWaitingForNewVersion);
+  const pullingNewVersionInfoDelay = isWaitingForNewVersion
+    ? null
+    : CHECK_NEW_VERSION_DELAY;
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -30,6 +38,12 @@ function App() {
     dispatch(fetchInitialData());
   }, [dispatch]);
 
+  useInterval(() => {
+    if (!isWaitingForNewVersion) {
+      dispatch(fetchAppInfo());
+    }
+  }, pullingNewVersionInfoDelay);
+
   useEffect(() => {
     if (appInitialized) {
       const socket = new WebSocket(`ws://${window.location.hostname}/ws`);
@@ -37,14 +51,17 @@ function App() {
         const { eventType, ...data } = JSON.parse(dataJson);
 
         if (eventType === 'widget-update') {
-          dispatch(updateWidget(data));
+          dispatch(updateWidgetContent(data));
         } else if (eventType === 'notification-config-save') {
           dispatch(saveDataSuccess());
+        } else if (eventType === 'new-version') {
+          dispatch(pushNewVersionNotification(data));
         }
       };
 
       socket.addEventListener('message', handleMessageReceive);
 
+      dispatch(fetchAppInfo());
       return () => {
         socket.removeEventListener('message', handleMessageReceive);
       };

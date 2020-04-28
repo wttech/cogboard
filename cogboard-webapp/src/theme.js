@@ -21,7 +21,7 @@ export const theme = createMuiTheme({
     },
     background: {
       default: COLORS.BKGD_LIGHT,
-      paper: COLORS.BKGD_DARK,
+      paper: COLORS.BLUE,
       board: {
         card: COLORS.BLUE,
         dragged: COLORS.LIGHT_BLUE

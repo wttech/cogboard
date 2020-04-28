@@ -5,7 +5,7 @@ import {
   GMT_TIMEZONES,
   TIME_FORMATS
 } from '../types/WorldClockWidget/helpers';
-import { parseWidgetTypes, transformMinValue } from './helpers';
+import { parseTypes, transformMinValue } from './helpers';
 import {
   REQUEST_METHODS,
   TEXT_SIZES,
@@ -14,6 +14,7 @@ import {
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
 import widgetTypes from '../../widgets';
+import boardTypes from '../../boards';
 
 import EndpointInput from './EndpointInput';
 import NumberInput from './NumberInput';
@@ -28,6 +29,7 @@ import SwitchInput from './SwitchInput';
 import { StyledNumberInput } from './styled';
 import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
+import MultiTextInput from './MultiTextInput';
 
 const dialogFields = {
   LabelField: {
@@ -46,7 +48,7 @@ const dialogFields = {
     component: CredentialInput,
     name: 'credentials',
     label: 'Credential',
-    validator: () => string().required(vm.FIELD_REQUIRED())
+    validator: () => string()
   },
   UsernameField: {
     component: TextInput,
@@ -74,13 +76,24 @@ const dialogFields = {
     component: TextInput,
     name: 'publicUrl',
     label: 'Public URL',
-    validator: () => string().url(vm.INVALID_URL())
+    validator: () =>
+      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+        message: vm.INVALID_PUBLIC_URL(),
+        excludeEmptyString: true
+      })
   },
   WidgetTypeField: {
     component: DisplayValueSelect,
     name: 'type',
     label: 'Type',
-    dropdownItems: parseWidgetTypes(widgetTypes),
+    dropdownItems: parseTypes(widgetTypes),
+    validator: () => string().required(vm.FIELD_REQUIRED())
+  },
+  BoardTypeField: {
+    component: DisplayValueSelect,
+    name: 'type',
+    label: 'Type',
+    dropdownItems: parseTypes(boardTypes),
     validator: () => string().required(vm.FIELD_REQUIRED())
   },
   TitleField: {
@@ -201,13 +214,21 @@ const dialogFields = {
     component: TextInput,
     name: 'url',
     label: 'URL',
-    validator: () => string().url(vm.INVALID_URL())
+    validator: () =>
+      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+        message: vm.INVALID_URL(),
+        excludeEmptyString: true
+      })
   },
   IFrameURL: {
     component: TextInput,
     name: 'iframeUrl',
     label: 'URL',
-    validator: () => string().url(vm.INVALID_URL())
+    validator: () =>
+      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+        message: vm.INVALID_URL(),
+        excludeEmptyString: true
+      })
   },
   IdString: {
     component: TextInput,
@@ -285,7 +306,11 @@ const dialogFields = {
     validator: () => string()
   },
   DateFormat: {
-    component: DisplayValueSelect,
+    component: conditionallyHidden(
+      DisplayValueSelect,
+      'displayDate',
+      value => value
+    ),
     name: 'dateFormat',
     label: 'Date Format',
     dropdownItems: DATE_FORMATS,
@@ -293,7 +318,11 @@ const dialogFields = {
     validator: () => string()
   },
   TimeFormat: {
-    component: DisplayValueSelect,
+    component: conditionallyHidden(
+      DisplayValueSelect,
+      'displayTime',
+      value => value
+    ),
     name: 'timeFormat',
     label: 'Time Format',
     dropdownItems: TIME_FORMATS,
@@ -359,6 +388,47 @@ const dialogFields = {
     initialValue: false,
     validator: () => boolean()
   },
+  MultiTextInput: {
+    component: MultiTextInput,
+    name: 'multiTextInput',
+    label: 'Multi Text Component',
+    initialValue: [],
+    validator: () =>
+      array()
+        .ensure()
+        .min(1, vm.FIELD_MIN_ITEMS())
+        .of(string())
+  },
+  DailySwitch: {
+    component: CheckboxInput,
+    name: 'personDrawDailySwitch',
+    label: 'Daily',
+    initialValue: false,
+    validator: () => boolean()
+  },
+  PersonDrawInterval: {
+    component: conditionallyHidden(
+      NumberInput,
+      'personDrawDailySwitch',
+      value => !value
+    ),
+    name: 'personDrawInterval',
+    label: 'Interval [min]',
+    initialValue: 120,
+    validator: () =>
+      number().when('personDrawDailySwitch', {
+        is: true,
+        then: number().required(),
+        otherwise: number().notRequired()
+      })
+  },
+  RandomCheckbox: {
+    component: CheckboxInput,
+    name: 'randomizeCheckbox',
+    label: 'Randomize',
+    initialValue: false,
+    validator: () => boolean()
+  },
   ExpandableContent: {
     component: CheckboxInput,
     name: 'expandContent',
@@ -377,7 +447,8 @@ const dialogFields = {
   AemBundleExcluded: {
     component: MultilineTextInput,
     name: 'excludedBundles',
-    label: 'Excluded bundles (each line is a new entry)',
+    label:
+      'Excluded bundles (either symbolic or display name; each line is a new entry)',
     validator: () => string()
   },
   AemBundleResolvedThreshold: {
@@ -389,7 +460,7 @@ const dialogFields = {
     initialValue: 2,
     validator: () =>
       number()
-        .moreThan(0)
+        .min(0)
         .required(vm.FIELD_REQUIRED())
   },
   AemBundleInstalledThreshold: {
@@ -401,7 +472,7 @@ const dialogFields = {
     initialValue: 2,
     validator: () =>
       number()
-        .moreThan(0)
+        .min(0)
         .required(vm.FIELD_REQUIRED())
   }
 };

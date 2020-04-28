@@ -37,7 +37,7 @@ const EndpointForm = ({ onSubmit, handleCancel, id, ...initialFormValues }) => {
         rootName="endpoint-form"
       />
       <Button
-        color="primary"
+        color="secondary"
         variant="contained"
         type="submit"
         data-cy="endpoint-form-submit-button"

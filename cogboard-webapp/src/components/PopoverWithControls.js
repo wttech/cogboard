@@ -3,7 +3,13 @@ import copy from 'copy-to-clipboard';
 import { CaptionWithPointer, StyledPopoverText } from './styled';
 import { Button, Popover } from '@material-ui/core';
 
-export const PopoverWithControls = ({ title, body, withCopy, className }) => {
+export const PopoverWithControls = ({
+  title,
+  titleHover,
+  body,
+  withCopy,
+  className
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const popoverOpen = Boolean(anchorEl);
@@ -16,7 +22,7 @@ export const PopoverWithControls = ({ title, body, withCopy, className }) => {
   return (
     <>
       <CaptionWithPointer
-        title={body}
+        title={titleHover || title}
         onClick={handleClick}
         className={className}
       >

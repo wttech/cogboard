@@ -39,12 +39,12 @@ class BambooDeploymentWidget(
         val deploymentVersionName = result.getJsonObject("deploymentVersion").getString("name")
         val deploymentResultId = result.getInteger("id")
 
-        result.put(CC.PROP_ERROR_MESSAGE, "")
-            .put(CC.PROP_URL, constructUrl(deploymentResultId))
-            .put(CC.PROP_RELEASE_NAME, deploymentVersionName)
-            .put(CC.PROP_WIDGET_STATUS, getStatus(result))
-
-        result.remove("items")
+        result.apply {
+            put(CC.PROP_URL, constructUrl(deploymentResultId))
+            put(CC.PROP_RELEASE_NAME, deploymentVersionName)
+            put(CC.PROP_WIDGET_STATUS, getStatus(result))
+            remove("items")
+        }
 
         send(JsonObject()
                 .put(CC.PROP_CONTENT, result))

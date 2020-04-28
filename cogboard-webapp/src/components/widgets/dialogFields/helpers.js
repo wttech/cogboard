@@ -1,9 +1,13 @@
 import { sortByKey } from '../../../utils/components';
 
-export const parseWidgetTypes = widgetTypes => {
-  const sortedWidgetTypes = sortByKey(widgetTypes, 'name');
+export const parseTypes = elementTypes => {
+  if (!elementTypes) {
+    return;
+  }
 
-  return Object.entries(sortedWidgetTypes).reduce((obj, [type, { name }]) => {
+  const sortedElementTypes = sortByKey(elementTypes, 'name');
+
+  return Object.entries(sortedElementTypes).reduce((obj, [type, { name }]) => {
     return [
       ...obj,
       {
@@ -25,5 +29,14 @@ export const transformMinValue = minValue => {
 
     return (prevValue =
       value < prevValue ? Math.floor(value) : Math.ceil(value));
+  };
+};
+
+export const prepareChangeEvent = (value, type) => {
+  return {
+    target: {
+      value: value,
+      type: type
+    }
   };
 };

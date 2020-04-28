@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.widget.type
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_BODY
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CONTENT
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_EXPECTED_RESPONSE_BODY
@@ -61,7 +60,6 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
 
     override fun handleResponse(responseBody: JsonObject) {
         responseBody.put(PROP_URL, urlToCheck)
-            .put(CogboardConstants.PROP_ERROR_MESSAGE, "")
             .put(PROP_EXPECTED_RESPONSE_BODY, expectedResponseBody)
             .put(PROP_EXPECTED_STATUS_CODE, expectedStatusCode)
             .put(PROP_WIDGET_STATUS, getStatusResponse(responseBody))

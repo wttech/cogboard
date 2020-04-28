@@ -7,7 +7,7 @@ const CancelButton = ({ handleCancelClick, className, ...other }) => (
     onClick={handleCancelClick}
     className={className}
     variant="contained"
-    color="secondary"
+    color="default"
     {...other}
   >
     Cancel

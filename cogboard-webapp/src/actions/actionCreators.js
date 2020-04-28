@@ -28,7 +28,8 @@ import {
   SAVE_SETTINGS,
   ADD_SETTINGS_ITEM,
   EDIT_SETTINGS_ITEM,
-  DELETE_SETTINGS_ITEM
+  DELETE_SETTINGS_ITEM,
+  WAITING_FOR_NEW_VERSION_DATA
 } from './types';
 import { INITIAL_BOARD_PROPS } from '../constants';
 
@@ -185,4 +186,9 @@ export const deleteSettingsItem = (name, data) => ({
     name,
     item: data
   }
+});
+
+export const waitingForNewVersion = data => ({
+  type: WAITING_FOR_NEW_VERSION_DATA,
+  payload: data
 });

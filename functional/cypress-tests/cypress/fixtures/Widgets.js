@@ -10,7 +10,7 @@ module.exports = {
   aemHealthcheck: {
     name: 'AEM Healthcheck',
     endpoint: 'endpoint1',
-    schedulePeriod: '500',
+    schedulePeriod: '3',
     healthChecks: {
       activeBundles: {
         dataValue: 'inactiveBundles',
@@ -73,13 +73,13 @@ module.exports = {
   bambooDeployment: {
     name: 'Bamboo Deployment',
     endpoint: 'endpoint1',
-    schedulePeriod: '500',
-    id: '33333333'
+    schedulePeriod: '3',
+    id: '3'
   },
   bambooPlan: {
     name: 'Bamboo Plan',
     endpoint: 'endpoint1',
-    schedulePeriod: '500',
+    schedulePeriod: '3',
     id: 'CGB-SCS'
   },
   checkbox: {
@@ -88,10 +88,6 @@ module.exports = {
   whiteSpace: {
     name: 'White Space'
   },
-  example: {
-    name: 'Example',
-    schedulePeriod: '100'
-  },
   iframeEmbed: {
     name: 'Iframe Embed',
     url: 'http://www.example.com/'
@@ -99,12 +95,12 @@ module.exports = {
   jenkinsJob: {
     name: 'Jenkins Job',
     endpoint: 'endpoint1',
-    schedulePeriod: '500',
+    schedulePeriod: '3',
     path: '/job/CogBoard/job/in-progress'
   },
   serviceCheck: {
     name: 'Service Check',
-    schedulePeriod: '60',
+    schedulePeriod: '3',
     requestMethod: 'GET',
     endpoint: 'endpoint1',
     path: '/service-check/post.json',
@@ -116,9 +112,58 @@ module.exports = {
     name: 'SonarQube',
     version: '5.x',
     endpoint: 'endpoint1',
-    schedulePeriod: '90',
+    schedulePeriod: '3',
     key: 'fail',
     id: '316488',
+    metrics: {
+      blocker_violations: {
+        dataValue: 'blocker_violations',
+        label: 'blocker violations',
+        value: '0'
+      },
+      critical_violations: {
+        dataValue: 'critical_violations',
+        label: 'critical violations',
+        value: '0'
+      },
+      major_violations: {
+        dataValue: 'major_violations',
+        label: 'major violations',
+        value: '3'
+      },
+      minor_violations: {
+        dataValue: 'minor_violations',
+        label: 'minor violations',
+        value: '4'
+      },
+      info_violations: {
+        dataValue: 'info_violations',
+        label: 'info violations',
+        value: '15'
+      },
+      bugs: {
+        dataValue: 'bugs',
+        label: 'bugs',
+        value: '7'
+      },
+      code_smells: {
+        dataValue: 'code_smells',
+        label: 'code smells',
+        value: '5'
+      },
+      vulnerabilities: {
+        dataValue: 'vulnerabilities',
+        label: 'vulnerabilities',
+        value: '3'
+      }
+    }
+  },
+  sonarQube6x: {
+    name: 'SonarQube',
+    version: '6.x',
+    endpoint: 'endpoint1',
+    schedulePeriod: '90',
+    key: 'fail',
     metrics: {
       blocker_violations: {
         dataValue: 'blocker_violations',
@@ -166,7 +211,7 @@ module.exports = {
     name: 'SonarQube',
     version: '7.x',
     endpoint: 'endpoint1',
-    schedulePeriod: '90',
+    schedulePeriod: '3',
     key: 'fail',
     metrics: {
       blocker_violations: {
