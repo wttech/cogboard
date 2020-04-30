@@ -90,7 +90,8 @@ const widgetTypes = {
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }
-    }
+    },
+    initialStatus: 'NONE'
   },
   BambooPlanWidget: {
     name: 'Bamboo Plan',
