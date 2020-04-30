@@ -47,11 +47,12 @@ class JiraBucketWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
                 if (bucketQuery is JsonObject) {
                     val bucketId = bucketQuery.getString("id")
                     val jqlQuery = bucketQuery.getString("jqlQuery")
-                    httpGet(url = "$url/jira/rest/api/2/search?jql=$jqlQuery&maxResults=500", requestId = bucketId)
+                    val issueLimit = config.getInteger("issueLimit")
+                    httpGet(url = "$url/jira/rest/api/2/search?jql=$jqlQuery&maxResults=$issueLimit", requestId = bucketId)
                 }
             }
         } else {
-            sendConfigurationError("Endpoint URL or JQL query is blank.")
+            sendConfigurationError("Endpoint URL is blank.")
         }
     }
 }
