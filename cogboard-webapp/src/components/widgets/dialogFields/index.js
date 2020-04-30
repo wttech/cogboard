@@ -476,6 +476,18 @@ const dialogFields = {
         .min(0)
         .required(vm.FIELD_REQUIRED())
   },
+  IssueLimit: {
+    component: NumberInput,
+    name: 'issueLimit',
+    label: 'Maximum number of issues',
+    min: 1,
+    step: 1,
+    initialValue: 50,
+    validator: () =>
+      number()
+        .min(1)
+        .required(vm.FIELD_REQUIRED())
+  },
   JiraBuckets: {
     component: JiraBucketsInput,
     name: 'bucketQueries',
