@@ -1,5 +1,6 @@
 import React from 'react';
 import { array } from 'prop-types';
+import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,8 +9,8 @@ import TableBody from '@material-ui/core/TableBody';
 const JiraBucketWidget = ({ buckets }) => {
   return (
     <>
-      <div>
-        <table>
+      <div style={{ overflow: 'hidden' }}>
+        <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell>Bucket name</TableCell>
@@ -17,6 +18,7 @@ const JiraBucketWidget = ({ buckets }) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {console.log(buckets)}
             {buckets.map(bucket => (
               <TableRow>
                 <TableCell>{bucket.name}</TableCell>
@@ -24,7 +26,7 @@ const JiraBucketWidget = ({ buckets }) => {
               </TableRow>
             ))}
           </TableBody>
-        </table>
+        </Table>
       </div>
     </>
   );

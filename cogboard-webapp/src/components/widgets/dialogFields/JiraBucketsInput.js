@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   FormControl,
   IconButton,
-  InputLabel,
   List,
   ListItem,
   ListItemSecondaryAction,
@@ -30,98 +29,101 @@ const CustomFab = styled(Fab)`
 const CustomList = styled(List)`
   margin-top: 16px;
 `;
-
 const JiraBucketsInput = ({ value, onChange }) => {
   const [buckets, setBuckets] = useState(() =>
-    (value || []).map(i => {
-      return { id: v4(), bucketName: i.bucketName, jqlQuery: i.jqlQuery };
+    (value || []).map(bucket => {
+      return {
+        id: v4(),
+        bucketName: bucket.bucketName,
+        jqlQuery: bucket.jqlQuery
+      };
     })
   );
-  const [formValue, setFormValue] = useState('');
-  const [formValueBucket, setFormValueBucket] = useState('');
+  const [formValueJqlQuery, setFormValueJqlQuery] = useState('');
+  const [formValueBucketName, setFormValueBucketName] = useState('');
   const [editMode, setEditMode] = useState(false);
-  const handleChangeVal = event => setFormValue(event.target.value);
-  const handleChangeValBucket = event => setFormValueBucket(event.target.value);
+  const handleChangeValJqlQuery = event =>
+    setFormValueJqlQuery(event.target.value);
+  const handleChangeValBucketName = event =>
+    setFormValueBucketName(event.target.value);
   const resetInput = () => {
-    setFormValue('');
-    setFormValueBucket('');
+    setFormValueJqlQuery('');
+    setFormValueBucketName('');
   };
-  const handleDelete = bucketIndex => {
-    let bucketList = remove(bucketIndex, 1, buckets);
-    setBuckets(bucketList);
-    onChange(prepareChangeEvent(bucketList, 'array'));
+  const handleDelete = itemIndex => {
+    let itemList = remove(itemIndex, 1, buckets);
+    setBuckets(itemList);
+    onChange(prepareChangeEvent(itemList, 'array'));
   };
-  const handleSave = buckets => {
-    if (editMode && buckets.jqlQuery.length && buckets.bucketName.length) {
-      const updatedBucketId = buckets.findIndex(el => el.id === editMode);
-      const updatedBuckets = buckets;
-      updatedBuckets[updatedBucketId] = {
-        id: buckets.id,
-        bucketName: buckets.bucketName,
-        jqlQuery: buckets.jqlQuery
+  const handleSave = items => {
+    if (editMode && items.jqlQuery.length && items.bucketName.length) {
+      console.log(items);
+      const updatedItemId = buckets.findIndex(el => el.id === editMode);
+      const updatedItems = buckets;
+      updatedItems[updatedItemId] = {
+        id: v4(),
+        bucketName: items.bucketName,
+        jqlQuery: items.jqlQuery
       };
-      setBuckets(updatedBuckets);
-      onChange(prepareChangeEvent(updatedBuckets, 'array'));
+      setBuckets(updatedItems);
+      onChange(prepareChangeEvent(updatedItems, 'array'));
       resetInput();
       setEditMode(false);
     }
-    if (!editMode && buckets.jqlQuery.length && buckets.bucketName.length) {
-      const updatedBuckets = [
+    if (!editMode && items.jqlQuery.length && items.bucketName.length) {
+      const updatedItems = [
         ...buckets,
-        { id: v4(), bucketName: buckets.bucketName, jqlQuery: buckets.jqlQuery }
+        { id: v4(), bucketName: items.bucketName, jqlQuery: items.jqlQuery }
       ];
-      setBuckets(updatedBuckets);
-      onChange(prepareChangeEvent(updatedBuckets, 'array'));
+      setBuckets(updatedItems);
+      onChange(prepareChangeEvent(updatedItems, 'array'));
       resetInput();
     }
   };
-  const handleKeyPressed = (event, buckets) => {
+  const handleKeyPressed = (event, _) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      if (!formValue) {
+      if (!formValueJqlQuery) {
         return false;
       }
-      handleSave(buckets);
+      handleSave({
+        id: v4(),
+        jqlQuery: formValueJqlQuery,
+        bucketName: formValueBucketName
+      });
       return true;
     }
     return false;
   };
   const handleEdit = id => {
     const editJqlQuery = buckets.find(el => el.id === id);
-    setFormValueBucket(editJqlQuery.bucketName);
-    setFormValue(editJqlQuery.jqlQuery);
+    setFormValueJqlQuery(editJqlQuery.jqlQuery);
+    setFormValueBucketName(editJqlQuery.bucketName);
     setEditMode(editJqlQuery.id);
   };
   return (
     <FormControl>
-      <InputLabel shrink>Buckets</InputLabel>
       <CustomInput
         placeholder="Bucket Name"
         margin="normal"
-        value={formValueBucket}
-        onChange={handleChangeValBucket}
-        onKeyPress={e =>
-          handleKeyPressed(e, {
-            jqlQuery: formValue,
-            bucketName: formValueBucket
-          })
-        }
+        value={formValueBucketName}
+        onChange={handleChangeValBucketName}
+        onKeyPress={handleKeyPressed}
       />
       <CustomInput
         placeholder="JQL Query"
         margin="normal"
-        value={formValue}
-        onChange={handleChangeVal}
-        onKeyPress={e =>
-          handleKeyPressed(e, {
-            jqlQuery: formValue,
-            bucketName: formValueBucket
-          })
-        }
+        value={formValueJqlQuery}
+        onChange={handleChangeValJqlQuery}
+        onKeyPress={handleKeyPressed}
       />
       <CustomFab
         onClick={() => {
-          handleSave({ jqlQuery: formValue, bucketName: formValueBucket });
+          handleSave({
+            id: v4(),
+            jqlQuery: formValueJqlQuery,
+            bucketName: formValueBucketName
+          });
         }}
         variant="extended"
         size="small"
@@ -139,30 +141,24 @@ const JiraBucketsInput = ({ value, onChange }) => {
         )}
       </CustomFab>
       <CustomList>
-        {buckets.map((bucket, index) => (
+        {buckets.map((item, index) => (
           <ListItem
-            onClick={() => {
-              handleEdit(bucket.id);
-            }}
-            key={bucket.id}
+            key={item.id}
             dense
             button
-            selected={editMode === bucket.id}
+            selected={editMode === item.id}
+            onClick={() => {
+              handleEdit(item.id);
+            }}
           >
-            <ListItemText primary={bucket.bucketName} />
+            <ListItemText primary={item.bucketName} />
             <ListItemSecondaryAction>
-              <IconButton
-                aria-label="Edit"
-                disabled={editMode === bucket.id}
-                onClick={() => {
-                  handleEdit(bucket.id);
-                }}
-              >
+              <IconButton aria-label="Edit" disabled={editMode === item.id}>
                 <EditIcon />
               </IconButton>
               <IconButton
                 aria-label="Delete"
-                disabled={editMode === bucket.id}
+                disabled={editMode === item.id}
                 onClick={() => {
                   handleDelete(index);
                 }}
