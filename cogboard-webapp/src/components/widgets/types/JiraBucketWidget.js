@@ -13,12 +13,11 @@ const JiraBucketWidget = ({ buckets }) => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Bucket name</TableCell>
+              <TableCell>Bucket</TableCell>
               <TableCell>Issues</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log(buckets)}
             {buckets.map(bucket => (
               <TableRow>
                 <TableCell>{bucket.name}</TableCell>

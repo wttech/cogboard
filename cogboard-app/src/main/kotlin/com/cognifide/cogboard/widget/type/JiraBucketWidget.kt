@@ -8,18 +8,16 @@ import com.cognifide.cogboard.CogboardConstants as CC
 
 class JiraBucketWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
-    private val bucketQueries: JsonArray = config.getJsonArray("bucketQueries")
-
+    private val bucketQueries: JsonArray = config.getJsonArray(CC.PROP_BUCKET_QUERIES)
     private val buckets: JsonArray = prepareBuckets()
 
     private fun prepareBuckets(): JsonArray {
         val preparedBuckets = JsonArray()
         bucketQueries.forEach {
             if (it is JsonObject) {
-                val bucket = JsonObject()
-                bucket.put("id", it.getString("id"))
-                bucket.put("name", it.getString("bucketName"))
-                preparedBuckets.add(bucket)
+                preparedBuckets.add(JsonObject()
+                        .put(CC.PROP_ID, it.getString(CC.PROP_ID))
+                        .put(CC.PROP_NAME, it.getString(CC.PROP_BUCKET_NAME)))
             }
         }
         return preparedBuckets
@@ -28,10 +26,10 @@ class JiraBucketWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
     override fun handleResponse(responseBody: JsonObject) {
         val response = JsonObject()
         val issues = responseBody.getJsonArray("issues").size()
-        val bucketId = responseBody.getString("requestId")
+        val bucketId = responseBody.getString(CC.PROP_REQUEST_ID)
 
         buckets.forEach {
-            val key = (it as JsonObject).getString("id")
+            val key = (it as JsonObject).getString(CC.PROP_ID)
             if (bucketId == key) {
                 it.put("issueCounts", issues)
             }
@@ -45,9 +43,9 @@ class JiraBucketWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
         if (url.isNotBlank()) {
             for (bucketQuery in bucketQueries.list) {
                 if (bucketQuery is JsonObject) {
-                    val bucketId = bucketQuery.getString("id")
-                    val jqlQuery = bucketQuery.getString("jqlQuery")
-                    val issueLimit = config.getInteger("issueLimit")
+                    val bucketId = bucketQuery.getString(CC.PROP_ID)
+                    val jqlQuery = bucketQuery.getString(CC.PROP_JQL_QUERY)
+                    val issueLimit = config.getInteger(CC.PROP_ISSUE_LIMIT)
                     httpGet(url = "$url/jira/rest/api/2/search?jql=$jqlQuery&maxResults=$issueLimit", requestId = bucketId)
                 }
             }

@@ -57,7 +57,6 @@ const JiraBucketsInput = ({ value, onChange }) => {
   };
   const handleSave = items => {
     if (editMode && items.jqlQuery.length && items.bucketName.length) {
-      console.log(items);
       const updatedItemId = buckets.findIndex(el => el.id === editMode);
       const updatedItems = buckets;
       updatedItems[updatedItemId] = {

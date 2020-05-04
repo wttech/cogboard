@@ -47,7 +47,12 @@ class CogboardConstants {
         const val PROP_TEXT_SIZE = "textSize"
         const val PROP_BOARD_COLUMN_MAX = 20
         const val PROP_BOARD_COLUMN_MIN = 4
+        const val PROP_NAME = "name"
         const val PROP_RELEASE_NAME = "releaseName"
+        const val PROP_JQL_QUERY = "jqlQuery"
+        const val PROP_ISSUE_LIMIT = "issueLimit"
+        const val PROP_BUCKET_QUERIES = "bucketQueries"
+        const val PROP_BUCKET_NAME = "bucketName"
 
         const val EVENT_SEND_MESSAGE_TO_WEBSOCKET = "cogboard.websocket.message"
         const val EVENT_VERSION_CONFIG = "cogboard.config.handler.version"
