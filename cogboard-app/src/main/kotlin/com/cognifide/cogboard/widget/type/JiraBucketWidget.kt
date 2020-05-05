@@ -9,18 +9,16 @@ import com.cognifide.cogboard.CogboardConstants as CC
 class JiraBucketWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val bucketQueries: JsonArray = config.getJsonArray(CC.PROP_BUCKET_QUERIES)
-    private val buckets: JsonArray = prepareBuckets()
+    private val buckets: JsonArray = JsonArray()
 
-    private fun prepareBuckets(): JsonArray {
-        val preparedBuckets = JsonArray()
+    init {
         bucketQueries.forEach {
             if (it is JsonObject) {
-                preparedBuckets.add(JsonObject()
+                buckets.add(JsonObject()
                         .put(CC.PROP_ID, it.getString(CC.PROP_ID))
                         .put(CC.PROP_NAME, it.getString(CC.PROP_BUCKET_NAME)))
             }
         }
-        return preparedBuckets
     }
 
     override fun handleResponse(responseBody: JsonObject) {
@@ -28,16 +26,15 @@ class JiraBucketWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
         val issues = responseBody.getJsonArray("issues").size()
         val bucketId = responseBody.getString(CC.PROP_REQUEST_ID)
 
-        buckets.forEach {
-            val key = (it as JsonObject).getString(CC.PROP_ID)
-            if (bucketId == key) {
-                it.put("issueCounts", issues)
-            }
-        }
+        (buckets.first { compareId(bucketId, it) } as JsonObject)
+                .put("issueCounts", issues)
+
         response.put("buckets", buckets)
         send(JsonObject()
                 .put(CC.PROP_CONTENT, response))
     }
+
+    private fun compareId(bucketId: String?, it: Any?) = bucketId == (it as JsonObject).getString(CC.PROP_ID)
 
     override fun updateState() {
         if (url.isNotBlank()) {
