@@ -152,7 +152,13 @@ const JiraBucketsInput = ({ value, onChange }) => {
           >
             <ListItemText primary={item.bucketName} />
             <ListItemSecondaryAction>
-              <IconButton aria-label="Edit" disabled={editMode === item.id}>
+              <IconButton
+                onClick={() => {
+                  handleEdit(item.id);
+                }}
+                aria-label="Edit"
+                disabled={editMode === item.id}
+              >
                 <EditIcon />
               </IconButton>
               <IconButton
