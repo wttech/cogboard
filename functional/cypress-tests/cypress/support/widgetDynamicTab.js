@@ -70,13 +70,11 @@ export function fillJiraBuckets() {
   cy.get(`[data-value="${Widgets.jiraBuckets.endpoint}"]`).click();
   cy.fillSchedulePeriod(Widgets.jiraBuckets.schedulePeriod);
   for (let query of Widgets.jiraBuckets.bucketQueries) {
-    cy.get(':nth-child(4) > :nth-child(1) > .MuiInputBase-input').type(
+    cy.get('[data-cy=bucket-name] > .MuiInputBase-input').type(
       query.bucketName
     );
-    cy.get(':nth-child(4) > :nth-child(2) > .MuiInputBase-input').type(
-      query.jqlQuery
-    );
-    cy.get(':nth-child(4) > .MuiFab-root > .MuiFab-label').click();
+    cy.get('[data-cy=jql-query] > .MuiInputBase-input').type(query.jqlQuery);
+    cy.get('[data-cy=add-bucket]').click();
   }
 }
 

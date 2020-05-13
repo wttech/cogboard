@@ -103,6 +103,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
   return (
     <FormControl>
       <CustomInput
+        data-cy="bucket-name"
         placeholder="Bucket Name"
         margin="normal"
         value={formValueBucketName}
@@ -110,6 +111,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
         onKeyPress={handleKeyPressed}
       />
       <CustomInput
+        data-cy="jql-query"
         placeholder="JQL Query"
         margin="normal"
         value={formValueJqlQuery}
@@ -117,6 +119,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
         onKeyPress={handleKeyPressed}
       />
       <CustomFab
+        data-cy="add-bucket"
         onClick={() => {
           handleSave({
             id: v4(),
