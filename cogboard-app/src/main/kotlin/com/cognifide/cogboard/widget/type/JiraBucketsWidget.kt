@@ -6,7 +6,7 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
-class JiraBucketWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
+class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val bucketQueries: JsonArray = config.getJsonArray(CC.PROP_BUCKET_QUERIES)
     private val buckets: JsonArray = JsonArray()

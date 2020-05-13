@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 
-const JiraBucketWidget = ({ buckets }) => {
+const JiraBucketsWidget = ({ buckets }) => {
   return (
     <>
       <div style={{ overflow: 'hidden' }}>
@@ -31,12 +31,12 @@ const JiraBucketWidget = ({ buckets }) => {
   );
 };
 
-JiraBucketWidget.propTypes = {
+JiraBucketsWidget.propTypes = {
   buckets: array.isRequired
 };
 
-JiraBucketWidget.defaultProps = {
+JiraBucketsWidget.defaultProps = {
   buckets: []
 };
 
-export default JiraBucketWidget;
+export default JiraBucketsWidget;

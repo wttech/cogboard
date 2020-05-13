@@ -3,7 +3,7 @@ import JenkinsJobWidget from './types/JenkinsJobWidget';
 import SonarQubeWidget from './types/SonarQubeWidget';
 import ServiceCheckWidget from './types/ServiceCheckWidget';
 import TextWidget from './types/TextWidget';
-import JiraBucketWidget from './types/JiraBucketWidget';
+import JiraBucketsWidget from './types/JiraBucketsWidget';
 import BambooDeploymentWidget from './types/BambooDeploymentWidget';
 import BambooPlanWidget from './types/BambooPlanWidget';
 import WorldClockWidget from './types/WorldClockWidget';
@@ -78,9 +78,9 @@ const widgetTypes = {
     },
     initialStatus: 'NONE'
   },
-  JiraBucketWidget: {
-    name: 'Jira Bucket',
-    component: JiraBucketWidget,
+  JiraBucketsWidget: {
+    name: 'Jira Buckets',
+    component: JiraBucketsWidget,
     dialogFields: [
       'EndpointField',
       'SchedulePeriod',
