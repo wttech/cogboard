@@ -1,0 +1,24 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 10,
+  "total": 100,
+  "issues": [
+    {
+      "key": "RND-1",
+      "status": {
+        "statusCategory": {
+          "name": "New"
+        }
+      }
+    },
+    {
+      "key": "RND-2",
+      "status": {
+        "statusCategory": {
+          "name": "New"
+        }
+      }
+    }
+  ]
+}

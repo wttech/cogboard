@@ -1,0 +1,40 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 10,
+  "total": 100,
+  "issues": [
+    {
+      "key": "RND-3",
+      "status": {
+        "statusCategory": {
+          "name": "In Progress"
+        }
+      }
+    },
+    {
+      "key": "RND-4",
+      "status": {
+        "statusCategory": {
+          "name": "In Progress"
+        }
+      }
+    },
+    {
+      "key": "RND-5",
+      "status": {
+        "statusCategory": {
+          "name": "In Progress"
+        }
+      }
+    },
+    {
+      "key": "RND-6",
+      "status": {
+        "statusCategory": {
+          "name": "Code Review"
+        }
+      }
+    }
+  ]
+}

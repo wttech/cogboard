@@ -1,0 +1,40 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 10,
+  "total": 100,
+  "issues": [
+    {
+      "key": "RND-7",
+      "status": {
+        "statusCategory": {
+          "name": "Resolved"
+        }
+      }
+    },
+    {
+      "key": "RND-8",
+      "status": {
+        "statusCategory": {
+          "name": "Resolved"
+        }
+      }
+    },
+    {
+      "key": "RND-9",
+      "status": {
+        "statusCategory": {
+          "name": "Resolved"
+        }
+      }
+    },
+    {
+      "key": "RND-10",
+      "status": {
+        "statusCategory": {
+          "name": "Resolved"
+        }
+      }
+    }
+  ]
+}
