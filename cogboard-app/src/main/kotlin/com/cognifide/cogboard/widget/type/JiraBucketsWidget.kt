@@ -22,16 +22,13 @@ class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, c
     }
 
     override fun handleResponse(responseBody: JsonObject) {
-        val response = JsonObject()
         val issues = responseBody.getJsonArray("issues").size()
         val bucketId = responseBody.getString(CC.PROP_REQUEST_ID)
 
         (buckets.first { compareId(bucketId, it) } as JsonObject)
                 .put("issueCounts", issues)
-
-        response.put("buckets", buckets)
         send(JsonObject()
-                .put(CC.PROP_CONTENT, response))
+                .put(CC.PROP_CONTENT, JsonObject().put("buckets", buckets)))
     }
 
     private fun compareId(bucketId: String?, it: Any?) = bucketId == (it as JsonObject).getString(CC.PROP_ID)
