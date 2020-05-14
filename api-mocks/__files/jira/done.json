@@ -35,6 +35,14 @@
           "name": "Resolved"
         }
       }
+    },
+    {
+      "key": "RND-11",
+      "status": {
+        "statusCategory": {
+          "name": "Resolved"
+        }
+      }
     }
   ]
 }
