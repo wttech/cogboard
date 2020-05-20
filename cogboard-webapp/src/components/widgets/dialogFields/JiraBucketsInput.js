@@ -22,14 +22,23 @@ const StyledInput = styled(Input)`
   margin-top: 16px;
   margin-bottom: 8px;
 `;
+
 const StyledFab = styled(Fab)`
   margin-top: 16px;
   margin-bottom: 8px;
 `;
+
 const StyledList = styled(List)`
   margin-top: 16px;
 `;
+
 const JiraBucketsInput = ({ value, onChange }) => {
+  const [formValueJqlQuery, setFormValueJqlQuery] = useState('');
+  const [formValueBucketName, setFormValueBucketName] = useState('');
+  const [editMode, setEditMode] = useState(false);
+  const handleChangeValJqlQuery = event => setFormValueJqlQuery(event.target.value);
+  const handleChangeValBucketName = event => setFormValueBucketName(event.target.value);
+
   const [buckets, setBuckets] = useState(() =>
     (value || []).map(bucket => {
       return {
@@ -39,13 +48,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
       };
     })
   );
-  const [formValueJqlQuery, setFormValueJqlQuery] = useState('');
-  const [formValueBucketName, setFormValueBucketName] = useState('');
-  const [editMode, setEditMode] = useState(false);
-  const handleChangeValJqlQuery = event =>
-    setFormValueJqlQuery(event.target.value);
-  const handleChangeValBucketName = event =>
-    setFormValueBucketName(event.target.value);
+
   const resetInput = () => {
     setFormValueJqlQuery('');
     setFormValueBucketName('');
@@ -58,28 +61,28 @@ const JiraBucketsInput = ({ value, onChange }) => {
     });
   }
   const handleSave = bucket => {
-    if (editMode && bucket.jqlQuery.length && bucket.bucketName.length) {
+    let updatedItems;
+    if (bucket.jqlQuery.length === 0 || bucket.bucketName.length === 0) {
+      return;
+    }
+    if (editMode) {
+      updatedItems = buckets;
       const updatedItemId = buckets.findIndex(el => el.id === editMode);
-      const updatedItems = buckets;
       updatedItems[updatedItemId] = {
         id: v4(),
         bucketName: bucket.bucketName,
         jqlQuery: bucket.jqlQuery
       };
-      setBuckets(updatedItems);
-      onChange(prepareChangeEvent(updatedItems, 'array'));
-      resetInput();
       setEditMode(false);
-    }
-    if (!editMode && bucket.jqlQuery.length && bucket.bucketName.length) {
-      const updatedItems = [
+    } else {
+      updatedItems = [
         ...buckets,
         { id: v4(), bucketName: bucket.bucketName, jqlQuery: bucket.jqlQuery }
       ];
-      setBuckets(updatedItems);
-      onChange(prepareChangeEvent(updatedItems, 'array'));
-      resetInput();
     }
+    setBuckets(updatedItems);
+    onChange(prepareChangeEvent(updatedItems, 'array'))
+    resetInput()
   };
   const handleDelete = itemIndex => {
     let itemList = remove(itemIndex, 1, buckets);
@@ -181,4 +184,5 @@ const JiraBucketsInput = ({ value, onChange }) => {
     </FormControl>
   );
 };
+
 export default JiraBucketsInput;
