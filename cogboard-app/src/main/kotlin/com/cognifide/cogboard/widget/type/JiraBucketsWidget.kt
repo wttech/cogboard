@@ -23,11 +23,11 @@ class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, c
     }
 
     override fun handleResponse(responseBody: JsonObject) {
-        val issues = responseBody.getJsonArray("issues").size()
+        val issues = responseBody.getJsonArray("issues")
         val bucketId = responseBody.getString(CC.PROP_REQUEST_ID)
 
         (buckets.first { compareId(bucketId, it) } as JsonObject)
-                .put("issueCounts", issues)
+                .put("issueCounts", issues?.size() ?: "Error")
         send(JsonObject()
                 .put(CC.PROP_CONTENT, JsonObject().put("buckets", buckets)))
     }
