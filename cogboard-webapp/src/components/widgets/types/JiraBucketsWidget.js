@@ -5,6 +5,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
+import Link from "@material-ui/core/Link";
 
 const JiraBucketsWidget = ({ buckets }) => {
   return (
@@ -20,7 +21,9 @@ const JiraBucketsWidget = ({ buckets }) => {
           <TableBody>
             {buckets.map(bucket => (
               <TableRow>
-                <TableCell>{bucket.name}</TableCell>
+                <TableCell>
+                  <Link href={bucket.url} target="_blank">{bucket.name}</Link>
+                </TableCell>
                 <TableCell>{bucket.issueCounts}</TableCell>
               </TableRow>
             ))}

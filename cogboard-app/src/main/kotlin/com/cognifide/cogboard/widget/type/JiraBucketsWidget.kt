@@ -16,7 +16,8 @@ class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, c
             if (it is JsonObject) {
                 buckets.add(JsonObject()
                         .put(CC.PROP_ID, it.getString(CC.PROP_ID))
-                        .put(CC.PROP_NAME, it.getString(CC.PROP_BUCKET_NAME)))
+                        .put(CC.PROP_NAME, it.getString(CC.PROP_BUCKET_NAME))
+                        .put(CC.PROP_URL, createBucketUrl(it)))
             }
         }
     }
@@ -30,6 +31,9 @@ class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, c
         send(JsonObject()
                 .put(CC.PROP_CONTENT, JsonObject().put("buckets", buckets)))
     }
+
+    private fun createBucketUrl(bucket: JsonObject) =
+            "${url}jira/issues?jql=${bucket.getString(CC.PROP_JQL_QUERY)}&maxResults=${config.getInteger(CC.PROP_ISSUE_LIMIT)}"
 
     private fun compareId(bucketId: String?, it: Any?) = bucketId == (it as JsonObject).getString(CC.PROP_ID)
 
