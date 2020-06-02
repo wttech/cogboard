@@ -9,7 +9,7 @@
         "columns": 8,
         "theme": "default",
         "type": "WidgetBoard",
-        "widgets": ["widget1", "widget9", "widget20", "widget18", "widget19"]
+        "widgets": ["widget1", "widget9", "widget20", "widget18", "widget19", "widget21"]
       },
       "board2": {
         "autoSwitch": true,
@@ -523,6 +523,40 @@
         "content": {},
         "isUpdating": false,
         "boardId": "board1"
+      },
+      "widget21": {
+        "id": "widget21",
+        "title": "Jira Buckets",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JiraBucketsWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board1",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "issueLimit": 50,
+        "bucketQueries": [
+          {
+            "id": "d3883286-b606-4061-843c-06bb14498724",
+            "bucketName": "New",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20New"
+          },
+          {
+            "id": "cec0cf8a-d058-40ff-8d7d-9b221c6a54b6",
+            "bucketName": "In progress",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20in%20(\"In%20Progress\"%2C%20\"Code%20Review\")"
+          },
+          {
+            "id": "4ea9c2dd-f21f-4f20-88f6-f402dadc19bd",
+            "bucketName": "Done",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20Resolved"
+          }
+        ]
       }
     },
     "allWidgets": [
@@ -545,7 +579,8 @@
       "widget17",
       "widget18",
       "widget19",
-      "widget20"
+      "widget20",
+      "widget21"
     ]
   }
 }
