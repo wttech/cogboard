@@ -30,6 +30,7 @@ import { StyledNumberInput } from './styled';
 import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
+import JiraBucketsInput from './JiraBucketsInput';
 
 const dialogFields = {
   LabelField: {
@@ -474,6 +475,27 @@ const dialogFields = {
       number()
         .min(0)
         .required(vm.FIELD_REQUIRED())
+  },
+  IssueLimit: {
+    component: NumberInput,
+    name: 'issueLimit',
+    label: 'Maximum number of issues',
+    min: 1,
+    step: 1,
+    initialValue: 50,
+    validator: () =>
+      number()
+        .min(1)
+        .required(vm.FIELD_REQUIRED())
+  },
+  JiraBuckets: {
+    component: JiraBucketsInput,
+    name: 'bucketQueries',
+    initialValue: [],
+    validator: () =>
+      array()
+        .ensure()
+        .min(1, vm.FIELD_MIN_ITEMS())
   }
 };
 

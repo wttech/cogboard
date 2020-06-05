@@ -65,6 +65,19 @@ export function fillJenkinsJob() {
   cy.get('[data-cy="widget-form-path-input"]').type(Widgets.jenkinsJob.path);
 }
 
+export function fillJiraBuckets() {
+  cy.get('[data-cy="widget-form-endpoint-input"]').click();
+  cy.get(`[data-value="${Widgets.jiraBuckets.endpoint}"]`).click();
+  cy.fillSchedulePeriod(Widgets.jiraBuckets.schedulePeriod);
+  for (let query of Widgets.jiraBuckets.bucketQueries) {
+    cy.get('[data-cy=bucket-name] > .MuiInputBase-input').type(
+      query.bucketName
+    );
+    cy.get('[data-cy=jql-query] > .MuiInputBase-input').type(query.jqlQuery);
+    cy.get('[data-cy=add-bucket]').click();
+  }
+}
+
 export function fillServiceCheck() {
   cy.fillSchedulePeriod(Widgets.serviceCheck.schedulePeriod);
   cy.get('[data-cy="widget-form-request-method-input"]').click();
@@ -183,6 +196,9 @@ export function fillDynamicTab(widget) {
       break;
     case 'Jenkins Job':
       selectTabAndFillData(fillJenkinsJob);
+      break;
+    case 'Jira Buckets':
+      selectTabAndFillData(fillJiraBuckets);
       break;
     case 'Service Check':
       selectTabAndFillData(fillServiceCheck);
