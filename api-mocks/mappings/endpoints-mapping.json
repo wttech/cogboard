@@ -3,6 +3,45 @@
     {
       "request": {
         "method": "GET",
+        "url": "/jira/rest/api/2/search?jql=project%20%3D%20RND%20AND%20status%20%3D%20New&maxResults=50"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "jira/toDo.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/jira/rest/api/2/search?jql=project%20%3D%20RND%20AND%20status%20in%20(\"In%20Progress\"%2C%20\"Code%20Review\")&maxResults=50"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "jira/inProgress.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/jira/rest/api/2/search?jql=project%20%3D%20RND%20AND%20status%20%3D%20Resolved&maxResults=50"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "jira/done.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
         "url": "/jenkins/ok.html"
       },
       "response": {

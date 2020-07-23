@@ -61,6 +61,17 @@ export function validateJenkinsJob(widget) {
     .progressVisible();
 }
 
+export function validateJiraBuckets(widget) {
+  widget
+    .assertText('td', 'New')
+    .assertText('td', '2')
+    .assertText('td', 'In progress')
+    .assertText('td', '4')
+    .assertText('td', 'Done')
+    .assertText('td', '4')
+    .assertBackground('rgb(38, 36, 62)');
+}
+
 export function validateServiceCheck(widget) {
   widget
     .assertBackground('rgb(1, 148, 48)')
@@ -134,6 +145,9 @@ export function validateWidgetConfig(widget) {
       break;
     case 'Jenkins Job':
       validateJenkinsJob(widget);
+      break;
+    case 'Jira Buckets':
+      validateJiraBuckets(widget);
       break;
     case 'Service Check':
       validateServiceCheck(widget);

@@ -98,6 +98,30 @@ module.exports = {
     schedulePeriod: '3',
     path: '/job/CogBoard/job/in-progress'
   },
+  jiraBuckets: {
+    name: 'Jira Buckets',
+    endpoint: 'endpoint1',
+    schedulePeriod: '3',
+    issueLimit: '50',
+    bucketQueries: [
+      {
+        id: '9ca907f6-1d35-4e62-a344-dba02bc3c181',
+        bucketName: 'New',
+        jqlQuery: 'project%20%3D%20RND%20AND%20status%20%3D%20New'
+      },
+      {
+        id: '064ad1e3-9df8-47ab-8ab0-7165ff579aad',
+        bucketName: 'In progress',
+        jqlQuery:
+          'project%20%3D%20RND%20AND%20status%20in%20("In%20Progress"%2C%20"Code%20Review")'
+      },
+      {
+        id: 'ffa24306-5048-4503-8952-d0dbda37dae1',
+        bucketName: 'Done',
+        jqlQuery: 'project%20%3D%20RND%20AND%20status%20%3D%20Resolved'
+      }
+    ]
+  },
   serviceCheck: {
     name: 'Service Check',
     schedulePeriod: '3',
