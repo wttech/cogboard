@@ -33,7 +33,7 @@ class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, c
     }
 
     private fun createBucketUrl(bucket: JsonObject) =
-            "${url}jira/issues?jql=${bucket.getString(CC.PROP_JQL_QUERY)}&maxResults=${config.getInteger(CC.PROP_ISSUE_LIMIT)}"
+            "${url}jira/issues/?jql=${bucket.getString(CC.PROP_JQL_QUERY)}&maxResults=${config.getInteger(CC.PROP_ISSUE_LIMIT)}"
 
     private fun compareId(bucketId: String?, it: Any?) = bucketId == (it as JsonObject).getString(CC.PROP_ID)
 
@@ -44,7 +44,7 @@ class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, c
                     val bucketId = bucketQuery.getString(CC.PROP_ID)
                     val jqlQuery = bucketQuery.getString(CC.PROP_JQL_QUERY)
                     val issueLimit = config.getInteger(CC.PROP_ISSUE_LIMIT)
-                    httpGet(url = "$url/jira/rest/api/2/search?jql=$jqlQuery&maxResults=$issueLimit", requestId = bucketId)
+                    httpGet(url = "$url/jira/rest/api/2/search/?jql=$jqlQuery&maxResults=$issueLimit", requestId = bucketId)
                 }
             }
         } else {
