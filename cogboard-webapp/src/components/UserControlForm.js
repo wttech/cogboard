@@ -22,10 +22,15 @@ const UserControlForm = ({ onSubmit, ...initialFormValues }) => {
   };
 
   const validationSchema = createValidationSchema(formFields, constraints);
-  const { values, handleChange, withValidation, errors } = useFormData(
-    initialFormValues,
-    { initialSchema: validationSchema, onChange: true }
-  );
+  const {
+    values,
+    handleChange,
+    withValidation,
+    errors
+  } = useFormData(initialFormValues, {
+    initialSchema: validationSchema,
+    onChange: true
+  });
 
   return (
     <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
@@ -38,7 +43,7 @@ const UserControlForm = ({ onSubmit, ...initialFormValues }) => {
       />
       <Button
         fullWidth
-        color="primary"
+        color="secondary"
         variant="contained"
         type="submit"
         data-cy="user-control-form-submit-button"
