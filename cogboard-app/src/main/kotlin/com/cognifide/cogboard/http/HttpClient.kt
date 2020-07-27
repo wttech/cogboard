@@ -89,10 +89,10 @@ class HttpClient : AbstractVerticle() {
         val token = config.getString(CogboardConstants.PROP_TOKEN) ?: ""
         val headers = config.getJsonObject(CogboardConstants.PROP_HEADERS)
 
-        if (user.isNotBlank() && pass.isNotBlank()) {
-            request.basicAuthentication(user, pass)
-        } else if (user.isNotBlank() && token.isNotBlank()) {
+        if (user.isNotBlank() && token.isNotBlank()) {
             request.basicAuthentication(user, token)
+        } else if (user.isNotBlank() && pass.isNotBlank()) {
+            request.basicAuthentication(user, pass)
         }
 
         setRequestHeaders(request, headers)
