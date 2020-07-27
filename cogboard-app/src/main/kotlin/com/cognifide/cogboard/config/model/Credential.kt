@@ -4,5 +4,6 @@ data class Credential(
     val id: String,
     val label: String,
     val user: String,
-    val password: String
+    val password: String,
+    val token: String
 )

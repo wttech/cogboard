@@ -12,5 +12,6 @@ class EndpointsConfig {
         const val CREDENTIALS_PROP: String = "credentials"
         const val USER_PROP = "user"
         const val PASSWORD_PROP = "password"
+        const val TOKEN_PROP = "token"
     }
 }

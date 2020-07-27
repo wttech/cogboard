@@ -86,18 +86,25 @@ class HttpClient : AbstractVerticle() {
     private fun initRequest(request: HttpRequest<Buffer>, config: JsonObject): HttpRequest<Buffer> {
         val user = config.getString(CogboardConstants.PROP_USER) ?: ""
         val pass = config.getString(CogboardConstants.PROP_PASSWORD) ?: ""
+        val token = config.getString(CogboardConstants.PROP_TOKEN) ?: ""
         val headers = config.getJsonObject(CogboardConstants.PROP_HEADERS)
 
         if (user.isNotBlank() && pass.isNotBlank()) {
             request.basicAuthentication(user, pass)
-            request.putHeader("Content-Type", "application/json")
+        } else if (user.isNotBlank() && token.isNotBlank()) {
+            request.basicAuthentication(user, token)
         }
 
+        setRequestHeaders(request, headers)
+
+        return request
+    }
+
+    private fun setRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?) {
+        request.putHeader(HttpConstants.HEADER_CONTENT_TYPE, HttpConstants.CONTENT_TYPE_JSON)
         headers
                 ?.map { Pair(it.key, it.value as String) }
                 ?.forEach { request.putHeader(it.first, it.second) }
-
-        return request
     }
 
     private fun toJson(response: HttpResponse<Buffer>): JsonObject {

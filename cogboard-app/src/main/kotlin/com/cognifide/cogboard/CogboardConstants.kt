@@ -32,6 +32,7 @@ class CogboardConstants {
         const val PROP_PUBLIC_URL = "publicUrl"
         const val PROP_USER = "user"
         const val PROP_PASSWORD = "password"
+        const val PROP_TOKEN = "token"
         const val PROP_BODY = "body"
         const val PROP_EVENT_ADDRESS = "event.address"
         const val PROP_ENDPOINT = "endpoint"
