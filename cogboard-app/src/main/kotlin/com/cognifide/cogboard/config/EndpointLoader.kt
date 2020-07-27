@@ -1,8 +1,9 @@
 package com.cognifide.cogboard.config
 
+import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PASSWORD
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_TOKEN
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.CREDENTIALS_PROP
-import com.cognifide.cogboard.config.EndpointsConfig.Companion.PASSWORD_PROP
-import com.cognifide.cogboard.config.EndpointsConfig.Companion.TOKEN_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.USER_PROP
 import com.cognifide.cogboard.config.service.CredentialsService
 import com.cognifide.cogboard.config.service.EndpointsService
@@ -31,8 +32,8 @@ class EndpointLoader(
         this.remove(CREDENTIALS_PROP)?.let { credId ->
             credentials.findById(credId as String).let { credentials ->
                 this.put(USER_PROP, credentials.getString(USER_PROP) ?: "")
-                this.put(PASSWORD_PROP, credentials.getString(PASSWORD_PROP) ?: "")
-                this.put(TOKEN_PROP, credentials.getString(TOKEN_PROP) ?: "")
+                this.put(PROP_PASSWORD, credentials.getString(PROP_PASSWORD) ?: "")
+                this.put(PROP_TOKEN, credentials.getString(PROP_TOKEN) ?: "")
             }
         }
         return this

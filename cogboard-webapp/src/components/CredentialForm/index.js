@@ -75,18 +75,6 @@ const CredentialsForm = ({
             errors={errors}
             rootName="credential-form"
           />
-          <Button
-            color="secondary"
-            variant="contained"
-            type="submit"
-            data-cy="credential-form-submit-button"
-          >
-            Save
-          </Button>
-          <StyledCancelButton
-            handleCancelClick={handleCancel}
-            data-cy="credential-form-cancel-button"
-          />
         </StyledTabPanel>
         <StyledTabPanel value={tabValue} index={1}>
           <DynamicForm
@@ -96,19 +84,19 @@ const CredentialsForm = ({
             errors={errors}
             rootName="credential-form"
           />
-          <Button
-            color="secondary"
-            variant="contained"
-            type="submit"
-            data-cy="credential-form-submit-button"
-          >
-            Save
-          </Button>
-          <StyledCancelButton
-            handleCancelClick={handleCancel}
-            data-cy="credential-form-cancel-button"
-          />
         </StyledTabPanel>
+        <Button
+          color="secondary"
+          variant="contained"
+          type="submit"
+          data-cy="credential-form-submit-button"
+        >
+          Save
+        </Button>
+        <StyledCancelButton
+          handleCancelClick={handleCancel}
+          data-cy="credential-form-cancel-button"
+        />
       </form>
     </div>
   );

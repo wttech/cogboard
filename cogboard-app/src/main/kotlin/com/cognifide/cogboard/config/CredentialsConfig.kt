@@ -8,6 +8,5 @@ class CredentialsConfig {
         const val CREDENTIAL_ID_PREFIX = "credential"
         const val CREDENTIAL_LABEL_PROP = "label"
         const val USER_PROP = "user"
-        const val PASSWORD_PROP = "password"
     }
 }

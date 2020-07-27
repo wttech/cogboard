@@ -95,12 +95,12 @@ class HttpClient : AbstractVerticle() {
             request.basicAuthentication(user, pass)
         }
 
-        setRequestHeaders(request, headers)
+        applyRequestHeaders(request, headers)
 
         return request
     }
 
-    private fun setRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?) {
+    private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?) {
         request.putHeader(HttpConstants.HEADER_CONTENT_TYPE, HttpConstants.CONTENT_TYPE_JSON)
         headers
                 ?.map { Pair(it.key, it.value as String) }

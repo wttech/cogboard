@@ -2,7 +2,6 @@ package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
-import com.cognifide.cogboard.config.CredentialsConfig.Companion.PASSWORD_PROP
 import com.cognifide.cogboard.config.service.CredentialsService
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
@@ -41,7 +40,7 @@ class CredentialsController : AbstractVerticle() {
         }
 
     private fun JsonObject.filterSensitiveData(): JsonObject {
-        this.remove(PASSWORD_PROP)
+        this.remove(CogboardConstants.PROP_PASSWORD)
         return this
     }
 }
