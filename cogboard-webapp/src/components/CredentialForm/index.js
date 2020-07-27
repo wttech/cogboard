@@ -18,13 +18,16 @@ const CredentialsForm = ({
   ...initialFormValues
 }) => {
   const credentialsData = useSelector(getCredentials);
-  const formFields = [
+  const basicFormFields = [
     'LabelField',
     'UsernameField',
     'PasswordField',
-    'PasswordConfirmationField',
-    'TokenField'
+    'PasswordConfirmationField'
   ];
+
+  const tokenFormFields = ['TokenField'];
+
+  const formFields = [...basicFormFields, ...tokenFormFields];
 
   const constraints = {
     LabelField: {
@@ -63,10 +66,10 @@ const CredentialsForm = ({
         <Tab label="Basic" data-cy="credential-form-basic-tab" />
         <Tab label="Token" data-cy="credential-form-token-tab" />
       </StyledTabs>
-      <StyledTabPanel value={tabValue} index={0}>
-        <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
+      <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
+        <StyledTabPanel value={tabValue} index={0}>
           <DynamicForm
-            fields={formFields}
+            fields={basicFormFields}
             values={values}
             handleChange={handleChange}
             errors={errors}
@@ -84,9 +87,29 @@ const CredentialsForm = ({
             handleCancelClick={handleCancel}
             data-cy="credential-form-cancel-button"
           />
-        </form>
-      </StyledTabPanel>
-      <StyledTabPanel value={tabValue} index={1}></StyledTabPanel>
+        </StyledTabPanel>
+        <StyledTabPanel value={tabValue} index={1}>
+          <DynamicForm
+            fields={tokenFormFields}
+            values={values}
+            handleChange={handleChange}
+            errors={errors}
+            rootName="credential-form"
+          />
+          <Button
+            color="secondary"
+            variant="contained"
+            type="submit"
+            data-cy="credential-form-submit-button"
+          >
+            Save
+          </Button>
+          <StyledCancelButton
+            handleCancelClick={handleCancel}
+            data-cy="credential-form-cancel-button"
+          />
+        </StyledTabPanel>
+      </form>
     </div>
   );
 };
