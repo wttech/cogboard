@@ -92,6 +92,7 @@ class HttpClient : AbstractVerticle() {
         if (user.isNotBlank() && token.isNotBlank()) {
             request.basicAuthentication(user, token)
         } else if (user.isNotBlank() && pass.isNotBlank()) {
+
             request.basicAuthentication(user, pass)
         }
 
