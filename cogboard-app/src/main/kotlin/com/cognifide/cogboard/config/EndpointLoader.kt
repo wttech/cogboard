@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.config
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PASSWORD
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_TOKEN
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.CREDENTIALS_PROP
