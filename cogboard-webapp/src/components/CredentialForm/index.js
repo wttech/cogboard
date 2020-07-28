@@ -25,9 +25,11 @@ const CredentialsForm = ({
     'PasswordConfirmationField'
   ];
 
-  const tokenFormFields = ['TokenField'];
+  const tokenFormFields = ['LabelField', 'UsernameField', 'TokenField'];
 
-  const formFields = [...basicFormFields, ...tokenFormFields];
+  const formFields = Array.from(
+    new Set([...basicFormFields, ...tokenFormFields])
+  );
 
   const constraints = {
     LabelField: {
@@ -63,8 +65,8 @@ const CredentialsForm = ({
         variant="fullWidth"
         indicatorColor="primary"
       >
-        <Tab label="Basic" data-cy="credential-form-basic-tab" />
-        <Tab label="Token" data-cy="credential-form-token-tab" />
+        <Tab label="Basic Auth" data-cy="credential-form-basic-tab" />
+        <Tab label="API Token" data-cy="credential-form-token-tab" />
       </StyledTabs>
       <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
         <StyledTabPanel value={tabValue} index={0}>
