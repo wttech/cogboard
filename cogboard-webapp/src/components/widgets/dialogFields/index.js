@@ -74,7 +74,7 @@ const dialogFields = {
     validator: () => string().oneOf([ref('password'), null], vm.PASSWORD_MATCH)
   },
   TokenField: {
-    component: TextInput,
+    component: MultilineTextInput,
     name: 'token',
     label: 'Token',
     validator: () => string()
