@@ -31,6 +31,7 @@ import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
+import { isEmpty } from 'ramda';
 
 const dialogFields = {
   LabelField: {
@@ -65,7 +66,11 @@ const dialogFields = {
     component: PasswordInput,
     name: 'password',
     label: 'Password',
-    validator: () => string()
+    validator: () =>
+      string().test('token', vm.PASSWORD_OR_TOKEN(), function(value) {
+        const { token } = this.parent;
+        return !(!token && !value);
+      })
   },
   PasswordConfirmationField: {
     component: PasswordInput,
@@ -77,7 +82,11 @@ const dialogFields = {
     component: MultilineTextInput,
     name: 'token',
     label: 'Token',
-    validator: () => string()
+    validator: () =>
+      string().test('password', vm.PASSWORD_OR_TOKEN(), function(value) {
+        const { password } = this.parent;
+        return !(!password && !value);
+      })
   },
   PublicURL: {
     component: TextInput,
