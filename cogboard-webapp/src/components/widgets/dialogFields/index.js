@@ -31,7 +31,6 @@ import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
-import { isEmpty } from 'ramda';
 
 const dialogFields = {
   LabelField: {
