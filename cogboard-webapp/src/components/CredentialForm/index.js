@@ -58,7 +58,7 @@ const CredentialsForm = ({
   };
 
   return (
-    <div>
+    <div data-cy="app-credential-form-tab">
       <StyledTabs
         value={tabValue}
         onChange={handleTabChange}
@@ -75,7 +75,7 @@ const CredentialsForm = ({
             values={values}
             handleChange={handleChange}
             errors={errors}
-            rootName="credential-form"
+            rootName="credential-form-auth"
           />
         </StyledTabPanel>
         <StyledTabPanel value={tabValue} index={1}>
@@ -84,7 +84,7 @@ const CredentialsForm = ({
             values={values}
             handleChange={handleChange}
             errors={errors}
-            rootName="credential-form"
+            rootName="credential-form-token"
           />
         </StyledTabPanel>
         <Button

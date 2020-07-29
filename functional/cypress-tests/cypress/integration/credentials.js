@@ -15,21 +15,37 @@ describe('Credentials', () => {
 
   it('Error messages are displayed when config is bad', () => {
     addCredentials(badCredentials())
-      .applyConfig()
+      .applyBasicAuth()
       .assertErrorMessageVisible(
         'This field is required',
-        'credential-form-label-input-error'
+        'credential-form-auth-label-input-error'
       )
       .assertErrorMessageVisible(
         'This field is required',
-        'credential-form-user-input-error'
+        'credential-form-auth-user-input-error'
       )
-      .assertErrorMessageVisible('Password must match.');
+      .assertErrorMessageVisible('Password must match.', 'credential-form-auth')
+      .applyTokenApi()
+      .assertErrorMessageVisible(
+        'This field is required',
+        'credential-form-token-label-input-error'
+      )
+      .assertErrorMessageVisible(
+        'This field is required',
+        'credential-form-token-user-input-error'
+      );
   });
 
-  it('User can add new credentials.', () => {
+  it('User can add new credentials with basic auth only.', () => {
     addCredentials(testCredentials(uid))
-      .applyConfig()
+      .applyBasicAuth()
+      .save()
+      .assertExists();
+  });
+
+  it('User can add new credentials with API token only.', () => {
+    addCredentials(testCredentials(uid))
+      .applyTokenApi()
       .save()
       .assertExists();
   });
@@ -37,9 +53,12 @@ describe('Credentials', () => {
   it('User cannot add duplicated credentials.', () => {
     // adding the same credentials for the second time
     addCredentials(testCredentials(uid))
-      .applyConfig()
+      .applyBasicAuth()
       .save()
-      .assertErrorMessageVisible('This field must be unique.');
+      .assertErrorMessageVisible(
+        'This field must be unique.',
+        'credential-form-auth'
+      );
   });
 
   it('User can edit existing credentials', () => {
@@ -48,9 +67,10 @@ describe('Credentials', () => {
     newConfig.user = 'zenobiusz';
     newConfig.password = 'xxxx';
     newConfig.passwordConf = 'xxxx';
+    newConfig.token = 'xxxx';
 
     loadCredentials(config)
-      .applyConfig(newConfig)
+      .applyBasicAuth(newConfig)
       .save()
       .assertExists();
   });
