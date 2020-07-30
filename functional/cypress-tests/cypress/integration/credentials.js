@@ -7,15 +7,16 @@ import {
 import { addCredentials, loadCredentials } from '../support/credential';
 
 describe('Credentials', () => {
-  const uid = Date.now().toString();
-
+  const duplicatedUid = Date.now().toString();
+  let uniqueUid;
   beforeEach(() => {
+    uniqueUid = Date.now().toString();
     cy.openSettings('settings-menu-credentials-tab');
   });
 
   it('Error messages are displayed when config is bad', () => {
     addCredentials(badCredentials())
-      .applyBasicAuth()
+      .applyMandatoryFields()
       .assertErrorMessageVisible(
         'This field is required',
         'credential-form-auth-label-input-error'
@@ -24,8 +25,10 @@ describe('Credentials', () => {
         'This field is required',
         'credential-form-auth-user-input-error'
       )
+      .applyPassword()
       .assertErrorMessageVisible('Password must match.', 'credential-form-auth')
-      .applyTokenApi()
+      .switchToApiTokenTab()
+      .applyToken()
       .assertErrorMessageVisible(
         'This field is required',
         'credential-form-token-label-input-error'
@@ -37,32 +40,55 @@ describe('Credentials', () => {
   });
 
   it('User can add new credentials with basic auth only.', () => {
-    addCredentials(testCredentials(uid))
-      .applyBasicAuth()
+    addCredentials(testCredentials(uniqueUid))
+      .applyMandatoryFields()
+      .applyPassword()
       .save()
       .assertExists();
   });
 
   it('User can add new credentials with API token only.', () => {
-    addCredentials(testCredentials(uid))
-      .applyTokenApi()
+    addCredentials(testCredentials(uniqueUid))
+      .applyMandatoryFields()
+      .switchToApiTokenTab()
+      .applyToken()
       .save()
       .assertExists();
   });
 
+  it('User cannot add new credentials without password and token.', () => {
+    addCredentials(testCredentials(uniqueUid))
+      .applyMandatoryFields()
+      .save()
+      .assertErrorMessageVisible(
+        'Password or token field must be set.',
+        'credential-form-auth-password-input-error'
+      )
+      .switchToApiTokenTab()
+      .save()
+      .assertErrorMessageVisible(
+        'Password or token field must be set.',
+        'credential-form-token-token-input-error'
+      );
+  });
+
   it('User cannot add duplicated credentials.', () => {
-    // adding the same credentials for the second time
-    addCredentials(testCredentials(uid))
-      .applyBasicAuth()
+    addCredentials(testCredentials(duplicatedUid))
+      .applyMandatoryFields()
+      .applyPassword()
+      .save();
+    addCredentials(testCredentials(duplicatedUid))
+      .applyMandatoryFields()
+      .applyPassword()
       .save()
       .assertErrorMessageVisible(
         'This field must be unique.',
         'credential-form-auth'
-      );
+    );
   });
 
   it('User can edit existing credentials', () => {
-    const config = testCredentials(uid);
+    const config = testCredentials(duplicatedUid);
     const newConfig = testCredentials('new-conf');
     newConfig.user = 'zenobiusz';
     newConfig.password = 'xxxx';
@@ -70,7 +96,8 @@ describe('Credentials', () => {
     newConfig.token = 'xxxx';
 
     loadCredentials(config)
-      .applyBasicAuth(newConfig)
+      .applyMandatoryFields(newConfig)
+      .applyPassword(newConfig)
       .save()
       .assertExists();
   });

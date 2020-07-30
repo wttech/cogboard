@@ -10,7 +10,7 @@ class Credentials {
     }
   }
 
-  applyBasicAuth(config) {
+  applyMandatoryFields(config) {
     if (config !== undefined) {
       this.config = config;
     }
@@ -22,6 +22,13 @@ class Credentials {
       .clear()
       .type(this.config.user)
       .blur();
+    return this;
+  }
+
+  applyPassword(config) {
+    if (config !== undefined) {
+      this.config = config;
+    }
     cy.get('[data-cy="credential-form-auth-password-input"]')
       .clear()
       .type(this.config.password)
@@ -33,23 +40,19 @@ class Credentials {
     return this;
   }
 
-  applyTokenApi(config) {
+  applyToken(config) {
     if (config !== undefined) {
       this.config = config;
     }
-    cy.get('[data-cy="credential-form-token-tab"]').click();
-    cy.get('[data-cy="credential-form-token-label-input"]')
-      .clear()
-      .type(this.config.label)
-      .blur();
-    cy.get('[data-cy="credential-form-token-user-input"]')
-      .clear()
-      .type(this.config.user)
-      .blur();
     cy.get('[data-cy="credential-form-token-token-input"]')
       .clear()
       .type(this.config.token)
       .blur();
+    return this;
+  }
+
+  switchToApiTokenTab() {
+    cy.get('[data-cy="credential-form-token-tab"]').click();
     return this;
   }
 
