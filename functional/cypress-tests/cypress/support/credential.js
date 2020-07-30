@@ -69,6 +69,11 @@ class Credentials {
     return this;
   }
 
+  assertTabDisappear() {
+    cy.get('[data-cy="app-credential-form-tab"]').should('not.be.visible');
+    return this;
+  }
+
   assertErrorMessageVisible(message, dataCYName) {
     cy.contains(`[data-cy^="${dataCYName}"]`, message).should('is.visible');
     return this;

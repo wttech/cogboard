@@ -44,6 +44,7 @@ describe('Credentials', () => {
       .applyMandatoryFields()
       .applyPassword()
       .save()
+      .assertTabDisappear()
       .assertExists();
   });
 
@@ -53,6 +54,7 @@ describe('Credentials', () => {
       .switchToApiTokenTab()
       .applyToken()
       .save()
+      .assertTabDisappear()
       .assertExists();
   });
 
@@ -76,7 +78,8 @@ describe('Credentials', () => {
     addCredentials(testCredentials(duplicatedUid))
       .applyMandatoryFields()
       .applyPassword()
-      .save();
+      .save()
+      .assertTabDisappear();
     addCredentials(testCredentials(duplicatedUid))
       .applyMandatoryFields()
       .applyPassword()
@@ -99,6 +102,7 @@ describe('Credentials', () => {
       .applyMandatoryFields(newConfig)
       .applyPassword(newConfig)
       .save()
+      .assertTabDisappear()
       .assertExists();
   });
 
