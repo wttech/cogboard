@@ -105,15 +105,15 @@ const UserLogin = () => {
             onKeyPress={handleLoginOnEnterPress}
             inputProps={{ 'data-cy': 'user-login-password-input' }}
           />
-          <Button
-            color="secondary"
-            onClick={handleLoginButtonClick}
-            variant="contained"
-            data-cy="user-login-submit-button"
-          >
-            Login
-          </Button>
         </StyledFieldset>
+        <Button
+          color="secondary"
+          onClick={handleLoginButtonClick}
+          variant="contained"
+          data-cy="user-login-submit-button"
+        >
+          Login
+        </Button>
       </AppDialog>
     </>
   );
