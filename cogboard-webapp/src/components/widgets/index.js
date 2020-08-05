@@ -12,6 +12,7 @@ import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
 import PersonDrawWidget from './types/PersonDrawWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
+import ToDoListWidget from './types/ToDoListWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -188,6 +189,11 @@ const widgetTypes = {
     validationConstraints: {
       SchedulePeriod: { min: 3 }
     }
+  },
+  ToDoListWidget: {
+    name: 'ToDo List',
+    component: ToDoListWidget,
+    dialogFields: ['ToDoListItems', 'ScrollableList']
   }
 };
 

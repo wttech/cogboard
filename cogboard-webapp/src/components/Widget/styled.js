@@ -21,6 +21,7 @@ export const StyledCard = styled(
         isLoggedIn,
         isDragging,
         isOver,
+        isVertical,
         rows,
         theme,
         type,
@@ -104,12 +105,15 @@ export const StyledEmptyCardHeader = styled(props => (
   }
 `;
 
-export const StyledCardContent = styled(CardContent)`
+export const StyledCardContent = styled(({ isScrollable, ...props }) => (
+  <CardContent {...props} />
+))`
   display: flex;
   flex-direction: column;
   flex: 1;
   position: relative;
   justify-content: space-between;
+  overflow-y: ${({ isScrollable }) => (isScrollable ? 'auto' : '')};
 
   &:last-child {
     padding-bottom: 8px;

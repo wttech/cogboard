@@ -277,6 +277,7 @@ export const deleteBoardWithWidgets = withDataChanged(
   deleteBoardWithWidgetsThunk
 );
 export const setWidgetState = withDataChanged(editWidget);
+export const setToDoListState = withDataChanged(editWidget);
 export const saveData = withAuthentication(saveDataThunk);
 export const loadSettings = withAuthentication(loadSettingsThunk);
 export const addEndpoint = withAuthentication(addEndpointThunk);

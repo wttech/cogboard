@@ -29,10 +29,11 @@ export const renderCardContent = (
   expandContent,
   expanded,
   handleToggle,
+  isScrollable,
   closeWidgets
 ) => {
   return (
-    <StyledCardContent>
+    <StyledCardContent isScrollable={isScrollable}>
       {content && content.errorMessage ? (
         <ErrorMessage {...content} status={status} />
       ) : !disabled && !expandContent ? (
