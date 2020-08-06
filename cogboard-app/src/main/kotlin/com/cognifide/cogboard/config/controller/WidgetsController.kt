@@ -1,20 +1,18 @@
 package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.CogboardConstants.Companion.EVENT_BOARDS_CONFIG
 import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.config.service.WidgetRuntimeService
 import com.cognifide.cogboard.storage.ContentRepository
 import io.vertx.core.AbstractVerticle
+import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class BoardsAndWidgetsController : AbstractVerticle() {
+class WidgetsController : AbstractVerticle() {
 
     private lateinit var boardsConfigService: BoardsConfigService
     private lateinit var widgetRuntimeService: WidgetRuntimeService
-    private lateinit var sender: ConfirmationSender
-    private val factory = ControllerFactory()
     override fun start() {
         val contentRepository = ContentRepository()
         boardsConfigService = BoardsConfigService(
@@ -22,38 +20,30 @@ class BoardsAndWidgetsController : AbstractVerticle() {
                 EntityCleanupHelper(vertx))
 
         val allWidgets = boardsConfigService.getAllWidgets()
-        sender = ConfirmationSender(vertx)
         widgetRuntimeService =
                 WidgetRuntimeService(vertx, contentRepository)
                         .init(allWidgets)
-
-        listenOnBoardConfig()
 
         listenOnWidgetUpdate()
         listenOnWidgetContentUpdate()
         listenOnWidgetDelete()
         listenOnWidgetPurge()
-    }
 
-    private fun listenOnBoardConfig() {
-        factory.create(EVENT_BOARDS_CONFIG, vertx, prepareConfig())
-    }
-
-    private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
-            "update" to { body -> update(body) },
-            "get" to { _ -> boardsConfigService.loadBoardsConfig().toString() }
-    )
-
-    private fun update(body: JsonObject): String {
-        val saved = boardsConfigService.saveBoardsConfig(body)
-        sender.sendOk()
-        return saved.toString()
+        listenOnWidgetRefresh()
     }
 
     private fun listenOnWidgetUpdate() = vertx
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_WIDGET_CONFIG)
             .handler { widgetRuntimeService.createOrUpdateWidget(it.body()) }
+
+    private fun listenOnWidgetRefresh() = vertx
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_REFRESH_WIDGET_CONFIG)
+            .handler {
+                val ids = it.body().getValue(CogboardConstants.PROP_ENDPOINTS)
+                widgetRuntimeService.reloadWidgetsWithChangedEndpoints(ids as JsonArray)
+            }
 
     private fun listenOnWidgetContentUpdate() = vertx
             .eventBus()

@@ -3,4 +3,5 @@ com.cognifide.cogboard.config.handler.VersionHandler
 com.cognifide.cogboard.widget.handler.UpdateWidget
 com.cognifide.cogboard.widget.handler.DeleteWidget
 com.cognifide.cogboard.widget.handler.ContentUpdateWidget
+com.cognifide.cogboard.config.handler.UpdateCredentials
 com.cognifide.cogboard.security.LoginHandler

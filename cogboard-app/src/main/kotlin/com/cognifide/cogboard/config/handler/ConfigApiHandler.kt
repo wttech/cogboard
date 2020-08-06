@@ -25,7 +25,7 @@ class ConfigApiHandler : RoutingHandlerFactory {
 
     private fun fromParam(params: MultiMap): JsonObject {
         val body = JsonObject()
-        if (params.contains("id"))body.put("id", params["id"])
+        if (params.contains("id")) body.put("id", params["id"])
         return body
     }
 
