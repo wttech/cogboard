@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useToggle } from '../hooks';
@@ -20,7 +20,17 @@ const EditCredential = ({ id }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
 
   const handleAddEndpointClick = () => {
-    openDialog();
+    const init = isAuthenticated
+      ? { headers: { Authorization: getToken() } }
+      : undefined;
+
+    fetch(`${URL.CREDENTIALS_ENDPOINT}/${id}`, init)
+      .then(response => response.json())
+      .then(data => {
+        setCredentialData(data);
+        openDialog();
+      })
+      .catch(console.error);
   };
 
   const handleSubmit = values => {
@@ -29,19 +39,6 @@ const EditCredential = ({ id }) => {
     dispatch(editCredential({ id, ...values }));
     handleDialogClose();
   };
-
-  useEffect(() => {
-    if (dialogOpened) {
-      const init = isAuthenticated
-        ? { headers: { Authorization: getToken() } }
-        : undefined;
-
-      fetch(`${URL.CREDENTIALS_ENDPOINT}/${id}`, init)
-        .then(response => response.json())
-        .then(data => setCredentialData(data))
-        .catch(console.error);
-    }
-  }, [isAuthenticated, id, dialogOpened]);
 
   return (
     <>
