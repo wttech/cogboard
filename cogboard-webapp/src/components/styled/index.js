@@ -54,6 +54,15 @@ export const StyledFieldset = styled(FormControl)`
   display: flex;
   margin-bottom: 32px;
   min-width: 300px;
+
+  .MuiFormLabel-root.Mui-focused {
+    color: ${COLORS.WHITE};
+  }
+
+  .MuiInput-underline::after,
+  .MuiInput-underline.Mui-focused::after {
+    border-bottom-color: ${COLORS.WHITE};
+  }
 `;
 
 export const StyledIframe = props => (

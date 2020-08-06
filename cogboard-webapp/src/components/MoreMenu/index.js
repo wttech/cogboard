@@ -4,8 +4,8 @@ import { func } from 'prop-types';
 
 import { getIsAuthenticated } from '../../selectors';
 
-import { Menu, MenuList } from '@material-ui/core';
-import { StyledIcon } from './styled';
+import { Menu } from '@material-ui/core';
+import { StyledIcon, StyledMenuList } from './styled';
 import { MoreVert } from '@material-ui/icons';
 
 const MoreMenu = ({ children, color }) => {
@@ -40,7 +40,7 @@ const MoreMenu = ({ children, color }) => {
         keepMounted
         open={Boolean(anchorEl)}
       >
-        <MenuList>{children(handleMoreMenuClose)}</MenuList>
+        <StyledMenuList>{children(handleMoreMenuClose)}</StyledMenuList>
       </Menu>
     </>
   );
