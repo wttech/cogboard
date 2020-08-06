@@ -51,6 +51,7 @@ class CredentialsController : AbstractVerticle() {
             .eventBus()
             .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_CREDENTIALS)
             .handler {
-                credentialsService.save(it.body())
+                val savedCredentials = credentialsService.save(it.body()).toString()
+                it.reply(savedCredentials)
             }
 }
