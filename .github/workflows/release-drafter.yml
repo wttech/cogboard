@@ -21,7 +21,8 @@ jobs:
           ./gradlew prepareCogboardCompose
           zip -r cogboard cogboard-compose.yml mnt
       - name: Upload Release asset
-        uses: actions/upload-release-asset@v1.0.1
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
