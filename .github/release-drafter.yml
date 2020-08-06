@@ -3,12 +3,11 @@ template: |
 
   $CHANGES
 categories:
-  - title: "🚀 New"
-    label: "enhancement"
-  - title: "🐛 Bug Fixes"
-    label: "bug"
-  - title: "🧰 Maintenance"
+  - title: '🚀 New'
+    label: 'enhancement'
+  - title: '🐛 Bug Fixes'
+    label: 'bug'
+  - title: '🧰 Maintenance'
     labels:
-      - "maintenance"
-      - "documentation"
-      - "dependencies"
+      - 'maintenance'
+      - 'documentation'
