@@ -33,28 +33,32 @@ internal class EndpointTest {
     }
 
     @Test
-    fun `Should Add User And Password Prop`() {
+    fun `Should Add Credentials Prop`() {
         assert(validEndpoint.containsKey("user"))
         assert(validEndpoint.containsKey("password"))
+        assert(validEndpoint.containsKey("token"))
 
         assert(invalidEndpoint.containsKey("user"))
         assert(invalidEndpoint.containsKey("password"))
+        assert(invalidEndpoint.containsKey("token"))
     }
 
     @Test
-    fun `Check If User And Password Are Correct`() {
+    fun `Check If Credentials Are Correct`() {
         assertEquals("user1", validEndpoint.getString("user"))
         assertEquals("password1", validEndpoint.getString("password"))
+        assertEquals("token1", validEndpoint.getString("token"))
     }
 
     @Test
-    fun `Check If User And Password Are Empty For Invalid Id`() {
+    fun `Check If Credentials Are Empty For Invalid Id`() {
         assertEquals("", invalidEndpoint.getString("user"))
         assertEquals("", invalidEndpoint.getString("password"))
+        assertEquals("", invalidEndpoint.getString("token"))
     }
 
     @Test
-    fun `Should Return Valid Credentials`() {
+    fun `Should Return Valid Endpoint With Credentials`() {
         val validEndpointToReturn = JsonObject("""
                     {
                       "id" : "validEndpoint",
@@ -62,7 +66,8 @@ internal class EndpointTest {
                       "url" : "url",
                       "publicUrl" : "Public Url",
                       "user" : "user1",
-                      "password" : "password1"
+                      "password" : "password1",
+                      "token" : "token1"
                     }
                     """)
 
@@ -70,14 +75,15 @@ internal class EndpointTest {
     }
 
     @Test
-    fun `Should Return Empty Credentials`() {
+    fun `Should Return Invalid Endpoint With Empty Credentials`() {
         val invalidEndpointToReturn = JsonObject("""
                     {
                       "id" : "invalidEndpoint",
                       "label" : "Invalid Endpoint",
                       "url" : "url",
                       "user" : "",
-                      "password" : ""
+                      "password" : "",
+                      "token" : ""
                     }
                     """)
 

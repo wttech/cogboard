@@ -10,26 +10,49 @@ class Credentials {
     }
   }
 
-  applyConfig(config) {
+  applyMandatoryFields(config) {
     if (config !== undefined) {
       this.config = config;
     }
-    cy.get('[data-cy="credential-form-label-input"]')
+    cy.get('[data-cy="credential-form-auth-label-input"]')
       .clear()
       .type(this.config.label)
       .blur();
-    cy.get('[data-cy="credential-form-user-input"]')
+    cy.get('[data-cy="credential-form-auth-user-input"]')
       .clear()
       .type(this.config.user)
       .blur();
-    cy.get('[data-cy="credential-form-password-input"]')
+    return this;
+  }
+
+  applyPassword(config) {
+    if (config !== undefined) {
+      this.config = config;
+    }
+    cy.get('[data-cy="credential-form-auth-password-input"]')
       .clear()
       .type(this.config.password)
       .blur();
-    cy.get('[data-cy="credential-form-password-confirmation-input"]')
+    cy.get('[data-cy="credential-form-auth-password-confirmation-input"]')
       .clear()
       .type(this.config.passwordConf || this.config.password)
       .blur();
+    return this;
+  }
+
+  applyToken(config) {
+    if (config !== undefined) {
+      this.config = config;
+    }
+    cy.get('[data-cy="credential-form-token-token-input"]')
+      .clear()
+      .type(this.config.token)
+      .blur();
+    return this;
+  }
+
+  switchToApiTokenTab() {
+    cy.get('[data-cy="credential-form-token-tab"]').click();
     return this;
   }
 
@@ -46,7 +69,12 @@ class Credentials {
     return this;
   }
 
-  assertErrorMessageVisible(message, dataCYName = 'credential-form-') {
+  assertTabDisappear() {
+    cy.get('[data-cy="app-credential-form-tab"]').should('not.be.visible');
+    return this;
+  }
+
+  assertErrorMessageVisible(message, dataCYName) {
     cy.contains(`[data-cy^="${dataCYName}"]`, message).should('is.visible');
     return this;
   }
