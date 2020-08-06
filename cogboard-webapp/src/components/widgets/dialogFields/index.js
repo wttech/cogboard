@@ -65,13 +65,27 @@ const dialogFields = {
     component: PasswordInput,
     name: 'password',
     label: 'Password',
-    validator: () => string().required(vm.FIELD_REQUIRED)
+    validator: () =>
+      string().test('token', vm.PASSWORD_OR_TOKEN(), function(value) {
+        const { token } = this.parent;
+        return !(!token && !value);
+      })
   },
   PasswordConfirmationField: {
     component: PasswordInput,
     name: 'passwordConfirmation',
     label: 'Password confirmation',
     validator: () => string().oneOf([ref('password'), null], vm.PASSWORD_MATCH)
+  },
+  TokenField: {
+    component: MultilineTextInput,
+    name: 'token',
+    label: 'Token',
+    validator: () =>
+      string().test('password', vm.PASSWORD_OR_TOKEN(), function(value) {
+        const { password } = this.parent;
+        return !(!password && !value);
+      })
   },
   PublicURL: {
     component: TextInput,
