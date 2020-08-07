@@ -46,11 +46,14 @@ class WidgetRuntimeService(
     }
 
     fun reloadWidgetsWithChangedEndpoints(endpoints: JsonArray) {
-        val endpointIds = endpoints.stream().map { it as JsonObject }
+        val endpointIds = endpoints.stream()
+                .map { it as JsonObject }
                 .map { it.getValue(CogboardConstants.PROP_ID) }
                 .collect(Collectors.toList())
-        widgets.filter { (_, widget) -> endpointIds.contains(getEndpointId(widget)) }
-                .forEach { (_, widget) -> createOrUpdateWidget(widget.config()) }
+
+        widgets.map { it.value }
+                .filter { endpointIds.contains(getEndpointId(it)) }
+                .forEach { createOrUpdateWidget(it.config()) }
     }
 
     private fun getEndpointId(widget: Widget): String {
