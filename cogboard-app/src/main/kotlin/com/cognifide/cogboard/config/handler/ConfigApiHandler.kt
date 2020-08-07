@@ -34,6 +34,8 @@ class ConfigApiHandler : RoutingHandlerFactory {
     private fun toControllerBody(config: JsonObject?, handlerBody: JsonObject): JsonObject {
         return JsonObject()
                 .put("method", config?.getString("method"))
+                .put("address", toAddress(config))
+                .put("refresh", config?.getBoolean("refresh"))
                 .put("payload", handlerBody)
     }
 }

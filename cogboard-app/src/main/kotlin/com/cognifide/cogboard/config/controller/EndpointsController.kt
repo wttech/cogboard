@@ -6,6 +6,7 @@ import com.cognifide.cogboard.config.service.EndpointsService
 import com.cognifide.cogboard.config.utils.JsonUtils.findAllByKeyValue
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.eventbus.Message
+import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class EndpointsController : AbstractVerticle() {
@@ -18,6 +19,7 @@ class EndpointsController : AbstractVerticle() {
         factory.create(CogboardConstants.EVENT_ENDPOINTS, vertx, prepareConfig())
 
         listenOnCredentialsUpdate()
+        listenOnEndpointsUpdate()
     }
 
     private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
@@ -49,6 +51,14 @@ class EndpointsController : AbstractVerticle() {
             .handler {
                 val relatedEndpoints = endpointsWithChangedCredentials(it)
                 val message = JsonObject().put(CogboardConstants.PROP_ENDPOINTS, relatedEndpoints)
+                vertx.eventBus().send(CogboardConstants.EVENT_REFRESH_WIDGET_CONFIG, message)
+            }
+
+    private fun listenOnEndpointsUpdate() = vertx
+            .eventBus()
+            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS)
+            .handler {
+                val message = JsonObject().put(CogboardConstants.PROP_ENDPOINTS, JsonArray().add(it.body()))
                 vertx.eventBus().send(CogboardConstants.EVENT_REFRESH_WIDGET_CONFIG, message)
             }
 
