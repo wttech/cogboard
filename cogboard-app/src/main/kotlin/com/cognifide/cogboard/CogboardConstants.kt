@@ -36,6 +36,8 @@ class CogboardConstants {
         const val PROP_EVENT_ADDRESS = "event.address"
         const val PROP_ENDPOINT = "endpoint"
         const val PROP_ENDPOINTS = "endpoints"
+        const val PROP_ENDPOINT_LOADED = "endpoint.loaded"
+        const val PROP_CREDENTIAL = "credential"
         const val PROP_CREDENTIALS = "credentials"
         const val PROP_LAST_UPDATED = "lastUpdated"
         const val PROP_ARRAY = "array"
@@ -45,6 +47,7 @@ class CogboardConstants {
         const val PROP_REQUEST_METHOD = "requestMethod"
         const val PROP_EXPECTED_RESPONSE_BODY = "expectedResponseBody"
         const val PROP_PATH = "path"
+        const val PROP_LABEL = "label"
         const val PROP_BOARD_COLUMN_MAX = 20
         const val PROP_BOARD_COLUMN_MIN = 4
         const val PROP_NAME = "name"

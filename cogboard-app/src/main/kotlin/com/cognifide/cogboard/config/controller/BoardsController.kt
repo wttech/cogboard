@@ -7,10 +7,9 @@ import com.cognifide.cogboard.storage.ContentRepository
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
 
-class BoardsController : AbstractVerticle() {
+class BoardsController(private val factory: ControllerFactory = ControllerFactory()) : AbstractVerticle() {
 
     private lateinit var boardsConfigService: BoardsConfigService
-    private val factory = ControllerFactory()
     private lateinit var sender: ConfirmationSender
 
     override fun start() {

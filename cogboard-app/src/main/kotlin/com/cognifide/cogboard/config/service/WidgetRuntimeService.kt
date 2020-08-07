@@ -49,22 +49,12 @@ class WidgetRuntimeService(
         val endpointIds = endpoints.stream().map { it as JsonObject }
                 .map { it.getValue(CogboardConstants.PROP_ID) }
                 .collect(Collectors.toList())
-        widgets.forEach { (_, widget) ->
-            if (widget.config().getValue(CogboardConstants.PROP_ENDPOINT) != null) {
-                val widgetEndpointId = fetchWidgetEndpointId(widget)
-                if (widgetEndpointId in endpointIds) {
-                    val widgetId = widget.config().getValue(CogboardConstants.PROP_ID).toString()
-                    widgets[widgetId]?.stop()
-                    widget.config().attachEndpoint(CogboardConstants.PROP_ID)
-                    widgets[widgetId] = WidgetIndex.create(widget.config(), vertx).start()
-                }
-            }
-        }
+        widgets.filter { (_, widget) -> endpointIds.contains(getEndpointId(widget)) }
+                .forEach { (_, widget) -> createOrUpdateWidget(widget.config()) }
     }
 
-    private fun fetchWidgetEndpointId(widget: Widget): String {
-        val endpoint: JsonObject = widget.config().getValue("endpoint") as JsonObject
-        return endpoint.getValue("id").toString()
+    private fun getEndpointId(widget: Widget): String {
+        return widget.config().getString(CogboardConstants.PROP_ENDPOINT, "")
     }
 
     fun handleWidgetContentUpdate(widgetConfig: JsonObject) {
@@ -99,15 +89,7 @@ class WidgetRuntimeService(
         val endpointId = this.getString(CogboardConstants.PROP_ENDPOINT)
         endpointId?.let {
             val endpoint = EndpointLoader().loadWithSensitiveData(endpointId)
-            this.put(CogboardConstants.PROP_ENDPOINT, endpoint)
-        }
-    }
-
-    private fun JsonObject.attachEndpoint(endpointValue: String) {
-        val endpointId = (this.getValue(CogboardConstants.PROP_ENDPOINT) as JsonObject).getValue(CogboardConstants.PROP_ID).toString()
-        endpointId.let {
-            val endpoint = EndpointLoader().loadWithSensitiveData(endpointId)
-            this.put(CogboardConstants.PROP_ENDPOINT, endpoint)
+            this.put(CogboardConstants.PROP_ENDPOINT_LOADED, endpoint)
         }
     }
 
