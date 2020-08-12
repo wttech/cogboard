@@ -16,11 +16,15 @@ describe('Refresh widgets', () => {
 
   it('Widget will be updated after edit endpoints', () => {
     jenkinsJobWidget1.assertColor('rgb(25, 140, 189)');
+
     changeUrls('http://fake-mocks:1234');
     jenkinsJobWidget1.assertColor('rgb(225, 49, 47)');
+
     changeUrls('http://api-mocks:8080');
     jenkinsJobWidget1.assertColor('rgb(25, 140, 189)');
-    removeWidgets();
+
+    jenkinsJobWidget1.remove();
+    cy.saveState();
   });
 
   function changeUrls(url) {
@@ -48,11 +52,6 @@ describe('Refresh widgets', () => {
     widget.title = title;
     widget.configure(false);
     return widget;
-  }
-
-  function removeWidgets() {
-    jenkinsJobWidget1.remove();
-    cy.saveState();
   }
 
 });
