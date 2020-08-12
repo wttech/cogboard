@@ -4,6 +4,10 @@ import Widgets from '../fixtures/Widgets';
 describe('Refresh widgets', () => {
 
   const jenkinsJobTitleFirst = 'Jenkins Job';
+  const blueColor = 'rgb(25, 140, 189)';
+  const redColor = 'rgb(225, 49, 47)';
+  const fakeMocksUrl = 'http://fake-mocks:1234';
+  const apiMocksUrl = 'http://api-mocks:8080';
   let jenkinsJobWidget1;
 
   beforeEach(() => {
@@ -15,13 +19,13 @@ describe('Refresh widgets', () => {
   });
 
   it('Widget will be updated after edit endpoints', () => {
-    jenkinsJobWidget1.assertColor('rgb(25, 140, 189)');
+    jenkinsJobWidget1.assertColor(blueColor);
 
-    changeUrls('http://fake-mocks:1234');
-    jenkinsJobWidget1.assertColor('rgb(225, 49, 47)');
+    changeUrls(fakeMocksUrl);
+    jenkinsJobWidget1.assertColor(redColor);
 
-    changeUrls('http://api-mocks:8080');
-    jenkinsJobWidget1.assertColor('rgb(25, 140, 189)');
+    changeUrls(apiMocksUrl);
+    jenkinsJobWidget1.assertColor(blueColor);
 
     jenkinsJobWidget1.remove();
     cy.saveState();
