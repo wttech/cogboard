@@ -28,7 +28,7 @@ class Widget {
   assertColor(color) {
     cy.contains('h3', this.title)
       .parents('[draggable="true"]')
-      .should('have.css', 'background-color', color);
+      .should('have.css', 'color', color);
     return this;
   }
 
