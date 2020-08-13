@@ -19,13 +19,13 @@ describe('Refresh widgets', () => {
   });
 
   it('Widget will be updated after edit endpoints', () => {
-    jenkinsJobWidget1.assertColor(blueColor);
+    jenkinsJobWidget1.assertBackground(blueColor);
 
     changeUrls(fakeMocksUrl);
-    jenkinsJobWidget1.assertColor(redColor);
+    jenkinsJobWidget1.assertBackground(redColor);
 
     changeUrls(apiMocksUrl);
-    jenkinsJobWidget1.assertColor(blueColor);
+    jenkinsJobWidget1.assertBackground(blueColor);
 
     jenkinsJobWidget1.remove();
     cy.saveState();
