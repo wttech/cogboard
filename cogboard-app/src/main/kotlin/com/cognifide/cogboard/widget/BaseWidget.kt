@@ -142,7 +142,7 @@ abstract class BaseWidget(
     }
 
     protected fun JsonObject.endpointProp(prop: String): String {
-        return this.getJsonObject(CC.PROP_ENDPOINT)?.getString(prop) ?: ""
+        return this.getJsonObject(CC.PROP_ENDPOINT_LOADED)?.getString(prop) ?: ""
     }
 
     companion object {
