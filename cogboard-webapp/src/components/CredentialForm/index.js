@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { string } from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import { useFormData } from '../../hooks';
 import { createValidationSchema } from '../validation';
 
-import { Button } from '@material-ui/core';
+import { Button, Tab } from '@material-ui/core';
 import { StyledCancelButton } from './styled';
 import DynamicForm from '../DynamicForm';
 import { getCredentials } from '../../selectors';
+import { StyledTabPanel, StyledTabs } from '../styled';
 
 const CredentialsForm = ({
   onSubmit,
@@ -17,12 +18,18 @@ const CredentialsForm = ({
   ...initialFormValues
 }) => {
   const credentialsData = useSelector(getCredentials);
-  const formFields = [
+  const basicFormFields = [
     'LabelField',
     'UsernameField',
     'PasswordField',
     'PasswordConfirmationField'
   ];
+
+  const tokenFormFields = ['LabelField', 'UsernameField', 'TokenField'];
+
+  const formFields = Array.from(
+    new Set([...basicFormFields, ...tokenFormFields])
+  );
 
   const constraints = {
     LabelField: {
@@ -38,31 +45,62 @@ const CredentialsForm = ({
   const validationSchema = createValidationSchema(formFields, constraints);
   const { values, handleChange, withValidation, errors } = useFormData(
     initialFormValues,
-    { initialSchema: validationSchema, onChange: true }
+    {
+      initialSchema: validationSchema,
+      onChange: true
+    }
   );
 
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleTabChange = (_, newValue) => {
+    setTabValue(newValue);
+  };
+
   return (
-    <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
-      <DynamicForm
-        fields={formFields}
-        values={values}
-        handleChange={handleChange}
-        errors={errors}
-        rootName="credential-form"
-      />
-      <Button
-        color="secondary"
-        variant="contained"
-        type="submit"
-        data-cy="credential-form-submit-button"
+    <div data-cy="app-credential-form-tab">
+      <StyledTabs
+        value={tabValue}
+        onChange={handleTabChange}
+        variant="fullWidth"
+        indicatorColor="primary"
       >
-        Save
-      </Button>
-      <StyledCancelButton
-        handleCancelClick={handleCancel}
-        data-cy="credential-form-cancel-button"
-      />
-    </form>
+        <Tab label="Basic Auth" data-cy="credential-form-basic-tab" />
+        <Tab label="API Token" data-cy="credential-form-token-tab" />
+      </StyledTabs>
+      <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
+        <StyledTabPanel value={tabValue} index={0}>
+          <DynamicForm
+            fields={basicFormFields}
+            values={values}
+            handleChange={handleChange}
+            errors={errors}
+            rootName="credential-form-auth"
+          />
+        </StyledTabPanel>
+        <StyledTabPanel value={tabValue} index={1}>
+          <DynamicForm
+            fields={tokenFormFields}
+            values={values}
+            handleChange={handleChange}
+            errors={errors}
+            rootName="credential-form-token"
+          />
+        </StyledTabPanel>
+        <Button
+          color="secondary"
+          variant="contained"
+          type="submit"
+          data-cy="credential-form-submit-button"
+        >
+          Save
+        </Button>
+        <StyledCancelButton
+          handleCancelClick={handleCancel}
+          data-cy="credential-form-cancel-button"
+        />
+      </form>
+    </div>
   );
 };
 
@@ -75,7 +113,8 @@ CredentialsForm.defaultProps = {
   label: '',
   user: '',
   password: '',
-  confirmationPassword: ''
+  confirmationPassword: '',
+  token: ''
 };
 
 export default CredentialsForm;
