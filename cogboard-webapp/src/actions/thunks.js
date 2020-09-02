@@ -234,11 +234,17 @@ const deleteCredentialThunk = id =>
     deleteSettingsItem
   );
 
-const updateUserSettingsThunk = user => dispatch =>
-  fetchData(URL.UPDATE_USER_SETTINGS, { method: 'POST', data: user }).then(
+const updateUserSettingsThunk = user => () => {
+  const token = getToken();
+  return fetchData(URL.UPDATE_USER_SETTINGS, {
+    method: 'POST',
+    data: user,
+    token
+  }).then(
     value => value,
     error => console.log(error)
   );
+};
 
 export const pushNewVersionNotification = ({ content }) => (
   dispatch,

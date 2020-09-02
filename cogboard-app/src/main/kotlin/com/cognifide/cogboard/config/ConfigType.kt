@@ -12,7 +12,7 @@ enum class ConfigType(private val fileName: String, private val validator: Valid
     BOARDS("config.json", BoardsValidator),
     CREDENTIALS("credentials.json", CredentialsValidator),
     ENDPOINTS("endpoints.json", EndpointsValidator),
-    ADMINS("admins.json", AdminsValidator),
+    ADMIN("admin.json", AdminsValidator),
     VERSION(".version", VersionValidator);
 
     fun configFilePath() = "/data/$fileName"

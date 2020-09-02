@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.config.validation.admins
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class AdminsValidatorTest {
@@ -11,45 +12,34 @@ class AdminsValidatorTest {
     }
 
     @Test
-    fun `Config with One User with Password and One User without password is Invalid`() {
-        assertFalse(AdminsValidator.validate(ONE_INVALID_USER))
+    fun `Config with Incorrect User's Name is Invalid`() {
+        assertFalse(AdminsValidator.validate(EMPTY_USER_NAME))
     }
 
     @Test
-    fun `Config with No Users is Invalid`() {
-        assertFalse(AdminsValidator.validate(NO_USERS))
+    fun `Config with Incorrect User's Password is Invalid`() {
+        assertFalse(AdminsValidator.validate(EMPTY_USER_PASSWORD))
     }
 
     companion object {
         private val ONE_VALID_USER = """
         {
-            "admins": [
-            {
-                "name": "admin",
-                "pass": "admin"
-            }
-            ]
+            "user": "admin",
+            "password": "admin"
         }
         """.trimIndent()
 
-        private val ONE_INVALID_USER = """
+        private val EMPTY_USER_NAME = """
         {
-            "admins": [
-            {
-                "name": "admin",
-                "pass": "admin"
-            },
-            {
-                "name": "admin no pass",
-                "pass": ""
-            }
-            ]
+            "user": "",
+            "password": "admin"
         }
         """.trimIndent()
 
-        private val NO_USERS = """
+        private val EMPTY_USER_PASSWORD = """
         {
-            "admins": []
+            "user": "admin",
+            "password": ""
         }
         """.trimIndent()
     }
