@@ -20,7 +20,7 @@ class UserController : AbstractVerticle() {
     )
 
     private fun update(body: JsonObject): String {
-        userService.update(body)
-        return body.toString()
+        val saved = userService.save(body)
+        return saved.encode()
     }
 }

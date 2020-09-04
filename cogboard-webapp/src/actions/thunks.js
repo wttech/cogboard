@@ -234,15 +234,28 @@ const deleteCredentialThunk = id =>
     deleteSettingsItem
   );
 
-const updateUserSettingsThunk = user => () => {
+const updateUserSettingsThunk = user => dispatch => {
   const token = getToken();
   return fetchData(URL.UPDATE_USER_SETTINGS, {
     method: 'POST',
     data: user,
     token
   }).then(
-    value => value,
-    error => console.log(error)
+    ({ message }) => {
+      if (message) {
+        dispatch(
+          pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_FAILED(message))
+        );
+      } else {
+        dispatch(
+          pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_SUCCESS(user.user))
+        );
+        dispatch(logoutUser());
+      }
+      console.log(user);
+    },
+    value => console.log(value),
+    console.error
   );
 };
 

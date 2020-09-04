@@ -11,7 +11,8 @@ import DynamicForm from './DynamicForm';
 const UserControlForm = ({ onSubmit, ...initialFormValues }) => {
   const formFields = [
     'UsernameField',
-    'PasswordField',
+    'CurrentPasswordField',
+    'NewPasswordField',
     'PasswordConfirmationField'
   ];
 
@@ -22,15 +23,13 @@ const UserControlForm = ({ onSubmit, ...initialFormValues }) => {
   };
 
   const validationSchema = createValidationSchema(formFields, constraints);
-  const {
-    values,
-    handleChange,
-    withValidation,
-    errors
-  } = useFormData(initialFormValues, {
-    initialSchema: validationSchema,
-    onChange: true
-  });
+  const { values, handleChange, withValidation, errors } = useFormData(
+    initialFormValues,
+    {
+      initialSchema: validationSchema,
+      onChange: true
+    }
+  );
 
   return (
     <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
@@ -61,8 +60,9 @@ UserControlForm.propTypes = {
 
 UserControlForm.defaultProps = {
   user: '',
-  password: '',
-  confirmationPassword: ''
+  currentPassword: '',
+  newPassword: '',
+  passwordConfirmation: ''
 };
 
 export default UserControlForm;

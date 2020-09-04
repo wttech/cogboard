@@ -32,6 +32,8 @@ class CogboardConstants {
         const val PROP_USER = "user"
         const val PROP_USERNAME = "username"
         const val PROP_PASSWORD = "password"
+        const val PROP_CURRENT_PASSWORD = "currentPassword"
+        const val PROP_NEW_PASSWORD = "newPassword"
         const val PROP_TOKEN = "token"
         const val PROP_BODY = "body"
         const val PROP_EVENT_ADDRESS = "event.address"
