@@ -5,7 +5,6 @@ import com.cognifide.cogboard.CogboardConstants.Companion.PROP_NEW_PASSWORD
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PASSWORD
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USER
 import com.cognifide.cogboard.config.model.Admin
-import com.cognifide.cogboard.config.validation.admins.AdminsValidator
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.admin
 import io.vertx.core.json.JsonObject
@@ -30,15 +29,13 @@ class UserService(
         return config.getString(PROP_PASSWORD) == currentPassword
     }
 
-    private fun update(admin: JsonObject): Boolean {
-        return if (AdminsValidator.validate(admin.toString())) {
-            config.mergeIn(admin, true)
-            storage.saveConfig(config)
-        } else false
+    private fun update(admin: JsonObject) {
+        config.mergeIn(admin, true)
+        storage.saveConfig(config)
     }
 
     private fun JsonObject.toAdmin(): JsonObject {
-        val user = this.getString(PROP_USER)
+        val user = config.getString(PROP_USER)
         val newPassword = this.getString(PROP_NEW_PASSWORD)
         return JsonObject.mapFrom(Admin(user, newPassword))
     }

@@ -247,12 +247,12 @@ const updateUserSettingsThunk = user => dispatch => {
           pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_FAILED(message))
         );
       } else {
+        removeToken();
         dispatch(
           pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_SUCCESS(user.user))
         );
         dispatch(logoutUser());
       }
-      console.log(user);
     },
     value => console.log(value),
     console.error

@@ -184,7 +184,7 @@ export const NOTIFICATIONS = {
   }),
   CHANGE_CREDENTIALS_SUCCESS: userRole => ({
     type: 'success',
-    message: `Account credentials for ${userRole} were changed, please log back in`,
+    message: `Account credentials for ${userRole} were changed, please log in`,
     duration: 3000
   }),
   CHANGE_CREDENTIALS_FAILED: message => ({

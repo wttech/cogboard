@@ -3,24 +3,18 @@ import { string, func } from 'prop-types';
 
 import { useFormData } from '../hooks';
 import { createValidationSchema } from './validation';
-import { USER_LOGIN_LENGTH } from '../constants';
 
 import { Button } from '@material-ui/core';
 import DynamicForm from './DynamicForm';
 
 const UserControlForm = ({ onSubmit, ...initialFormValues }) => {
   const formFields = [
-    'UsernameField',
     'CurrentPasswordField',
     'NewPasswordField',
     'PasswordConfirmationField'
   ];
 
-  const constraints = {
-    UsernameField: {
-      max: USER_LOGIN_LENGTH
-    }
-  };
+  const constraints = {};
 
   const validationSchema = createValidationSchema(formFields, constraints);
   const { values, handleChange, withValidation, errors } = useFormData(
@@ -59,7 +53,6 @@ UserControlForm.propTypes = {
 };
 
 UserControlForm.defaultProps = {
-  user: '',
   currentPassword: '',
   newPassword: '',
   passwordConfirmation: ''
