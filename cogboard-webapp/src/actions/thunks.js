@@ -247,9 +247,10 @@ const updateUserSettingsThunk = user => dispatch => {
           pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_FAILED(message))
         );
       } else {
+        let userRole = getUserRole();
         removeToken();
         dispatch(
-          pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_SUCCESS(user.user))
+          pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_SUCCESS(userRole))
         );
         dispatch(logoutUser());
       }
