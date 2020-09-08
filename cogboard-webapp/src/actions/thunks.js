@@ -35,7 +35,8 @@ import {
   mapDataToState,
   withAuthentication,
   withDataChanged,
-  checkIfNotificationExist
+  checkIfNotificationExist,
+  dispatchEvent
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
 import { setToken, removeToken, getToken, getUserRole } from '../utils/auth';
@@ -253,6 +254,7 @@ const updateUserSettingsThunk = user => dispatch => {
           pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_SUCCESS(userRole))
         );
         dispatch(logoutUser());
+        dispatchEvent('reloadLogin');
       }
     },
     value => console.log(value),
