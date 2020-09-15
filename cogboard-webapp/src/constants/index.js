@@ -125,6 +125,17 @@ export const ALL_SONARQUBE_METRICS = [
   'vulnerabilities'
 ];
 
+export const ZABBIX_METRICS = [
+  'cpu',
+  'uptime',
+  'active_users',
+  'swap',
+  'processes',
+  'ram',
+  'heap',
+  'disk'
+];
+
 export const SONARQUBE_VERSIONS = [
   {
     display: '7.x',

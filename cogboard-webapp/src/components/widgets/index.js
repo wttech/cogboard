@@ -12,6 +12,7 @@ import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
 import PersonDrawWidget from './types/PersonDrawWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
+import ZabbixWidget from './types/ZabbixWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -183,6 +184,20 @@ const widgetTypes = {
       'AemBundleInstalledThreshold',
       'AemBundleExcluded',
       'ExpandableContent'
+    ],
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
+  },
+  ZabbixWidget: {
+    name: 'Zabbix',
+    component: ZabbixWidget,
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'ZabbixMetricsInput',
+      'RangeSlider'
     ],
     showUpdateTime: true,
     validationConstraints: {

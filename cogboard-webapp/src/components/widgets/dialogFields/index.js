@@ -24,13 +24,15 @@ import DisplayValueSelect from './DisplayValueSelect';
 import MultilineTextInput from './MultilineTextInput';
 import CheckboxInput from './CheckboxInput';
 import AemHealthcheckInput from './AemHealthcheckInput';
-import conditionallyHidden from './conditionallyHidden';
+import ConditionallyHidden from './ConditionallyHidden';
 import SwitchInput from './SwitchInput';
 import { StyledNumberInput } from './styled';
 import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
+import ZabbixMetricsInput from './ZabbixMetricsInput';
+import RangeSlider from './RangeSlider';
 
 const dialogFields = {
   LabelField: {
@@ -191,7 +193,7 @@ const dialogFields = {
     validator: () => boolean()
   },
   SwitchInterval: {
-    component: conditionallyHidden(NumberInput, 'autoSwitch', value => value),
+    component: ConditionallyHidden(NumberInput, 'autoSwitch', value => value),
     name: 'switchInterval',
     label: 'Switch Interval [sec]',
     validator: ({ min }) =>
@@ -252,7 +254,7 @@ const dialogFields = {
     validator: () => string()
   },
   SonarQubeIdNumber: {
-    component: conditionallyHidden(
+    component: ConditionallyHidden(
       NumberInput,
       'sonarQubeVersion',
       value => value === '5.x'
@@ -299,6 +301,19 @@ const dialogFields = {
         .min(minArrayLength, vm.FIELD_MIN_ITEMS())
         .of(string())
   },
+  ZabbixMetricsInput: {
+    component: ZabbixMetricsInput,
+    name: 'selectedZabbixMetric',
+    label: 'Metric',
+    initialValue: 'cpu',
+    validator: () => string()
+  },
+  RangeSlider: {
+    component: RangeSlider,
+    name: 'rangeSlider',
+    label: 'Slider',
+    validator: () => array()
+  },
   StatusCode: {
     component: NumberInput,
     name: 'expectedStatusCode',
@@ -321,7 +336,7 @@ const dialogFields = {
     validator: () => string()
   },
   DateFormat: {
-    component: conditionallyHidden(
+    component: ConditionallyHidden(
       DisplayValueSelect,
       'displayDate',
       value => value
@@ -333,7 +348,7 @@ const dialogFields = {
     validator: () => string()
   },
   TimeFormat: {
-    component: conditionallyHidden(
+    component: ConditionallyHidden(
       DisplayValueSelect,
       'displayTime',
       value => value
@@ -365,7 +380,7 @@ const dialogFields = {
     validator: () => string()
   },
   RequestBody: {
-    component: conditionallyHidden(
+    component: ConditionallyHidden(
       MultilineTextInput,
       'requestMethod',
       value => value === 'put' || value === 'post'
@@ -422,7 +437,7 @@ const dialogFields = {
     validator: () => boolean()
   },
   PersonDrawInterval: {
-    component: conditionallyHidden(
+    component: ConditionallyHidden(
       NumberInput,
       'personDrawDailySwitch',
       value => !value
