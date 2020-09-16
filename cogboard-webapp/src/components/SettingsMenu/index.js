@@ -69,6 +69,7 @@ const SettingsMenu = ({ className }) => {
     delete values.passwordConfirmation;
 
     dispatch(updateUserSettings(values));
+    handleDialogClose();
   };
 
   const renderListItems = (items, name, EditComponent, deleteAction) =>
