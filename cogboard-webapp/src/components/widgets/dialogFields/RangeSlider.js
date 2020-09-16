@@ -9,13 +9,12 @@ const RangeSlider = ({ dataCy }) => {
   //TODO refactor needed
   const inputId = 'range-slider';
   const [value, setValue] = React.useState([57, 80]);
-  const theme = useTheme();
 
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles({
     root: {
-      color: COLORS.WHITE
+      color: 'secondary'
     }
-  }));
+  });
 
   function valuetext(value) {
     return `${value}%`;
@@ -37,12 +36,13 @@ const RangeSlider = ({ dataCy }) => {
   };
 
   return (
-    <div className={useStyles}>
+    <div className={useStyles.root}>
       <Typography id={inputId} gutterBottom>
         Range (%)
       </Typography>
       <Slider
         value={value}
+        color={'secondary'}
         onChange={handleChange}
         valueLabelDisplay="auto"
         aria-labelledby="range-slider"

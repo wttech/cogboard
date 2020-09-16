@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ZabbixWidget = props => {
-  return <></>;
+  return <div></div>;
 };
 
 export default ZabbixWidget;
