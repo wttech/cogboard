@@ -16,8 +16,9 @@ abstract class AsyncWidget(
     boardService: BoardsConfigService = BoardsConfigService()
 ) : BaseWidget(vertx, config, boardService) {
 
-    val user: String = config.endpointProp("user")
-    val password: String = config.endpointProp("password")
+    val user: String = config.endpointProp(CogboardConstants.PROP_USER)
+    val password: String = config.endpointProp(CogboardConstants.PROP_PASSWORD)
+    val token: String = config.endpointProp(CogboardConstants.PROP_TOKEN)
     val url: String = config.endpointProp(CogboardConstants.PROP_URL)
     val publicUrl: String = config.endpointProp(CogboardConstants.PROP_PUBLIC_URL).ifBlank { url }
 
@@ -57,6 +58,7 @@ abstract class AsyncWidget(
                         .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)
                         .put(CogboardConstants.PROP_USER, user)
                         .put(CogboardConstants.PROP_PASSWORD, password)
+                        .put(CogboardConstants.PROP_TOKEN, token)
         )
     }
 

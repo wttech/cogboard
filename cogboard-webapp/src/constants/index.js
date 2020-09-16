@@ -157,7 +157,8 @@ export const validationMessages = {
   INVALID_PUBLIC_URL: () => 'Invalid Public URL',
   FIELD_MIN_ITEMS: () => 'This field must have at least 1 item.',
   UNIQUE_FIELD: () => 'This field must be unique.',
-  PASSWORD_MATCH: () => 'Password must match.'
+  PASSWORD_MATCH: () => 'Password must match.',
+  PASSWORD_OR_TOKEN: () => 'Password or token field must be set.'
 };
 
 export const NOTIFICATIONS = {

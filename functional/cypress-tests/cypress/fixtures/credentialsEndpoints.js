@@ -1,5 +1,6 @@
 export const badCredentials = () => {
   return {
+    token: ' ',
     password: 'xxxxxxxxxxx',
     passwordConf: 'zzz',
     user: ' ',
@@ -9,6 +10,7 @@ export const badCredentials = () => {
 
 export const testCredentials = uid => {
   return {
+    token: 'TestToken',
     password: 'TestPassword1',
     user: 'TestUser1',
     label: `${CREDENTIAL_LABEL_PREFIX}${uid}`
