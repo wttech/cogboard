@@ -4,15 +4,15 @@ CogBoard uses WireMock to mimic responses of third party software that can be a 
 
 ## File structure
 
-- Mocks themselves are stored in `__files` directory,
-- Inside it are directories for each of the widget/group of widgets,
-- The deepest directory is a version of the app, as CogBoard supports multiple versions of some of the apps,
-- Mocks are named in a descriptive way formats matching those returned by the actual app.
+* Mocks themselves are stored in `__files` directory,
+* Inside it are directories for each of the widget/group of widgets,
+* The deepest directory is a version of the app, as CogBoard supports multiple versions of some of the apps,
+* Mocks are named in a descriptive way formats matching those returned by the actual app.
 
 Examples:
 
-- `__files/aem/v6.5.2/bundleinfo.json` - Mock for Bundle Info widget, schema is matching the one that AEM v6.5.2 responds with,
-- `__files/sonarqube/v7.x/fail.json` - SonarQube, version 7.x, with a failing status.
+* `__files/aem/v6.5.2/bundleinfo.json` - Mock for Bundle Info widget, schema is matching the one that AEM v6.5.2 responds with,
+* `__files/sonarqube/v7.x/fail.json` - SonarQube, version 7.x, with a failing status.
 
 Please stick to this convention to maintain order.
 
@@ -65,15 +65,14 @@ All mocks require running `cogboard-local_api-mocks` container, and choosing `AP
 **Number of mocks:** Eight, one for each of possible states.
 
 **Possible states:**
-
-- Successful - `ID = 1`,
-- Failed - `ID = 2`,
-- In Progress - `ID = 3`,
-- Replaced - `ID = 4`,
-- Skipped - `ID = 5`,
-- Never - `ID = 6`,
-- Queued - `ID = 7`,
-- Not Built - `ID = 8`.
+* Successful - `ID = 1`,
+* Failed - `ID = 2`,
+* In Progress - `ID = 3`,
+* Replaced - `ID = 4`,
+* Skipped - `ID = 5`,
+* Never - `ID = 6`,
+* Queued - `ID = 7`,
+* Not Built - `ID = 8`.
 
 **How to use:** In dynamic tab of Bamboo Deployment type correct number from above in the `ID` input.
 
@@ -84,10 +83,9 @@ All mocks require running `cogboard-local_api-mocks` container, and choosing `AP
 **Number of mocks:** Three, one for each of possible states.
 
 **Possible states:**
-
-- Successful - `ID = CGB-SCS`,
-- Failed - `ID = CGB-FLD`,
-- Unknown - `ID = CGB-UKWN`.
+* Successful - `ID = CGB-SCS`,
+* Failed - `ID = CGB-FLD`,
+* Unknown - `ID = CGB-UKWN`.
 
 **How to use:** In dynamic tab of Bamboo Plan type correct ID in the `ID` input.
 
@@ -98,10 +96,9 @@ All mocks require running `cogboard-local_api-mocks` container, and choosing `AP
 **Number of mocks:** Three, one for each of possible states.
 
 **Possible states:**
-
-- Success - `PATH = /job/CogBoard/job/success`,
-- Fail - `PATH = /job/CogBoard/job/fail`,
-- In Progress - `PATH = /job/CogBoard/job/in-progress`.
+* Success - `PATH = /job/CogBoard/job/success`,
+* Fail - `PATH = /job/CogBoard/job/fail`,
+* In Progress - `PATH = /job/CogBoard/job/in-progress`.
 
 **How to use:** In dynamic tab of Jenkins Job type correct path in the `Path` input.
 
@@ -116,9 +113,8 @@ All mocks require running `cogboard-local_api-mocks` container, and choosing `AP
 **Number of mocks:** Six, three mocks per each state per each version.
 
 **Possible states:**
-
-- Success - `KEY = success`
-- Fail - `KEY = fail`
-- Warning - `KEY = warning`
+* Success - `KEY = success`
+* Fail - `KEY = fail`
+* Warning - `KEY = warning`
 
 **How to use:** In dynamic tab of SonarQube select version of SonarQube in the dropdown, then type correct Key in the `Key` input. For 5.x you could also type 316488 in the `ID` field. **Important - select all metrics**.
