@@ -37,7 +37,7 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admin()) : Routin
                 val admin = getAdmin(username)
                 when {
                     admin == null -> sendUnauthorized(ctx, wrongUserMsg)
-                    isNotAuthorized(admin, password) -> sendUnauthorized(ctx, wrongPassMsg)
+                    !isAuthorized(admin, password) -> sendUnauthorized(ctx, wrongPassMsg)
                     else -> sendJWT(ctx, username)
                 }
             }
@@ -53,8 +53,8 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admin()) : Routin
         } else null
     }
 
-    private fun isNotAuthorized(admin: Admin, password: String?) =
-            admin.password.isBlank() || admin.password != password
+    private fun isAuthorized(admin: Admin, password: String?) =
+            admin.password.isNotBlank() && admin.password == password
 
     private fun sendUnauthorized(ctx: RoutingContext, message: String) {
         ctx.response().setStatusMessage(message).setStatusCode(STATUS_CODE_401).end()

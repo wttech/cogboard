@@ -19,13 +19,13 @@ class UserService(
         val wrongPassMsg = config.getString("wrongPassMsg") ?: "Please, enter correct Password"
         val admin = newLoginData.toAdmin()
         val currentPassword = newLoginData.getString(PROP_CURRENT_PASSWORD)
-        return if (checkCurrentPassword(currentPassword)) {
+        return if (confirmPassword(currentPassword)) {
             update(admin)
             response()
         } else response(wrongPassMsg)
     }
 
-    private fun checkCurrentPassword(currentPassword: String): Boolean {
+    private fun confirmPassword(currentPassword: String): Boolean {
         return config.getString(PROP_PASSWORD) == currentPassword
     }
 
