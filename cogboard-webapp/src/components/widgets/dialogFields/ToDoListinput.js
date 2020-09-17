@@ -40,8 +40,7 @@ const ToDoListInput = ({ value, onChange }) => {
     (value || []).map(item => {
       return {
         id: item.id,
-        itemText: item.itemText,
-        itemChecked: item.itemChecked
+        itemText: item.itemText
       };
     })
   );
@@ -68,8 +67,7 @@ const ToDoListInput = ({ value, onChange }) => {
       const updatedItemId = items.findIndex(el => el.id === editMode);
       updatedItems[updatedItemId] = {
         id: updatedItems[updatedItemId].id,
-        itemText: item.itemText,
-        itemChecked: updatedItems[updatedItemId].itemChecked
+        itemText: item.itemText
       };
       setEditMode(false);
     } else {
@@ -77,8 +75,7 @@ const ToDoListInput = ({ value, onChange }) => {
         ...items,
         {
           id: `item-${items.length + 1}`,
-          itemText: item.itemText,
-          itemChecked: false
+          itemText: item.itemText
         }
       ];
     }

@@ -1,11 +1,9 @@
 import React from 'react';
 import { array } from 'prop-types';
-import { useDispatch } from 'react-redux';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Typography } from '@material-ui/core';
-import { setToDoListState } from '../../../actions/thunks';
 import { postWidgetContentUpdate } from '../../../utils/fetch';
 // import { v4 } from 'uuid';
 import styled from '@emotion/styled/macro';
@@ -19,29 +17,10 @@ const StyledCheckbox = styled(Checkbox)`
 `;
 
 const ToDoListWidget = ({ id, toDoListItems }) => {
-  const dispatch = useDispatch();
   const handleChangeStatus = evt => {
-    const clickedElementindex = toDoListItems.findIndex(
-      elem => elem.id === evt.target.value
-    );
-    toDoListItems[clickedElementindex].itemChecked = evt.target.checked;
-
-    dispatch(
-      setToDoListState({
-        id,
-        content: {
-          toDoListItems: toDoListItems
-        },
-        toDoListItems: toDoListItems
-      })
-    );
-
     postWidgetContentUpdate({
       id,
-      content: {
-        toDoListItems: toDoListItems
-      },
-      toDoListItems: toDoListItems
+      selectedItem: evt.target.value
     }).catch(e => console.log(e));
   };
 
