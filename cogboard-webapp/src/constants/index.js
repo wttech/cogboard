@@ -11,7 +11,8 @@ export const COLORS = {
   RED: '#e1312f',
   LIGHT_BLUE: '#bbdefb',
   BLUE: '#198cbd',
-  PURPLE: '#26243e'
+  PURPLE: '#26243e',
+  YELLOW: '#FECD00'
 };
 
 export const URL = {

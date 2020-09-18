@@ -7,10 +7,11 @@ import { clearLoginErrorMessage } from '../../actions/actionCreators';
 import { getIsAuthenticated } from '../../selectors';
 import { getCredentials } from './helpers';
 
-import { Button, IconButton, TextField, Typography } from '@material-ui/core';
-import { AccountCircle, PowerSettingsNew } from '@material-ui/icons';
+import { Button, IconButton, TextField } from '@material-ui/core';
+import { AccountCircle, PowerSettingsNew, Error } from '@material-ui/icons';
+// import ErrorIcon from '@material-ui/icons/Error';
 import AppDialog from './../AppDialog';
-import { StyledFieldset } from '../styled';
+import { StyledFieldset, StyledErrorMsg } from '../styled';
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -79,9 +80,12 @@ const UserLogin = () => {
       >
         <StyledFieldset component="fieldset">
           {errorMsg && (
-            <Typography color="error" data-cy="user-login-error-messages">
-              {errorMsg}
-            </Typography>
+            <>
+              <StyledErrorMsg color="error" data-cy="user-login-error-messages">
+                <Error />
+                {errorMsg}
+              </StyledErrorMsg>
+            </>
           )}
           <TextField
             autoFocus
