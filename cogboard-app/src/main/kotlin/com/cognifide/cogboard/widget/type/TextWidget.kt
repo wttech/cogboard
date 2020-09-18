@@ -7,7 +7,8 @@ import io.vertx.core.json.JsonObject
 class TextWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
 
     override fun updateState() {
-        updateStateByCopingPropsToContent(PROPS)
+        val content = propsToContent(PROPS)
+        send(content)
     }
 
     companion object {
