@@ -115,3 +115,11 @@ export const withDataChanged = actionCallback => (...args) => dispatch => {
   dispatch(actionCallback.apply(null, args));
   dispatch(dataChanged());
 };
+
+export const dispatchEvent = customEvent => {
+  const Event = document.createEvent('HTMLEvents');
+  if (customEvent) {
+    Event.initEvent(customEvent, true, true);
+    document.dispatchEvent(Event);
+  }
+};

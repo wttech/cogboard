@@ -35,7 +35,8 @@ import {
   mapDataToState,
   withAuthentication,
   withDataChanged,
-  checkIfNotificationExist
+  checkIfNotificationExist,
+  dispatchEvent
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
 import { setToken, removeToken, getToken, getUserRole } from '../utils/auth';
@@ -234,6 +235,33 @@ const deleteCredentialThunk = id =>
     deleteSettingsItem
   );
 
+const updateUserSettingsThunk = user => dispatch => {
+  const token = getToken();
+  return fetchData(URL.UPDATE_USER_SETTINGS, {
+    method: 'POST',
+    data: user,
+    token
+  }).then(
+    ({ message }) => {
+      if (message) {
+        dispatch(
+          pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_FAILED(message))
+        );
+      } else {
+        let userRole = getUserRole();
+        removeToken();
+        dispatch(
+          pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_SUCCESS(userRole))
+        );
+        dispatch(logoutUser());
+        dispatchEvent('sucessPasswordChange');
+      }
+    },
+    value => console.log(value),
+    console.error
+  );
+};
+
 export const pushNewVersionNotification = ({ content }) => (
   dispatch,
   getState
@@ -285,3 +313,4 @@ export const deleteEndpoint = withAuthentication(deleteEndpointThunk);
 export const addCredential = withAuthentication(addCredentialThunk);
 export const editCredential = withAuthentication(editCredentialThunk);
 export const deleteCredential = withAuthentication(deleteCredentialThunk);
+export const updateUserSettings = withAuthentication(updateUserSettingsThunk);

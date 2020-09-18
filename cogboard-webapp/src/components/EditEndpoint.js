@@ -20,17 +20,17 @@ const EditEndpoint = ({ id }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
 
   const handleAddEndpointClick = () => {
-      const headers = isAuthenticated
-        ? { headers: { Authorization: getToken() } }
-        : undefined;
+    const headers = isAuthenticated
+      ? { headers: { Authorization: getToken() } }
+      : undefined;
 
-      fetch(`${URL.ENDPOINTS_ENDPOINT}/${id}`, headers)
-        .then(response => response.json())
-        .then(data => {
-          setEndpointData(data);
-          openDialog();
-        })
-        .catch(console.error);
+    fetch(`${URL.ENDPOINTS_ENDPOINT}/${id}`, headers)
+      .then(response => response.json())
+      .then(data => {
+        setEndpointData(data);
+        openDialog();
+      })
+      .catch(console.error);
   };
 
   const handleSubmit = values => {
