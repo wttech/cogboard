@@ -254,7 +254,7 @@ const updateUserSettingsThunk = user => dispatch => {
           pushNotification(NOTIFICATIONS.CHANGE_CREDENTIALS_SUCCESS(userRole))
         );
         dispatch(logoutUser());
-        dispatchEvent('reloadLogin');
+        dispatchEvent('sucessPasswordChange');
       }
     },
     value => console.log(value),

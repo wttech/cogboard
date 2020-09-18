@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useToggle } from '../../hooks';
+import { useEventListener, useToggle } from '../../hooks';
 import {
   getIsAuthenticated,
   getCredentials,
@@ -46,6 +46,8 @@ const SettingsMenu = ({ className }) => {
   const endpoints = useSelector(getEndpoints);
   const userRole = getUserRole();
 
+  useEventListener('sucessPasswordChange', handleDialogClose);
+
   const handleDialogOpen = () => {
     dispatch(loadSettings());
     openDialog();
@@ -69,7 +71,6 @@ const SettingsMenu = ({ className }) => {
     delete values.passwordConfirmation;
 
     dispatch(updateUserSettings(values));
-    handleDialogClose();
   };
 
   const renderListItems = (items, name, EditComponent, deleteAction) =>

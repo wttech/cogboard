@@ -48,7 +48,7 @@ const UserLogin = () => {
     dispatch(clearLoginErrorMessage());
   }
 
-  useEventListener('reloadLogin', handleLoginDialogOpen);
+  useEventListener('sucessPasswordChange', handleLoginDialogOpen);
 
   return (
     <>
