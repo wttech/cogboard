@@ -9,7 +9,6 @@ import { getCredentials } from './helpers';
 
 import { Button, IconButton, TextField } from '@material-ui/core';
 import { AccountCircle, PowerSettingsNew, Error } from '@material-ui/icons';
-// import ErrorIcon from '@material-ui/icons/Error';
 import AppDialog from './../AppDialog';
 import { StyledFieldset, StyledErrorMsg } from '../styled';
 
