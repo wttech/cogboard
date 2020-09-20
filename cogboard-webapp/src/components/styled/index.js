@@ -140,3 +140,12 @@ export const StyledErrorMsg = styled(Typography)`
     margin-right: 5px;
   }
 `;
+
+export const StyledFormFieldWrapper = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+
+  .Mui-error {
+    color: ${COLORS.YELLOW};
+  }
+`;
