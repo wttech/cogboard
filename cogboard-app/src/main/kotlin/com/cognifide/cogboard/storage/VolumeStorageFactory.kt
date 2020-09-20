@@ -4,12 +4,12 @@ import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.config.ConfigType.BOARDS
 import com.cognifide.cogboard.config.ConfigType.CREDENTIALS
 import com.cognifide.cogboard.config.ConfigType.ENDPOINTS
-import com.cognifide.cogboard.config.ConfigType.ADMINS
+import com.cognifide.cogboard.config.ConfigType.ADMIN
 import com.cognifide.cogboard.config.ConfigType.VERSION
 
 object VolumeStorageFactory {
 
-    fun admins(configFile: String = ADMINS.configFilePath()) = create(ADMINS, configFile)
+    fun admin(configFile: String = ADMIN.configFilePath()) = create(ADMIN, configFile)
     fun endpoints(configFile: String = ENDPOINTS.configFilePath()) = create(ENDPOINTS, configFile)
     fun credentials(configFile: String = CREDENTIALS.configFilePath()) = create(CREDENTIALS, configFile)
     fun boards(configFile: String = BOARDS.configFilePath()) = create(BOARDS, configFile)

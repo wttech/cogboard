@@ -1,6 +1,10 @@
 package com.cognifide.cogboard.security
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PASSWORD
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USER
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USERNAME
+import com.cognifide.cogboard.CogboardConstants.Companion.STATUS_CODE_401
+import com.cognifide.cogboard.config.model.Admin
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory
 import io.knotx.server.api.handler.RoutingHandlerFactory
@@ -13,7 +17,7 @@ import io.vertx.reactivex.core.Vertx
 import io.vertx.reactivex.ext.auth.jwt.JWTAuth
 import io.vertx.reactivex.ext.web.RoutingContext
 
-class LoginHandler(val storage: Storage = VolumeStorageFactory.admins()) : RoutingHandlerFactory {
+class LoginHandler(val storage: Storage = VolumeStorageFactory.admin()) : RoutingHandlerFactory {
 
     private var vertx: Vertx? = null
     private lateinit var config: JsonObject
@@ -28,12 +32,12 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admins()) : Routi
 
         return Handler { ctx ->
             ctx.bodyAsJson?.let {
-                val username = it.getString("username", "")
-                val password = it.getString("password", "")
+                val username = it.getString(PROP_USERNAME, "")
+                val password = it.getString(PROP_PASSWORD, "")
                 val admin = getAdmin(username)
                 when {
                     admin == null -> sendUnauthorized(ctx, wrongUserMsg)
-                    admin.isNotAuthorized(password) -> sendUnauthorized(ctx, wrongPassMsg)
+                    !isAuthorized(admin, password) -> sendUnauthorized(ctx, wrongPassMsg)
                     else -> sendJWT(ctx, username)
                 }
             }
@@ -41,21 +45,23 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admins()) : Routi
     }
 
     private fun getAdmin(name: String): Admin? {
-        val data = storage
-                .loadConfig()
-                .getJsonArray("admins")
-                ?.map { it as JsonObject }
-                ?.firstOrNull { it.getString("name") == name }
-        return if (data != null) Admin(data.getString("name"), data.getString("pass"))
-        else null
+        val admin = storage.loadConfig()
+        val username = admin.getString(PROP_USER)
+        return if (username == name) {
+            val password = admin.getString(PROP_PASSWORD)
+            Admin(username, password)
+        } else null
+    }
+
+    private fun isAuthorized(admin: Admin, password: String?) =
+            admin.password.isNotBlank() && admin.password == password
+
+    private fun sendUnauthorized(ctx: RoutingContext, message: String) {
+        ctx.response().setStatusMessage(message).setStatusCode(STATUS_CODE_401).end()
     }
 
     private fun sendJWT(ctx: RoutingContext, user: String) {
         ctx.response().end(generateJWT(user))
-    }
-
-    private fun sendUnauthorized(ctx: RoutingContext, message: String) {
-        ctx.response().setStatusMessage(message).setStatusCode(CogboardConstants.STATUS_CODE_401).end()
     }
 
     private fun generateJWT(username: String): String {
@@ -72,12 +78,6 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admins()) : Routi
                 JWTOptions().setExpiresInSeconds(SESSION_DURATION_IN_SECONDS)
         ) ?: "no data"
         return "{\"token\":\"Bearer $token\"}"
-    }
-
-    private class Admin(val name: String, val password: String) {
-        fun isNotAuthorized(password: String): Boolean {
-            return password.isBlank() || this.password != password
-        }
     }
 
     companion object {

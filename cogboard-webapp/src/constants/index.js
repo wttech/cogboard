@@ -24,6 +24,7 @@ export const URL = {
   LOGIN: '/api/login',
   ENDPOINTS_ENDPOINT: '/api/endpoints',
   CREDENTIALS_ENDPOINT: '/api/credentials',
+  UPDATE_USER_SETTINGS: '/api/user/update',
   UPDATE_INFO: 'https://github.com/Cognifide/cogboard/wiki#update'
 };
 export const COLUMN_MULTIPLIER = 2;
@@ -38,6 +39,8 @@ export const WIDGET_ROWS_MIN = 0.5;
 export const WIDGET_ROWS_MAX = 4;
 
 export const WIDGET_TITLE_LENGTH_LIMIT = 25;
+
+export const USER_LOGIN_LENGTH = 25;
 
 export const CHECK_NEW_VERSION_DELAY = 3 * 60 * 60 * 1000; // 3h
 
@@ -179,5 +182,15 @@ export const NOTIFICATIONS = {
     type: 'info',
     message: 'New version available!',
     action
+  }),
+  CHANGE_CREDENTIALS_SUCCESS: userRole => ({
+    type: 'success',
+    message: `Account credentials for ${userRole} were changed, please log in`,
+    duration: 3000
+  }),
+  CHANGE_CREDENTIALS_FAILED: message => ({
+    type: 'error',
+    message: message,
+    duration: 3000
   })
 };

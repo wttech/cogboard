@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.config.model
 
 data class Admin(
-    val name: String,
-    val pass: String
+    val user: String,
+    val password: String
 )

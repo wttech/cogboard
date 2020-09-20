@@ -6,9 +6,7 @@
         "title": "Welcome to Cogboard",
         "columns": 8,
         "theme": "default",
-        "widgets": [
-          "newWidget1,widgetThatIsNotEdited"
-        ]
+        "widgets": ["newWidget1,widgetThatIsNotEdited"]
       },
       "board2": {
         "id": "board2",
@@ -18,10 +16,7 @@
         "widgets": []
       }
     },
-    "allBoards": [
-      "board1",
-      "board2"
-    ]
+    "allBoards": ["board1", "board2"]
   },
   "widgets": {
     "widgetsById": {
@@ -54,8 +49,6 @@
         "boardId": "board1"
       }
     },
-    "allWidgets": [
-      "newWidget,widgetThatIsNotEdited"
-    ]
+    "allWidgets": ["newWidget,widgetThatIsNotEdited"]
   }
 }

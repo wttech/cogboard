@@ -59,6 +59,10 @@ export const StyledFieldset = styled(FormControl)`
     color: ${COLORS.WHITE};
   }
 
+  .MuiFormLabel-root.Mui-error {
+    color: ${COLORS.WHITE};
+  }
+
   .MuiInput-underline::after,
   .MuiInput-underline.Mui-focused::after {
     border-bottom-color: ${COLORS.WHITE};
