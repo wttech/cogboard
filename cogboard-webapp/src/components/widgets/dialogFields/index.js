@@ -62,6 +62,18 @@ const dialogFields = {
         .max(max, vm.STRING_LENGTH('Label', max))
         .required(vm.FIELD_REQUIRED())
   },
+  CurrentPasswordField: {
+    component: PasswordInput,
+    name: 'currentPassword',
+    label: 'Current Password',
+    validator: () => string().required(vm.FIELD_REQUIRED)
+  },
+  NewPasswordField: {
+    component: PasswordInput,
+    name: 'newPassword',
+    label: 'New Password',
+    validator: () => string().required(vm.FIELD_REQUIRED)
+  },
   PasswordField: {
     component: PasswordInput,
     name: 'password',
@@ -76,7 +88,11 @@ const dialogFields = {
     component: PasswordInput,
     name: 'passwordConfirmation',
     label: 'Password confirmation',
-    validator: () => string().oneOf([ref('password'), null], vm.PASSWORD_MATCH)
+    validator: () =>
+      string().oneOf(
+        [ref('password'), ref('newPassword'), null],
+        vm.PASSWORD_MATCH
+      )
   },
   TokenField: {
     component: MultilineTextInput,

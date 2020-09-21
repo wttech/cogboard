@@ -1,10 +1,14 @@
 package com.cognifide.cogboard.config.storage
 
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_BOARDS
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CREDENTIALS
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_ENDPOINTS
+import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USER
 import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.storage.VolumeStorage
 import io.vertx.core.json.JsonObject
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 import java.io.File
@@ -15,10 +19,10 @@ internal class VolumeStorageTest {
     private val storagePath = VolumeStorageTest::class.java.getResource("/board").path
 
     private val configs = listOf(
-            Triple(ConfigType.ADMINS, "admins.json", "admins"),
-            Triple(ConfigType.CREDENTIALS, "credentials.json", "credentials"),
-            Triple(ConfigType.BOARDS, "config.json", "boards"),
-            Triple(ConfigType.ENDPOINTS, "endpoints.json", "endpoints")
+            Triple(ConfigType.ADMIN, "admin.json", PROP_USER),
+            Triple(ConfigType.CREDENTIALS, "credentials.json", PROP_CREDENTIALS),
+            Triple(ConfigType.BOARDS, "config.json", PROP_BOARDS),
+            Triple(ConfigType.ENDPOINTS, "endpoints.json", PROP_ENDPOINTS)
     )
 
     @TestFactory

@@ -2,7 +2,6 @@ import { createWidget } from '../support/widget';
 import Widgets from '../fixtures/Widgets';
 
 describe('Refresh widgets', () => {
-
   const jenkinsJobTitleFirst = 'Jenkins Job';
   const blueColor = 'rgb(25, 140, 189)';
   const redColor = 'rgb(225, 49, 47)';
@@ -44,10 +43,8 @@ describe('Refresh widgets', () => {
       .clear()
       .type(url)
       .blur();
-    cy.get('[data-cy="endpoint-form-submit-button"]')
-      .click();
-    cy.get('[data-cy="settings-menu-exit-button"]')
-      .click();
+    cy.get('[data-cy="endpoint-form-submit-button"]').click();
+    cy.get('[data-cy="settings-menu-exit-button"]').click();
   }
 
   function createJenkinsJobWidget(title) {
@@ -57,5 +54,4 @@ describe('Refresh widgets', () => {
     widget.configure(false);
     return widget;
   }
-
 });

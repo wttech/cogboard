@@ -10,7 +10,7 @@ import AddCredential from '../../AddCredential';
 
 const CredentialInput = props => {
   const credentials = useSelector(getCredentials);
-  const noValue = { id: '', label: '', user: ''};
+  const noValue = { id: '', label: '', user: '' };
   const extendedCredentials = [noValue, ...credentials];
 
   return (

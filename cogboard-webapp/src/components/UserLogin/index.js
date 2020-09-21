@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useToggle } from '../../hooks';
+import { useEventListener, useToggle } from '../../hooks';
 import { login, logout } from '../../actions/thunks';
 import { clearLoginErrorMessage } from '../../actions/actionCreators';
 import { getIsAuthenticated } from '../../selectors';
@@ -47,6 +47,8 @@ const UserLogin = () => {
     handleDialogClose();
     dispatch(clearLoginErrorMessage());
   }
+
+  useEventListener('sucessPasswordChange', handleLoginDialogOpen);
 
   return (
     <>

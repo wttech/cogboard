@@ -127,6 +127,14 @@ paths:
       responses:
         default:
           description: Credential Delete Handler
+  /api/user/update:
+    post:
+      operationId: user-update-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: User Update Handler
   /api/widget/update:
     post:
       operationId: widget-update-handler
