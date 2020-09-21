@@ -45,11 +45,7 @@ const Widget = ({ id, index }) => {
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
-  const {
-    expandContent: isExpandContent,
-    isVertical,
-    isScrollable
-  } = widgetTypeData;
+  const { expandContent: isExpandContent, isVertical } = widgetTypeData;
   const expandContent =
     type === 'TextWidget' && isVertical ? false : isExpandContent;
   const widgetTypeConfig = widgetTypes[type] || widgetTypes['WhiteSpaceWidget'];
@@ -222,7 +218,6 @@ const Widget = ({ id, index }) => {
           expandContent,
           expanded,
           handleToggle,
-          isScrollable,
           closeWidgets
         )}
         {expandContent && (

@@ -193,7 +193,7 @@ const widgetTypes = {
   ToDoListWidget: {
     name: 'ToDo List',
     component: ToDoListWidget,
-    dialogFields: ['ToDoListItems', 'ScrollableList']
+    dialogFields: ['ToDoListItems']
   }
 };
 

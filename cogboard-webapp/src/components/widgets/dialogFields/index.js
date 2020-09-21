@@ -536,13 +536,6 @@ const dialogFields = {
       array()
         .ensure()
         .min(1, vm.FIELD_MIN_ITEMS())
-  },
-  ScrollableList: {
-    component: CheckboxInput,
-    name: 'isScrollable',
-    label: 'Scrollable List',
-    initialValue: false,
-    validator: () => boolean()
   }
 };
 

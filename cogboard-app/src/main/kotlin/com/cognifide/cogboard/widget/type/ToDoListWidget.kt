@@ -39,7 +39,7 @@ class ToDoListWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, confi
             JsonObject().put(CogboardConstants.PROP_CONTENT, JsonObject().put(SELECTED_ITEMS, selectedItems))
 
     companion object {
-        val PROPS = setOf("toDoListItems", "isScrollable")
+        val PROPS = setOf("toDoListItems")
         const val SELECTED_ITEM = "selectedItem"
         const val SELECTED_ITEMS = "selectedItems"
     }

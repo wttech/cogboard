@@ -52,23 +52,28 @@ const ToDoListWidget = ({ id, selectedItems }) => {
   };
 
   const renderToDoListCheckBoxes = () => {
-    let checkedItemsList;
     const { toDoListItems } = widgetData;
-    toDoListItems.forEach(item => {
-      if (selectedItems.includes(item.id)) {
-        console.log('item on list');
-      }
-    });
-    // const checkedItems = toDoListItems.filter(
-    //   item => item.itemChecked === true
-    // );
+    let newToDoList = [];
+    let checkedItems = [];
+
+    if (toDoListItems) {
+      toDoListItems.forEach(item => {
+        if (selectedItems.includes(item.id)) {
+          item.itemChecked = true;
+          checkedItems.push(item);
+        } else {
+          item.itemChecked = false;
+          newToDoList.push(item);
+        }
+      });
+    }
 
     return (
       <>
-        {toDoListItems.map(
+        {newToDoList.map(
           item => !item.itemChecked && renderFormControlLabel(item)
         )}
-        {/* {checkedItems.map(item => renderFormControlLabel(item))} */}
+        {checkedItems.map(item => renderFormControlLabel(item))}
       </>
     );
   };

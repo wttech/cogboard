@@ -105,7 +105,7 @@ export const StyledEmptyCardHeader = styled(props => (
   }
 `;
 
-export const StyledCardContent = styled(({ isScrollable, ...props }) => (
+export const StyledCardContent = styled(({ type, ...props }) => (
   <CardContent {...props} />
 ))`
   display: flex;
@@ -113,7 +113,7 @@ export const StyledCardContent = styled(({ isScrollable, ...props }) => (
   flex: 1;
   position: relative;
   justify-content: space-between;
-  overflow-y: ${({ isScrollable }) => (isScrollable ? 'auto' : '')};
+  overflow-y: ${({ type }) => (type === 'ToDoListWidget' ? 'auto' : '')};
 
   &:last-child {
     padding-bottom: 8px;
