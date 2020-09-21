@@ -5,7 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Typography } from '@material-ui/core';
 import { postWidgetContentUpdate } from '../../../utils/fetch';
-// import { v4 } from 'uuid';
+import { shallowEqual, useSelector } from 'react-redux';
 import styled from '@emotion/styled/macro';
 
 const StyledCheckbox = styled(Checkbox)`
@@ -16,7 +16,11 @@ const StyledCheckbox = styled(Checkbox)`
   }
 `;
 
-const ToDoListWidget = ({ id, toDoListItems }) => {
+const ToDoListWidget = ({ id, selectedItems }) => {
+  const widgetData = useSelector(
+    ({ widgets }) => widgets.widgetsById[id],
+    shallowEqual
+  );
   const handleChangeStatus = evt => {
     postWidgetContentUpdate({
       id,
@@ -48,16 +52,23 @@ const ToDoListWidget = ({ id, toDoListItems }) => {
   };
 
   const renderToDoListCheckBoxes = () => {
-    const checkedItems = toDoListItems.filter(
-      item => item.itemChecked === true
-    );
+    let checkedItemsList;
+    const { toDoListItems } = widgetData;
+    toDoListItems.forEach(item => {
+      if (selectedItems.includes(item.id)) {
+        console.log('item on list');
+      }
+    });
+    // const checkedItems = toDoListItems.filter(
+    //   item => item.itemChecked === true
+    // );
 
     return (
       <>
         {toDoListItems.map(
           item => !item.itemChecked && renderFormControlLabel(item)
         )}
-        {checkedItems.map(item => renderFormControlLabel(item))}
+        {/* {checkedItems.map(item => renderFormControlLabel(item))} */}
       </>
     );
   };
