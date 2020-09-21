@@ -11,6 +11,15 @@ export const StyledValidationMessages = styled(ValidationMessages)`
   list-style-type: none;
   margin: 0;
   padding: 0;
+
+  li {
+    display: flex;
+  }
+
+  .MuiSvgIcon-root {
+    font-size: 1.1rem;
+    margin-right: 4px;
+  }
 `;
 
 export const StyledCancelButton = styled(CancelButton)`
