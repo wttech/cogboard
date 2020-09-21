@@ -18,33 +18,23 @@ class ToDoListWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, confi
 
     override fun updateState() {
         val selectedItems = selectedItems()
-        when {
-            selectedItems != null -> {
-                send(contentJson(selectedItems))
-            }
-            else -> {
-                send(contentJson())
-            }
-        }
+        send(contentJson(selectedItems))
     }
 
     private fun changeSelectedItems(state: JsonObject): JsonObject {
         val selectedItems = selectedItems()
         val selectedItem = state.getValue(SELECTED_ITEM)
-        when {
-            selectedItems?.contains(selectedItem)!! -> {
-                selectedItems.remove(selectedItem)
-            }
-            else -> {
-                selectedItems.add(selectedItem)
-            }
+        if (selectedItems.contains(selectedItem)) {
+            selectedItems.remove(selectedItem)
+        } else {
+            selectedItems.add(selectedItem)
         }
         return contentJson(selectedItems)
     }
 
-    private fun selectedItems(): JsonArray? {
+    private fun selectedItems(): JsonArray {
         val widget = ContentRepository().get(id)
-        return widget.getJsonArray(SELECTED_ITEMS)
+        return widget.getJsonArray(SELECTED_ITEMS) ?: JsonArray()
     }
 
     private fun contentJson(selectedItems: JsonArray? = JsonArray()) =
