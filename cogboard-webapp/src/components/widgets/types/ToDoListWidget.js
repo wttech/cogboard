@@ -58,7 +58,7 @@ const ToDoListWidget = ({ id, selectedItems }) => {
 
     if (toDoListItems) {
       toDoListItems.forEach(item => {
-        if (selectedItems.includes(item.id)) {
+        if (selectedItems && selectedItems.includes(item.id)) {
           item.itemChecked = true;
           checkedItems.push(item);
         } else {
