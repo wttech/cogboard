@@ -2,40 +2,22 @@ import React, { useState } from 'react';
 import {
   FormControl,
   IconButton,
-  List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import CheckIcon from '@material-ui/icons/Check';
+import { Add, Check, Edit, Delete } from '@material-ui/icons';
 import { remove } from 'ramda';
 import { prepareChangeEvent } from './helpers';
-import AddIcon from '@material-ui/icons/Add';
-import Input from '@material-ui/core/Input';
-import Fab from '@material-ui/core/Fab';
-import styled from '@emotion/styled/macro';
+import { StyledFab, StyledList, StyledInput, StyledFabGroup } from './styled';
 
-const StyledInput = styled(Input)`
-  margin-top: 16px;
-  margin-bottom: 8px;
-`;
-
-const StyledFab = styled(Fab)`
-  margin-top: 16px;
-  margin-bottom: 8px;
-`;
-
-const StyledList = styled(List)`
-  margin-top: 16px;
-`;
-
-const ToDoListInput = ({ value, onChange }) => {
+const ToDoListInput = ({ value, values, onChange }) => {
   const [formValueItemText, setFormValueItemText] = useState('');
   const [editMode, setEditMode] = useState(false);
   const handleChangeValItemText = event =>
     setFormValueItemText(event.target.value);
+  console.log(value);
+  const selectedItems = values.content ? values.content.selectedItems : [];
   const [items, setItems] = useState(() =>
     (value || []).map(item => {
       return {
@@ -44,8 +26,6 @@ const ToDoListInput = ({ value, onChange }) => {
       };
     })
   );
-
-  console.log(items);
 
   const resetInput = () => {
     setFormValueItemText('');
@@ -84,6 +64,8 @@ const ToDoListInput = ({ value, onChange }) => {
     resetInput();
   };
 
+  const onClearClick = () => {};
+
   const handleEdit = id => {
     const editItem = items.find(el => el.id === id);
     setFormValueItemText(editItem.itemText);
@@ -105,24 +87,38 @@ const ToDoListInput = ({ value, onChange }) => {
         onChange={handleChangeValItemText}
         value={formValueItemText}
       />
-      <StyledFab
-        data-cy="add-item"
-        onClick={onSaveClick}
-        variant="extended"
-        size="small"
-        color="primary"
-        aria-label="add"
-      >
-        {editMode ? (
+      <StyledFabGroup>
+        <StyledFab
+          data-cy="add-item"
+          onClick={onSaveClick}
+          variant="extended"
+          size="small"
+          color="primary"
+          aria-label="add"
+        >
+          {editMode ? (
+            <>
+              <Check /> Save item
+            </>
+          ) : (
+            <>
+              <Add /> Add Item
+            </>
+          )}
+        </StyledFab>
+        <StyledFab
+          data-cy="clear-selected-items"
+          onClick={onClearClick}
+          variant="extended"
+          size="small"
+          color="primary"
+          aria-label="clear selected items"
+        >
           <>
-            <CheckIcon /> Save item
+            <Delete /> Clear Selected
           </>
-        ) : (
-          <>
-            <AddIcon /> Add Item
-          </>
-        )}
-      </StyledFab>
+        </StyledFab>
+      </StyledFabGroup>
       <StyledList>
         {items.map((item, index) => (
           <ListItem
@@ -134,16 +130,23 @@ const ToDoListInput = ({ value, onChange }) => {
               handleEdit(item.id);
             }}
           >
-            <ListItemText primary={item.itemText} />
+            <ListItemText
+              primary={item.itemText}
+              style={
+                selectedItems.includes(item.id)
+                  ? { textDecoration: 'line-through' }
+                  : {}
+              }
+            />
             <ListItemSecondaryAction>
               <IconButton
+                aria-label="Edit"
+                disabled={editMode === item.id}
                 onClick={() => {
                   handleEdit(item.id);
                 }}
-                aria-label="Edit"
-                disabled={editMode === item.id}
               >
-                <EditIcon />
+                <Edit />
               </IconButton>
               <IconButton
                 aria-label="Delete"
@@ -152,7 +155,7 @@ const ToDoListInput = ({ value, onChange }) => {
                   handleDelete(index);
                 }}
               >
-                <DeleteIcon />
+                <Delete />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>

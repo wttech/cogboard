@@ -21,6 +21,7 @@ const ToDoListWidget = ({ id, selectedItems }) => {
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
+
   const handleChangeStatus = evt => {
     postWidgetContentUpdate({
       id,
@@ -28,7 +29,7 @@ const ToDoListWidget = ({ id, selectedItems }) => {
     }).catch(e => console.log(e));
   };
 
-  const renderFormControlLabel = item => {
+  const renderListItem = item => {
     return (
       <FormControlLabel
         key={item.id}
@@ -51,40 +52,30 @@ const ToDoListWidget = ({ id, selectedItems }) => {
     );
   };
 
-  const renderToDoListCheckBoxes = () => {
+  const renderListItems = () => {
     const { toDoListItems } = widgetData;
-    let newToDoList = [];
+    let uncheckedItems = [];
     let checkedItems = [];
 
     if (toDoListItems) {
       toDoListItems.forEach(item => {
-        if (selectedItems.includes(item.id)) {
-          item.itemChecked = true;
-          checkedItems.push(item);
+        if (selectedItems && selectedItems.includes(item.id)) {
+          checkedItems.push({ ...item, itemChecked: true });
         } else {
-          item.itemChecked = false;
-          newToDoList.push(item);
+          uncheckedItems.push({ ...item, itemChecked: false });
         }
       });
     }
 
     return (
       <>
-        {newToDoList.map(
-          item => !item.itemChecked && renderFormControlLabel(item)
-        )}
-        {checkedItems.map(item => renderFormControlLabel(item))}
+        {uncheckedItems.map(item => renderListItem(item))}
+        {checkedItems.map(item => renderListItem(item))}
       </>
     );
   };
 
-  return (
-    <>
-      <div style={{ overflow: 'auto' }}>
-        <FormGroup column="true">{renderToDoListCheckBoxes()}</FormGroup>
-      </div>
-    </>
-  );
+  return <FormGroup column="true">{renderListItems()}</FormGroup>;
 };
 
 ToDoListWidget.propTypes = {
