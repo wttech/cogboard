@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { v4 } from 'uuid';
 import {
   FormControl,
   IconButton,
@@ -55,7 +56,7 @@ const ToDoListInput = ({ value, values, onChange }) => {
       updatedItems = [
         ...items,
         {
-          id: `item-${items.length + 1}`,
+          id: `item-${v4()}`,
           itemText: item.itemText
         }
       ];
