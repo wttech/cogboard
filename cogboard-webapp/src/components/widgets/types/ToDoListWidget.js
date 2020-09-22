@@ -26,7 +26,7 @@ const ToDoListWidget = ({ id, selectedItems }) => {
     postWidgetContentUpdate({
       id,
       selectedItem: evt.target.value
-    }).catch(e => console.log(e));
+    });
   };
 
   const renderListItem = item => {

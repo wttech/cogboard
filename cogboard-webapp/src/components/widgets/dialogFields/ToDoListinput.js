@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { Add, Check, Edit, Delete } from '@material-ui/icons';
 import { remove } from 'ramda';
+import { postWidgetContentUpdate } from '../../../utils/fetch';
 import { prepareChangeEvent } from './helpers';
 import { StyledFab, StyledList, StyledInput, StyledFabGroup } from './styled';
 
@@ -16,8 +17,8 @@ const ToDoListInput = ({ value, values, onChange }) => {
   const [editMode, setEditMode] = useState(false);
   const handleChangeValItemText = event =>
     setFormValueItemText(event.target.value);
-  console.log(value);
   const selectedItems = values.content ? values.content.selectedItems : [];
+  const widgetId = values.id || '';
   const [items, setItems] = useState(() =>
     (value || []).map(item => {
       return {
@@ -64,7 +65,19 @@ const ToDoListInput = ({ value, values, onChange }) => {
     resetInput();
   };
 
-  const onClearClick = () => {};
+  const onClearClick = () => {
+    if (!selectedItems) return;
+
+    const itemsToClear = new Set(selectedItems);
+    const filteredArray = items.filter(obj => !itemsToClear.has(obj.id));
+    setItems(filteredArray);
+    onChange(prepareChangeEvent(filteredArray, 'array'));
+
+    postWidgetContentUpdate({
+      id: widgetId,
+      clearItems: true
+    });
+  };
 
   const handleEdit = id => {
     const editItem = items.find(el => el.id === id);
@@ -74,8 +87,16 @@ const ToDoListInput = ({ value, values, onChange }) => {
 
   const handleDelete = itemIndex => {
     let itemList = remove(itemIndex, 1, items);
+    const itemId = items[itemIndex].id;
     setItems(itemList);
     onChange(prepareChangeEvent(itemList, 'array'));
+
+    if (selectedItems.includes(itemId)) {
+      postWidgetContentUpdate({
+        id: widgetId,
+        selectedItem: itemId
+      });
+    }
   };
 
   return (
@@ -106,18 +127,21 @@ const ToDoListInput = ({ value, values, onChange }) => {
             </>
           )}
         </StyledFab>
-        <StyledFab
-          data-cy="clear-selected-items"
-          onClick={onClearClick}
-          variant="extended"
-          size="small"
-          color="primary"
-          aria-label="clear selected items"
-        >
-          <>
-            <Delete /> Clear Selected
-          </>
-        </StyledFab>
+        {selectedItems.length > 0 && (
+          <StyledFab
+            data-cy="clear-selected-items"
+            className="clearButton"
+            onClick={onClearClick}
+            variant="extended"
+            size="small"
+            color="primary"
+            aria-label="clear selected items"
+          >
+            <>
+              <Delete /> Clear Selected
+            </>
+          </StyledFab>
+        )}
       </StyledFabGroup>
       <StyledList>
         {items.map((item, index) => (

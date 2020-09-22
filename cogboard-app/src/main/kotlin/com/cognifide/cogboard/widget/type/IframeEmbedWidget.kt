@@ -7,8 +7,7 @@ import io.vertx.core.json.JsonObject
 class IframeEmbedWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
 
     override fun updateState() {
-        val content = propsToContent(PROPS)
-        send(content)
+        updateStateByCopingPropsToContent(PROPS)
     }
 
     companion object {

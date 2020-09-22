@@ -32,11 +32,12 @@ export const StyledFabGroup = styled.div`
   flex-wrap: wrap;
 
   button:first-of-type {
+    flex: 1;
     width: 40%;
-    margin-right: 16px;
   }
 
-  button:last-of-type {
+  .clearButton {
     width: 55%;
+    margin-left: 16px;
   }
 `;

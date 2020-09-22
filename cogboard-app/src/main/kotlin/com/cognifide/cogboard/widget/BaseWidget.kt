@@ -120,12 +120,12 @@ abstract class BaseWidget(
         return consumer
     }
 
-    protected fun propsToContent(props: Set<String>): JsonObject {
+    protected fun updateStateByCopingPropsToContent(props: Set<String>) {
         val content = JsonObject()
         props.forEach {
             content.put(it, config.getValue(it))
         }
-        return JsonObject().put(CC.PROP_CONTENT, content)
+        send(JsonObject().put(CC.PROP_CONTENT, content))
     }
 
     private fun startWithSchedule() {
