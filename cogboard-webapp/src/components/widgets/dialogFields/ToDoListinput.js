@@ -16,9 +16,10 @@ import { StyledFab, StyledList, StyledInput, StyledFabGroup } from './styled';
 const ToDoListInput = ({ value, values, onChange }) => {
   const [formValueItemText, setFormValueItemText] = useState('');
   const [editMode, setEditMode] = useState(false);
+  const content = values.content || {};
   const handleChangeValItemText = event =>
     setFormValueItemText(event.target.value);
-  const selectedItems = values.content ? values.content.selectedItems : [];
+  const selectedItems = content.selectedItems || [];
   const widgetId = values.id || '';
   const [items, setItems] = useState(() =>
     (value || []).map(item => {
