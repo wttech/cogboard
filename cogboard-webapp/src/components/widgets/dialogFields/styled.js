@@ -25,6 +25,11 @@ export const StyledList = styled(List)`
   margin-top: 16px;
   overflow-y: scroll;
   max-height: 160px;
+
+  .MuiListItemText-root span {
+    max-width: 250px;
+    padding-right: 60px;
+  }
 `;
 
 export const StyledFabGroup = styled.div`
