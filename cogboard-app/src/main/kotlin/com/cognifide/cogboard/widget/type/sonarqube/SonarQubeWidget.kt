@@ -32,8 +32,7 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
             content.put(CogboardConstants.PROP_URL, version.getDashboardUrl(publicUrl, key, idNumber))
                     .put(CogboardConstants.PROP_WIDGET_STATUS, extractStatus(it))
 
-            send(JsonObject()
-                    .put(CogboardConstants.PROP_CONTENT, content))
+            send(content)
         }
     }
 
