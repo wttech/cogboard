@@ -297,6 +297,15 @@ module.exports = {
       },
       {
         itemText: 'Item 3'
+      },
+      {
+        itemText: 'Item 4'
+      },
+      {
+        itemText: 'Item 5'
+      },
+      {
+        itemText: 'Item 6'
       }
     ]
   },

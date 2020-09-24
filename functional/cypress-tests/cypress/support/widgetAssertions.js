@@ -115,6 +115,7 @@ export function validateToDoList(widget) {
     const itemTitle = Widgets.toDoList.toDoListItems[item].itemText;
 
     widget
+      .scrollToElement(`[data-cy="item-unchecked-${i}"]`)
       .assertText('h6', itemTitle)
       .isChecked(`[data-cy="item-unchecked-${i}"]`, false);
   }

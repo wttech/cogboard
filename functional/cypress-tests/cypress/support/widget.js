@@ -68,8 +68,8 @@ class Widget {
     return this;
   }
 
-  elementValue(selector, value) {
-    cy.get(selector).should('have.value', value);
+  scrollToElement(selector) {
+    cy.get(selector).scrollIntoView();
     return this;
   }
 
