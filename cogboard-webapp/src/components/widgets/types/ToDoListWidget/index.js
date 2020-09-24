@@ -20,7 +20,7 @@ const ToDoListWidget = ({ id, selectedItems }) => {
     }); // TODO handle error
   };
 
-  const renderListItem = item => {
+  const renderListItem = (id, item) => {
     return (
       <FormControlLabel
         key={item.id}
@@ -29,6 +29,11 @@ const ToDoListWidget = ({ id, selectedItems }) => {
             onChange={handleChangeStatus}
             value={item.id}
             checked={item.itemChecked}
+            inputProps={{
+              'data-cy': item.itemChecked
+                ? `item-checked-${id}`
+                : `item-unchecked-${id}`
+            }}
           />
         }
         label={
@@ -60,8 +65,8 @@ const ToDoListWidget = ({ id, selectedItems }) => {
 
     return (
       <>
-        {uncheckedItems.map(item => renderListItem(item))}
-        {checkedItems.map(item => renderListItem(item))}
+        {uncheckedItems.map((item, id) => renderListItem(id, item))}
+        {checkedItems.map((item, id) => renderListItem(id, item))}
       </>
     );
   };

@@ -109,17 +109,22 @@ export function validateText(widget) {
 }
 
 export function validateToDoList(widget) {
-  const listItems = Object.keys(Widgets.todoList.toDoListItems);
+  const listItems = Object.keys(Widgets.toDoList.toDoListItems);
   for (let i = 0; i < listItems.length; i++) {
+    const item = listItems[i];
+    const itemTitle = Widgets.toDoList.toDoListItems[item].itemText;
+
     widget
-      .assertText('h6', listItems[i].itemText)
-      .elementValue('input', listItems[i].id)
-      .isChecked(`[value=${listItems[i].id}]`, false);
+      .assertText('h6', itemTitle)
+      .isChecked(`[data-cy="item-unchecked-${i}"]`, false);
   }
 
   widget
-    .click('[value="item-064ad1e3-9df8-47ab-8ab0-7165ff579aad"]')
-    .isChecked('[value="item-064ad1e3-9df8-47ab-8ab0-7165ff579aad"]', true);
+    .isChecked(`[data-cy="item-unchecked-0"]`, false)
+    .click(`[data-cy="item-unchecked-0"]`);
+
+  cy.wait(100);
+  widget.isChecked(`[data-cy="item-checked-0"]`, true);
 }
 
 export function validateWhiteSpace(widget) {

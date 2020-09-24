@@ -286,19 +286,16 @@ module.exports = {
     textSize: 'h5',
     verticalText: true
   },
-  todoList: {
+  toDoList: {
     name: 'ToDo List',
     toDoListItems: [
       {
-        id: 'item-9ca907f6-1d35-4e62-a344-dba02bc3c181',
         itemText: 'Item 1'
       },
       {
-        id: 'item-064ad1e3-9df8-47ab-8ab0-7165ff579aad',
         itemText: 'Item 2'
       },
       {
-        id: 'item-ffa24306-5048-4503-8952-d0dbda37dae1',
         itemText: 'Item 3'
       }
     ]

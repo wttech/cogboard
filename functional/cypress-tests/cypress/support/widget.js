@@ -8,7 +8,7 @@ class Widget {
   }
 
   configure(disabled) {
-    cy.fillNewWidgetGeneral(this.name, this.title, false, disabled, 1, 1);
+    cy.fillNewWidgetGeneral(this.name, this.title, false, disabled, 2, 1);
     fillDynamicTab(this);
     cy.confirmAddWidget();
     return this;
