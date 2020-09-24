@@ -63,6 +63,16 @@ class Widget {
     return this;
   }
 
+  isChecked(selector, flag) {
+    cy.get(selector).should(flag ? 'be.checked' : 'not.be.checked');
+    return this;
+  }
+
+  elementValue(selector, value) {
+    cy.get(selector).should('have.value', value);
+    return this;
+  }
+
   move(movetoTarget) {
     cy.get(`h3:contains("${this.title}")`).drag(
       `h3:contains("${movetoTarget}")`,

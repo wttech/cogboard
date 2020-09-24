@@ -150,6 +150,13 @@ export function fillText() {
   cy.get('[data-value="h3"]').click();
 }
 
+export function fillToDoList() {
+  for (let item of Widgets.toDoList.toDoListItems) {
+    cy.get('[data-cy=item-text] > .MuiInputBase-input').type(item.itemText);
+    cy.get('[data-cy=add-item]').click();
+  }
+}
+
 export function fillWorldClock() {
   cy.get('[data-cy="widget-form-time-zone-id-input"]').click();
   cy.contains(Widgets.worldClock.timezone).click();
@@ -211,6 +218,9 @@ export function fillDynamicTab(widget) {
       break;
     case 'Text':
       selectTabAndFillData(fillText);
+      break;
+    case 'ToDo List':
+      selectTabAndFillData(fillToDoList);
       break;
     case 'World Clock':
       selectTabAndFillData(fillWorldClock);

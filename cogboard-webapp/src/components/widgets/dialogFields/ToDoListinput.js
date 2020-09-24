@@ -105,7 +105,7 @@ const ToDoListInput = ({ value, values, onChange }) => {
     <FormControl>
       <StyledInput
         data-cy="item-text"
-        placeholder="Item Text"
+        placeholder="Item Title"
         margin="normal"
         onChange={handleChangeValItemText}
         value={formValueItemText}

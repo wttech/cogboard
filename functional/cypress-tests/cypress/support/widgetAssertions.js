@@ -108,6 +108,20 @@ export function validateText(widget) {
   widget.assertText('h3', Widgets.text.text);
 }
 
+export function validateToDoList(widget) {
+  const listItems = Object.keys(Widgets.todoList.toDoListItems);
+  for (let i = 0; i < listItems.length; i++) {
+    widget
+      .assertText('h6', listItems[i].itemText)
+      .elementValue('input', listItems[i].id)
+      .isChecked(`[value=${listItems[i].id}]`, false);
+  }
+
+  widget
+    .click('[value="item-064ad1e3-9df8-47ab-8ab0-7165ff579aad"]')
+    .isChecked('[value="item-064ad1e3-9df8-47ab-8ab0-7165ff579aad"]', true);
+}
+
 export function validateWhiteSpace(widget) {
   widget.assertColor('rgb(255, 255, 255)');
 }
@@ -160,6 +174,9 @@ export function validateWidgetConfig(widget) {
       break;
     case 'Text':
       validateText(widget);
+      break;
+    case 'ToDo List':
+      validateToDoList(widget);
       break;
     case 'White Space':
       validateWhiteSpace(widget);
