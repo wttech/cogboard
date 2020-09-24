@@ -33,8 +33,7 @@ class JenkinsJobWidget(
             .put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
             .put(CC.PROP_WIDGET_STATUS, status)
 
-        send(JsonObject()
-                .put(CC.PROP_CONTENT, lastBuild))
+        send(lastBuild)
     }
 
     private fun makePublic(privateUrl: String): String {

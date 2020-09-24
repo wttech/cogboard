@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.widget.type
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.widget.BaseWidget
 import io.vertx.core.Vertx
@@ -12,16 +11,16 @@ class ToDoListWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, confi
     init {
         createDynamicChangeSubscriber()?.handler {
             val state = changeSelectedItems(it.body())
-            send(state)
+            send(JsonObject().put(SELECTED_ITEMS, state))
         }
     }
 
     override fun updateState() {
         val selectedItems = loadSelectedItems()
-        send(wrapBeforeSending(selectedItems))
+        send(JsonObject().put(SELECTED_ITEMS, selectedItems))
     }
 
-    private fun changeSelectedItems(state: JsonObject): JsonObject {
+    private fun changeSelectedItems(state: JsonObject): JsonArray {
         val selectedItems: JsonArray
         if (state.containsKey(CLEAR_ITEMS) && state.getBoolean(CLEAR_ITEMS)) {
             selectedItems = JsonArray()
@@ -29,7 +28,7 @@ class ToDoListWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, confi
             selectedItems = loadSelectedItems()
             addOrRemoveItem(state, selectedItems)
         }
-        return wrapBeforeSending(selectedItems)
+        return selectedItems
     }
 
     private fun addOrRemoveItem(state: JsonObject, selectedItems: JsonArray) {
@@ -45,9 +44,6 @@ class ToDoListWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, confi
         val widget = ContentRepository().get(id)
         return widget.getJsonArray(SELECTED_ITEMS) ?: JsonArray()
     }
-
-    private fun wrapBeforeSending(selectedItems: JsonArray? = JsonArray()) =
-            JsonObject().put(CogboardConstants.PROP_CONTENT, JsonObject().put(SELECTED_ITEMS, selectedItems))
 
     companion object {
         val PROPS = setOf("toDoListItems")

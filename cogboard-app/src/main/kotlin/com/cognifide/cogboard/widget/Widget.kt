@@ -13,7 +13,7 @@ interface Widget {
 
     fun updateState()
 
-    fun send(state: JsonObject)
+    fun send(state: Any, dontWrap: Boolean = false)
 
     fun config(): JsonObject
 
