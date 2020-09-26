@@ -12,6 +12,7 @@ import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
 import PersonDrawWidget from './types/PersonDrawWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
+import LinkListWidget from './types/LinkListWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -188,6 +189,15 @@ const widgetTypes = {
     validationConstraints: {
       SchedulePeriod: { min: 3 }
     }
+  },
+  LinkListWidget: {
+    name: 'Link List',
+    component: LinkListWidget,
+    dialogFields: [
+      'LinkListItems'
+    ],
+    showUpdateTime: false,
+    initialStatus: 'NONE'
   }
 };
 

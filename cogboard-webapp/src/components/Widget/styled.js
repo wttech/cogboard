@@ -110,6 +110,7 @@ export const StyledCardContent = styled(CardContent)`
   flex: 1;
   position: relative;
   justify-content: space-between;
+  overflow: hidden;
 
   &:last-child {
     padding-bottom: 8px;

@@ -31,6 +31,7 @@ import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
+import LinkListInput from './LinkListInput';
 
 const dialogFields = {
   LabelField: {
@@ -526,6 +527,12 @@ const dialogFields = {
       array()
         .ensure()
         .min(1, vm.FIELD_MIN_ITEMS())
+  },
+  LinkListItems: {
+    component: LinkListInput,
+    name: 'linkListItems',
+    initialValue: [],
+    validator: () => array()
   }
 };
 

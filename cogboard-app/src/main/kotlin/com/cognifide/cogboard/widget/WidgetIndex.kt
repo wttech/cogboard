@@ -15,6 +15,7 @@ import com.cognifide.cogboard.widget.type.TextWidget
 import com.cognifide.cogboard.widget.type.JiraBucketsWidget
 import com.cognifide.cogboard.widget.type.WorldClockWidget
 import com.cognifide.cogboard.widget.type.AemBundleInfoWidget
+import com.cognifide.cogboard.widget.type.LinkListWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 
@@ -40,6 +41,7 @@ class WidgetIndex {
             CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)
             PersonDrawWidget::class.java.simpleName -> PersonDrawWidget(vertx, config)
             AemBundleInfoWidget::class.java.simpleName -> AemBundleInfoWidget(vertx, config)
+            LinkListWidget::class.java.simpleName -> LinkListWidget(vertx, config)
             // add here
             else -> WhiteSpaceWidget(vertx, config)
         }
