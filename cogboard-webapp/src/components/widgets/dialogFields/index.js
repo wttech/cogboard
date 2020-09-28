@@ -428,7 +428,6 @@ const dialogFields = {
     validator: () =>
       array()
         .ensure()
-        .min(1, vm.FIELD_MIN_ITEMS())
         .of(string())
   },
   DailySwitch: {
@@ -526,13 +525,14 @@ const dialogFields = {
     validator: () =>
       array()
         .ensure()
-        .min(1, vm.FIELD_MIN_ITEMS())
   },
   ToDoListItems: {
     component: ToDoListInput,
     name: 'toDoListItems',
     initialValue: [],
-    validator: () => array()
+    validator: () =>
+      array()
+        .ensure()
   }
 };
 

@@ -6,7 +6,8 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Typography, FormGroup, FormControlLabel } from '@material-ui/core';
 
 import { postWidgetContentUpdate } from '../../../../utils/fetch';
-import { StyledCheckbox, StyledNoItemsInfo } from './styled';
+import { StyledCheckbox } from './styled';
+import { StyledNoItemsInfo } from '../../../Widget/styled';
 
 const ToDoListWidget = ({ id, selectedItems }) => {
   const widgetData = useSelector(
