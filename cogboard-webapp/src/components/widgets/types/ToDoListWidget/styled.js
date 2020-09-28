@@ -9,3 +9,17 @@ export const StyledCheckbox = styled(Checkbox)`
     color: rgba(255, 255, 255, 0.7);
   }
 `;
+
+export const StyledNoItemsInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%;
+
+  p {
+    width: 100%;
+    text-align: center;
+  }
+`;

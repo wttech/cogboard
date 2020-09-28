@@ -2,10 +2,11 @@ import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { array } from 'prop-types';
 
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Typography, FormGroup, FormControlLabel } from '@material-ui/core';
 
 import { postWidgetContentUpdate } from '../../../../utils/fetch';
-import { StyledCheckbox } from './styled';
+import { StyledCheckbox, StyledNoItemsInfo } from './styled';
 
 const ToDoListWidget = ({ id, selectedItems }) => {
   const widgetData = useSelector(
@@ -71,7 +72,18 @@ const ToDoListWidget = ({ id, selectedItems }) => {
     );
   };
 
-  return <FormGroup column="true">{renderListItems()}</FormGroup>;
+  return (
+    <>
+      {(widgetData.toDoListItems && widgetData.toDoListItems.length > 0) ? (
+        <FormGroup column="true">{renderListItems()}</FormGroup>
+      ) : (
+        <StyledNoItemsInfo>
+          <InfoOutlinedIcon fontSize='large' />
+          <p>List Empty</p>
+        </StyledNoItemsInfo>
+      )}
+    </>
+  );
 };
 
 ToDoListWidget.propTypes = {

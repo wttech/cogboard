@@ -23,7 +23,7 @@ export const StyledFab = styled(Fab)`
 
 export const StyledList = styled(List)`
   margin-top: 16px;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 160px;
 
   .MuiListItemText-root span {

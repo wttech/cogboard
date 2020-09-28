@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { v4 } from 'uuid';
+import { remove } from 'ramda';
+import { postWidgetContentUpdate } from '../../../utils/fetch';
+import { saveWidget } from '../../../actions/thunks';
+import { prepareChangeEvent } from './helpers';
 import {
   FormControl,
   IconButton,
@@ -8,14 +13,12 @@ import {
   ListItemText
 } from '@material-ui/core';
 import { Add, Check, Edit, Delete } from '@material-ui/icons';
-import { remove } from 'ramda';
-import { postWidgetContentUpdate } from '../../../utils/fetch';
-import { prepareChangeEvent } from './helpers';
 import { StyledFab, StyledList, StyledInput, StyledFabGroup } from './styled';
 
 const ToDoListInput = ({ value, values, onChange }) => {
   const [formValueItemText, setFormValueItemText] = useState('');
   const [editMode, setEditMode] = useState(false);
+  const dispatch = useDispatch();
   const content = values.content || {};
   const handleChangeValItemText = event =>
     setFormValueItemText(event.target.value);
@@ -79,6 +82,7 @@ const ToDoListInput = ({ value, values, onChange }) => {
       id: widgetId,
       clearItems: true
     });
+    dispatch(saveWidget({ widgetId, values: { ...values, toDoListItems: filteredArray }}));
   };
 
   const handleEdit = id => {
@@ -98,6 +102,7 @@ const ToDoListInput = ({ value, values, onChange }) => {
         id: widgetId,
         selectedItem: itemId
       });
+      dispatch(saveWidget({ widgetId, values: { ...values, toDoListItems: itemList} }));
     }
   };
 

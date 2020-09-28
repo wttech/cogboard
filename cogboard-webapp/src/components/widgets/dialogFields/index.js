@@ -532,10 +532,7 @@ const dialogFields = {
     component: ToDoListInput,
     name: 'toDoListItems',
     initialValue: [],
-    validator: () =>
-      array()
-        .ensure()
-        .min(1, vm.FIELD_MIN_ITEMS())
+    validator: () => array()
   }
 };
 

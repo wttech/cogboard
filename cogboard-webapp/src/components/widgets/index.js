@@ -172,6 +172,7 @@ const widgetTypes = {
       'MultiTextInput'
     ],
     showUpdateTime: false,
+    initialStatus: 'NONE',
     validationConstraints: {}
   },
   AemBundleInfoWidget: {
@@ -193,7 +194,8 @@ const widgetTypes = {
   ToDoListWidget: {
     name: 'ToDo List',
     component: ToDoListWidget,
-    dialogFields: ['ToDoListItems']
+    dialogFields: ['ToDoListItems'],
+    initialStatus: 'NONE'
   }
 };
 
