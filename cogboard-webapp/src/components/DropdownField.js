@@ -4,16 +4,11 @@ import styled from '@emotion/styled/macro';
 
 import { hasError } from '../utils/components';
 
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  Select,
-  FormHelperText,
-  Box
-} from '@material-ui/core';
+import { FormControl, InputLabel, Input, Select, Box } from '@material-ui/core';
+import { Error } from '@material-ui/icons';
 import { getToken } from '../utils/auth';
 import { getIsAuthenticated } from '../selectors';
+import { StyledFormHelperText } from './styled';
 
 const StyledWrapper = styled(Box)`
   display: flex;
@@ -92,7 +87,12 @@ const DropdownField = props => {
           <StyledOptionalButton>{optionalButton}</StyledOptionalButton>
         )}
       </StyledWrapper>
-      {dropdownError && <FormHelperText>{dropdownError}</FormHelperText>}
+      {dropdownError && (
+        <StyledFormHelperText>
+          <Error />
+          {dropdownError}
+        </StyledFormHelperText>
+      )}
     </FormControl>
   );
 };

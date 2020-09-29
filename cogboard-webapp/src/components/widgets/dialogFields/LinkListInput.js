@@ -2,69 +2,82 @@ import React, { useState } from 'react';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
 import { prepareChangeEvent } from './helpers';
+import { hasError } from '../../../utils/components';
+
 import {
-  FormControl,
   IconButton,
   ListItem,
   ListItemSecondaryAction,
   ListItemText
 } from '@material-ui/core';
-import { Add, Edit, Check, Delete } from '@material-ui/icons';
-import { StyledFab, StyledInput, StyledList } from './styled';
+import { Add, Edit, Check, Delete, Error } from '@material-ui/icons';
+import {
+  StyledFab,
+  StyledInput,
+  StyledList,
+  StyledFormControl
+} from './styled';
+import { StyledFormHelperText } from '../../styled';
 
 const LinkListInput = ({ value, onChange }) => {
-  const [formValueLinkTitle, setFormValueLinkTitle] = useState('');
-  const [formValueLinkHref, setFormValueLinkHref] = useState('');
+  const [formValueTitle, setFormValueTitle] = useState('');
+  const [formValueUrl, setFormValueUrl] = useState('');
+  const [formError, setFormError] = useState();
   const [editMode, setEditMode] = useState(false);
-  const handleChangeLinkTitle = event => setFormValueLinkTitle(event.target.value);
-  const handleChangeLinkHref = event => setFormValueLinkHref(event.target.value);
+  const handleChangeTitle = event => setFormValueTitle(event.target.value);
+  const handleChangeUrl = event => setFormValueUrl(event.target.value);
 
   const [linkList, setLinkList] = useState(() =>
     (value || []).map(linkItem => {
       return {
         id: v4(),
         linkTitle: linkItem.linkTitle,
-        linkHref: linkItem.linkHref
+        linkUrl: linkItem.linkUrl
       };
     })
   );
 
   const resetInput = () => {
-    setFormValueLinkTitle('');
-    setFormValueLinkHref('');
+    setFormValueTitle('');
+    setFormValueUrl('');
   };
 
   const onSaveClick = () => {
     handleSave({
       id: v4(),
-      linkTitle: formValueLinkTitle,
-      linkHref: formValueLinkHref
+      linkTitle: formValueTitle,
+      linkUrl: formValueUrl
     });
-  }
+  };
 
   const handleSave = linkItem => {
     let updatedItems;
-    if (linkItem.linkHref.length === 0 || linkItem.linkTitle.length === 0) {
+    if (linkItem.linkUrl.length === 0 || linkItem.linkTitle.length === 0) {
+      setFormError('Fill Title and Url field');
       return;
+    } else {
+      setFormError(undefined);
     }
+
     if (editMode) {
       updatedItems = linkList;
       const updatedItemId = linkList.findIndex(el => el.id === editMode);
       updatedItems[updatedItemId] = {
         id: v4(),
         linkTitle: linkItem.linkTitle,
-        linkHref: linkItem.linkHref
+        linkUrl: linkItem.linkUrl
       };
       setEditMode(false);
     } else {
       updatedItems = [
         ...linkList,
-        { id: v4(), linkTitle: linkItem.linkTitle, linkHref: linkItem.linkHref }
+        { id: v4(), linkTitle: linkItem.linkTitle, linkUrl: linkItem.linkUrl }
       ];
     }
+
     setLinkList(updatedItems);
-    onChange(prepareChangeEvent(updatedItems, 'array'))
-    resetInput()
+    onChange(prepareChangeEvent(updatedItems, 'array'));
+    resetInput();
   };
 
   const handleDelete = itemIndex => {
@@ -77,14 +90,14 @@ const LinkListInput = ({ value, onChange }) => {
     if (event.key === 'Enter') {
       event.preventDefault();
 
-      if (!formValueLinkHref) {
+      if (!formValueUrl) {
         return;
       }
 
       handleSave({
         id: v4(),
-        linkHref: formValueLinkHref,
-        linkTitle: formValueLinkTitle
+        linkUrl: formValueUrl,
+        linkTitle: formValueTitle
       });
 
       return;
@@ -95,31 +108,37 @@ const LinkListInput = ({ value, onChange }) => {
 
   const handleEdit = id => {
     const editItem = linkList.find(el => el.id === id);
-    setFormValueLinkTitle(editItem.linkTitle);
-    setFormValueLinkHref(editItem.linkHref);
+    setFormValueTitle(editItem.linkTitle);
+    setFormValueUrl(editItem.linkUrl);
     setEditMode(editItem.id);
   };
 
   return (
-    <FormControl>
+    <StyledFormControl error={hasError(formError)}>
+      {formError && (
+        <StyledFormHelperText>
+          <Error />
+          {formError}
+        </StyledFormHelperText>
+      )}
       <StyledInput
         data-cy="link-title"
         placeholder="Link Title"
         margin="normal"
-        value={formValueLinkTitle}
-        onChange={handleChangeLinkTitle}
+        value={formValueTitle}
+        onChange={handleChangeTitle}
         onKeyPress={handleKeyPressed}
       />
       <StyledInput
-        data-cy="link-href"
-        placeholder="Link Href"
+        data-cy="link-url"
+        placeholder="Link Url"
         margin="normal"
-        value={formValueLinkHref}
-        onChange={handleChangeLinkHref}
+        value={formValueUrl}
+        onChange={handleChangeUrl}
         onKeyPress={handleKeyPressed}
       />
       <StyledFab
-        data-cy="add-link-tiem"
+        data-cy="add-link-item"
         onClick={onSaveClick}
         variant="extended"
         size="small"
@@ -171,7 +190,7 @@ const LinkListInput = ({ value, onChange }) => {
           </ListItem>
         ))}
       </StyledList>
-    </FormControl>
+    </StyledFormControl>
   );
 };
 

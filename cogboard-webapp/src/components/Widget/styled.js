@@ -110,7 +110,7 @@ export const StyledCardContent = styled(CardContent)`
   flex: 1;
   position: relative;
   justify-content: space-between;
-  overflow: hidden;
+  overflow-y: ${({ type }) => (type === 'LinkListWidget' ? 'auto' : '')};
 
   &:last-child {
     padding-bottom: 8px;
@@ -176,4 +176,18 @@ export const StyledIconWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+`;
+
+export const StyledNoItemsInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%;
+
+  p {
+    width: 100%;
+    text-align: center;
+  }
 `;

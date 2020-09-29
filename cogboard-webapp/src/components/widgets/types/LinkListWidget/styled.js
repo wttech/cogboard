@@ -10,5 +10,4 @@ export const StyledListItem = styled(ListItem)`
 
 export const StyledList = styled(List)`
   padding: 0;
-  overflow-y: scroll;
 `;

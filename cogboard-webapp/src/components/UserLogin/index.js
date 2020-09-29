@@ -81,12 +81,10 @@ const UserLogin = () => {
       >
         <StyledFieldset component="fieldset">
           {errorMsg && (
-            <>
-              <StyledErrorMsg color="error" data-cy="user-login-error-messages">
-                <Error />
-                {errorMsg}
-              </StyledErrorMsg>
-            </>
+            <StyledErrorMsg color="error" data-cy="user-login-error-messages">
+              <Error />
+              {errorMsg}
+            </StyledErrorMsg>
           )}
           <TextField
             autoFocus

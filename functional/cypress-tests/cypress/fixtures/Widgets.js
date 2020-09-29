@@ -122,6 +122,23 @@ module.exports = {
       }
     ]
   },
+  linkList: {
+    name: 'Link List',
+    linkListItems: [
+      {
+        linkTitle: 'Github',
+        linkUrl: 'github.com'
+      },
+      {
+        linkTitle: 'Google',
+        linkUrl: 'www.google.com'
+      },
+      {
+        linkTitle: 'Bitbucket',
+        linkUrl: 'bitbucket.org'
+      }
+    ]
+  },
   serviceCheck: {
     name: 'Service Check',
     schedulePeriod: '3',

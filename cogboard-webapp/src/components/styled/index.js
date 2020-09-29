@@ -8,7 +8,8 @@ import {
   Typography,
   IconButton,
   Tabs,
-  Box
+  Box,
+  FormHelperText
 } from '@material-ui/core';
 import IframeEmbed from '../IframeEmbed';
 import { getColor, getSize } from '../../utils/components';
@@ -151,5 +152,14 @@ export const StyledFormFieldWrapper = styled.div`
 
   .Mui-error {
     color: ${COLORS.YELLOW};
+  }
+`;
+
+export const StyledFormHelperText = styled(FormHelperText)`
+  display: flex;
+  align-items: center;
+
+  .MuiSvgIcon-root {
+    margin-right: 5px;
   }
 `;

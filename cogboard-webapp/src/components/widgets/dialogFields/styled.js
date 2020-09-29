@@ -1,6 +1,7 @@
 import styled from '@emotion/styled/macro';
 import NumberInput from './NumberInput';
-import { Box, Input, Fab, List } from '@material-ui/core';
+import { COLORS } from '../../../constants';
+import { Box, Input, Fab, List, FormControl } from '@material-ui/core';
 
 export const StyledNumberInput = styled(NumberInput)`
   flex-basis: calc(50% - 18px);
@@ -29,5 +30,11 @@ export const StyledList = styled(List)`
     margin-top: 16px;
     overflow-y: scroll;
     max-height: 160px;
+  }
+`;
+
+export const StyledFormControl = styled(FormControl)`
+  .MuiInput-root.Mui-error {
+    color: ${COLORS.WHITE};
   }
 `;
