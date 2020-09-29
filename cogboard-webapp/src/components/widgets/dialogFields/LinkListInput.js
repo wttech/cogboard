@@ -30,7 +30,7 @@ const LinkListInput = ({ value, onChange }) => {
   const [linkList, setLinkList] = useState(() =>
     (value || []).map(linkItem => {
       return {
-        id: v4(),
+        id: linkItem.id,
         linkTitle: linkItem.linkTitle,
         linkUrl: linkItem.linkUrl
       };
@@ -44,7 +44,6 @@ const LinkListInput = ({ value, onChange }) => {
 
   const onSaveClick = () => {
     handleSave({
-      id: v4(),
       linkTitle: formValueTitle,
       linkUrl: formValueUrl
     });
@@ -63,7 +62,7 @@ const LinkListInput = ({ value, onChange }) => {
       updatedItems = linkList;
       const updatedItemId = linkList.findIndex(el => el.id === editMode);
       updatedItems[updatedItemId] = {
-        id: v4(),
+        id: updatedItems[updatedItemId].id,
         linkTitle: linkItem.linkTitle,
         linkUrl: linkItem.linkUrl
       };
