@@ -62,13 +62,16 @@ const TextWidget = ({ text, textSize, isVertical, singleLine }) => {
 };
 
 TextWidget.propTypes = {
-  text: string.isRequired,
-  textSize: string.isRequired,
-  isVertical: bool.isRequired,
+  text: string,
+  textSize: string,
+  isVertical: bool,
   singleLine: bool
 };
 
 TextWidget.defaultProps = {
+  text: '',
+  textSize: '',
+  isVertical: false,
   singleLine: false
 };
 

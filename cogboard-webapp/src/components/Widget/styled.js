@@ -21,6 +21,7 @@ export const StyledCard = styled(
         isLoggedIn,
         isDragging,
         isOver,
+        isVertical,
         rows,
         theme,
         type,
@@ -91,6 +92,10 @@ export const StyledCardHeader = styled(CardHeader)`
   z-index: 1;
   padding: 8px;
   min-height: 40px;
+
+  .MuiCardHeader-avatar {
+    display: flex;
+  }
 `;
 
 export const StyledEmptyCardHeader = styled(props => (
@@ -104,13 +109,21 @@ export const StyledEmptyCardHeader = styled(props => (
   }
 `;
 
-export const StyledCardContent = styled(CardContent)`
+export const StyledCardContent = styled(({ type, ...props }) => (
+  <CardContent {...props} />
+))`
   display: flex;
   flex-direction: column;
   flex: 1;
   position: relative;
   justify-content: space-between;
-  overflow-y: ${({ type }) => (type === 'LinkListWidget' ? 'auto' : '')};
+  ${({ type }) =>
+    (type === 'LinkListWidget' || type === 'ToDoListWidget') &&
+    `
+      overflow-y: auto; 
+      margin-right: 14px;
+      margin-bottom: 5px;
+    `};
 
   &:last-child {
     padding-bottom: 8px;

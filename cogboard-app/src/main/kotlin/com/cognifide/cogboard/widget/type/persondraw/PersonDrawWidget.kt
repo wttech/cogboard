@@ -69,7 +69,7 @@ class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsCon
             put(PROP_CONTENT_VALUE_HASH, valuesContentHash)
             put(PROP_VALUES, config.getValue(PROP_VALUES))
         }
-        send(JsonObject().put(CogboardConstants.PROP_CONTENT, content))
+        send(content)
     }
 
     private fun updateUsedIndexes(usedIndexes: List<Int>, values: List<String>, nextIndex: Int) =

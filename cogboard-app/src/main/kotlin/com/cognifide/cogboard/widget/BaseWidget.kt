@@ -56,12 +56,15 @@ abstract class BaseWidget(
      * Use this method for sending widget updated to user.
      * This method will add some required fields for you: `id`, `eventType`
      */
-    override fun send(state: JsonObject) {
-        state.put(CC.PROP_ID, id)
-        state.put(CC.PROP_EVENT_TYPE, PROP_EVENT_TYPE_WIDGET_UPDATE)
-        state.getJsonObject(CC.PROP_CONTENT).attachUpdateDate()
-        boardService.saveContent(id, state.getJsonObject(CC.PROP_CONTENT))
-        vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, state)
+    override fun send(state: Any, dontWrap: Boolean) {
+        val data = if (dontWrap && state is JsonObject) state
+        else JsonObject().put(CC.PROP_CONTENT, state)
+
+        data.put(CC.PROP_ID, id)
+        data.put(CC.PROP_EVENT_TYPE, PROP_EVENT_TYPE_WIDGET_UPDATE)
+        data.getJsonObject(CC.PROP_CONTENT).attachUpdateDate()
+        boardService.saveContent(id, data.getJsonObject(CC.PROP_CONTENT))
+        vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, data)
     }
 
     /**
@@ -69,12 +72,9 @@ abstract class BaseWidget(
      */
     fun sendConfigurationError(cause: String = "") {
         send(JsonObject()
-                .put(CC.PROP_CONTENT,
-                        JsonObject()
-                                .put(CC.PROP_ERROR_MESSAGE, "Configuration Error")
-                                .put(CC.PROP_ERROR_CAUSE, cause)
-                                .put(CC.PROP_WIDGET_STATUS, Widget.Status.ERROR_CONFIGURATION)
-                )
+                .put(CC.PROP_ERROR_MESSAGE, "Configuration Error")
+                .put(CC.PROP_ERROR_CAUSE, cause)
+                .put(CC.PROP_WIDGET_STATUS, Widget.Status.ERROR_CONFIGURATION)
         )
     }
 
@@ -125,7 +125,7 @@ abstract class BaseWidget(
         props.forEach {
             content.put(it, config.getValue(it))
         }
-        send(JsonObject().put(CC.PROP_CONTENT, content))
+        send(content)
     }
 
     private fun startWithSchedule() {

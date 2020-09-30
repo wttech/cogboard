@@ -121,6 +121,26 @@ export function validateText(widget) {
   widget.assertText('h3', Widgets.text.text);
 }
 
+export function validateToDoList(widget) {
+  const listItems = Object.keys(Widgets.toDoList.toDoListItems);
+  for (let i = 0; i < listItems.length; i++) {
+    const item = listItems[i];
+    const itemTitle = Widgets.toDoList.toDoListItems[item].itemText;
+
+    widget
+      .scrollToElement(`[data-cy="item-unchecked-${i}"]`)
+      .assertText('h6', itemTitle)
+      .isChecked(`[data-cy="item-unchecked-${i}"]`, false);
+  }
+
+  widget
+    .isChecked(`[data-cy="item-unchecked-0"]`, false)
+    .click(`[data-cy="item-unchecked-0"]`);
+
+  cy.wait(100);
+  widget.isChecked(`[data-cy="item-checked-0"]`, true);
+}
+
 export function validateWhiteSpace(widget) {
   widget.assertColor('rgb(255, 255, 255)');
 }
@@ -176,6 +196,9 @@ export function validateWidgetConfig(widget) {
       break;
     case 'Text':
       validateText(widget);
+      break;
+    case 'ToDo List':
+      validateToDoList(widget);
       break;
     case 'White Space':
       validateWhiteSpace(widget);

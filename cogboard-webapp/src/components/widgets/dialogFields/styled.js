@@ -31,10 +31,30 @@ export const StyledList = styled(List)`
     overflow-y: scroll;
     max-height: 160px;
   }
+
+  .MuiListItemText-root span {
+    max-width: 250px;
+    padding-right: 60px;
+  }
 `;
 
 export const StyledFormControl = styled(FormControl)`
   .MuiInput-root.Mui-error {
     color: ${COLORS.WHITE};
+  }
+`;
+
+export const StyledFabGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  button:first-of-type {
+    flex: 1;
+    width: 40%;
+  }
+
+  .clearButton {
+    width: 55%;
+    margin-left: 16px;
   }
 `;

@@ -32,6 +32,7 @@ import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
 import LinkListInput from './LinkListInput';
+import ToDoListInput from './ToDoListinput';
 
 const dialogFields = {
   LabelField: {
@@ -428,7 +429,6 @@ const dialogFields = {
     validator: () =>
       array()
         .ensure()
-        .min(1, vm.FIELD_MIN_ITEMS())
         .of(string())
   },
   DailySwitch: {
@@ -523,16 +523,19 @@ const dialogFields = {
     component: JiraBucketsInput,
     name: 'bucketQueries',
     initialValue: [],
-    validator: () =>
-      array()
-        .ensure()
-        .min(1, vm.FIELD_MIN_ITEMS())
+    validator: () => array().ensure()
+  },
+  ToDoListItems: {
+    component: ToDoListInput,
+    name: 'toDoListItems',
+    initialValue: [],
+    validator: () => array().ensure()
   },
   LinkListItems: {
     component: LinkListInput,
     name: 'linkListItems',
     initialValue: [],
-    validator: () => array()
+    validator: () => array().ensure()
   }
 };
 

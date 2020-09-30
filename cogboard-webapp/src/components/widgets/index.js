@@ -13,6 +13,7 @@ import IframeEmbedWidget from './types/IframeEmbedWidget';
 import PersonDrawWidget from './types/PersonDrawWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 import LinkListWidget from './types/LinkListWidget';
+import ToDoListWidget from './types/ToDoListWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -172,6 +173,7 @@ const widgetTypes = {
       'MultiTextInput'
     ],
     showUpdateTime: false,
+    initialStatus: 'NONE',
     validationConstraints: {}
   },
   AemBundleInfoWidget: {
@@ -190,13 +192,16 @@ const widgetTypes = {
       SchedulePeriod: { min: 3 }
     }
   },
+  ToDoListWidget: {
+    name: 'ToDo List',
+    component: ToDoListWidget,
+    dialogFields: ['ToDoListItems'],
+    initialStatus: 'NONE'
+  },
   LinkListWidget: {
     name: 'Link List',
     component: LinkListWidget,
-    dialogFields: [
-      'LinkListItems'
-    ],
-    showUpdateTime: false,
+    dialogFields: ['LinkListItems'],
     initialStatus: 'NONE'
   }
 };

@@ -303,6 +303,29 @@ module.exports = {
     textSize: 'h5',
     verticalText: true
   },
+  toDoList: {
+    name: 'ToDo List',
+    toDoListItems: [
+      {
+        itemText: 'Item 1'
+      },
+      {
+        itemText: 'Item 2'
+      },
+      {
+        itemText: 'Item 3'
+      },
+      {
+        itemText: 'Item 4'
+      },
+      {
+        itemText: 'Item 5'
+      },
+      {
+        itemText: 'Item 6'
+      }
+    ]
+  },
   worldClock: {
     name: 'World Clock',
     timezone: 'GMT+2',

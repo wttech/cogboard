@@ -35,7 +35,7 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
 
             val content = createWidgetContent(numericStatus, excludedBundles, inactiveBundles)
 
-            sendSuccess(content)
+            send(content)
         }
     }
 
@@ -91,10 +91,6 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
             val key = it.getString("state").toLowerCase()
             numericStatus[key] = numericStatus[key]!! - 1
         }
-    }
-
-    private fun sendSuccess(content: JsonObject) {
-        send(JsonObject().put(CC.PROP_CONTENT, content))
     }
 
     override fun updateState() {
