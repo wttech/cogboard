@@ -32,7 +32,7 @@ export const renderCardContent = (
   closeWidgets
 ) => {
   return (
-    <StyledCardContent>
+    <StyledCardContent type={type}>
       {content && content.errorMessage ? (
         <ErrorMessage {...content} status={status} />
       ) : !disabled && !expandContent ? (

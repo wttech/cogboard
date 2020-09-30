@@ -31,6 +31,7 @@ import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
+import ToDoListInput from './ToDoListinput';
 
 const dialogFields = {
   LabelField: {
@@ -427,7 +428,6 @@ const dialogFields = {
     validator: () =>
       array()
         .ensure()
-        .min(1, vm.FIELD_MIN_ITEMS())
         .of(string())
   },
   DailySwitch: {
@@ -525,7 +525,14 @@ const dialogFields = {
     validator: () =>
       array()
         .ensure()
-        .min(1, vm.FIELD_MIN_ITEMS())
+  },
+  ToDoListItems: {
+    component: ToDoListInput,
+    name: 'toDoListItems',
+    initialValue: [],
+    validator: () =>
+      array()
+        .ensure()
   }
 };
 

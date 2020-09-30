@@ -24,7 +24,9 @@ To customize config and specs to be launched, you have to run:
 
 ### GUI
 
-`npx cypress open` in `functional/cypress-tests` directory
+1. Go to `functional/cypress-tests` directory
+1. Install Cypress `npm install` (run only once)
+1. Open Cypress tools by executing `npx cypress open`
 
 ## Contribution guide
 
