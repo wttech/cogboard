@@ -23,9 +23,18 @@ const LinkListInput = ({ value, onChange }) => {
   const [formValueTitle, setFormValueTitle] = useState('');
   const [formValueUrl, setFormValueUrl] = useState('');
   const [formError, setFormError] = useState();
+  const [urlError, setUrlError] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const handleChangeTitle = event => setFormValueTitle(event.target.value);
-  const handleChangeUrl = event => setFormValueUrl(event.target.value);
+  const handleChangeUrl = event => {
+    if (!event.target.value.match(/^(http|https|ws|ftp):\/\/.*([:.]).*/)) {
+      setUrlError(true);
+    } else {
+      setUrlError(false);
+    }
+
+    setFormValueUrl(event.target.value);
+  };
 
   const [linkList, setLinkList] = useState(() =>
     (value || []).map(linkItem => {
@@ -51,7 +60,10 @@ const LinkListInput = ({ value, onChange }) => {
 
   const handleSave = linkItem => {
     let updatedItems;
-    if (linkItem.linkUrl.length === 0 || linkItem.linkTitle.length === 0) {
+
+    if (urlError) {
+      return
+    } else if (linkItem.linkUrl.length === 0 || linkItem.linkTitle.length === 0) {
       setFormError('Fill Title and Url field');
       return;
     } else {
@@ -113,7 +125,7 @@ const LinkListInput = ({ value, onChange }) => {
   };
 
   return (
-    <StyledFormControl error={hasError(formError)}>
+    <StyledFormControl error={hasError(formError) || urlError}>
       {formError && (
         <StyledFormHelperText>
           <Error />
@@ -136,6 +148,12 @@ const LinkListInput = ({ value, onChange }) => {
         onChange={handleChangeUrl}
         onKeyPress={handleKeyPressed}
       />
+      {urlError && (
+        <StyledFormHelperText>
+          <Error />
+          Invalid Url
+        </StyledFormHelperText>
+      )}
       <StyledFab
         data-cy="add-link-item"
         onClick={onSaveClick}
