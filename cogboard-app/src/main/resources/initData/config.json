@@ -1,1 +1,661 @@
-{"boards":{"boardsById":{"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d":{"autoSwitch":true,"switchInterval":360,"id":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","theme":"default","widgets":["widget9","widget10","widget11","widget14","widget15","widget16","widget27","widget18","widget19","widget20","widget25","widget26","widget22","widget21","widget17","widget24","widget32"],"columns":8,"title":"TestBoard 1","type":"WidgetBoard"},"board-2071ba48-b7ba-4c7f-8388-01ed52607663":{"autoSwitch":false,"switchInterval":60,"id":"board-2071ba48-b7ba-4c7f-8388-01ed52607663","theme":"default","widgets":[],"iframeUrl":"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d823.6707468405119!2d16.935631830826523!3d52.427753096736616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47045b5777dae895%3A0x39f4791d8050d8d8!2sCognifide%20Polska!5e0!3m2!1spl!2spl!4v1601457746665!5m2!1spl!2spl","type":"IframeBoard","title":"iFrame Board"},"board-088f1c6d-73a6-4c64-be41-9ce5e8329660":{"autoSwitch":true,"switchInterval":360,"id":"board-088f1c6d-73a6-4c64-be41-9ce5e8329660","theme":"default","widgets":["widget12","widget13","widget23","widget29","widget35","widget33","widget31"],"columns":8,"title":"TestBoard 2","type":"WidgetBoard"}},"allBoards":["board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","board-088f1c6d-73a6-4c64-be41-9ce5e8329660","board-2071ba48-b7ba-4c7f-8388-01ed52607663"]},"widgets":{"widgetsById":{"widget9":{"id":"widget9","title":"","config":{"columns":4,"goNewLine":false,"rows":0.5},"type":"TextWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","text":"CogBoard","textSize":"h4","isVertical":false,"expandContent":false},"widget10":{"id":"widget10","title":"PL","config":{"columns":2,"goNewLine":false,"rows":0.5},"type":"WorldClockWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","timeZoneId":"Europe/Warsaw","dateFormat":"dddd, DD/MM/YYYY","timeFormat":"HH:mm:ss","displayDate":true,"displayTime":true,"textSize":"subtitle2"},"widget11":{"id":"widget11","title":"USA - LA","config":{"columns":2,"goNewLine":false,"rows":0.5},"type":"WorldClockWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","timeZoneId":"Etc/GMT+8","dateFormat":"dddd, DD/MM/YYYY","timeFormat":"h:mm:ss a","displayDate":false,"displayTime":true,"textSize":"subtitle1"},"widget12":{"id":"widget12","title":"Healthcheck - Unstable","config":{"columns":1,"goNewLine":false,"rows":3},"type":"AemHealthcheckWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":15,"selectedHealthChecks":["slingJobs","systemchecks","inactiveBundles","DiskSpaceHealthCheck","asyncIndexHealthCheck","codeCacheHealthCheck","logErrorHealthCheck","ObservationQueueLengthHealthCheck","resourceSearchPathErrorHealthCheck","requestsStatus","queriesStatus","queryTraversalLimitsBundle","securitychecks","slingDiscoveryOakSynchronizedClocks"],"expandContent":false},"widget13":{"id":"widget13","title":"Healthchecks - Wrapped","config":{"columns":1,"goNewLine":false,"rows":1},"type":"AemHealthcheckWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"selectedHealthChecks":["slingJobs","systemchecks","inactiveBundles","DiskSpaceHealthCheck","asyncIndexHealthCheck","codeCacheHealthCheck","logErrorHealthCheck","ObservationQueueLengthHealthCheck","resourceSearchPathErrorHealthCheck","requestsStatus","queriesStatus","queryTraversalLimitsBundle","securitychecks","slingDiscoveryOakSynchronizedClocks"],"expandContent":true},"widget14":{"id":"widget14","title":"Bamboo Plan - Succesfull","config":{"columns":1,"goNewLine":false,"rows":1},"type":"BambooPlanWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"idString":"CGB-SCS","expandContent":false},"widget15":{"id":"widget15","title":"Bamboo Plan - Failed","config":{"columns":1,"goNewLine":false,"rows":1},"type":"BambooPlanWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"idString":"CGB-FLD","expandContent":false},"widget16":{"id":"widget16","title":"Bamboo Plan - Unknown","config":{"columns":1,"goNewLine":false,"rows":1},"type":"BambooPlanWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"idString":"CGB-UKWN","expandContent":false},"widget17":{"id":"widget17","title":"Checkbox","config":{"columns":1,"goNewLine":false,"rows":1},"type":"CheckboxWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","withWidgetContentUpdate":true},"widget18":{"id":"widget18","title":"","config":{"columns":2,"goNewLine":false,"rows":1},"type":"IframeEmbedWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","iframeUrl":"https://www.youtube.com/embed/nGjZMkS0igc"},"widget19":{"id":"widget19","title":"Jenkins - Success","config":{"columns":1,"goNewLine":false,"rows":1},"type":"JenkinsJobWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":10,"path":"/job/CogBoard/job/success","expandContent":true},"widget20":{"id":"widget20","title":"Jenkins - Failed","config":{"columns":1,"goNewLine":false,"rows":1},"type":"JenkinsJobWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"path":"/job/CogBoard/job/fail","expandContent":true},"widget21":{"id":"widget21","title":"Jenkins - In Progress","config":{"columns":1,"goNewLine":false,"rows":1},"type":"JenkinsJobWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"path":"/job/CogBoard/job/in-progress","expandContent":true},"widget22":{"id":"widget22","title":"Missconfig","config":{"columns":1,"goNewLine":false,"rows":1},"type":"JenkinsJobWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"path":"","expandContent":false},"widget23":{"id":"widget23","title":"Cognifide","config":{"columns":1,"goNewLine":false,"rows":1},"type":"ServiceCheckWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","schedulePeriod":120,"requestMethod":"get","endpoint":"","path":"http://www.cognifide.com","body":"","expectedResponseBody":"","expectedStatusCode":200,"expandContent":false},"widget24":{"id":"widget24","title":"Sonarqube  5.x","config":{"columns":1,"goNewLine":false,"rows":1},"type":"SonarQubeWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","expandContent":true,"selectedMetrics":["blocker_violations","critical_violations","major_violations","minor_violations","info_violations","bugs","code_smells","vulnerabilities"],"idNumber":316488,"keyString":"success","schedulePeriod":120,"endpoint":"endpoint1","sonarQubeVersion":"5.x"},"widget25":{"id":"widget25","title":"Wrapped Text Widget","config":{"columns":2,"goNewLine":false,"rows":1},"type":"TextWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","text":"Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. \nProin gravida lacus nunc, sit \namet iaculis augue commodo et. \nPhasellus at cursus sapien, \neu egestas magna. Aliquam \nerat volutpat. Aliquam a odio \nac nulla ornare ultricies id \nid massa. Etiam porta a mi \nnon luctus. Nam sagittis iaculis \nfermentum. Donec massa metus, \nfeugiat quis eros sodales, \nvestibulum pharetra velit.","textSize":"subtitle1","isVertical":false,"expandContent":true},"widget26":{"id":"widget26","title":"SonarQube 7.x","config":{"columns":1,"goNewLine":false,"rows":1},"type":"SonarQubeWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"keyString":"fail","idNumber":1,"selectedMetrics":["blocker_violations","critical_violations","major_violations","minor_violations","info_violations","bugs","code_smells","vulnerabilities"],"expandContent":true,"sonarQubeVersion":"7.x"},"widget27":{"id":"widget27","title":"Bamboo Deploy - Success","config":{"columns":1,"goNewLine":false,"rows":1},"type":"BambooDeploymentWidget","disabled":false,"content":{},"status":"UNKNOWN","isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"idString":"1","expandContent":true},"widget29":{"id":"widget29","title":"Bundle Info","config":{"columns":1,"goNewLine":false,"rows":1},"type":"AemBundleInfoWidget","disabled":false,"content":{},"isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","endpoint":"endpoint1","schedulePeriod":120,"resolvedThreshold":2,"installedThreshold":2,"excludedBundles":"","expandContent":false},"widget31":{"id":"widget31","title":"","config":{"columns":1,"goNewLine":false,"rows":1},"type":"WhiteSpaceWidget","disabled":false,"content":{},"isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d"},"widget32":{"id":"widget32","title":"Person draw","config":{"columns":1,"goNewLine":false,"rows":1},"type":"PersonDrawWidget","disabled":false,"content":{},"isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","randomizeCheckbox":true,"personDrawDailySwitch":true,"personDrawInterval":1,"multiTextInput":["Adam","Bartek","Celina","Daria","Emil","Franciszek","Gosia","Halina"]},"widget33":{"id":"widget33","title":"Service Check","config":{"columns":1,"goNewLine":false,"rows":1},"type":"ServiceCheckWidget","disabled":false,"content":{},"isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","schedulePeriod":5,"requestMethod":"post","path":"/service-check/post.json","body":"{ \"name\": \"cogboard-automation\" }","expectedResponseBody":"Expected string","expectedStatusCode":200,"expandContent":false,"endpoint":"endpoint1"},"widget35":{"id":"widget35","title":"ToDo List","config":{"columns":1,"goNewLine":false,"rows":1},"type":"ToDoListWidget","disabled":false,"content":{},"isUpdating":false,"boardId":"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d","toDoListItems":[{"id":"item-866cea27-f4e0-446f-a435-c5814be143cb","itemText":"A"},{"id":"item-426b7386-0823-4fdf-816d-1ef969811318","itemText":"B"},{"id":"item-dc18ed6b-fce7-439a-ab07-cd532fe92597","itemText":"C"},{"id":"item-92e6d0c6-42c8-46f3-acd2-48b09ba15384","itemText":"D"},{"id":"item-4cde911c-56f0-412c-b70c-06327c04b6ab","itemText":"E"},{"id":"item-7d00002e-aa24-4936-a54a-5e9c77aeaa3c","itemText":"F"},{"id":"item-ad8c4cc4-84d7-4c51-8ee0-9bdc0be8a157","itemText":"G"},{"id":"item-109779eb-ccdd-4747-8cf7-b3a01355bfdc","itemText":"H"},{"id":"item-5e0d1475-99c4-4509-bdd5-fe78519167a7","itemText":"I"},{"id":"item-4e81c04a-a403-4492-ab3a-276baf86bccd","itemText":"J"},{"id":"item-58fd40a1-aed5-4718-99b8-559af3fa3dd3","itemText":"K"},{"id":"item-693faaa7-d430-4b07-9249-32c946bc195d","itemText":"L"}]}},"allWidgets":["widget9","widget10","widget11","widget12","widget13","widget14","widget15","widget16","widget17","widget18","widget19","widget20","widget21","widget22","widget23","widget24","widget25","widget26","widget27","widget29","widget31","widget32","widget33","widget35"]}}
+{
+	"boards": {
+		"boardsById": {
+			"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d": {
+				"autoSwitch": true,
+				"switchInterval": 360,
+				"id": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"theme": "default",
+				"widgets": [
+					"widget9",
+					"widget10",
+					"widget11",
+					"widget14",
+					"widget15",
+					"widget16",
+					"widget27",
+					"widget18",
+					"widget19",
+					"widget20",
+					"widget25",
+					"widget26",
+					"widget22",
+					"widget21",
+					"widget17",
+					"widget24",
+					"widget32"
+				],
+				"columns": 8,
+				"title": "TestBoard 1",
+				"type": "WidgetBoard"
+			},
+			"board-2071ba48-b7ba-4c7f-8388-01ed52607663": {
+				"autoSwitch": false,
+				"switchInterval": 60,
+				"id": "board-2071ba48-b7ba-4c7f-8388-01ed52607663",
+				"theme": "default",
+				"widgets": [],
+				"iframeUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d823.6707468405119!2d16.935631830826523!3d52.427753096736616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47045b5777dae895%3A0x39f4791d8050d8d8!2sCognifide%20Polska!5e0!3m2!1spl!2spl!4v1601457746665!5m2!1spl!2spl",
+				"type": "IframeBoard",
+				"title": "iFrame Board"
+			},
+			"board-088f1c6d-73a6-4c64-be41-9ce5e8329660": {
+				"autoSwitch": true,
+				"switchInterval": 360,
+				"id": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+				"theme": "default",
+				"widgets": [
+					"widget12",
+					"widget13",
+					"widget23",
+					"widget29",
+					"widget35",
+					"widget33",
+					"widget31"
+				],
+				"columns": 8,
+				"title": "TestBoard 2",
+				"type": "WidgetBoard"
+			}
+		},
+		"allBoards": [
+			"board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+			"board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+			"board-2071ba48-b7ba-4c7f-8388-01ed52607663"
+		]
+	},
+	"widgets": {
+		"widgetsById": {
+			"widget9": {
+				"id": "widget9",
+				"title": "",
+				"config": {
+					"columns": 4,
+					"goNewLine": false,
+					"rows": 0.5
+				},
+				"type": "TextWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"text": "CogBoard",
+				"textSize": "h4",
+				"isVertical": false,
+				"expandContent": false
+			},
+			"widget10": {
+				"id": "widget10",
+				"title": "PL",
+				"config": {
+					"columns": 2,
+					"goNewLine": false,
+					"rows": 0.5
+				},
+				"type": "WorldClockWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"timeZoneId": "Europe/Warsaw",
+				"dateFormat": "dddd, DD/MM/YYYY",
+				"timeFormat": "HH:mm:ss",
+				"displayDate": true,
+				"displayTime": true,
+				"textSize": "subtitle2"
+			},
+			"widget11": {
+				"id": "widget11",
+				"title": "USA - LA",
+				"config": {
+					"columns": 2,
+					"goNewLine": false,
+					"rows": 0.5
+				},
+				"type": "WorldClockWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"timeZoneId": "Etc/GMT+8",
+				"dateFormat": "dddd, DD/MM/YYYY",
+				"timeFormat": "h:mm:ss a",
+				"displayDate": false,
+				"displayTime": true,
+				"textSize": "subtitle1"
+			},
+			"widget12": {
+				"id": "widget12",
+				"title": "Healthcheck - Unstable",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 3
+				},
+				"type": "AemHealthcheckWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 15,
+				"selectedHealthChecks": [
+					"slingJobs",
+					"systemchecks",
+					"inactiveBundles",
+					"DiskSpaceHealthCheck",
+					"asyncIndexHealthCheck",
+					"codeCacheHealthCheck",
+					"logErrorHealthCheck",
+					"ObservationQueueLengthHealthCheck",
+					"resourceSearchPathErrorHealthCheck",
+					"requestsStatus",
+					"queriesStatus",
+					"queryTraversalLimitsBundle",
+					"securitychecks",
+					"slingDiscoveryOakSynchronizedClocks"
+				],
+				"expandContent": false
+			},
+			"widget13": {
+				"id": "widget13",
+				"title": "Healthchecks - Wrapped",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "AemHealthcheckWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"selectedHealthChecks": [
+					"slingJobs",
+					"systemchecks",
+					"inactiveBundles",
+					"DiskSpaceHealthCheck",
+					"asyncIndexHealthCheck",
+					"codeCacheHealthCheck",
+					"logErrorHealthCheck",
+					"ObservationQueueLengthHealthCheck",
+					"resourceSearchPathErrorHealthCheck",
+					"requestsStatus",
+					"queriesStatus",
+					"queryTraversalLimitsBundle",
+					"securitychecks",
+					"slingDiscoveryOakSynchronizedClocks"
+				],
+				"expandContent": true
+			},
+			"widget14": {
+				"id": "widget14",
+				"title": "Bamboo Plan - Succesfull",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "BambooPlanWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"idString": "CGB-SCS",
+				"expandContent": false
+			},
+			"widget15": {
+				"id": "widget15",
+				"title": "Bamboo Plan - Failed",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "BambooPlanWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"idString": "CGB-FLD",
+				"expandContent": false
+			},
+			"widget16": {
+				"id": "widget16",
+				"title": "Bamboo Plan - Unknown",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "BambooPlanWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"idString": "CGB-UKWN",
+				"expandContent": false
+			},
+			"widget17": {
+				"id": "widget17",
+				"title": "Checkbox",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "CheckboxWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"withWidgetContentUpdate": true
+			},
+			"widget18": {
+				"id": "widget18",
+				"title": "",
+				"config": {
+					"columns": 2,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "IframeEmbedWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"iframeUrl": "https://www.youtube.com/embed/nGjZMkS0igc"
+			},
+			"widget19": {
+				"id": "widget19",
+				"title": "Jenkins - Success",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "JenkinsJobWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 10,
+				"path": "/job/CogBoard/job/success",
+				"expandContent": true
+			},
+			"widget20": {
+				"id": "widget20",
+				"title": "Jenkins - Failed",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "JenkinsJobWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"path": "/job/CogBoard/job/fail",
+				"expandContent": true
+			},
+			"widget21": {
+				"id": "widget21",
+				"title": "Jenkins - In Progress",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "JenkinsJobWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"path": "/job/CogBoard/job/in-progress",
+				"expandContent": true
+			},
+			"widget22": {
+				"id": "widget22",
+				"title": "Missconfig",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "JenkinsJobWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"path": "",
+				"expandContent": false
+			},
+			"widget23": {
+				"id": "widget23",
+				"title": "Cognifide",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "ServiceCheckWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"schedulePeriod": 120,
+				"requestMethod": "get",
+				"endpoint": "",
+				"path": "http://www.cognifide.com",
+				"body": "",
+				"expectedResponseBody": "",
+				"expectedStatusCode": 200,
+				"expandContent": false
+			},
+			"widget24": {
+				"id": "widget24",
+				"title": "Sonarqube  5.x",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "SonarQubeWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"expandContent": true,
+				"selectedMetrics": [
+					"blocker_violations",
+					"critical_violations",
+					"major_violations",
+					"minor_violations",
+					"info_violations",
+					"bugs",
+					"code_smells",
+					"vulnerabilities"
+				],
+				"idNumber": 316488,
+				"keyString": "success",
+				"schedulePeriod": 120,
+				"endpoint": "endpoint1",
+				"sonarQubeVersion": "5.x"
+			},
+			"widget25": {
+				"id": "widget25",
+				"title": "Wrapped Text Widget",
+				"config": {
+					"columns": 2,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "TextWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"text": "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. \nProin gravida lacus nunc, sit \namet iaculis augue commodo et. \nPhasellus at cursus sapien, \neu egestas magna. Aliquam \nerat volutpat. Aliquam a odio \nac nulla ornare ultricies id \nid massa. Etiam porta a mi \nnon luctus. Nam sagittis iaculis \nfermentum. Donec massa metus, \nfeugiat quis eros sodales, \nvestibulum pharetra velit.",
+				"textSize": "subtitle1",
+				"isVertical": false,
+				"expandContent": true
+			},
+			"widget26": {
+				"id": "widget26",
+				"title": "SonarQube 7.x",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "SonarQubeWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"keyString": "fail",
+				"idNumber": 1,
+				"selectedMetrics": [
+					"blocker_violations",
+					"critical_violations",
+					"major_violations",
+					"minor_violations",
+					"info_violations",
+					"bugs",
+					"code_smells",
+					"vulnerabilities"
+				],
+				"expandContent": true,
+				"sonarQubeVersion": "7.x"
+			},
+			"widget27": {
+				"id": "widget27",
+				"title": "Bamboo Deploy - Success",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "BambooDeploymentWidget",
+				"disabled": false,
+				"content": {},
+				"status": "UNKNOWN",
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"idString": "1",
+				"expandContent": true
+			},
+			"widget29": {
+				"id": "widget29",
+				"title": "Bundle Info",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "AemBundleInfoWidget",
+				"disabled": false,
+				"content": {},
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"endpoint": "endpoint1",
+				"schedulePeriod": 120,
+				"resolvedThreshold": 2,
+				"installedThreshold": 2,
+				"excludedBundles": "",
+				"expandContent": false
+			},
+			"widget31": {
+				"id": "widget31",
+				"title": "",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "WhiteSpaceWidget",
+				"disabled": false,
+				"content": {},
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d"
+			},
+			"widget32": {
+				"id": "widget32",
+				"title": "Person draw",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "PersonDrawWidget",
+				"disabled": false,
+				"content": {},
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"randomizeCheckbox": true,
+				"personDrawDailySwitch": true,
+				"personDrawInterval": 1,
+				"multiTextInput": [
+					"Adam",
+					"Bartek",
+					"Celina",
+					"Daria",
+					"Emil",
+					"Franciszek",
+					"Gosia",
+					"Halina"
+				]
+			},
+			"widget33": {
+				"id": "widget33",
+				"title": "Service Check",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "ServiceCheckWidget",
+				"disabled": false,
+				"content": {},
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"schedulePeriod": 5,
+				"requestMethod": "post",
+				"path": "/service-check/post.json",
+				"body": "{ \"name\": \"cogboard-automation\" }",
+				"expectedResponseBody": "Expected string",
+				"expectedStatusCode": 200,
+				"expandContent": false,
+				"endpoint": "endpoint1"
+			},
+			"widget35": {
+				"id": "widget35",
+				"title": "ToDo List",
+				"config": {
+					"columns": 1,
+					"goNewLine": false,
+					"rows": 1
+				},
+				"type": "ToDoListWidget",
+				"disabled": false,
+				"content": {},
+				"isUpdating": false,
+				"boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+				"toDoListItems": [
+					{
+						"id": "item-866cea27-f4e0-446f-a435-c5814be143cb",
+						"itemText": "A"
+					},
+					{
+						"id": "item-426b7386-0823-4fdf-816d-1ef969811318",
+						"itemText": "B"
+					},
+					{
+						"id": "item-dc18ed6b-fce7-439a-ab07-cd532fe92597",
+						"itemText": "C"
+					},
+					{
+						"id": "item-92e6d0c6-42c8-46f3-acd2-48b09ba15384",
+						"itemText": "D"
+					},
+					{
+						"id": "item-4cde911c-56f0-412c-b70c-06327c04b6ab",
+						"itemText": "E"
+					},
+					{
+						"id": "item-7d00002e-aa24-4936-a54a-5e9c77aeaa3c",
+						"itemText": "F"
+					},
+					{
+						"id": "item-ad8c4cc4-84d7-4c51-8ee0-9bdc0be8a157",
+						"itemText": "G"
+					},
+					{
+						"id": "item-109779eb-ccdd-4747-8cf7-b3a01355bfdc",
+						"itemText": "H"
+					},
+					{
+						"id": "item-5e0d1475-99c4-4509-bdd5-fe78519167a7",
+						"itemText": "I"
+					},
+					{
+						"id": "item-4e81c04a-a403-4492-ab3a-276baf86bccd",
+						"itemText": "J"
+					},
+					{
+						"id": "item-58fd40a1-aed5-4718-99b8-559af3fa3dd3",
+						"itemText": "K"
+					},
+					{
+						"id": "item-693faaa7-d430-4b07-9249-32c946bc195d",
+						"itemText": "L"
+					}
+				]
+			}
+		},
+		"allWidgets": [
+			"widget9",
+			"widget10",
+			"widget11",
+			"widget12",
+			"widget13",
+			"widget14",
+			"widget15",
+			"widget16",
+			"widget17",
+			"widget18",
+			"widget19",
+			"widget20",
+			"widget21",
+			"widget22",
+			"widget23",
+			"widget24",
+			"widget25",
+			"widget26",
+			"widget27",
+			"widget29",
+			"widget31",
+			"widget32",
+			"widget33",
+			"widget35"
+		]
+	}
+}
