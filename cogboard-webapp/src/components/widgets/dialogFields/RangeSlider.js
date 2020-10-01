@@ -1,9 +1,7 @@
 import React from 'react';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
-import { useTheme } from '@material-ui/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { COLORS } from '../../../constants';
 
 const RangeSlider = ({ dataCy }) => {
   //TODO refactor needed

@@ -16,9 +16,9 @@ abstract class AsyncWidget(
     boardService: BoardsConfigService = BoardsConfigService()
 ) : BaseWidget(vertx, config, boardService) {
 
-    private val user: String = config.endpointProp(CogboardConstants.PROP_USER)
-    private val password: String = config.endpointProp(CogboardConstants.PROP_PASSWORD)
-    private val token: String = config.endpointProp(CogboardConstants.PROP_TOKEN)
+    val user: String = config.endpointProp(CogboardConstants.PROP_USER)
+    val password: String = config.endpointProp(CogboardConstants.PROP_PASSWORD)
+    val token: String = config.endpointProp(CogboardConstants.PROP_TOKEN)
     val url: String = config.endpointProp(CogboardConstants.PROP_URL)
     val publicUrl: String = config.endpointProp(CogboardConstants.PROP_PUBLIC_URL).ifBlank { url }
 
@@ -52,7 +52,7 @@ abstract class AsyncWidget(
 
     protected fun httpGet(url: String, requestId: String = "") {
         vertx.eventBus().send(CogboardConstants.EVENT_HTTP_GET,
-                jsonObject(url)
+                basicProps(url)
                         .put(CogboardConstants.PROP_REQUEST_ID, requestId)
                         .put(CogboardConstants.PROP_TOKEN, token)
         )
@@ -60,31 +60,31 @@ abstract class AsyncWidget(
 
     protected fun httpGetStatus(url: String) {
         vertx.eventBus().send(CogboardConstants.EVENT_HTTP_CHECK,
-                jsonObject(url)
+                basicProps(url)
         )
     }
 
     protected fun httpPut(url: String, body: JsonObject) {
         vertx.eventBus().send(CogboardConstants.EVENT_HTTP_PUT,
-                jsonObject(url)
+                basicProps(url)
                         .put(CogboardConstants.PROP_BODY, body)
         )
     }
 
     protected fun httpPost(url: String, body: JsonObject) {
         vertx.eventBus().send(CogboardConstants.EVENT_HTTP_POST,
-                jsonObject(url)
+                basicProps(url)
                         .put(CogboardConstants.PROP_BODY, body)
         )
     }
 
     protected fun httpDelete(url: String) {
         vertx.eventBus().send(CogboardConstants.EVENT_HTTP_DELETE,
-                jsonObject(url)
+                basicProps(url)
         )
     }
 
-    private fun jsonObject(url: String): JsonObject {
+    private fun basicProps(url: String): JsonObject {
         return JsonObject()
                 .put(CogboardConstants.PROP_URL, url)
                 .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)

@@ -10,7 +10,8 @@ import {
   REQUEST_METHODS,
   TEXT_SIZES,
   validationMessages as vm,
-  SONARQUBE_VERSIONS
+  SONARQUBE_VERSIONS,
+  ZABBIX_METRICS
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
 import widgetTypes from '../../widgets';
@@ -31,7 +32,6 @@ import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
-import ZabbixMetricsInput from './ZabbixMetricsInput';
 import RangeSlider from './RangeSlider';
 
 const dialogFields = {
@@ -302,17 +302,24 @@ const dialogFields = {
         .of(string())
   },
   ZabbixMetricsInput: {
-    component: ZabbixMetricsInput,
+    component: DisplayValueSelect,
     name: 'selectedZabbixMetric',
     label: 'Metric',
-    initialValue: 'cpu',
+    dropdownItems: ZABBIX_METRICS,
+    initialValue: ZABBIX_METRICS[0].value,
+    validator: () => string()
+  },
+  Host: {
+    component: TextInput,
+    name: 'host',
+    label: 'Host',
     validator: () => string()
   },
   RangeSlider: {
     component: RangeSlider,
     name: 'rangeSlider',
     label: 'Slider',
-    validator: () => array()
+    validator: () => string()
   },
   StatusCode: {
     component: NumberInput,

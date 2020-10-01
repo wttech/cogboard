@@ -196,6 +196,7 @@ const widgetTypes = {
     dialogFields: [
       'EndpointField',
       'SchedulePeriod',
+      'Host',
       'ZabbixMetricsInput',
       'RangeSlider'
     ],
