@@ -157,6 +157,10 @@ export const ZABBIX_METRICS = [
   {
     display: 'Used disk space',
     value: 'vfs.fs.size[/,used]'
+  },
+  {
+    display: 'Mem heap size',
+    value: 'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]'
   }
 ];
 
