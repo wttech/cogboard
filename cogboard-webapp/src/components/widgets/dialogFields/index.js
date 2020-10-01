@@ -33,6 +33,7 @@ import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
 import RangeSlider from './RangeSlider';
+import ToDoListInput from './ToDoListinput';
 
 const dialogFields = {
   LabelField: {
@@ -63,6 +64,18 @@ const dialogFields = {
         .max(max, vm.STRING_LENGTH('Label', max))
         .required(vm.FIELD_REQUIRED())
   },
+  CurrentPasswordField: {
+    component: PasswordInput,
+    name: 'currentPassword',
+    label: 'Current Password',
+    validator: () => string().required(vm.FIELD_REQUIRED)
+  },
+  NewPasswordField: {
+    component: PasswordInput,
+    name: 'newPassword',
+    label: 'New Password',
+    validator: () => string().required(vm.FIELD_REQUIRED)
+  },
   PasswordField: {
     component: PasswordInput,
     name: 'password',
@@ -77,7 +90,11 @@ const dialogFields = {
     component: PasswordInput,
     name: 'passwordConfirmation',
     label: 'Password confirmation',
-    validator: () => string().oneOf([ref('password'), null], vm.PASSWORD_MATCH)
+    validator: () =>
+      string().oneOf(
+        [ref('password'), ref('newPassword'), null],
+        vm.PASSWORD_MATCH
+      )
   },
   TokenField: {
     component: MultilineTextInput,
@@ -433,7 +450,6 @@ const dialogFields = {
     validator: () =>
       array()
         .ensure()
-        .min(1, vm.FIELD_MIN_ITEMS())
         .of(string())
   },
   DailySwitch: {
@@ -528,10 +544,13 @@ const dialogFields = {
     component: JiraBucketsInput,
     name: 'bucketQueries',
     initialValue: [],
-    validator: () =>
-      array()
-        .ensure()
-        .min(1, vm.FIELD_MIN_ITEMS())
+    validator: () => array().ensure()
+  },
+  ToDoListItems: {
+    component: ToDoListInput,
+    name: 'toDoListItems',
+    initialValue: [],
+    validator: () => array().ensure()
   }
 };
 

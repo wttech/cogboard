@@ -13,6 +13,7 @@ import IframeEmbedWidget from './types/IframeEmbedWidget';
 import PersonDrawWidget from './types/PersonDrawWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 import ZabbixWidget from './types/ZabbixWidget';
+import ToDoListWidget from './types/ToDoListWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -172,6 +173,7 @@ const widgetTypes = {
       'MultiTextInput'
     ],
     showUpdateTime: false,
+    initialStatus: 'NONE',
     validationConstraints: {}
   },
   AemBundleInfoWidget: {
@@ -204,6 +206,12 @@ const widgetTypes = {
     validationConstraints: {
       SchedulePeriod: { min: 3 }
     }
+  },
+  ToDoListWidget: {
+    name: 'ToDo List',
+    component: ToDoListWidget,
+    dialogFields: ['ToDoListItems'],
+    initialStatus: 'NONE'
   }
 };
 

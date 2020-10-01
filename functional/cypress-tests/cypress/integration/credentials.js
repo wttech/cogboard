@@ -87,7 +87,7 @@ describe('Credentials', () => {
       .assertErrorMessageVisible(
         'This field must be unique.',
         'credential-form-auth'
-    );
+      );
   });
 
   it('User can edit existing credentials', () => {

@@ -59,6 +59,10 @@ export const StyledFieldset = styled(FormControl)`
     color: ${COLORS.WHITE};
   }
 
+  .MuiFormLabel-root.Mui-error {
+    color: ${COLORS.WHITE};
+  }
+
   .MuiInput-underline::after,
   .MuiInput-underline.Mui-focused::after {
     border-bottom-color: ${COLORS.WHITE};
@@ -129,4 +133,23 @@ export const StyledContainerBox = styled(Box)`
 
 export const CaptionWithMargin = styled(Caption)`
   margin-bottom: 10px;
+`;
+
+export const StyledErrorMsg = styled(Typography)`
+  display: flex;
+  color: ${COLORS.YELLOW};
+  font-weight: 500;
+
+  .MuiSvgIcon-root {
+    margin-right: 5px;
+  }
+`;
+
+export const StyledFormFieldWrapper = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+
+  .Mui-error {
+    color: ${COLORS.YELLOW};
+  }
 `;

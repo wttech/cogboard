@@ -28,8 +28,8 @@ class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, c
 
         (buckets.first { compareId(bucketId, it) } as JsonObject)
                 .put("issueCounts", issues?.size() ?: "Error")
-        send(JsonObject()
-                .put(CC.PROP_CONTENT, JsonObject().put("buckets", buckets)))
+
+        send(JsonObject().put("buckets", buckets))
     }
 
     private fun createBucketUrl(bucket: JsonObject) =

@@ -29,10 +29,9 @@ class BambooDeploymentWidget(
 
     private fun sendNeverDeployed() {
         send(JsonObject()
-                .put(CC.PROP_CONTENT, JsonObject()
-                        .put(CC.PROP_ERROR_MESSAGE, "Never Deployed")
-                        .put(CC.PROP_ERROR_CAUSE, "")
-                        .put(CC.PROP_WIDGET_STATUS, Widget.Status.UNKNOWN)))
+                .put(CC.PROP_ERROR_MESSAGE, "Never Deployed")
+                .put(CC.PROP_ERROR_CAUSE, "")
+                .put(CC.PROP_WIDGET_STATUS, Widget.Status.UNKNOWN))
     }
 
     private fun sendSuccess(result: JsonObject) {
@@ -46,8 +45,7 @@ class BambooDeploymentWidget(
             remove("items")
         }
 
-        send(JsonObject()
-                .put(CC.PROP_CONTENT, result))
+        send(result)
     }
 
     override fun updateState() {

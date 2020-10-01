@@ -29,8 +29,7 @@ class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx
 
         content.put(CogboardConstants.PROP_WIDGET_STATUS, status)
 
-        send(JsonObject()
-                .put(CogboardConstants.PROP_CONTENT, content))
+        send(content)
     }
 
     override fun updateState() {

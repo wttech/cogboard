@@ -12,6 +12,7 @@ import com.cognifide.cogboard.widget.type.persondraw.PersonDrawWidget
 import com.cognifide.cogboard.widget.type.ServiceCheckWidget
 import com.cognifide.cogboard.widget.type.sonarqube.SonarQubeWidget
 import com.cognifide.cogboard.widget.type.TextWidget
+import com.cognifide.cogboard.widget.type.ToDoListWidget
 import com.cognifide.cogboard.widget.type.JiraBucketsWidget
 import com.cognifide.cogboard.widget.type.WorldClockWidget
 import com.cognifide.cogboard.widget.type.AemBundleInfoWidget
@@ -42,6 +43,7 @@ class WidgetIndex {
             PersonDrawWidget::class.java.simpleName -> PersonDrawWidget(vertx, config)
             AemBundleInfoWidget::class.java.simpleName -> AemBundleInfoWidget(vertx, config)
             ZabbixWidget::class.java.simpleName -> ZabbixWidget(vertx, config)
+            ToDoListWidget::class.java.simpleName -> ToDoListWidget(vertx, config)
             // add here
             else -> WhiteSpaceWidget(vertx, config)
         }

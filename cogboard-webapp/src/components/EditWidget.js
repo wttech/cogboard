@@ -7,7 +7,7 @@ import { saveWidget } from '../actions/thunks';
 import WidgetForm from './WidgetForm';
 
 const EditWidget = ({ closeDialog, id, widgetTypeData, ...widgetData }) => {
-  const initialFormValues = { ...widgetData, ...widgetTypeData };
+  const initialFormValues = { id, ...widgetData, ...widgetTypeData };
   const dispatch = useDispatch();
 
   const handleEditWidget = values => {

@@ -8,7 +8,7 @@ class Widget {
   }
 
   configure(disabled) {
-    cy.fillNewWidgetGeneral(this.name, this.title, false, disabled, 1, 1);
+    cy.fillNewWidgetGeneral(this.name, this.title, false, disabled, 2, 1);
     fillDynamicTab(this);
     cy.confirmAddWidget();
     return this;
@@ -60,6 +60,16 @@ class Widget {
 
   isDisabled() {
     cy.contains('Disabled').should('is.visible');
+    return this;
+  }
+
+  isChecked(selector, flag) {
+    cy.get(selector).should(flag ? 'be.checked' : 'not.be.checked');
+    return this;
+  }
+
+  scrollToElement(selector) {
+    cy.get(selector).scrollIntoView();
     return this;
   }
 

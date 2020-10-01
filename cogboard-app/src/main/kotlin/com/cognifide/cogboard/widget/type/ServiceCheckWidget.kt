@@ -1,10 +1,8 @@
 package com.cognifide.cogboard.widget.type
 
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_BODY
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CONTENT
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_EXPECTED_RESPONSE_BODY
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_EXPECTED_STATUS_CODE
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_ID
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PATH
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_REQUEST_METHOD
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
@@ -64,9 +62,7 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
             .put(PROP_EXPECTED_STATUS_CODE, expectedStatusCode)
             .put(PROP_WIDGET_STATUS, getStatusResponse(responseBody))
 
-        send(JsonObject()
-                .put(PROP_ID, id)
-                .put(PROP_CONTENT, responseBody))
+        send(responseBody)
     }
 
     private fun getStatusResponse(responseBody: JsonObject): Widget.Status {

@@ -24,10 +24,9 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
 
     private fun sendNeverBuilt() {
         send(JsonObject()
-                .put(CC.PROP_CONTENT, JsonObject()
-                        .put(CC.PROP_ERROR_MESSAGE, "Never Built")
-                        .put(CC.PROP_ERROR_CAUSE, "")
-                        .put(CC.PROP_WIDGET_STATUS, Widget.Status.UNKNOWN)))
+                .put(CC.PROP_ERROR_MESSAGE, "Never Built")
+                .put(CC.PROP_ERROR_CAUSE, "")
+                .put(CC.PROP_WIDGET_STATUS, Widget.Status.UNKNOWN))
     }
 
     private fun sendSuccess(results: JsonObject) {
@@ -37,7 +36,7 @@ class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, co
             result.put(CC.PROP_URL, extractUrl(result.getString("buildResultKey")))
                     .put(CC.PROP_WIDGET_STATUS, Widget.Status.from(result.getString("state")))
 
-            send(JsonObject().put(CC.PROP_CONTENT, result))
+            send(result)
         }
     }
 
