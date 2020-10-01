@@ -14,7 +14,7 @@ const LinkListWidget = ({ linkListItems }) => {
             <StyledListItem>
               <Link
                 id={`link-${id}`}
-                href={`https://${item.linkUrl}`}
+                href={item.linkUrl}
                 target="_blank"
                 rel="noopener"
               >

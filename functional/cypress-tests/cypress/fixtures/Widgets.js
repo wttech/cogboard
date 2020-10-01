@@ -127,15 +127,15 @@ module.exports = {
     linkListItems: [
       {
         linkTitle: 'Github',
-        linkUrl: 'github.com'
+        linkUrl: 'https://github.com'
       },
       {
         linkTitle: 'Google',
-        linkUrl: 'www.google.com'
+        linkUrl: 'https://www.google.com'
       },
       {
         linkTitle: 'Bitbucket',
-        linkUrl: 'bitbucket.org'
+        linkUrl: 'https://bitbucket.org'
       }
     ]
   },
