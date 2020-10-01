@@ -81,7 +81,7 @@ export function validateLinkList(widget) {
     widget.assertText('a', title);
     cy.get(`#link-${i}`)
       .should('have.prop', 'href')
-      .and('equal', `https://${url}/`);
+      .and('equal', `${url}/`);
   }
 }
 
