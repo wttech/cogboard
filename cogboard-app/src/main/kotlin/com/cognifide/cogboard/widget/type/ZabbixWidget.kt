@@ -40,8 +40,7 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
         val body = responseBody.getString("body")
         val value = JsonObject(body)
         if (value.getValue(RESULT).toString().contains("key_")) {
-            send(JsonObject()
-                    .put(CogboardConstants.PROP_CONTENT, JsonObject().put("lastValue", extractLastValue(value))))
+            send(JsonObject().put("lastValue", extractLastValue(value)))
         } else if (authorizationToken.containsKey(publicUrl) && !value.getString(RESULT).contains(selectedMetric)) {
             fetchItemData()
         } else if (JsonObject(body).containsKey(ERROR)) {
