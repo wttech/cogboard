@@ -45,7 +45,7 @@ const PersonDrawWidget = ({ id, multiTextInput, index }) => {
         </>
       ) : (
         <StyledNoItemsInfo>
-          <InfoOutlined fontSize='large' />
+          <InfoOutlined fontSize="large" />
           <p>Persons List Empty</p>
         </StyledNoItemsInfo>
       )}

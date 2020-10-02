@@ -75,11 +75,11 @@ const ToDoListWidget = ({ id, selectedItems }) => {
 
   return (
     <>
-      {(widgetData.toDoListItems && widgetData.toDoListItems.length > 0) ? (
+      {widgetData.toDoListItems && widgetData.toDoListItems.length > 0 ? (
         <FormGroup column="true">{renderListItems()}</FormGroup>
       ) : (
         <StyledNoItemsInfo>
-          <InfoOutlinedIcon fontSize='large' />
+          <InfoOutlinedIcon fontSize="large" />
           <p>List Empty</p>
         </StyledNoItemsInfo>
       )}

@@ -12,6 +12,7 @@ import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
 import PersonDrawWidget from './types/PersonDrawWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
+import LinkListWidget from './types/LinkListWidget';
 import ToDoListWidget from './types/ToDoListWidget';
 
 const widgetTypes = {
@@ -195,6 +196,12 @@ const widgetTypes = {
     name: 'ToDo List',
     component: ToDoListWidget,
     dialogFields: ['ToDoListItems'],
+    initialStatus: 'NONE'
+  },
+  LinkListWidget: {
+    name: 'Link List',
+    component: LinkListWidget,
+    dialogFields: ['LinkListItems'],
     initialStatus: 'NONE'
   }
 };

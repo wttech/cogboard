@@ -3,7 +3,6 @@ import {
   FormControl,
   IconButton,
   InputLabel,
-  List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText
@@ -11,7 +10,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
-import { FlexBoxWrapped } from './styled';
+import { FlexBoxWrapped, StyledList } from './styled';
 import { prepareChangeEvent } from './helpers';
 import { Add } from '@material-ui/icons';
 import Input from '@material-ui/core/Input';
@@ -75,7 +74,7 @@ const MultiTextInput = ({ value, onChange }) => {
           <Add />
         </IconButton>
       </FlexBoxWrapped>
-      <List>
+      <StyledList>
         {items.map((item, index) => (
           <ListItem key={item.id} dense button>
             <ListItemText primary={item.text} />
@@ -91,7 +90,7 @@ const MultiTextInput = ({ value, onChange }) => {
             </ListItemSecondaryAction>
           </ListItem>
         ))}
-      </List>
+      </StyledList>
     </FormControl>
   );
 };

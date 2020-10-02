@@ -117,7 +117,13 @@ export const StyledCardContent = styled(({ type, ...props }) => (
   flex: 1;
   position: relative;
   justify-content: space-between;
-  overflow-y: ${({ type }) => (type === 'ToDoListWidget' ? 'auto' : '')};
+  ${({ type }) =>
+    (type === 'LinkListWidget' || type === 'ToDoListWidget') &&
+    `
+      overflow-y: auto; 
+      margin-right: 14px;
+      margin-bottom: 5px;
+    `};
 
   &:last-child {
     padding-bottom: 8px;

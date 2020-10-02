@@ -31,6 +31,7 @@ import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
+import LinkListInput from './LinkListInput';
 import ToDoListInput from './ToDoListinput';
 
 const dialogFields = {
@@ -522,17 +523,19 @@ const dialogFields = {
     component: JiraBucketsInput,
     name: 'bucketQueries',
     initialValue: [],
-    validator: () =>
-      array()
-        .ensure()
+    validator: () => array().ensure()
   },
   ToDoListItems: {
     component: ToDoListInput,
     name: 'toDoListItems',
     initialValue: [],
-    validator: () =>
-      array()
-        .ensure()
+    validator: () => array().ensure()
+  },
+  LinkListItems: {
+    component: LinkListInput,
+    name: 'linkListItems',
+    initialValue: [],
+    validator: () => array().ensure()
   }
 };
 

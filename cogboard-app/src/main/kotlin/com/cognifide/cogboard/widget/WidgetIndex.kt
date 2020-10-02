@@ -8,6 +8,7 @@ import com.cognifide.cogboard.widget.type.CheckboxWidget
 import com.cognifide.cogboard.widget.type.WhiteSpaceWidget
 import com.cognifide.cogboard.widget.type.IframeEmbedWidget
 import com.cognifide.cogboard.widget.type.JenkinsJobWidget
+import com.cognifide.cogboard.widget.type.LinkListWidget
 import com.cognifide.cogboard.widget.type.persondraw.PersonDrawWidget
 import com.cognifide.cogboard.widget.type.ServiceCheckWidget
 import com.cognifide.cogboard.widget.type.sonarqube.SonarQubeWidget
@@ -42,6 +43,7 @@ class WidgetIndex {
             PersonDrawWidget::class.java.simpleName -> PersonDrawWidget(vertx, config)
             AemBundleInfoWidget::class.java.simpleName -> AemBundleInfoWidget(vertx, config)
             ToDoListWidget::class.java.simpleName -> ToDoListWidget(vertx, config)
+            LinkListWidget::class.java.simpleName -> LinkListWidget(vertx, config)
             // add here
             else -> WhiteSpaceWidget(vertx, config)
         }

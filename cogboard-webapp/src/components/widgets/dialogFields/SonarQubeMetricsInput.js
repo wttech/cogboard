@@ -9,11 +9,10 @@ import {
   Checkbox,
   MenuItem,
   ListItemText,
-  Select,
-  FormHelperText
+  Select
 } from '@material-ui/core';
-
-import { StyledFormControl } from './../../styled';
+import { Error } from '@material-ui/icons';
+import { StyledFormControl, StyledFormHelperText } from '../../styled';
 import { hasError } from '../../../utils/components';
 
 const SonarQubeMetricsInput = ({ onChange, value, error, dataCy }) => {
@@ -38,7 +37,12 @@ const SonarQubeMetricsInput = ({ onChange, value, error, dataCy }) => {
           </MenuItem>
         ))}
       </Select>
-      {hasError(error) && <FormHelperText>{error}</FormHelperText>}
+      {hasError(error) && (
+        <StyledFormHelperText>
+          <Error />
+          {error}
+        </StyledFormHelperText>
+      )}
     </StyledFormControl>
   );
 };

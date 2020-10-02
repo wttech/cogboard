@@ -5,40 +5,42 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
-import Link from "@material-ui/core/Link";
+import Link from '@material-ui/core/Link';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { StyledNoItemsInfo } from '../../Widget/styled';
 
 const JiraBucketsWidget = ({ buckets }) => {
   return (
     <>
-        {buckets.length > 0 ? (
-          <div style={{ overflow: 'hidden' }}>
-            <Table size="small">
-              <TableHead>
+      {buckets.length > 0 ? (
+        <div style={{ overflow: 'hidden' }}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Bucket</TableCell>
+                <TableCell>Issues</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {buckets.map(bucket => (
                 <TableRow>
-                  <TableCell>Bucket</TableCell>
-                  <TableCell>Issues</TableCell>
+                  <TableCell>
+                    <Link href={bucket.url} target="_blank">
+                      {bucket.name}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{bucket.issueCounts}</TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {buckets.map(bucket => (
-                  <TableRow>
-                    <TableCell>
-                      <Link href={bucket.url} target="_blank">{bucket.name}</Link>
-                    </TableCell>
-                    <TableCell>{bucket.issueCounts}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        ) : (
-          <StyledNoItemsInfo>
-            <InfoOutlinedIcon fontSize='large' />
-            <p>Buckets List Empty</p>
-          </StyledNoItemsInfo>
-        )}
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      ) : (
+        <StyledNoItemsInfo>
+          <InfoOutlinedIcon fontSize="large" />
+          <p>Buckets List Empty</p>
+        </StyledNoItemsInfo>
+      )}
     </>
   );
 };

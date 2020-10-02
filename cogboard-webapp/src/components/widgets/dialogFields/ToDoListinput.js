@@ -82,7 +82,12 @@ const ToDoListInput = ({ value, values, onChange }) => {
       id: widgetId,
       clearItems: true
     });
-    dispatch(saveWidget({ widgetId, values: { ...values, toDoListItems: filteredArray }}));
+    dispatch(
+      saveWidget({
+        widgetId,
+        values: { ...values, toDoListItems: filteredArray }
+      })
+    );
   };
 
   const handleEdit = id => {
@@ -102,7 +107,9 @@ const ToDoListInput = ({ value, values, onChange }) => {
         id: widgetId,
         selectedItem: itemId
       });
-      dispatch(saveWidget({ widgetId, values: { ...values, toDoListItems: itemList} }));
+      dispatch(
+        saveWidget({ widgetId, values: { ...values, toDoListItems: itemList } })
+      );
     }
   };
 
