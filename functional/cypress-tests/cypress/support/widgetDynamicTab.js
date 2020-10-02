@@ -78,6 +78,14 @@ export function fillJiraBuckets() {
   }
 }
 
+export function fillLinksList() {
+  for (let link of Widgets.linkList.linkListItems) {
+    cy.get('[data-cy=link-title] > .MuiInputBase-input').type(link.linkTitle);
+    cy.get('[data-cy=link-url] > .MuiInputBase-input').type(link.linkUrl);
+    cy.get('[data-cy=add-link-item]').click();
+  }
+}
+
 export function fillServiceCheck() {
   cy.fillSchedulePeriod(Widgets.serviceCheck.schedulePeriod);
   cy.get('[data-cy="widget-form-request-method-input"]').click();
@@ -206,6 +214,9 @@ export function fillDynamicTab(widget) {
       break;
     case 'Jira Buckets':
       selectTabAndFillData(fillJiraBuckets);
+      break;
+    case 'Link List':
+      selectTabAndFillData(fillLinksList);
       break;
     case 'Service Check':
       selectTabAndFillData(fillServiceCheck);

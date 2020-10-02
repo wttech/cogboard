@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 import NumberInput from './NumberInput';
-import { Box } from '@material-ui/core';
-import { Input, List, Fab } from '@material-ui/core';
+import { COLORS } from '../../../constants';
+import { Box, Input, Fab, List, FormControl } from '@material-ui/core';
 
 export const StyledNumberInput = styled(NumberInput)`
   flex-basis: calc(50% - 18px);
@@ -22,13 +22,25 @@ export const StyledFab = styled(Fab)`
 `;
 
 export const StyledList = styled(List)`
-  margin-top: 16px;
-  overflow-y: auto;
-  max-height: 160px;
+  &:empty {
+    padding: 0;
+  }
+
+  &:not(:empty) {
+    margin-top: 16px;
+    overflow-y: scroll;
+    max-height: 160px;
+  }
 
   .MuiListItemText-root span {
     max-width: 250px;
     padding-right: 60px;
+  }
+`;
+
+export const StyledFormControl = styled(FormControl)`
+  .MuiInput-root.Mui-error {
+    color: ${COLORS.WHITE};
   }
 `;
 

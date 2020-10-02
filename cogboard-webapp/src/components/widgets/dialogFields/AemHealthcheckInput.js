@@ -9,10 +9,10 @@ import {
   Checkbox,
   MenuItem,
   ListItemText,
-  Select,
-  FormHelperText
+  Select
 } from '@material-ui/core';
-import { StyledFormControl } from './../../styled';
+import { Error } from '@material-ui/icons';
+import { StyledFormControl, StyledFormHelperText } from '../../styled';
 
 import { hasError } from '../../../utils/components';
 
@@ -39,7 +39,10 @@ const AemHealthcheckInput = ({ onChange, value, error, dataCy }) => {
         ))}
       </Select>
       {hasError(error) && (
-        <FormHelperText data-cy={`${dataCy}-error`}>{error}</FormHelperText>
+        <StyledFormHelperText data-cy={`${dataCy}-error`}>
+          <Error />
+          {error}
+        </StyledFormHelperText>
       )}
     </StyledFormControl>
   );

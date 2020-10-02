@@ -33,6 +33,7 @@ import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
 import JiraBucketsInput from './JiraBucketsInput';
 import RangeSlider from './RangeSlider';
+import LinkListInput from './LinkListInput';
 import ToDoListInput from './ToDoListinput';
 
 const dialogFields = {
@@ -549,6 +550,12 @@ const dialogFields = {
   ToDoListItems: {
     component: ToDoListInput,
     name: 'toDoListItems',
+    initialValue: [],
+    validator: () => array().ensure()
+  },
+  LinkListItems: {
+    component: LinkListInput,
+    name: 'linkListItems',
     initialValue: [],
     validator: () => array().ensure()
   }

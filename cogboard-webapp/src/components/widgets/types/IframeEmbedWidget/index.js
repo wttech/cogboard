@@ -1,19 +1,23 @@
 import React from 'react';
 import { string } from 'prop-types';
 import { attachHttp } from './helpers';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { StyledIframe } from '../../../styled';
-import { Typography } from '@material-ui/core';
+import { StyledNoItemsInfo } from '../../../Widget/styled';
 
 const IframeEmbedWidget = ({ iframeUrl, className }) => {
-  if (iframeUrl) {
-    return <StyledIframe className={className} url={attachHttp(iframeUrl)} />;
-  } else {
-    return (
-      <Typography className={className} variant="h5">
-        URL is blank
-      </Typography>
-    );
-  }
+  return (
+    <>
+      {iframeUrl ? (
+        <StyledIframe className={className} url={attachHttp(iframeUrl)} />
+      ) : (
+        <StyledNoItemsInfo>
+          <InfoOutlinedIcon fontSize="large" />
+          <p>URL is blank</p>
+        </StyledNoItemsInfo>
+      )}
+    </>
+  );
 };
 
 IframeEmbedWidget.propTypes = {

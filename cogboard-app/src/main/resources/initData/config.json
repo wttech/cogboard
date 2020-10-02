@@ -51,7 +51,8 @@
           "widget29",
           "widget35",
           "widget33",
-          "widget31"
+          "widget31",
+          "widget36"
         ],
         "columns": 8,
         "title": "TestBoard 2",
@@ -163,7 +164,7 @@
       },
       "widget13": {
         "id": "widget13",
-        "title": "Healthchecks - Wrapped",
+        "title": "Healthcheck - Wrapped",
         "config": {
           "columns": 1,
           "goNewLine": false,
@@ -532,7 +533,7 @@
         "boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
         "randomizeCheckbox": true,
         "personDrawDailySwitch": true,
-        "personDrawInterval": 1,
+        "personDrawInterval": 0,
         "multiTextInput": [
           "Adam",
           "Bartek",
@@ -629,6 +630,37 @@
             "itemText": "L"
           }
         ]
+      },
+      "widget36": {
+        "id": "widget36",
+        "title": "Link List",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "LinkListWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "linkListItems": [
+          {
+            "id": "ad7db663-d320-4834-85f5-d213dcfcc8ff",
+            "linkTitle": "Cognifide",
+            "linkUrl": "http://www.cognifide.com"
+          },
+          {
+            "id": "60abde37-f189-40b7-9cd3-636eef937753",
+            "linkTitle": "Google",
+            "linkUrl": "http://www.google.com"
+          },
+          {
+            "id": "5523593e-c49e-49aa-93ba-0493e4b1538b",
+            "linkTitle": "CogBoard",
+            "linkUrl": "https://github.com/Cognifide/cogboard"
+          }
+        ]
       }
     },
     "allWidgets": [
@@ -655,7 +687,8 @@
       "widget31",
       "widget32",
       "widget33",
-      "widget35"
+      "widget35",
+      "widget36"
     ]
   }
 }

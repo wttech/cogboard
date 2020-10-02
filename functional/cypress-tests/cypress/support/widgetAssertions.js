@@ -72,6 +72,19 @@ export function validateJiraBuckets(widget) {
     .assertBackground('rgb(38, 36, 62)');
 }
 
+export function validateLinkList(widget) {
+  const linkListItems = Widgets.linkList.linkListItems;
+  for (let i = 0; i < linkListItems.length; i++) {
+    const title = linkListItems[i].linkTitle;
+    const url = linkListItems[i].linkUrl;
+
+    widget.assertText('a', title);
+    cy.get(`#link-${i}`)
+      .should('have.prop', 'href')
+      .and('equal', `${url}/`);
+  }
+}
+
 export function validateServiceCheck(widget) {
   widget
     .assertBackground('rgb(1, 148, 48)')
@@ -168,6 +181,9 @@ export function validateWidgetConfig(widget) {
       break;
     case 'Jira Buckets':
       validateJiraBuckets(widget);
+      break;
+    case 'Link List':
+      validateLinkList(widget);
       break;
     case 'Service Check':
       validateServiceCheck(widget);

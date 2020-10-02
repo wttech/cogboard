@@ -1,43 +1,25 @@
 import React, { useState } from 'react';
+import { remove } from 'ramda';
+import { v4 } from 'uuid';
+import { prepareChangeEvent } from './helpers';
 import {
   FormControl,
   IconButton,
-  List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import CheckIcon from '@material-ui/icons/Check';
-import { remove } from 'ramda';
-import { v4 } from 'uuid';
-import { prepareChangeEvent } from './helpers';
-import AddIcon from '@material-ui/icons/Add';
-import Input from '@material-ui/core/Input';
-import Fab from '@material-ui/core/Fab';
-import styled from '@emotion/styled/macro';
-
-const StyledInput = styled(Input)`
-  margin-top: 16px;
-  margin-bottom: 8px;
-`;
-
-const StyledFab = styled(Fab)`
-  margin-top: 16px;
-  margin-bottom: 8px;
-`;
-
-const StyledList = styled(List)`
-  margin-top: 16px;
-`;
+import { Add, Edit, Check, Delete } from '@material-ui/icons';
+import { StyledList, StyledInput, StyledFab } from './styled';
 
 const JiraBucketsInput = ({ value, onChange }) => {
   const [formValueJqlQuery, setFormValueJqlQuery] = useState('');
   const [formValueBucketName, setFormValueBucketName] = useState('');
   const [editMode, setEditMode] = useState(false);
-  const handleChangeValJqlQuery = event => setFormValueJqlQuery(event.target.value);
-  const handleChangeValBucketName = event => setFormValueBucketName(event.target.value);
+  const handleChangeValJqlQuery = event =>
+    setFormValueJqlQuery(event.target.value);
+  const handleChangeValBucketName = event =>
+    setFormValueBucketName(event.target.value);
 
   const [buckets, setBuckets] = useState(() =>
     (value || []).map(bucket => {
@@ -53,18 +35,22 @@ const JiraBucketsInput = ({ value, onChange }) => {
     setFormValueJqlQuery('');
     setFormValueBucketName('');
   };
+
   const onSaveClick = () => {
     handleSave({
       id: v4(),
       jqlQuery: formValueJqlQuery,
       bucketName: formValueBucketName
     });
-  }
+  };
+
   const handleSave = bucket => {
     let updatedItems;
+
     if (bucket.jqlQuery.length === 0 || bucket.bucketName.length === 0) {
       return;
     }
+
     if (editMode) {
       updatedItems = buckets;
       const updatedItemId = buckets.findIndex(el => el.id === editMode);
@@ -80,36 +66,44 @@ const JiraBucketsInput = ({ value, onChange }) => {
         { id: v4(), bucketName: bucket.bucketName, jqlQuery: bucket.jqlQuery }
       ];
     }
+
     setBuckets(updatedItems);
-    onChange(prepareChangeEvent(updatedItems, 'array'))
-    resetInput()
+    onChange(prepareChangeEvent(updatedItems, 'array'));
+    resetInput();
   };
+
   const handleDelete = itemIndex => {
     let itemList = remove(itemIndex, 1, buckets);
     setBuckets(itemList);
     onChange(prepareChangeEvent(itemList, 'array'));
   };
-  const handleKeyPressed = (event, _) => {
+
+  const handleKeyPressed = event => {
     if (event.key === 'Enter') {
       event.preventDefault();
+
       if (!formValueJqlQuery) {
-        return false;
+        return;
       }
+
       handleSave({
         id: v4(),
         jqlQuery: formValueJqlQuery,
         bucketName: formValueBucketName
       });
-      return true;
+      return;
     }
-    return false;
+
+    return;
   };
+
   const handleEdit = id => {
     const editJqlQuery = buckets.find(el => el.id === id);
     setFormValueJqlQuery(editJqlQuery.jqlQuery);
     setFormValueBucketName(editJqlQuery.bucketName);
     setEditMode(editJqlQuery.id);
   };
+
   return (
     <FormControl>
       <StyledInput
@@ -138,11 +132,11 @@ const JiraBucketsInput = ({ value, onChange }) => {
       >
         {editMode ? (
           <>
-            <CheckIcon /> Save Bucket
+            <Check /> Save Bucket
           </>
         ) : (
           <>
-            <AddIcon /> Add bucket
+            <Add /> Add bucket
           </>
         )}
       </StyledFab>
@@ -166,7 +160,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
                 aria-label="Edit"
                 disabled={editMode === item.id}
               >
-                <EditIcon />
+                <Edit />
               </IconButton>
               <IconButton
                 aria-label="Delete"
@@ -175,7 +169,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
                   handleDelete(index);
                 }}
               >
-                <DeleteIcon />
+                <Delete />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
