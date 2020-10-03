@@ -88,7 +88,7 @@ const ToDoListWidget = ({ id, selectedItems }) => {
 };
 
 ToDoListWidget.propTypes = {
-  toDoListItems: array.isRequired
+  toDoListItems: array
 };
 
 ToDoListWidget.defaultProps = {

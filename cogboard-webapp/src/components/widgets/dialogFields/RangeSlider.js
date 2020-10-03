@@ -1,22 +1,11 @@
 import React from 'react';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { prepareChangeEvent } from './helpers';
+import { StyledRangeSliderForm } from './styled';
 
-const RangeSlider = ({ dataCy }) => {
-  //TODO refactor needed
-  const inputId = 'range-slider';
-  const [value, setValue] = React.useState([57, 80]);
-
-  const useStyles = makeStyles({
-    root: {
-      color: 'secondary'
-    }
-  });
-
-  function valuetext(value) {
-    return `${value}%`;
-  }
+const RangeSlider = ({ value, onChange }) => {
+  const [rangeValue, setRangeValue] = React.useState(value);
 
   const marks = [
     {
@@ -29,26 +18,29 @@ const RangeSlider = ({ dataCy }) => {
     }
   ];
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const handleChange = (_, newValue) => setRangeValue(newValue);
+  const handleChangeCommited = (_, newValue) => {
+    onChange(prepareChangeEvent(newValue, 'array'));
+  }
+
+  const valuetext = (value) => {
+    return `${value}%`;
+  }
 
   return (
-    <div className={useStyles.root}>
-      <Typography id={inputId} gutterBottom>
+    <StyledRangeSliderForm>
+      <Typography variant="caption">
         Range (%)
       </Typography>
       <Slider
-        value={value}
-        color={'secondary'}
+        value={rangeValue}
         onChange={handleChange}
+        onChangeCommitted={handleChangeCommited}
         valueLabelDisplay="auto"
-        aria-labelledby="range-slider"
-        data-cy={dataCy}
         marks={marks}
         getAriaValueText={valuetext}
       />
-    </div>
+    </StyledRangeSliderForm>
   );
 };
 

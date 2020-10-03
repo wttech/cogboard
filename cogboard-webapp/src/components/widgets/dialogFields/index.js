@@ -337,7 +337,8 @@ const dialogFields = {
     component: RangeSlider,
     name: 'rangeSlider',
     label: 'Slider',
-    validator: () => string()
+    initialValue: [20, 60],
+    validator: () => array()
   },
   StatusCode: {
     component: NumberInput,

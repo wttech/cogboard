@@ -58,3 +58,30 @@ export const StyledFabGroup = styled.div`
     margin-left: 16px;
   }
 `;
+
+export const StyledRangeSliderForm = styled.div`
+  .MuiSlider-root {
+    color: white;
+  }
+
+  .MuiSlider-valueLabel {
+    top: -28px;
+
+    > span {
+      width: 28px;
+      height: 28px;
+
+      > span {
+        color: black
+      }
+    }
+  }
+
+  .MuiSlider-markLabel {
+    font-size: 0.75rem;
+  }
+
+  .MuiTypography-root {
+    color: rgba(255, 255, 255, 0.7);
+  }
+`;

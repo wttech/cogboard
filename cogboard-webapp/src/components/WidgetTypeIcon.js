@@ -10,6 +10,7 @@ const WidgetTypeIcon = ({ content, status }) => {
       </StyledStatusIconButton>
     );
   }
+
   return (
     <StyledIconWrapper>
       <StatusIcon status={status} size="large" />

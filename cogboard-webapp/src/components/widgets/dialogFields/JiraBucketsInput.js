@@ -16,10 +16,8 @@ const JiraBucketsInput = ({ value, onChange }) => {
   const [formValueJqlQuery, setFormValueJqlQuery] = useState('');
   const [formValueBucketName, setFormValueBucketName] = useState('');
   const [editMode, setEditMode] = useState(false);
-  const handleChangeValJqlQuery = event =>
-    setFormValueJqlQuery(event.target.value);
-  const handleChangeValBucketName = event =>
-    setFormValueBucketName(event.target.value);
+  const handleChangeValJqlQuery = event => setFormValueJqlQuery(event.target.value);
+  const handleChangeValBucketName = event => setFormValueBucketName(event.target.value);
 
   const [buckets, setBuckets] = useState(() =>
     (value || []).map(bucket => {
@@ -73,7 +71,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
   };
 
   const handleDelete = itemIndex => {
-    let itemList = remove(itemIndex, 1, buckets);
+    const itemList = remove(itemIndex, 1, buckets);
     setBuckets(itemList);
     onChange(prepareChangeEvent(itemList, 'array'));
   };
@@ -91,7 +89,6 @@ const JiraBucketsInput = ({ value, onChange }) => {
         jqlQuery: formValueJqlQuery,
         bucketName: formValueBucketName
       });
-      return;
     }
 
     return;
