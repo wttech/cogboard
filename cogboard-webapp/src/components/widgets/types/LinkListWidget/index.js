@@ -11,7 +11,7 @@ const LinkListWidget = ({ linkListItems }) => {
       {linkListItems.length > 0 ? (
         <StyledList component="nav" aria-label="Links List">
           {linkListItems.map((item, id) => (
-            <StyledListItem>
+            <StyledListItem key={`link-${id}`}>
               <Link
                 id={`link-${id}`}
                 href={item.linkUrl}
@@ -34,7 +34,7 @@ const LinkListWidget = ({ linkListItems }) => {
 };
 
 LinkListWidget.propTypes = {
-  linkListItems: array.isRequired
+  linkListItems: array
 };
 
 LinkListWidget.defaultProps = {

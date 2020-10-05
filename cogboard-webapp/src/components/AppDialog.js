@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, element, func, string } from 'prop-types';
+import { bool, element, func, string, oneOfType, arrayOf } from 'prop-types';
 import styled from '@emotion/styled/macro';
 
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
@@ -53,7 +53,10 @@ const AppDialog = props => {
 
 AppDialog.propTypes = {
   handleDialogClose: func.isRequired,
-  children: element.isRequired,
+  children: oneOfType([
+    arrayOf(element),
+    element
+  ]).isRequired,
   open: bool.isRequired,
   title: string
 };
