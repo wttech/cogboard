@@ -37,23 +37,41 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
     }
 
     override fun handleResponse(responseBody: JsonObject) {
-        val body = responseBody.getString("body")
-        val value = JsonObject(body)
-        if (value.getValue(RESULT).toString().contains("key_")) {
-            send(JsonObject().put("lastValue", extractLastValue(value)))
-        } else if (authorizationToken.containsKey(publicUrl) && !value.getString(RESULT).contains(selectedMetric)) {
-            fetchItemData()
-        } else if (JsonObject(body).containsKey(ERROR)) {
-            sendAuthorizationError(JsonObject(body))
-            logger.error(responseBody.getValue(ERROR))
-        } else {
-            saveToken(value.getString(RESULT))
-            fetchItemData()
+        val result = extractResult(responseBody)
+        when {
+            hasResponseData(result) -> sendUpdate(result)
+            isAuthorized(result) -> fetchItemData()
+            hasError(responseBody) -> sendAuthorizationError(responseBody)
+            else -> {
+                saveToken(result.toString())
+                fetchItemData()
+            }
         }
     }
 
-    private fun extractLastValue(value: JsonObject) =
-            ((value.getValue(RESULT) as JsonArray).list[0] as LinkedHashMap<*, *>)["lastvalue"]
+    private fun extractResult(responseBody: JsonObject): Any {
+        val body = responseBody.getString("body")
+        val value = JsonObject(body)
+        return value.getValue(RESULT, "")
+    }
+
+    private fun hasResponseData(result: Any) = result.toString().contains("key_")
+
+    private fun sendUpdate(result: Any?) {
+        val responseParams = result as JsonArray
+        send(JsonObject()
+                .put(LAST_VALUE, responseParams.extractLastValue(LAST_VALUE))
+                .put(NAME, responseParams.extractLastValue(NAME)))
+    }
+
+    private fun JsonArray.extractLastValue(param: String) =
+            (this.list[0] as LinkedHashMap<*, *>)[param]
+
+    private fun isAuthorized(result: Any) =
+            authorizationToken.containsKey(publicUrl) && !result.toString().contains(selectedMetric)
+
+    private fun hasError(responseBody: JsonObject) =
+            JsonObject(responseBody.getString("body")).containsKey(ERROR)
 
     private fun fetchItemData() {
         val bodyToSend = prepareRequestBody(ITEM_GET, prepareParams(), authorizationToken[publicUrl])
@@ -66,7 +84,8 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
         } else {
             "\"$auth\""
         }
-        val jsonObject = JsonObject(
+
+        return JsonObject(
                 """
                 {
                     "jsonrpc": "2.0",
@@ -77,12 +96,10 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
                 }
             """
         )
-
-        return jsonObject
     }
 
     private fun prepareParams(): JsonObject {
-        val jsonObject = JsonObject(
+        return JsonObject(
                 """
                 {
                     "filter": {
@@ -97,7 +114,6 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
                 }
             """
         )
-        return jsonObject
     }
 
     private fun saveToken(token: String) {
@@ -105,15 +121,16 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
     }
 
     private fun sendAuthorizationError(responseBody: JsonObject) {
-        val error = JsonObject(responseBody.getValue(ERROR).toString())
+        val body = JsonObject(responseBody.getString("body"))
+        val error = JsonObject(body.getValue(ERROR).toString())
         val errorMessage = error.getString("message")
-        val errorCause = error.getString("cause")
+        val errorCause = error.getString("data")
 
-        send(JsonObject().put(
-                CogboardConstants.PROP_CONTENT,
-                JsonObject()
-                        .put(CogboardConstants.PROP_ERROR_MESSAGE, errorMessage)
-                        .put(CogboardConstants.PROP_ERROR_CAUSE, errorCause)))
+        logger.error("Error message: $errorMessage; Cause: $errorCause")
+
+        send(JsonObject()
+                .put(CogboardConstants.PROP_ERROR_MESSAGE, errorMessage)
+                .put(CogboardConstants.PROP_ERROR_CAUSE, errorCause))
     }
 
     companion object {
@@ -123,6 +140,8 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
         private const val ITEM_GET = "item.get"
         private const val ERROR = "error"
         private const val RESULT = "result"
-        protected val authorizationToken = hashMapOf<String, String>()
+        private const val LAST_VALUE = "lastvalue"
+        private const val NAME = "name"
+        val authorizationToken = hashMapOf<String, String>()
     }
 }
