@@ -34,6 +34,10 @@ class BoardsConfigService(
         contentRepository.save(widgetId, content)
     }
 
+    fun getContent(widgetId: String): JsonObject {
+        return contentRepository.get(widgetId)
+    }
+
     private fun getWidgetById(boardsConfig: JsonObject) =
             boardsConfig.getJsonObject(CC.PROP_WIDGETS)
                     ?.getJsonObject(CC.PROP_WIDGETS_BY_ID) ?: JsonObject()

@@ -18,7 +18,7 @@ import com.cognifide.cogboard.CogboardConstants as CC
 abstract class BaseWidget(
     val vertx: Vertx,
     val config: JsonObject,
-    private var boardService: BoardsConfigService = BoardsConfigService()
+    protected var boardService: BoardsConfigService = BoardsConfigService()
 ) : Widget {
 
     private var consumer: MessageConsumer<JsonObject>? = null
