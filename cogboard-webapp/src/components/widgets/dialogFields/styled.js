@@ -60,6 +60,13 @@ export const StyledFabGroup = styled.div`
 `;
 
 export const StyledRangeSliderForm = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  .MuiFormControl-root {
+    margin-bottom: 12px;
+  }
+
   .MuiSlider-root {
     color: white;
   }

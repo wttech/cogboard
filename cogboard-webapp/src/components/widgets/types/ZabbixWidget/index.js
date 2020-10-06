@@ -13,7 +13,7 @@ const zabbixMetricsWithProgress = [ // temporary solution - we need metrics name
 
 const progressBarWidth = {
   column1: {
-    diameter: 120
+    diameter: 150
   },
   column2: {
     diameter: 200
