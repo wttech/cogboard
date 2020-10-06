@@ -368,6 +368,186 @@
         },
         "bodyFileName": "aem/v6.5.2/bundleinfo.json"
       }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n            \"jsonrpc\": \"2.0\",\n            \"method\": \"user.login\",\n            \"params\": {\n              \"user\": \"admin\",\n              \"password\": \"admin\"\n            },\n            \"id\": 1,\n        \"auth\": null  }"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/auth.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n            \"jsonrpc\": \"2.0\",\n            \"method\": \"user.login\",\n            \"params\": {\n              \"user\": \"\",\n              \"password\": \"\"\n            },\n            \"id\": 1,\n        \"auth\": null  }"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/auth_error.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"system.cpu.util[,idle]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/cpu.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"system.uptime\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/uptime.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"system.users.num\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/users.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"system.swap.size[,used]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/swap.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"proc.num[]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/processes.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"vm.memory.size[available]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/available_memory.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"vfs.fs.size[/,used]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/disc_used.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/heap.json"
+      }
     }
   ]
 }
