@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Slider from '@material-ui/core/Slider';
-import { Typography, FormControl, Input } from '@material-ui/core';
+import { Typography} from '@material-ui/core';
 import { prepareChangeEvent } from './helpers';
 import { StyledRangeSliderForm } from './styled';
 
@@ -18,8 +18,6 @@ const zabbixMetrics = { // temporary solution - we need metrics names
 };
 
 const RangeSlider = ({ value, values, onChange }) => {
-  const [maxValue, setMaxValue] = useState('');
-  const [rangeValue, setRangeValue] = React.useState(value);
   const widgetZabbixMetric = values.selectedZabbixMetric;
   const marks = [
     {
@@ -31,15 +29,16 @@ const RangeSlider = ({ value, values, onChange }) => {
       label: '100%'
     }
   ];
+  const [rangeValue, setRangeValue] = React.useState(value);
 
-  const handleChangeMaxValue = event => setMaxValue(event.target.value);
   const handleChange = (_, newValue) => setRangeValue(newValue);
   const handleChangeCommited = (_, newValue) => {
-    onChange(prepareChangeEvent(newValue, 'array'));
+    onChange(
+      prepareChangeEvent(newValue, 'array')
+    );
   }
 
   const checkMetricHasProgress = () => zabbixMetrics.withProgress.includes(widgetZabbixMetric);
-  const checkMetricHasMaxValue = () => zabbixMetrics.withoutMaxValue.includes(widgetZabbixMetric);
 
   const valuetext = (value) => {
     return `${value}%`;
@@ -49,18 +48,6 @@ const RangeSlider = ({ value, values, onChange }) => {
     <>
       {checkMetricHasProgress() && (
         <StyledRangeSliderForm>
-          {checkMetricHasMaxValue() && (
-            <FormControl>
-              <Typography variant="caption">
-                Max value
-              </Typography>
-              <Input
-                data-cy="max-value"
-                onChange={handleChangeMaxValue}
-                value={maxValue}
-              />
-            </FormControl>
-          )}
           <Typography variant="caption">
             Range (%)
           </Typography>

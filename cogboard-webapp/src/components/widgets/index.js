@@ -201,7 +201,8 @@ const widgetTypes = {
       'SchedulePeriod',
       'Host',
       'ZabbixMetricsInput',
-      'RangeSlider'
+      'SliderMaxValue',
+      'SliderRange'
     ],
     showUpdateTime: true,
     validationConstraints: {

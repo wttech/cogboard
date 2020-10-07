@@ -1,4 +1,4 @@
-import { string, number, boolean, array, ref } from 'yup';
+import { string, number, boolean, array, ref, object } from 'yup';
 
 import {
   DATE_FORMATS,
@@ -31,6 +31,7 @@ import { StyledNumberInput } from './styled';
 import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
+import MaxValueInput from './MaxValueInput';
 import JiraBucketsInput from './JiraBucketsInput';
 import RangeSlider from './RangeSlider';
 import LinkListInput from './LinkListInput';
@@ -333,12 +334,19 @@ const dialogFields = {
     label: 'Host',
     validator: () => string()
   },
-  RangeSlider: {
+  SliderRange: {
     component: RangeSlider,
-    name: 'rangeSlider',
-    label: 'Slider',
+    name: 'range',
+    label: 'Range',
     initialValue: [20, 60],
     validator: () => array()
+  },
+  SliderMaxValue: {
+    component: MaxValueInput,
+    name: 'maxValue',
+    label: 'Max Value',
+    initialValue: '',
+    validator: () => string()
   },
   StatusCode: {
     component: NumberInput,
