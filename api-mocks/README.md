@@ -118,3 +118,13 @@ All mocks require running `cogboard-local_api-mocks` container, and choosing `AP
 * Warning - `KEY = warning`
 
 **How to use:** In dynamic tab of SonarQube select version of SonarQube in the dropdown, then type correct Key in the `Key` input. For 5.x you could also type 316488 in the `ID` field. **Important - select all metrics**.
+
+### Zabbix
+
+**Number of mocks** eight mocks per each metric, one mock for authorize, one mock for authorization error
+
+**Possible states** TODO
+
+**How to use:** In dynamic tab of Zabbix widget:
+* add new endpoint: `http://api-mocks:8080/zabbix/api_jsonrpc.php`
+* add new credentials: `username: admin`, `password: admin`

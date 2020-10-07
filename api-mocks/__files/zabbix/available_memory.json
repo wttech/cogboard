@@ -49,9 +49,9 @@
       "state": "0",
       "snmpv3_contextname": "",
       "evaltype": "0",
-      "lastclock": "1601880653",
+      "lastclock": "{{now format='epoch'}}",
       "lastns": "297183398",
-      "lastvalue": "14726955008",
+      "lastvalue": "{{randomValue length=11 type='NUMERIC'}}",
       "prevvalue": "14727561216"
     }
   ],
