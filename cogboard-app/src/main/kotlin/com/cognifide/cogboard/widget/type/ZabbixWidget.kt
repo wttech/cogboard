@@ -50,7 +50,7 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
     }
 
     private fun extractResult(responseBody: JsonObject): Any {
-        val body = responseBody.getString("body")
+        val body = responseBody.getString(BODY)
         val value = JsonObject(body)
         return value.getValue(RESULT, "")
     }
@@ -82,10 +82,10 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
             authorizationToken.containsKey(publicUrl) && !result.toString().contains(selectedMetric)
 
     private fun hasError(responseBody: JsonObject) =
-            JsonObject(responseBody.getString("body")).containsKey(ERROR)
+            JsonObject(responseBody.getString(BODY)).containsKey(ERROR)
 
     private fun sendAuthorizationError(responseBody: JsonObject) {
-        val body = JsonObject(responseBody.getString("body"))
+        val body = JsonObject(responseBody.getString(BODY))
         val error = JsonObject(body.getValue(ERROR).toString())
         val errorMessage = error.getString("message")
         val errorCause = error.getString("data")
@@ -157,6 +157,7 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
         private const val LAST_VALUE = "lastvalue"
         private const val LAST_CLOCK = "lastclock"
         private const val NAME = "name"
+        private const val BODY = "body"
         private const val HISTORY = "history"
         private const val HOUR_IN_MILLS = 3600000L
         val authorizationToken = hashMapOf<String, String>()

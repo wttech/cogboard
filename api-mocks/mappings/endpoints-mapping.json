@@ -420,6 +420,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
+        "transformers": ["response-template"],
         "bodyFileName": "zabbix/cpu.json"
       }
     },
