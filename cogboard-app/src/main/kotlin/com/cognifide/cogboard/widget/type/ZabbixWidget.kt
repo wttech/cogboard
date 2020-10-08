@@ -110,7 +110,7 @@ class ZabbixWidget(
             value < first -> {
                 return Widget.Status.OK
             }
-            value in first..second -> {
+            first <= value && value <= second -> {
                 return Widget.Status.UNSTABLE
             }
             value > second -> {
