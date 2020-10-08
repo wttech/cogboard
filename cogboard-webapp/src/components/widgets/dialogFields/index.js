@@ -1,4 +1,4 @@
-import { string, number, boolean, array, ref, object } from 'yup';
+import { string, number, boolean, array, ref } from 'yup';
 
 import {
   DATE_FORMATS,
@@ -345,8 +345,8 @@ const dialogFields = {
     component: MaxValueInput,
     name: 'maxValue',
     label: 'Max Value',
-    initialValue: '',
-    validator: () => string()
+    initialValue: 0,
+    validator: () => number()
   },
   StatusCode: {
     component: NumberInput,

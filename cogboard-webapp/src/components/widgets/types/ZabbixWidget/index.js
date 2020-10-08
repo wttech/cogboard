@@ -2,14 +2,15 @@ import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SemiCircleProgress from '../../../SemiProgressBar';
 import { StyledTypography } from './styled';
+import { ZABBIX_METRICS } from '../../../../constants';
 
 const zabbixMetrics = { // temporary solution - we need metrics names
   withProgress: [
     'system.cpu.util[,idle]',
-    'vm.memory.size[available]',
     'system.swap.size[,used]',
-    'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]',
-    'vfs.fs.size[/,used]'
+    'vm.memory.size[available]',
+    'vfs.fs.size[/,used]',
+    'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]'
   ],
   withoutMaxValue: [
     'system.cpu.util[,idle]'
@@ -48,26 +49,43 @@ const ZabbixWidget = ({ id, lastvalue }) => {
   };
 
   const calculatePercentageValue = () => {
-    if (checkMetricHasMaxValue()) {
-      return lastvalue;
+    if (!lastvalue) return 0;
+    if (checkMetricHasMaxValue()) return lastvalue;
+
+    return Math.round((100 * lastvalue) / (maxValue * Math.pow(10,9)));
+  }
+
+  const convertMetricTitle = () => {
+    if (!widgetZabbixMetric) return '';
+
+    const metricDisplayName = ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric).display;
+    return metricDisplayName;
+  }
+
+  const renderNoProgressContent = () => {
+    let value;
+
+    if (widgetZabbixMetric === 'system.uptime') {
+      const date = new Date(0);
+      date.setUTCSeconds(lastvalue);
+      value = date.toLocaleString('en-GB', { hour12: false } );
+    } else {
+      value = lastvalue;
     }
 
-    if (widgetZabbixMetric === 'vm.memory.size[available]') {
-      console.log(maxValue * Math.pow(10,9));
-      return Math.round((100 * lastvalue) / (maxValue * Math.pow(10,9)));
-    }
-
-    return 33;
+    return (
+      <StyledTypography>{ value }</StyledTypography>
+    );
   }
 
   return (
     <>
-      <StyledTypography>ZabbixWidget</StyledTypography>
+      <StyledTypography>{ convertMetricTitle() }</StyledTypography>
       {
         checkMetricHasProgress() ? (
           <SemiCircleProgress diameter={setProgressSize()} percentage={calculatePercentageValue()} showPercentValue />
         ) : (
-          <p>{ lastvalue }</p> // TBD
+          renderNoProgressContent()
         )
       }
     </>

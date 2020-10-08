@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Typography, FormControl, Input } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { TextField } from '@material-ui/core';
 import { prepareChangeEvent } from './helpers';
 
 const zabbixMetrics = { // temporary solution - we need metrics names
@@ -15,32 +15,42 @@ const zabbixMetrics = { // temporary solution - we need metrics names
   ]
 };
 
-const MaxValueInput = ({ value, values, onChange }) => {
-  const widgetZabbixMetric = values.selectedZabbixMetric;
-  const [maxValue, setMaxValue] = useState(value);
+const MaxValueInput = ({ error, value, values, label, dataCy, onChange, ...other }) => {
+  const [selectedMetric, setSelectedMetric] = useState(values.selectedZabbixMetric);
 
-  const handleChangeMaxValue = event => {
-    setMaxValue(event.target.value);
-    onChange(
-      prepareChangeEvent(event.target.value, 'string')
-    );
-  };
+  useEffect(() => {
+    setSelectedMetric(values.selectedZabbixMetric);
+  }, [values])
 
-  const checkMetricHasMaxValue = () => zabbixMetrics.withoutMaxValue.includes(widgetZabbixMetric);
+  useEffect(() => {
+    if ((!checkMetricHasProgress() || checkMetricHasMaxValue()) && value !== 0) {
+      console.log('send onchange');
+      onChange(
+        prepareChangeEvent(0, 'number')
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedMetric])
+
+  const checkMetricHasProgress = () => zabbixMetrics.withProgress.includes(selectedMetric);
+  const checkMetricHasMaxValue = () => zabbixMetrics.withoutMaxValue.includes(selectedMetric);
 
   return (
     <>
-      {!checkMetricHasMaxValue() && (
-        <FormControl>
-          <Typography variant="caption">
-            Max value { widgetZabbixMetric === 'vm.memory.size[available]' ? '(GB)' : ''}
-          </Typography>
-          <Input
-            data-cy="max-value"
-            onChange={handleChangeMaxValue}
-            value={maxValue}
-          />
-        </FormControl>
+      {(checkMetricHasProgress() && !checkMetricHasMaxValue()) && (
+        <TextField
+          InputLabelProps={{
+            shrink: true
+          }}
+          label={ `${label} (GB)` }
+          margin="normal"
+          type="number"
+          value={value}
+          onChange={ onChange }
+          FormHelperTextProps={{ component: 'div' }}
+          inputProps={{ 'data-cy': dataCy, min: "0", step: "1" }}
+          { ...other }
+        />
       )}
     </>
   );

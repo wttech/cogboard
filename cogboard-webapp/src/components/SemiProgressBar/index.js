@@ -1,18 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import styled from '@emotion/styled/macro';
-
-export const StyledSemiCircleContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-
-  svg {
-    transform: rotateY(180deg);
-    overflow: hidden
-  }
-`;
+import { StyledSemiCircleContainer } from './styled';
 
 const SemiCircleProgress = ({
   stroke = "#02B732",
@@ -25,7 +13,6 @@ const SemiCircleProgress = ({
   const coordinateForCircle = diameter / 2;
   const radius = (diameter - 2 * strokeWidth) / 2;
   const circumference = Math.PI * radius;
-  
 
   const setPercentageValue = () => {
     let percentageValue;

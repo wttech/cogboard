@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from '@material-ui/core/Slider';
 import { Typography} from '@material-ui/core';
 import { prepareChangeEvent } from './helpers';
@@ -18,7 +18,6 @@ const zabbixMetrics = { // temporary solution - we need metrics names
 };
 
 const RangeSlider = ({ value, values, onChange }) => {
-  const widgetZabbixMetric = values.selectedZabbixMetric;
   const marks = [
     {
       value: 0,
@@ -29,7 +28,27 @@ const RangeSlider = ({ value, values, onChange }) => {
       label: '100%'
     }
   ];
-  const [rangeValue, setRangeValue] = React.useState(value);
+  const [rangeValue, setRangeValue] = useState(() => {
+    if (value.length === 0) {
+      return [20, 60];
+    }
+
+    return value
+  });
+  const [selectedMetric, setSelectedMetric] = useState(values.selectedZabbixMetric);
+
+  useEffect(() => {
+    setSelectedMetric(values.selectedZabbixMetric);
+  }, [values])
+
+  useEffect(() => {
+    if (!checkMetricHasProgress() && value.length !== 0) {
+      onChange(
+        prepareChangeEvent([], 'array')
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedMetric])
 
   const handleChange = (_, newValue) => setRangeValue(newValue);
   const handleChangeCommited = (_, newValue) => {
@@ -38,7 +57,7 @@ const RangeSlider = ({ value, values, onChange }) => {
     );
   }
 
-  const checkMetricHasProgress = () => zabbixMetrics.withProgress.includes(widgetZabbixMetric);
+  const checkMetricHasProgress = () => zabbixMetrics.withProgress.includes(selectedMetric);
 
   const valuetext = (value) => {
     return `${value}%`;
