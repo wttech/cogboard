@@ -1,17 +1,26 @@
 package com.cognifide.cogboard.widget.type
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.AsyncWidget
+import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
+import kotlin.math.pow
 
-class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
+class ZabbixWidget(
+    vertx: Vertx,
+    config: JsonObject,
+    private val boardServ: BoardsConfigService = BoardsConfigService()
+) : AsyncWidget(vertx, config, boardServ) {
 
     private val selectedMetric: String = config.getString(METRIC, "")
     private val host: String = config.getString(HOST, "")
+    private val maxValue: Int = config.getInteger(MAX_VALUE, 0)
+    private val range: JsonArray = config.getJsonArray(RANGE, JsonArray())
 
     val logger: Logger
         get() = LoggerFactory.getLogger(ZabbixWidget::class.java)
@@ -57,25 +66,58 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
 
     private fun hasResponseData(result: Any) = result.toString().contains("key_")
 
-    private fun sendUpdate(result: Any?) {
+    private fun sendUpdate(result: Any) {
         val responseParams = result as JsonArray
+        val lastValue = responseParams.extractValue(LAST_VALUE)
         send(JsonObject()
-                .put(LAST_VALUE, responseParams.extractValue(LAST_VALUE))
+                .put(LAST_VALUE, lastValue)
                 .put(NAME, responseParams.extractValue(NAME))
-                .put(HISTORY, modifyHistory(responseParams)))
+                .put(HISTORY, modifyHistory(responseParams))
+                .put(CogboardConstants.PROP_WIDGET_STATUS, getStatusResponse(lastValue)))
     }
 
     private fun modifyHistory(responseParams: JsonArray): JsonObject {
         val history = fetchHistoryFromContent()
-        val lastUpdate = responseParams.extractValue(LAST_CLOCK).toString().toLong()
+        val lastUpdate = responseParams.extractValue(LAST_CLOCK).toLong()
         val filteredHistory = history.filter { it.key.toLong() > lastUpdate.minus(HOUR_IN_MILLS) }
         val lastValue = responseParams.extractValue(LAST_VALUE)
         return JsonObject(filteredHistory).mergeIn(JsonObject().put(lastUpdate.toString(), lastValue), true)
     }
 
     private fun fetchHistoryFromContent(): Map<String, Any> {
-        val content = boardService.getContent(config.getString(CogboardConstants.PROP_ID))
+        val content = boardServ.getContent(config.getString(CogboardConstants.PROP_ID))
         return content.getJsonObject(HISTORY, JsonObject()).map
+    }
+
+    private fun getStatusResponse(lastValue: String): Widget.Status {
+        val convertedValue = lastValue.toDouble()
+        return if (range.isEmpty) {
+            Widget.Status.UNKNOWN
+        } else {
+            if (maxValue == 0) {
+                status(convertedValue)
+            } else {
+                val percentageValue = convertedValue.div(maxValue * 10.0.pow(9)).times(100)
+                status(percentageValue)
+            }
+        }
+    }
+
+    private fun status(value: Double): Widget.Status {
+        val first = range.list[0] as Int
+        val second = range.list[1] as Int
+        return when {
+            value < first -> {
+                return Widget.Status.OK
+            }
+            value in first..second -> {
+                return Widget.Status.UNSTABLE
+            }
+            value > second -> {
+                return Widget.Status.FAIL
+            }
+            else -> Widget.Status.UNKNOWN
+        }
     }
 
     private fun isAuthorized(result: Any) =
@@ -106,8 +148,8 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
         httpPost(publicUrl, bodyToSend)
     }
 
-    private fun JsonArray.extractValue(param: String) =
-            (this.list[0] as LinkedHashMap<*, *>)[param]
+    private fun JsonArray.extractValue(param: String): String =
+            (this.list[0] as LinkedHashMap<*, *>)[param] as String
 
     private fun prepareRequestBody(method: String, params: JsonObject, auth: String? = null): JsonObject {
         val authVal = if (auth == null) {
@@ -150,6 +192,8 @@ class ZabbixWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config
     companion object {
         private const val METRIC = "selectedZabbixMetric"
         private const val HOST = "host"
+        private const val MAX_VALUE = "maxValue"
+        private const val RANGE = "range"
         private const val USER_LOGIN = "user.login"
         private const val ITEM_GET = "item.get"
         private const val ERROR = "error"
