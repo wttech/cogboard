@@ -1,23 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Slider from '@material-ui/core/Slider';
 import { Typography} from '@material-ui/core';
 import { prepareChangeEvent } from './helpers';
 import { StyledRangeSliderForm } from './styled';
-
-const zabbixMetrics = { // temporary solution - we need metrics names
-  withProgress: [
-    'system.cpu.util[,idle]',
-    'vm.memory.size[available]',
-    'system.swap.size[,used]',
-    'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]',
-    'vfs.fs.size[/,used]'
-  ],
-  withoutMaxValue: [
-    'system.cpu.util[,idle]'
-  ]
-};
+import { ZABBIX_METRICS_WITH_PROGRESS } from '../../../constants';
 
 const RangeSlider = ({ value, values, onChange }) => {
+  const widgetZabbixMetric = values.selectedZabbixMetric;
   const marks = [
     {
       value: 0,
@@ -28,27 +17,7 @@ const RangeSlider = ({ value, values, onChange }) => {
       label: '100%'
     }
   ];
-  const [rangeValue, setRangeValue] = useState(() => {
-    if (value.length === 0) {
-      return [20, 60];
-    }
-
-    return value
-  });
-  const [selectedMetric, setSelectedMetric] = useState(values.selectedZabbixMetric);
-
-  useEffect(() => {
-    setSelectedMetric(values.selectedZabbixMetric);
-  }, [values])
-
-  useEffect(() => {
-    if (!checkMetricHasProgress() && value.length !== 0) {
-      onChange(
-        prepareChangeEvent([], 'array')
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedMetric])
+  const [rangeValue, setRangeValue] = useState(value);
 
   const handleChange = (_, newValue) => setRangeValue(newValue);
   const handleChangeCommited = (_, newValue) => {
@@ -57,7 +26,7 @@ const RangeSlider = ({ value, values, onChange }) => {
     );
   }
 
-  const checkMetricHasProgress = () => zabbixMetrics.withProgress.includes(selectedMetric);
+  const checkMetricHasProgress = () => ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
 
   const valuetext = (value) => {
     return `${value}%`;

@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StyledSemiCircleContainer } from './styled';
+import { StyledSemiCircleContainer, StyledPercentageText } from './styled';
 
 const SemiCircleProgress = ({
-  stroke = "#02B732",
+  stroke,
   strokeWidth,
-  background = "#D0D0CE",
+  background,
   diameter,
   showPercentValue,
-  percentage
+  percentage,
+  text
 }) => {
   const coordinateForCircle = diameter / 2;
   const radius = (diameter - 2 * strokeWidth) / 2;
@@ -64,18 +65,9 @@ const SemiCircleProgress = ({
         />
       </svg>
       {showPercentValue && (
-        <span
-          className="semicircle-percent-value"
-          style={{
-            width: "100%",
-            left: "0",
-            textAlign: "center",
-            bottom: "0",
-            position: "absolute"
-          }}
-        >
-          {percentage}%
-        </span>
+        <StyledPercentageText>
+          {text ? `${text}GB/(${percentage}%)` : `${percentage}%`}
+        </StyledPercentageText>
       )}
     </StyledSemiCircleContainer>
   );
@@ -84,13 +76,18 @@ const SemiCircleProgress = ({
 SemiCircleProgress.propTypes = {
   strokeWidth: PropTypes.number,
   diameter: PropTypes.number,
-  showPercentValue: PropTypes.bool
+  showPercentValue: PropTypes.bool,
+  stroke: PropTypes.string,
+  background: PropTypes.string,
+  text: PropTypes.number
 };
 
 SemiCircleProgress.defaultProps = {
   strokeWidth: 10,
   diameter: 200,
-  showPercentValue: false
+  showPercentValue: false,
+  stroke: "#02B732",
+  background: "#D0D0CE",
 };
 
 export default SemiCircleProgress;

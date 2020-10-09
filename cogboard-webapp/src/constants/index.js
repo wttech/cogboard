@@ -164,6 +164,21 @@ export const ZABBIX_METRICS = [
   }
 ];
 
+export const ZABBIX_METRICS_WITH_PROGRESS = [
+  'system.cpu.util[,idle]',
+  'vm.memory.size[available]',
+  'system.swap.size[,used]',
+  'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]',
+  'vfs.fs.size[/,used]'
+];
+
+export const ZABBIX_METRICS_WITH_MAX_VALUE = [
+  'vm.memory.size[available]',
+  'system.swap.size[,used]',
+  'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]',
+  'vfs.fs.size[/,used]'
+];
+
 export const SONARQUBE_VERSIONS = [
   {
     display: '7.x',

@@ -10,3 +10,11 @@ export const StyledSemiCircleContainer = styled.div`
     overflow: hidden
   }
 `;
+
+export const StyledPercentageText = styled.span`
+  width: 100%;
+  left: 0;
+  text-align: center;
+  bottom: 0;
+  position: absolute;
+`;
