@@ -44,7 +44,7 @@ const ZabbixWidget = ({ id, lastvalue }) => {
     if (!lastvalue) return 0;
     if (!checkMetricHasMaxValue()) return parseInt(lastvalue, 10);
 
-    return Math.round((100 * lastvalue) / (maxValue * Math.pow(10,9)));
+    return convertToBytes(lastvalue);
   }
 
   const convertMetricTitle = () => {
@@ -52,6 +52,10 @@ const ZabbixWidget = ({ id, lastvalue }) => {
 
     const metricDisplayName = ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric).display;
     return metricDisplayName;
+  }
+
+  const convertToBytes = (value) => {
+    return Math.round((100 * value) / (maxValue * Math.pow(10,9)));
   }
 
   const convertToGigaBytes = () => {

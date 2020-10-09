@@ -73,13 +73,16 @@ export const StyledRangeSliderForm = styled.div`
 
   .MuiSlider-valueLabel {
     top: -28px;
+    transform: scale(1) translateY(45px) !important;
 
     > span {
-      width: 28px;
-      height: 28px;
+      width: 21px;
+      height: 21px;
+      border-radius: 50% 26% 50% 50%;
 
       > span {
-        color: black
+        color: black;
+        font-size: 0.65rem;
       }
     }
   }
