@@ -10,6 +10,7 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import kotlin.math.pow
+import kotlin.math.roundToLong
 
 class ZabbixWidget(
     vertx: Vertx,
@@ -87,7 +88,7 @@ class ZabbixWidget(
     }
 
     private fun getStatusResponse(lastValue: String): Widget.Status {
-        val convertedValue = lastValue.toDouble()
+        val convertedValue = lastValue.toLong()
         return when {
             metricHasMaxValue() -> status(convertToPercentage(convertedValue))
             metricHasProgress() -> status(convertedValue)
@@ -100,22 +101,24 @@ class ZabbixWidget(
 
     private fun metricHasProgress() = METRICS_WITH_PROGRESS.contains(selectedMetric)
 
-    private fun convertToPercentage(convertedValue: Double): Double {
+    private fun convertToPercentage(convertedValue: Long): Long {
         val multiplier = 10.0.pow(9)
-        return convertedValue.div(maxValue * multiplier).times(100)
+        return convertedValue
+                .div(maxValue * multiplier)
+                .times(100)
+                .roundToLong()
     }
 
-    private fun status(value: Double): Widget.Status {
-        val min = range.list[0] as Int
-        val max = range.list[1] as Int
+    private fun status(lastValue: Long): Widget.Status {
+        val unstableRange = (range.list[0] as Int)..(range.list[1] as Int)
         return when {
-            value < min -> {
+            lastValue < unstableRange.first -> {
                 return Widget.Status.OK
             }
-            min <= value && value <= max -> {
+            lastValue in unstableRange -> {
                 return Widget.Status.UNSTABLE
             }
-            value > max -> {
+            lastValue > unstableRange.last -> {
                 return Widget.Status.FAIL
             }
             else -> Widget.Status.UNKNOWN

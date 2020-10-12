@@ -411,7 +411,7 @@
         "url": "/zabbix/api_jsonrpc.php",
         "bodyPatterns": [
           {
-            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"system.cpu.util[,idle]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'system.cpu.util[,idle]')]"
           }
         ]
       },
@@ -420,7 +420,9 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "transformers": ["response-template"],
+        "transformers": [
+          "response-template"
+        ],
         "bodyFileName": "zabbix/cpu.json"
       }
     },
@@ -430,7 +432,7 @@
         "url": "/zabbix/api_jsonrpc.php",
         "bodyPatterns": [
           {
-            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"system.uptime\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'system.uptime')]"
           }
         ]
       },
@@ -448,7 +450,7 @@
         "url": "/zabbix/api_jsonrpc.php",
         "bodyPatterns": [
           {
-            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"system.users.num\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'system.users.num')]"
           }
         ]
       },
@@ -466,7 +468,7 @@
         "url": "/zabbix/api_jsonrpc.php",
         "bodyPatterns": [
           {
-            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"system.swap.size[,used]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'system.swap.size[,used]')]"
           }
         ]
       },
@@ -484,7 +486,7 @@
         "url": "/zabbix/api_jsonrpc.php",
         "bodyPatterns": [
           {
-            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"proc.num[]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'proc.num[]')]"
           }
         ]
       },
@@ -502,7 +504,7 @@
         "url": "/zabbix/api_jsonrpc.php",
         "bodyPatterns": [
           {
-            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"vm.memory.size[available]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'vm.memory.size[available]')]"
           }
         ]
       },
@@ -520,7 +522,7 @@
         "url": "/zabbix/api_jsonrpc.php",
         "bodyPatterns": [
           {
-            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"vfs.fs.size[/,used]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'vfs.fs.size[/,used]')]"
           }
         ]
       },
@@ -538,7 +540,7 @@
         "url": "/zabbix/api_jsonrpc.php",
         "bodyPatterns": [
           {
-            "equalToJson": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"item.get\",\n    \"params\": {\n        \"filter\": {\n            \"host\": [\n                \"\"\n            ]\n        },\n        \"search\": {\n            \"key_\": \"jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]\"\n        },\n        \"sortfield\": \"name\"\n    },\n    \"id\": 1,\n    \"auth\": \"c2d2b213484b7f93e6639c1ae4e2e140\"\n}"
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]')]"
           }
         ]
       },
