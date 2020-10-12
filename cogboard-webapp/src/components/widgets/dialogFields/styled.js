@@ -28,7 +28,7 @@ export const StyledList = styled(List)`
 
   &:not(:empty) {
     margin-top: 16px;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 160px;
   }
 
