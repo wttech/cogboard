@@ -12,18 +12,15 @@ import io.vertx.core.logging.LoggerFactory
 import kotlin.math.pow
 
 class ZabbixWidget(
-        vertx: Vertx,
-        config: JsonObject,
-        private val boardServ: BoardsConfigService = BoardsConfigService()
+    vertx: Vertx,
+    config: JsonObject,
+    private val boardServ: BoardsConfigService = BoardsConfigService()
 ) : AsyncWidget(vertx, config, boardServ) {
 
     private val selectedMetric: String = config.getString(METRIC, "")
     private val host: String = config.getString(HOST, "")
     private val maxValue: Int = config.getInteger(MAX_VALUE, 0)
     private val range: JsonArray = config.getJsonArray(RANGE, JsonArray())
-
-    val logger: Logger
-        get() = LoggerFactory.getLogger(ZabbixWidget::class.java)
 
     override fun updateState() {
         if (authorizationToken.containsKey(publicUrl)) {
@@ -137,7 +134,7 @@ class ZabbixWidget(
         val errorMessage = error.getString("message")
         val errorCause = error.getString("data")
 
-        logger.error("Error message: $errorMessage; Cause: $errorCause")
+        LOGGER.error("Error message: $errorMessage; Cause: $errorCause")
 
         send(JsonObject()
                 .put(CogboardConstants.PROP_ERROR_MESSAGE, errorMessage)
@@ -221,5 +218,6 @@ class ZabbixWidget(
                 "vm.memory.size[available]",
                 "vfs.fs.size[/,used]",
                 "jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]")
+        val LOGGER: Logger = LoggerFactory.getLogger(ZabbixWidget::class.java)
     }
 }
