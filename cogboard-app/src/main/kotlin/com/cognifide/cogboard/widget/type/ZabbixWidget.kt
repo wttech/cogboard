@@ -12,9 +12,9 @@ import io.vertx.core.logging.LoggerFactory
 import kotlin.math.pow
 
 class ZabbixWidget(
-    vertx: Vertx,
-    config: JsonObject,
-    private val boardServ: BoardsConfigService = BoardsConfigService()
+        vertx: Vertx,
+        config: JsonObject,
+        private val boardServ: BoardsConfigService = BoardsConfigService()
 ) : AsyncWidget(vertx, config, boardServ) {
 
     private val selectedMetric: String = config.getString(METRIC, "")
@@ -91,29 +91,34 @@ class ZabbixWidget(
 
     private fun getStatusResponse(lastValue: String): Widget.Status {
         val convertedValue = lastValue.toDouble()
-        return if (range.isEmpty) {
-            Widget.Status.UNKNOWN
-        } else {
-            if (maxValue == 0) {
-                status(convertedValue)
-            } else {
-                val percentageValue = convertedValue.div(maxValue * 10.0.pow(9)).times(100)
-                status(percentageValue)
-            }
+        return when {
+            metricHasMaxValue() -> status(convertToPercentage(convertedValue))
+            metricHasProgress() -> status(convertedValue)
+            else -> Widget.Status.UNKNOWN
         }
     }
 
+    private fun metricHasMaxValue() = metricHasProgress() &&
+            METRICS_WITH_MAX_VALUE.contains(selectedMetric)
+
+    private fun metricHasProgress() = METRICS_WITH_PROGRESS.contains(selectedMetric)
+
+    private fun convertToPercentage(convertedValue: Double): Double {
+        val multiplier = 10.0.pow(9)
+        return convertedValue.div(maxValue * multiplier).times(100)
+    }
+
     private fun status(value: Double): Widget.Status {
-        val first = range.list[0] as Int
-        val second = range.list[1] as Int
+        val min = range.list[0] as Int
+        val max = range.list[1] as Int
         return when {
-            value < first -> {
+            value < min -> {
                 return Widget.Status.OK
             }
-            first <= value && value <= second -> {
+            min <= value && value <= max -> {
                 return Widget.Status.UNSTABLE
             }
-            value > second -> {
+            value > max -> {
                 return Widget.Status.FAIL
             }
             else -> Widget.Status.UNKNOWN
@@ -205,5 +210,16 @@ class ZabbixWidget(
         private const val HISTORY = "history"
         private const val HOUR_IN_MILLS = 3600000L
         val authorizationToken = hashMapOf<String, String>()
+        val METRICS_WITH_PROGRESS = setOf(
+                "system.cpu.util[,idle]",
+                "system.swap.size[,used]",
+                "vm.memory.size[available]",
+                "vfs.fs.size[/,used]",
+                "jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]")
+        val METRICS_WITH_MAX_VALUE = setOf(
+                "system.swap.size[,used]",
+                "vm.memory.size[available]",
+                "vfs.fs.size[/,used]",
+                "jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]")
     }
 }
