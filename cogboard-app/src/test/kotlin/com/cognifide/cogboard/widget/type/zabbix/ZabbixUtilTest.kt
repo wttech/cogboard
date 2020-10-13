@@ -12,6 +12,13 @@ internal class ZabbixUtilTest {
         assertEquals(51, percentage)
     }
 
+    @Test
+    fun `Expect percentage value after conversion last value with maxValue as max integer value`() {
+        val percentage = SAMPLE_VALUE_IN_BYTES.convertToPercentage(Int.MAX_VALUE)
+
+        assertEquals(0, percentage)
+    }
+
     companion object {
         const val MAX_VALUE_100_GB = 100
         const val SAMPLE_VALUE_IN_BYTES = 50744555432L
