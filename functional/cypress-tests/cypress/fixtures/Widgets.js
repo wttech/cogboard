@@ -102,7 +102,6 @@ module.exports = {
     name: 'Jira Buckets',
     endpoint: 'endpoint1',
     schedulePeriod: '3',
-    issueLimit: '50',
     bucketQueries: [
       {
         id: '9ca907f6-1d35-4e62-a344-dba02bc3c181',

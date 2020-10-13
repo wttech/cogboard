@@ -84,12 +84,7 @@ const widgetTypes = {
   JiraBucketsWidget: {
     name: 'Jira Buckets',
     component: JiraBucketsWidget,
-    dialogFields: [
-      'EndpointField',
-      'SchedulePeriod',
-      'IssueLimit',
-      'JiraBuckets'
-    ],
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'JiraBuckets'],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }
