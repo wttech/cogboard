@@ -1,5 +1,6 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.widget.type.zabbix.ZabbixWidget
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions
@@ -29,7 +30,8 @@ class ZabbixWidgetTest : WidgetTestBase() {
 
     @Test
     fun `Expect ok widget update message send on event bus`() {
-        val (result, content) = sendResponseWithCapture(discUsedMetric, jsonFileDiscUsedMetric)
+        initZabbixWidgetWithMetric(discUsedMetric)
+        val (result, content) = handleResponse(jsonFileDiscUsedMetric)
 
         assertUpdateDatePresent(result)
         assertLastValue("7254701317", content)
@@ -40,7 +42,8 @@ class ZabbixWidgetTest : WidgetTestBase() {
 
     @Test
     fun `Expect warn widget update message send on event bus`() {
-        val (result, content) = sendResponseWithCapture(heapMetric, jsonFileHeapMetric)
+        initZabbixWidgetWithMetric(heapMetric)
+        val (result, content) = handleResponse(jsonFileHeapMetric)
 
         assertUpdateDatePresent(result)
         assertLastValue("50744555432", content)
@@ -51,7 +54,8 @@ class ZabbixWidgetTest : WidgetTestBase() {
 
     @Test
     fun `Expect fail widget update message send on event bus`() {
-        val (result, content) = sendResponseWithCapture(cpuMetric, jsonFileCpuMetric)
+        initZabbixWidgetWithMetric(cpuMetric)
+        val (result, content) = handleResponse(jsonFileCpuMetric)
 
         assertUpdateDatePresent(result)
         assertLastValue("63", content)
@@ -62,7 +66,8 @@ class ZabbixWidgetTest : WidgetTestBase() {
 
     @Test
     fun `Expect unknown widget update message send on event bus`() {
-        val (result, content) = sendResponseWithCapture(uptimeMetric, jsonFileUptimeMetric)
+        initZabbixWidgetWithMetric(uptimeMetric)
+        val (result, content) = handleResponse(jsonFileUptimeMetric)
 
         assertUpdateDatePresent(result)
         assertLastValue("88326792", content)
@@ -71,8 +76,12 @@ class ZabbixWidgetTest : WidgetTestBase() {
         assertHistory("88326792", "1602331294376", content)
     }
 
-    private fun sendResponseWithCapture(metric: String, jsonFile: String): Pair<JsonObject, JsonObject> {
-        zabbixWidgetTest = ZabbixWidget(vertx, initWidget().put(METRIC, metric), initService())
+    private fun initZabbixWidgetWithMetric(metric: String = "") {
+        val config = initWidget().put(METRIC, metric)
+        zabbixWidgetTest = ZabbixWidget(vertx, config, initService())
+    }
+
+    private fun handleResponse(jsonFile: String): Pair<JsonObject, JsonObject> {
         val response = load("/com/cognifide/cogboard/widget/type/${widgetName()}/${jsonFile}")
         zabbixWidgetTest.handleResponse(response)
         return captureWhatIsSent(eventBus, captor)

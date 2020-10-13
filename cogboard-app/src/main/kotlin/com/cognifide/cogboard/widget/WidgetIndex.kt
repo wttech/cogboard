@@ -17,7 +17,7 @@ import com.cognifide.cogboard.widget.type.ToDoListWidget
 import com.cognifide.cogboard.widget.type.JiraBucketsWidget
 import com.cognifide.cogboard.widget.type.WorldClockWidget
 import com.cognifide.cogboard.widget.type.AemBundleInfoWidget
-import com.cognifide.cogboard.widget.type.ZabbixWidget
+import com.cognifide.cogboard.widget.type.zabbix.ZabbixWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 

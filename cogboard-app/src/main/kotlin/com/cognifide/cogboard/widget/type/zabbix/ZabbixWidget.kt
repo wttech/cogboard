@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.widget.type
+package com.cognifide.cogboard.widget.type.zabbix
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
@@ -9,8 +9,6 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
-import kotlin.math.pow
-import kotlin.math.roundToLong
 
 class ZabbixWidget(
     vertx: Vertx,
@@ -83,14 +81,15 @@ class ZabbixWidget(
     }
 
     private fun fetchHistoryFromContent(): Map<String, Any> {
-        val content = boardServ.getContent(config.getString(CogboardConstants.PROP_ID))
+        val widgetId = config.getString(CogboardConstants.PROP_ID)
+        val content = boardServ.getContent(widgetId)
         return content.getJsonObject(HISTORY, JsonObject()).map
     }
 
     private fun getStatusResponse(lastValue: String): Widget.Status {
         val convertedValue = lastValue.toLong()
         return when {
-            metricHasMaxValue() -> status(convertToPercentage(convertedValue))
+            metricHasMaxValue() -> status(convertedValue.convertToPercentage(maxValue))
             metricHasProgress() -> status(convertedValue)
             else -> Widget.Status.UNKNOWN
         }
@@ -100,14 +99,6 @@ class ZabbixWidget(
             METRICS_WITH_MAX_VALUE.contains(selectedMetric)
 
     private fun metricHasProgress() = METRICS_WITH_PROGRESS.contains(selectedMetric)
-
-    private fun convertToPercentage(convertedValue: Long): Long {
-        val multiplier = 10.0.pow(9)
-        return convertedValue
-                .div(maxValue * multiplier)
-                .times(100)
-                .roundToLong()
-    }
 
     private fun status(lastValue: Long): Widget.Status {
         val unstableRange = (range.list[0] as Int)..(range.list[1] as Int)
