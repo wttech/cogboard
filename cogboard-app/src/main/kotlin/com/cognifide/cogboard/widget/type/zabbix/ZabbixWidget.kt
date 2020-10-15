@@ -91,7 +91,7 @@ class ZabbixWidget(
         return when {
             metricHasMaxValue() -> status(convertedValue.convertToPercentage(maxValue), range)
             metricHasProgress() -> status(convertedValue, range)
-            else -> Widget.Status.UNKNOWN
+            else -> Widget.Status.NONE
         }
     }
 
@@ -99,7 +99,6 @@ class ZabbixWidget(
             METRICS_WITH_MAX_VALUE.contains(selectedMetric)
 
     private fun metricHasProgress() = METRICS_WITH_PROGRESS.contains(selectedMetric)
-
 
     private fun isAuthorized(result: Any) =
             authorizationToken.containsKey(publicUrl) && !result.toString().contains(selectedMetric)

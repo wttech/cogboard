@@ -25,13 +25,15 @@ interface Widget {
         IN_PROGRESS,
         ERROR,
         ERROR_CONNECTION,
-        ERROR_CONFIGURATION;
+        ERROR_CONFIGURATION,
+        NONE;
 
         companion object {
             fun from(text: String): Status = when (text.toUpperCase()) {
                 "SUCCESS", "SUCCESSFUL", "OK" -> OK
                 "WARN" -> UNSTABLE
                 "FAILURE", "FAILED", "CRITICAL", "HEALTH_CHECK_ERROR" -> FAIL
+                "NONE" -> NONE
                 else -> values().firstOrNull { it.name.equals(text, ignoreCase = true) } ?: UNKNOWN
             }
 

@@ -72,7 +72,7 @@ class ZabbixWidgetTest : WidgetTestBase() {
         assertUpdateDatePresent(result)
         assertLastValue("88326792", content)
         assertName("System uptime", content)
-        assertStatus("UNKNOWN", result)
+        assertStatus("NONE", result)
         assertHistory("88326792", "1602331294376", content)
     }
 
