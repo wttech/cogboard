@@ -143,6 +143,10 @@ export const ZABBIX_METRICS = [
     value: 'system.cpu.util[,idle]'
   },
   {
+    display: 'Mem heap size',
+    value: 'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]'
+  },
+  {
     display: 'Number of processes',
     value: 'proc.num[]'
   },
@@ -157,10 +161,6 @@ export const ZABBIX_METRICS = [
   {
     display: 'Used swap space',
     value: 'system.swap.size[,used]'
-  },
-  {
-    display: 'Mem heap size',
-    value: 'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]'
   }
 ];
 
