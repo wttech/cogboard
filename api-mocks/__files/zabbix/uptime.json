@@ -51,7 +51,7 @@
       "evaltype": "0",
       "lastclock": "{{now format='epoch'}}",
       "lastns": "521184209",
-      "lastvalue": "{{randomValue length=8 type='NUMERIC'}}",
+      "lastvalue": "{{randomValue length=9 type='NUMERIC'}}",
       "prevvalue": "23292221"
     }
   ],

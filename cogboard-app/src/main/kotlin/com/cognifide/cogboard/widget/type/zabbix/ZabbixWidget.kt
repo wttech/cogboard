@@ -22,10 +22,10 @@ class ZabbixWidget(
     private val range: JsonArray = config.getJsonArray(RANGE, JsonArray())
 
     override fun updateState() {
-        if (authorizationToken.containsKey(publicUrl)) {
-            fetchItemData()
-        } else {
-            fetchAuthorizationToken()
+        when {
+            publicUrl.isBlank() -> sendConfigurationError("Endpoint URL is blank.")
+            authorizationToken.containsKey(publicUrl) -> fetchItemData()
+            else -> fetchAuthorizationToken()
         }
     }
 
@@ -89,8 +89,8 @@ class ZabbixWidget(
     private fun getStatusResponse(lastValue: String): Widget.Status {
         val convertedValue = lastValue.toLong()
         return when {
-            metricHasMaxValue() -> status(convertedValue.convertToPercentage(maxValue))
-            metricHasProgress() -> status(convertedValue)
+            metricHasMaxValue() -> status(convertedValue.convertToPercentage(maxValue), range)
+            metricHasProgress() -> status(convertedValue, range)
             else -> Widget.Status.UNKNOWN
         }
     }
@@ -100,21 +100,6 @@ class ZabbixWidget(
 
     private fun metricHasProgress() = METRICS_WITH_PROGRESS.contains(selectedMetric)
 
-    private fun status(lastValue: Long): Widget.Status {
-        val unstableRange = (range.list[0] as Int)..(range.list[1] as Int)
-        return when {
-            lastValue < unstableRange.first -> {
-                return Widget.Status.OK
-            }
-            lastValue in unstableRange -> {
-                return Widget.Status.UNSTABLE
-            }
-            lastValue > unstableRange.last -> {
-                return Widget.Status.FAIL
-            }
-            else -> Widget.Status.UNKNOWN
-        }
-    }
 
     private fun isAuthorized(result: Any) =
             authorizationToken.containsKey(publicUrl) && !result.toString().contains(selectedMetric)

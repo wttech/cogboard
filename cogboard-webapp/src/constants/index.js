@@ -131,32 +131,32 @@ export const ALL_SONARQUBE_METRICS = [
 
 export const ZABBIX_METRICS = [
   {
-    display: 'CPU utilization',
-    value: 'system.cpu.util[,idle]'
-  },
-  {
-    display: 'System uptime',
-    value: 'system.uptime'
-  },
-  {
     display: 'Active users',
     value: 'system.users.num'
-  },
-  {
-    display: 'Used swap space',
-    value: 'system.swap.size[,used]'
-  },
-  {
-    display: 'Number of processes',
-    value: 'proc.num[]'
   },
   {
     display: 'Available memory',
     value: 'vm.memory.size[available]'
   },
   {
+    display: 'CPU utilization',
+    value: 'system.cpu.util[,idle]'
+  },
+  {
+    display: 'Number of processes',
+    value: 'proc.num[]'
+  },
+  {
+    display: 'System uptime',
+    value: 'system.uptime'
+  },
+  {
     display: 'Used disk space',
     value: 'vfs.fs.size[/,used]'
+  },
+  {
+    display: 'Used swap space',
+    value: 'system.swap.size[,used]'
   },
   {
     display: 'Mem heap size',

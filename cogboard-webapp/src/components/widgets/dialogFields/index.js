@@ -338,7 +338,7 @@ const dialogFields = {
     component: RangeSlider,
     name: 'range',
     label: 'Range',
-    initialValue: [20, 60],
+    initialValue: [60, 80],
     validator: () => array()
   },
   SliderMaxValue: {
