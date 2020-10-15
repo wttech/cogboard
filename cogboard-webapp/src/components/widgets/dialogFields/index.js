@@ -236,7 +236,7 @@ const dialogFields = {
     label: 'Schedule Period [sec] (if 0 will run once)',
     min: 0,
     step: 10,
-    initialValue: 120,
+    initialValue: 60,
     validator: ({ min }) =>
       number().min(min, vm.NUMBER_MIN('Schedule period', min))
   },
