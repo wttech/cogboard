@@ -34,7 +34,10 @@ const RangeSlider = ({ value, values, onChange }) => {
   return (
     <>
       {checkMetricHasProgress() && (
-        <StyledRangeSliderForm>
+        <StyledRangeSliderForm
+          startRangeValue={rangeValue[0]}
+          endRangeValue={rangeValue[1]}
+        >
           <Typography variant="caption">Range (%)</Typography>
           <Slider
             value={rangeValue}

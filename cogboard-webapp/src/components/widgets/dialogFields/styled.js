@@ -79,14 +79,42 @@ export const StyledRangeSliderForm = styled.div`
     color: white;
   }
 
+  .MuiSlider-track {
+    background: #ff9724;
+  }
+
+  .MuiSlider-rail {
+    opacity: 0.6;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      height: 3px;
+    }
+
+    &::before {
+      background: green;
+      left: 0;
+      width: ${({ startRangeValue }) => `${startRangeValue}%`};
+    }
+
+    &::after {
+      background: #e1312f;
+      left: ${({ endRangeValue }) => `${endRangeValue}%`};
+      width: ${({ endRangeValue }) => `${100 - endRangeValue}%`};
+    }
+  }
+
   .MuiSlider-valueLabel {
     top: -28px;
-    transform: scale(1) translateY(45px) !important;
+    transform: scale(1) !important;
 
     > span {
       width: 21px;
       height: 21px;
-      border-radius: 50% 26% 50% 50%;
+      border-radius: 50% 50% 50% 26%;
 
       > span {
         color: white;
@@ -101,5 +129,6 @@ export const StyledRangeSliderForm = styled.div`
 
   .MuiTypography-root {
     color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 24px;
   }
 `;
