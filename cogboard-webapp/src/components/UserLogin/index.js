@@ -74,7 +74,7 @@ const UserLogin = () => {
             edge="start"
             data-cy="user-login-logout-icon"
           >
-            <PowerSettingsNew color="error" />
+            <PowerSettingsNew color="primary" />
           </IconButton>
         </Tooltip>
       )}

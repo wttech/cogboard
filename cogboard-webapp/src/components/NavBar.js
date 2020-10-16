@@ -48,7 +48,6 @@ const NavBar = ({ handleDrawerToggle }) => {
     <StyledAppBar position="fixed" theme={theme}>
       <Container maxWidth="xl">
         <StyledToolbar disableGutters theme={theme}>
-          <UserLogin />
           <Tooltip title="Boards" placement="bottom-end">
             <IconButton
               onClick={handleDrawerToggle(true)}
@@ -61,6 +60,7 @@ const NavBar = ({ handleDrawerToggle }) => {
             </IconButton>
           </Tooltip>
           <SettingsMenu />
+          <UserLogin />
           {!noBoardsFound && (
             <StyledTitle
               component="h2"
