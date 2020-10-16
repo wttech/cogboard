@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Slider from '@material-ui/core/Slider';
-import { Typography} from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { prepareChangeEvent } from './helpers';
 import { StyledRangeSliderForm } from './styled';
 import { ZABBIX_METRICS_WITH_PROGRESS } from '../../../constants';
@@ -21,24 +21,21 @@ const RangeSlider = ({ value, values, onChange }) => {
 
   const handleChange = (_, newValue) => setRangeValue(newValue);
   const handleChangeCommited = (_, newValue) => {
-    onChange(
-      prepareChangeEvent(newValue, 'array')
-    );
-  }
+    onChange(prepareChangeEvent(newValue, 'array'));
+  };
 
-  const checkMetricHasProgress = () => ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
+  const checkMetricHasProgress = () =>
+    ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
 
-  const valuetext = (value) => {
+  const valuetext = value => {
     return `${value}%`;
-  }
+  };
 
   return (
     <>
       {checkMetricHasProgress() && (
         <StyledRangeSliderForm>
-          <Typography variant="caption">
-            Range (%)
-          </Typography>
+          <Typography variant="caption">Range (%)</Typography>
           <Slider
             value={rangeValue}
             onChange={handleChange}

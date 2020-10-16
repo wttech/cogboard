@@ -67,6 +67,14 @@ export const StyledRangeSliderForm = styled.div`
     margin-bottom: 12px;
   }
 
+  .MuiSlider-thumb:last-child {
+    color: #e1312f;
+  }
+
+  .MuiSlider-thumb {
+    color: #ff9724;
+  }
+
   .MuiSlider-root {
     color: white;
   }
@@ -81,7 +89,7 @@ export const StyledRangeSliderForm = styled.div`
       border-radius: 50% 26% 50% 50%;
 
       > span {
-        color: black;
+        color: white;
         font-size: 0.65rem;
       }
     }
