@@ -4,7 +4,13 @@ import { func } from 'prop-types';
 import styled from '@emotion/styled/macro';
 import { useTheme } from '@material-ui/core/styles';
 
-import { AppBar, Container, Toolbar, IconButton } from '@material-ui/core';
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  IconButton,
+  Tooltip
+} from '@material-ui/core';
 import { DashboardRounded } from '@material-ui/icons';
 import { StyledTitle } from './styled';
 
@@ -42,16 +48,18 @@ const NavBar = ({ handleDrawerToggle }) => {
     <StyledAppBar position="fixed" theme={theme}>
       <Container maxWidth="xl">
         <StyledToolbar disableGutters theme={theme}>
-          <IconButton
-            onClick={handleDrawerToggle(true)}
-            aria-label="Open boards drawer"
-            color="inherit"
-            edge="start"
-            data-cy="navbar-show-drawer-button"
-          >
-            <DashboardRounded color="primary" />
-          </IconButton>
           <UserLogin />
+          <Tooltip title="Boards" placement="bottom-end">
+            <IconButton
+              onClick={handleDrawerToggle(true)}
+              aria-label="Open boards drawer"
+              color="primary"
+              edge="start"
+              data-cy="navbar-show-drawer-button"
+            >
+              <DashboardRounded color="primary" />
+            </IconButton>
+          </Tooltip>
           <SettingsMenu />
           {!noBoardsFound && (
             <StyledTitle
