@@ -49,15 +49,17 @@ const BoardSwitcher = ({ className }) => {
           <SkipPrevious />
         </IconButton>
       </Tooltip>
-      <IconButton
-        onClick={handlePlayToggle}
-        color="primary"
-        aria-label="Auto switch boards"
-        edge="start"
-        data-cy="auto-switch-board-button"
-      >
-        {isPlaying ? <Pause /> : <PlayArrow />}
-      </IconButton>
+      <Tooltip title="Auto switch boards" placement="bottom-end">
+        <IconButton
+          onClick={handlePlayToggle}
+          color="primary"
+          aria-label="Auto switch boards"
+          edge="start"
+          data-cy="auto-switch-board-button"
+        >
+          {isPlaying ? <Pause /> : <PlayArrow />}
+        </IconButton>
+      </Tooltip>
       <Tooltip title={nextBoardTitle} placement="bottom-end">
         <IconButton
           onClick={handleBoardsSwitch('next')}

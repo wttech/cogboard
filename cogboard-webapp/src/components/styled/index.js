@@ -163,3 +163,9 @@ export const StyledFormHelperText = styled(FormHelperText)`
     margin-right: 5px;
   }
 `;
+
+export const StyledPowerIconButton = styled(IconButton)`
+  &:hover .MuiSvgIcon-root {
+    color: ${COLORS.RED};
+  }
+`;

@@ -10,7 +10,7 @@ import { getCredentials } from './helpers';
 import { Button, IconButton, TextField, Tooltip } from '@material-ui/core';
 import { AccountCircle, Error, PowerSettingsNew } from '@material-ui/icons';
 import AppDialog from './../AppDialog';
-import { StyledFieldset, StyledErrorMsg } from '../styled';
+import { StyledFieldset, StyledErrorMsg, StyledPowerIconButton } from '../styled';
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -67,15 +67,15 @@ const UserLogin = () => {
       )}
       {isAuthenticated && (
         <Tooltip title="Logout" placement="bottom-end">
-          <IconButton
+          <StyledPowerIconButton
             onClick={handleLogout}
             aria-label="Logout"
             color="primary"
             edge="start"
             data-cy="user-login-logout-icon"
           >
-            <PowerSettingsNew color="primary" />
-          </IconButton>
+            <PowerSettingsNew />
+          </StyledPowerIconButton>
         </Tooltip>
       )}
       <AppDialog
