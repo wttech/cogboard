@@ -24,12 +24,8 @@ const RangeSlider = ({ value, values, onChange }) => {
     onChange(prepareChangeEvent(newValue, 'array'));
   };
 
-  const checkMetricHasProgress = () =>
-    ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
-
-  const valuetext = value => {
-    return `${value}%`;
-  };
+  const checkMetricHasProgress = () => ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
+  const setAriaAttributeText = value => `${value}%`;
 
   return (
     <>
@@ -45,7 +41,7 @@ const RangeSlider = ({ value, values, onChange }) => {
             onChangeCommitted={handleChangeCommited}
             valueLabelDisplay="auto"
             marks={marks}
-            getAriaValueText={valuetext}
+            getAriaValueText={setAriaAttributeText}
           />
         </StyledRangeSliderForm>
       )}

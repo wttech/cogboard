@@ -7,6 +7,7 @@ export const COLORS = {
   BKGD_DARK: '#1c2630',
   BLACK: '#000',
   GREEN: '#019430',
+  GREEN_DEFAULT: '#008000',
   ORANGE: '#ff9724',
   RED: '#e1312f',
   LIGHT_BLUE: '#bbdefb',

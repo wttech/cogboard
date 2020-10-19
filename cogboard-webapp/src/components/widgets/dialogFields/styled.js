@@ -28,8 +28,8 @@ export const StyledList = styled(List)`
 
   &:not(:empty) {
     margin-top: 16px;
-    overflow-y: auto;
     max-height: 160px;
+    overflow-y: auto;
   }
 
   .MuiListItemText-root span {
@@ -54,8 +54,8 @@ export const StyledFabGroup = styled.div`
   }
 
   .clearButton {
-    width: 55%;
     margin-left: 16px;
+    width: 55%;
   }
 `;
 
@@ -67,20 +67,12 @@ export const StyledRangeSliderForm = styled.div`
     margin-bottom: 12px;
   }
 
-  .MuiSlider-thumb:last-child {
-    color: #e1312f;
-  }
-
-  .MuiSlider-thumb {
-    color: #ff9724;
-  }
-
   .MuiSlider-root {
-    color: white;
+    color: ${COLORS.WHITE};
   }
 
   .MuiSlider-track {
-    background: #ff9724;
+    background: ${COLORS.ORANGE};
   }
 
   .MuiSlider-rail {
@@ -89,35 +81,37 @@ export const StyledRangeSliderForm = styled.div`
     &::before,
     &::after {
       content: '';
-      position: absolute;
       display: block;
       height: 3px;
+      position: absolute;
     }
 
     &::before {
-      background: green;
+      background: ${COLORS.GREEN_DEFAULT};
       left: 0;
       width: ${({ startRangeValue }) => `${startRangeValue}%`};
     }
 
     &::after {
-      background: #e1312f;
-      left: ${({ endRangeValue }) => `${endRangeValue}%`};
-      width: ${({ endRangeValue }) => `${100 - endRangeValue}%`};
+      background: ${COLORS.RED};
+      ${({ endRangeValue }) => `
+        left: ${endRangeValue}%;
+        width: ${100 - endRangeValue}%;
+      `}
     }
   }
 
-  .MuiSlider-valueLabel {
+  .MuiSlider-thumb .MuiSlider-valueLabel {
     top: -28px;
-    transform: scale(1) !important;
+    transform: scale(1) translateY(0);
 
     > span {
-      width: 21px;
-      height: 21px;
       border-radius: 50% 50% 50% 26%;
+      height: 21px;
+      width: 21px;
 
       > span {
-        color: white;
+        color: ${COLORS.BLACK};
         font-size: 0.65rem;
       }
     }
@@ -128,7 +122,7 @@ export const StyledRangeSliderForm = styled.div`
   }
 
   .MuiTypography-root {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(${COLORS.WHITE}, 0.7);
     margin-bottom: 24px;
   }
 `;

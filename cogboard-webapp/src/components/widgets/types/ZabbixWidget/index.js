@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SemiCircleProgress from '../../../SemiProgressBar';
-import { StyledTypography } from './styled';
+import { StyledTypography, StyledDateWrapper } from './styled';
 import {
   COLORS,
   ZABBIX_METRICS,
@@ -60,23 +60,37 @@ const ZabbixWidget = ({ id, lastvalue }) => {
 
   const convertToGigaBytes = () => {
     if (!lastvalue) return 0;
-
     return Math.round(lastvalue / Math.pow(10,9));
   }
 
-  const renderNoProgressContent = () => {
-    let value;
+  const convertToLocaleString = (value) => {
+    const date = new Date(0);
+    date.setUTCSeconds(value);
 
-    if (widgetZabbixMetric === 'system.uptime') {
-      const date = new Date(0);
-      date.setUTCSeconds(lastvalue);
-      value = date.toLocaleString('en-GB', { hour12: false } );
-    } else {
-      value = lastvalue;
+    return {
+      date: date.toLocaleDateString('en-GB'),
+      time: date.toLocaleTimeString('en-GB')
     }
+  }
+
+  const renderNoProgressContent = () => {
+    const value = (widgetZabbixMetric === 'system.uptime')
+      ? convertToLocaleString(lastvalue)
+      : parseInt(lastvalue, 10);
 
     return (
-      <StyledTypography>{ value }</StyledTypography>
+      <>
+        {
+          (widgetZabbixMetric === 'system.uptime') ? (
+            <StyledDateWrapper>
+              <StyledTypography>{ value.time }</StyledTypography>
+              <StyledTypography>{ value.date }</StyledTypography>
+            </StyledDateWrapper>
+          ) : (
+            <StyledTypography>{ value }</StyledTypography>
+          )
+        }
+      </>
     );
   }
 

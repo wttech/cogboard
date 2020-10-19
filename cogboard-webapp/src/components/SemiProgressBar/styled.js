@@ -1,20 +1,20 @@
 import styled from '@emotion/styled/macro';
 
-export const StyledSemiCircleContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-
-  svg {
-    transform: rotateY(180deg);
-    overflow: hidden
-  }
+export const StyledPercentageText = styled.span`
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
 `;
 
-export const StyledPercentageText = styled.span`
-  width: 100%;
-  left: 0;
-  text-align: center;
-  bottom: 0;
-  position: absolute;
+export const StyledSemiCircleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  svg {
+    overflow: hidden;
+    transform: rotateY(180deg);
+  }
 `;
