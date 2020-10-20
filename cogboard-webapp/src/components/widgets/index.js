@@ -10,7 +10,7 @@ import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
 import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
-import PersonDrawWidget from './types/PersonDrawWidget';
+import RandomPickerWidget from './types/RandomPickerWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 import ZabbixWidget from './types/ZabbixWidget';
 import LinkListWidget from './types/LinkListWidget';
@@ -159,13 +159,13 @@ const widgetTypes = {
       AemHealthcheckInput: { minArrayLength: 1 }
     }
   },
-  PersonDrawWidget: {
-    name: 'Person Draw',
-    component: PersonDrawWidget,
+  RandomPickerWidget: {
+    name: 'Random Picker',
+    component: RandomPickerWidget,
     dialogFields: [
       'RandomCheckbox',
       'DailySwitch',
-      'PersonDrawInterval',
+      'RandomPickerInterval',
       'MultiTextInput'
     ],
     showUpdateTime: false,

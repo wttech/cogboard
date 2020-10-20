@@ -9,7 +9,7 @@ import com.cognifide.cogboard.widget.type.WhiteSpaceWidget
 import com.cognifide.cogboard.widget.type.IframeEmbedWidget
 import com.cognifide.cogboard.widget.type.JenkinsJobWidget
 import com.cognifide.cogboard.widget.type.LinkListWidget
-import com.cognifide.cogboard.widget.type.persondraw.PersonDrawWidget
+import com.cognifide.cogboard.widget.type.randompicker.RandomPickerWidget
 import com.cognifide.cogboard.widget.type.ServiceCheckWidget
 import com.cognifide.cogboard.widget.type.sonarqube.SonarQubeWidget
 import com.cognifide.cogboard.widget.type.TextWidget
@@ -41,7 +41,7 @@ class WidgetIndex {
             IframeEmbedWidget::class.java.simpleName -> IframeEmbedWidget(vertx, config)
             WorldClockWidget::class.java.simpleName -> WorldClockWidget(vertx, config)
             CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)
-            PersonDrawWidget::class.java.simpleName -> PersonDrawWidget(vertx, config)
+            RandomPickerWidget::class.java.simpleName -> RandomPickerWidget(vertx, config)
             AemBundleInfoWidget::class.java.simpleName -> AemBundleInfoWidget(vertx, config)
             ZabbixWidget::class.java.simpleName -> ZabbixWidget(vertx, config)
             ToDoListWidget::class.java.simpleName -> ToDoListWidget(vertx, config)

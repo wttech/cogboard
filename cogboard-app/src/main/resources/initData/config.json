@@ -526,14 +526,14 @@
           "goNewLine": false,
           "rows": 1
         },
-        "type": "PersonDrawWidget",
+        "type": "RandomPickerWidget",
         "disabled": false,
         "content": {},
         "isUpdating": false,
         "boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
         "randomizeCheckbox": true,
-        "personDrawDailySwitch": true,
-        "personDrawInterval": 0,
+        "randomPickerDailySwitch": true,
+        "randomPickerInterval": 0,
         "multiTextInput": [
           "Adam",
           "Bartek",

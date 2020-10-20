@@ -464,22 +464,22 @@ const dialogFields = {
   },
   DailySwitch: {
     component: CheckboxInput,
-    name: 'personDrawDailySwitch',
+    name: 'randomPickerDailySwitch',
     label: 'Daily',
     initialValue: false,
     validator: () => boolean()
   },
-  PersonDrawInterval: {
+  RandomPickerInterval: {
     component: ConditionallyHidden(
       NumberInput,
-      'personDrawDailySwitch',
+      'RandomPickerDailySwitch',
       value => !value
     ),
-    name: 'personDrawInterval',
+    name: 'randomPickerInterval',
     label: 'Interval [min]',
     initialValue: 120,
     validator: () =>
-      number().when('personDrawDailySwitch', {
+      number().when('randomPickerDailySwitch', {
         is: true,
         then: number().required(),
         otherwise: number().notRequired()
