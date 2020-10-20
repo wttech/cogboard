@@ -59,6 +59,7 @@ abstract class AsyncWidget(
                         .put(CogboardConstants.PROP_USER, user)
                         .put(CogboardConstants.PROP_PASSWORD, password)
                         .put(CogboardConstants.PROP_TOKEN, token)
+                        .put(CogboardConstants.PROP_WIDGET_TYPE, type)
         )
     }
 

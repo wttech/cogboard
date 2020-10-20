@@ -18,18 +18,13 @@ const CredentialsForm = ({
   ...initialFormValues
 }) => {
   const credentialsData = useSelector(getCredentials);
-  const basicFormFields = [
+  const formFields = [
     'LabelField',
     'UsernameField',
     'PasswordField',
-    'PasswordConfirmationField'
+    'PasswordConfirmationField',
+    'TokenField'
   ];
-
-  const tokenFormFields = ['LabelField', 'UsernameField', 'TokenField'];
-
-  const formFields = Array.from(
-    new Set([...basicFormFields, ...tokenFormFields])
-  );
 
   const constraints = {
     LabelField: {
@@ -64,27 +59,15 @@ const CredentialsForm = ({
         onChange={handleTabChange}
         variant="fullWidth"
         indicatorColor="primary"
-      >
-        <Tab label="Basic Auth" data-cy="credential-form-basic-tab" />
-        <Tab label="API Token" data-cy="credential-form-token-tab" />
-      </StyledTabs>
+      ></StyledTabs>
       <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
-        <StyledTabPanel value={tabValue} index={0}>
+        <StyledTabPanel>
           <DynamicForm
-            fields={basicFormFields}
+            fields={formFields}
             values={values}
             handleChange={handleChange}
             errors={errors}
             rootName="credential-form-auth"
-          />
-        </StyledTabPanel>
-        <StyledTabPanel value={tabValue} index={1}>
-          <DynamicForm
-            fields={tokenFormFields}
-            values={values}
-            handleChange={handleChange}
-            errors={errors}
-            rootName="credential-form-token"
           />
         </StyledTabPanel>
         <Button
