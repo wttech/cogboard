@@ -9,9 +9,9 @@ class AuthenticationFactory(
     private val password: String,
     private val token: String,
     private val request: HttpRequest<Buffer>
-) : Authentication {
+) {
 
-    override fun create(widgetType: String): HttpRequest<Buffer> {
+    fun create(widgetType: String): HttpRequest<Buffer> {
         return if (this.authByToken()) {
             val authType = AuthenticationType.authType(widgetType)
             when {
@@ -22,7 +22,7 @@ class AuthenticationFactory(
         } else basic()
     }
 
-    override fun authByToken(): Boolean = token.isNotBlank()
+    private fun authByToken(): Boolean = token.isNotBlank()
 
     private fun basic(): HttpRequest<Buffer> = request.basicAuthentication(user, password)
 
