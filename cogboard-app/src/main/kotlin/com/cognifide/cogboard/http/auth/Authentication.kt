@@ -8,5 +8,4 @@ interface Authentication {
     fun create(widgetType: String): HttpRequest<Buffer>
 
     fun authByToken(): Boolean
-
 }
