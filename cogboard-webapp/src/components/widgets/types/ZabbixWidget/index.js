@@ -1,7 +1,13 @@
 import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SemiCircleProgress from '../../../SemiProgressBar';
-import { StyledTypography, StyledDateWrapper } from './styled';
+import {
+  StyledTypography,
+  StyledMetricName,
+  StyledDateWrapper,
+  StyledZabbixWrapper,
+  StyledNumericValue
+} from './styled';
 import {
   COLORS,
   ZABBIX_METRICS,
@@ -87,7 +93,7 @@ const ZabbixWidget = ({ id, lastvalue }) => {
               <StyledTypography>{ value.date }</StyledTypography>
             </StyledDateWrapper>
           ) : (
-            <StyledTypography>{ value }</StyledTypography>
+            <StyledNumericValue>{ value }</StyledNumericValue>
           )
         }
       </>
@@ -95,8 +101,7 @@ const ZabbixWidget = ({ id, lastvalue }) => {
   }
 
   return (
-    <>
-      <StyledTypography>{ convertMetricTitle() }</StyledTypography>
+    <StyledZabbixWrapper>
       {
         checkMetricHasProgress() ? (
           <SemiCircleProgress
@@ -109,7 +114,8 @@ const ZabbixWidget = ({ id, lastvalue }) => {
           renderNoProgressContent()
         )
       }
-    </>
+      <StyledMetricName>{ convertMetricTitle() }</StyledMetricName>
+    </StyledZabbixWrapper>
   );
 };
 

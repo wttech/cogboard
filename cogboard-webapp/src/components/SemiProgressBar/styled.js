@@ -12,6 +12,7 @@ export const StyledSemiCircleContainer = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
+  margin-bottom: 8px;
 
   svg {
     overflow: hidden;
