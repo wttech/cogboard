@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveData } from '../../../actions/thunks';
 
 import { StyledSaveActionButton } from '../styled';
+import { Tooltip } from '@material-ui/core';
 
 const Save = props => {
   const {
@@ -20,14 +21,16 @@ const Save = props => {
 
   return (
     isDataChanged && (
-      <StyledSaveActionButton
-        aria-label={ariaLabel}
-        color={color}
-        data-cy={cypressData}
-        onClick={handleSaveDataClick}
-      >
-        <SaveIcon />
-      </StyledSaveActionButton>
+      <Tooltip title="Save Board" placement="bottom-end">
+        <StyledSaveActionButton
+          aria-label={ariaLabel}
+          color={color}
+          data-cy={cypressData}
+          onClick={handleSaveDataClick}
+        >
+          <SaveIcon />
+        </StyledSaveActionButton>
+      </Tooltip>
     )
   );
 };
