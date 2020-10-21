@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { string } from 'prop-types';
 import { useSelector } from 'react-redux';
 
@@ -9,7 +9,7 @@ import { Button } from '@material-ui/core';
 import { StyledCancelButton } from './styled';
 import DynamicForm from '../DynamicForm';
 import { getCredentials } from '../../selectors';
-import { StyledTabPanel, StyledTabs } from '../styled';
+import { StyledTabPanel } from '../styled';
 
 const CredentialsForm = ({
   onSubmit,
@@ -45,12 +45,6 @@ const CredentialsForm = ({
       onChange: true
     }
   );
-
-  const [tabValue, setTabValue] = useState(0);
-
-  const handleTabChange = (_, newValue) => {
-    setTabValue(newValue);
-  };
 
   return (
     <div data-cy="app-credential-form-tab">
