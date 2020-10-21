@@ -62,7 +62,7 @@ const LinkListInput = ({ value, onChange }) => {
     let updatedItems;
 
     if (urlError) {
-      return
+      return;
     } else if (linkItem.linkUrl.length === 0 || linkItem.linkTitle.length === 0) {
       setFormError('Fill Title and Url field');
       return;
@@ -92,7 +92,7 @@ const LinkListInput = ({ value, onChange }) => {
   };
 
   const handleDelete = itemIndex => {
-    let itemList = remove(itemIndex, 1, linkList);
+    const itemList = remove(itemIndex, 1, linkList);
     setLinkList(itemList);
     onChange(prepareChangeEvent(itemList, 'array'));
   };
@@ -110,8 +110,6 @@ const LinkListInput = ({ value, onChange }) => {
         linkUrl: formValueUrl,
         linkTitle: formValueTitle
       });
-
-      return;
     }
 
     return;

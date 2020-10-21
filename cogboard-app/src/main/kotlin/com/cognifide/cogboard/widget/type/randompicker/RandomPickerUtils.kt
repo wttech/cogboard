@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.widget.type.persondraw
+package com.cognifide.cogboard.widget.type.randompicker
 
 import java.time.Instant
 import java.time.LocalDateTime

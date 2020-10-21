@@ -46,7 +46,7 @@ const JiraBucketsWidget = ({ buckets }) => {
 };
 
 JiraBucketsWidget.propTypes = {
-  buckets: array.isRequired
+  buckets: array
 };
 
 JiraBucketsWidget.defaultProps = {

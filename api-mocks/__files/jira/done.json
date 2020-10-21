@@ -1,48 +1,9 @@
 {
-  "expand": "schema,names",
   "startAt": 0,
-  "maxResults": 10,
-  "total": 100,
-  "issues": [
-    {
-      "key": "RND-7",
-      "status": {
-        "statusCategory": {
-          "name": "Resolved"
-        }
-      }
-    },
-    {
-      "key": "RND-8",
-      "status": {
-        "statusCategory": {
-          "name": "Resolved"
-        }
-      }
-    },
-    {
-      "key": "RND-9",
-      "status": {
-        "statusCategory": {
-          "name": "Resolved"
-        }
-      }
-    },
-    {
-      "key": "RND-10",
-      "status": {
-        "statusCategory": {
-          "name": "Resolved"
-        }
-      }
-    },
-    {
-      "key": "RND-11",
-      "status": {
-        "statusCategory": {
-          "name": "Resolved"
-        }
-      }
-    }
-  ]
+  "maxResults": 0,
+  "total": 15,
+  "issues": [],
+  "statusCode": 200,
+  "statusMessage": "200",
+  "requestId": "d9306d46-ec6a-4664-a47f-091e6a36f1b0"
 }

@@ -102,21 +102,20 @@ module.exports = {
     name: 'Jira Buckets',
     endpoint: 'endpoint1',
     schedulePeriod: '3',
-    issueLimit: '50',
     bucketQueries: [
       {
-        id: '9ca907f6-1d35-4e62-a344-dba02bc3c181',
+        id: 'd9306d46-ec6a-4664-a47f-091e6a36f1b0',
         bucketName: 'New',
         jqlQuery: 'project%20%3D%20RND%20AND%20status%20%3D%20New'
       },
       {
-        id: '064ad1e3-9df8-47ab-8ab0-7165ff579aad',
+        id: 'd9306d46-ec6a-4664-a47f-091e6a36f1b0',
         bucketName: 'In progress',
         jqlQuery:
-          'project%20%3D%20RND%20AND%20status%20in%20("In%20Progress"%2C%20"Code%20Review")'
+            'project%20%3D%20RND%20AND%20status%20in%20(%22In%20Progress%22%2C%20%22Code%20Review%22)'
       },
       {
-        id: 'ffa24306-5048-4503-8952-d0dbda37dae1',
+        id: 'd9306d46-ec6a-4664-a47f-091e6a36f1b0',
         bucketName: 'Done',
         jqlQuery: 'project%20%3D%20RND%20AND%20status%20%3D%20Resolved'
       }
