@@ -43,8 +43,8 @@ const AemBundleInfoWidget = ({
   <>
     <StyledContainerBox>
       {Object.keys(bundleStatus).map(key => (
-        <Link href={url} target="_blank">
-          <CaptionWithMargin key={key}>
+        <Link key={ `${key}-link` } href={url} target="_blank">
+          <CaptionWithMargin>
             {capitalize(key)}: {bundleStatus[key]}
           </CaptionWithMargin>
         </Link>

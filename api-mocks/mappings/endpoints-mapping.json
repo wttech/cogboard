@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/jira/rest/api/2/search/?jql=project%20%3D%20RND%20AND%20status%20%3D%20New&maxResults=50"
+        "url": "/jira/rest/api/2/search/?jql=project%20%3D%20RND%20AND%20status%20%3D%20New&maxResults=0"
       },
       "response": {
         "status": 200,
@@ -16,7 +16,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/jira/rest/api/2/search/?jql=project%20%3D%20RND%20AND%20status%20in%20(\"In%20Progress\"%2C%20\"Code%20Review\")&maxResults=50"
+        "url": "/jira/rest/api/2/search/?jql=project%20%3D%20RND%20AND%20status%20in%20(%22In%20Progress%22%2C%20%22Code%20Review%22)&maxResults=0"
       },
       "response": {
         "status": 200,
@@ -29,7 +29,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/jira/rest/api/2/search/?jql=project%20%3D%20RND%20AND%20status%20%3D%20Resolved&maxResults=50"
+        "url": "/jira/rest/api/2/search/?jql=project%20%3D%20RND%20AND%20status%20%3D%20Resolved&maxResults=0"
       },
       "response": {
         "status": 200,
@@ -367,6 +367,189 @@
           "Content-Type": "application/json"
         },
         "bodyFileName": "aem/v6.5.2/bundleinfo.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n            \"jsonrpc\": \"2.0\",\n            \"method\": \"user.login\",\n            \"params\": {\n              \"user\": \"admin\",\n              \"password\": \"admin\"\n            },\n            \"id\": 1,\n        \"auth\": null  }"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/auth.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\n            \"jsonrpc\": \"2.0\",\n            \"method\": \"user.login\",\n            \"params\": {\n              \"user\": \"\",\n              \"password\": \"\"\n            },\n            \"id\": 1,\n        \"auth\": null  }"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/auth_error.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'system.cpu.util[,idle]')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "transformers": [
+          "response-template"
+        ],
+        "bodyFileName": "zabbix/cpu.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'system.uptime')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/uptime.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'system.users.num')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/users.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'system.swap.size[,used]')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/swap.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'proc.num[]')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/processes.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'vm.memory.size[available]')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/available_memory.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'vfs.fs.size[/,used]')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/disc_used.json"
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/zabbix/api_jsonrpc.php",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$.params.search[?(@.key_ == 'jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]')]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "zabbix/heap.json"
       }
     }
   ]

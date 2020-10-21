@@ -1,9 +1,9 @@
-package com.cognifide.cogboard.widget.type.persondraw
+package com.cognifide.cogboard.widget.type.randompicker
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class PersonDrawUtilsTest {
+class RandomPickerUtilsTest {
 
     companion object {
         val SAMPLE_LIST = listOf("1", "2", "3")

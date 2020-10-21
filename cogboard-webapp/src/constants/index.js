@@ -7,6 +7,7 @@ export const COLORS = {
   BKGD_DARK: '#1c2630',
   BLACK: '#000',
   GREEN: '#019430',
+  GREEN_DEFAULT: '#008000',
   ORANGE: '#ff9724',
   RED: '#e1312f',
   LIGHT_BLUE: '#bbdefb',
@@ -127,6 +128,56 @@ export const ALL_SONARQUBE_METRICS = [
   'bugs',
   'code_smells',
   'vulnerabilities'
+];
+
+export const ZABBIX_METRICS = [
+  {
+    display: 'Active users',
+    value: 'system.users.num'
+  },
+  {
+    display: 'Available memory',
+    value: 'vm.memory.size[available]'
+  },
+  {
+    display: 'CPU utilization',
+    value: 'system.cpu.util[,idle]'
+  },
+  {
+    display: 'Mem heap size',
+    value: 'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]'
+  },
+  {
+    display: 'Number of processes',
+    value: 'proc.num[]'
+  },
+  {
+    display: 'System uptime',
+    value: 'system.uptime'
+  },
+  {
+    display: 'Used disk space',
+    value: 'vfs.fs.size[/,used]'
+  },
+  {
+    display: 'Used swap space',
+    value: 'system.swap.size[,used]'
+  }
+];
+
+export const ZABBIX_METRICS_WITH_PROGRESS = [
+  'system.cpu.util[,idle]',
+  'vm.memory.size[available]',
+  'system.swap.size[,used]',
+  'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]',
+  'vfs.fs.size[/,used]'
+];
+
+export const ZABBIX_METRICS_WITH_MAX_VALUE = [
+  'vm.memory.size[available]',
+  'system.swap.size[,used]',
+  'jmx[\\"java.lang:type=Memory\\",\\"HeapMemoryUsage.used\\"]',
+  'vfs.fs.size[/,used]'
 ];
 
 export const SONARQUBE_VERSIONS = [

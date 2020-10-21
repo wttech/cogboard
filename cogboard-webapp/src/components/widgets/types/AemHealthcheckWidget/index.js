@@ -11,8 +11,8 @@ const AemHealthcheckWidget = ({ url, healthChecks }) => {
     <>
       <StyledContainerBox>
         {Object.entries(healthChecks).map(([name, data]) => (
-          <Link href={data['url']} target="_blank">
-            <CaptionWithMargin key={name}>
+          <Link key={ `${name}-link` } href={data['url']} target="_blank">
+            <CaptionWithMargin>
               {AEM_HEALTH_CHECKS[name]}: {data['status']}
             </CaptionWithMargin>
           </Link>

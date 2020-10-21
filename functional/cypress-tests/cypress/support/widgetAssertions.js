@@ -68,7 +68,7 @@ export function validateJiraBuckets(widget) {
     .assertText('td', 'In progress')
     .assertText('td', '4')
     .assertText('td', 'Done')
-    .assertText('td', '4')
+    .assertText('td', '15')
     .assertBackground('rgb(38, 36, 62)');
 }
 

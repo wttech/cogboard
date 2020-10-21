@@ -1,24 +1,9 @@
 {
-  "expand": "schema,names",
   "startAt": 0,
-  "maxResults": 10,
-  "total": 100,
-  "issues": [
-    {
-      "key": "RND-1",
-      "status": {
-        "statusCategory": {
-          "name": "New"
-        }
-      }
-    },
-    {
-      "key": "RND-2",
-      "status": {
-        "statusCategory": {
-          "name": "New"
-        }
-      }
-    }
-  ]
+  "maxResults": 0,
+  "total": 2,
+  "issues": [],
+  "statusCode": 200,
+  "statusMessage": "200",
+  "requestId": "d9306d46-ec6a-4664-a47f-091e6a36f1b0"
 }

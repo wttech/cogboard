@@ -1,7 +1,7 @@
 import React from 'react';
 import { elementType, func, string } from 'prop-types';
 
-const conditionallyHidden = (Component, conditionField, condition) => ({
+const ConditionallyHidden = (Component, conditionField, condition) => ({
   values,
   ...other
 }) => {
@@ -14,10 +14,10 @@ const conditionallyHidden = (Component, conditionField, condition) => ({
   ) : null;
 };
 
-conditionallyHidden.propTypes = {
+ConditionallyHidden.propTypes = {
   Component: elementType,
   condition: func,
   conditionField: string
 };
 
-export default conditionallyHidden;
+export default ConditionallyHidden;

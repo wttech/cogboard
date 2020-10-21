@@ -47,6 +47,7 @@ export const StyledCard = styled(
   grid-row-end: span ${({ rows }) => rows * ROW_MULTIPLIER};
   position: relative;
   overflow: ${({ type, expanded }) => getWidgetOverflow(type, expanded)};
+
   .MuiCardContent-root {
     padding: 8px;
   }
