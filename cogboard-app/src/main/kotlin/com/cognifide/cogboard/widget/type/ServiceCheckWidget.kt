@@ -12,6 +12,7 @@ import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_DELETE
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_GET
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_POST
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_PUT
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.netty.util.internal.StringUtil.EMPTY_STRING
@@ -28,6 +29,10 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
     private val urlToCheck: String
         get() = if (publicUrl.isNotBlank()) "$publicUrl${config.getString(PROP_PATH, EMPTY_STRING)}"
         else config.getString(PROP_PATH, EMPTY_STRING)
+
+    override fun authenticationTypes(): Set<AuthenticationType> {
+        return setOf(AuthenticationType.TOKEN, AuthenticationType.BASIC)
+    }
 
     override fun updateState() {
         if (urlToCheck.isNotBlank()) {

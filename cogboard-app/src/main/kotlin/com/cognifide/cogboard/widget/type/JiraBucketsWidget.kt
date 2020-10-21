@@ -1,5 +1,6 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
@@ -20,6 +21,10 @@ class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, c
                         .put(CC.PROP_URL, createBucketUrl(it)))
             }
         }
+    }
+
+    override fun authenticationTypes(): Set<AuthenticationType> {
+        return setOf(AuthenticationType.BASIC)
     }
 
     override fun handleResponse(responseBody: JsonObject) {

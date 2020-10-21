@@ -4,9 +4,12 @@ import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_MESSAGE
 import com.cognifide.cogboard.http.auth.AuthenticationFactory
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.buffer.Buffer
 import io.vertx.core.json.DecodeException
+import io.vertx.core.json.Json
+import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
@@ -89,13 +92,42 @@ class HttpClient : AbstractVerticle() {
         val pass = config.getString(CogboardConstants.PROP_PASSWORD) ?: ""
         val token = config.getString(CogboardConstants.PROP_TOKEN) ?: ""
         val headers = config.getJsonObject(CogboardConstants.PROP_HEADERS)
-        val widgetType = config.getString(CogboardConstants.PROP_WIDGET_TYPE) ?: ""
+        val authenticationTypes = Json.decodeValue(config.getString(CogboardConstants.PROP_AUTHENTICATION_TYPES))
+                ?: JsonArray()
 
-        AuthenticationFactory(user, pass, token, request).create(widgetType)
+        val authenticationType = getAuthenticationType(authenticationTypes as JsonArray, user, token, pass)
+
+        if (authenticationType == AuthenticationType.NONE) {
+            throw Exception("Request cannot be processed. Cause: Incorrect credentials or Widget doesn't supported")
+        } else {
+            AuthenticationFactory(user, pass, token, request).create(authenticationType)
+        }
 
         applyRequestHeaders(request, headers)
 
         return request
+    }
+
+    private fun getAuthenticationType(authenticationTypes: JsonArray, user: String, token: String, pass: String): AuthenticationType {
+
+        return authenticationTypes.stream()
+                .map { AuthenticationType.valueOf(it.toString()) }
+                .filter { hasAuthTypeCorrectCredentials(it, user, token, pass) }
+                .findFirst()
+                .orElse(AuthenticationType.NONE)
+    }
+
+    private fun hasAuthTypeCorrectCredentials(
+        authType: AuthenticationType,
+        username: String,
+        token: String,
+        pass: String
+    ): Boolean {
+        return when {
+            authType == AuthenticationType.TOKEN && username.isNotBlank() && token.isNotBlank() -> true
+            authType == AuthenticationType.TOKEN_AS_USERNAME && token.isNotBlank() -> true
+            else -> authType == AuthenticationType.BASIC && username.isNotBlank() && pass.isNotBlank()
+        }
     }
 
     private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?) {

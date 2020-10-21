@@ -2,8 +2,10 @@ package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
+import io.vertx.core.json.Json
 import io.vertx.core.json.JsonObject
 
 /**
@@ -39,6 +41,12 @@ abstract class AsyncWidget(
     }
 
     /**
+     * Type of authentication.
+     * Should be overridden for widgets which use `httpGet(..)` from HttpClient
+     */
+    abstract fun authenticationTypes(): Set<AuthenticationType>
+
+    /**
      * Notifies Widget that it is time to update.
      * Use `httpGet(..)`, `httpPost(..)` or `httpGetStatus(..)` in order to request new state from 3rd party endpoint.
      * When http request is successful then 'handleResponse(responseBody: JsonObject)' will be executed
@@ -55,7 +63,7 @@ abstract class AsyncWidget(
                 basicProps(url)
                         .put(CogboardConstants.PROP_REQUEST_ID, requestId)
                         .put(CogboardConstants.PROP_TOKEN, token)
-                        .put(CogboardConstants.PROP_WIDGET_TYPE, type)
+                        .put(CogboardConstants.PROP_AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
         )
     }
 

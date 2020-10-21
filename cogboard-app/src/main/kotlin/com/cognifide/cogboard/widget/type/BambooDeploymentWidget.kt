@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.widget.type
 
 import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
@@ -14,6 +15,10 @@ class BambooDeploymentWidget(
 ) : AsyncWidget(vertx, config, boardService) {
 
     private val idString: String = config.getString("idString", "")
+
+    override fun authenticationTypes(): Set<AuthenticationType> {
+        return setOf(AuthenticationType.BASIC)
+    }
 
     override fun handleResponse(responseBody: JsonObject) {
         if (checkAuthorized(responseBody)) {

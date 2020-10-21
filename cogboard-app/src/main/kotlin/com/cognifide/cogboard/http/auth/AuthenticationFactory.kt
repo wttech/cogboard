@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.http.auth
 
-import com.cognifide.cogboard.http.auth.AuthenticationType.Companion.compareType
 import io.vertx.core.buffer.Buffer
 import io.vertx.ext.web.client.HttpRequest
 
@@ -11,18 +10,14 @@ class AuthenticationFactory(
     private val request: HttpRequest<Buffer>
 ) {
 
-    fun create(widgetType: String): HttpRequest<Buffer> {
-        return if (this.authByToken()) {
-            val authType = AuthenticationType.authType(widgetType)
-            when {
-                AuthenticationType.TOKEN.compareType(authType) -> token()
-                AuthenticationType.TOKEN_AS_USERNAME.compareType(authType) -> tokenAsUsername()
-                else -> throw Exception("Incorrect authentication type")
-            }
-        } else basic()
+    fun create(authType: AuthenticationType): HttpRequest<Buffer> {
+        return when {
+            AuthenticationType.TOKEN == authType -> token()
+            AuthenticationType.TOKEN_AS_USERNAME == authType -> tokenAsUsername()
+            AuthenticationType.BASIC == authType -> basic()
+            else -> throw Exception("Authentication type is incorrect")
+        }
     }
-
-    private fun authByToken(): Boolean = token.isNotBlank()
 
     private fun basic(): HttpRequest<Buffer> = request.basicAuthentication(user, password)
 

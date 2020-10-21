@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.widget.type
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.Widget.Status.OK
@@ -13,6 +14,10 @@ import io.vertx.core.json.JsonObject
 class AemHealthcheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
 
     private val selectedHealthChecks: JsonArray = config.getJsonArray("selectedHealthChecks")
+
+    override fun authenticationTypes(): Set<AuthenticationType> {
+        return setOf(AuthenticationType.BASIC)
+    }
 
     override fun handleResponse(responseBody: JsonObject) {
         if (checkAuthorized(responseBody)) {
