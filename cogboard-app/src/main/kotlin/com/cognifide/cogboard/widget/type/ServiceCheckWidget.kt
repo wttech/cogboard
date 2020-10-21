@@ -36,12 +36,10 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
 
     override fun updateState() {
         if (urlToCheck.isNotBlank()) {
-            if (requestMethod == REQUEST_METHOD_GET) {
-                httpGet(url = urlToCheck)
-            } else if (requestMethod == REQUEST_METHOD_DELETE) {
-                httpDelete(url = urlToCheck)
-            } else {
-                handlePostPut()
+            when (requestMethod) {
+                REQUEST_METHOD_GET -> httpGet(url = urlToCheck)
+                REQUEST_METHOD_DELETE -> httpDelete(url = urlToCheck)
+                else -> handlePostPut()
             }
         } else {
             sendConfigurationError("Public URL or Path is blank")
