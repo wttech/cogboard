@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useFormData } from '../../hooks';
 import { createValidationSchema } from '../validation';
 
-import { Button, Tab } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { StyledCancelButton } from './styled';
 import DynamicForm from '../DynamicForm';
 import { getCredentials } from '../../selectors';
@@ -54,12 +54,6 @@ const CredentialsForm = ({
 
   return (
     <div data-cy="app-credential-form-tab">
-      <StyledTabs
-        value={tabValue}
-        onChange={handleTabChange}
-        variant="fullWidth"
-        indicatorColor="primary"
-      ></StyledTabs>
       <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
         <StyledTabPanel>
           <DynamicForm
