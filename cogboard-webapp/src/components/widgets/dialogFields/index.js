@@ -482,7 +482,8 @@ const dialogFields = {
       number().when('randomPickerDailySwitch', {
         is: true,
         then: number().required(),
-        otherwise: number().notRequired()
+        otherwise:
+          number().notRequired() && number().positive() && number().min(0)
       })
   },
   RandomCheckbox: {

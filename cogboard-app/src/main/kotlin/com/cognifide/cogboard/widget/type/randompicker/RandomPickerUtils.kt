@@ -32,11 +32,10 @@ fun fromEpochMillis(millis: Long): LocalDateTime {
 }
 
 fun calculateNextUpdateDate(isDaily: Boolean, interval: Long): LocalDateTime = if (isDaily) {
-    LocalDateTime.now().apply {
-        plusDays(1)
-        withHour(0)
-        withMinute(1)
-    }
+    LocalDateTime.now()
+            .plusDays(1)
+            .withHour(0)
+            .withMinute(1)
 } else {
     LocalDateTime.now().plusMinutes(interval)
 }

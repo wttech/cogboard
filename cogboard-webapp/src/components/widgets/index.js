@@ -169,8 +169,7 @@ const widgetTypes = {
       'MultiTextInput'
     ],
     showUpdateTime: false,
-    initialStatus: 'NONE',
-    validationConstraints: {}
+    initialStatus: 'NONE'
   },
   AemBundleInfoWidget: {
     name: 'AEM Bundle Info',
