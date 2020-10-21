@@ -24,6 +24,7 @@ const BoardSwitcher = ({ className }) => {
   } = useBoardSwitching();
   const timeLeft = switchInterval - timeElapsed;
   const previousSwitchInterval = usePrevious(switchInterval);
+  const autoSwitchBoardsTitle = isPlaying ? 'Pause' : 'Auto switch boards';
 
   useEffect(() => {
     if (previousSwitchInterval !== switchInterval) {
@@ -49,7 +50,7 @@ const BoardSwitcher = ({ className }) => {
           <SkipPrevious />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Auto switch boards" placement="bottom-end">
+      <Tooltip title={autoSwitchBoardsTitle} placement="bottom-end">
         <IconButton
           onClick={handlePlayToggle}
           color="primary"

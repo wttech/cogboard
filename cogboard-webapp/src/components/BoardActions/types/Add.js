@@ -9,6 +9,7 @@ import { StyledActionButton } from '../styled';
 
 import AppDialog from '../../AppDialog';
 import AddWidget from '../../AddWidget';
+import { Tooltip } from '@material-ui/core';
 
 const Add = props => {
   const {
@@ -25,14 +26,16 @@ const Add = props => {
 
   return (
     <>
-      <StyledActionButton
-        aria-label={ariaLabel}
-        color={color}
-        data-cy={cypressData}
-        onClick={handleAddWidgetClick}
-      >
-        <AddIcon />
-      </StyledActionButton>
+      <Tooltip title="Add Widget" placement="bottom-end">
+        <StyledActionButton
+          aria-label={ariaLabel}
+          color={color}
+          data-cy={cypressData}
+          onClick={handleAddWidgetClick}
+        >
+          <AddIcon />
+        </StyledActionButton>
+      </Tooltip>
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
