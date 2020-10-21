@@ -10,8 +10,9 @@ import WorldClockWidget from './types/WorldClockWidget';
 import CheckboxWidget from './types/CheckboxWidget';
 import AemHealthcheckWidget from './types/AemHealthcheckWidget';
 import IframeEmbedWidget from './types/IframeEmbedWidget';
-import PersonDrawWidget from './types/PersonDrawWidget';
+import RandomPickerWidget from './types/RandomPickerWidget';
 import AemBundleInfoWidget from './types/AemBundleInfoWidget';
+import ZabbixWidget from './types/ZabbixWidget';
 import LinkListWidget from './types/LinkListWidget';
 import ToDoListWidget from './types/ToDoListWidget';
 
@@ -83,12 +84,7 @@ const widgetTypes = {
   JiraBucketsWidget: {
     name: 'Jira Buckets',
     component: JiraBucketsWidget,
-    dialogFields: [
-      'EndpointField',
-      'SchedulePeriod',
-      'IssueLimit',
-      'JiraBuckets'
-    ],
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'JiraBuckets'],
     showUpdateTime: true,
     validationConstraints: {
       SchedulePeriod: { min: 3 }
@@ -163,13 +159,13 @@ const widgetTypes = {
       AemHealthcheckInput: { minArrayLength: 1 }
     }
   },
-  PersonDrawWidget: {
-    name: 'Person Draw',
-    component: PersonDrawWidget,
+  RandomPickerWidget: {
+    name: 'Random Picker',
+    component: RandomPickerWidget,
     dialogFields: [
       'RandomCheckbox',
       'DailySwitch',
-      'PersonDrawInterval',
+      'RandomPickerInterval',
       'MultiTextInput'
     ],
     showUpdateTime: false,
@@ -187,6 +183,23 @@ const widgetTypes = {
       'ExpandableContent'
     ],
     showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    }
+  },
+  ZabbixWidget: {
+    name: 'Zabbix',
+    component: ZabbixWidget,
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'Host',
+      'ZabbixMetricsInput',
+      'SliderMaxValue',
+      'SliderRange'
+    ],
+    showUpdateTime: true,
+    initialStatus: 'NONE',
     validationConstraints: {
       SchedulePeriod: { min: 3 }
     }

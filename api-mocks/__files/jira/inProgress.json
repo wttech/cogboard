@@ -1,40 +1,9 @@
 {
-  "expand": "schema,names",
   "startAt": 0,
-  "maxResults": 10,
-  "total": 100,
-  "issues": [
-    {
-      "key": "RND-3",
-      "status": {
-        "statusCategory": {
-          "name": "In Progress"
-        }
-      }
-    },
-    {
-      "key": "RND-4",
-      "status": {
-        "statusCategory": {
-          "name": "In Progress"
-        }
-      }
-    },
-    {
-      "key": "RND-5",
-      "status": {
-        "statusCategory": {
-          "name": "In Progress"
-        }
-      }
-    },
-    {
-      "key": "RND-6",
-      "status": {
-        "statusCategory": {
-          "name": "Code Review"
-        }
-      }
-    }
-  ]
+  "maxResults": 0,
+  "total": 4,
+  "issues": [],
+  "statusCode": 200,
+  "statusMessage": "200",
+  "requestId": "d9306d46-ec6a-4664-a47f-091e6a36f1b0"
 }

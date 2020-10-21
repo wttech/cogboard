@@ -28,8 +28,8 @@ export const StyledList = styled(List)`
 
   &:not(:empty) {
     margin-top: 16px;
-    overflow-y: scroll;
     max-height: 160px;
+    overflow-y: auto;
   }
 
   .MuiListItemText-root span {
@@ -54,7 +54,75 @@ export const StyledFabGroup = styled.div`
   }
 
   .clearButton {
-    width: 55%;
     margin-left: 16px;
+    width: 55%;
+  }
+`;
+
+export const StyledRangeSliderForm = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  .MuiFormControl-root {
+    margin-bottom: 12px;
+  }
+
+  .MuiSlider-root {
+    color: ${COLORS.WHITE};
+  }
+
+  .MuiSlider-track {
+    background: ${COLORS.ORANGE};
+  }
+
+  .MuiSlider-rail {
+    opacity: 0.6;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      height: 3px;
+      position: absolute;
+    }
+
+    &::before {
+      background: ${COLORS.GREEN_DEFAULT};
+      left: 0;
+      width: ${({ startRangeValue }) => `${startRangeValue}%`};
+    }
+
+    &::after {
+      background: ${COLORS.RED};
+      ${({ endRangeValue }) => `
+        left: ${endRangeValue}%;
+        width: ${100 - endRangeValue}%;
+      `}
+    }
+  }
+
+  .MuiSlider-thumb .MuiSlider-valueLabel {
+    top: -28px;
+    transform: scale(1) translateY(0);
+
+    > span {
+      border-radius: 50% 50% 50% 26%;
+      height: 21px;
+      width: 21px;
+
+      > span {
+        color: ${COLORS.BLACK};
+        font-size: 0.65rem;
+      }
+    }
+  }
+
+  .MuiSlider-markLabel {
+    font-size: 0.75rem;
+  }
+
+  .MuiTypography-root {
+    color: rgba(${COLORS.WHITE}, 0.7);
+    margin-bottom: 24px;
   }
 `;

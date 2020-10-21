@@ -10,7 +10,7 @@ import { postWidgetContentUpdate } from '../../../../utils/fetch';
 import { CenteredTypography } from './styled';
 import { StyledNoItemsInfo } from '../../../Widget/styled';
 
-const PersonDrawWidget = ({ id, multiTextInput, index }) => {
+const RandomPickerWidget = ({ id, multiTextInput, index }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const caption =
     multiTextInput && multiTextInput.length - 1 >= index
@@ -46,27 +46,27 @@ const PersonDrawWidget = ({ id, multiTextInput, index }) => {
       ) : (
         <StyledNoItemsInfo>
           <InfoOutlined fontSize="large" />
-          <p>Persons List Empty</p>
+          <p>Picker List Empty</p>
         </StyledNoItemsInfo>
       )}
     </>
   );
 };
 
-PersonDrawWidget.propTypes = {
+RandomPickerWidget.propTypes = {
   randomizeCheckbox: bool,
-  personDrawInterval: number,
-  personDrawDailySwitch: bool,
+  randomPickerInterval: number,
+  randomPickerDailySwitch: bool,
   multiTextInput: array,
   index: number
 };
 
-PersonDrawWidget.defaultProps = {
+RandomPickerWidget.defaultProps = {
   index: -1,
   randomizeCheckbox: false,
-  personDrawInterval: 120,
-  personDrawDailySwitch: false,
+  randomPickerInterval: 120,
+  randomPickerDailySwitch: false,
   multiTextInput: []
 };
 
-export default PersonDrawWidget;
+export default RandomPickerWidget;

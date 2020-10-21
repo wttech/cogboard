@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.widget.type.persondraw
+package com.cognifide.cogboard.widget.type.randompicker
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
@@ -10,7 +10,7 @@ import io.vertx.core.json.JsonObject
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsConfigService = BoardsConfigService()) :
+class RandomPickerWidget(vertx: Vertx, config: JsonObject, boardService: BoardsConfigService = BoardsConfigService()) :
         BaseWidget(vertx, config, boardService) {
 
     private val interval: Long = config.getLong(PROP_INTERVAL, SELECT_INTERVAL)
@@ -84,10 +84,10 @@ class PersonDrawWidget(vertx: Vertx, config: JsonObject, boardService: BoardsCon
     companion object {
         const val SELECT_INTERVAL = 120L
         const val SYNC_INTERVAL = 60L
-        const val PROP_IS_DAILY = "personDrawDailySwitch"
+        const val PROP_IS_DAILY = "randomPickerDailySwitch"
         const val PROP_VALUES = "multiTextInput"
         const val PROP_RANDOMIZE = "randomizeCheckbox"
-        const val PROP_INTERVAL = "personDrawInterval"
+        const val PROP_INTERVAL = "randomPickerInterval"
         const val PROP_CONTENT_INDEX = "index"
         const val PROP_CONTENT_USED_INDEXES = "usedIndexes"
         const val PROP_CONTENT_UPDATE_DATE = "updateDate"

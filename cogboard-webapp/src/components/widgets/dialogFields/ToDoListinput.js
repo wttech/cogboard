@@ -45,9 +45,11 @@ const ToDoListInput = ({ value, values, onChange }) => {
 
   const handleSave = item => {
     let updatedItems;
+
     if (item.itemText.length === 0) {
       return;
     }
+
     if (editMode) {
       updatedItems = items;
       const updatedItemId = items.findIndex(el => el.id === editMode);
@@ -65,6 +67,7 @@ const ToDoListInput = ({ value, values, onChange }) => {
         }
       ];
     }
+
     setItems(updatedItems);
     onChange(prepareChangeEvent(updatedItems, 'array'));
     resetInput();
@@ -99,6 +102,7 @@ const ToDoListInput = ({ value, values, onChange }) => {
   const handleDelete = itemIndex => {
     let itemList = remove(itemIndex, 1, items);
     const itemId = items[itemIndex].id;
+
     setItems(itemList);
     onChange(prepareChangeEvent(itemList, 'array'));
 

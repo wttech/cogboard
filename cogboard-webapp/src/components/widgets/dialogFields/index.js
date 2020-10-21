@@ -10,7 +10,8 @@ import {
   REQUEST_METHODS,
   TEXT_SIZES,
   validationMessages as vm,
-  SONARQUBE_VERSIONS
+  SONARQUBE_VERSIONS,
+  ZABBIX_METRICS
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
 import widgetTypes from '../../widgets';
@@ -24,13 +25,15 @@ import DisplayValueSelect from './DisplayValueSelect';
 import MultilineTextInput from './MultilineTextInput';
 import CheckboxInput from './CheckboxInput';
 import AemHealthcheckInput from './AemHealthcheckInput';
-import conditionallyHidden from './conditionallyHidden';
+import ConditionallyHidden from './ConditionallyHidden';
 import SwitchInput from './SwitchInput';
 import { StyledNumberInput } from './styled';
 import CredentialInput from './Credentialnput';
 import PasswordInput from './PasswordInput';
 import MultiTextInput from './MultiTextInput';
+import MaxValueInput from './MaxValueInput';
 import JiraBucketsInput from './JiraBucketsInput';
+import RangeSlider from './RangeSlider';
 import LinkListInput from './LinkListInput';
 import ToDoListInput from './ToDoListinput';
 
@@ -209,7 +212,7 @@ const dialogFields = {
     validator: () => boolean()
   },
   SwitchInterval: {
-    component: conditionallyHidden(NumberInput, 'autoSwitch', value => value),
+    component: ConditionallyHidden(NumberInput, 'autoSwitch', value => value),
     name: 'switchInterval',
     label: 'Switch Interval [sec]',
     validator: ({ min }) =>
@@ -233,7 +236,7 @@ const dialogFields = {
     label: 'Schedule Period [sec] (if 0 will run once)',
     min: 0,
     step: 10,
-    initialValue: 120,
+    initialValue: 60,
     validator: ({ min }) =>
       number().min(min, vm.NUMBER_MIN('Schedule period', min))
   },
@@ -270,7 +273,7 @@ const dialogFields = {
     validator: () => string()
   },
   SonarQubeIdNumber: {
-    component: conditionallyHidden(
+    component: ConditionallyHidden(
       NumberInput,
       'sonarQubeVersion',
       value => value === '5.x'
@@ -317,6 +320,34 @@ const dialogFields = {
         .min(minArrayLength, vm.FIELD_MIN_ITEMS())
         .of(string())
   },
+  ZabbixMetricsInput: {
+    component: DisplayValueSelect,
+    name: 'selectedZabbixMetric',
+    label: 'Metric',
+    dropdownItems: ZABBIX_METRICS,
+    initialValue: ZABBIX_METRICS[0].value,
+    validator: () => string()
+  },
+  Host: {
+    component: TextInput,
+    name: 'host',
+    label: 'Host',
+    validator: () => string()
+  },
+  SliderRange: {
+    component: RangeSlider,
+    name: 'range',
+    label: 'Range',
+    initialValue: [60, 80],
+    validator: () => array()
+  },
+  SliderMaxValue: {
+    component: MaxValueInput,
+    name: 'maxValue',
+    label: 'Max Value',
+    initialValue: 0,
+    validator: () => number()
+  },
   StatusCode: {
     component: NumberInput,
     name: 'expectedStatusCode',
@@ -339,7 +370,7 @@ const dialogFields = {
     validator: () => string()
   },
   DateFormat: {
-    component: conditionallyHidden(
+    component: ConditionallyHidden(
       DisplayValueSelect,
       'displayDate',
       value => value
@@ -351,7 +382,7 @@ const dialogFields = {
     validator: () => string()
   },
   TimeFormat: {
-    component: conditionallyHidden(
+    component: ConditionallyHidden(
       DisplayValueSelect,
       'displayTime',
       value => value
@@ -383,7 +414,7 @@ const dialogFields = {
     validator: () => string()
   },
   RequestBody: {
-    component: conditionallyHidden(
+    component: ConditionallyHidden(
       MultilineTextInput,
       'requestMethod',
       value => value === 'put' || value === 'post'
@@ -433,22 +464,22 @@ const dialogFields = {
   },
   DailySwitch: {
     component: CheckboxInput,
-    name: 'personDrawDailySwitch',
+    name: 'randomPickerDailySwitch',
     label: 'Daily',
     initialValue: false,
     validator: () => boolean()
   },
-  PersonDrawInterval: {
-    component: conditionallyHidden(
+  RandomPickerInterval: {
+    component: ConditionallyHidden(
       NumberInput,
-      'personDrawDailySwitch',
+      'RandomPickerDailySwitch',
       value => !value
     ),
-    name: 'personDrawInterval',
+    name: 'randomPickerInterval',
     label: 'Interval [min]',
     initialValue: 120,
     validator: () =>
-      number().when('personDrawDailySwitch', {
+      number().when('randomPickerDailySwitch', {
         is: true,
         then: number().required(),
         otherwise:
@@ -506,18 +537,6 @@ const dialogFields = {
     validator: () =>
       number()
         .min(0)
-        .required(vm.FIELD_REQUIRED())
-  },
-  IssueLimit: {
-    component: NumberInput,
-    name: 'issueLimit',
-    label: 'Maximum number of issues',
-    min: 1,
-    step: 1,
-    initialValue: 50,
-    validator: () =>
-      number()
-        .min(1)
         .required(vm.FIELD_REQUIRED())
   },
   JiraBuckets: {

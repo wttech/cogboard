@@ -5,12 +5,12 @@ import { Box } from '@material-ui/core';
 import FormField from '../FormField';
 
 const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
-  const createGroupedFields = groupedFields => {
+  const createGroupedFields = (groupedFields, index) => {
     return (
-      <Box display="flex" justifyContent="space-between">
-        {groupedFields.map(field => {
+      <Box key={ `dynamicForm-field-${index}`} display="flex" justifyContent="space-between">
+        {groupedFields.map((field, id) => {
           return (
-            <StyledFormFieldWrapper>
+            <StyledFormFieldWrapper key={ `dynamicForm-groupField-${id}`}>
               <FormField
                 field={field}
                 values={values}
@@ -28,10 +28,10 @@ const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
   return (
     <>
       <StyledFieldset component="fieldset">
-        {fields.map(field => {
+        {fields.map((field, id) => {
           if (typeof field === 'string') {
             return (
-              <StyledFormFieldWrapper>
+              <StyledFormFieldWrapper key={ `dynamicForm-field-${id}`}>
                 <FormField
                   field={field}
                   values={values}
@@ -42,7 +42,7 @@ const DynamicForm = ({ values, fields, handleChange, errors, rootName }) => {
               </StyledFormFieldWrapper>
             );
           } else {
-            return createGroupedFields(field);
+            return createGroupedFields(field, id);
           }
         })}
       </StyledFieldset>
