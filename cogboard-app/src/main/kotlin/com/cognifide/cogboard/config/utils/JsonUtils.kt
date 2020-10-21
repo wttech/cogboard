@@ -3,7 +3,6 @@ package com.cognifide.cogboard.config.utils
 import com.cognifide.cogboard.CogboardConstants
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
-import java.util.*
 import java.util.stream.Collectors
 
 object JsonUtils {

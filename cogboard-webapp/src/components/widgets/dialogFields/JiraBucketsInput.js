@@ -40,7 +40,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
       jqlQuery: formValueJqlQuery,
       bucketName: formValueBucketName
     });
-  }
+  };
 
   const handleSave = bucket => {
     let updatedItems;
@@ -66,12 +66,12 @@ const JiraBucketsInput = ({ value, onChange }) => {
     }
 
     setBuckets(updatedItems);
-    onChange(prepareChangeEvent(updatedItems, 'array'))
-    resetInput()
+    onChange(prepareChangeEvent(updatedItems, 'array'));
+    resetInput();
   };
 
   const handleDelete = itemIndex => {
-    let itemList = remove(itemIndex, 1, buckets);
+    const itemList = remove(itemIndex, 1, buckets);
     setBuckets(itemList);
     onChange(prepareChangeEvent(itemList, 'array'));
   };
@@ -89,7 +89,6 @@ const JiraBucketsInput = ({ value, onChange }) => {
         jqlQuery: formValueJqlQuery,
         bucketName: formValueBucketName
       });
-      return;
     }
 
     return;

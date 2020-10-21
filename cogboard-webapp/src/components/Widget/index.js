@@ -188,22 +188,23 @@ const Widget = ({ id, index }) => {
               <MoreMenu
                 color={whiteSpaceInAuthenticatedMode ? 'primary' : 'default'}
               >
-                {closeMenu => (
-                  <>
+                {closeMenu => [
                     <MenuItem
+                      key={ `${type}-moreMenu-editItem` }
                       onClick={handleEditClick(closeMenu)}
                       data-cy="widget-edit"
                     >
                       Edit
-                    </MenuItem>
+                    </MenuItem>,
                     <MenuItem
+                      key={ `${type}-moreMenu-deleteItem` }
                       onClick={handleDeleteClick(closeMenu)}
                       data-cy="widget-delete"
                     >
                       Delete
                     </MenuItem>
-                  </>
-                )}
+                  ]
+                }
               </MoreMenu>
             }
           />

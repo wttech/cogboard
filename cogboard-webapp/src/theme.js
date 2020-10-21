@@ -4,6 +4,22 @@ import { COLORS } from './constants';
 
 export const theme = createMuiTheme({
   overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '*::-webkit-scrollbar': {
+          width: '12px'
+        },
+        '*::-webkit-scrollbar-track': {
+          boxShadow: 'inset 0 0 6px rgba(255, 255, 255, 0.4)',
+          borderRadius: '10px'
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.2)',
+          borderRadius: '10px'
+        }
+      },
+    },
     MuiCardHeader: {
       action: {
         marginTop: 0,

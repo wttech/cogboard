@@ -1,0 +1,9 @@
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32602,
+    "message": "Invalid params.",
+    "data": "Login name or password is incorrect."
+  },
+  "id": 1
+}

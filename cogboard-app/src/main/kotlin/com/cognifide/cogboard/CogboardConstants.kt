@@ -56,7 +56,6 @@ class CogboardConstants {
         const val PROP_NAME = "name"
         const val PROP_RELEASE_NAME = "releaseName"
         const val PROP_JQL_QUERY = "jqlQuery"
-        const val PROP_ISSUE_LIMIT = "issueLimit"
         const val PROP_BUCKET_QUERIES = "bucketQueries"
         const val PROP_BUCKET_NAME = "bucketName"
 

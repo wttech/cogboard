@@ -14,7 +14,7 @@ services:
       - "8093:8080"
     networks:
       - cognet
-    command: ["--verbose", "--no-request-journal"]
+    command: ["--verbose", "--no-request-journal", "--global-response-templating"]
 
   backend:
     image: "cogboard/cogboard-app:${COGBOARD_VERSION}"
