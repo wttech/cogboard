@@ -7,7 +7,8 @@ import {
   IconButton,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText
+  ListItemText,
+  Tooltip
 } from '@material-ui/core';
 import { Add, Edit, Check, Delete } from '@material-ui/icons';
 import { StyledList, StyledInput, StyledFab } from './styled';
@@ -150,24 +151,28 @@ const JiraBucketsInput = ({ value, onChange }) => {
           >
             <ListItemText primary={item.bucketName} />
             <ListItemSecondaryAction>
-              <IconButton
-                onClick={() => {
-                  handleEdit(item.id);
-                }}
-                aria-label="Edit"
-                disabled={editMode === item.id}
-              >
-                <Edit />
-              </IconButton>
-              <IconButton
-                aria-label="Delete"
-                disabled={editMode === item.id}
-                onClick={() => {
-                  handleDelete(index);
-                }}
-              >
-                <Delete />
-              </IconButton>
+              <Tooltip title="Edit" placement="bottom">
+                <IconButton
+                  onClick={() => {
+                    handleEdit(item.id);
+                  }}
+                  aria-label="Edit"
+                  disabled={editMode === item.id}
+                >
+                  <Edit />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete" placement="bottom">
+                <IconButton
+                  aria-label="Delete"
+                  disabled={editMode === item.id}
+                  onClick={() => {
+                    handleDelete(index);
+                  }}
+                >
+                  <Delete />
+                </IconButton>
+              </Tooltip>
             </ListItemSecondaryAction>
           </ListItem>
         ))}

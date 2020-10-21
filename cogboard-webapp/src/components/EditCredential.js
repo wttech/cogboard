@@ -7,7 +7,7 @@ import { getIsAuthenticated } from '../selectors';
 import { editCredential } from '../actions/thunks';
 import { URL } from '../constants';
 
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import { Build } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import CredentialForm from './CredentialForm';
@@ -42,12 +42,14 @@ const EditCredential = ({ id }) => {
 
   return (
     <>
-      <IconButton
-        onClick={handleAddEndpointClick}
-        data-cy="edit-credential-edit-button"
-      >
-        <Build />
-      </IconButton>
+      <Tooltip title="Edit" placement="bottom">
+        <IconButton
+          onClick={handleAddEndpointClick}
+          data-cy="edit-credential-edit-button"
+        >
+          <Build />
+        </IconButton>
+      </Tooltip>
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}

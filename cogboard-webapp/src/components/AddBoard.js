@@ -5,7 +5,7 @@ import { useToggle } from '../hooks';
 import { addNewBoard } from '../actions/thunks';
 import { getIsAuthenticated } from '../selectors';
 
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import BoardForm from './BoardForm';
@@ -31,13 +31,15 @@ const AddBoard = () => {
 
   return (
     <>
-      <IconButton
-        onClick={handleAddBoardClick}
-        color="primary"
-        data-cy="add-board-add-button"
-      >
-        <Add />
-      </IconButton>
+      <Tooltip title="Add Board" placement="bottom">
+        <IconButton
+          onClick={handleAddBoardClick}
+          color="primary"
+          data-cy="add-board-add-button"
+        >
+          <Add />
+        </IconButton>
+      </Tooltip>
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}

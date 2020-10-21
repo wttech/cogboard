@@ -26,7 +26,7 @@ const Add = props => {
 
   return (
     <>
-      <Tooltip title="Add Widget" placement="bottom-end">
+      <Tooltip title="Add Widget" placement="bottom">
         <StyledActionButton
           aria-label={ariaLabel}
           color={color}

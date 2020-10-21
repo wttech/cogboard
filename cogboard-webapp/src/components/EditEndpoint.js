@@ -7,7 +7,7 @@ import { getIsAuthenticated } from '../selectors';
 import { editEndpoint } from '../actions/thunks';
 import { URL } from '../constants';
 
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import { Build } from '@material-ui/icons';
 import AppDialog from './AppDialog';
 import EndpointForm from './EndpointForm';
@@ -40,12 +40,14 @@ const EditEndpoint = ({ id }) => {
 
   return (
     <>
-      <IconButton
-        onClick={handleAddEndpointClick}
-        data-cy="edit-endpoint-edit-button"
-      >
-        <Build />
-      </IconButton>
+      <Tooltip title="Edit" placement="bottom">
+        <IconButton
+          onClick={handleAddEndpointClick}
+          data-cy="edit-endpoint-edit-button"
+        >
+          <Build />
+        </IconButton>
+      </Tooltip>
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}

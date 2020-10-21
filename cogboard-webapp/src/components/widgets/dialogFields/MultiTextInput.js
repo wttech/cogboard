@@ -5,7 +5,8 @@ import {
   InputLabel,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText
+  ListItemText,
+  Tooltip
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { remove } from 'ramda';
@@ -75,23 +76,27 @@ const MultiTextInput = ({ value, onChange }) => {
           onChange={handleChangeVal}
           onKeyPress={handleKeyPressed}
         />
-        <IconButton aria-label="Add" onClick={() => handleSave(formValue)}>
-          <Add />
-        </IconButton>
+        <Tooltip title="Add new item" placement="bottom">
+          <IconButton aria-label="Add" onClick={() => handleSave(formValue)}>
+            <Add />
+          </IconButton>
+        </Tooltip>
       </FlexBoxWrapped>
       <StyledList>
         {items.map((item, index) => (
           <ListItem key={item.id} dense button>
             <ListItemText primary={item.text} />
             <ListItemSecondaryAction>
-              <IconButton
-                aria-label="Delete"
-                onClick={() => {
-                  handleDelete(index);
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
+              <Tooltip title="Delete" placement="bottom">
+                <IconButton
+                  aria-label="Delete"
+                  onClick={() => {
+                    handleDelete(index);
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </ListItemSecondaryAction>
           </ListItem>
         ))}

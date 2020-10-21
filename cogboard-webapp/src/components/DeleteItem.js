@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { useToggle } from '../hooks';
 
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import ConfirmationDialog from './ConfirmationDialog';
 
@@ -18,12 +18,14 @@ const DeleteItem = ({ id, label, itemName, deleteAction }) => {
 
   return (
     <>
-      <IconButton
-        onClick={openDialog}
-        data-cy={`delete-${itemName}-delete-button`}
-      >
-        <Delete />
-      </IconButton>
+      <Tooltip title="Delete" placement="bottom">
+        <IconButton
+          onClick={openDialog}
+          data-cy={`delete-${itemName}-delete-button`}
+        >
+          <Delete />
+        </IconButton>
+      </Tooltip>
       <ConfirmationDialog
         handleOk={handleDelete(id)}
         handleCancel={handleDialogClose}

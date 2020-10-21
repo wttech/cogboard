@@ -10,7 +10,8 @@ import {
   IconButton,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText
+  ListItemText,
+  Tooltip
 } from '@material-ui/core';
 import { Add, Check, Edit, Delete } from '@material-ui/icons';
 import { StyledFab, StyledList, StyledInput, StyledFabGroup } from './styled';
@@ -181,24 +182,28 @@ const ToDoListInput = ({ value, values, onChange }) => {
               }
             />
             <ListItemSecondaryAction>
-              <IconButton
-                aria-label="Edit"
-                disabled={editMode === item.id}
-                onClick={() => {
-                  handleEdit(item.id);
-                }}
-              >
-                <Edit />
-              </IconButton>
-              <IconButton
-                aria-label="Delete"
-                disabled={editMode === item.id}
-                onClick={() => {
-                  handleDelete(index);
-                }}
-              >
-                <Delete />
-              </IconButton>
+              <Tooltip title="Edit" placement="bottom">
+                <IconButton
+                  aria-label="Edit"
+                  disabled={editMode === item.id}
+                  onClick={() => {
+                    handleEdit(item.id);
+                  }}
+                >
+                  <Edit />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete" placement="bottom">
+                <IconButton
+                  aria-label="Delete"
+                  disabled={editMode === item.id}
+                  onClick={() => {
+                    handleDelete(index);
+                  }}
+                >
+                  <Delete />
+                </IconButton>
+              </Tooltip>
             </ListItemSecondaryAction>
           </ListItem>
         ))}
