@@ -13,11 +13,11 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
     private val installedThreshold = config.getInteger(PROP_INSTALLED_THRESHOLD, 2)
 
     private val exclusions: List<String> =
-            config
-                    .getString(PROP_EXCLUDED_BUNDLES, "")
-                    .split("\n")
-                    .filter(String::isNotBlank)
-                    .distinct()
+        config
+            .getString(PROP_EXCLUDED_BUNDLES, "")
+            .split("\n")
+            .filter(String::isNotBlank)
+            .distinct()
 
     override fun handleResponse(responseBody: JsonObject) {
         if (checkAuthorized(responseBody)) {
@@ -41,17 +41,17 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
 
     private fun getFilteredBundles(bundles: List<Any?>): Pair<List<JsonObject>, List<JsonObject>> {
         return bundles
-                .mapNotNull { it as JsonObject }
-                .partition {
-                    exclusions.contains(it.getString("symbolicName")) ||
-                            exclusions.contains(it.getString("name"))
-                }
-                .let { pair ->
-                    Pair(
-                            pair.first,
-                            pair.second.filter { inactiveBundleStatuses.contains(it.getString("state")) }
-                    )
-                }
+            .mapNotNull { it as JsonObject }
+            .partition {
+                exclusions.contains(it.getString("symbolicName")) ||
+                    exclusions.contains(it.getString("name"))
+            }
+            .let { pair ->
+                Pair(
+                    pair.first,
+                    pair.second.filter { inactiveBundleStatuses.contains(it.getString("state")) }
+                )
+            }
     }
 
     private fun createWidgetContent(
@@ -62,11 +62,11 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         val url = "$url/system/console/bundles"
 
         return JsonObject()
-                .put(CC.PROP_URL, url)
-                .put(PROP_BUNDLE_STATUS, numericStatus)
-                .put(PROP_EXCLUDED_BUNDLES, excludedBundles)
-                .put(PROP_INACTIVE_BUNDLES, inactiveBundles)
-                .put(CC.PROP_WIDGET_STATUS, statusByNumbers(numericStatus))
+            .put(CC.PROP_URL, url)
+            .put(PROP_BUNDLE_STATUS, numericStatus)
+            .put(PROP_EXCLUDED_BUNDLES, excludedBundles)
+            .put(PROP_INACTIVE_BUNDLES, inactiveBundles)
+            .put(CC.PROP_WIDGET_STATUS, statusByNumbers(numericStatus))
     }
 
     private fun statusByNumbers(numericStatus: MutableMap<String, Int>): Widget.Status {
@@ -74,7 +74,7 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
         val installed = numericStatus[PROP_BUNDLE_STATUS_INSTALLED] ?: 0
 
         return if (resolved >= resolvedThreshold ||
-                installed >= installedThreshold) {
+            installed >= installedThreshold) {
             Widget.Status.ERROR
         } else if (resolved == 0 && installed == 0) {
             Widget.Status.OK
@@ -103,12 +103,12 @@ class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx,
 
     private fun JsonObject.getStatusMap(): MutableMap<String, Int> {
         return this
-                .getJsonArray(PROP_STATUSES_ARRAY, JsonArray())
-                .mapIndexed { idx, value ->
-                    statusMappingList[idx] to value as Int
-                }
-                .toMap()
-                .toMutableMap()
+            .getJsonArray(PROP_STATUSES_ARRAY, JsonArray())
+            .mapIndexed { idx, value ->
+                statusMappingList[idx] to value as Int
+            }
+            .toMap()
+            .toMutableMap()
     }
 
     companion object {
