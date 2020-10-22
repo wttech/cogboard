@@ -97,15 +97,20 @@ class HttpClient : AbstractVerticle() {
 
         val authenticationType = getAuthenticationType(authenticationTypes as JsonArray, user, token, pass)
 
-        if (authenticationType == AuthenticationType.NONE) {
-            throw Exception("Request cannot be processed. Cause: Incorrect credentials or Widget doesn't supported")
-        } else {
-            AuthenticationFactory(user, pass, token, request).create(authenticationType)
-        }
+        request.authenticate(authenticationType, user, token, pass)
 
         applyRequestHeaders(request, headers)
 
         return request
+    }
+
+    private fun HttpRequest<Buffer>.authenticate(
+        authType: AuthenticationType,
+        username: String,
+        token: String,
+        pass: String
+    ) {
+        AuthenticationFactory(username, token, pass, this).create(authType)
     }
 
     private fun getAuthenticationType(authenticationTypes: JsonArray, user: String, token: String, pass: String): AuthenticationType {

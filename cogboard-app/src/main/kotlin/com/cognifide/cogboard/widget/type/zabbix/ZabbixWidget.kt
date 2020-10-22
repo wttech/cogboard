@@ -2,7 +2,6 @@ package com.cognifide.cogboard.widget.type.zabbix
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
-import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
@@ -21,10 +20,6 @@ class ZabbixWidget(
     private val host: String = config.getString(HOST, "")
     private val maxValue: Int = config.getInteger(MAX_VALUE, 0)
     private val range: JsonArray = config.getJsonArray(RANGE, JsonArray())
-
-    override fun authenticationTypes(): Set<AuthenticationType> {
-        return setOf(AuthenticationType.NONE)
-    }
 
     override fun updateState() {
         when {

@@ -5,8 +5,8 @@ import io.vertx.ext.web.client.HttpRequest
 
 class AuthenticationFactory(
     private val user: String,
-    private val password: String,
     private val token: String,
+    private val password: String,
     private val request: HttpRequest<Buffer>
 ) {
 
@@ -15,7 +15,7 @@ class AuthenticationFactory(
             AuthenticationType.TOKEN == authType -> token()
             AuthenticationType.TOKEN_AS_USERNAME == authType -> tokenAsUsername()
             AuthenticationType.BASIC == authType -> basic()
-            else -> throw Exception("Authentication type is incorrect")
+            else -> request
         }
     }
 

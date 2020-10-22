@@ -44,7 +44,9 @@ abstract class AsyncWidget(
      * Type of authentication.
      * Should be overridden for widgets which use `httpGet(..)` from HttpClient
      */
-    abstract fun authenticationTypes(): Set<AuthenticationType>
+    protected open fun authenticationTypes(): Set<AuthenticationType> {
+        return setOf(AuthenticationType.BASIC)
+    }
 
     /**
      * Notifies Widget that it is time to update.
@@ -63,7 +65,6 @@ abstract class AsyncWidget(
                 basicProps(url)
                         .put(CogboardConstants.PROP_REQUEST_ID, requestId)
                         .put(CogboardConstants.PROP_TOKEN, token)
-                        .put(CogboardConstants.PROP_AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
         )
     }
 
@@ -99,5 +100,6 @@ abstract class AsyncWidget(
                 .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)
                 .put(CogboardConstants.PROP_USER, user)
                 .put(CogboardConstants.PROP_PASSWORD, password)
+                .put(CogboardConstants.PROP_AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
     }
 }
