@@ -26,7 +26,8 @@ export const URL = {
   ENDPOINTS_ENDPOINT: '/api/endpoints',
   CREDENTIALS_ENDPOINT: '/api/credentials',
   UPDATE_USER_SETTINGS: '/api/user/update',
-  UPDATE_INFO: 'https://github.com/Cognifide/cogboard/wiki#update'
+  UPDATE_INFO: 'https://github.com/Cognifide/cogboard/wiki#update',
+  CREDENTIAL_INFO: 'https://github.com/Cognifide/cogboard/wiki#credentials'
 };
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;

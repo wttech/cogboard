@@ -126,3 +126,12 @@ export const StyledRangeSliderForm = styled.div`
     margin-bottom: 24px;
   }
 `;
+
+export const StyledMultiLineWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  .MuiTextField-root {
+    flex: 1 0 auto;
+  }
+`;
