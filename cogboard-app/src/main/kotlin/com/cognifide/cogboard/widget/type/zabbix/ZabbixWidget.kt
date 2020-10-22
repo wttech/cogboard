@@ -2,6 +2,7 @@ package com.cognifide.cogboard.widget.type.zabbix
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
@@ -9,6 +10,7 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
+import kotlin.math.roundToLong
 
 class ZabbixWidget(
     vertx: Vertx,
@@ -20,6 +22,10 @@ class ZabbixWidget(
     private val host: String = config.getString(HOST, "")
     private val maxValue: Int = config.getInteger(MAX_VALUE, 0)
     private val range: JsonArray = config.getJsonArray(RANGE, JsonArray())
+
+    override fun authenticationTypes(): Set<AuthenticationType> {
+        return setOf(AuthenticationType.NONE)
+    }
 
     override fun updateState() {
         when {
@@ -87,7 +93,7 @@ class ZabbixWidget(
     }
 
     private fun getStatusResponse(lastValue: String): Widget.Status {
-        val convertedValue = lastValue.toLong()
+        val convertedValue = lastValue.toFloat().roundToLong()
         return when {
             metricHasMaxValue() -> status(convertedValue.convertToPercentage(maxValue), range)
             metricHasProgress() -> status(convertedValue, range)
