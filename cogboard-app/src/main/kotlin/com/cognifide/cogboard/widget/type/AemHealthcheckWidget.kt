@@ -3,7 +3,9 @@ package com.cognifide.cogboard.widget.type
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
-import com.cognifide.cogboard.widget.Widget.Status.*
+import com.cognifide.cogboard.widget.Widget.Status.OK
+import com.cognifide.cogboard.widget.Widget.Status.FAIL
+import com.cognifide.cogboard.widget.Widget.Status.UNSTABLE
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
