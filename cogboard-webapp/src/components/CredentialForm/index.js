@@ -49,15 +49,13 @@ const CredentialsForm = ({
   return (
     <div data-cy="app-credential-form-tab">
       <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
-        <StyledTabPanel>
-          <DynamicForm
-            fields={formFields}
-            values={values}
-            handleChange={handleChange}
-            errors={errors}
-            rootName="credential-form-auth"
-          />
-        </StyledTabPanel>
+        <DynamicForm
+          fields={formFields}
+          values={values}
+          handleChange={handleChange}
+          errors={errors}
+          rootName="credential-form-auth"
+        />
         <Button
           color="secondary"
           variant="contained"
