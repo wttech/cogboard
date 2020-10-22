@@ -9,7 +9,6 @@ import { Button } from '@material-ui/core';
 import { StyledCancelButton } from './styled';
 import DynamicForm from '../DynamicForm';
 import { getCredentials } from '../../selectors';
-import { StyledTabPanel } from '../styled';
 
 const CredentialsForm = ({
   onSubmit,
