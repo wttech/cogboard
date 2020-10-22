@@ -27,15 +27,14 @@ describe('Credentials', () => {
       )
       .applyPassword()
       .assertErrorMessageVisible('Password must match.', 'credential-form-auth')
-      .switchToApiTokenTab()
       .applyToken()
       .assertErrorMessageVisible(
         'This field is required',
-        'credential-form-token-label-input-error'
+        'credential-form-auth-label-input-error'
       )
       .assertErrorMessageVisible(
         'This field is required',
-        'credential-form-token-user-input-error'
+        'credential-form-auth-user-input-error'
       );
   });
 
@@ -51,7 +50,6 @@ describe('Credentials', () => {
   it('User can add new credentials with API token only.', () => {
     addCredentials(testCredentials(uniqueUid))
       .applyMandatoryFields()
-      .switchToApiTokenTab()
       .applyToken()
       .save()
       .assertTabDisappear()
@@ -66,11 +64,10 @@ describe('Credentials', () => {
         'Password or token field must be set.',
         'credential-form-auth-password-input-error'
       )
-      .switchToApiTokenTab()
       .save()
       .assertErrorMessageVisible(
         'Password or token field must be set.',
-        'credential-form-token-token-input-error'
+        'credential-form-auth-token-input-error'
       );
   });
 
