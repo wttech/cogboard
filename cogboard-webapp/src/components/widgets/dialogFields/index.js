@@ -472,7 +472,7 @@ const dialogFields = {
   RandomPickerInterval: {
     component: ConditionallyHidden(
       NumberInput,
-      'RandomPickerDailySwitch',
+      'randomPickerDailySwitch',
       value => !value
     ),
     name: 'randomPickerInterval',
