@@ -11,7 +11,7 @@ import { reorderBoard } from '../../actions/thunks';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
 
-import { CardHeader, CardContent, IconButton } from '@material-ui/core';
+import { CardHeader, CardContent, IconButton, Tooltip } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
 import EditBoard from '../EditBoard';
@@ -124,22 +124,26 @@ const BoardCard = ({ boardData, index, className }) => {
         <CardContent></CardContent>
         {isAuthenticated && (
           <StyledCardActions>
-            <IconButton
-              onClick={handleEditClick}
-              aria-label="edit"
-              size="small"
-              data-cy="board-card-edit-button"
-            >
-              <Edit />
-            </IconButton>
-            <IconButton
-              onClick={handleDeleteClick}
-              aria-label="delete"
-              size="small"
-              data-cy="board-card-delete-button"
-            >
-              <Delete />
-            </IconButton>
+            <Tooltip title="Edit" placement="bottom">
+              <IconButton
+                onClick={handleEditClick}
+                aria-label="edit"
+                size="small"
+                data-cy="board-card-edit-button"
+              >
+                <Edit />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete" placement="bottom">
+              <IconButton
+                onClick={handleDeleteClick}
+                aria-label="delete"
+                size="small"
+                data-cy="board-card-delete-button"
+              >
+                <Delete />
+              </IconButton>
+            </Tooltip>
           </StyledCardActions>
         )}
       </StyledCard>

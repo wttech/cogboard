@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton, Button } from '@material-ui/core';
+import { IconButton, Button, Tooltip } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 
 const AddButton = ({ largeButton, children, ...props }) => (
@@ -10,9 +10,11 @@ const AddButton = ({ largeButton, children, ...props }) => (
         {children}
       </Button>
     ) : (
-      <IconButton {...props}>
-        <Add />
-      </IconButton>
+      <Tooltip title="Add new item" placement="bottom">
+        <IconButton {...props} color="inherit">
+          <Add />
+        </IconButton>
+      </Tooltip>
     )}
   </>
 );

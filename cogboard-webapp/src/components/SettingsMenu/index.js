@@ -24,7 +24,8 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction
+  ListItemSecondaryAction,
+  Tooltip
 } from '@material-ui/core';
 import { Settings } from '@material-ui/icons';
 import AppDialog from '../AppDialog';
@@ -95,15 +96,17 @@ const SettingsMenu = ({ className }) => {
 
   return (
     <>
-      <IconButton
-        className={className}
-        onClick={handleDialogOpen}
-        color="primary"
-        edge="start"
-        data-cy="settings-menu-open-button"
-      >
-        <Settings />
-      </IconButton>
+      <Tooltip title="Settings" placement="bottom-end">
+        <IconButton
+          className={className}
+          onClick={handleDialogOpen}
+          color="primary"
+          edge="start"
+          data-cy="settings-menu-open-button"
+        >
+          <Settings />
+        </IconButton>
+      </Tooltip>
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
