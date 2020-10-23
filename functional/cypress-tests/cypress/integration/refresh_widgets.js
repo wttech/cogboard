@@ -2,7 +2,7 @@ import { createWidget } from '../support/widget';
 import Widgets from '../fixtures/Widgets';
 
 describe('Refresh widgets', () => {
-  const jenkinsJobTitleFirst = 'Jenkins Job';
+  const jenkinsJobTitleFirst = 'Jenkins Job Test';
   const blueColor = 'rgb(25, 140, 189)';
   const redColor = 'rgb(225, 49, 47)';
   const fakeMocksUrl = 'http://fake-mocks:1234';
@@ -32,7 +32,7 @@ describe('Refresh widgets', () => {
 
   function changeUrls(url) {
     cy.openSettings();
-    cy.contains('li.MuiListItem-container', 'API Mocks Endpoint')
+    cy.contains('li.MuiListItem-container', 'API Mocks')
       .find('[data-cy="edit-endpoint-edit-button"]')
       .click();
     cy.get('[data-cy="endpoint-form-url-input"]')
