@@ -1,9 +1,7 @@
 import styled from '@emotion/styled/macro';
 
 import { Typography } from '@material-ui/core';
-styled(Typography)`
-  text-align: center;
-`;
+
 export const StyledMetricName = styled(Typography)`
   font-size: 0.775rem;
   font-weight: 600;
