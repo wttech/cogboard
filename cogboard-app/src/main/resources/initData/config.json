@@ -23,7 +23,7 @@
           "widget21",
           "widget17",
           "widget24",
-          "widget32"
+          "widget38"
         ],
         "columns": 8,
         "title": "TestBoard 1",
@@ -52,7 +52,16 @@
           "widget35",
           "widget33",
           "widget31",
-          "widget36"
+          "widget36",
+          "widget40",
+          "widget41",
+          "widget42",
+          "widget43",
+          "widget44",
+          "widget45",
+          "widget46",
+          "widget47",
+          "widget48"
         ],
         "columns": 8,
         "title": "TestBoard 2",
@@ -378,7 +387,7 @@
         "schedulePeriod": 120,
         "requestMethod": "get",
         "endpoint": "",
-        "path": "http://www.cognifide.com",
+        "path": "https://www.cognifide.com",
         "body": "",
         "expectedResponseBody": "",
         "expectedStatusCode": 200,
@@ -518,33 +527,6 @@
         "isUpdating": false,
         "boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d"
       },
-      "widget32": {
-        "id": "widget32",
-        "title": "Person draw",
-        "config": {
-          "columns": 1,
-          "goNewLine": false,
-          "rows": 1
-        },
-        "type": "RandomPickerWidget",
-        "disabled": false,
-        "content": {},
-        "isUpdating": false,
-        "boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
-        "randomizeCheckbox": true,
-        "randomPickerDailySwitch": true,
-        "randomPickerInterval": 0,
-        "multiTextInput": [
-          "Adam",
-          "Bartek",
-          "Celina",
-          "Daria",
-          "Emil",
-          "Franciszek",
-          "Gosia",
-          "Halina"
-        ]
-      },
       "widget33": {
         "id": "widget33",
         "title": "Service Check",
@@ -596,38 +578,6 @@
           {
             "id": "item-92e6d0c6-42c8-46f3-acd2-48b09ba15384",
             "itemText": "D"
-          },
-          {
-            "id": "item-4cde911c-56f0-412c-b70c-06327c04b6ab",
-            "itemText": "E"
-          },
-          {
-            "id": "item-7d00002e-aa24-4936-a54a-5e9c77aeaa3c",
-            "itemText": "F"
-          },
-          {
-            "id": "item-ad8c4cc4-84d7-4c51-8ee0-9bdc0be8a157",
-            "itemText": "G"
-          },
-          {
-            "id": "item-109779eb-ccdd-4747-8cf7-b3a01355bfdc",
-            "itemText": "H"
-          },
-          {
-            "id": "item-5e0d1475-99c4-4509-bdd5-fe78519167a7",
-            "itemText": "I"
-          },
-          {
-            "id": "item-4e81c04a-a403-4492-ab3a-276baf86bccd",
-            "itemText": "J"
-          },
-          {
-            "id": "item-58fd40a1-aed5-4718-99b8-559af3fa3dd3",
-            "itemText": "K"
-          },
-          {
-            "id": "item-693faaa7-d430-4b07-9249-32c946bc195d",
-            "itemText": "L"
           }
         ]
       },
@@ -661,6 +611,252 @@
             "linkUrl": "https://github.com/Cognifide/cogboard"
           }
         ]
+      },
+      "widget38": {
+        "id": "widget38",
+        "title": "Random Picker",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "RandomPickerWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+        "randomizeCheckbox": true,
+        "personDrawDailySwitch": true,
+        "personDrawInterval": 120,
+        "multiTextInput": [
+          "Adam",
+          "Barbara",
+          "Czesław",
+          "Dominika",
+          "Emil",
+          "Filipina",
+          "Gustaw",
+          "Hanna"
+        ],
+        "randomPickerDailySwitch": false,
+        "randomPickerInterval": 120
+      },
+      "widget40": {
+        "id": "widget40",
+        "title": "Zabbix",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "system.cpu.util[,idle]",
+        "maxValue": 0,
+        "range": [
+          60,
+          80
+        ]
+      },
+      "widget41": {
+        "id": "widget41",
+        "title": "Zabbix",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "system.uptime",
+        "maxValue": 0,
+        "range": [
+          20,
+          60
+        ]
+      },
+      "widget42": {
+        "id": "widget42",
+        "title": "Zabbix",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "system.users.num",
+        "maxValue": 0,
+        "range": [
+          20,
+          60
+        ]
+      },
+      "widget43": {
+        "id": "widget43",
+        "title": "Zabbix",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "system.swap.size[,used]",
+        "maxValue": 10,
+        "range": [
+          60,
+          80
+        ]
+      },
+      "widget44": {
+        "id": "widget44",
+        "title": "Zabbix",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "proc.num[]",
+        "maxValue": 0,
+        "range": [
+          20,
+          60
+        ]
+      },
+      "widget45": {
+        "id": "widget45",
+        "title": "Zabbix",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "vm.memory.size[available]",
+        "maxValue": 100,
+        "range": [
+          60,
+          80
+        ]
+      },
+      "widget46": {
+        "id": "widget46",
+        "title": "Zabbix",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "vfs.fs.size[/,used]",
+        "maxValue": 10,
+        "range": [
+          60,
+          80
+        ]
+      },
+      "widget47": {
+        "id": "widget47",
+        "title": "Zabbix",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]",
+        "maxValue": 10,
+        "range": [
+          60,
+          80
+        ]
+      },
+      "widget48": {
+        "id": "widget48",
+        "title": "Jira Buckets",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JiraBucketsWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "bucketQueries": [
+          {
+            "id": "66726ad7-073b-44bc-b8cb-342117ed8957",
+            "bucketName": "New",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20New"
+          },
+          {
+            "id": "d379e039-7a2b-4952-ba19-33422026dcd6",
+            "bucketName": "In Progress",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20in%20(%22In%20Progress%22%2C%20%22Code%20Review%22)"
+          },
+          {
+            "id": "f0be784b-534e-4a87-8d46-63a05fd1cac6",
+            "bucketName": "Done",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20Resolved"
+          }
+        ]
       }
     },
     "allWidgets": [
@@ -685,10 +881,19 @@
       "widget27",
       "widget29",
       "widget31",
-      "widget32",
       "widget33",
       "widget35",
-      "widget36"
+      "widget36",
+      "widget38",
+      "widget40",
+      "widget41",
+      "widget42",
+      "widget43",
+      "widget44",
+      "widget45",
+      "widget46",
+      "widget47",
+      "widget48"
     ]
   }
 }
