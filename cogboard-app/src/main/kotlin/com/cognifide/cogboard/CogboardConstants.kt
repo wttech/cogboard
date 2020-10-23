@@ -23,6 +23,7 @@ class CogboardConstants {
         const val PROP_HEADERS = "headers"
         const val PROP_CONTENT = "content"
         const val PROP_WIDGET_TYPE = "type"
+        const val PROP_AUTHENTICATION_TYPES = "authenticationTypes"
         const val PROP_SCHEDULE_PERIOD = "schedulePeriod"
         const val PROP_SCHEDULE_PERIOD_DEFAULT = 120L // 120 seconds
         const val PROP_SCHEDULE_DELAY_DEFAULT = 10L // 10 seconds

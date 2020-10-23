@@ -18,6 +18,13 @@ class Credentials {
       .clear()
       .type(this.config.label)
       .blur();
+    return this;
+  }
+
+  applyUser(config) {
+    if (config !== undefined) {
+      this.config = config;
+    }
     cy.get('[data-cy="credential-form-auth-user-input"]')
       .clear()
       .type(this.config.user)
@@ -44,15 +51,10 @@ class Credentials {
     if (config !== undefined) {
       this.config = config;
     }
-    cy.get('[data-cy="credential-form-token-token-input"]')
+    cy.get('[data-cy="credential-form-auth-token-input"]')
       .clear()
       .type(this.config.token)
       .blur();
-    return this;
-  }
-
-  switchToApiTokenTab() {
-    cy.get('[data-cy="credential-form-token-tab"]').click();
     return this;
   }
 

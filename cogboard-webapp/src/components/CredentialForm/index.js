@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { string } from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import { useFormData } from '../../hooks';
 import { createValidationSchema } from '../validation';
 
-import { Button, Tab } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { StyledCancelButton } from './styled';
 import DynamicForm from '../DynamicForm';
 import { getCredentials } from '../../selectors';
-import { StyledTabPanel, StyledTabs } from '../styled';
 
 const CredentialsForm = ({
   onSubmit,
@@ -18,18 +17,13 @@ const CredentialsForm = ({
   ...initialFormValues
 }) => {
   const credentialsData = useSelector(getCredentials);
-  const basicFormFields = [
+  const formFields = [
     'LabelField',
     'UsernameField',
     'PasswordField',
-    'PasswordConfirmationField'
+    'PasswordConfirmationField',
+    'TokenField'
   ];
-
-  const tokenFormFields = ['LabelField', 'UsernameField', 'TokenField'];
-
-  const formFields = Array.from(
-    new Set([...basicFormFields, ...tokenFormFields])
-  );
 
   const constraints = {
     LabelField: {
@@ -51,42 +45,16 @@ const CredentialsForm = ({
     }
   );
 
-  const [tabValue, setTabValue] = useState(0);
-
-  const handleTabChange = (_, newValue) => {
-    setTabValue(newValue);
-  };
-
   return (
     <div data-cy="app-credential-form-tab">
-      <StyledTabs
-        value={tabValue}
-        onChange={handleTabChange}
-        variant="fullWidth"
-        indicatorColor="primary"
-      >
-        <Tab label="Basic Auth" data-cy="credential-form-basic-tab" />
-        <Tab label="API Token" data-cy="credential-form-token-tab" />
-      </StyledTabs>
       <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
-        <StyledTabPanel value={tabValue} index={0}>
-          <DynamicForm
-            fields={basicFormFields}
-            values={values}
-            handleChange={handleChange}
-            errors={errors}
-            rootName="credential-form-auth"
-          />
-        </StyledTabPanel>
-        <StyledTabPanel value={tabValue} index={1}>
-          <DynamicForm
-            fields={tokenFormFields}
-            values={values}
-            handleChange={handleChange}
-            errors={errors}
-            rootName="credential-form-token"
-          />
-        </StyledTabPanel>
+        <DynamicForm
+          fields={formFields}
+          values={values}
+          handleChange={handleChange}
+          errors={errors}
+          rootName="credential-form-auth"
+        />
         <Button
           color="secondary"
           variant="contained"

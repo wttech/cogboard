@@ -2,8 +2,10 @@ package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
+import io.vertx.core.json.Json
 import io.vertx.core.json.JsonObject
 
 /**
@@ -36,6 +38,14 @@ abstract class AsyncWidget(
     override fun stop(): Widget {
         consumer.unregister()
         return super.stop()
+    }
+
+    /**
+     * Type of authentication.
+     * Should be overridden for widgets which use `httpGet(..)` from HttpClient
+     */
+    protected open fun authenticationTypes(): Set<AuthenticationType> {
+        return setOf(AuthenticationType.BASIC)
     }
 
     /**
@@ -90,5 +100,6 @@ abstract class AsyncWidget(
                 .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)
                 .put(CogboardConstants.PROP_USER, user)
                 .put(CogboardConstants.PROP_PASSWORD, password)
+                .put(CogboardConstants.PROP_AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
     }
 }
