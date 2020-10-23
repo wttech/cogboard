@@ -3,14 +3,14 @@ import { shallowEqual, useSelector } from 'react-redux';
 import SemiCircleProgress from '../../../SemiProgressBar';
 import {
   StyledMetricName,
-  StyledZabbixWrapper,
-  StyledNumericValue
+  StyledNumericValue,
+  StyledZabbixWrapper
 } from './styled';
 import {
   COLORS,
   ZABBIX_METRICS,
-  ZABBIX_METRICS_WITH_PROGRESS,
-  ZABBIX_METRICS_WITH_MAX_VALUE
+  ZABBIX_METRICS_WITH_MAX_VALUE,
+  ZABBIX_METRICS_WITH_PROGRESS
 } from '../../../../constants';
 
 const progressBarWidth = {
@@ -56,10 +56,8 @@ const ZabbixWidget = ({ id, lastvalue }) => {
   const convertMetricTitle = () => {
     if (!widgetZabbixMetric) return '';
 
-    const metricDisplayName = ZABBIX_METRICS.find(
-      item => item.value === widgetZabbixMetric
-    ).display;
-    return metricDisplayName;
+    return ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric)
+      .display;
   };
 
   const convertToBytes = value => {
