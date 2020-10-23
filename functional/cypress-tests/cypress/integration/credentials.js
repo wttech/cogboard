@@ -21,10 +21,7 @@ describe('Credentials', () => {
         'This field is required',
         'credential-form-auth-label-input-error'
       )
-      .assertErrorMessageVisible(
-        'This field is required',
-        'credential-form-auth-user-input-error'
-      )
+      .applyUser()
       .applyPassword()
       .assertErrorMessageVisible('Password must match.', 'credential-form-auth')
       .applyToken()
@@ -33,53 +30,26 @@ describe('Credentials', () => {
         'credential-form-auth-label-input-error'
       )
       .assertErrorMessageVisible(
-        'This field is required',
+        'Label length must be less or equal to 25.',
         'credential-form-auth-user-input-error'
       );
   });
 
-  it('User can add new credentials with basic auth only.', () => {
+  it('User can add new credentials without username, password and token.', () => {
     addCredentials(testCredentials(uniqueUid))
       .applyMandatoryFields()
-      .applyPassword()
       .save()
       .assertTabDisappear()
       .assertExists();
-  });
-
-  it('User can add new credentials with API token only.', () => {
-    addCredentials(testCredentials(uniqueUid))
-      .applyMandatoryFields()
-      .applyToken()
-      .save()
-      .assertTabDisappear()
-      .assertExists();
-  });
-
-  it('User cannot add new credentials without password and token.', () => {
-    addCredentials(testCredentials(uniqueUid))
-      .applyMandatoryFields()
-      .save()
-      .assertErrorMessageVisible(
-        'Password or token field must be set.',
-        'credential-form-auth-password-input-error'
-      )
-      .save()
-      .assertErrorMessageVisible(
-        'Password or token field must be set.',
-        'credential-form-auth-token-input-error'
-      );
   });
 
   it('User cannot add duplicated credentials.', () => {
     addCredentials(testCredentials(duplicatedUid))
       .applyMandatoryFields()
-      .applyPassword()
       .save()
       .assertTabDisappear();
     addCredentials(testCredentials(duplicatedUid))
       .applyMandatoryFields()
-      .applyPassword()
       .save()
       .assertErrorMessageVisible(
         'This field must be unique.',
@@ -97,6 +67,7 @@ describe('Credentials', () => {
 
     loadCredentials(config)
       .applyMandatoryFields(newConfig)
+      .applyUser()
       .applyPassword(newConfig)
       .save()
       .assertTabDisappear()

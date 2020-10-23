@@ -18,6 +18,13 @@ class Credentials {
       .clear()
       .type(this.config.label)
       .blur();
+    return this;
+  }
+
+  applyUser(config) {
+    if (config !== undefined) {
+      this.config = config;
+    }
     cy.get('[data-cy="credential-form-auth-user-input"]')
       .clear()
       .type(this.config.user)

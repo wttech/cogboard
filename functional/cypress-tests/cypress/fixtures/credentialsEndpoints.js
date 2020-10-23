@@ -3,7 +3,7 @@ export const badCredentials = () => {
     token: ' ',
     password: 'xxxxxxxxxxx',
     passwordConf: 'zzz',
-    user: ' ',
+    user: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
     label: ' '
   };
 };
