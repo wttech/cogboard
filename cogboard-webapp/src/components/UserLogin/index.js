@@ -7,10 +7,10 @@ import { clearLoginErrorMessage } from '../../actions/actionCreators';
 import { getIsAuthenticated } from '../../selectors';
 import { getCredentials } from './helpers';
 
-import { Button, IconButton, TextField } from '@material-ui/core';
-import { AccountCircle, PowerSettingsNew, Error } from '@material-ui/icons';
+import { Button, IconButton, TextField, Tooltip } from '@material-ui/core';
+import { AccountCircle, Error, PowerSettingsNew } from '@material-ui/icons';
 import AppDialog from './../AppDialog';
-import { StyledFieldset, StyledErrorMsg } from '../styled';
+import { StyledFieldset, StyledErrorMsg, StyledPowerIconButton } from '../styled';
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -53,26 +53,30 @@ const UserLogin = () => {
   return (
     <>
       {!isAuthenticated && (
-        <IconButton
-          onClick={handleLoginDialogOpen}
-          aria-label="Login"
-          color="inherit"
-          edge="start"
-          data-cy="user-login-login-icon"
-        >
-          <AccountCircle color="primary" />
-        </IconButton>
+        <Tooltip title="Login" placement="bottom-end">
+          <IconButton
+            onClick={handleLoginDialogOpen}
+            aria-label="Login"
+            color="primary"
+            edge="start"
+            data-cy="user-login-login-icon"
+          >
+            <AccountCircle color="primary" />
+          </IconButton>
+        </Tooltip>
       )}
       {isAuthenticated && (
-        <IconButton
-          onClick={handleLogout}
-          aria-label="Logout"
-          color="inherit"
-          edge="start"
-          data-cy="user-login-logout-icon"
-        >
-          <PowerSettingsNew color="primary" />
-        </IconButton>
+        <Tooltip title="Logout" placement="bottom-end">
+          <StyledPowerIconButton
+            onClick={handleLogout}
+            aria-label="Logout"
+            color="primary"
+            edge="start"
+            data-cy="user-login-logout-icon"
+          >
+            <PowerSettingsNew />
+          </StyledPowerIconButton>
+        </Tooltip>
       )}
       <AppDialog
         handleDialogClose={closeDialog}

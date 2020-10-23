@@ -3,7 +3,7 @@ import styled from '@emotion/styled/macro';
 import { Box, Fab } from '@material-ui/core';
 
 export const StyledActions = styled(Box)`
-  bottom: 50px;
+  bottom: 55px;
   position: fixed;
   right: 50px;
   z-index: 10000;
