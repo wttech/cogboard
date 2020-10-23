@@ -1,1 +1,18 @@
-{"endpoints":[{"id":"endpoint1","label":"API Mocks","publicUrl":"http://api-mocks:8080","url":"http://api-mocks:8080","credentials":""},{"label":"API Mocks - Zabbix","url":"http://api-mocks:8080/zabbix/api_jsonrpc.php","publicUrl":"http://api-mocks:8080/zabbix/api_jsonrpc.php","credentials":"credential1","id":"endpoint3"}]}
+{
+  "endpoints": [
+    {
+      "id": "endpoint1",
+      "label": "API Mocks",
+      "publicUrl": "http://api-mocks:8080",
+      "url": "http://api-mocks:8080",
+      "credentials": ""
+    },
+    {
+      "label": "API Mocks - Zabbix",
+      "url": "http://api-mocks:8080/zabbix/api_jsonrpc.php",
+      "publicUrl": "http://api-mocks:8080/zabbix/api_jsonrpc.php",
+      "credentials": "credential1",
+      "id": "endpoint3"
+    }
+  ]
+}
