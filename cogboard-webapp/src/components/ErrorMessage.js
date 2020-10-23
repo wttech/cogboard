@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Typography } from '@material-ui/core';
 import StatusIcon from './StatusIcon';
-import { StyledIconWrapper } from './Widget/styled';
+import { StyledIconWrapper, StyledErrorMessage } from './Widget/styled';
 
 export const ErrorMessage = ({ errorMessage, errorCause, status }) => {
   return (
@@ -10,9 +9,9 @@ export const ErrorMessage = ({ errorMessage, errorCause, status }) => {
       <StyledIconWrapper>
         <StatusIcon status={status} size="large" />
       </StyledIconWrapper>
-      <Typography variant="caption" paragraph>
+      <StyledErrorMessage variant="caption" paragraph>
         {errorMessage}
-      </Typography>
+      </StyledErrorMessage>
     </>
   );
 };

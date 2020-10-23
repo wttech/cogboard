@@ -19,7 +19,7 @@ const MaxValueInput = ({ error, values, label, dataCy, ...other }) => {
           margin="normal"
           type="number"
           FormHelperTextProps={{ component: 'div' }}
-          inputProps={{ 
+          inputProps={{
             'data-cy': dataCy,
             min: "0",
             step: "1"
