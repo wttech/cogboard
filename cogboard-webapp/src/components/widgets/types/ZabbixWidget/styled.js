@@ -1,16 +1,9 @@
 import styled from '@emotion/styled/macro';
 
 import { Typography } from '@material-ui/core';
-
-export const StyledDateWrapper = styled.div`
-  display: block;
-  margin-bottom: 30px;
-`;
-
-export const StyledTypography = styled(Typography)`
+styled(Typography)`
   text-align: center;
 `;
-
 export const StyledMetricName = styled(Typography)`
   font-size: 0.775rem;
   font-weight: 600;

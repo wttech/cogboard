@@ -2,9 +2,7 @@ import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SemiCircleProgress from '../../../SemiProgressBar';
 import {
-  StyledTypography,
   StyledMetricName,
-  StyledDateWrapper,
   StyledZabbixWrapper,
   StyledNumericValue
 } from './styled';
