@@ -199,6 +199,7 @@ const widgetTypes = {
       'SliderRange'
     ],
     showUpdateTime: true,
+    initalExpandContent: true,
     initialStatus: 'NONE',
     validationConstraints: {
       SchedulePeriod: { min: 3 }

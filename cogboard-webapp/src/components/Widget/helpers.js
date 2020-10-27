@@ -6,6 +6,7 @@ import WidgetContent from '../WidgetContent';
 import WidgetTypeIcon from '../WidgetTypeIcon';
 import WidgetFooter from '../WidgetFooter';
 import TextWidget from '../widgets/types/TextWidget';
+import ZabbixWidget from '../widgets/types/ZabbixWidget';
 
 export const mapStatusToColor = (status, theme) => theme.palette.status[status];
 
@@ -39,6 +40,7 @@ export const renderCardContent = (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
         <ExpandableContent
+          id={id}
           type={type}
           status={status}
           content={content}
@@ -60,9 +62,11 @@ export const renderCardContent = (
   );
 };
 
-const ExpandableContent = ({ type, status, content, expanded }) => {
-  if (type !== 'TextWidget') {
+const ExpandableContent = ({ id, type, status, content, expanded }) => {
+  if (type !== 'TextWidget' && type !== 'ZabbixWidget') {
     return <WidgetTypeIcon type={type} status={status} content={content} />;
+  } else if (type === 'ZabbixWidget') {
+    return <ZabbixWidget id={id} {...content} />;
   } else {
     return !expanded ? <TextWidget {...content} singleLine={true} /> : null;
   }

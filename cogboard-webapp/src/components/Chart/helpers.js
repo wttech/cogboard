@@ -1,0 +1,1 @@
+export const getNumberOfElements = (array, number) => array.slice(Math.max(array.length - number, 0));
