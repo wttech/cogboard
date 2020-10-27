@@ -94,12 +94,13 @@ class HttpClient : AbstractVerticle() {
         val headers = config.getJsonObject(CogboardConstants.PROP_HEADERS)
         val authenticationTypes = Json.decodeValue(config.getString(CogboardConstants.PROP_AUTHENTICATION_TYPES))
                 ?: JsonArray()
+        val contentType = guessContentType(config.getString(CogboardConstants.PROP_URL) ?: "")
 
         val authenticationType = getAuthenticationType(authenticationTypes as JsonArray, user, token, pass)
 
         request.authenticate(authenticationType, user, token, pass)
 
-        applyRequestHeaders(request, headers)
+        applyRequestHeaders(request, headers, contentType)
 
         return request
     }
@@ -135,8 +136,12 @@ class HttpClient : AbstractVerticle() {
         }
     }
 
-    private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?) {
-        request.putHeader(HttpConstants.HEADER_CONTENT_TYPE, HttpConstants.CONTENT_TYPE_JSON)
+    private fun guessContentType(url: String) = if (url.contains(".html"))
+        HttpConstants.CONTENT_TYPE_HTML
+    else HttpConstants.CONTENT_TYPE_JSON
+
+    private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?, contentType: String) {
+        request.putHeader(HttpConstants.HEADER_CONTENT_TYPE, contentType)
         headers
                 ?.map { Pair(it.key, it.value as String) }
                 ?.forEach { request.putHeader(it.first, it.second) }
