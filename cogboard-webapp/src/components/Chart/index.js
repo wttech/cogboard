@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { StyledZabbixChart } from './styled';
+import { getNumberOfElements, setBarColor } from './helpers';
 
 const zabbixChartConfig = {
 	column1: {
@@ -29,12 +30,17 @@ const Chart = ({ id, content }) => {
 	);
 	const widgetConfig = widgetData.config;
 	const range = widgetData.range || [];
-	// const maxValue = widgetData.maxValue || 0;
+	const maxValue = widgetData.maxValue || 0;
 	const setProgressSize = zabbixChartConfig[`column${widgetConfig.columns}`]
       ? zabbixChartConfig[`column${widgetConfig.columns}`]
       : zabbixChartConfig.other;
 
 	const options = {
+		axisX: {
+      labelInterpolationFnc: function (value, index) {
+        return index % 5 ? value : null;
+      }
+    },
 		chartPadding: 0,
 		width: setProgressSize.width,
   	height: '100%'
@@ -47,29 +53,19 @@ const Chart = ({ id, content }) => {
 		});
 
 		setData({
-			labels: LABELS.slice(Math.max(LABELS.length - setProgressSize.numberOfResults, 0)),
+			labels: getNumberOfElements(LABELS, setProgressSize.numberOfResults),
 			series: [
-				SERIES.slice(Math.max(SERIES.length - setProgressSize.numberOfResults, 0))
+				getNumberOfElements(SERIES, setProgressSize.numberOfResults)
 			]
 		});
 	}, [content.history, setProgressSize]);
 
 	const onDrawHandler = (context) => {
-		let barColorStatus;
-
-		//create method
-		console.log(context);
-		if (context.value && context.value.y > range[1]) {
-			barColorStatus = 'red'
-		} else if (context.value && context.value.y < range[0]) {
-			barColorStatus = 'green'
-		} else {
-			barColorStatus = 'orange'
-		}
+		const barColor = setBarColor(context.value, maxValue, range);
 
 		if (context.type === 'bar') {
 			context.element.attr({
-				style: `stroke: ${barColorStatus};`
+				style: `stroke: ${barColor};`
 			});
 		} else {
 			context.element.attr({

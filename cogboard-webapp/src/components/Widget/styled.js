@@ -143,15 +143,18 @@ export const StyledCollapse = styled(
 )`
   bottom: ${({ type }) =>
     type === 'TextWidget' ? 'calc(100% - 96px)' : '2px'};
-  background-color: ${({ isDragging, status, theme }) =>
-    !isDragging
+  background-color: ${({ isDragging, status, theme, type }) =>
+    !isDragging && type !== 'ZabbixWidget'
       ? mapStatusToColor(status, theme)
-      : theme.palette.background.paper};
+      : type === 'ZabbixWidget'
+        ? mapStatusToColor('UNKNOWN', theme)
+        : theme.palette.background.paper};
   box-shadow: ${({ isExpanded }) =>
     isExpanded ? '4px 4px 4px rgba(0,0,0,0.3)' : 'none'};
   height: auto;
   opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
-  padding: 0 16px 16px;
+  padding: ${({ type }) =>
+    type === 'ZabbixWidget' ? '26px 16px 6px' : '0 16px 16px'};
   position: absolute;
   transition: height transform 300ms linear, opacity 100ms linear;
   transform: ${({ isExpanded }) =>
