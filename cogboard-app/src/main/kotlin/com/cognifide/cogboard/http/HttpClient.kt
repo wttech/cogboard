@@ -3,9 +3,13 @@ package com.cognifide.cogboard.http
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_MESSAGE
+import com.cognifide.cogboard.http.auth.AuthenticationFactory
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.buffer.Buffer
 import io.vertx.core.json.DecodeException
+import io.vertx.core.json.Json
+import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
@@ -88,16 +92,47 @@ class HttpClient : AbstractVerticle() {
         val pass = config.getString(CogboardConstants.PROP_PASSWORD) ?: ""
         val token = config.getString(CogboardConstants.PROP_TOKEN) ?: ""
         val headers = config.getJsonObject(CogboardConstants.PROP_HEADERS)
+        val authenticationTypes = Json.decodeValue(config.getString(CogboardConstants.PROP_AUTHENTICATION_TYPES))
+                ?: JsonArray()
 
-        if (user.isNotBlank() && token.isNotBlank()) {
-            request.basicAuthentication(user, token)
-        } else if (user.isNotBlank() && pass.isNotBlank()) {
-            request.basicAuthentication(user, pass)
-        }
+        val authenticationType = getAuthenticationType(authenticationTypes as JsonArray, user, token, pass)
+
+        request.authenticate(authenticationType, user, token, pass)
 
         applyRequestHeaders(request, headers)
 
         return request
+    }
+
+    private fun HttpRequest<Buffer>.authenticate(
+        authType: AuthenticationType,
+        username: String,
+        token: String,
+        pass: String
+    ) {
+        AuthenticationFactory(username, token, pass, this).create(authType)
+    }
+
+    private fun getAuthenticationType(authenticationTypes: JsonArray, user: String, token: String, pass: String): AuthenticationType {
+
+        return authenticationTypes.stream()
+                .map { AuthenticationType.valueOf(it.toString()) }
+                .filter { hasAuthTypeCorrectCredentials(it, user, token, pass) }
+                .findFirst()
+                .orElse(AuthenticationType.NONE)
+    }
+
+    private fun hasAuthTypeCorrectCredentials(
+        authType: AuthenticationType,
+        username: String,
+        token: String,
+        pass: String
+    ): Boolean {
+        return when {
+            authType == AuthenticationType.TOKEN && username.isNotBlank() && token.isNotBlank() -> true
+            authType == AuthenticationType.TOKEN_AS_USERNAME && token.isNotBlank() -> true
+            else -> authType == AuthenticationType.BASIC && username.isNotBlank() && pass.isNotBlank()
+        }
     }
 
     private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?) {
@@ -107,15 +142,18 @@ class HttpClient : AbstractVerticle() {
                 ?.forEach { request.putHeader(it.first, it.second) }
     }
 
-    private fun toJson(response: HttpResponse<Buffer>): JsonObject {
-        return try {
-            response.bodyAsJsonObject()
-        } catch (e: DecodeException) {
-            try {
-                JsonObject().put(CogboardConstants.PROP_ARRAY, response.bodyAsJsonArray())
-            } catch (e: DecodeException) {
-                JsonObject().put("body", response.bodyAsString())
+    private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?, body: JsonObject?) {
+        request.sendJsonObject(body) {
+            val result = JsonObject()
+            if (it.succeeded()) {
+                result.put(PROP_STATUS_CODE, it.result().statusCode())
+                result.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
+                result.put(CogboardConstants.PROP_BODY, it.result().bodyAsString())
+            } else {
+                result.put(PROP_STATUS_MESSAGE, "unsuccessful")
+                LOGGER.error(it.cause()?.message)
             }
+            vertx.eventBus().send(address, result)
         }
     }
 
@@ -138,18 +176,17 @@ class HttpClient : AbstractVerticle() {
         }
     }
 
-    private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?, body: JsonObject?) {
-        request.sendJsonObject(body) {
-            val result = JsonObject()
-            if (it.succeeded()) {
-                result.put(PROP_STATUS_CODE, it.result().statusCode())
-                result.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
-                result.put(CogboardConstants.PROP_BODY, it.result().bodyAsString())
-            } else {
-                result.put(PROP_STATUS_MESSAGE, "unsuccessful")
-                LOGGER.error(it.cause()?.message)
+    private fun toJson(response: HttpResponse<Buffer>): JsonObject {
+        return try {
+            response.bodyAsJsonObject()
+        } catch (e: DecodeException) {
+            try {
+                JsonObject().put(CogboardConstants.PROP_ARRAY, response.bodyAsJsonArray())
+            } catch (e: DecodeException) {
+                JsonObject().put(CogboardConstants.PROP_BODY, response.bodyAsString())
             }
-            vertx.eventBus().send(address, result)
+        } catch (e: IllegalStateException) {
+            JsonObject()
         }
     }
 

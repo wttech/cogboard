@@ -64,7 +64,6 @@ const dialogFields = {
       string()
         .trim()
         .max(max, vm.STRING_LENGTH('Label', max))
-        .required(vm.FIELD_REQUIRED())
   },
   CurrentPasswordField: {
     component: PasswordInput,
@@ -82,11 +81,7 @@ const dialogFields = {
     component: PasswordInput,
     name: 'password',
     label: 'Password',
-    validator: () =>
-      string().test('token', vm.PASSWORD_OR_TOKEN(), function(value) {
-        const { token } = this.parent;
-        return !(!token && !value);
-      })
+    validator: () => string()
   },
   PasswordConfirmationField: {
     component: PasswordInput,
@@ -102,11 +97,7 @@ const dialogFields = {
     component: MultilineTextInput,
     name: 'token',
     label: 'Token',
-    validator: () =>
-      string().test('password', vm.PASSWORD_OR_TOKEN(), function(value) {
-        const { password } = this.parent;
-        return !(!password && !value);
-      })
+    validator: () => string()
   },
   PublicURL: {
     component: TextInput,

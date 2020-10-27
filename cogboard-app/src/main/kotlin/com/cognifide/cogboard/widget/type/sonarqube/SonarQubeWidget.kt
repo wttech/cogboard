@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.widget.type.sonarqube
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
@@ -13,6 +14,10 @@ class SonarQubeWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, con
     private val idNumber: Int = config.getInteger("idNumber", 0)
     private val selectedMetrics: JsonArray = config.getJsonArray("selectedMetrics")
     private val version: Version = Version.getVersion(config.getString("sonarQubeVersion", ""))
+
+    override fun authenticationTypes(): Set<AuthenticationType> {
+        return setOf(AuthenticationType.TOKEN_AS_USERNAME, AuthenticationType.BASIC)
+    }
 
     override fun handleResponse(responseBody: JsonObject) {
         if (checkAuthorized(responseBody)) {

@@ -26,7 +26,8 @@ export const URL = {
   ENDPOINTS_ENDPOINT: '/api/endpoints',
   CREDENTIALS_ENDPOINT: '/api/credentials',
   UPDATE_USER_SETTINGS: '/api/user/update',
-  UPDATE_INFO: 'https://github.com/Cognifide/cogboard/wiki#update'
+  UPDATE_INFO: 'https://github.com/Cognifide/cogboard/wiki#update',
+  CREDENTIAL_INFO: 'https://github.com/Cognifide/cogboard/wiki#credentials'
 };
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;
@@ -212,8 +213,7 @@ export const validationMessages = {
   INVALID_PUBLIC_URL: () => 'Invalid Public URL',
   FIELD_MIN_ITEMS: () => 'This field must have at least 1 item.',
   UNIQUE_FIELD: () => 'This field must be unique.',
-  PASSWORD_MATCH: () => 'Password must match.',
-  PASSWORD_OR_TOKEN: () => 'Password or token field must be set.'
+  PASSWORD_MATCH: () => 'Password must match.'
 };
 
 export const NOTIFICATIONS = {
