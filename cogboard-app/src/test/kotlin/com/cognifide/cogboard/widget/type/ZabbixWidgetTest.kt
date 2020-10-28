@@ -1,5 +1,6 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.widget.type.zabbix.ZabbixWidget
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
@@ -22,6 +23,7 @@ class ZabbixWidgetTest : WidgetTestBase() {
     override fun initWidget(): JsonObject = super.initWidget()
             .put(RANGE, JsonArray().add(20).add(60))
             .put(MAX_VALUE, 100)
+            .put(CogboardConstants.PROP_CONTENT_TYPE, "application/json")
 
     @BeforeEach
     fun initTest() {

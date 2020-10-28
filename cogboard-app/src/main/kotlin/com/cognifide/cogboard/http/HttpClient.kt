@@ -3,6 +3,8 @@ package com.cognifide.cogboard.http
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_MESSAGE
+import com.cognifide.cogboard.http.HttpConstants.CONTENT_TYPE_JSON
+import com.cognifide.cogboard.http.HttpConstants.HEADER_CONTENT_TYPE
 import com.cognifide.cogboard.http.auth.AuthenticationFactory
 import com.cognifide.cogboard.http.auth.AuthenticationType
 import io.vertx.core.AbstractVerticle
@@ -88,30 +90,22 @@ class HttpClient : AbstractVerticle() {
     }
 
     private fun initRequest(request: HttpRequest<Buffer>, config: JsonObject): HttpRequest<Buffer> {
-        val user = config.getString(CogboardConstants.PROP_USER) ?: ""
-        val pass = config.getString(CogboardConstants.PROP_PASSWORD) ?: ""
-        val token = config.getString(CogboardConstants.PROP_TOKEN) ?: ""
-        val headers = config.getJsonObject(CogboardConstants.PROP_HEADERS)
+        val user = config.getString(CogboardConstants.PROP_USER, "")
+        val pass = config.getString(CogboardConstants.PROP_PASSWORD, "")
+        val token = config.getString(CogboardConstants.PROP_TOKEN, "")
+        val contentType = config.getString(CogboardConstants.PROP_CONTENT_TYPE, CONTENT_TYPE_JSON)
+        val headers = config.getJsonObject(CogboardConstants.PROP_HEADERS, JsonObject())
+                .put(HEADER_CONTENT_TYPE, contentType)
         val authenticationTypes = Json.decodeValue(config.getString(CogboardConstants.PROP_AUTHENTICATION_TYPES))
                 ?: JsonArray()
-        val contentType = guessContentType(config.getString(CogboardConstants.PROP_URL) ?: "")
 
         val authenticationType = getAuthenticationType(authenticationTypes as JsonArray, user, token, pass)
 
         request.authenticate(authenticationType, user, token, pass)
 
-        applyRequestHeaders(request, headers, contentType)
+        applyRequestHeaders(request, headers)
 
         return request
-    }
-
-    private fun HttpRequest<Buffer>.authenticate(
-        authType: AuthenticationType,
-        username: String,
-        token: String,
-        pass: String
-    ) {
-        AuthenticationFactory(username, token, pass, this).create(authType)
     }
 
     private fun getAuthenticationType(authenticationTypes: JsonArray, user: String, token: String, pass: String): AuthenticationType {
@@ -136,12 +130,17 @@ class HttpClient : AbstractVerticle() {
         }
     }
 
-    private fun guessContentType(url: String) = if (url.contains(".html"))
-        HttpConstants.CONTENT_TYPE_HTML
-    else HttpConstants.CONTENT_TYPE_JSON
+    private fun HttpRequest<Buffer>.authenticate(
+        authType: AuthenticationType,
+        username: String,
+        token: String,
+        pass: String
+    ) {
+        AuthenticationFactory(username, token, pass, this)
+                .create(authType)
+    }
 
-    private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?, contentType: String) {
-        request.putHeader(HttpConstants.HEADER_CONTENT_TYPE, contentType)
+    private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?) {
         headers
                 ?.map { Pair(it.key, it.value as String) }
                 ?.forEach { request.putHeader(it.first, it.second) }

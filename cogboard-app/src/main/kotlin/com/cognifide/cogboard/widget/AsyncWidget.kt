@@ -23,6 +23,7 @@ abstract class AsyncWidget(
     val token: String = config.endpointProp(CogboardConstants.PROP_TOKEN)
     val url: String = config.endpointProp(CogboardConstants.PROP_URL)
     val publicUrl: String = config.endpointProp(CogboardConstants.PROP_PUBLIC_URL).ifBlank { url }
+    private val contentType: String = config.getString(CogboardConstants.PROP_CONTENT_TYPE)
 
     private lateinit var consumer: MessageConsumer<JsonObject>
 
@@ -101,5 +102,6 @@ abstract class AsyncWidget(
                 .put(CogboardConstants.PROP_USER, user)
                 .put(CogboardConstants.PROP_PASSWORD, password)
                 .put(CogboardConstants.PROP_AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
+                .put(CogboardConstants.PROP_CONTENT_TYPE, contentType)
     }
 }
