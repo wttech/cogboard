@@ -1,24 +1,24 @@
 import React, { useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { StyledZabbixChart } from './styled';
-import { getNumberOfElements, setBarColor } from './helpers';
+import { getNumberOfElements, setBarColor, convertEpochToDate } from './helpers';
 
 const zabbixChartConfig = {
 	column1: {
 		numberOfResults: 5,
-		width: 200
+		width: 95
 	},
 	column2: {
 		numberOfResults: 15,
-		width: 400
+		width: 95
 	},
 	column3: {
 		numberOfResults: 35,
-		width: 600
+		width: 95
 	},
 	other: {
 		numberOfResults: 60,
-		width: 800
+		width: 95
 	}
 }
 
@@ -37,17 +37,19 @@ const Chart = ({ id, content }) => {
 
 	const options = {
 		axisX: {
-      labelInterpolationFnc: function (value, index) {
-        return index % 5 ? value : null;
+      labelInterpolationFnc: (value, index) => {
+        return index % 4 === 0 ? value : null;
       }
     },
 		chartPadding: 0,
-		width: setProgressSize.width,
+		width: `${setProgressSize.width}%`,
   	height: '100%'
 	};
 
 	useMemo(() => {
-		const LABELS = Object.keys(content.history);
+		const LABELS = Object.keys(content.history).map((label) => {
+			return convertEpochToDate(label).toLocaleString();;
+		});
 		const SERIES = Object.values(content.history).map((serie) => {
 			return Math.round(serie / Math.pow(10, 9));
 		});
