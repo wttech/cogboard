@@ -71,11 +71,18 @@ class ZabbixWidget(
     private fun sendUpdate(result: Any) {
         val responseParams = result as JsonArray
         val lastValue = responseParams.extractValue(LAST_VALUE)
-        send(JsonObject()
+        val state = JsonObject()
                 .put(LAST_VALUE, lastValue)
+                .put(PREV_VALUE, responseParams.extractValue(PREV_VALUE))
+                .put(IS_EXPANDED_CONTENT, hasExpandedContent(responseParams.extractValue(NAME)))
                 .put(NAME, responseParams.extractValue(NAME))
                 .put(HISTORY, modifyHistory(responseParams))
-                .put(CogboardConstants.PROP_WIDGET_STATUS, getStatusResponse(lastValue)))
+                .put(CogboardConstants.PROP_WIDGET_STATUS, getStatusResponse(lastValue))
+        send(state)
+    }
+
+    private fun hasExpandedContent(name: String): Boolean {
+        return name != "System uptime"
     }
 
     private fun modifyHistory(responseParams: JsonArray): JsonObject {
@@ -185,6 +192,8 @@ class ZabbixWidget(
         private const val ERROR = "error"
         private const val RESULT = "result"
         private const val LAST_VALUE = "lastvalue"
+        private const val PREV_VALUE = "prevvalue"
+        private const val IS_EXPANDED_CONTENT = "isExpandedContent"
         private const val LAST_CLOCK = "lastclock"
         private const val NAME = "name"
         private const val BODY = "body"
