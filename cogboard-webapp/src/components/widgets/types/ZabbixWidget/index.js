@@ -77,6 +77,8 @@ const ZabbixWidget = ({ id, lastvalue, prevvalue }) => {
   };
 
   const renderNoProgressContent = () => {
+    if (!lastvalue) return;
+
     const value =
       widgetZabbixMetric === 'system.uptime'
         ? secondsToTime(lastvalue)
