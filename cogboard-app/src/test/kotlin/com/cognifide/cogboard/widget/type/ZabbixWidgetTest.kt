@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.widget.type
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.widget.type.zabbix.ZabbixWidget
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
