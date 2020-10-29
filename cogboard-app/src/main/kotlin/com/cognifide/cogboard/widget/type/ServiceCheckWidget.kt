@@ -81,6 +81,6 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
     private fun isResponseBodyEquals(responseBody: JsonObject): Boolean {
         return if (expectedResponseBody.isNotBlank()) {
             responseBody.getString(PROP_BODY)?.contains(expectedResponseBody) == true
-        } else false
+        } else expectedResponseBody.isEmpty()
     }
 }
