@@ -113,7 +113,12 @@ class HttpClient : AbstractVerticle() {
         AuthenticationFactory(username, token, pass, this).create(authType)
     }
 
-    private fun getAuthenticationType(authenticationTypes: JsonArray, user: String, token: String, pass: String): AuthenticationType {
+    private fun getAuthenticationType(
+        authenticationTypes: JsonArray,
+        user: String,
+        token: String,
+        pass: String
+    ): AuthenticationType {
 
         return authenticationTypes.stream()
                 .map { AuthenticationType.valueOf(it.toString()) }

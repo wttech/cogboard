@@ -15,8 +15,8 @@ import io.vertx.core.json.JsonObject
 abstract class AsyncWidget(
     vertx: Vertx,
     config: JsonObject,
-    boardService: BoardsConfigService = BoardsConfigService()
-) : BaseWidget(vertx, config, boardService) {
+    serv: BoardsConfigService
+) : BaseWidget(vertx, config, serv) {
 
     val user: String = config.endpointProp(CogboardConstants.PROP_USER)
     val password: String = config.endpointProp(CogboardConstants.PROP_PASSWORD)

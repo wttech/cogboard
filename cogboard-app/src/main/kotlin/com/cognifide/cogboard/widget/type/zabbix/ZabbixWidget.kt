@@ -15,8 +15,8 @@ import kotlin.math.roundToLong
 class ZabbixWidget(
     vertx: Vertx,
     config: JsonObject,
-    private val boardServ: BoardsConfigService = BoardsConfigService()
-) : AsyncWidget(vertx, config, boardServ) {
+    serv: BoardsConfigService
+) : AsyncWidget(vertx, config, serv) {
 
     private val selectedMetric: String = config.getString(METRIC, "")
     private val host: String = config.getString(HOST, "")
@@ -88,7 +88,7 @@ class ZabbixWidget(
 
     private fun fetchHistoryFromContent(): Map<String, Any> {
         val widgetId = config.getString(CogboardConstants.PROP_ID)
-        val content = boardServ.getContent(widgetId)
+        val content = boardService.getContent(widgetId)
         return content.getJsonObject(HISTORY, JsonObject()).map
     }
 

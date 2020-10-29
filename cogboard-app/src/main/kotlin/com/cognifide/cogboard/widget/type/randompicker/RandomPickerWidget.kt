@@ -10,8 +10,11 @@ import io.vertx.core.json.JsonObject
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-class RandomPickerWidget(vertx: Vertx, config: JsonObject, boardService: BoardsConfigService = BoardsConfigService()) :
-        BaseWidget(vertx, config, boardService) {
+class RandomPickerWidget(
+    vertx: Vertx,
+    config: JsonObject,
+    serv: BoardsConfigService
+) : BaseWidget(vertx, config, serv) {
 
     private val interval: Long = config.getLong(PROP_INTERVAL, SELECT_INTERVAL)
     private val randomize: Boolean = config.getBoolean(PROP_RANDOMIZE, false)

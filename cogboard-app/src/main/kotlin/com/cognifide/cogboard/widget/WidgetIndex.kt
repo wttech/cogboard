@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.widget
 
 import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.type.AemHealthcheckWidget
 import com.cognifide.cogboard.widget.type.BambooDeploymentWidget
 import com.cognifide.cogboard.widget.type.BambooPlanWidget
@@ -24,30 +25,51 @@ import io.vertx.core.json.JsonObject
 class WidgetIndex {
 
     companion object {
+
         /**
-         * If your widget need to do some calculations or requests from the backend register it here.
-         * If widget does not do anything on backend no changes on backend are required.
+         * Register new widget here - key will be used by client as a human friendly widget name
+         */
+        private val AVAILABLE_WIDGETS = sortedMapOf(
+                "Aem Bundle Info Widget" to AemBundleInfoWidget::class.java,
+                "Aem Health-check Widget" to AemHealthcheckWidget::class.java,
+                "Checkbox Widget" to CheckboxWidget::class.java,
+                "Iframe Embed Widget" to IframeEmbedWidget::class.java,
+                "Link List Widget" to LinkListWidget::class.java,
+                "Random Picker Widget" to RandomPickerWidget::class.java,
+                "Text Widget" to TextWidget::class.java,
+                "ToDo List Widget" to ToDoListWidget::class.java,
+                "World Clock Widget" to WorldClockWidget::class.java,
+                "Zabbix Widget" to ZabbixWidget::class.java,
+                "Bamboo Deployment Widget" to BambooDeploymentWidget::class.java,
+                "Bamboo Plan Widget" to BambooPlanWidget::class.java,
+                "Jenkins Job Widget" to JenkinsJobWidget::class.java,
+                "Jira Buckets Widget" to JiraBucketsWidget::class.java,
+                "Service Check Widget" to ServiceCheckWidget::class.java,
+                "Sonar Qube Widget" to SonarQubeWidget::class.java,
+                "White Space Widget" to WhiteSpaceWidget::class.java
+        )
+
+        fun availableWidgets(): JsonObject {
+            val widgetsJson = JsonObject()
+            AVAILABLE_WIDGETS.forEach {
+                widgetsJson.put(it.key, it.value.simpleName)
+            }
+            return widgetsJson
+        }
+
+        /**
          * @return new widget instance or default widget instance for all widgets that don't require any backend logic.
          */
-        fun create(config: JsonObject, vertx: Vertx) = when (config.getString(CogboardConstants.PROP_WIDGET_TYPE)) {
-            JenkinsJobWidget::class.java.simpleName -> JenkinsJobWidget(vertx, config)
-            SonarQubeWidget::class.java.simpleName -> SonarQubeWidget(vertx, config)
-            ServiceCheckWidget::class.java.simpleName -> ServiceCheckWidget(vertx, config)
-            BambooDeploymentWidget::class.java.simpleName -> BambooDeploymentWidget(vertx, config)
-            BambooPlanWidget::class.java.simpleName -> BambooPlanWidget(vertx, config)
-            AemHealthcheckWidget::class.java.simpleName -> AemHealthcheckWidget(vertx, config)
-            TextWidget::class.java.simpleName -> TextWidget(vertx, config)
-            JiraBucketsWidget::class.java.simpleName -> JiraBucketsWidget(vertx, config)
-            IframeEmbedWidget::class.java.simpleName -> IframeEmbedWidget(vertx, config)
-            WorldClockWidget::class.java.simpleName -> WorldClockWidget(vertx, config)
-            CheckboxWidget::class.java.simpleName -> CheckboxWidget(vertx, config)
-            RandomPickerWidget::class.java.simpleName -> RandomPickerWidget(vertx, config)
-            AemBundleInfoWidget::class.java.simpleName -> AemBundleInfoWidget(vertx, config)
-            ZabbixWidget::class.java.simpleName -> ZabbixWidget(vertx, config)
-            ToDoListWidget::class.java.simpleName -> ToDoListWidget(vertx, config)
-            LinkListWidget::class.java.simpleName -> LinkListWidget(vertx, config)
-            // add here
-            else -> WhiteSpaceWidget(vertx, config)
+        fun create(config: JsonObject, vertx: Vertx): BaseWidget {
+            val typeName = config.getString(CogboardConstants.PROP_WIDGET_TYPE)
+            val widgetType = AVAILABLE_WIDGETS
+                    .values
+                    .stream()
+                    .filter { it.simpleName == typeName }
+                    .findFirst()
+                    .orElse(WhiteSpaceWidget::class.java)
+
+            return widgetType.constructors[0].newInstance(vertx, config, BoardsConfigService()) as BaseWidget
         }
     }
 }

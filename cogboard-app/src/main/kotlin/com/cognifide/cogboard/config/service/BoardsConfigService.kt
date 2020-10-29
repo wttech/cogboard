@@ -5,6 +5,7 @@ import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
+import com.cognifide.cogboard.widget.WidgetIndex
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
@@ -24,7 +25,7 @@ class BoardsConfigService(
     fun loadBoardsConfig(): JsonObject {
         val config = storage.loadConfig()
         executeForWidgets(config, this::addContent)
-
+        config.put(CC.PROP_AVAILABLE_WIDGETS, WidgetIndex.availableWidgets())
         return config
     }
 

@@ -1,12 +1,17 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.widget.BaseWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
-class ToDoListWidget(vertx: Vertx, config: JsonObject) : BaseWidget(vertx, config) {
+class ToDoListWidget(
+    vertx: Vertx,
+    config: JsonObject,
+    serv: BoardsConfigService
+) : BaseWidget(vertx, config, serv) {
 
     init {
         createDynamicChangeSubscriber()?.handler {

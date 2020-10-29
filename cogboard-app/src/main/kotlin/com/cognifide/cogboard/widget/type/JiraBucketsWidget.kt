@@ -1,12 +1,17 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.AsyncWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
-class JiraBucketsWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
+class JiraBucketsWidget(
+    vertx: Vertx,
+    config: JsonObject,
+    serv: BoardsConfigService
+) : AsyncWidget(vertx, config, serv) {
 
     private val bucketQueries: JsonArray = config.getJsonArray(CC.PROP_BUCKET_QUERIES)
     private val buckets: JsonArray = JsonArray()
