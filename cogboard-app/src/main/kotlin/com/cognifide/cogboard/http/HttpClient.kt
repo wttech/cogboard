@@ -90,11 +90,11 @@ class HttpClient : AbstractVerticle() {
     }
 
     private fun initRequest(request: HttpRequest<Buffer>, config: JsonObject): HttpRequest<Buffer> {
-        val user = config.getString(CogboardConstants.PROP_USER, "")
-        val pass = config.getString(CogboardConstants.PROP_PASSWORD, "")
-        val token = config.getString(CogboardConstants.PROP_TOKEN, "")
-        val contentType = config.getString(CogboardConstants.PROP_CONTENT_TYPE, CONTENT_TYPE_JSON)
-        val headers = config.getJsonObject(CogboardConstants.PROP_HEADERS, JsonObject())
+        val user = config.getString(CogboardConstants.PROP_USER) ?: ""
+        val pass = config.getString(CogboardConstants.PROP_PASSWORD) ?: ""
+        val token = config.getString(CogboardConstants.PROP_TOKEN) ?: ""
+        val contentType = config.getString(CogboardConstants.PROP_CONTENT_TYPE) ?: CONTENT_TYPE_JSON
+        val headers = (config.getJsonObject(CogboardConstants.PROP_HEADERS) ?: JsonObject())
                 .put(HEADER_CONTENT_TYPE, contentType)
         val authenticationTypes = Json.decodeValue(config.getString(CogboardConstants.PROP_AUTHENTICATION_TYPES))
                 ?: JsonArray()
@@ -140,10 +140,10 @@ class HttpClient : AbstractVerticle() {
                 .create(authType)
     }
 
-    private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?) {
+    private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject) {
         headers
-                ?.map { Pair(it.key, it.value as String) }
-                ?.forEach { request.putHeader(it.first, it.second) }
+                .map { Pair(it.key, it.value as String) }
+                .forEach { request.putHeader(it.first, it.second) }
     }
 
     private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?, body: JsonObject?) {
