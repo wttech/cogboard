@@ -56,8 +56,7 @@ const ZabbixWidget = ({ id, lastvalue }) => {
   const convertMetricTitle = () => {
     if (!widgetZabbixMetric) return '';
 
-    return ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric)
-      .display;
+    return ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric).display;
   };
 
   const convertToBytes = value => {
@@ -78,6 +77,8 @@ const ZabbixWidget = ({ id, lastvalue }) => {
   };
 
   const renderNoProgressContent = () => {
+    if (!lastvalue) return;
+
     const value =
       widgetZabbixMetric === 'system.uptime'
         ? secondsToTime(lastvalue)
