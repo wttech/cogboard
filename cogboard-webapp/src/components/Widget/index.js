@@ -46,13 +46,14 @@ const Widget = ({ id, index }) => {
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
+  const defaultExpandedContent = content ? content.isExpandedContent : false;
   const { expandContent: isExpandContent, isVertical } = widgetTypeData;
   let expandContent =
-    type === 'TextWidget' && isVertical ? false : isExpandContent;
-  
-  if (type === 'ZabbixWidget') {
-    expandContent = true;
-  }
+    type === 'ZabbixWidget'
+    ? defaultExpandedContent
+    : type === 'TextWidget' && isVertical
+    ? false
+    : isExpandContent;
   const widgetTypeConfig = widgetTypes[type] || widgetTypes['WhiteSpaceWidget'];
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);

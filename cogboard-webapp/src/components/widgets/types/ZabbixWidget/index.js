@@ -2,9 +2,12 @@ import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SemiCircleProgress from '../../../SemiProgressBar';
 import {
+  StyledArrowDown,
+  StyledArrowUp,
   StyledMetricName,
   StyledNumericValue,
-  StyledZabbixWrapper
+  StyledZabbixWrapper,
+  StyledNumericValueWithIcon
 } from './styled';
 import {
   COLORS,
@@ -12,6 +15,7 @@ import {
   ZABBIX_METRICS_WITH_MAX_VALUE,
   ZABBIX_METRICS_WITH_PROGRESS
 } from '../../../../constants';
+
 
 const progressBarWidth = {
   column1: {
@@ -21,11 +25,11 @@ const progressBarWidth = {
     diameter: 200
   },
   other: {
-    diameter: 250
+    diameter: 220
   }
 };
 
-const ZabbixWidget = ({ id, lastvalue }) => {
+const ZabbixWidget = ({ id, lastvalue, prevvalue }) => {
   const widgetData = useSelector(
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
@@ -56,8 +60,7 @@ const ZabbixWidget = ({ id, lastvalue }) => {
   const convertMetricTitle = () => {
     if (!widgetZabbixMetric) return '';
 
-    return ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric)
-      .display;
+    return ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric).display;
   };
 
   const convertToGigaBytes = () => {
@@ -79,7 +82,20 @@ const ZabbixWidget = ({ id, lastvalue }) => {
         ? secondsToTime(lastvalue)
         : parseInt(lastvalue, 10);
 
-    return <StyledNumericValue>{value}</StyledNumericValue>;
+    return (
+      <>
+        {
+          widgetZabbixMetric === 'system.uptime' ? (
+            <StyledNumericValue>{value}</StyledNumericValue>
+          ) : (
+            <StyledNumericValueWithIcon>
+              {value}
+              { (lastvalue > prevvalue) ?  <StyledArrowUp /> : <StyledArrowDown /> }
+            </StyledNumericValueWithIcon>
+          )
+        }
+      </>
+    );
   };
 
   return (
