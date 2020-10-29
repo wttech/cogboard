@@ -24,6 +24,7 @@ abstract class AsyncWidget(
     val url: String = config.endpointProp(CogboardConstants.PROP_URL)
     val publicUrl: String = config.endpointProp(CogboardConstants.PROP_PUBLIC_URL).ifBlank { url }
     private val contentType: String = config.getString(CogboardConstants.PROP_CONTENT_TYPE)
+            ?: com.cognifide.cogboard.http.HttpConstants.CONTENT_TYPE_JSON
 
     private lateinit var consumer: MessageConsumer<JsonObject>
 

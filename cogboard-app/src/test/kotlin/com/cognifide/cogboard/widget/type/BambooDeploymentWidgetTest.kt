@@ -15,7 +15,6 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
             super.initWidget()
                     .put(CogboardConstants.PROP_ENDPOINT_LOADED,
                             JsonObject().put("url", "https://test.bamboo.com"))
-                    .put(CogboardConstants.PROP_CONTENT_TYPE, "application/json")
 
     @BeforeEach
     fun initForTest() {

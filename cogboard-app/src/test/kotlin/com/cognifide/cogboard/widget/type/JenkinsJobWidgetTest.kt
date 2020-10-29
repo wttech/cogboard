@@ -17,10 +17,6 @@ class JenkinsJobWidgetTest : WidgetTestBase() {
 
     override fun widgetName() = "JenkinsJobWidget"
 
-    override fun initWidget(): JsonObject =
-            super.initWidget()
-                    .put(CogboardConstants.PROP_CONTENT_TYPE, "application/json")
-
     @BeforeEach
     fun initForTest() {
         super.init()
