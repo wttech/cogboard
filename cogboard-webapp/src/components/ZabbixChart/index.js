@@ -6,8 +6,8 @@ import { StyledZabbixChart } from './styled';
 import { getNumberOfElements, calculatePercentageValue, convertEpochToDate } from './helpers';
 import {
 	COLORS,
-  ZABBIX_METRICS_WITH_MAX_VALUE,
-  ZABBIX_METRICS_WITH_PROGRESS
+	ZABBIX_METRICS_WITH_MAX_VALUE,
+	ZABBIX_METRICS_WITH_PROGRESS
 } from '../../constants';
 
 const zabbixChartConfig = {
@@ -28,8 +28,8 @@ const zabbixChartConfig = {
 const ZabbixChart = ({ id, content }) => {
 	const [data, setData] = useState({})
 	const widgetData = useSelector(
-    ({ widgets }) => widgets.widgetsById[id],
-    shallowEqual
+		({ widgets }) => widgets.widgetsById[id],
+		shallowEqual
 	);
 	const widgetZabbixMetric = widgetData.selectedZabbixMetric;
 	const widgetConfig = widgetData.config;
@@ -79,18 +79,18 @@ const ZabbixChart = ({ id, content }) => {
 	}
 
 	const setBarColor = (value, maxValue, range) => {
-    if (!value) return `${COLORS.WHITE}`;
+		if (!value) return `${COLORS.WHITE}`;
 
-    const percentageValue = checkMetricHasMaxValue ? calculatePercentageValue(value.y, maxValue) : value.y;
-    let barColorStatus;
+		const percentageValue = checkMetricHasMaxValue ? calculatePercentageValue(value.y, maxValue) : value.y;
+		let barColorStatus;
 
-    if (percentageValue > range[1]) {
-      barColorStatus = `${COLORS.RED}`;
-    } else if (percentageValue < range[0]) {
-      barColorStatus = `${COLORS.GREEN_DEFAULT}`;
-    } else {
-      barColorStatus = `${COLORS.ORANGE}`;
-    }
+		if (percentageValue > range[1]) {
+			barColorStatus = `${COLORS.RED}`;
+		} else if (percentageValue < range[0]) {
+			barColorStatus = `${COLORS.GREEN_DEFAULT}`;
+		} else {
+			barColorStatus = `${COLORS.ORANGE}`;
+		}
 
     return barColorStatus;
 	}

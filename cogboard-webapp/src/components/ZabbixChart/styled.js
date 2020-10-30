@@ -35,11 +35,11 @@ export const StyledZabbixChart = styled.div`
 		color: ${COLORS.WHITE};
 	}
 
-  .custom-label {
+	.custom-label {
 		overflow: visible;
 		text-align: center;
 
-    .tooltip {
+		.tooltip {
 			background-color: white;
 			border-radius: 50%;
 			display: inline-block;
