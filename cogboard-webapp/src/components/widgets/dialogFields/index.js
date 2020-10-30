@@ -15,7 +15,6 @@ import {
   CONTENT_TYPE
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
-import widgetTypes from '../../widgets';
 import boardTypes from '../../boards';
 
 import EndpointInput from './EndpointInput';
