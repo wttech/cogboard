@@ -53,6 +53,16 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
   });
   const [tabValue, setTabValue] = useState(0);
 
+  const nameByType = (type, types) => {
+    const typeDef =
+      types.find(item => {
+        return item.value === type;
+      }) || {};
+    return typeDef.display || 'not found';
+  };
+
+  const types = useSelector(({ widgets }) => widgets.widgetTypes);
+  const widgetName = nameByType(values.type, types);
   const widgetType = widgetTypes[values.type];
   const dialogFieldNames =
     widgetType && widgetType.dialogFields ? widgetType.dialogFields : [];
@@ -82,7 +92,7 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
       >
         <Tab label="General" data-cy="widget-form-general-tab" />
         {hasDialogFields && (
-          <Tab label={widgetType.name} data-cy="widget-form-dynamic-tab" />
+          <Tab label={widgetName} data-cy="widget-form-dynamic-tab" />
         )}
       </StyledTabs>
       <StyledTabPanel value={tabValue} index={0}>

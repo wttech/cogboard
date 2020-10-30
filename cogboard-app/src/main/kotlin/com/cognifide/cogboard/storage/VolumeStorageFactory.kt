@@ -1,16 +1,16 @@
 package com.cognifide.cogboard.storage
 
 import com.cognifide.cogboard.config.ConfigType
-import com.cognifide.cogboard.config.ConfigType.*
+import com.cognifide.cogboard.config.ConfigType as CT
 
 object VolumeStorageFactory {
 
-    fun admin(configFile: String = ADMIN.configFilePath()) = create(ADMIN, configFile)
-    fun endpoints(configFile: String = ENDPOINTS.configFilePath()) = create(ENDPOINTS, configFile)
-    fun credentials(configFile: String = CREDENTIALS.configFilePath()) = create(CREDENTIALS, configFile)
-    fun boards(configFile: String = BOARDS.configFilePath()) = create(BOARDS, configFile)
-    fun version(configFile: String = VERSION.configFilePath()) = create(VERSION, configFile)
-    fun appConfig(configFile: String = APP_CONFIG.configFilePath()) = create(APP_CONFIG, configFile)
+    fun admin(configFile: String = CT.ADMIN.configFilePath()) = create(CT.ADMIN, configFile)
+    fun endpoints(configFile: String = CT.ENDPOINTS.configFilePath()) = create(CT.ENDPOINTS, configFile)
+    fun credentials(configFile: String = CT.CREDENTIALS.configFilePath()) = create(CT.CREDENTIALS, configFile)
+    fun boards(configFile: String = CT.BOARDS.configFilePath()) = create(CT.BOARDS, configFile)
+    fun version(configFile: String = CT.VERSION.configFilePath()) = create(CT.VERSION, configFile)
+    fun appConfig(configFile: String = CT.APP_CONFIG.configFilePath()) = create(CT.APP_CONFIG, configFile)
 
     private fun create(type: ConfigType, configFile: String): VolumeStorage {
         return VolumeStorage(type, configFile)

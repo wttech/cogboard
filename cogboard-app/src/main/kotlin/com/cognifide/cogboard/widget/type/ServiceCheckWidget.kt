@@ -78,9 +78,9 @@ class ServiceCheckWidget(
         val isStatusEquals = Widget.Status.compare(expectedStatusCode, statusCode)
         val isBodyEquals = isResponseBodyEquals(responseBody)
 
-        return if (isStatusEquals == Widget.Status.OK && isBodyEquals)
+        return if (isStatusEquals == Widget.Status.OK && isBodyEquals) {
             isStatusEquals
-        else Widget.Status.ERROR
+        } else Widget.Status.ERROR
     }
 
     private fun isResponseBodyEquals(responseBody: JsonObject): Boolean {
