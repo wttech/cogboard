@@ -29,7 +29,7 @@ const progressBarWidth = {
   }
 };
 
-const ZabbixWidget = ({ id, lastvalue, prevvalue }) => {
+const ZabbixWidget = ({ id, lastvalue, history }) => {
   const widgetData = useSelector(
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
@@ -79,6 +79,9 @@ const ZabbixWidget = ({ id, lastvalue, prevvalue }) => {
   const renderNoProgressContent = () => {
     if (!lastvalue) return;
 
+    const historyValues = Object.values(history);
+    const historyCurrentValue = historyValues[historyValues.length - 1];
+    const historyPrevValue = historyValues[historyValues.length - 2];
     const value =
       widgetZabbixMetric === 'system.uptime'
         ? secondsToTime(lastvalue)
@@ -92,7 +95,7 @@ const ZabbixWidget = ({ id, lastvalue, prevvalue }) => {
           ) : (
             <StyledNumericValueWithIcon>
               {value}
-              { (lastvalue > prevvalue) ?  <StyledArrowUp /> : <StyledArrowDown /> }
+              { historyCurrentValue > historyPrevValue ?  <StyledArrowUp /> : <StyledArrowDown /> }
             </StyledNumericValueWithIcon>
           )
         }

@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import Chartist from 'chartist';
+import ChartistGraph from 'react-chartist';
 import { StyledZabbixChart } from './styled';
-import { getNumberOfElements, setBarColor, convertEpochToDate } from './helpers';
+import { getNumberOfElements, calculatePercentageValue, convertEpochToDate } from './helpers';
 import {
   ZABBIX_METRICS_WITH_MAX_VALUE,
   ZABBIX_METRICS_WITH_PROGRESS
@@ -10,7 +11,7 @@ import {
 
 const zabbixChartConfig = {
 	column1: {
-		numberOfResults: 5,
+		numberOfResults: 6,
 	},
 	column2: {
 		numberOfResults: 15,
@@ -23,7 +24,7 @@ const zabbixChartConfig = {
 	}
 }
 
-const Chart = ({ id, content }) => {
+const ZabbixChart = ({ id, content }) => {
 	const [data, setData] = useState({})
 	const widgetData = useSelector(
     ({ widgets }) => widgets.widgetsById[id],
@@ -65,12 +66,43 @@ const Chart = ({ id, content }) => {
 		});
 	}, [content.history, setProgressSize, checkMetricHasMaxValue]);
 
+	const setAxisYTitle = () => {
+		let titleText;
+
+		if (checkMetricHasMaxValue) {
+			titleText = '(GB)';
+		} else if (!checkMetricHasProgress) {
+			titleText = 'No.'
+		} else {
+			titleText = '(%)'
+		}
+
+		return titleText;
+	}
+
+	const setBarColor = (value, maxValue, range) => {
+    if (!value) return 'white';
+
+    const percentageValue = checkMetricHasMaxValue ? calculatePercentageValue(value.y, maxValue) : value.y;
+    let barColorStatus;
+
+    if (percentageValue > range[1]) {
+      barColorStatus = 'red'
+    } else if (percentageValue < range[0]) {
+      barColorStatus = 'green'
+    } else {
+      barColorStatus = 'orange'
+    }
+
+    return barColorStatus
+	}
+
 	const onDrawHandler = (context) => {
 		const barColor = setBarColor(context.value, maxValue, range);
 
 		if (context.type === 'label' && context.axis.units.pos === 'x') {
 			const textHtml = ['<div class="tooltip" data-tooltip="', context.text, '"></div>'].join('');
-			const multilineText = Chartist.Svg('svg').foreignObject(textHtml, { x: context.x + 2, y: context.y, width: 20, height: 20 }, 'ct-label ct-horizontal cta-end custom-label', true);
+			const multilineText = Chartist.Svg('svg').foreignObject(textHtml, { x: context.x, y: context.y, width: context.axis.stepLength, height: 20 }, 'ct-label ct-horizontal cta-end custom-label', true);
 			context.element.replace(multilineText);
 		}
 
@@ -87,13 +119,17 @@ const Chart = ({ id, content }) => {
 
   return (
 		<StyledZabbixChart
-			listener={{
-				draw: e => onDrawHandler(e)
-			}}
-			data={data}
-			options={options}
-			type='Bar' />
+			data-axis-x="Date"
+			data-axis-y={ setAxisYTitle() }>
+			<ChartistGraph
+				listener={{
+					draw: e => onDrawHandler(e)
+				}}
+				data={data}
+				options={options}
+				type='Bar' />
+		</StyledZabbixChart>
   );
 };
 
-export default Chart;
+export default ZabbixChart;

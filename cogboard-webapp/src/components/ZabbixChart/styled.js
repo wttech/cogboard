@@ -1,19 +1,43 @@
 import styled from '@emotion/styled/macro';
 
-import ChartistGraph from 'react-chartist';
 import { COLORS } from '../../constants';
 
-export const StyledZabbixChart = styled(ChartistGraph)`
+export const StyledZabbixChart = styled.div`
+	position: relative;
+
+	&::before,
+	&::after {
+		color: ${COLORS.WHITE};
+		font-size: 11px;
+		position: absolute;
+		text-align: center;
+	}
+
+	&::before {
+		content: attr(data-axis-x);
+		width: 100%;
+		left: 0;
+		bottom: 2px;
+	}
+
+	&::after {
+		content: attr(data-axis-y);
+		left: -18px;
+		top: 36%;
+		transform: rotate(-90deg) translateY(50%);
+	}
+
 	svg {
 		overflow: visible;
 	}
 
 	.ct-label {
-		color: white;
+		color: ${COLORS.WHITE};
 	}
 
   .custom-label {
 		overflow: visible;
+		text-align: center;
 
     .tooltip {
 			background-color: white;

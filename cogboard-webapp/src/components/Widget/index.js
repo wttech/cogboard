@@ -25,7 +25,7 @@ import MoreMenu from '../MoreMenu';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
-import Chart from '../Chart';
+import ZabbixChart from '../ZabbixChart';
 
 const selectors = {
   collapse: '[class*="MuiCollapse-container"]'
@@ -242,7 +242,7 @@ const Widget = ({ id, index }) => {
           >
             {
               type === 'ZabbixWidget' ? (
-                <Chart id={id} content={content}/>
+                <ZabbixChart id={id} content={content}/>
               ) : (
                 <WidgetContent id={id} type={type} content={content} />
               )
