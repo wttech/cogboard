@@ -34,6 +34,7 @@ const ZabbixWidget = ({ id, lastvalue, history }) => {
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
+  const upTimeMetricName = 'system.uptime';
   const widgetConfig = widgetData.config;
   const widgetZabbixMetric = widgetData.selectedZabbixMetric;
   const maxValue = widgetData.maxValue;
@@ -81,14 +82,14 @@ const ZabbixWidget = ({ id, lastvalue, history }) => {
     const historyCurrentValue = historyValues[historyValues.length - 1];
     const historyPrevValue = historyValues[historyValues.length - 2];
     const value =
-      widgetZabbixMetric === 'system.uptime'
+      widgetZabbixMetric === upTimeMetricName
         ? secondsToTime(lastvalue)
         : parseInt(lastvalue, 10);
 
     return (
       <>
         {
-          widgetZabbixMetric === 'system.uptime' ? (
+          widgetZabbixMetric === upTimeMetricName ? (
             <StyledNumericValue>{value}</StyledNumericValue>
           ) : (
             <StyledNumericValueWithIcon>

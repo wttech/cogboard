@@ -46,10 +46,11 @@ const Widget = ({ id, index }) => {
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
+  const zabbixWidgetName = 'ZabbixWidget';
   const defaultExpandedContent = content ? content.isExpandedContent : false;
   const { expandContent: isExpandContent, isVertical } = widgetTypeData;
   let expandContent =
-    type === 'ZabbixWidget'
+    type === zabbixWidgetName
     ? defaultExpandedContent
     : type === 'TextWidget' && isVertical
     ? false
@@ -182,7 +183,7 @@ const Widget = ({ id, index }) => {
             isEmptyHeader={isEmptyHeader}
             avatar={
               !expandContent &&
-              type !== 'ZabbixWidget' &&
+              type !== zabbixWidgetName &&
               !isError && <StatusIcon status={widgetStatus} size="small" />
             }
             title={title}
@@ -241,7 +242,7 @@ const Widget = ({ id, index }) => {
             unmountOnExit
           >
             {
-              type === 'ZabbixWidget' ? (
+              type === zabbixWidgetName ? (
                 <ZabbixChart id={id} content={content}/>
               ) : (
                 <WidgetContent id={id} type={type} content={content} />
