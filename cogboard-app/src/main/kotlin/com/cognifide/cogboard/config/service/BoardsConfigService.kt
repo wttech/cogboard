@@ -25,7 +25,7 @@ class BoardsConfigService(
     fun loadBoardsConfig(): JsonObject {
         val config = storage.loadConfig()
         executeForWidgets(config, this::addContent)
-        config.put(CC.PROP_AVAILABLE_WIDGETS, WidgetIndex.availableWidgets())
+        config.getJsonObject(CC.PROP_WIDGETS).put(CC.PROP_AVAILABLE_WIDGETS, WidgetIndex.availableWidgets())
         return config
     }
 

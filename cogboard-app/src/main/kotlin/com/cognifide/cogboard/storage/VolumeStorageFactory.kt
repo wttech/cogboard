@@ -1,11 +1,7 @@
 package com.cognifide.cogboard.storage
 
 import com.cognifide.cogboard.config.ConfigType
-import com.cognifide.cogboard.config.ConfigType.BOARDS
-import com.cognifide.cogboard.config.ConfigType.CREDENTIALS
-import com.cognifide.cogboard.config.ConfigType.ENDPOINTS
-import com.cognifide.cogboard.config.ConfigType.ADMIN
-import com.cognifide.cogboard.config.ConfigType.VERSION
+import com.cognifide.cogboard.config.ConfigType.*
 
 object VolumeStorageFactory {
 
@@ -14,6 +10,7 @@ object VolumeStorageFactory {
     fun credentials(configFile: String = CREDENTIALS.configFilePath()) = create(CREDENTIALS, configFile)
     fun boards(configFile: String = BOARDS.configFilePath()) = create(BOARDS, configFile)
     fun version(configFile: String = VERSION.configFilePath()) = create(VERSION, configFile)
+    fun appConfig(configFile: String = APP_CONFIG.configFilePath()) = create(APP_CONFIG, configFile)
 
     private fun create(type: ConfigType, configFile: String): VolumeStorage {
         return VolumeStorage(type, configFile)

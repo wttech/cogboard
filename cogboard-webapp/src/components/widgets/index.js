@@ -18,12 +18,10 @@ import ToDoListWidget from './types/ToDoListWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
-    name: 'White Space',
     component: WhiteSpaceWidget,
     initialStatus: 'TRANSPARENT'
   },
   JenkinsJobWidget: {
-    name: 'Jenkins Job',
     component: JenkinsJobWidget,
     dialogFields: [
       'EndpointField',
@@ -37,7 +35,6 @@ const widgetTypes = {
     }
   },
   SonarQubeWidget: {
-    name: 'SonarQube',
     component: SonarQubeWidget,
     dialogFields: [
       'SonarQubeVersion',
@@ -55,7 +52,6 @@ const widgetTypes = {
     }
   },
   ServiceCheckWidget: {
-    name: 'Service Check',
     component: ServiceCheckWidget,
     dialogFields: [
       'SchedulePeriod',
@@ -73,7 +69,6 @@ const widgetTypes = {
     }
   },
   TextWidget: {
-    name: 'Text',
     component: TextWidget,
     dialogFields: ['Text', 'TextSize', 'TextOrientation', 'ExpandableContent'],
     validationConstraints: {
@@ -82,7 +77,6 @@ const widgetTypes = {
     initialStatus: 'NONE'
   },
   JiraBucketsWidget: {
-    name: 'Jira Buckets',
     component: JiraBucketsWidget,
     dialogFields: ['EndpointField', 'SchedulePeriod', 'JiraBuckets'],
     showUpdateTime: true,
@@ -92,7 +86,6 @@ const widgetTypes = {
     initialStatus: 'NONE'
   },
   BambooPlanWidget: {
-    name: 'Bamboo Plan',
     component: BambooPlanWidget,
     dialogFields: [
       'EndpointField',
@@ -106,7 +99,6 @@ const widgetTypes = {
     }
   },
   BambooDeploymentWidget: {
-    name: 'Bamboo Deployment',
     component: BambooDeploymentWidget,
     dialogFields: [
       'EndpointField',
@@ -120,7 +112,6 @@ const widgetTypes = {
     }
   },
   WorldClockWidget: {
-    name: 'World Clock',
     component: WorldClockWidget,
     dialogFields: [
       'TimeZoneId',
@@ -133,19 +124,16 @@ const widgetTypes = {
     initialStatus: 'NONE'
   },
   IframeEmbedWidget: {
-    name: 'Iframe Embed',
     component: IframeEmbedWidget,
     dialogFields: ['IFrameURL'],
     initialStatus: 'NONE'
   },
   CheckboxWidget: {
-    name: 'Checkbox',
     component: CheckboxWidget,
     showUpdateTime: true,
     initialStatus: 'CHECKBOX_UNKNOWN'
   },
   AemHealthcheckWidget: {
-    name: 'AEM Healthcheck',
     component: AemHealthcheckWidget,
     dialogFields: [
       'EndpointField',
@@ -160,7 +148,6 @@ const widgetTypes = {
     }
   },
   RandomPickerWidget: {
-    name: 'Random Picker',
     component: RandomPickerWidget,
     dialogFields: [
       'RandomCheckbox',
@@ -172,7 +159,6 @@ const widgetTypes = {
     initialStatus: 'NONE'
   },
   AemBundleInfoWidget: {
-    name: 'AEM Bundle Info',
     component: AemBundleInfoWidget,
     dialogFields: [
       'EndpointField',
@@ -188,7 +174,6 @@ const widgetTypes = {
     }
   },
   ZabbixWidget: {
-    name: 'Zabbix',
     component: ZabbixWidget,
     dialogFields: [
       'EndpointField',
@@ -205,13 +190,11 @@ const widgetTypes = {
     }
   },
   ToDoListWidget: {
-    name: 'ToDo List',
     component: ToDoListWidget,
     dialogFields: ['ToDoListItems'],
     initialStatus: 'NONE'
   },
   LinkListWidget: {
-    name: 'Link List',
     component: LinkListWidget,
     dialogFields: ['LinkListItems'],
     initialStatus: 'NONE'

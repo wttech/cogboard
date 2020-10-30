@@ -34,7 +34,7 @@ class VolumeStorage(
 
     private fun getOrCreate(): File {
         val file = File(configPath)
-        if (!File(configPath).exists()) {
+        if (!file.exists()) {
             createFile(file)
         }
         return file

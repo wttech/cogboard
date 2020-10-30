@@ -15,7 +15,7 @@ class CogboardConstants {
         const val PROP_BOARDS_ALL = "allBoards"
         const val PROP_WIDGETS = "widgets"
         const val PROP_WIDGETS_BY_ID = "widgetsById"
-        const val PROP_AVAILABLE_WIDGETS = "widgetsTypes"
+        const val PROP_AVAILABLE_WIDGETS = "widgetTypes"
         const val PROP_STATUS = "status"
         const val PROP_WIDGET_STATUS = "widgetStatus"
         const val PROP_ERROR_MESSAGE = "errorMessage"
@@ -56,6 +56,8 @@ class CogboardConstants {
         const val PROP_BOARD_COLUMN_MAX = 20
         const val PROP_BOARD_COLUMN_MIN = 4
         const val PROP_NAME = "name"
+        const val PROP_DISPLAY = "display"
+        const val PROP_VALUE = "value"
         const val PROP_RELEASE_NAME = "releaseName"
         const val PROP_JQL_QUERY = "jqlQuery"
         const val PROP_BUCKET_QUERIES = "bucketQueries"
