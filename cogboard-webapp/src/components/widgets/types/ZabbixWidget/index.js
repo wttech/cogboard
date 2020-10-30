@@ -38,10 +38,8 @@ const ZabbixWidget = ({ id, lastvalue, history }) => {
   const widgetZabbixMetric = widgetData.selectedZabbixMetric;
   const maxValue = widgetData.maxValue;
 
-  const checkMetricHasProgress = () =>
-    ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
-  const checkMetricHasMaxValue = () =>
-    ZABBIX_METRICS_WITH_MAX_VALUE.includes(widgetZabbixMetric);
+  const checkMetricHasProgress = ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
+  const checkMetricHasMaxValue = ZABBIX_METRICS_WITH_MAX_VALUE.includes(widgetZabbixMetric);
 
   const setProgressSize = () => {
     const widgetColumns = widgetConfig.columns;
@@ -52,7 +50,7 @@ const ZabbixWidget = ({ id, lastvalue, history }) => {
 
   const calculatePercentageValue = () => {
     if (!lastvalue) return 0;
-    if (!checkMetricHasMaxValue()) return parseInt(lastvalue, 10);
+    if (!checkMetricHasMaxValue) return parseInt(lastvalue, 10);
 
     return Math.round((100 * lastvalue) / (maxValue * Math.pow(10, 9)));
   };
@@ -105,7 +103,7 @@ const ZabbixWidget = ({ id, lastvalue, history }) => {
 
   return (
     <StyledZabbixWrapper>
-      {checkMetricHasProgress() ? (
+      {checkMetricHasProgress ? (
         <SemiCircleProgress
           stroke={COLORS.WHITE}
           diameter={setProgressSize()}

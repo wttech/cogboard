@@ -5,6 +5,7 @@ import ChartistGraph from 'react-chartist';
 import { StyledZabbixChart } from './styled';
 import { getNumberOfElements, calculatePercentageValue, convertEpochToDate } from './helpers';
 import {
+	COLORS,
   ZABBIX_METRICS_WITH_MAX_VALUE,
   ZABBIX_METRICS_WITH_PROGRESS
 } from '../../constants';
@@ -39,7 +40,6 @@ const ZabbixChart = ({ id, content }) => {
       : zabbixChartConfig.other;
 	const checkMetricHasMaxValue = ZABBIX_METRICS_WITH_MAX_VALUE.includes(widgetZabbixMetric);
 	const checkMetricHasProgress = ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
-
 	const options = {
 		chartPadding: 0,
 		width: `95%`,
@@ -47,9 +47,7 @@ const ZabbixChart = ({ id, content }) => {
 	};
 
 	useMemo(() => {
-		const LABELS = Object.keys(content.history).map((label) => {
-			return convertEpochToDate(label).toLocaleString();;
-		});
+		const LABELS = Object.keys(content.history).map((label) => convertEpochToDate(label).toLocaleString());
 		let SERIES = Object.values(content.history);
 
 		if (checkMetricHasMaxValue) {
@@ -81,20 +79,20 @@ const ZabbixChart = ({ id, content }) => {
 	}
 
 	const setBarColor = (value, maxValue, range) => {
-    if (!value) return 'white';
+    if (!value) return `${COLORS.WHITE}`;
 
     const percentageValue = checkMetricHasMaxValue ? calculatePercentageValue(value.y, maxValue) : value.y;
     let barColorStatus;
 
     if (percentageValue > range[1]) {
-      barColorStatus = 'red'
+      barColorStatus = `${COLORS.RED}`;
     } else if (percentageValue < range[0]) {
-      barColorStatus = 'green'
+      barColorStatus = `${COLORS.GREEN_DEFAULT}`;
     } else {
-      barColorStatus = 'orange'
+      barColorStatus = `${COLORS.ORANGE}`;
     }
 
-    return barColorStatus
+    return barColorStatus;
 	}
 
 	const onDrawHandler = (context) => {
@@ -112,7 +110,7 @@ const ZabbixChart = ({ id, content }) => {
 			});
 		} else {
 			context.element.attr({
-				style: 'stroke: white;'
+				style: `stroke: ${COLORS.WHITE};`
 			});
 		}
 	}
@@ -127,7 +125,8 @@ const ZabbixChart = ({ id, content }) => {
 				}}
 				data={data}
 				options={options}
-				type='Bar' />
+				type='Bar'
+			/>
 		</StyledZabbixChart>
   );
 };

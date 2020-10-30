@@ -123,7 +123,7 @@ export const StyledCardContent = styled(({ type, ...props }) => (
     `
       overflow-y: auto; 
       margin-right: 14px;
-      margin-bottom: 5px;
+      margin-bottom: 12px;
     `};
 
   &:last-child {
