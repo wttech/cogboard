@@ -13,6 +13,7 @@ Thumbs.db
 /mnt/*.json
 /mnt/*.backup
 /mnt/content/*.json
+/mnt/.version
 
 # Intellij           #
 ######################

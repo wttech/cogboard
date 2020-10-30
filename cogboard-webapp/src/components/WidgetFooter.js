@@ -1,13 +1,8 @@
 import React from 'react';
-import styled from '@emotion/styled/macro';
 
 import LastUpdate from './LastUpdate';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { StyledIconButton } from './Widget/styled';
-
-const CardFooterWrapper = styled.div`
-  height: 48px;
-`;
+import { StyledIconButton, StyledCardFooterWrapper } from './Widget/styled';
 
 const WidgetFooter = ({
   updateTimestamp,
@@ -22,11 +17,16 @@ const WidgetFooter = ({
     return null;
   }
 
+  const validateDate = (date) => {
+    return isNaN(new Date(date).getTime());
+  }
+
   return (
-    <CardFooterWrapper className="cardFootWrapper">
+    <StyledCardFooterWrapper>
       {updateTimestamp && (
         <LastUpdate
           lastUpdateTime={new Date(updateTimestamp).toLocaleString()}
+          invalid={validateDate(updateTimestamp)}
         />
       )}
       {expandContent && !content.errorMessage && (
@@ -42,7 +42,7 @@ const WidgetFooter = ({
           <ExpandMoreIcon />
         </StyledIconButton>
       )}
-    </CardFooterWrapper>
+    </StyledCardFooterWrapper>
   );
 };
 

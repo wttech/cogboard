@@ -5,7 +5,7 @@ import styled from '@emotion/styled/macro';
 import { mapStatusToColor, getWidgetOverflow } from './helpers';
 import { COLUMN_MULTIPLIER, ROW_MULTIPLIER, COLORS } from '../../constants';
 
-import { Card, CardHeader, CardContent, Collapse } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Collapse, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 
 export const StyledCard = styled(
@@ -90,12 +90,26 @@ StyledCard.defaultProps = {
 };
 
 export const StyledCardHeader = styled(CardHeader)`
-  z-index: 1;
-  padding: 8px;
+  align-items: flex-start;
   min-height: 40px;
+  padding: 8px;
+  z-index: 1;
+
+  .MuiCardHeader-action,
+  .MuiCardHeader-avatar {
+    order: 1;
+  }
 
   .MuiCardHeader-avatar {
+    align-items: center;
     display: flex;
+    height: 24px;
+    margin-right: 0;
+  }
+
+  .MuiCardHeader-content {
+    align-self: center;
+    padding-left: 6px;
   }
 `;
 
@@ -129,10 +143,16 @@ export const StyledCardContent = styled(({ type, ...props }) => (
   &:last-child {
     padding-bottom: 8px;
   }
+`;
 
-  .cardFootWrapper {
-    display: inherit;
-    align-items: center;
+export const StyledCardFooterWrapper = styled.div`
+  align-items: flex-end;
+  display: inherit;
+  height: 48px;
+  padding-bottom: 6px;
+
+  .MuiTypography-root {
+    padding-left: 8px;
   }
 `;
 
@@ -166,10 +186,16 @@ export const StyledCollapse = styled(
 export const StyledIconButton = styled(({ isExpanded, ...props }) => (
   <IconButton {...props} />
 ))`
+  height: 24px;
   margin-left: auto;
   transform: ${({ isExpanded }) =>
     isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
   transition: transform 100ms linear;
+  width: 24px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+  }
 `;
 
 export const StyledStatusIconButton = styled.a`
@@ -207,4 +233,9 @@ export const StyledNoItemsInfo = styled.div`
     width: 100%;
     text-align: center;
   }
+`;
+
+export const StyledErrorMessage = styled(Typography)`
+  font-weight: 600;
+  text-align: center;
 `;
