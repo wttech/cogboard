@@ -11,7 +11,8 @@ import {
   TEXT_SIZES,
   validationMessages as vm,
   SONARQUBE_VERSIONS,
-  ZABBIX_METRICS
+  ZABBIX_METRICS,
+  CONTENT_TYPE
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
 import widgetTypes from '../../widgets';
@@ -434,6 +435,14 @@ const dialogFields = {
     label: 'Request Method',
     dropdownItems: REQUEST_METHODS,
     initialValue: REQUEST_METHODS[0].value,
+    validator: () => string()
+  },
+  ContentType: {
+    component: DisplayValueSelect,
+    name: 'contentType',
+    label: 'Content Type',
+    dropdownItems: CONTENT_TYPE,
+    initialValue: CONTENT_TYPE[0].value,
     validator: () => string()
   },
   TextOrientation: {

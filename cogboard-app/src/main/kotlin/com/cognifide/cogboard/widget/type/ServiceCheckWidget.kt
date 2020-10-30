@@ -75,11 +75,17 @@ class ServiceCheckWidget(
 
     private fun getStatusResponse(responseBody: JsonObject): Widget.Status {
         val statusCode = responseBody.getInteger(PROP_STATUS_CODE, 0)
-        var responseStatus = Widget.Status.compare(expectedStatusCode, statusCode)
-        if (expectedResponseBody.isNotBlank()) {
-            val hasExpectedText = responseBody.getString(PROP_BODY)?.contains(expectedResponseBody) == true
-            responseStatus = if (hasExpectedText) Widget.Status.OK else Widget.Status.FAIL
-        }
-        return responseStatus
+        val isStatusEquals = Widget.Status.compare(expectedStatusCode, statusCode)
+        val isBodyEquals = isResponseBodyEquals(responseBody)
+
+        return if (isStatusEquals == Widget.Status.OK && isBodyEquals)
+            isStatusEquals
+        else Widget.Status.ERROR
+    }
+
+    private fun isResponseBodyEquals(responseBody: JsonObject): Boolean {
+        return if (expectedResponseBody.isNotBlank()) {
+            responseBody.getString(PROP_BODY)?.contains(expectedResponseBody) == true
+        } else expectedResponseBody.isEmpty()
     }
 }

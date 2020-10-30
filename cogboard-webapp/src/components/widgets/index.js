@@ -56,6 +56,7 @@ const widgetTypes = {
     dialogFields: [
       'SchedulePeriod',
       'RequestMethod',
+      'ContentType',
       'EndpointField',
       'Path',
       'RequestBody',
