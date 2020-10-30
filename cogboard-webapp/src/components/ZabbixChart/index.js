@@ -92,7 +92,7 @@ const ZabbixChart = ({ id, content }) => {
 			barColorStatus = `${COLORS.ORANGE}`;
 		}
 
-    return barColorStatus;
+		return barColorStatus;
 	}
 
 	const onDrawHandler = (context) => {
