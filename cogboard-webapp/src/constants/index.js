@@ -105,10 +105,6 @@ export const DEFAULT_BOARD_TYPE = 'WidgetBoard';
 
 export const AEM_HEALTH_CHECKS = [
   {
-    display: 'Inactive Bundles',
-    value: 'inactiveBundles'
-  },
-  {
     display: 'Async Index Health Check',
     value: 'asyncIndexHealthCheck'
   },
@@ -119,6 +115,10 @@ export const AEM_HEALTH_CHECKS = [
   {
     display: 'Disk Space',
     value: 'DiskSpaceHealthCheck'
+  },
+  {
+    display: 'Inactive Bundles',
+    value: 'inactiveBundles'
   },
   {
     display: 'Log Errors',
@@ -168,8 +168,20 @@ export const ALL_SONARQUBE_METRICS = [
     value: 'blocker_violations'
   },
   {
+    display: 'Bugs',
+    value: 'bugs'
+  },
+  {
+    display: 'Code Smells',
+    value: 'code_smells'
+  },
+  {
     display: 'Critical Violations',
     value: 'critical_violations'
+  },
+  {
+    display: 'Info Violations',
+    value: 'info_violations'
   },
   {
     display: 'Major Violations',
@@ -178,18 +190,6 @@ export const ALL_SONARQUBE_METRICS = [
   {
     display: 'Minor Violations',
     value: 'minor_violations'
-  },
-  {
-    display: 'Info Violations',
-    value: 'info_violations'
-  },
-  {
-    display: 'Bugs',
-    value: 'bugs'
-  },
-  {
-    display: 'Code Smells',
-    value: 'code_smells'
   },
   {
     display: 'Vulnerabilities',
