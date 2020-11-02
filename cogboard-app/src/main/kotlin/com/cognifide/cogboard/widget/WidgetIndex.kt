@@ -32,8 +32,8 @@ class WidgetIndex {
          * Register new widget here - key will be used by client as a human friendly widget name
          */
         private val AVAILABLE_WIDGETS = sortedMapOf(
-                "Aem Bundle Info" to AemBundleInfoWidget::class.java,
-                "Aem Healthcheck" to AemHealthcheckWidget::class.java,
+                "AEM Bundle Info" to AemBundleInfoWidget::class.java,
+                "AEM Healthcheck" to AemHealthcheckWidget::class.java,
                 "Checkbox" to CheckboxWidget::class.java,
                 "Iframe Embed" to IframeEmbedWidget::class.java,
                 "Link List" to LinkListWidget::class.java,
