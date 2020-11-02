@@ -50,6 +50,7 @@ class CogboardConstants {
         const val PROP_EXPECTED_STATUS_CODE = "expectedStatusCode"
         const val PROP_REQUEST_METHOD = "requestMethod"
         const val PROP_EXPECTED_RESPONSE_BODY = "expectedResponseBody"
+        const val PROP_CONTENT_TYPE = "contentType"
         const val PROP_PATH = "path"
         const val PROP_LABEL = "label"
         const val PROP_BOARD_COLUMN_MAX = 20
