@@ -2,14 +2,7 @@ package com.cognifide.cogboard.widget.type
 
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions
-import com.cognifide.cogboard.config.ConfigType
-import com.cognifide.cogboard.config.service.BoardsConfigService
-import com.cognifide.cogboard.config.service.BoardsConfigServiceTest
-import com.cognifide.cogboard.config.validation.boards.BoardsValidator
-import com.cognifide.cogboard.storage.ContentRepository
-import com.cognifide.cogboard.storage.VolumeStorage
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
