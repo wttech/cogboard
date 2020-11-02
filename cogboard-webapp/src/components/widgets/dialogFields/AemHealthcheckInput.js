@@ -31,10 +31,10 @@ const AemHealthcheckInput = ({ onChange, value, error, dataCy }) => {
         renderValue={value => `${value.length} selected`}
         data-cy={dataCy}
       >
-        {Object.entries(AEM_HEALTH_CHECKS).map(([name, label]) => (
-          <MenuItem key={name} value={name}>
-            <Checkbox checked={value.includes(name)} />
-            <ListItemText primary={label} />
+        {AEM_HEALTH_CHECKS.map((healthcheck) => (
+          <MenuItem key={healthcheck.value} value={healthcheck.value}>
+            <Checkbox checked={value.includes(healthcheck.value)} />
+            <ListItemText primary={healthcheck.display} />
           </MenuItem>
         ))}
       </Select>

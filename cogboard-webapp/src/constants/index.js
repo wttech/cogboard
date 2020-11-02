@@ -126,32 +126,98 @@ export const ItemTypes = {
 
 export const DEFAULT_BOARD_TYPE = 'WidgetBoard';
 
-export const AEM_HEALTH_CHECKS = {
-  inactiveBundles: 'Active Bundles',
-  asyncIndexHealthCheck: 'Async Index Health Check',
-  codeCacheHealthCheck: 'Code Cache Health Check',
-  DiskSpaceHealthCheck: 'Disk Space',
-  logErrorHealthCheck: 'Log Errors',
-  ObservationQueueLengthHealthCheck: 'Observation Queue Length',
-  resourceSearchPathErrorHealthCheck: 'Resource Search Path Errors',
-  requestsStatus: 'Request Performance',
-  queriesStatus: 'Query Performance',
-  queryTraversalLimitsBundle: 'Query Traversal Limits',
-  securitychecks: 'Security Checks',
-  slingJobs: 'Sling Jobs',
-  slingDiscoveryOakSynchronizedClocks: 'Synchronized Clocks',
-  systemchecks: 'System Maintenance'
-};
+export const AEM_HEALTH_CHECKS = [
+  {
+    display: 'Async Index Health Check',
+    value: 'asyncIndexHealthCheck'
+  },
+  {
+    display: 'Code Cache Health Check',
+    value: 'codeCacheHealthCheck'
+  },
+  {
+    display: 'Disk Space',
+    value: 'DiskSpaceHealthCheck'
+  },
+  {
+    display: 'Inactive Bundles',
+    value: 'inactiveBundles'
+  },
+  {
+    display: 'Log Errors',
+    value: 'logErrorHealthCheck'
+  },
+  {
+    display: 'Observation Queue Length',
+    value: 'ObservationQueueLengthHealthCheck'
+  },
+  {
+    display: 'Resource Search Path Errors',
+    value: 'resourceSearchPathErrorHealthCheck'
+  },
+  {
+    display: 'Request Performance',
+    value: 'requestsStatus'
+  },
+  {
+    display: 'Query Performance',
+    value: 'queriesStatus'
+  },
+  {
+    display: 'Query Traversal Limits',
+    value: 'queryTraversalLimitsBundle'
+  },
+  {
+    display: 'Security Checks',
+    value: 'securitychecks'
+  },
+  {
+    display: 'Sling Jobs',
+    value: 'slingJobs'
+  },
+  {
+    display: 'Sling Discovery Synchronized Clocks',
+    value: 'slingDiscoveryOakSynchronizedClocks'
+  },
+  {
+    display: 'System Maintenance',
+    value: 'systemchecks'
+  }
+];
 
 export const ALL_SONARQUBE_METRICS = [
-  'blocker_violations',
-  'critical_violations',
-  'major_violations',
-  'minor_violations',
-  'info_violations',
-  'bugs',
-  'code_smells',
-  'vulnerabilities'
+  {
+    display: 'Blocker Violations',
+    value: 'blocker_violations'
+  },
+  {
+    display: 'Bugs',
+    value: 'bugs'
+  },
+  {
+    display: 'Code Smells',
+    value: 'code_smells'
+  },
+  {
+    display: 'Critical Violations',
+    value: 'critical_violations'
+  },
+  {
+    display: 'Info Violations',
+    value: 'info_violations'
+  },
+  {
+    display: 'Major Violations',
+    value: 'major_violations'
+  },
+  {
+    display: 'Minor Violations',
+    value: 'minor_violations'
+  },
+  {
+    display: 'Vulnerabilities',
+    value: 'vulnerabilities'
+  }
 ];
 
 export const ZABBIX_METRICS = [
