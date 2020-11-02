@@ -176,7 +176,7 @@ export const AEM_HEALTH_CHECKS = [
     value: 'slingJobs'
   },
   {
-    display: 'Synchronized Clocks',
+    display: 'Sling Discovery Synchronized Clocks',
     value: 'slingDiscoveryOakSynchronizedClocks'
   },
   {
