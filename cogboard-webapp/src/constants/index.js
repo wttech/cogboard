@@ -96,6 +96,29 @@ export const REQUEST_METHODS = [
   }
 ];
 
+export const CONTENT_TYPE = [
+  {
+    display: 'application/json',
+    value: 'application/json'
+  },
+  {
+    display: 'application/xml',
+    value: 'application/xml'
+  },
+  {
+    display: 'multipart/form-data',
+    value: 'multipart/form-data'
+  },
+  {
+    display: 'text/html',
+    value: 'text/html'
+  },
+  {
+    display: 'text/plain',
+    value: 'text/plain'
+  }
+];
+
 export const ItemTypes = {
   WIDGET: 'widget',
   BOARD: 'board'
