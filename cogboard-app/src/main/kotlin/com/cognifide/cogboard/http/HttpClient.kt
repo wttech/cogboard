@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.http
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants as CC
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_MESSAGE
 import com.cognifide.cogboard.http.HttpConstants.CONTENT_TYPE_JSON
@@ -32,45 +32,45 @@ class HttpClient : AbstractVerticle() {
     }
 
     private fun registerGET(client: WebClient) {
-        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_GET).handler { message ->
+        vertx.eventBus().consumer<JsonObject>(CC.EVENT_HTTP_GET).handler { message ->
             message.body()?.let {
-                val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
+                val httpRequest = client.getAbs(it.getString(CC.PROP_URL))
                 makeRequest(httpRequest, it)
             }
         }
     }
 
     private fun registerCHECK(client: WebClient) {
-        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_CHECK).handler { message ->
+        vertx.eventBus().consumer<JsonObject>(CC.EVENT_HTTP_CHECK).handler { message ->
             message.body()?.let {
-                val httpRequest = client.getAbs(it.getString(CogboardConstants.PROP_URL))
+                val httpRequest = client.getAbs(it.getString(CC.PROP_URL))
                 makeRequest(httpRequest, it)
             }
         }
     }
 
     private fun registerPUT(client: WebClient) {
-        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_PUT).handler { message ->
+        vertx.eventBus().consumer<JsonObject>(CC.EVENT_HTTP_PUT).handler { message ->
             message.body()?.let {
-                val httpRequest = client.putAbs(it.getString(CogboardConstants.PROP_URL))
+                val httpRequest = client.putAbs(it.getString(CC.PROP_URL))
                 makeRequest(httpRequest, it)
             }
         }
     }
 
     private fun registerPOST(client: WebClient) {
-        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_POST).handler { message ->
+        vertx.eventBus().consumer<JsonObject>(CC.EVENT_HTTP_POST).handler { message ->
             message.body()?.let {
-                val httpRequest = client.postAbs(it.getString(CogboardConstants.PROP_URL))
+                val httpRequest = client.postAbs(it.getString(CC.PROP_URL))
                 makeRequest(httpRequest, it)
             }
         }
     }
 
     private fun registerDELETE(client: WebClient) {
-        vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_HTTP_DELETE).handler { message ->
+        vertx.eventBus().consumer<JsonObject>(CC.EVENT_HTTP_DELETE).handler { message ->
             message.body()?.let {
-                val httpRequest = client.deleteAbs(it.getString(CogboardConstants.PROP_URL))
+                val httpRequest = client.deleteAbs(it.getString(CC.PROP_URL))
                 makeRequest(httpRequest, it)
             }
         }
@@ -78,9 +78,9 @@ class HttpClient : AbstractVerticle() {
 
     private fun makeRequest(httpRequest: HttpRequest<Buffer>, config: JsonObject) {
         val request = initRequest(httpRequest, config)
-        val address = config.getString(CogboardConstants.PROP_EVENT_ADDRESS)
-        val body = config.getJsonObject(CogboardConstants.PROP_BODY)
-        val requestId = config.getString(CogboardConstants.PROP_REQUEST_ID) ?: ""
+        val address = config.getString(CC.PROP_EVENT_ADDRESS)
+        val body = config.getJsonObject(CC.PROP_BODY)
+        val requestId = config.getString(CC.PROP_REQUEST_ID) ?: ""
 
         body?.let {
             executeCheckRequest(request, address, body)
@@ -90,25 +90,32 @@ class HttpClient : AbstractVerticle() {
     }
 
     private fun initRequest(request: HttpRequest<Buffer>, config: JsonObject): HttpRequest<Buffer> {
-        val user = config.getString(CogboardConstants.PROP_USER) ?: ""
-        val pass = config.getString(CogboardConstants.PROP_PASSWORD) ?: ""
-        val token = config.getString(CogboardConstants.PROP_TOKEN) ?: ""
-        val contentType = config.getString(CogboardConstants.PROP_CONTENT_TYPE) ?: CONTENT_TYPE_JSON
-        val headers = (config.getJsonObject(CogboardConstants.PROP_HEADERS) ?: JsonObject())
-                .put(HEADER_CONTENT_TYPE, contentType)
-        val authenticationTypes = Json.decodeValue(config.getString(CogboardConstants.PROP_AUTHENTICATION_TYPES))
-                ?: JsonArray()
+        val user = config.getString(CC.PROP_USER) ?: ""
+        val pass = config.getString(CC.PROP_PASSWORD) ?: ""
+        val token = config.getString(CC.PROP_TOKEN) ?: ""
+        val contentType = config.getString(CC.PROP_CONTENT_TYPE) ?: CONTENT_TYPE_JSON
+        val headers = config.getJsonObject(CC.PROP_HEADERS) ?: JsonObject()
+        val authTypesString = config.getString(CC.PROP_AUTHENTICATION_TYPES)
 
-        val authenticationType = getAuthenticationType(authenticationTypes as JsonArray, user, token, pass)
+        val authTypes = if (authTypesString != null) Json.decodeValue(authTypesString)
+        else JsonArray()
+
+        val authenticationType = getAuthenticationType(authTypes as JsonArray, user, token, pass)
 
         request.authenticate(authenticationType, user, token, pass)
 
+        headers.put(HEADER_CONTENT_TYPE, contentType)
         applyRequestHeaders(request, headers)
 
         return request
     }
 
-    private fun getAuthenticationType(authenticationTypes: JsonArray, user: String, token: String, pass: String): AuthenticationType {
+    private fun getAuthenticationType(
+        authenticationTypes: JsonArray,
+        user: String,
+        token: String,
+        pass: String
+    ): AuthenticationType {
 
         return authenticationTypes.stream()
                 .map { AuthenticationType.valueOf(it.toString()) }
@@ -152,7 +159,7 @@ class HttpClient : AbstractVerticle() {
             if (it.succeeded()) {
                 result.put(PROP_STATUS_CODE, it.result().statusCode())
                 result.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
-                result.put(CogboardConstants.PROP_BODY, it.result().bodyAsString())
+                result.put(CC.PROP_BODY, it.result().bodyAsString())
             } else {
                 result.put(PROP_STATUS_MESSAGE, "unsuccessful")
                 LOGGER.error(it.cause()?.message)
@@ -165,15 +172,15 @@ class HttpClient : AbstractVerticle() {
         request.send {
             if (!it.succeeded()) {
                 vertx.eventBus().send(address, JsonObject()
-                        .put(CogboardConstants.PROP_ERROR_MESSAGE, "Http Error")
-                        .put(CogboardConstants.PROP_ERROR_CAUSE, it.cause()?.message)
-                        .put(CogboardConstants.PROP_REQUEST_ID, requestId))
+                        .put(CC.PROP_ERROR_MESSAGE, "Http Error")
+                        .put(CC.PROP_ERROR_CAUSE, it.cause()?.message)
+                        .put(CC.PROP_REQUEST_ID, requestId))
                 LOGGER.error(it.cause()?.message)
             } else {
                 toJson(it.result()).let { json ->
                     json.put(PROP_STATUS_CODE, it.result().statusCode())
                     json.put(PROP_STATUS_MESSAGE, it.result().statusMessage())
-                    json.put(CogboardConstants.PROP_REQUEST_ID, requestId)
+                    json.put(CC.PROP_REQUEST_ID, requestId)
                     vertx.eventBus().send(address, json)
                 }
             }
@@ -185,9 +192,9 @@ class HttpClient : AbstractVerticle() {
             response.bodyAsJsonObject()
         } catch (e: DecodeException) {
             try {
-                JsonObject().put(CogboardConstants.PROP_ARRAY, response.bodyAsJsonArray())
+                JsonObject().put(CC.PROP_ARRAY, response.bodyAsJsonArray())
             } catch (e: DecodeException) {
-                JsonObject().put(CogboardConstants.PROP_BODY, response.bodyAsString())
+                JsonObject().put(CC.PROP_BODY, response.bodyAsString())
             }
         } catch (e: IllegalStateException) {
             JsonObject()

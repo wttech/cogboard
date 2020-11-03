@@ -10,10 +10,13 @@ Thumbs.db
 ~*
 
 *.jar
+
+# Project specific
 /mnt/*.json
 /mnt/*.backup
 /mnt/content/*.json
 /mnt/.version
+/cogboard-compose.yml
 
 # Intellij           #
 ######################

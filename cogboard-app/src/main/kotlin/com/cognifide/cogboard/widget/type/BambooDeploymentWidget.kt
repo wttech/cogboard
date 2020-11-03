@@ -10,8 +10,8 @@ import com.cognifide.cogboard.CogboardConstants as CC
 class BambooDeploymentWidget(
     vertx: Vertx,
     config: JsonObject,
-    boardService: BoardsConfigService = BoardsConfigService()
-) : AsyncWidget(vertx, config, boardService) {
+    serv: BoardsConfigService
+) : AsyncWidget(vertx, config, serv) {
 
     private val idString: String = config.getString("idString", "")
 

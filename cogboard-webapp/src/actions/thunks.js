@@ -60,6 +60,7 @@ export const fetchAppInfo = () => dispatch => {
 
 export const saveDataThunk = () => (dispatch, getState) => {
   const { boards, widgets } = getState();
+  widgets.widgetTypes = undefined; // no need to send it back
   const data = { boards, widgets };
   const token = getToken();
 

@@ -15,7 +15,6 @@ import {
   CONTENT_TYPE
 } from '../../../constants';
 import { uniqueFieldTestCreator } from '../../validation';
-import widgetTypes from '../../widgets';
 import boardTypes from '../../boards';
 
 import EndpointInput from './EndpointInput';
@@ -37,6 +36,7 @@ import JiraBucketsInput from './JiraBucketsInput';
 import RangeSlider from './RangeSlider';
 import LinkListInput from './LinkListInput';
 import ToDoListInput from './ToDoListinput';
+import WidgetTypeField from './WidgetTypeField';
 
 const dialogFields = {
   LabelField: {
@@ -111,10 +111,9 @@ const dialogFields = {
       })
   },
   WidgetTypeField: {
-    component: DisplayValueSelect,
+    component: WidgetTypeField,
     name: 'type',
     label: 'Type',
-    dropdownItems: parseTypes(widgetTypes),
     validator: () => string().required(vm.FIELD_REQUIRED())
   },
   BoardTypeField: {
