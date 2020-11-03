@@ -58,7 +58,7 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
       types.find(item => {
         return item.value === type;
       }) || {};
-    return typeDef.display || 'not found';
+    return typeDef.display || type;
   };
 
   const types = useSelector(({ widgets }) => widgets.widgetTypes);
