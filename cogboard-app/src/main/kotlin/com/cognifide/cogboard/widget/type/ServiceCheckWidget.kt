@@ -12,6 +12,7 @@ import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_DELETE
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_GET
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_POST
 import com.cognifide.cogboard.CogboardConstants.Companion.REQUEST_METHOD_PUT
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
@@ -20,7 +21,11 @@ import io.vertx.core.Vertx
 import io.vertx.core.json.DecodeException
 import io.vertx.core.json.JsonObject
 
-class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
+class ServiceCheckWidget(
+    vertx: Vertx,
+    config: JsonObject,
+    serv: BoardsConfigService
+) : AsyncWidget(vertx, config, serv) {
 
     private val expectedStatusCode = config.getInteger(PROP_EXPECTED_STATUS_CODE, 0)
     private val requestMethod = config.getString(PROP_REQUEST_METHOD, EMPTY_STRING)
@@ -73,9 +78,9 @@ class ServiceCheckWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, 
         val isStatusEquals = Widget.Status.compare(expectedStatusCode, statusCode)
         val isBodyEquals = isResponseBodyEquals(responseBody)
 
-        return if (isStatusEquals == Widget.Status.OK && isBodyEquals)
+        return if (isStatusEquals == Widget.Status.OK && isBodyEquals) {
             isStatusEquals
-        else Widget.Status.ERROR
+        } else Widget.Status.ERROR
     }
 
     private fun isResponseBodyEquals(responseBody: JsonObject): Boolean {

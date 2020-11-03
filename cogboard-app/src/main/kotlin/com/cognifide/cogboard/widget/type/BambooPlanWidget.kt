@@ -1,12 +1,17 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
-class BambooPlanWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
+class BambooPlanWidget(
+    vertx: Vertx,
+    config: JsonObject,
+    serv: BoardsConfigService
+) : AsyncWidget(vertx, config, serv) {
 
     private val idString: String = config.getString("idString", "")
 

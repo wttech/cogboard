@@ -1,5 +1,6 @@
 package com.cognifide.cogboard.widget.type
 
+import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
@@ -7,7 +8,11 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import com.cognifide.cogboard.CogboardConstants as CC
 
-class AemBundleInfoWidget(vertx: Vertx, config: JsonObject) : AsyncWidget(vertx, config) {
+class AemBundleInfoWidget(
+    vertx: Vertx,
+    config: JsonObject,
+    serv: BoardsConfigService
+) : AsyncWidget(vertx, config, serv) {
 
     private val resolvedThreshold = config.getInteger(PROP_RESOLVED_THRESHOLD, 2)
     private val installedThreshold = config.getInteger(PROP_INSTALLED_THRESHOLD, 2)

@@ -11,8 +11,8 @@ import com.cognifide.cogboard.CogboardConstants as CC
 class JenkinsJobWidget(
     vertx: Vertx,
     config: JsonObject,
-    boardService: BoardsConfigService = BoardsConfigService()
-) : AsyncWidget(vertx, config, boardService) {
+    serv: BoardsConfigService
+) : AsyncWidget(vertx, config, serv) {
 
     private val path: String = config.getString("path", "")
 

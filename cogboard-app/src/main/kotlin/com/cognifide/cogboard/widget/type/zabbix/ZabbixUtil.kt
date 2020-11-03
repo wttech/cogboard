@@ -19,9 +19,9 @@ private fun Int.gigabytesToBytes(): Double {
 fun status(lastValue: Long, range: JsonArray): Widget.Status {
     val unstableRange = (range.list[0] as Int) until (range.list[1] as Int)
     return when {
-        lastValue < unstableRange.first -> return Widget.Status.OK
-        lastValue in unstableRange -> return Widget.Status.UNSTABLE
-        lastValue >= unstableRange.last -> return Widget.Status.FAIL
+        lastValue < unstableRange.first -> Widget.Status.OK
+        lastValue in unstableRange -> Widget.Status.UNSTABLE
+        lastValue >= unstableRange.last -> Widget.Status.FAIL
         else -> Widget.Status.NONE
     }
 }
