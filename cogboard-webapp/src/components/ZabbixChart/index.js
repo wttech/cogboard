@@ -68,11 +68,11 @@ const ZabbixChart = ({ id, content }) => {
 		let titleText;
 
 		if (checkMetricHasMaxValue) {
-			titleText = '(GB)';
+			titleText = '[GB]';
 		} else if (!checkMetricHasProgress) {
 			titleText = 'No.'
 		} else {
-			titleText = '(%)'
+			titleText = '[%]'
 		}
 
 		return titleText;
