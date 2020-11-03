@@ -14,7 +14,7 @@ module.exports = {
     healthChecks: {
       activeBundles: {
         dataValue: 'inactiveBundles',
-        label: 'Active Bundles'
+        label: 'Inactive Bundles'
       },
       asyncIndexHealthCheck: {
         dataValue: 'asyncIndexHealthCheck',
@@ -112,7 +112,7 @@ module.exports = {
         id: 'd9306d46-ec6a-4664-a47f-091e6a36f1b0',
         bucketName: 'In progress',
         jqlQuery:
-            'project%20%3D%20RND%20AND%20status%20in%20(%22In%20Progress%22%2C%20%22Code%20Review%22)'
+          'project%20%3D%20RND%20AND%20status%20in%20(%22In%20Progress%22%2C%20%22Code%20Review%22)'
       },
       {
         id: 'd9306d46-ec6a-4664-a47f-091e6a36f1b0',
