@@ -30,10 +30,10 @@ const SonarQubeMetricsInput = ({ onChange, value, error, dataCy }) => {
         renderValue={value => `${value.length} selected`}
         data-cy={dataCy}
       >
-        {ALL_SONARQUBE_METRICS.map(name => (
-          <MenuItem key={name} value={name}>
-            <Checkbox checked={value.includes(name)} />
-            <ListItemText primary={name} />
+        {ALL_SONARQUBE_METRICS.map((metric) => (
+          <MenuItem key={metric.value} value={metric.value}>
+            <Checkbox checked={value.includes(metric.value)} />
+            <ListItemText primary={metric.display} />
           </MenuItem>
         ))}
       </Select>

@@ -1,19 +1,21 @@
 import React from 'react';
 import { number, string, object } from 'prop-types';
 
+import { capitalize } from '../../../utils/common';
 import { Caption, WidgetButton } from '../../styled';
 
 const SonarQubeWidget = props => {
   const { metrics, url, version, date } = props;
   const ts = date ? new Date(Date.parse(date)).toLocaleString() : '';
+  const sortedMetricsList = Object.entries(metrics).sort();
 
   return (
     <>
       <Caption>{ts}</Caption>
       {version === '-' ? null : <Caption>Version: {version}</Caption>}
-      {Object.entries(metrics).map(([metric, val]) => (
+      {sortedMetricsList.map(([metric, val]) => (
         <Caption key={metric}>
-          {metric.replace('_', ' ')}: {val}
+          {capitalize(metric.replace('_', ' '))}: {val}
         </Caption>
       ))}
       <WidgetButton href={url}>OPEN DASHBOARD</WidgetButton>
