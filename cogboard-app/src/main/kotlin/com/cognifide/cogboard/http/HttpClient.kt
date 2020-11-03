@@ -3,6 +3,8 @@ package com.cognifide.cogboard.http
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_CODE
 import com.cognifide.cogboard.CogboardConstants.Companion.PROP_STATUS_MESSAGE
+import com.cognifide.cogboard.http.HttpConstants.CONTENT_TYPE_JSON
+import com.cognifide.cogboard.http.HttpConstants.HEADER_CONTENT_TYPE
 import com.cognifide.cogboard.http.auth.AuthenticationFactory
 import com.cognifide.cogboard.http.auth.AuthenticationType
 import io.vertx.core.AbstractVerticle
@@ -91,7 +93,9 @@ class HttpClient : AbstractVerticle() {
         val user = config.getString(CogboardConstants.PROP_USER) ?: ""
         val pass = config.getString(CogboardConstants.PROP_PASSWORD) ?: ""
         val token = config.getString(CogboardConstants.PROP_TOKEN) ?: ""
-        val headers = config.getJsonObject(CogboardConstants.PROP_HEADERS)
+        val contentType = config.getString(CogboardConstants.PROP_CONTENT_TYPE) ?: CONTENT_TYPE_JSON
+        val headers = (config.getJsonObject(CogboardConstants.PROP_HEADERS) ?: JsonObject())
+                .put(HEADER_CONTENT_TYPE, contentType)
         val authenticationTypes = Json.decodeValue(config.getString(CogboardConstants.PROP_AUTHENTICATION_TYPES))
                 ?: JsonArray()
 
@@ -102,15 +106,6 @@ class HttpClient : AbstractVerticle() {
         applyRequestHeaders(request, headers)
 
         return request
-    }
-
-    private fun HttpRequest<Buffer>.authenticate(
-        authType: AuthenticationType,
-        username: String,
-        token: String,
-        pass: String
-    ) {
-        AuthenticationFactory(username, token, pass, this).create(authType)
     }
 
     private fun getAuthenticationType(authenticationTypes: JsonArray, user: String, token: String, pass: String): AuthenticationType {
@@ -135,11 +130,20 @@ class HttpClient : AbstractVerticle() {
         }
     }
 
-    private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject?) {
-        request.putHeader(HttpConstants.HEADER_CONTENT_TYPE, HttpConstants.CONTENT_TYPE_JSON)
+    private fun HttpRequest<Buffer>.authenticate(
+        authType: AuthenticationType,
+        username: String,
+        token: String,
+        pass: String
+    ) {
+        AuthenticationFactory(username, token, pass, this)
+                .create(authType)
+    }
+
+    private fun applyRequestHeaders(request: HttpRequest<Buffer>, headers: JsonObject) {
         headers
-                ?.map { Pair(it.key, it.value as String) }
-                ?.forEach { request.putHeader(it.first, it.second) }
+                .map { Pair(it.key, it.value as String) }
+                .forEach { request.putHeader(it.first, it.second) }
     }
 
     private fun executeCheckRequest(request: HttpRequest<Buffer>, address: String?, body: JsonObject?) {
