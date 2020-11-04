@@ -34,7 +34,7 @@ internal class BoardsConfigServiceTest {
         assertTrue(contentOnServer.isEmpty)
     }
 
-    //@Test
+    @Test
     fun `Expect widget content merged to config`() {
         // given
         val underTest = initService()
