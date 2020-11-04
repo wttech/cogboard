@@ -22,6 +22,7 @@ jobs:
         run: |
           ./gradlew --stacktrace -i
       - name: Publish App to DockerHub
+        if: ${{ success() }}
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: cogboard/cogboard-app
@@ -30,6 +31,7 @@ jobs:
           tags: "${{ steps.props.outputs.current_version }},latest"
           workdir: build
       - name: Publish Webapp to DockerHub
+        if: ${{ success() }}
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: cogboard/cogboard-web
@@ -38,19 +40,23 @@ jobs:
           tags: "${{ steps.props.outputs.current_version }},latest"
           workdir: cogboard-webapp
       - name: Bump Version
+        if: ${{ success() }}
         id: bump_version
         run: |
           sed -i "1s%version=.*%version=${{ steps.props.outputs.next_ver }}%g" gradle.properties
       - name: Commit files
+        if: ${{ success() }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "[skip travis] Bump version" -a
       - name: Push Changes
+        if: ${{ success() }}
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create draft release
+        if: ${{ success() }}
         id: create_release
         uses: actions/create-release@v1
         env:
