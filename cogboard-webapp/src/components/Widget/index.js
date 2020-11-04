@@ -25,6 +25,7 @@ import MoreMenu from '../MoreMenu';
 import ConfirmationDialog from '../ConfirmationDialog';
 import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
+import ZabbixChart from '../ZabbixChart';
 
 const selectors = {
   collapse: '[class*="MuiCollapse-container"]'
@@ -45,9 +46,15 @@ const Widget = ({ id, index }) => {
     config: { columns, goNewLine, rows },
     ...widgetTypeData
   } = widgetData;
+  const zabbixWidgetName = 'ZabbixWidget';
+  const defaultExpandedContent = content ? content.isExpandedContent : false;
   const { expandContent: isExpandContent, isVertical } = widgetTypeData;
-  const expandContent =
-    type === 'TextWidget' && isVertical ? false : isExpandContent;
+  let expandContent =
+    type === zabbixWidgetName
+    ? defaultExpandedContent
+    : type === 'TextWidget' && isVertical
+    ? false
+    : isExpandContent;
   const widgetTypeConfig = widgetTypes[type] || widgetTypes['WhiteSpaceWidget'];
   const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
@@ -176,6 +183,7 @@ const Widget = ({ id, index }) => {
             isEmptyHeader={isEmptyHeader}
             avatar={
               !expandContent &&
+              type !== zabbixWidgetName &&
               !isError && <StatusIcon status={widgetStatus} size="small" />
             }
             title={title}
@@ -233,7 +241,13 @@ const Widget = ({ id, index }) => {
             onEntered={() => handleCollapseScrollIntoView()}
             unmountOnExit
           >
-            <WidgetContent id={id} type={type} content={content} />
+            {
+              type === zabbixWidgetName ? (
+                <ZabbixChart id={id} content={content}/>
+              ) : (
+                <WidgetContent id={id} type={type} content={content} />
+              )
+            }
           </StyledCollapse>
         )}
       </StyledCard>

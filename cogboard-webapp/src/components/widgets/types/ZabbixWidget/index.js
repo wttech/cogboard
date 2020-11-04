@@ -2,9 +2,12 @@ import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import SemiCircleProgress from '../../../SemiProgressBar';
 import {
+  StyledArrowDown,
+  StyledArrowUp,
   StyledMetricName,
   StyledNumericValue,
-  StyledZabbixWrapper
+  StyledZabbixWrapper,
+  StyledNumericValueWithIcon
 } from './styled';
 import {
   COLORS,
@@ -12,6 +15,7 @@ import {
   ZABBIX_METRICS_WITH_MAX_VALUE,
   ZABBIX_METRICS_WITH_PROGRESS
 } from '../../../../constants';
+
 
 const progressBarWidth = {
   column1: {
@@ -21,23 +25,22 @@ const progressBarWidth = {
     diameter: 200
   },
   other: {
-    diameter: 250
+    diameter: 220
   }
 };
 
-const ZabbixWidget = ({ id, lastvalue }) => {
+const ZabbixWidget = ({ id, lastvalue, history }) => {
   const widgetData = useSelector(
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
+  const upTimeMetricName = 'system.uptime';
   const widgetConfig = widgetData.config;
   const widgetZabbixMetric = widgetData.selectedZabbixMetric;
   const maxValue = widgetData.maxValue;
 
-  const checkMetricHasProgress = () =>
-    ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
-  const checkMetricHasMaxValue = () =>
-    ZABBIX_METRICS_WITH_MAX_VALUE.includes(widgetZabbixMetric);
+  const checkMetricHasProgress = ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
+  const checkMetricHasMaxValue = ZABBIX_METRICS_WITH_MAX_VALUE.includes(widgetZabbixMetric);
 
   const setProgressSize = () => {
     const widgetColumns = widgetConfig.columns;
@@ -48,19 +51,15 @@ const ZabbixWidget = ({ id, lastvalue }) => {
 
   const calculatePercentageValue = () => {
     if (!lastvalue) return 0;
-    if (!checkMetricHasMaxValue()) return parseInt(lastvalue, 10);
+    if (!checkMetricHasMaxValue) return parseInt(lastvalue, 10);
 
-    return convertToBytes(lastvalue);
+    return Math.round((100 * lastvalue) / (maxValue * Math.pow(10, 9)));
   };
 
   const convertMetricTitle = () => {
     if (!widgetZabbixMetric) return '';
 
     return ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric).display;
-  };
-
-  const convertToBytes = value => {
-    return Math.round((100 * value) / (maxValue * Math.pow(10, 9)));
   };
 
   const convertToGigaBytes = () => {
@@ -79,17 +78,33 @@ const ZabbixWidget = ({ id, lastvalue }) => {
   const renderNoProgressContent = () => {
     if (!lastvalue) return;
 
+    const historyValues = Object.values(history);
+    const historyCurrentValue = historyValues[historyValues.length - 1];
+    const historyPrevValue = historyValues[historyValues.length - 2];
     const value =
-      widgetZabbixMetric === 'system.uptime'
+      widgetZabbixMetric === upTimeMetricName
         ? secondsToTime(lastvalue)
         : parseInt(lastvalue, 10);
 
-    return <StyledNumericValue>{value}</StyledNumericValue>;
+    return (
+      <>
+        {
+          widgetZabbixMetric === upTimeMetricName ? (
+            <StyledNumericValue>{value}</StyledNumericValue>
+          ) : (
+            <StyledNumericValueWithIcon>
+              {value}
+              { historyCurrentValue > historyPrevValue ?  <StyledArrowUp /> : <StyledArrowDown /> }
+            </StyledNumericValueWithIcon>
+          )
+        }
+      </>
+    );
   };
 
   return (
     <StyledZabbixWrapper>
-      {checkMetricHasProgress() ? (
+      {checkMetricHasProgress ? (
         <SemiCircleProgress
           stroke={COLORS.WHITE}
           diameter={setProgressSize()}

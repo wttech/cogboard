@@ -24,12 +24,12 @@ const RangeSlider = ({ value, values, onChange }) => {
     onChange(prepareChangeEvent(newValue, 'array'));
   };
 
-  const checkMetricHasProgress = () => ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
+  const checkMetricHasProgress = ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
   const setAriaAttributeText = value => `${value}%`;
 
   return (
     <>
-      {checkMetricHasProgress() && (
+      {checkMetricHasProgress && (
         <StyledRangeSliderForm
           startRangeValue={rangeValue[0]}
           endRangeValue={rangeValue[1]}
