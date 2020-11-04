@@ -20,7 +20,7 @@ jobs:
           echo "::set-output name=next_ver::$NEXT_VERSION"
       - name: Build app
         run: |
-          ./gradlew --stacktrace -i
+          ./gradlew --stacktrace -i -x :cogboard-app:test
       - name: Publish App to DockerHub
         if: ${{ success() }}
         uses: elgohr/Publish-Docker-Github-Action@master
