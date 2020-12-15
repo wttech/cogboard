@@ -6,7 +6,7 @@ Tests in this part of the repository are testing UI of the CogBoard. Get to know
 
 ## Running tests
 
-### CLI
+### CLI 
 
 Quick use (i.e. before push):
 
