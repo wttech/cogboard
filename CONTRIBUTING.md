@@ -6,13 +6,13 @@ First of all thank you for your interest in contributing to this project. We app
 
 ## How to start
 
-To see how to setup local environment see our [Developer Setup Guide](https://github.com/Cognifide/cogboard/wiki#developer-setup).
+To see how to setup local environment see our [Developer Setup Guide](https://github.com/wttech/cogboard/wiki#developer-setup).
 
 Check existing issues to make sure you don't create a duplicate.
 
 ## CogBoard Contributor License Agreement
 
-Project License: [Apache License 2.0](https://github.com/Cognifide/cogboard/blob/master/LICENSE)
+Project License: [Apache License 2.0](https://github.com/wttech/cogboard/blob/master/LICENSE)
 
 - You will only submit contributions where you have authored 100% of the content.
 - You will only submit contributions to which you have the necessary rights. This means that if you are employed you have received the necessary permissions from your employer to make the contributions.
@@ -24,11 +24,11 @@ To ensure commit messages are easy to read and descriptive enough please follow 
 
 ## Pull requests
 
-Pull requests need to follow provided [Pull Request Template](https://github.com/Cognifide/cogboard/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
+Pull requests need to follow provided [Pull Request Template](https://github.com/wttech/cogboard/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
 
 ## Documentation
 
-CogBoard's documentation can be found in [CogBoard Wiki](https://github.com/Cognifide/cogboard/wiki).
+CogBoard's documentation can be found in [CogBoard Wiki](https://github.com/wttech/cogboard/wiki).
 
 ## Coding conventions
 

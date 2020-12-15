@@ -31,7 +31,7 @@
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 
-- [ ] My code follows the [code style](https://github.com/Cognifide/cogboard/blob/master/CONTRIBUTING.md#coding-conventions) of this project.
+- [ ] My code follows the [code style](https://github.com/wttech/cogboard/blob/master/CONTRIBUTING.md#coding-conventions) of this project.
 - [ ] My change requires a change to the documentation.
 - [ ] Automated functional tests have been added or modified to cover my changes (if applicable)
 - [ ] I have updated the documentation accordingly.
