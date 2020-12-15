@@ -1,4 +1,4 @@
-<p align="center">
+<p>
   <img src="docs/images/wtt_logo.png" alt="Wunderman Thompson Technology logo Logo"/>
 </p>
 
