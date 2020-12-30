@@ -61,7 +61,7 @@ class ZabbixWidget(
     }
 
     private fun extractResult(responseBody: JsonObject): Any {
-        val body = responseBody.getString(BODY)
+        val body = responseBody.getString(BODY) ?: "{}"
         val value = JsonObject(body)
         return value.getValue(RESULT, "")
     }
