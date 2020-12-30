@@ -8,6 +8,7 @@ export const COLORS = {
   BLACK: '#000',
   GREEN: '#019430',
   GREEN_DEFAULT: '#008000',
+  GREY: '#a4b7bf',
   ORANGE: '#ff9724',
   RED: '#e1312f',
   LIGHT_BLUE: '#bbdefb',
