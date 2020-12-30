@@ -1,6 +1,8 @@
-![Cognifide logo](https://assets.cognifide.com/github/cognifide-logo.png)
+<p>
+  <img src="docs/images/wtt_logo.png" alt="Wunderman Thompson Technology logo Logo"/>
+</p>
 
-[![Build Status](https://api.travis-ci.org/Cognifide/cogboard.svg?branch=master)](https://travis-ci.org/Cognifide/cogboard)
+[![Build Status](https://api.travis-ci.org/wttech/cogboard.svg?branch=master)](https://travis-ci.org/wttech/cogboard)
 
 # Cogboard
 
@@ -14,13 +16,13 @@ CogBoard is a tool that provides your team with a continous information about yo
 
 ## Getting started
 
-CogBoard is designed to be easy to setup. Please follow the [Getting started](https://github.com/Cognifide/cogboard/wiki#getting-started) steps in order to begin your adventure with the tool.
+CogBoard is designed to be easy to setup. Please follow the [Getting started](https://github.com/wttech/cogboard/wiki#getting-started) steps in order to begin your adventure with the tool.
 
 ## What makes it special?
 
-How it’s built. We’ve been using new technologies when working on CogBoard. Please see our [Tech Stack](https://github.com/Cognifide/cogboard/wiki#stack) in order to learn more.
+How it’s built. We’ve been using new technologies when working on CogBoard. Please see our [Tech Stack](https://github.com/wttech/cogboard/wiki#stack) in order to learn more.
 
-How it works. CogBoard allows for gathering data from a wide range of external data sources such as AEM, Bamboo, Jenkins, SonarQube etc, and gives a possibility of monitoring the data on your personalised dashboards, while using available [widgets](https://github.com/Cognifide/cogboard/wiki#widgets), or by creating [new widgets](https://github.com/Cognifide/cogboard/wiki#widget-development).
+How it works. CogBoard allows for gathering data from a wide range of external data sources such as AEM, Bamboo, Jenkins, SonarQube etc, and gives a possibility of monitoring the data on your personalised dashboards, while using available [widgets](https://github.com/wttech/cogboard/wiki#widgets), or by creating [new widgets](https://github.com/wttech/cogboard/wiki#widget-development).
 
 ## Example dashboard
 
@@ -32,11 +34,11 @@ With CogBoard, you can increase your team members’ visibility on all the envir
 
 ## Contributing
 
-We would love you to join our community and contribute into this project via [GitHub](https://github.com/Cognifide/cogboard). Please read our [Collaboration info](https://github.com/Cognifide/cogboard/blob/master/CONTRIBUTING.md) and [Code of Conduct](https://github.com/Cognifide/cogboard/blob/master/CODE_OF_CONDUCT.md) in order to learn more.
+We would love you to join our community and contribute into this project via [GitHub](https://github.com/wttech/cogboard). Please read our [Collaboration info](https://github.com/wttech/cogboard/blob/master/CONTRIBUTING.md) and [Code of Conduct](https://github.com/wttech/cogboard/blob/master/CODE_OF_CONDUCT.md) in order to learn more.
 
 ## Documentation
 
-Please see the link in order to get access to our complete [Documentation](https://github.com/Cognifide/cogboard/wiki).
+Please see the link in order to get access to our complete [Documentation](https://github.com/wttech/cogboard/wiki).
 
 ## License
 
