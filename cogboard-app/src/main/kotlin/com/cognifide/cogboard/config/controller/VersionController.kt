@@ -57,7 +57,7 @@ class VersionController : AbstractVerticle() {
     companion object {
         const val PROP_EVENT_TYPE_NEW_VERSION = "new-version"
         const val GITHUB_REPOSITORY_LATEST_VERSION_URL =
-                "https://api.github.com/repos/cognifide/cogboard/releases/latest"
+                "https://api.github.com/repos/wttech/cogboard/releases/latest"
         const val USER_AGENT_HEADER = "Cogboard"
         const val NEW_VERSION_RESPONSE = "cogboard.config.handler.version.new"
     }
