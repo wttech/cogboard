@@ -20,6 +20,48 @@ export const dispatchEvent = (customEvent, data) => {
   }
 };
 
+const renderContent = (
+  content,
+  updateTimestamp,
+  disabled,
+  id,
+  type,
+  status,
+  expandContent,
+  expanded,
+  handleToggle,
+  closeWidgets
+) => {
+  return (
+    <>
+      {content && content.errorMessage ? (
+        <ErrorMessage {...content} status={status} />
+      ) : !expandContent ? (
+        <WidgetContent id={id} type={type} content={content} />
+      ) : expandContent ? (
+        <ExpandableContent
+          id={id}
+          type={type}
+          status={status}
+          content={content}
+          expanded={expanded}
+        />
+      ) : (
+        ''
+      )}
+      <WidgetFooter
+        updateTimestamp={updateTimestamp}
+        expanded={expanded}
+        handleToggle={handleToggle}
+        content={content}
+        expandContent={expandContent}
+        closeWidgets={closeWidgets}
+        id={id}
+      />
+    </>
+  );
+};
+
 export const renderCardContent = (
   content,
   updateTimestamp,
@@ -34,30 +76,22 @@ export const renderCardContent = (
 ) => {
   return (
     <StyledCardContent type={type}>
-      {content && content.errorMessage ? (
-        <ErrorMessage {...content} status={status} />
-      ) : !disabled && !expandContent ? (
-        <WidgetContent id={id} type={type} content={content} />
-      ) : expandContent ? (
-        <ExpandableContent
-          id={id}
-          type={type}
-          status={status}
-          content={content}
-          expanded={expanded}
-        />
+      {disabled ? (
+        <WidgetTypeIcon type={type} status={status} content={content} />
       ) : (
-        'Disabled'
+        renderContent(
+          content,
+          updateTimestamp,
+          disabled,
+          id,
+          type,
+          status,
+          expandContent,
+          expanded,
+          handleToggle,
+          closeWidgets
+        )
       )}
-      <WidgetFooter
-        updateTimestamp={updateTimestamp}
-        expanded={expanded}
-        handleToggle={handleToggle}
-        content={content}
-        expandContent={expandContent}
-        closeWidgets={closeWidgets}
-        id={id}
-      />
     </StyledCardContent>
   );
 };

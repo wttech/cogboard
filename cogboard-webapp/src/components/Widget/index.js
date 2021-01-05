@@ -185,6 +185,7 @@ const Widget = ({ id, index }) => {
             isEmptyHeader={isEmptyHeader}
             avatar={
               !expandContent &&
+              !disabled &&
               type !== zabbixWidgetName &&
               !isError && <StatusIcon status={widgetStatus} size="small" />
             }
