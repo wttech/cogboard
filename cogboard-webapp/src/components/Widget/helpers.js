@@ -74,6 +74,9 @@ export const renderCardContent = (
   handleToggle,
   closeWidgets
 ) => {
+  if (disabled && expanded) {
+    handleToggle();
+  }
   return (
     <StyledCardContent type={type}>
       {disabled ? (
