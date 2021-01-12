@@ -3,15 +3,8 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { StyledValidationMessages } from '../../WidgetForm/styled';
 import { hasError } from '../../../utils/components';
-import { prepareChangeEvent } from './helpers';
 
-const NumberInput = ({ min, step, error, dataCy, onChange, ...other }) => {
-  const handleChange = evt => {
-    const formattedValue = evt.target.value
-      ? parseFloat(evt.target.value.replace(/,/g, ''))
-      : '';
-    onChange(prepareChangeEvent(parseInt(formattedValue), 'number'));
-  };
+const NumberInput = ({ min, step, error, dataCy, ...other }) => {
   return (
     <TextField
       type="number"
@@ -20,7 +13,8 @@ const NumberInput = ({ min, step, error, dataCy, onChange, ...other }) => {
         shrink: true
       }}
       margin="normal"
-      onChange={handleChange}
+      min="0"
+      step="1"
       error={hasError(error)}
       FormHelperTextProps={{ component: 'div' }}
       helperText={
