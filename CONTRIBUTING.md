@@ -1,4 +1,6 @@
-<center><img alt="Cognifide logo" src="https://cognifide.github.io/images/cognifide-logo.png" style="align: center;" ></center>
+<p>
+  <img src="docs/images/wtt_logo.png" alt="Wunderman Thompson Technology logo Logo"/>
+</p>
 
 # CogBoard contribution guide
 
