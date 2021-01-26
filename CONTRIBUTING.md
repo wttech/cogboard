@@ -1,4 +1,6 @@
-<center><img alt="Cognifide logo" src="https://cognifide.github.io/images/cognifide-logo.png" style="align: center;" ></center>
+<p>
+  <img src="docs/images/wtt_logo.png" alt="Wunderman Thompson Technology logo Logo"/>
+</p>
 
 # CogBoard contribution guide
 
@@ -6,7 +8,7 @@ First of all thank you for your interest in contributing to this project. We app
 
 ## How to start
 
-To see how to setup local environment see our [Developer Setup Guide](https://github.com/wttech/cogboard/wiki#developer-setup).
+To see how to setup local environment see our [Developer Setup Guide](https://github.com/wttech/cogboard/wiki#prerequisites).
 
 Check existing issues to make sure you don't create a duplicate.
 
