@@ -51,12 +51,14 @@ const Widget = ({ id, index }) => {
   const { expandContent: isExpandContent, isVertical } = widgetTypeData;
   let expandContent =
     type === zabbixWidgetName
-    ? defaultExpandedContent
-    : type === 'TextWidget' && isVertical
-    ? false
-    : isExpandContent;
+      ? defaultExpandedContent
+      : type === 'TextWidget' && isVertical
+        ? false
+        : isExpandContent;
   const widgetTypeConfig = widgetTypes[type] || widgetTypes['WhiteSpaceWidget'];
-  const widgetStatus = getWidgetStatus(content, widgetTypeConfig);
+  const widgetStatus = disabled
+    ? 'DISABLED'
+    : getWidgetStatus(content, widgetTypeConfig);
   const widgetUpdateTimestamp = getWidgetUpdateTime(content, widgetTypeConfig);
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -183,6 +185,7 @@ const Widget = ({ id, index }) => {
             isEmptyHeader={isEmptyHeader}
             avatar={
               !expandContent &&
+              !disabled &&
               type !== zabbixWidgetName &&
               !isError && <StatusIcon status={widgetStatus} size="small" />
             }
@@ -197,22 +200,21 @@ const Widget = ({ id, index }) => {
                 color={whiteSpaceInAuthenticatedMode ? 'primary' : 'default'}
               >
                 {closeMenu => [
-                    <MenuItem
-                      key={ `${type}-moreMenu-editItem` }
-                      onClick={handleEditClick(closeMenu)}
-                      data-cy="widget-edit"
-                    >
-                      Edit
-                    </MenuItem>,
-                    <MenuItem
-                      key={ `${type}-moreMenu-deleteItem` }
-                      onClick={handleDeleteClick(closeMenu)}
-                      data-cy="widget-delete"
-                    >
-                      Delete
-                    </MenuItem>
-                  ]
-                }
+                  <MenuItem
+                    key={`${type}-moreMenu-editItem`}
+                    onClick={handleEditClick(closeMenu)}
+                    data-cy="widget-edit"
+                  >
+                    Edit
+                  </MenuItem>,
+                  <MenuItem
+                    key={`${type}-moreMenu-deleteItem`}
+                    onClick={handleDeleteClick(closeMenu)}
+                    data-cy="widget-delete"
+                  >
+                    Delete
+                  </MenuItem>
+                ]}
               </MoreMenu>
             }
           />
@@ -241,13 +243,11 @@ const Widget = ({ id, index }) => {
             onEntered={() => handleCollapseScrollIntoView()}
             unmountOnExit
           >
-            {
-              type === zabbixWidgetName ? (
-                <ZabbixChart id={id} content={content}/>
-              ) : (
-                <WidgetContent id={id} type={type} content={content} />
-              )
-            }
+            {type === zabbixWidgetName ? (
+              <ZabbixChart id={id} content={content} />
+            ) : (
+              <WidgetContent id={id} type={type} content={content} />
+            )}
           </StyledCollapse>
         )}
       </StyledCard>

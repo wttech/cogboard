@@ -9,7 +9,8 @@ const StyledDialog = styled(props => (
   <Dialog classes={{ paper: 'paper' }} {...props} />
 ))`
   .paper {
-    max-width: 800px;
+    width: 500px;
+    max-width: calc(100vw - 30px);
     padding: 15px;
   }
 `;
@@ -53,10 +54,7 @@ const AppDialog = props => {
 
 AppDialog.propTypes = {
   handleDialogClose: func.isRequired,
-  children: oneOfType([
-    arrayOf(element),
-    element
-  ]).isRequired,
+  children: oneOfType([arrayOf(element), element]).isRequired,
   open: bool.isRequired,
   title: string
 };

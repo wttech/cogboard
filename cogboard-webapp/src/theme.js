@@ -18,7 +18,7 @@ export const theme = createMuiTheme({
           boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.2)',
           borderRadius: '10px'
         }
-      },
+      }
     },
     MuiCardHeader: {
       action: {
@@ -56,7 +56,8 @@ export const theme = createMuiTheme({
       ERROR_CONNECTION: COLORS.RED,
       ERROR_CONFIGURATION: COLORS.RED,
       ERROR: COLORS.RED,
-      FAIL: COLORS.RED
+      FAIL: COLORS.RED,
+      DISABLED: COLORS.GREY
     },
     snackbarVariant: {
       info: blue[100],

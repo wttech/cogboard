@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledCardContent } from './styled';
+import { StyledCardContent, StyledErrorMessage } from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
 import WidgetTypeIcon from '../WidgetTypeIcon';
@@ -20,7 +20,7 @@ export const dispatchEvent = (customEvent, data) => {
   }
 };
 
-export const renderCardContent = (
+const renderContent = (
   content,
   updateTimestamp,
   disabled,
@@ -33,10 +33,10 @@ export const renderCardContent = (
   closeWidgets
 ) => {
   return (
-    <StyledCardContent type={type}>
+    <>
       {content && content.errorMessage ? (
         <ErrorMessage {...content} status={status} />
-      ) : !disabled && !expandContent ? (
+      ) : !expandContent ? (
         <WidgetContent id={id} type={type} content={content} />
       ) : expandContent ? (
         <ExpandableContent
@@ -47,7 +47,7 @@ export const renderCardContent = (
           expanded={expanded}
         />
       ) : (
-        'Disabled'
+        ''
       )}
       <WidgetFooter
         updateTimestamp={updateTimestamp}
@@ -58,6 +58,48 @@ export const renderCardContent = (
         closeWidgets={closeWidgets}
         id={id}
       />
+    </>
+  );
+};
+
+export const renderCardContent = (
+  content,
+  updateTimestamp,
+  disabled,
+  id,
+  type,
+  status,
+  expandContent,
+  expanded,
+  handleToggle,
+  closeWidgets
+) => {
+  if (disabled && expanded) {
+    handleToggle();
+  }
+  return (
+    <StyledCardContent type={type}>
+      {disabled ? (
+        <>
+          <WidgetTypeIcon type={type} status={status} content={content} />
+          <StyledErrorMessage status={status} variant="caption" paragraph>
+            Disabled Widget
+          </StyledErrorMessage>
+        </>
+      ) : (
+        renderContent(
+          content,
+          updateTimestamp,
+          disabled,
+          id,
+          type,
+          status,
+          expandContent,
+          expanded,
+          handleToggle,
+          closeWidgets
+        )
+      )}
     </StyledCardContent>
   );
 };

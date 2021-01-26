@@ -150,6 +150,9 @@ const dialogFields = {
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
+    min: 0,
+    step: 1,
+    pattern: /\d*/,
     valueUpdater: transformMinValue(),
     validator: ({ min, max }) =>
       number()
@@ -162,6 +165,9 @@ const dialogFields = {
     name: 'columns',
     label: 'Columns',
     initialValue: 1,
+    min: 0,
+    step: 1,
+    pattern: /\d*/,
     valueUpdater: transformMinValue(0.5),
     validator: ({ min, max }) =>
       number()
@@ -174,6 +180,9 @@ const dialogFields = {
     name: 'rows',
     label: 'Rows',
     initialValue: 1,
+    min: 0,
+    step: 1,
+    pattern: /\d*/,
     valueUpdater: transformMinValue(0.5),
     validator: ({ min, max }) =>
       number()

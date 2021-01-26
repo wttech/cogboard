@@ -5,7 +5,13 @@ import styled from '@emotion/styled/macro';
 import { mapStatusToColor, getWidgetOverflow } from './helpers';
 import { COLUMN_MULTIPLIER, ROW_MULTIPLIER, COLORS } from '../../constants';
 
-import { Card, CardHeader, CardContent, Collapse, Typography } from '@material-ui/core';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  Collapse,
+  Typography
+} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 
 export const StyledCard = styled(
@@ -167,8 +173,8 @@ export const StyledCollapse = styled(
     !isDragging && type !== 'ZabbixWidget'
       ? mapStatusToColor(status, theme)
       : type === 'ZabbixWidget'
-        ? mapStatusToColor('UNKNOWN', theme)
-        : theme.palette.background.paper};
+      ? mapStatusToColor('UNKNOWN', theme)
+      : theme.palette.background.paper};
   box-shadow: ${({ isExpanded }) =>
     isExpanded ? '4px 4px 4px rgba(0,0,0,0.3)' : 'none'};
   height: auto;
@@ -238,4 +244,9 @@ export const StyledNoItemsInfo = styled.div`
 export const StyledErrorMessage = styled(Typography)`
   font-weight: 600;
   text-align: center;
+  ${({ status }) =>
+    status === 'DISABLED' &&
+    `
+    padding-bottom: 33px;
+  `};
 `;
