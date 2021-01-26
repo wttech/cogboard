@@ -20,7 +20,8 @@ const statusIcons = {
   OK: Check,
   UNKNOWN: HelpOutline,
   UNSTABLE: ShowChart,
-  FAIL: Block
+  FAIL: Block,
+  DISABLED: Block
 };
 
 const iconSizes = {

@@ -96,7 +96,7 @@ export const mapDataToState = data => {
 
   return {
     generalData,
-    serverData: { id, type, ...other }
+    serverData: { id, type, disabled, ...other }
   };
 };
 
