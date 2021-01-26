@@ -173,8 +173,8 @@ export const StyledCollapse = styled(
     !isDragging && type !== 'ZabbixWidget'
       ? mapStatusToColor(status, theme)
       : type === 'ZabbixWidget'
-      ? mapStatusToColor('UNKNOWN', theme)
-      : theme.palette.background.paper};
+        ? mapStatusToColor('UNKNOWN', theme)
+        : theme.palette.background.paper};
   box-shadow: ${({ isExpanded }) =>
     isExpanded ? '4px 4px 4px rgba(0,0,0,0.3)' : 'none'};
   height: auto;
