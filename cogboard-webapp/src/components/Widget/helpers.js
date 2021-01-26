@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledCardContent } from './styled';
+import { StyledCardContent, StyledErrorMessage } from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
 import WidgetTypeIcon from '../WidgetTypeIcon';
@@ -80,7 +80,12 @@ export const renderCardContent = (
   return (
     <StyledCardContent type={type}>
       {disabled ? (
-        <WidgetTypeIcon type={type} status={status} content={content} />
+        <>
+          <WidgetTypeIcon type={type} status={status} content={content} />
+          <StyledErrorMessage status={status} variant="caption" paragraph>
+            Disabled Widget
+          </StyledErrorMessage>
+        </>
       ) : (
         renderContent(
           content,
