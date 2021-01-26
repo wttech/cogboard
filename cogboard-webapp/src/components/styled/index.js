@@ -149,6 +149,7 @@ export const StyledErrorMsg = styled(Typography)`
 export const StyledFormFieldWrapper = styled.div`
   display: inline-flex;
   flex-direction: column;
+  flex: 1;
 
   .Mui-error {
     color: ${COLORS.YELLOW};
