@@ -53,8 +53,8 @@ const Widget = ({ id, index }) => {
     type === zabbixWidgetName
       ? defaultExpandedContent
       : type === 'TextWidget' && isVertical
-      ? false
-      : isExpandContent;
+        ? false
+        : isExpandContent;
   const widgetTypeConfig = widgetTypes[type] || widgetTypes['WhiteSpaceWidget'];
   const widgetStatus = disabled
     ? 'DISABLED'
