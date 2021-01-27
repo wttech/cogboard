@@ -60,6 +60,12 @@ class Widget {
 
   isDisabled() {
     cy.contains('Disabled').should('is.visible');
+    cy.get("p[status='DISABLED']")
+      .contains('Disabled Widget')
+      .should('exist');
+    cy.get(
+      ".MuiCard-root .MuiCardContent-root svg path[d^='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17']"
+    ).should('exist');
     return this;
   }
 
