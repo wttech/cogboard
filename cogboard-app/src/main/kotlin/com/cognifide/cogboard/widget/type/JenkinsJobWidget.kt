@@ -67,7 +67,7 @@ class JenkinsJobWidget(
         if (url.isNotBlank() && path.isNotBlank()) {
             httpGet(url = "$url$path/api/json?tree=lastBuild[$LAST_BUILD_PROPS]")
         } else {
-            sendConfigurationError("Endpoint URL or Path is blank. ")
+            sendConfigurationError("Endpoint URL or Path is blank.")
         }
     }
 
