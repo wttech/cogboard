@@ -26,7 +26,8 @@ import {
   addSettingsItem,
   editSettingsItem,
   deleteSettingsItem,
-  waitingForNewVersion
+  waitingForNewVersion,
+  guestLoginSuccess
 } from './actionCreators';
 import {
   fetchData,
@@ -39,7 +40,15 @@ import {
   dispatchEvent
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
-import { setToken, removeToken, getToken, getUserRole } from '../utils/auth';
+import {
+  setToken,
+  removeToken,
+  getToken,
+  getUserRole,
+  setGuestName,
+  removeGuestName,
+  getGuestName
+} from '../utils/auth';
 import { newVersionButtonsCreator } from '../components/NewVersionButtons/helpers';
 
 export const fetchInitialData = () => dispatch => {
@@ -74,29 +83,39 @@ export const saveDataThunk = () => (dispatch, getState) => {
   );
 };
 
-export const login = credentials => dispatch => {
-  return fetchData(URL.LOGIN, { method: 'POST', data: credentials }).then(
-    ({ token }) => {
-      setToken(token);
-      dispatch(loginSuccess());
-      dispatch(pushNotification(NOTIFICATIONS.LOGIN(getUserRole())));
-    },
-    ({ message }) => dispatch(loginFailure(message))
-  );
+export const login = (credentials, loginAsGuest) => dispatch => {
+  if (loginAsGuest) {
+    const guestName = credentials.username;
+    setGuestName(guestName);
+    dispatch(guestLoginSuccess(guestName));
+    dispatch(pushNotification(NOTIFICATIONS.LOGIN(`Guest: ${guestName}`)));
+  } else {
+    return fetchData(URL.LOGIN, { method: 'POST', data: credentials }).then(
+      ({ token }) => {
+        setToken(token);
+        dispatch(loginSuccess());
+        dispatch(pushNotification(NOTIFICATIONS.LOGIN(getUserRole())));
+      },
+      ({ message }) => dispatch(loginFailure(message))
+    );
+  }
 };
 
 export const logout = () => (dispatch, getState) => {
-  const userRole = getUserRole();
-  const {
-    app: { logoutReasonMessage }
-  } = getState();
+  let userRole;
+  let message = '';
 
-  removeToken();
+  if (getGuestName()) {
+    userRole = `Guest: ${getGuestName()}`;
+    removeGuestName();
+  } else {
+    userRole = getUserRole();
+    message = getState().app.logoutReasonMessage;
+    removeToken();
+  }
 
   dispatch(logoutUser());
-  dispatch(
-    pushNotification(NOTIFICATIONS.LOGOUT(userRole, logoutReasonMessage))
-  );
+  dispatch(pushNotification(NOTIFICATIONS.LOGOUT(userRole, message)));
 };
 
 const deleteBoardWithWidgetsThunk = id => (dispatch, getState) => {

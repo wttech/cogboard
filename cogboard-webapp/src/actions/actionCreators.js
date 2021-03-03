@@ -18,6 +18,7 @@ import {
   SAVE_DATA_START,
   SAVE_DATA_SUCCESS,
   LOGIN_SUCCESS,
+  GUEST_LOGIN_SUCCESS,
   LOGIN_FAILURE,
   CLEAR_LOGIN_ERROR_MESSAGE,
   LOGOUT,
@@ -39,6 +40,11 @@ export const requestData = () => ({
 
 export const loginSuccess = () => ({
   type: LOGIN_SUCCESS
+});
+
+export const guestLoginSuccess = data => ({
+  type: GUEST_LOGIN_SUCCESS,
+  payload: data
 });
 
 export const loginFailure = data => ({
