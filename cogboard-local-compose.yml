@@ -18,6 +18,8 @@ services:
 
   backend:
     image: "cogboard/cogboard-app:${COGBOARD_VERSION}"
+    environment:
+      - COGBOARD_VERSION=${COGBOARD_VERSION}
     volumes:
       - "./mnt:/data"
     networks:
