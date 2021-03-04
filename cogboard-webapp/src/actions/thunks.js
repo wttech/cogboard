@@ -50,6 +50,7 @@ import {
   getGuestName
 } from '../utils/auth';
 import { newVersionButtonsCreator } from '../components/NewVersionButtons/helpers';
+import { getIsGuest } from '../selectors';
 
 export const fetchInitialData = () => dispatch => {
   dispatch(requestData());
@@ -105,7 +106,7 @@ export const logout = () => (dispatch, getState) => {
   let userRole;
   let message = '';
 
-  if (getGuestName()) {
+  if (!!getGuestName()) {
     userRole = `Guest: ${getGuestName()}`;
     removeGuestName();
   } else {

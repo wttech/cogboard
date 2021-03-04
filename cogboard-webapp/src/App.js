@@ -38,7 +38,7 @@ function App() {
     if (isAuthenticated()) {
       dispatch(loginSuccess());
     }
-    if (getGuestName() !== undefined && getGuestName() !== '') {
+    if (!!getGuestName()) {
       dispatch(guestLoginSuccess(getGuestName()));
     }
     dispatch(fetchInitialData());
