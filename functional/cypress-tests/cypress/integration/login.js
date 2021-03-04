@@ -5,7 +5,7 @@ describe('Login', () => {
 
   it('Login form validations', () => {
     cy.get('[data-cy="user-login-login-icon"]').click();
-    cy.get('[data-cy="login-as-guest-select"]').click();
+    cy.get('[data-cy="login-as-guest-select"]').uncheck();
     cy.get('[data-cy="user-login-username-input"]').type('invalidUsername');
     cy.get('[data-cy="user-login-password-input"]')
       .type('invalidPassword')
