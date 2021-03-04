@@ -50,7 +50,6 @@ import {
   getGuestName
 } from '../utils/auth';
 import { newVersionButtonsCreator } from '../components/NewVersionButtons/helpers';
-import { getIsGuest } from '../selectors';
 
 export const fetchInitialData = () => dispatch => {
   dispatch(requestData());
