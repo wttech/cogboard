@@ -5,7 +5,6 @@ import com.cognifide.cogboard.config.validation.boards.BoardsValidator
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 import com.cognifide.cogboard.config.validation.admins.AdminValidator
-import com.cognifide.cogboard.config.validation.version.VersionValidator
 import java.io.File
 
 enum class ConfigType(private val fileName: String, private val validator: Validator) {
@@ -14,7 +13,6 @@ enum class ConfigType(private val fileName: String, private val validator: Valid
     CREDENTIALS("credentials.json", CredentialsValidator),
     ENDPOINTS("endpoints.json", EndpointsValidator),
     ADMIN("admin.json", AdminValidator),
-    VERSION(".version", VersionValidator),
     APP_CONFIG("app-config.json", object : Validator {
         override fun validate(config: String) = true
     });
