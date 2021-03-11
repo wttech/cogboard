@@ -21,6 +21,11 @@ export const getIsAuthenticated = createSelector(
   ({ isAuthenticated }) => isAuthenticated
 );
 
+export const getIsGuest = createSelector(
+  [getApp],
+  ({ guestLogin }) => guestLogin.isGuest
+);
+
 export const getCurrentBoardId = createSelector(
   [getUi],
   ({ currentBoard }) => currentBoard
@@ -68,9 +73,8 @@ export const getIsWaitingForNewVersion = createSelector(
   ({ isWaitingForNewVersion }) => isWaitingForNewVersion
 );
 
-export const getBoards = createSelector(
-  [getBoardsById],
-  boardsById => Object.values(boardsById)
+export const getBoards = createSelector([getBoardsById], boardsById =>
+  Object.values(boardsById)
 );
 
 export const getEndpoints = createSelector(
