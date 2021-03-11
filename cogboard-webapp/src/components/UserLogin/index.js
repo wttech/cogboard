@@ -1,32 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useEventListener, useToggle } from '../../hooks';
 import { login, logout } from '../../actions/thunks';
 import { clearLoginErrorMessage } from '../../actions/actionCreators';
-import { getIsAuthenticated } from '../../selectors';
+import { getIsAuthenticated, getIsGuest } from '../../selectors';
 import { getCredentials } from './helpers';
 
 import { Button, IconButton, TextField, Tooltip } from '@material-ui/core';
 import { AccountCircle, Error, PowerSettingsNew } from '@material-ui/icons';
 import AppDialog from './../AppDialog';
-import { StyledFieldset, StyledErrorMsg, StyledPowerIconButton } from '../styled';
+import {
+  StyledFieldset,
+  StyledErrorMsg,
+  StyledPowerIconButton
+} from '../styled';
+import SwitchInput from '../widgets/dialogFields/SwitchInput';
 
 const UserLogin = () => {
   const dispatch = useDispatch();
   const errorMsg = useSelector(({ app }) => app.loginErrorMessage);
   const isAuthenticated = useSelector(getIsAuthenticated);
+  const isGuest = useSelector(getIsGuest);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+  const [loginAsGuest, setLoginAsGuest] = useState(true);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated || isGuest) {
       handleDialogClose();
     }
-  }, [isAuthenticated, handleDialogClose]);
+  }, [isAuthenticated, isGuest, handleDialogClose]);
+
+  const handleLoginAsGuestChange = event => {
+    setLoginAsGuest(event.currentTarget.checked);
+  };
 
   const handleLoginButtonClick = () => {
     const credentials = getCredentials();
-    dispatch(login(credentials));
+    dispatch(login(credentials, loginAsGuest));
   };
 
   const handleLoginOnEnterPress = event => {
@@ -52,7 +63,7 @@ const UserLogin = () => {
 
   return (
     <>
-      {!isAuthenticated && (
+      {!isAuthenticated && !isGuest && (
         <Tooltip title="Login" placement="bottom-end">
           <IconButton
             onClick={handleLoginDialogOpen}
@@ -65,7 +76,7 @@ const UserLogin = () => {
           </IconButton>
         </Tooltip>
       )}
-      {isAuthenticated && (
+      {(isAuthenticated || isGuest) && (
         <Tooltip title="Logout" placement="bottom-end">
           <StyledPowerIconButton
             onClick={handleLogout}
@@ -81,7 +92,7 @@ const UserLogin = () => {
       <AppDialog
         handleDialogClose={closeDialog}
         open={dialogOpened}
-        title="User Login"
+        title={loginAsGuest ? 'Guest Login' : 'Admin Login'}
       >
         <StyledFieldset component="fieldset">
           {errorMsg && (
@@ -90,13 +101,19 @@ const UserLogin = () => {
               {errorMsg}
             </StyledErrorMsg>
           )}
+          {SwitchInput({
+            label: 'Login as Guest',
+            value: loginAsGuest,
+            onChange: handleLoginAsGuestChange,
+            dataCy: 'login-as-guest-select'
+          })}
           <TextField
             autoFocus
             id="username"
             InputLabelProps={{
               shrink: true
             }}
-            label="Username"
+            label={loginAsGuest ? 'Guest Name' : 'Username'}
             margin="normal"
             onKeyPress={handleLoginOnEnterPress}
             inputProps={{ 'data-cy': 'user-login-username-input' }}
@@ -109,6 +126,7 @@ const UserLogin = () => {
             type="password"
             label="Password"
             margin="normal"
+            disabled={loginAsGuest}
             onKeyPress={handleLoginOnEnterPress}
             inputProps={{ 'data-cy': 'user-login-password-input' }}
           />
