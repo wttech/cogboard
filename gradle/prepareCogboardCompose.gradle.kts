@@ -14,6 +14,8 @@ fun createComposeFile() {
 services:
   backend:
     image: "cogboard/cogboard-app:$currentVersion"
+    environment:
+      - COGBOARD_VERSION=$currentVersion
     volumes:
       - "./mnt:/data"
 

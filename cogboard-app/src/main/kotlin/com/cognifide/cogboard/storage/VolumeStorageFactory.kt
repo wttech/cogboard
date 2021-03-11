@@ -9,7 +9,6 @@ object VolumeStorageFactory {
     fun endpoints(configFile: String = CT.ENDPOINTS.configFilePath()) = create(CT.ENDPOINTS, configFile)
     fun credentials(configFile: String = CT.CREDENTIALS.configFilePath()) = create(CT.CREDENTIALS, configFile)
     fun boards(configFile: String = CT.BOARDS.configFilePath()) = create(CT.BOARDS, configFile)
-    fun version(configFile: String = CT.VERSION.configFilePath()) = create(CT.VERSION, configFile)
     fun appConfig(configFile: String = CT.APP_CONFIG.configFilePath()) = create(CT.APP_CONFIG, configFile)
 
     private fun create(type: ConfigType, configFile: String): VolumeStorage {
