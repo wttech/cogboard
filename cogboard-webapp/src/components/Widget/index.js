@@ -53,8 +53,8 @@ const Widget = ({ id, index }) => {
     type === zabbixWidgetName
       ? defaultExpandedContent
       : type === 'TextWidget' && isVertical
-        ? false
-        : isExpandContent;
+      ? false
+      : isExpandContent;
   const widgetTypeConfig = widgetTypes[type] || widgetTypes['WhiteSpaceWidget'];
   const widgetStatus = disabled
     ? 'DISABLED'
@@ -183,12 +183,6 @@ const Widget = ({ id, index }) => {
         {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
           <WidgetHeader
             isEmptyHeader={isEmptyHeader}
-            avatar={
-              !expandContent &&
-              !disabled &&
-              type !== zabbixWidgetName &&
-              !isError && <StatusIcon status={widgetStatus} size="small" />
-            }
             title={title}
             titleTypographyProps={{
               component: 'h3',
