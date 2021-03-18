@@ -55,7 +55,7 @@ class JenkinsJobWidget(
                 ?.ifPresent { action ->
                     action.getJsonObject("lastBuiltRevision")
                             .getJsonArray("branch")
-                            ?.first().let { branch = (it as JsonObject).getString("name") }
+                            ?.last().let { branch = (it as JsonObject).getString("name") } // TODO
                 }
         return branch
                 .replaceFirst("refs/remotes/origin/", "")

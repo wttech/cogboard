@@ -2,14 +2,10 @@ import React from 'react';
 import { string, number } from 'prop-types';
 
 import { Caption, ClickableContentWrapper } from '../../styled';
-import { useSelector } from 'react-redux';
-import { getIsAuthenticated } from '../../../selectors';
 
 const BambooPlanWidget = ({ url, lifeCycleState }) => {
-  const isAuthenticated = useSelector(getIsAuthenticated);
-
   return (
-    <ClickableContentWrapper href={url} disabled={isAuthenticated}>
+    <ClickableContentWrapper href={url}>
       <Caption>State: {lifeCycleState}</Caption>
     </ClickableContentWrapper>
   );

@@ -281,7 +281,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/resources?resource=success&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,bugs,code_smells,info_violations,vulnerabilities"
+        "urlPattern": "/api/resources?resource=success&metrics=.*"
       },
       "response": {
         "status": 200,
@@ -294,7 +294,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/resources?resource=fail&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,bugs,code_smells,info_violations,vulnerabilities"
+        "urlPattern": "/api/resources?resource=fail&metrics=.*"
       },
       "response": {
         "status": 200,
@@ -307,7 +307,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/resources?resource=warning&metrics=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,bugs,code_smells,info_violations,vulnerabilities"
+        "urlPattern": "/api/resources?resource=warning&metrics=.*"
       },
       "response": {
         "status": 200,
@@ -420,9 +420,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "transformers": [
-          "response-template"
-        ],
+        "transformers": ["response-template"],
         "bodyFileName": "zabbix/cpu.json"
       }
     },

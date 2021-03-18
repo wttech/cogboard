@@ -3,17 +3,14 @@ import { number, string, object } from 'prop-types';
 
 import { capitalize } from '../../../utils/common';
 import { Caption, ClickableContentWrapper } from '../../styled';
-import { useSelector } from 'react-redux';
-import { getIsAuthenticated } from '../../../selectors';
 
 const SonarQubeWidget = props => {
   const { metrics, url, version, date } = props;
   const ts = date ? new Date(Date.parse(date)).toLocaleString() : '';
   const sortedMetricsList = Object.entries(metrics).sort();
-  const isAuthenticated = useSelector(getIsAuthenticated);
 
   return (
-    <ClickableContentWrapper href={url} disabled={isAuthenticated}>
+    <ClickableContentWrapper href={url}>
       <Caption>{ts}</Caption>
       {version === '-' ? null : <Caption>Version: {version}</Caption>}
       {sortedMetricsList.map(([metric, val]) => (

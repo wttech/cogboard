@@ -42,7 +42,7 @@ export const ClickableContentWrapper = styled(FullWidthButtonOutlined)`
   border: 0px;
   padding: 0;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   width: 100%;
   height: 100%;
   &.Mui-disabled {

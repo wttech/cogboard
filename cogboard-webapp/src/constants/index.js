@@ -41,7 +41,7 @@ export const WIDGET_COLUMNS_MIN = 0.5;
 export const WIDGET_ROWS_MIN = 0.5;
 export const WIDGET_ROWS_MAX = 4;
 
-export const WIDGET_TITLE_LENGTH_LIMIT = 25;
+export const WIDGET_TITLE_LENGTH_LIMIT = 50;
 
 export const CHECK_NEW_VERSION_DELAY = 3 * 60 * 60 * 1000; // 3h
 
