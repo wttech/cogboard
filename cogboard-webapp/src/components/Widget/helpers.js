@@ -4,7 +4,6 @@ import { StyledCardContent, StyledErrorMessage } from './styled';
 import ErrorMessage from '../ErrorMessage';
 import WidgetContent from '../WidgetContent';
 import WidgetTypeIcon from '../WidgetTypeIcon';
-import WidgetFooter from '../WidgetFooter';
 import TextWidget from '../widgets/types/TextWidget';
 import ZabbixWidget from '../widgets/types/ZabbixWidget';
 
@@ -20,18 +19,7 @@ export const dispatchEvent = (customEvent, data) => {
   }
 };
 
-const renderContent = (
-  content,
-  updateTimestamp,
-  disabled,
-  id,
-  type,
-  status,
-  expandContent,
-  expanded,
-  handleToggle,
-  closeWidgets
-) => {
+const renderContent = (content, id, type, status, expandContent, expanded) => {
   return (
     <>
       {content && content.errorMessage ? (
@@ -49,30 +37,19 @@ const renderContent = (
       ) : (
         ''
       )}
-      <WidgetFooter
-        updateTimestamp={updateTimestamp}
-        expanded={expanded}
-        handleToggle={handleToggle}
-        content={content}
-        expandContent={expandContent}
-        closeWidgets={closeWidgets}
-        id={id}
-      />
     </>
   );
 };
 
 export const renderCardContent = (
   content,
-  updateTimestamp,
   disabled,
   id,
   type,
   status,
   expandContent,
   expanded,
-  handleToggle,
-  closeWidgets
+  handleToggle
 ) => {
   if (disabled && expanded) {
     handleToggle();
@@ -87,18 +64,7 @@ export const renderCardContent = (
           </StyledErrorMessage>
         </>
       ) : (
-        renderContent(
-          content,
-          updateTimestamp,
-          disabled,
-          id,
-          type,
-          status,
-          expandContent,
-          expanded,
-          handleToggle,
-          closeWidgets
-        )
+        renderContent(content, id, type, status, expandContent, expanded)
       )}
     </StyledCardContent>
   );

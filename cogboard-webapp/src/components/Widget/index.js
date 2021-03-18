@@ -24,6 +24,7 @@ import MoreMenu from '../MoreMenu';
 import ConfirmationDialog from '../ConfirmationDialog';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
 import ZabbixChart from '../ZabbixChart';
+import WidgetFooter from '../WidgetFooter';
 
 const selectors = {
   collapse: '[class*="MuiCollapse-container"]'
@@ -222,16 +223,23 @@ const Widget = ({ id, index }) => {
         )}
         {renderCardContent(
           content,
-          widgetUpdateTimestamp,
           disabled,
           id,
           type,
           widgetStatus,
           expandContent,
           expanded,
-          handleToggle,
-          closeWidgets
+          handleToggle
         )}
+        <WidgetFooter
+          updateTimestamp={widgetUpdateTimestamp}
+          expanded={expanded}
+          handleToggle={handleToggle}
+          content={content}
+          expandContent={expandContent}
+          closeWidgets={closeWidgets}
+          id={id}
+        />
         {expandContent && (
           <StyledCollapse
             isExpanded={expanded}

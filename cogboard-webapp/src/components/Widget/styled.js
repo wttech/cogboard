@@ -155,10 +155,11 @@ export const StyledCardContent = styled(({ type, ...props }) => (
   flex: 1;
   position: relative;
   justify-content: space-between;
+  overflow-y: auto;
+  flex-basis: 100%;
   ${({ type }) =>
     (type === 'LinkListWidget' || type === 'ToDoListWidget') &&
     `
-      overflow-y: auto; 
       margin-right: 14px;
       margin-bottom: 12px;
     `};
@@ -172,6 +173,7 @@ export const StyledCardFooterWrapper = styled.div`
   align-items: flex-end;
   display: inherit;
   height: 48px;
+  padding: 8px;
 
   .MuiTypography-root {
     padding-left: 4px;
