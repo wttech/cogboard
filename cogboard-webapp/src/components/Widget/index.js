@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { string } from 'prop-types';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@material-ui/styles';
@@ -14,16 +14,14 @@ import widgetTypes from '../widgets';
 import { ItemTypes } from '../../constants';
 import { getIsAuthenticated } from '../../selectors';
 import { renderCardContent, dispatchEvent } from './helpers';
-
 import { MenuItem } from '@material-ui/core';
-import { StyledCard, StyledCollapse } from './styled';
+import { StyledCard, StyledCollapse, WidgetMenuWrapper } from './styled';
 import WidgetHeader from '../WidgetHeader';
 import WidgetContent from '../WidgetContent';
 import AppDialog from '../AppDialog';
 import EditWidget from '../EditWidget';
 import MoreMenu from '../MoreMenu';
 import ConfirmationDialog from '../ConfirmationDialog';
-import StatusIcon from '../StatusIcon';
 import { getWidgetStatus, getWidgetUpdateTime } from '../../utils/components';
 import ZabbixChart from '../ZabbixChart';
 
@@ -71,10 +69,10 @@ const Widget = ({ id, index }) => {
   const [expanded, , , handleToggle] = useToggle();
   const ref = useRef(null);
   const isAuthenticated = useSelector(getIsAuthenticated);
+  const [isHoover, setHoover] = useState(false);
   const whiteSpaceInAuthenticatedMode =
     isAuthenticated && type === 'WhiteSpaceWidget';
   const isEmptyHeader = title === '';
-  const isError = content === undefined ? false : !!content.errorMessage;
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.WIDGET, id, index },
     canDrag: isAuthenticated,
@@ -179,6 +177,8 @@ const Widget = ({ id, index }) => {
         ref={ref}
         type={type}
         expanded={expanded}
+        onMouseEnter={() => setHoover(true)}
+        onMouseLeave={() => setHoover(false)}
       >
         {(isAuthenticated || widgetStatus !== 'NONE' || title !== '') && (
           <WidgetHeader
@@ -190,26 +190,33 @@ const Widget = ({ id, index }) => {
               color: 'textPrimary'
             }}
             action={
-              <MoreMenu
-                color={whiteSpaceInAuthenticatedMode ? 'primary' : 'default'}
-              >
-                {closeMenu => [
-                  <MenuItem
-                    key={`${type}-moreMenu-editItem`}
-                    onClick={handleEditClick(closeMenu)}
-                    data-cy="widget-edit"
+              isAuthenticated &&
+              isHoover && (
+                <WidgetMenuWrapper status={widgetStatus} theme={theme}>
+                  <MoreMenu
+                    color={
+                      whiteSpaceInAuthenticatedMode ? 'primary' : 'default'
+                    }
                   >
-                    Edit
-                  </MenuItem>,
-                  <MenuItem
-                    key={`${type}-moreMenu-deleteItem`}
-                    onClick={handleDeleteClick(closeMenu)}
-                    data-cy="widget-delete"
-                  >
-                    Delete
-                  </MenuItem>
-                ]}
-              </MoreMenu>
+                    {closeMenu => [
+                      <MenuItem
+                        key={`${type}-moreMenu-editItem`}
+                        onClick={handleEditClick(closeMenu)}
+                        data-cy="widget-edit"
+                      >
+                        Edit
+                      </MenuItem>,
+                      <MenuItem
+                        key={`${type}-moreMenu-deleteItem`}
+                        onClick={handleDeleteClick(closeMenu)}
+                        data-cy="widget-delete"
+                      >
+                        Delete
+                      </MenuItem>
+                    ]}
+                  </MoreMenu>
+                </WidgetMenuWrapper>
+              )
             }
           />
         )}

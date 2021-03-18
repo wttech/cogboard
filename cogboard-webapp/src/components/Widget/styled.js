@@ -10,7 +10,9 @@ import {
   CardHeader,
   CardContent,
   Collapse,
-  Typography
+  Typography,
+  lighten,
+  darken
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -116,6 +118,7 @@ export const StyledCardHeader = styled(CardHeader)`
   .MuiCardHeader-content {
     align-self: center;
     padding-left: 6px;
+    text-align: center;
   }
 `;
 
@@ -128,6 +131,20 @@ export const StyledEmptyCardHeader = styled(props => (
   & .avatar {
     margin-right: 0;
   }
+`;
+
+export const WidgetMenuWrapper = styled(({ status, theme, ...props }) => (
+  <div {...props} />
+))`
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: ${({ status, theme }) =>
+    mapStatusToColor(status, theme) === 'transparent'
+      ? darken(COLORS.WHITE, 0.2)
+      : lighten(mapStatusToColor(status, theme), 0.2)};
 `;
 
 export const StyledCardContent = styled(({ type, ...props }) => (
@@ -155,10 +172,9 @@ export const StyledCardFooterWrapper = styled.div`
   align-items: flex-end;
   display: inherit;
   height: 48px;
-  padding-bottom: 6px;
 
   .MuiTypography-root {
-    padding-left: 8px;
+    padding-left: 4px;
   }
 `;
 

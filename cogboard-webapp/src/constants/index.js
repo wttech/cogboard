@@ -3,7 +3,7 @@ import { capitalize } from '../utils/common';
 export const COLORS = {
   TRANSPARENT: 'transparent',
   WHITE: '#fff',
-  BKGD_LIGHT: '#fffafa',
+  BKGD_LIGHT: '#fff',
   BKGD_DARK: '#1c2630',
   BLACK: '#000',
   GREEN: '#019430',
@@ -42,8 +42,6 @@ export const WIDGET_ROWS_MIN = 0.5;
 export const WIDGET_ROWS_MAX = 4;
 
 export const WIDGET_TITLE_LENGTH_LIMIT = 25;
-
-export const USER_LOGIN_LENGTH = 25;
 
 export const CHECK_NEW_VERSION_DELAY = 3 * 60 * 60 * 1000; // 3h
 

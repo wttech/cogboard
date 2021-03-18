@@ -1,19 +1,16 @@
 import React from 'react';
 import { string } from 'prop-types';
-import { Caption, WidgetButton } from '../../styled';
+import { Caption, ClickableContentWrapper } from '../../styled';
+import { useSelector } from 'react-redux';
+import { getIsAuthenticated } from '../../../selectors';
 
-const BambooDeploymentWidget = ({
-  url,
-  releaseName,
-  lifeCycleState,
-  deploymentState
-}) => {
+const BambooDeploymentWidget = ({ url, lifeCycleState, deploymentState }) => {
+  const isAuthenticated = useSelector(getIsAuthenticated);
   return (
-    <>
-      <Caption>Deployment state: {deploymentState}</Caption>
-      <Caption>Lifecycle state: {lifeCycleState}</Caption>
-      <WidgetButton href={url}>{releaseName}</WidgetButton>
-    </>
+    <ClickableContentWrapper href={url} disabled={isAuthenticated}>
+      <Caption>Deployment: {deploymentState}</Caption>
+      <Caption>Lifecycle: {lifeCycleState}</Caption>
+    </ClickableContentWrapper>
   );
 };
 
