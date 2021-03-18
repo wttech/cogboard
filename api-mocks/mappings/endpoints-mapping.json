@@ -281,7 +281,7 @@
     {
       "request": {
         "method": "GET",
-        "urlPattern": "/api/resources?resource=success&metrics=.*"
+        "urlPattern": "\/api\/resources(.)resource=success&metrics=alert_status(.*)"
       },
       "response": {
         "status": 200,
@@ -294,7 +294,7 @@
     {
       "request": {
         "method": "GET",
-        "urlPattern": "/api/resources?resource=fail&metrics=.*"
+        "urlPattern": "\/api\/resources(.)resource=fail&metrics=alert_status(.*)"
       },
       "response": {
         "status": 200,
@@ -307,7 +307,7 @@
     {
       "request": {
         "method": "GET",
-        "urlPattern": "/api/resources?resource=warning&metrics=.*"
+        "urlPattern": "\/api\/resources(.)resource=warning&metrics=alert_status(.*)"
       },
       "response": {
         "status": 200,
@@ -320,7 +320,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/measures/component?component=success&metricKeys=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,bugs,code_smells,info_violations,vulnerabilities"
+        "urlPattern": "\/api\/measures\/component(.)component=success&metricKeys=alert_status(.*)"
       },
       "response": {
         "status": 200,
@@ -333,7 +333,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/measures/component?component=fail&metricKeys=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,bugs,code_smells,info_violations,vulnerabilities"
+        "urlPattern": "\/api\/measures\/component(.)component=fail&metricKeys=alert_status(.*)"
       },
       "response": {
         "status": 200,
@@ -346,7 +346,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/api/measures/component?component=warning&metricKeys=alert_status,blocker_violations,critical_violations,major_violations,minor_violations,bugs,code_smells,info_violations,vulnerabilities"
+        "urlPattern": "\/api\/measures\/component(.)component=warning&metricKeys=alert_status(.*)"
       },
       "response": {
         "status": 200,
