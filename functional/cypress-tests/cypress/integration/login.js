@@ -33,7 +33,11 @@ describe('Login', () => {
       .click();
     cy.fillNewWidgetGeneral();
     cy.confirmAddWidget();
-    cy.get('[data-cy="more-menu-button"]').should('be.visible');
+    cy.get('.MuiContainer-root .MuiPaper-root')
+      .first()
+      .trigger('mouseover')
+      .find('[data-cy="more-menu-button"]')
+      .should('be.visible');
   });
   it('Dashboard edit options are enabled', () => {
     cy.login();

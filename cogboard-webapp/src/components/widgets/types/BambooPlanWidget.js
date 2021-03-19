@@ -3,10 +3,11 @@ import { string, number } from 'prop-types';
 
 import { Caption, ClickableContentWrapper } from '../../styled';
 
-const BambooPlanWidget = ({ url, lifeCycleState }) => {
+const BambooPlanWidget = ({ url, number, lifeCycleState }) => {
   return (
     <ClickableContentWrapper href={url}>
       <Caption>State: {lifeCycleState}</Caption>
+      <Caption>#{number}</Caption>
     </ClickableContentWrapper>
   );
 };

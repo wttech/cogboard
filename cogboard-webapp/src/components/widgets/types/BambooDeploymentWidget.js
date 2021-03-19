@@ -2,11 +2,17 @@ import React from 'react';
 import { string } from 'prop-types';
 import { Caption, ClickableContentWrapper } from '../../styled';
 
-const BambooDeploymentWidget = ({ url, lifeCycleState, deploymentState }) => {
+const BambooDeploymentWidget = ({
+  url,
+  releaseName,
+  lifeCycleState,
+  deploymentState
+}) => {
   return (
     <ClickableContentWrapper href={url}>
       <Caption>Deployment: {deploymentState}</Caption>
       <Caption>Lifecycle: {lifeCycleState}</Caption>
+      <Caption>{releaseName}</Caption>
     </ClickableContentWrapper>
   );
 };
