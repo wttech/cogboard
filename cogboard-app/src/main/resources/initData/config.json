@@ -2,7 +2,7 @@
   "boards": {
     "boardsById": {
       "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d": {
-        "autoSwitch": true,
+        "autoSwitch": false,
         "switchInterval": 360,
         "id": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
         "theme": "default",
@@ -29,18 +29,8 @@
         "title": "TestBoard 1",
         "type": "WidgetBoard"
       },
-      "board-2071ba48-b7ba-4c7f-8388-01ed52607663": {
-        "autoSwitch": false,
-        "switchInterval": 60,
-        "id": "board-2071ba48-b7ba-4c7f-8388-01ed52607663",
-        "theme": "default",
-        "widgets": [],
-        "iframeUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d823.6707468405119!2d16.935631830826523!3d52.427753096736616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47045b5777dae895%3A0x39f4791d8050d8d8!2sCognifide%20Polska!5e0!3m2!1spl!2spl!4v1601457746665!5m2!1spl!2spl",
-        "type": "IframeBoard",
-        "title": "iFrame Board"
-      },
       "board-088f1c6d-73a6-4c64-be41-9ce5e8329660": {
-        "autoSwitch": true,
+        "autoSwitch": false,
         "switchInterval": 360,
         "id": "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
         "theme": "default",
@@ -57,8 +47,8 @@
           "widget41",
           "widget42",
           "widget43",
-          "widget44",
           "widget45",
+          "widget44",
           "widget46",
           "widget47",
           "widget48"
@@ -66,15 +56,185 @@
         "columns": 8,
         "title": "TestBoard 2",
         "type": "WidgetBoard"
+      },
+      "board-b93ed3ae-698c-43d3-be8c-06331560e65a": {
+        "autoSwitch": true,
+        "switchInterval": 15,
+        "id": "board-b93ed3ae-698c-43d3-be8c-06331560e65a",
+        "theme": "default",
+        "widgets": [],
+        "iframeUrl": "http://192.168.35.54:3000/d/d0xeYuUik/fnd-integration?orgId=l&from=now-3h&to=now",
+        "type": "IframeBoard",
+        "title": "Grafana"
+      },
+      "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1": {
+        "autoSwitch": false,
+        "switchInterval": 60,
+        "id": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "theme": "default",
+        "widgets": [
+          "widget49",
+          "widget50",
+          "widget51",
+          "widget52",
+          "widget53",
+          "widget54",
+          "widget55",
+          "widget56",
+          "widget58",
+          "widget59"
+        ],
+        "columns": 8,
+        "title": "TPM board",
+        "type": "WidgetBoard"
+      },
+      "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394": {
+        "autoSwitch": true,
+        "switchInterval": 100,
+        "id": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "theme": "default",
+        "widgets": [
+          "widget61",
+          "widget62",
+          "widget63",
+          "widget64",
+          "widget65",
+          "widget71",
+          "widget70",
+          "widget67",
+          "widget68",
+          "widget66",
+          "widget69",
+          "widget72"
+        ],
+        "columns": 8,
+        "title": "SE board",
+        "type": "WidgetBoard"
+      },
+      "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b": {
+        "id": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "theme": "default",
+        "widgets": [
+          "widget81",
+          "widget78",
+          "widget92",
+          "widget79",
+          "widget80",
+          "widget73",
+          "widget75",
+          "widget82",
+          "widget77",
+          "widget83",
+          "widget84",
+          "widget86",
+          "widget85",
+          "widget76",
+          "widget87",
+          "widget88",
+          "widget91",
+          "widget89",
+          "widget90",
+          "widget93",
+          "widget94",
+          "widget74"
+        ],
+        "autoSwitch": true,
+        "columns": 8,
+        "switchInterval": 100,
+        "title": "QA/DEV board",
+        "type": "WidgetBoard"
       }
     },
     "allBoards": [
+      "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+      "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+      "board-b93ed3ae-698c-43d3-be8c-06331560e65a",
+      "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
       "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
-      "board-088f1c6d-73a6-4c64-be41-9ce5e8329660",
-      "board-2071ba48-b7ba-4c7f-8388-01ed52607663"
+      "board-088f1c6d-73a6-4c64-be41-9ce5e8329660"
     ]
   },
   "widgets": {
+    "allWidgets": [
+      "widget9",
+      "widget10",
+      "widget11",
+      "widget12",
+      "widget13",
+      "widget14",
+      "widget15",
+      "widget16",
+      "widget17",
+      "widget18",
+      "widget19",
+      "widget20",
+      "widget21",
+      "widget22",
+      "widget23",
+      "widget24",
+      "widget25",
+      "widget26",
+      "widget27",
+      "widget29",
+      "widget31",
+      "widget33",
+      "widget35",
+      "widget36",
+      "widget38",
+      "widget40",
+      "widget41",
+      "widget42",
+      "widget43",
+      "widget44",
+      "widget45",
+      "widget46",
+      "widget47",
+      "widget48",
+      "widget49",
+      "widget50",
+      "widget51",
+      "widget52",
+      "widget53",
+      "widget54",
+      "widget55",
+      "widget56",
+      "widget58",
+      "widget59",
+      "widget61",
+      "widget62",
+      "widget63",
+      "widget64",
+      "widget65",
+      "widget66",
+      "widget67",
+      "widget68",
+      "widget69",
+      "widget70",
+      "widget71",
+      "widget72",
+      "widget73",
+      "widget74",
+      "widget75",
+      "widget76",
+      "widget77",
+      "widget78",
+      "widget79",
+      "widget80",
+      "widget81",
+      "widget82",
+      "widget83",
+      "widget84",
+      "widget85",
+      "widget86",
+      "widget87",
+      "widget88",
+      "widget89",
+      "widget90",
+      "widget91",
+      "widget92",
+      "widget93",
+      "widget94"
+    ],
     "widgetsById": {
       "widget9": {
         "id": "widget9",
@@ -391,7 +551,8 @@
         "body": "",
         "expectedResponseBody": "",
         "expectedStatusCode": 200,
-        "expandContent": false
+        "expandContent": false,
+        "contentType": "text/html"
       },
       "widget24": {
         "id": "widget24",
@@ -547,7 +708,8 @@
         "expectedResponseBody": "Expected string",
         "expectedStatusCode": 200,
         "expandContent": false,
-        "endpoint": "endpoint1"
+        "endpoint": "endpoint1",
+        "contentType": "application/json"
       },
       "widget35": {
         "id": "widget35",
@@ -572,12 +734,12 @@
             "itemText": "B"
           },
           {
-            "id": "item-dc18ed6b-fce7-439a-ab07-cd532fe92597",
-            "itemText": "C"
-          },
-          {
             "id": "item-92e6d0c6-42c8-46f3-acd2-48b09ba15384",
             "itemText": "D"
+          },
+          {
+            "id": "item-7fe9c934-141f-4d06-a02d-2544bacd3210",
+            "itemText": "C"
           }
         ]
       },
@@ -608,7 +770,7 @@
           {
             "id": "5523593e-c49e-49aa-93ba-0493e4b1538b",
             "linkTitle": "CogBoard",
-            "linkUrl": "https://github.com/wttech/cogboard"
+            "linkUrl": "https://github.com/Cognifide/cogboard"
           }
         ]
       },
@@ -659,10 +821,7 @@
         "host": "",
         "selectedZabbixMetric": "system.cpu.util[,idle]",
         "maxValue": 0,
-        "range": [
-          60,
-          80
-        ]
+        "range": [60, 80]
       },
       "widget41": {
         "id": "widget41",
@@ -682,16 +841,13 @@
         "host": "",
         "selectedZabbixMetric": "system.uptime",
         "maxValue": 0,
-        "range": [
-          20,
-          60
-        ]
+        "range": [20, 60]
       },
       "widget42": {
         "id": "widget42",
         "title": "Zabbix",
         "config": {
-          "columns": 1,
+          "columns": 2,
           "goNewLine": false,
           "rows": 1
         },
@@ -705,16 +861,13 @@
         "host": "",
         "selectedZabbixMetric": "system.users.num",
         "maxValue": 0,
-        "range": [
-          20,
-          60
-        ]
+        "range": [20, 60]
       },
       "widget43": {
         "id": "widget43",
         "title": "Zabbix",
         "config": {
-          "columns": 1,
+          "columns": 2,
           "goNewLine": false,
           "rows": 1
         },
@@ -728,10 +881,7 @@
         "host": "",
         "selectedZabbixMetric": "system.swap.size[,used]",
         "maxValue": 10,
-        "range": [
-          60,
-          80
-        ]
+        "range": [60, 80]
       },
       "widget44": {
         "id": "widget44",
@@ -751,10 +901,7 @@
         "host": "",
         "selectedZabbixMetric": "proc.num[]",
         "maxValue": 0,
-        "range": [
-          20,
-          60
-        ]
+        "range": [20, 60]
       },
       "widget45": {
         "id": "widget45",
@@ -774,10 +921,7 @@
         "host": "",
         "selectedZabbixMetric": "vm.memory.size[available]",
         "maxValue": 100,
-        "range": [
-          60,
-          80
-        ]
+        "range": [60, 80]
       },
       "widget46": {
         "id": "widget46",
@@ -797,10 +941,7 @@
         "host": "",
         "selectedZabbixMetric": "vfs.fs.size[/,used]",
         "maxValue": 10,
-        "range": [
-          60,
-          80
-        ]
+        "range": [60, 80]
       },
       "widget47": {
         "id": "widget47",
@@ -820,10 +961,7 @@
         "host": "",
         "selectedZabbixMetric": "jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]",
         "maxValue": 10,
-        "range": [
-          60,
-          80
-        ]
+        "range": [60, 80]
       },
       "widget48": {
         "id": "widget48",
@@ -857,43 +995,1030 @@
             "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20Resolved"
           }
         ]
+      },
+      "widget49": {
+        "id": "widget49",
+        "title": "",
+        "config": {
+          "columns": 4,
+          "goNewLine": false,
+          "rows": 0.5
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "text": "TPM BOARD",
+        "textSize": "h4",
+        "isVertical": false,
+        "expandContent": false
+      },
+      "widget50": {
+        "id": "widget50",
+        "title": "PL",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 0.5
+        },
+        "type": "WorldClockWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "timeZoneId": "Europe/Warsaw",
+        "displayDate": true,
+        "dateFormat": "dddd, DD/MM/YYYY",
+        "displayTime": true,
+        "timeFormat": "HH:mm:ss",
+        "textSize": "subtitle2"
+      },
+      "widget51": {
+        "id": "widget51",
+        "title": "USA - LA",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 0.5
+        },
+        "type": "WorldClockWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "timeZoneId": "Etc/GMT+8",
+        "displayDate": false,
+        "dateFormat": "dddd, DD/MM/YYYY",
+        "displayTime": true,
+        "timeFormat": "h:mm:ss a",
+        "textSize": "subtitle1"
+      },
+      "widget52": {
+        "id": "widget52",
+        "title": "Jira Buckers",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 2
+        },
+        "type": "JiraBucketsWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "bucketQueries": [
+          {
+            "id": "ecb597bf-f092-444f-bdbb-6b8b4f2a9f4f",
+            "bucketName": "New",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20New"
+          },
+          {
+            "id": "2373d727-90a4-4969-a02c-73b22a7665b3",
+            "bucketName": "Blocked",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20New"
+          },
+          {
+            "id": "5fd0a58a-7b1f-45d4-819d-bf754425bbb2",
+            "bucketName": "In Progress",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20in%20(%22In%20Progress%22%2C%20%22Code%20Review%22)"
+          },
+          {
+            "id": "ffc4fe9f-bc67-420c-9155-7dd35b82d7b2",
+            "bucketName": "Code Review",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20New"
+          },
+          {
+            "id": "c550cf7a-ffdc-4815-82f7-e206f3ad7d43",
+            "bucketName": "In Tests",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20in%20(%22In%20Progress%22%2C%20%22Code%20Review%22)"
+          },
+          {
+            "id": "1e592d75-318f-465c-b858-e0b52d03a4a4",
+            "bucketName": "Done",
+            "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20Resolved"
+          }
+        ]
+      },
+      "widget53": {
+        "id": "widget53",
+        "title": "Project links",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 2
+        },
+        "type": "LinkListWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "linkListItems": [
+          {
+            "id": "f69b5cdd-0aeb-47a0-91b5-0f9dbbad1cd7",
+            "linkTitle": "Confluence",
+            "linkUrl": "https://confluence.cognifide.com/"
+          },
+          {
+            "id": "3734ae6d-f347-4cb1-a15e-2fda3cbab766",
+            "linkTitle": "Bitbucket",
+            "linkUrl": "https://bitbucket.cognifide.com/"
+          },
+          {
+            "id": "125c10dc-0132-4d96-9df4-0ce0e19eeed1",
+            "linkTitle": "Jira",
+            "linkUrl": "https://jira.cognifide.com/"
+          },
+          {
+            "id": "6b643319-d589-4ecd-88a6-58366c79ec9c",
+            "linkTitle": "Jenkins",
+            "linkUrl": "https://jenkins.cognifide.com/"
+          },
+          {
+            "id": "e10fcd41-2f1f-4b23-bce9-ac2823e81eb9",
+            "linkTitle": "Planning Poker",
+            "linkUrl": "https://www.pointingpoker.com/"
+          },
+          {
+            "id": "5939b4a7-eb8e-49d1-b091-42bc1c6a3050",
+            "linkTitle": "Retro Board",
+            "linkUrl": "https://www.retrospected.com/"
+          },
+          {
+            "id": "ea35b27e-42ae-4eb9-ae2a-bf56ded9e1c5",
+            "linkTitle": "Miro Board",
+            "linkUrl": "https://miro.com/app/dashboard/"
+          },
+          {
+            "id": "b8269e65-7c82-480a-b527-cdd6b6dbd3ff",
+            "linkTitle": "Newcommers",
+            "linkUrl": "https://www.google.com/"
+          }
+        ]
+      },
+      "widget54": {
+        "id": "widget54",
+        "title": "ToDo List",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ToDoListWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "toDoListItems": [
+          {
+            "id": "item-9ea6d067-d91c-467c-a92a-457acf82395c",
+            "itemText": "Demo - 11.01.2021"
+          },
+          {
+            "id": "item-d651a11d-fff1-4052-9421-62938ffdb823",
+            "itemText": "UAT - 12.01.2021 - 22.01.2021"
+          },
+          {
+            "id": "item-68315fb7-9079-47ba-b55f-0dae99972c5b",
+            "itemText": "Fixes- 25.01.2021 - 05.02.2021"
+          },
+          {
+            "id": "item-c6bef502-d24b-4db6-aead-76a38c7c867d",
+            "itemText": "Release  ver 0.23 - 08.02.2021"
+          },
+          {
+            "id": "item-dff609eb-2218-4f49-b708-1cc0ed786d37",
+            "itemText": "Handover - 08.02.2021 - 10.02.2021"
+          }
+        ]
+      },
+      "widget55": {
+        "id": "widget55",
+        "title": "Will conduct next retro:",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "RandomPickerWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "randomizeCheckbox": true,
+        "randomPickerDailySwitch": false,
+        "randomPickerInterval": 20160,
+        "multiTextInput": [
+          "Adam",
+          "Barbara",
+          "Czesław",
+          "Dominika",
+          "Ernest",
+          "Franciszka",
+          "Gustaw",
+          "Honorata"
+        ]
+      },
+      "widget56": {
+        "id": "widget56",
+        "title": "For newcommers",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "text": "Mauris vehicula ultricies mi a ultrices. \nPhasellus tristique tristique tristique. Duis ac\n molestie mauris, non hendrerit erat. Nam \neget est et metus elementum imperdiet. \nPhasellus congue, ipsum nec lacinia \nelementum, diam sem tincidunt purus, non \npharetra sapien velit ac nunc. Phasellus sed \norci malesuada, consectetur metus in, \nblandit nisl. Vivamus nec lorem at nisl \nmolestie porta. Vestibulum sed metus \nvenenatis ipsum ultrices bibendum. Donec \nplacerat eleifend lectus sit amet finibus. \nNunc a scelerisque elit, sit amet fringilla \naugue. Sed ullamcorper scelerisque \nhendrerit. Aenean mollis volutpat interdum. \nDuis cursus malesuada ante, quis tristique \nelit pretium vestibulum. Maecenas \nfermentum aliquet mauris, a faucibus ligula\n suscipit eu. Suspendisse ut augue ac erat \nefficitur consequat.\n",
+        "textSize": "subtitle2",
+        "isVertical": false,
+        "expandContent": true
+      },
+      "widget58": {
+        "id": "widget58",
+        "title": "Other info",
+        "config": {
+          "columns": 3,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "expandContent": false,
+        "isVertical": false,
+        "textSize": "subtitle1",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, ante vitae consectetur\n semper, justo ligula pretium odio, sit amet ultrices turpis nulla vel magna.\n Nullam \nrisus sapien, interdum quis pretium quis, luctus ac magna. Etiam consequat imperdiet egestas.\n Curabitur lacus neque, mattis et diam a, pharetra porttitor arcu."
+      },
+      "widget59": {
+        "id": "widget59",
+        "title": "",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "IframeEmbedWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
+        "iframeUrl": "https://www.youtube.com/embed/nGjZMkS0igc"
+      },
+      "widget61": {
+        "id": "widget61",
+        "title": "Prod",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 30,
+        "host": "",
+        "selectedZabbixMetric": "system.cpu.util[,idle]",
+        "maxValue": 0,
+        "range": [60, 80]
+      },
+      "widget62": {
+        "id": "widget62",
+        "title": "Prod",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 30,
+        "host": "",
+        "selectedZabbixMetric": "vm.memory.size[available]",
+        "maxValue": 100,
+        "range": [60, 80]
+      },
+      "widget63": {
+        "id": "widget63",
+        "title": "Prod",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 30,
+        "host": "",
+        "selectedZabbixMetric": "jmx[\\\"java.lang:type=Memory\\\",\\\"HeapMemoryUsage.used\\\"]",
+        "maxValue": 10,
+        "range": [60, 80]
+      },
+      "widget64": {
+        "id": "widget64",
+        "title": "Prod",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 30,
+        "host": "",
+        "selectedZabbixMetric": "vfs.fs.size[/,used]",
+        "maxValue": 10,
+        "range": [60, 80]
+      },
+      "widget65": {
+        "id": "widget65",
+        "title": "Prod",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 30,
+        "host": "",
+        "selectedZabbixMetric": "system.swap.size[,used]",
+        "maxValue": 10,
+        "range": [60, 80]
+      },
+      "widget66": {
+        "id": "widget66",
+        "title": "Prod",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "system.users.num",
+        "maxValue": 0,
+        "range": [60, 80]
+      },
+      "widget67": {
+        "id": "widget67",
+        "title": "Prod",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "proc.num[]",
+        "maxValue": 0,
+        "range": [60, 80]
+      },
+      "widget68": {
+        "id": "widget68",
+        "title": "Prod",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ZabbixWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint3",
+        "schedulePeriod": 10,
+        "host": "",
+        "selectedZabbixMetric": "system.uptime",
+        "maxValue": 0,
+        "range": [60, 80]
+      },
+      "widget69": {
+        "id": "widget69",
+        "title": "Prod - bundle info",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemBundleInfoWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "resolvedThreshold": 2,
+        "installedThreshold": 2,
+        "excludedBundles": "",
+        "expandContent": false
+      },
+      "widget70": {
+        "id": "widget70",
+        "title": "Publish Healthchecks",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 2
+        },
+        "type": "AemHealthcheckWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "selectedHealthChecks": [
+          "slingJobs",
+          "systemchecks",
+          "inactiveBundles",
+          "asyncIndexHealthCheck",
+          "codeCacheHealthCheck",
+          "logErrorHealthCheck",
+          "ObservationQueueLengthHealthCheck",
+          "resourceSearchPathErrorHealthCheck",
+          "queriesStatus",
+          "requestsStatus",
+          "securitychecks",
+          "queryTraversalLimitsBundle",
+          "slingDiscoveryOakSynchronizedClocks"
+        ],
+        "expandContent": false
+      },
+      "widget71": {
+        "id": "widget71",
+        "title": "Jenkins status",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ServiceCheckWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "schedulePeriod": 20,
+        "requestMethod": "get",
+        "contentType": "application/json",
+        "endpoint": "",
+        "path": "https://jenkins.cognifide.com/",
+        "body": "",
+        "expectedResponseBody": "",
+        "expectedStatusCode": 403,
+        "expandContent": false
+      },
+      "widget72": {
+        "id": "widget72",
+        "title": "Author Healthchecks",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemHealthcheckWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "selectedHealthChecks": [
+          "slingJobs",
+          "systemchecks",
+          "inactiveBundles",
+          "DiskSpaceHealthCheck",
+          "asyncIndexHealthCheck",
+          "codeCacheHealthCheck",
+          "logErrorHealthCheck",
+          "ObservationQueueLengthHealthCheck",
+          "resourceSearchPathErrorHealthCheck",
+          "requestsStatus",
+          "queriesStatus",
+          "queryTraversalLimitsBundle",
+          "securitychecks",
+          "slingDiscoveryOakSynchronizedClocks"
+        ],
+        "expandContent": true
+      },
+      "widget73": {
+        "id": "widget73",
+        "title": "API Test",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "ServiceCheckWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "schedulePeriod": 60,
+        "requestMethod": "post",
+        "contentType": "application/json",
+        "endpoint": "endpoint1",
+        "path": "/service-check/post.json",
+        "body": "{ \"name\": \"cogboard-automation\" }",
+        "expectedResponseBody": "Expected string",
+        "expectedStatusCode": 200,
+        "expandContent": false
+      },
+      "widget74": {
+        "id": "widget74",
+        "title": "Sanity tests",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "CheckboxWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "withWidgetContentUpdate": true
+      },
+      "widget75": {
+        "id": "widget75",
+        "title": "ToDo",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 2
+        },
+        "type": "ToDoListWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "toDoListItems": [
+          {
+            "id": "item-aac885ae-0604-4f7c-b967-56ad57181dfc",
+            "itemText": "Security scans"
+          },
+          {
+            "id": "item-4181fc6d-9834-4aff-84bc-8b3d2ca21c00",
+            "itemText": "Penetrations tests"
+          },
+          {
+            "id": "item-9ef1ce7e-1b7e-4bf1-a485-3bdbf4948ecd",
+            "itemText": "Client side performance"
+          },
+          {
+            "id": "item-e41b1f30-35d1-4e31-9ad5-7fa2053891ee",
+            "itemText": "Server-side performance"
+          },
+          {
+            "id": "item-5d1706e0-d5ad-4d0d-95bf-b1d0ce539d71",
+            "itemText": "Weekly accessibility check"
+          },
+          {
+            "id": "item-f475ffd3-21dc-44b7-82dd-5c9cc328b7e6",
+            "itemText": "Preparations for release"
+          }
+        ]
+      },
+      "widget76": {
+        "id": "widget76",
+        "title": "Release master",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "RandomPickerWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "randomizeCheckbox": true,
+        "randomPickerDailySwitch": true,
+        "randomPickerInterval": 120,
+        "multiTextInput": [
+          "Albert",
+          "Barbara",
+          "Cezary",
+          "Dominika",
+          "Edward",
+          "Filipina",
+          "Gustaw",
+          "Hanna"
+        ]
+      },
+      "widget77": {
+        "id": "widget77",
+        "title": "Sonarqube",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "SonarQubeWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "sonarQubeVersion": "7.x",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 120,
+        "keyString": "fail",
+        "idNumber": 0,
+        "selectedMetrics": [
+          "blocker_violations",
+          "critical_violations",
+          "major_violations",
+          "minor_violations",
+          "bugs",
+          "code_smells",
+          "info_violations",
+          "vulnerabilities"
+        ],
+        "expandContent": true
+      },
+      "widget78": {
+        "id": "widget78",
+        "title": "Deploy",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "path": "/job/CogBoard/job/success",
+        "expandContent": false
+      },
+      "widget79": {
+        "id": "widget79",
+        "title": "AET",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "path": "/job/CogBoard/job/fail",
+        "expandContent": true
+      },
+      "widget80": {
+        "id": "widget80",
+        "title": "Protractor",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "path": "/job/CogBoard/job/in-progress",
+        "expandContent": true
+      },
+      "widget81": {
+        "id": "widget81",
+        "title": "",
+        "config": {
+          "columns": 0.5,
+          "goNewLine": false,
+          "rows": 2
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "text": "Dev",
+        "textSize": "h6",
+        "isVertical": true,
+        "expandContent": false
+      },
+      "widget82": {
+        "id": "widget82",
+        "title": "Missconfig",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "",
+        "schedulePeriod": 60,
+        "path": "",
+        "expandContent": false
+      },
+      "widget83": {
+        "id": "widget83",
+        "title": "Bundle Author",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemBundleInfoWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "resolvedThreshold": 2,
+        "installedThreshold": 2,
+        "excludedBundles": "",
+        "expandContent": false
+      },
+      "widget84": {
+        "id": "widget84",
+        "title": "Bundle Publish",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemBundleInfoWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "resolvedThreshold": 2,
+        "installedThreshold": 2,
+        "excludedBundles": "",
+        "expandContent": true
+      },
+      "widget85": {
+        "id": "widget85",
+        "title": "Healthcheck author",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemHealthcheckWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "selectedHealthChecks": [
+          "slingJobs",
+          "systemchecks",
+          "inactiveBundles",
+          "DiskSpaceHealthCheck",
+          "asyncIndexHealthCheck",
+          "codeCacheHealthCheck",
+          "logErrorHealthCheck",
+          "ObservationQueueLengthHealthCheck",
+          "resourceSearchPathErrorHealthCheck",
+          "requestsStatus",
+          "queriesStatus",
+          "queryTraversalLimitsBundle",
+          "securitychecks",
+          "slingDiscoveryOakSynchronizedClocks"
+        ],
+        "expandContent": true
+      },
+      "widget86": {
+        "id": "widget86",
+        "title": "Healthcheck publish",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemHealthcheckWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "selectedHealthChecks": [
+          "slingJobs",
+          "systemchecks",
+          "inactiveBundles",
+          "DiskSpaceHealthCheck",
+          "asyncIndexHealthCheck",
+          "codeCacheHealthCheck",
+          "logErrorHealthCheck",
+          "ObservationQueueLengthHealthCheck",
+          "resourceSearchPathErrorHealthCheck",
+          "requestsStatus",
+          "queryTraversalLimitsBundle",
+          "queriesStatus",
+          "securitychecks",
+          "slingDiscoveryOakSynchronizedClocks"
+        ],
+        "expandContent": true
+      },
+      "widget87": {
+        "id": "widget87",
+        "title": "",
+        "config": {
+          "columns": 0.5,
+          "goNewLine": true,
+          "rows": 1
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "text": "Stg",
+        "textSize": "h6",
+        "isVertical": true,
+        "expandContent": false
+      },
+      "widget88": {
+        "id": "widget88",
+        "title": "Deploy",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "path": "/job/CogBoard/job/success",
+        "expandContent": true
+      },
+      "widget89": {
+        "id": "widget89",
+        "title": "AET",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "path": "/job/CogBoard/job/success",
+        "expandContent": true
+      },
+      "widget90": {
+        "id": "widget90",
+        "title": "Protractor",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "path": "/job/CogBoard/job/success",
+        "expandContent": true
+      },
+      "widget91": {
+        "id": "widget91",
+        "title": "Clear cache",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "path": "/job/CogBoard/job/success",
+        "expandContent": true
+      },
+      "widget92": {
+        "id": "widget92",
+        "title": "Clear cache",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "JenkinsJobWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "path": "/job/CogBoard/job/success",
+        "expandContent": true
+      },
+      "widget93": {
+        "id": "widget93",
+        "title": "Bundle Author",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemBundleInfoWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "resolvedThreshold": 2,
+        "installedThreshold": 2,
+        "excludedBundles": "",
+        "expandContent": false
+      },
+      "widget94": {
+        "id": "widget94",
+        "title": "Bundle Publish",
+        "config": {
+          "columns": 1,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "AemBundleInfoWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint1",
+        "schedulePeriod": 60,
+        "resolvedThreshold": 2,
+        "installedThreshold": 2,
+        "excludedBundles": "",
+        "expandContent": false
       }
-    },
-    "allWidgets": [
-      "widget9",
-      "widget10",
-      "widget11",
-      "widget12",
-      "widget13",
-      "widget14",
-      "widget15",
-      "widget16",
-      "widget17",
-      "widget18",
-      "widget19",
-      "widget20",
-      "widget21",
-      "widget22",
-      "widget23",
-      "widget24",
-      "widget25",
-      "widget26",
-      "widget27",
-      "widget29",
-      "widget31",
-      "widget33",
-      "widget35",
-      "widget36",
-      "widget38",
-      "widget40",
-      "widget41",
-      "widget42",
-      "widget43",
-      "widget44",
-      "widget45",
-      "widget46",
-      "widget47",
-      "widget48"
-    ]
+    }
   }
 }

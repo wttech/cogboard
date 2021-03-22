@@ -4,8 +4,10 @@ import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
+import com.cognifide.cogboard.widget.makeUrlPublic
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
+import kotlin.streams.toList
 import com.cognifide.cogboard.CogboardConstants as CC
 
 class JenkinsJobWidget(
@@ -35,28 +37,23 @@ class JenkinsJobWidget(
         else Widget.Status.from(lastBuild.getString("result", ""))
 
         lastBuild.put("branch", extractBranchInfo(lastBuild))
-            .put(CC.PROP_URL, makePublic(lastBuild.getString(CC.PROP_URL, "")))
+            .put(CC.PROP_URL, lastBuild.getString(CC.PROP_URL, "").makeUrlPublic(publicUrl))
             .put(CC.PROP_WIDGET_STATUS, status)
 
         send(lastBuild)
     }
 
-    private fun makePublic(privateUrl: String): String {
-        return privateUrl.replace(url, publicUrl)
-    }
-
     private fun extractBranchInfo(data: JsonObject): String {
-        var branch = "unknown"
-        data.getJsonArray("actions")
-                ?.stream()
-                ?.map { it as JsonObject }
-                ?.filter { it.containsKey("lastBuiltRevision") }
-                ?.findFirst()
-                ?.ifPresent { action ->
-                    action.getJsonObject("lastBuiltRevision")
-                            .getJsonArray("branch")
-                            ?.first().let { branch = (it as JsonObject).getString("name") }
-                }
+        var branch: String
+        (data.getJsonArray("actions")
+            ?.stream()
+            ?.map { it as JsonObject }
+            ?.filter { it.containsKey("lastBuiltRevision") }
+            ?.toList()
+            ?.last() as JsonObject)
+            .getJsonObject("lastBuiltRevision")
+            ?.getJsonArray("branch")
+            ?.first().let { branch = (it as JsonObject).getString("name") }
         return branch
                 .replaceFirst("refs/remotes/origin/", "")
                 .replaceFirst("refs/", "")

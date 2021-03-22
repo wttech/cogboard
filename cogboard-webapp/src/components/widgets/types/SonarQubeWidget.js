@@ -2,7 +2,7 @@ import React from 'react';
 import { number, string, object } from 'prop-types';
 
 import { capitalize } from '../../../utils/common';
-import { Caption, WidgetButton } from '../../styled';
+import { Caption, ClickableContentWrapper } from '../../styled';
 
 const SonarQubeWidget = props => {
   const { metrics, url, version, date } = props;
@@ -10,7 +10,7 @@ const SonarQubeWidget = props => {
   const sortedMetricsList = Object.entries(metrics).sort();
 
   return (
-    <>
+    <ClickableContentWrapper href={url}>
       <Caption>{ts}</Caption>
       {version === '-' ? null : <Caption>Version: {version}</Caption>}
       {sortedMetricsList.map(([metric, val]) => (
@@ -18,8 +18,7 @@ const SonarQubeWidget = props => {
           {capitalize(metric.replace('_', ' '))}: {val}
         </Caption>
       ))}
-      <WidgetButton href={url}>OPEN DASHBOARD</WidgetButton>
-    </>
+    </ClickableContentWrapper>
   );
 };
 

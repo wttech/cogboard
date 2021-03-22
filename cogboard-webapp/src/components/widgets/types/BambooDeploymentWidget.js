@@ -1,6 +1,6 @@
 import React from 'react';
 import { string } from 'prop-types';
-import { Caption, WidgetButton } from '../../styled';
+import { Caption, ClickableContentWrapper } from '../../styled';
 
 const BambooDeploymentWidget = ({
   url,
@@ -9,11 +9,11 @@ const BambooDeploymentWidget = ({
   deploymentState
 }) => {
   return (
-    <>
-      <Caption>Deployment state: {deploymentState}</Caption>
-      <Caption>Lifecycle state: {lifeCycleState}</Caption>
-      <WidgetButton href={url}>{releaseName}</WidgetButton>
-    </>
+    <ClickableContentWrapper href={url}>
+      <Caption>Deployment: {deploymentState}</Caption>
+      <Caption>Lifecycle: {lifeCycleState}</Caption>
+      <Caption>{releaseName}</Caption>
+    </ClickableContentWrapper>
   );
 };
 

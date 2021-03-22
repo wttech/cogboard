@@ -14,25 +14,23 @@ export function validateAemHealthcheck(widget) {
 
   for (let i = 0; i < healthcheckKeys.length; i++) {
     const label = Widgets.aemHealthcheck.healthChecks[healthcheckKeys[i]].label;
-    widget.assertText('p', label);
+    widget.assertText('p', label, 'to.exist');
   }
 }
 
 export function validateBambooDeployment(widget) {
   widget
     .assertBackground('rgb(25, 140, 189)')
-    .assertText('p', /^Deployment state: IN_PROGRESS/)
-    .assertText('p', /^Lifecycle state: IN_PROGRESS/)
-    .assertText('span', '3.1.43-SNAPSHOT (129)')
-    .assertText('p', /^Deployment state: IN_PROGRESS/)
-    .progressVisible();
+    .assertText('p', /^Deployment: IN_PROGRESS/)
+    .assertText('p', /^Lifecycle: IN_PROGRESS/)
+    .assertText('p', '3.1.43-SNAPSHOT (129)');
 }
 
 export function validateBambooPlan(widget) {
   widget
     .assertBackground('rgb(1, 148, 48)')
     .assertText('p', 'Finished')
-    .assertText('span', '1597');
+    .assertText('p', '#1597');
 }
 
 export function validateCheckbox(widget) {
@@ -51,14 +49,13 @@ export function validateIframeEmbed(widget) {
 
 export function validateJenkinsJob(widget) {
   widget
-    .assertText('p', 'master-branch')
+    .assertText('p', '#6')
     .assertText(
       'p',
       /[0-9]{2}[.|/][0-9]{2}[.|/][0-9]{4}, [0-9][0-9]?:[0-9]{2}:[0-9]{2}/
     )
     .assertText('p', '0.25 [s]')
-    .assertText('span', '#6')
-    .progressVisible();
+    .assertText('p', 'master-branch');
 }
 
 export function validateJiraBuckets(widget) {
@@ -129,7 +126,7 @@ export function validateToDoList(widget) {
 
     widget
       .scrollToElement(`[data-cy="item-unchecked-${i}"]`)
-      .assertText('h6', itemTitle)
+      .assertText('span', itemTitle, 'to.exist')
       .isChecked(`[data-cy="item-unchecked-${i}"]`, false);
   }
 
