@@ -139,8 +139,8 @@ export const WidgetMenuWrapper = styled(({ status, theme, ...props }) => (
   width: 24px;
   height: 24px;
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   background-color: ${({ status, theme }) =>
     mapStatusToColor(status, theme) === 'transparent'
       ? darken(COLORS.WHITE, 0.2)

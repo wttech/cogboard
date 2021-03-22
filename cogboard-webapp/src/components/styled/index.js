@@ -39,16 +39,18 @@ export const WidgetIconButton = styled(IconButton)`
 `;
 
 export const ClickableContentWrapper = styled(FullWidthButtonOutlined)`
-  border: 0px;
+  border: 0;
   padding: 0;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+
   &.Mui-disabled {
-    border: 0px;
+    border: 0;
     color: ${COLORS.WHITE};
   }
+
   > .MuiButton-label {
     display: grid;
   }
