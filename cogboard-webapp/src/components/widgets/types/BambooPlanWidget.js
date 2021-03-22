@@ -1,14 +1,14 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Caption, WidgetButton } from '../../styled';
+import { Caption, ClickableContentWrapper } from '../../styled';
 
 const BambooPlanWidget = ({ url, number, lifeCycleState }) => {
   return (
-    <>
+    <ClickableContentWrapper href={url}>
       <Caption>State: {lifeCycleState}</Caption>
-      <WidgetButton href={url}>#{number}</WidgetButton>
-    </>
+      <Caption>#{number}</Caption>
+    </ClickableContentWrapper>
   );
 };
 

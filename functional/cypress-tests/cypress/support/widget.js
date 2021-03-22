@@ -32,8 +32,8 @@ class Widget {
     return this;
   }
 
-  assertText(selector, text) {
-    cy.contains(selector, text).should('is.visible');
+  assertText(selector, text, chainer = 'is.visible') {
+    cy.contains(selector, text).should(chainer);
     return this;
   }
 

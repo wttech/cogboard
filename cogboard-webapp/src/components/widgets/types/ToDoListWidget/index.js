@@ -40,7 +40,7 @@ const ToDoListWidget = ({ id, selectedItems }) => {
         }
         label={
           <Typography
-            variant="subtitle1"
+            variant="caption"
             style={item.itemChecked ? { textDecoration: 'line-through' } : {}}
           >
             {item.itemText}

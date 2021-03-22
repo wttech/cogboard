@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 
-import { Caption, WidgetButton } from '../../styled';
+import { Caption, ClickableContentWrapper } from '../../styled';
 
 const JenkinsJobWidget = ({
   branch,
@@ -14,12 +14,12 @@ const JenkinsJobWidget = ({
   const dur = duration ? `${duration / 1000} [s]` : '';
 
   return (
-    <>
+    <ClickableContentWrapper href={url}>
+      <Caption>{displayName}</Caption>
       <Caption>{ts}</Caption>
       <Caption>Duration: {dur}</Caption>
       <Caption>{branch}</Caption>
-      <WidgetButton href={url}>{displayName}</WidgetButton>
-    </>
+    </ClickableContentWrapper>
   );
 };
 

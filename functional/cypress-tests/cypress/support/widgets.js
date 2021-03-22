@@ -48,6 +48,7 @@ Cypress.Commands.add('confirmAddWidget', () => {
 Cypress.Commands.add('removeWidget', name => {
   cy.contains(name)
     .parents('.MuiCardHeader-root')
+    .trigger('mouseover')
     .find('[data-cy="more-menu-button"]')
     .click();
   cy.get('div[id="more-menu"]')

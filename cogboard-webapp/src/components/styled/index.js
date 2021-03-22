@@ -17,6 +17,7 @@ import TabPanel from '../TabPanel';
 
 const StyledTypography = styled(Typography)`
   margin: auto auto 5px;
+  font-size: 0.7rem;
 `;
 
 const FullWidthButtonOutlined = props => (
@@ -35,6 +36,24 @@ export const WidgetIconButton = styled(IconButton)`
   justify-content: center;
   align-items: center;
   width: 100%;
+`;
+
+export const ClickableContentWrapper = styled(FullWidthButtonOutlined)`
+  border: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  &.Mui-disabled {
+    border: 0;
+    color: ${COLORS.WHITE};
+  }
+
+  > .MuiButton-label {
+    display: grid;
+  }
 `;
 
 export const Caption = props => (
