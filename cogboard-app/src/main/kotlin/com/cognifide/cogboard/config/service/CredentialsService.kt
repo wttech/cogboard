@@ -4,9 +4,9 @@ import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIALS_ARR
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PREFIX
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_LABEL_PROP
-import com.cognifide.cogboard.config.utils.JsonUtils.findById
-import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
-import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
+import com.cognifide.cogboard.utils.ExtensionFunctions.findById
+import com.cognifide.cogboard.utils.ExtensionFunctions.getObjectPositionById
+import com.cognifide.cogboard.utils.ExtensionFunctions.putIfNotExist
 import com.cognifide.cogboard.config.validation.credentials.CredentialsValidator
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.credentials

@@ -1,15 +1,26 @@
-package com.cognifide.cogboard.config.utils
+package com.cognifide.cogboard.utils
 
 import com.cognifide.cogboard.CogboardConstants
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
+import io.vertx.ext.auth.KeyStoreOptions
+import io.vertx.ext.auth.jwt.JWTAuthOptions
+import io.vertx.reactivex.core.http.HttpServerResponse
 import java.util.stream.Collectors
 
-object JsonUtils {
+object ExtensionFunctions {
 
     fun JsonArray.findById(idValue: String, idKey: String = CogboardConstants.PROP_ID): JsonObject {
         return this.findByKeyValue(idValue, idKey)
     }
+
+    fun String.asJsonObject(propName: String): JsonObject = JsonObject().put(propName, this)
+
+    fun HttpServerResponse.endEmptyJson() {
+        this.end(JsonObject().toString())
+    }
+
+    fun KeyStoreOptions.toJWT(): JWTAuthOptions = JWTAuthOptions().setKeyStore(this)
 
     private fun JsonArray.findByKeyValue(value: String, key: String): JsonObject {
         return this.stream()
@@ -43,5 +54,13 @@ object JsonUtils {
             this.put(key, value)
         }
         return this
+    }
+
+    fun String.makeUrlPublic(publicDomain: String): String {
+        if (this == "") return ""
+        if (publicDomain == "") return this
+
+        val rest = this.substringAfter("//").substringAfter("/")
+        return "${publicDomain.removeSuffix("/")}/$rest"
     }
 }
