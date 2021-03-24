@@ -41,7 +41,6 @@ import {
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
 import {
-  setToken,
   removeToken,
   getToken,
   getUserRole,
