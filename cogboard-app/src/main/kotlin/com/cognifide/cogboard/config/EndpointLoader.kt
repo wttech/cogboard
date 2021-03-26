@@ -6,7 +6,7 @@ import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USER
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.CREDENTIALS_PROP
 import com.cognifide.cogboard.config.service.CredentialsService
 import com.cognifide.cogboard.config.service.EndpointsService
-import com.cognifide.cogboard.config.utils.JsonUtils.findById
+import com.cognifide.cogboard.utils.ExtensionFunctions.findById
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 

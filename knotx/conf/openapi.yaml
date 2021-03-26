@@ -53,6 +53,12 @@ paths:
       responses:
         default:
           description: Generate JWT Token
+  /api/session/refresh:
+    post:
+      operationId: session-handler
+      responses:
+        default:
+          description: Refresh JWT Token
   /api/endpoints:
     get:
       operationId: endpoints-get-handler

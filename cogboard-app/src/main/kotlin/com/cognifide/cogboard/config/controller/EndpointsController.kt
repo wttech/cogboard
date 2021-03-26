@@ -3,7 +3,7 @@ package com.cognifide.cogboard.config.controller
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.service.EndpointsService
-import com.cognifide.cogboard.config.utils.JsonUtils.findAllByKeyValue
+import com.cognifide.cogboard.utils.ExtensionFunctions.findAllByKeyValue
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.eventbus.Message
 import io.vertx.core.json.JsonArray

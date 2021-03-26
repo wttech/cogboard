@@ -41,7 +41,6 @@ import {
 } from './helpers';
 import { URL, NOTIFICATIONS } from '../constants';
 import {
-  setToken,
   removeToken,
   getToken,
   getUserRole,
@@ -91,8 +90,7 @@ export const login = (credentials, loginAsGuest) => dispatch => {
     dispatch(pushNotification(NOTIFICATIONS.LOGIN(`Guest: ${guestName}`)));
   } else {
     return fetchData(URL.LOGIN, { method: 'POST', data: credentials }).then(
-      ({ token }) => {
-        setToken(token);
+      () => {
         dispatch(loginSuccess());
         dispatch(pushNotification(NOTIFICATIONS.LOGIN(getUserRole())));
       },

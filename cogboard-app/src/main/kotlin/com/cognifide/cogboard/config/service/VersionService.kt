@@ -25,21 +25,26 @@ class VersionService {
             isNewer(latestVersion, runningVersion)
 
     fun checkVersion(body: JsonObject): Boolean {
-        val latestVersion = body.getString("tag_name")?.substring(1) ?: ""
+        val repoLatestVersion = body.getString("tag_name")?.substring(1) ?: ""
+        if (repoLatestVersion.isValid()) {
+            this.latestVersion = repoLatestVersion
+        }
 
         this.lastCheck = LocalDateTime.now()
         return if (isNewer(latestVersion, runningVersion)) {
-            this.latestVersion = latestVersion
             this.latestResponse = body
             true
         } else false
     }
+
+    private fun String.isValid() = this.matches(VALID_PATTERN)
 
     companion object {
         const val YEAR_INIT = 2000
         const val DAY_INIT = 1
         const val HOUR_INIT = 0
         const val MINUTE_INIT = 0
+        val VALID_PATTERN = Regex("\\d+\\.\\d+\\.\\d+")
 
         fun isNewer(newValue: String, oldValue: String = "0.0.0"): Boolean {
             val v1parts = newValue.split('.').map { it.toInt() }
