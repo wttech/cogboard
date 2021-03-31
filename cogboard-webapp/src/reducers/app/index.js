@@ -8,10 +8,12 @@ import loginErrorMessage from './loginErrorMessage';
 import isAuthenticated from './isAuthenticated';
 import guestLogin from './guestLogin';
 import logoutReasonMessage from './logoutReasonMessage';
+import requiresRefetching from './requiresRefetching';
 import settings from './settings';
 
 const app = combineReducers({
   initialized,
+  requiresRefetching,
   dataFetching,
   isDataChanged,
   isDataSaving,

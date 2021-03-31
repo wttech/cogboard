@@ -5,10 +5,7 @@ import io.vertx.core.json.JsonObject
 class CogboardConstants {
     companion object {
         const val DEFAULT_WEB_SOCKET_PORT = 9001
-
-        val DEFAULT_VALUES: JsonObject = JsonObject()
-            .put(Props.SCHEDULE_PERIOD, Props.SCHEDULE_PERIOD_DEFAULT)
-
+        val DEFAULT_VALUES: JsonObject = JsonObject().put(Props.SCHEDULE_PERIOD, Props.SCHEDULE_PERIOD_DEFAULT)
         fun errorResponse(message: String = ""): JsonObject = JsonObject().put("status", "failed $message")
     }
 

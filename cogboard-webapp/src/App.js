@@ -14,7 +14,8 @@ import {
 import {
   saveDataSuccess,
   loginSuccess,
-  guestLoginSuccess
+  guestLoginSuccess,
+  refetchInitData
 } from './actions/actionCreators';
 import { getIsWaitingForNewVersion } from './selectors';
 import { useInterval } from './hooks';
@@ -28,6 +29,7 @@ import ServerErrorPage from './components/ServerErrorPage';
 
 function App() {
   const appInitialized = useSelector(({ app }) => app.initialized);
+  const refetchInitialData = useSelector(({ app }) => app.requiresRefetching);
   const dispatch = useDispatch();
   const isWaitingForNewVersion = useSelector(getIsWaitingForNewVersion);
   const pullingNewVersionInfoDelay = isWaitingForNewVersion
@@ -44,6 +46,12 @@ function App() {
     dispatch(fetchInitialData());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (refetchInitialData) {
+      dispatch(fetchInitialData());
+    }
+  }, [refetchInitialData, dispatch]);
+
   useInterval(() => {
     if (!isWaitingForNewVersion) {
       dispatch(fetchAppInfo());
@@ -58,8 +66,9 @@ function App() {
 
         if (eventType === 'widget-update') {
           dispatch(updateWidgetContent(data));
-        } else if (eventType === 'config-save') {
-          dispatch(saveDataSuccess()); // TODO
+        } else if (eventType === 'config-saved') {
+          dispatch(saveDataSuccess());
+          dispatch(refetchInitData());
         } else if (eventType === 'new-version') {
           dispatch(pushNewVersionNotification(data));
         }
