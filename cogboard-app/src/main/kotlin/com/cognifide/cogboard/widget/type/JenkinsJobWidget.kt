@@ -1,10 +1,10 @@
 package com.cognifide.cogboard.widget.type
 
 import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.utils.ExtensionFunctions.makeUrlPublic
 import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
-import com.cognifide.cogboard.widget.makeUrlPublic
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import kotlin.streams.toList

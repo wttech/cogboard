@@ -66,7 +66,7 @@ Cypress.Commands.add(
       username: username,
       password: password
     }).then(response => {
-      const loginBody = response.body.token.split(' ');
+      const loginBody = response.headers['token'].split(' ');
       const token = loginBody[1];
 
       cy.request('http://host.docker.internal/api/config').then(response => {

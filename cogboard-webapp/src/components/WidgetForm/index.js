@@ -17,7 +17,8 @@ import { Tab, Button } from '@material-ui/core';
 import DynamicForm from '../DynamicForm';
 import WidgetTypeForm from '../WidgetTypeForm';
 import { StyledCancelButton } from './styled';
-import { StyledTabPanel, StyledTabs } from './../styled';
+import { StyledTabPanel, StyledTabs } from '../styled';
+import { isAuthenticated } from '../../utils/auth';
 
 const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
   const boardColumns = useSelector(
@@ -67,6 +68,7 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
   const dialogFieldNames =
     widgetType && widgetType.dialogFields ? widgetType.dialogFields : [];
   const hasDialogFields = dialogFieldNames.length !== 0;
+  const isAuth = isAuthenticated();
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -116,6 +118,7 @@ const WidgetForm = ({ handleSubmit, handleCancel, ...initialFormValues }) => {
         </StyledTabPanel>
       )}
       <Button
+        disabled={!isAuth}
         type="submit"
         color="secondary"
         variant="contained"
