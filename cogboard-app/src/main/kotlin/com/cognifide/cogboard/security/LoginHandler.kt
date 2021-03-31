@@ -1,9 +1,7 @@
 package com.cognifide.cogboard.security
 
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PASSWORD
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USER
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USERNAME
-import com.cognifide.cogboard.CogboardConstants.Companion.STATUS_CODE_401
+import com.cognifide.cogboard.CogboardConstants.Props
+import com.cognifide.cogboard.CogboardConstants.StatusCode
 import com.cognifide.cogboard.config.model.Admin
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory
@@ -29,8 +27,8 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admin()) : Routin
 
         return Handler { ctx ->
             ctx.bodyAsJson?.let {
-                val username = it.getString(PROP_USERNAME, "")
-                val password = it.getString(PROP_PASSWORD, "")
+                val username = it.getString(Props.USERNAME, "")
+                val password = it.getString(Props.PASSWORD, "")
                 val admin = getAdmin(username)
                 when {
                     admin == null -> sendUnauthorized(ctx, wrongUserMsg)
@@ -49,9 +47,9 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admin()) : Routin
 
     private fun getAdmin(name: String): Admin? {
         val admin = storage.loadConfig()
-        val username = admin.getString(PROP_USER)
+        val username = admin.getString(Props.USER)
         return if (username == name) {
-            val password = admin.getString(PROP_PASSWORD)
+            val password = admin.getString(Props.PASSWORD)
             Admin(username, password)
         } else null
     }
@@ -60,6 +58,6 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admin()) : Routin
         admin.password.isNotBlank() && admin.password == password
 
     private fun sendUnauthorized(ctx: RoutingContext, message: String) {
-        ctx.response().setStatusMessage(message).setStatusCode(STATUS_CODE_401).end()
+        ctx.response().setStatusMessage(message).setStatusCode(StatusCode.`401`).end()
     }
 }

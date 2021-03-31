@@ -1,7 +1,7 @@
 package com.cognifide.cogboard.config.controller
 
-import com.cognifide.cogboard.CogboardConstants.Companion.EVENT_CREDENTIALS
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PASSWORD
+import com.cognifide.cogboard.CogboardConstants.Event
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.CredentialsConfig.Companion.CREDENTIAL_ID_PROP
 import com.cognifide.cogboard.config.service.CredentialsService
 import io.vertx.core.AbstractVerticle
@@ -14,7 +14,7 @@ class CredentialsController : AbstractVerticle() {
 
     override fun start() {
         credentialsService = CredentialsService()
-        factory.create(EVENT_CREDENTIALS, vertx, prepareConfig())
+        factory.create(Event.CREDENTIALS, vertx, prepareConfig())
     }
 
     private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
@@ -36,7 +36,7 @@ class CredentialsController : AbstractVerticle() {
             }
 
     private fun JsonObject.filterSensitiveData(): JsonObject {
-        this.remove(PROP_PASSWORD)
+        this.remove(Props.PASSWORD)
         return this
     }
 

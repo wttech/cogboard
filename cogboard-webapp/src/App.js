@@ -58,8 +58,8 @@ function App() {
 
         if (eventType === 'widget-update') {
           dispatch(updateWidgetContent(data));
-        } else if (eventType === 'notification-config-save') {
-          dispatch(saveDataSuccess());
+        } else if (eventType === 'config-save') {
+          dispatch(saveDataSuccess()); // TODO
         } else if (eventType === 'new-version') {
           dispatch(pushNewVersionNotification(data));
         }

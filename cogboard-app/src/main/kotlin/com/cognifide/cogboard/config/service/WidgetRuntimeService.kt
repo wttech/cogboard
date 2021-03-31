@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.config.service
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Props
+import com.cognifide.cogboard.CogboardConstants.Event
 import com.cognifide.cogboard.config.EndpointLoader
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.widget.Widget
@@ -48,7 +49,7 @@ class WidgetRuntimeService(
     fun reloadWidgetsWithChangedEndpoints(endpoints: JsonArray) {
         val endpointIds = endpoints.stream()
                 .map { it as JsonObject }
-                .map { it.getValue(CogboardConstants.PROP_ID) }
+                .map { it.getValue(Props.ID) }
                 .collect(Collectors.toList())
 
         widgets.map { it.value }
@@ -57,7 +58,7 @@ class WidgetRuntimeService(
     }
 
     private fun getEndpointId(widget: Widget): String {
-        return widget.config().getString(CogboardConstants.PROP_ENDPOINT, "")
+        return widget.config().getString(Props.ENDPOINT, "")
     }
 
     fun handleWidgetContentUpdate(widgetConfig: JsonObject) {
@@ -86,13 +87,13 @@ class WidgetRuntimeService(
     }
 
     private fun JsonObject.getId(): String? =
-            this.getString(CogboardConstants.PROP_ID)
+            this.getString(Props.ID)
 
     private fun JsonObject.attachEndpoint() {
-        val endpointId = this.getString(CogboardConstants.PROP_ENDPOINT)
+        val endpointId = this.getString(Props.ENDPOINT)
         endpointId?.let {
             val endpoint = EndpointLoader().loadWithSensitiveData(endpointId)
-            this.put(CogboardConstants.PROP_ENDPOINT_LOADED, endpoint)
+            this.put(Props.ENDPOINT_LOADED, endpoint)
         }
     }
 
@@ -100,6 +101,6 @@ class WidgetRuntimeService(
         val LOGGER: Logger = LoggerFactory.getLogger(WidgetRuntimeService::class.java)
 
         internal fun createWidgetContentUpdateAddress(id: String) =
-                CogboardConstants.EVENT_UPDATE_WIDGET_CONTENT_CONFIG + '.' + id
+                Event.UPDATE_WIDGET_CONTENT_CONFIG + '.' + id
     }
 }

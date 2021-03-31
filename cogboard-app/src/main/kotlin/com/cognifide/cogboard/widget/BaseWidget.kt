@@ -9,7 +9,11 @@ import java.util.Date
 import java.util.Timer
 import java.util.TimerTask
 import kotlin.concurrent.timerTask
-import com.cognifide.cogboard.CogboardConstants as CC
+import com.cognifide.cogboard.CogboardConstants.Props
+import com.cognifide.cogboard.CogboardConstants.Event
+import com.cognifide.cogboard.CogboardConstants.EventType
+import com.cognifide.cogboard.CogboardConstants.StatusCode
+import com.cognifide.cogboard.CogboardConstants.Companion.DEFAULT_VALUES
 
 /**
  * Base widget class for extending - use this class if your new widget needs to do some computations on backend.
@@ -24,16 +28,16 @@ abstract class BaseWidget(
     private var consumer: MessageConsumer<JsonObject>? = null
 
     override val id: String
-        get() = config.getString(CC.PROP_ID)
+        get() = config.getString(Props.ID)
 
     override val type: String
-        get() = config.getString(CC.PROP_WIDGET_TYPE)
+        get() = config.getString(Props.WIDGET_TYPE)
 
     val eventBusAddress: String
         get() = "event.widget.$id"
 
     val schedulePeriod: Long
-        get() = config.getLong(CC.PROP_SCHEDULE_PERIOD) ?: CC.PROP_SCHEDULE_PERIOD_DEFAULT
+        get() = config.getLong(Props.SCHEDULE_PERIOD) ?: Props.SCHEDULE_PERIOD_DEFAULT
 
     var task: TimerTask? = null
 
@@ -41,7 +45,7 @@ abstract class BaseWidget(
      * Attach all default values to config
      */
     init {
-        CC.DEFAULT_VALUES.forEach {
+        DEFAULT_VALUES.forEach {
             if (!config.containsKey(it.key)) with(config) { put(it.key, it.value) }
         }
     }
@@ -58,13 +62,13 @@ abstract class BaseWidget(
      */
     override fun send(state: Any, dontWrap: Boolean) {
         val data = if (dontWrap && state is JsonObject) state
-        else JsonObject().put(CC.PROP_CONTENT, state)
+        else JsonObject().put(Props.CONTENT, state)
 
-        data.put(CC.PROP_ID, id)
-        data.put(CC.PROP_EVENT_TYPE, PROP_EVENT_TYPE_WIDGET_UPDATE)
-        data.getJsonObject(CC.PROP_CONTENT).attachUpdateDate()
-        boardService.saveContent(id, data.getJsonObject(CC.PROP_CONTENT))
-        vertx.eventBus().send(CC.EVENT_SEND_MESSAGE_TO_WEBSOCKET, data)
+        data.put(Props.ID, id)
+        data.put(Props.EVENT_TYPE, EventType.WIDGET_UPDATE)
+        data.getJsonObject(Props.CONTENT).attachUpdateDate()
+        boardService.saveContent(id, data.getJsonObject(Props.CONTENT))
+        vertx.eventBus().send(Event.SEND_MESSAGE_TO_WEBSOCKET, data)
     }
 
     /**
@@ -72,9 +76,9 @@ abstract class BaseWidget(
      */
     fun sendConfigurationError(cause: String = "") {
         send(JsonObject()
-                .put(CC.PROP_ERROR_MESSAGE, "Configuration Error")
-                .put(CC.PROP_ERROR_CAUSE, cause)
-                .put(CC.PROP_WIDGET_STATUS, Widget.Status.ERROR_CONFIGURATION)
+                .put(Props.ERROR_MESSAGE, "Configuration Error")
+                .put(Props.ERROR_CAUSE, cause)
+                .put(Props.WIDGET_STATUS, Widget.Status.ERROR_CONFIGURATION)
         )
     }
 
@@ -83,8 +87,8 @@ abstract class BaseWidget(
     }
 
     fun checkAuthorized(responseBody: JsonObject): Boolean {
-        val statusCode = responseBody.getInteger(CC.PROP_STATUS_CODE, CC.STATUS_CODE_200)
-        return if (statusCode == CC.STATUS_CODE_401) {
+        val statusCode = responseBody.getInteger(Props.STATUS_CODE, StatusCode.`200`)
+        return if (statusCode == StatusCode.`401`) {
             sendConfigurationError("Unauthorized")
             false
         } else true
@@ -94,7 +98,7 @@ abstract class BaseWidget(
      * Will start Schedule when schedulePeriod > 0, execute once otherwise
      */
     override fun start(): Widget {
-        if (config.getBoolean(CC.PROP_DISABLED) != true) {
+        if (config.getBoolean(Props.DISABLED) != true) {
             startWithSchedule()
         }
         return this
@@ -131,22 +135,21 @@ abstract class BaseWidget(
     private fun startWithSchedule() {
         if (schedulePeriod > 0L) {
             task = timerTask { updateState() }
-            Timer().schedule(task, CC.PROP_SCHEDULE_DELAY_DEFAULT, schedulePeriod * TO_SECONDS)
+            Timer().schedule(task, Props.SCHEDULE_DELAY_DEFAULT, schedulePeriod * TO_SECONDS)
         } else {
             updateState()
         }
     }
 
     private fun JsonObject.attachUpdateDate() {
-        this.put(CC.PROP_LAST_UPDATED, Date().time)
+        this.put(Props.LAST_UPDATED, Date().time)
     }
 
     protected fun JsonObject.endpointProp(prop: String): String {
-        return this.getJsonObject(CC.PROP_ENDPOINT_LOADED)?.getString(prop) ?: ""
+        return this.getJsonObject(Props.ENDPOINT_LOADED)?.getString(prop) ?: ""
     }
 
     companion object {
-        const val PROP_EVENT_TYPE_WIDGET_UPDATE = "widget-update"
         const val TO_SECONDS = 1000
     }
 }

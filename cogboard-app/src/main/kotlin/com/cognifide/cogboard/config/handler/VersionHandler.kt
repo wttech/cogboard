@@ -15,7 +15,7 @@ class VersionHandler : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         vertx
                 ?.eventBus()
-                ?.publish(CogboardConstants.EVENT_VERSION_CONFIG, JsonObject())
+                ?.publish(CogboardConstants.Event.VERSION_CONFIG, JsonObject())
         event
                 .response()
                 .endEmptyJson()

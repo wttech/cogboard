@@ -1,13 +1,12 @@
 package com.cognifide.cogboard.config.service
 
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CONTENT
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
 import com.cognifide.cogboard.widget.WidgetIndex
 import io.vertx.core.json.JsonObject
-import com.cognifide.cogboard.CogboardConstants as CC
 
 class BoardsConfigService(
     private val contentRepository: ContentRepository = ContentRepository(),
@@ -15,17 +14,16 @@ class BoardsConfigService(
     private val storage: Storage = boards()
 ) {
 
-    fun saveBoardsConfig(boardsConfig: JsonObject): JsonObject {
+    fun saveBoardsConfig(boardsConfig: JsonObject) {
         val cleanBoardsConfig = executeForWidgets(boardsConfig, this::resetContentNode)
         handleDeletedEntities(cleanBoardsConfig)
         storage.saveConfig(cleanBoardsConfig)
-        return boardsConfig
     }
 
     fun loadBoardsConfig(): JsonObject {
         val config = storage.loadConfig()
         executeForWidgets(config, this::addContent)
-        config.getJsonObject(CC.PROP_WIDGETS).put(CC.PROP_AVAILABLE_WIDGETS, WidgetIndex.availableWidgets())
+        config.getJsonObject(Props.WIDGETS).put(Props.AVAILABLE_WIDGETS, WidgetIndex.availableWidgets())
         return config
     }
 
@@ -40,15 +38,15 @@ class BoardsConfigService(
     }
 
     private fun getWidgetById(boardsConfig: JsonObject) =
-            boardsConfig.getJsonObject(CC.PROP_WIDGETS)
-                    ?.getJsonObject(CC.PROP_WIDGETS_BY_ID) ?: JsonObject()
+            boardsConfig.getJsonObject(Props.WIDGETS)
+                    ?.getJsonObject(Props.WIDGETS_BY_ID) ?: JsonObject()
 
     private fun resetContentNode(widgetId: String, widget: JsonObject) {
-        widget.put(PROP_CONTENT, JsonObject())
+        widget.put(Props.CONTENT, JsonObject())
     }
 
     private fun addContent(widgetId: String, widget: JsonObject) {
-        widget.put(PROP_CONTENT, contentRepository.get(widgetId))
+        widget.put(Props.CONTENT, contentRepository.get(widgetId))
     }
 
     private fun executeForWidgets(
@@ -68,8 +66,8 @@ class BoardsConfigService(
             ?.handle(storage.loadConfig(), boardsConfig)
             ?.forEach {
                 boardsConfig
-                    .getJsonObject(CC.PROP_WIDGETS)
-                    .getJsonObject(CC.PROP_WIDGETS_BY_ID)
+                    .getJsonObject(Props.WIDGETS)
+                    .getJsonObject(Props.WIDGETS_BY_ID)
                     .remove(it)
             }
     }

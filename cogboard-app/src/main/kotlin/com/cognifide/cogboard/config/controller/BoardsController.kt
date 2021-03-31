@@ -19,7 +19,7 @@ class BoardsController(private val factory: ControllerFactory = ControllerFactor
                 contentRepository,
                 EntityCleanupHelper(vertx))
 
-        factory.create(CogboardConstants.EVENT_BOARDS_CONFIG, vertx, prepareConfig())
+        factory.create(CogboardConstants.Event.BOARDS_CONFIG, vertx, prepareConfig())
     }
 
     private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
@@ -28,9 +28,9 @@ class BoardsController(private val factory: ControllerFactory = ControllerFactor
     )
 
     private fun update(body: JsonObject): String {
-        val saved = boardsConfigService.saveBoardsConfig(body)
+        boardsConfigService.saveBoardsConfig(body)
         sender.sendOk()
-        return saved.toString()
+        return "OK"
     }
 
     private fun get() = boardsConfigService.loadBoardsConfig().toString()
