@@ -1,9 +1,6 @@
 package com.cognifide.cogboard.config.service
 
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CURRENT_PASSWORD
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_NEW_PASSWORD
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PASSWORD
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USER
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.model.Admin
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.admin
@@ -18,7 +15,7 @@ class UserService(
     fun save(newLoginData: JsonObject): JsonObject {
         val wrongPassMsg = config.getString("wrongPassMsg") ?: "Please, enter correct Password"
         val admin = newLoginData.toAdmin()
-        val currentPassword = newLoginData.getString(PROP_CURRENT_PASSWORD)
+        val currentPassword = newLoginData.getString(Props.CURRENT_PASSWORD)
         return if (confirmPassword(currentPassword)) {
             update(admin)
             response()
@@ -26,7 +23,7 @@ class UserService(
     }
 
     private fun confirmPassword(currentPassword: String): Boolean {
-        return config.getString(PROP_PASSWORD) == currentPassword
+        return config.getString(Props.PASSWORD) == currentPassword
     }
 
     private fun update(admin: JsonObject) {
@@ -35,8 +32,8 @@ class UserService(
     }
 
     private fun JsonObject.toAdmin(): JsonObject {
-        val user = config.getString(PROP_USER)
-        val newPassword = this.getString(PROP_NEW_PASSWORD)
+        val user = config.getString(Props.USER)
+        val newPassword = this.getString(Props.NEW_PASSWORD)
         return JsonObject.mapFrom(Admin(user, newPassword))
     }
 

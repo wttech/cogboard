@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.widget.type
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.storage.ContentRepository
 import io.vertx.core.Vertx
@@ -51,20 +51,20 @@ abstract class WidgetTestBase {
 
     fun captureWhatIsSent(eventBus: EventBus, captor: ArgumentCaptor<JsonObject>): Pair<JsonObject, JsonObject> {
         verify(eventBus).send(eq("cogboard.websocket.message"), captor.capture())
-        return Pair(captor.value, captor.value.getJsonObject(CogboardConstants.PROP_CONTENT))
+        return Pair(captor.value, captor.value.getJsonObject(Props.CONTENT))
     }
 
     fun assertStatus(expected: String, result: JsonObject) {
-        assertEquals(expected, result.getJsonObject(CogboardConstants.PROP_CONTENT)
-                .getString(CogboardConstants.PROP_WIDGET_STATUS))
+        assertEquals(expected, result.getJsonObject(Props.CONTENT)
+                .getString(Props.WIDGET_STATUS))
     }
 
     fun assertUpdateDatePresent(result: JsonObject) {
-        assertNotNull(result.getJsonObject(CogboardConstants.PROP_CONTENT)
-                .getLong(CogboardConstants.PROP_LAST_UPDATED))
+        assertNotNull(result.getJsonObject(Props.CONTENT)
+                .getLong(Props.LAST_UPDATED))
     }
 
     fun assertURL(expected: String, result: JsonObject) {
-        assertEquals(expected, result.getString(CogboardConstants.PROP_URL))
+        assertEquals(expected, result.getString(Props.URL))
     }
 }

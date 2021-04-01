@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.widget
 
-import com.cognifide.cogboard.CogboardConstants as CC
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.storage.VolumeStorageFactory.appConfig
 import com.cognifide.cogboard.widget.type.AemBundleInfoWidget
@@ -60,8 +60,8 @@ class WidgetIndex {
                     .filter { !excludedWidgets.contains(it.key) }
                     .forEach {
                         widgetsJson.add(JsonObject()
-                                .put(CC.PROP_VALUE, it.value.simpleName)
-                                .put(CC.PROP_DISPLAY, it.key))
+                                .put(Props.VALUE, it.value.simpleName)
+                                .put(Props.DISPLAY, it.key))
                     }
             return widgetsJson
         }
@@ -70,7 +70,7 @@ class WidgetIndex {
          * @return new widget instance or default widget instance for all widgets that don't require any backend logic.
          */
         fun create(config: JsonObject, vertx: Vertx): BaseWidget {
-            val typeName = config.getString(CC.PROP_WIDGET_TYPE)
+            val typeName = config.getString(Props.WIDGET_TYPE)
             val widgetType = AVAILABLE_WIDGETS
                     .values
                     .stream()

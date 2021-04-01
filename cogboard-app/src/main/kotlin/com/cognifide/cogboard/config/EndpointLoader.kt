@@ -1,8 +1,6 @@
 package com.cognifide.cogboard.config
 
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_PASSWORD
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_TOKEN
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USER
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.CREDENTIALS_PROP
 import com.cognifide.cogboard.config.service.CredentialsService
 import com.cognifide.cogboard.config.service.EndpointsService
@@ -30,9 +28,9 @@ class EndpointLoader(
     private fun JsonObject.attachCredentials(): JsonObject {
         this.remove(CREDENTIALS_PROP)?.let { credId ->
             credentials.findById(credId as String).let { credentials ->
-                this.put(PROP_USER, credentials.getString(PROP_USER) ?: "")
-                this.put(PROP_PASSWORD, credentials.getString(PROP_PASSWORD) ?: "")
-                this.put(PROP_TOKEN, credentials.getString(PROP_TOKEN) ?: "")
+                this.put(Props.USER, credentials.getString(Props.USER) ?: "")
+                this.put(Props.PASSWORD, credentials.getString(Props.PASSWORD) ?: "")
+                this.put(Props.TOKEN, credentials.getString(Props.TOKEN) ?: "")
             }
         }
         return this

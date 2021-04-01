@@ -56,6 +56,7 @@ export const fetchInitialData = () => dispatch => {
   return fetchData(URL.LOAD_DATA).then(data => {
     dispatch(receiveData(data));
     dispatch(initBoardProps());
+    dispatch(pushNotification(NOTIFICATIONS.CONFIG_LOADED()));
   }, console.error);
 };
 

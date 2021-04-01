@@ -5,7 +5,7 @@ import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
-import com.cognifide.cogboard.CogboardConstants as CC
+import com.cognifide.cogboard.CogboardConstants.Props
 
 class BambooPlanWidget(
     vertx: Vertx,
@@ -29,17 +29,17 @@ class BambooPlanWidget(
 
     private fun sendNeverBuilt() {
         send(JsonObject()
-                .put(CC.PROP_ERROR_MESSAGE, "Never Built")
-                .put(CC.PROP_ERROR_CAUSE, "")
-                .put(CC.PROP_WIDGET_STATUS, Widget.Status.UNKNOWN))
+                .put(Props.ERROR_MESSAGE, "Never Built")
+                .put(Props.ERROR_CAUSE, "")
+                .put(Props.WIDGET_STATUS, Widget.Status.UNKNOWN))
     }
 
     private fun sendSuccess(results: JsonObject) {
         results.getJsonArray("result")?.first().let {
             val result = it as JsonObject
 
-            result.put(CC.PROP_URL, extractUrl(result.getString("buildResultKey")))
-                    .put(CC.PROP_WIDGET_STATUS, Widget.Status.from(result.getString("state")))
+            result.put(Props.URL, extractUrl(result.getString("buildResultKey")))
+                    .put(Props.WIDGET_STATUS, Widget.Status.from(result.getString("state")))
 
             send(result)
         }

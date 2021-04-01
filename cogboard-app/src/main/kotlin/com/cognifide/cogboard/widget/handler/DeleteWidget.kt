@@ -14,7 +14,7 @@ class DeleteWidget : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         vertx
                 ?.eventBus()
-                ?.publish(CogboardConstants.EVENT_DELETE_WIDGET_CONFIG, event.body.toJsonObject())
+                ?.publish(CogboardConstants.Event.DELETE_WIDGET_CONFIG, event.body.toJsonObject())
         event.reroute("/api/session/refresh")
     }
 }

@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.widget.type
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
@@ -10,6 +9,7 @@ import com.cognifide.cogboard.widget.Widget.Status.UNSTABLE
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
+import com.cognifide.cogboard.CogboardConstants.Props
 
 class AemHealthcheckWidget(
     vertx: Vertx,
@@ -23,7 +23,7 @@ class AemHealthcheckWidget(
         if (checkAuthorized(responseBody)) {
             if (responseBody.containsKey("HealthCheck")) {
                 sendSuccess(responseBody)
-            } else sendConfigurationError(responseBody.getString(CogboardConstants.PROP_ERROR_CAUSE))
+            } else sendConfigurationError(responseBody.getString(Props.ERROR_CAUSE))
         }
     }
 
@@ -32,7 +32,7 @@ class AemHealthcheckWidget(
         val content = JsonObject()
         val status = attachHealthChecks(content, healthChecksResponse)
 
-        content.put(CogboardConstants.PROP_WIDGET_STATUS, status)
+        content.put(Props.WIDGET_STATUS, status)
 
         send(content)
     }
@@ -53,7 +53,7 @@ class AemHealthcheckWidget(
         var widgetStatus = OK
         val overviewUrl = "$publicUrl/$OVERVIEW_PATH"
         val result = JsonObject()
-        content.put(CogboardConstants.PROP_URL, overviewUrl)
+        content.put(Props.URL, overviewUrl)
         content.put("healthChecks", result)
 
         selectedHealthChecks
@@ -61,15 +61,15 @@ class AemHealthcheckWidget(
                 .map { it as String }
                 .forEach { healthcheckName ->
                     healthChecksResponse.getJsonObject(healthcheckName)?.let {
-                        val status = Widget.Status.from(it.getString(CogboardConstants.PROP_STATUS))
+                        val status = Widget.Status.from(it.getString(Props.STATUS))
                         val url = "$publicUrl/$DETAILS_PATH/$healthcheckName"
 
                         if (status == FAIL) widgetStatus = FAIL
                         if (status == UNSTABLE && widgetStatus == OK) widgetStatus = UNSTABLE
 
                         result.put(healthcheckName, JsonObject()
-                                .put(CogboardConstants.PROP_STATUS, status)
-                                .put(CogboardConstants.PROP_URL, url)
+                                .put(Props.STATUS, status)
+                                .put(Props.URL, url)
                         )
                     }
                 }
