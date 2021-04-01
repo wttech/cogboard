@@ -11,8 +11,8 @@ class CogboardConstants {
 
     class StatusCode {
         companion object {
-            const val `401` = 401
-            const val `200` = 200
+            const val a401 = 401
+            const val a200 = 200
         }
     }
 

@@ -45,6 +45,6 @@ class SessionHandler(val storage: Storage = VolumeStorageFactory.admin()) : Rout
     }
 
     private fun sendUnauthorized(ctx: RoutingContext, message: String) {
-        ctx.response().setStatusMessage(message).setStatusCode(StatusCode.`401`).end()
+        ctx.response().setStatusMessage(message).setStatusCode(StatusCode.a401).end()
     }
 }

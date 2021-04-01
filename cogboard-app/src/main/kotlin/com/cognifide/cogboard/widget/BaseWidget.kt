@@ -87,8 +87,8 @@ abstract class BaseWidget(
     }
 
     fun checkAuthorized(responseBody: JsonObject): Boolean {
-        val statusCode = responseBody.getInteger(Props.STATUS_CODE, StatusCode.`200`)
-        return if (statusCode == StatusCode.`401`) {
+        val statusCode = responseBody.getInteger(Props.STATUS_CODE, StatusCode.a200)
+        return if (statusCode == StatusCode.a401) {
             sendConfigurationError("Unauthorized")
             false
         } else true

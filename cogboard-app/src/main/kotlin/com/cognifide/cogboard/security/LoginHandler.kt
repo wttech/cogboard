@@ -58,6 +58,6 @@ class LoginHandler(val storage: Storage = VolumeStorageFactory.admin()) : Routin
         admin.password.isNotBlank() && admin.password == password
 
     private fun sendUnauthorized(ctx: RoutingContext, message: String) {
-        ctx.response().setStatusMessage(message).setStatusCode(StatusCode.`401`).end()
+        ctx.response().setStatusMessage(message).setStatusCode(StatusCode.a401).end()
     }
 }
