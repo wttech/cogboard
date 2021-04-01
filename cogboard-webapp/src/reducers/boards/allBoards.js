@@ -11,7 +11,7 @@ const receiveData = (state, { payload }) => {
     boards: { allBoards }
   } = payload;
 
-  return [...state, ...allBoards];
+  return [...allBoards];
 };
 
 const addBoard = (state, { payload }) => {
