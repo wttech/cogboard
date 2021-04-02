@@ -43,6 +43,7 @@ const ToDoListInput = ({ value, values, onChange }) => {
     tempItems.splice(result.destination.index, 0, reorderedItem);
 
     setItems(tempItems);
+    onChange(prepareChangeEvent(tempItems, 'array'));
   };
 
   const resetInput = () => {
