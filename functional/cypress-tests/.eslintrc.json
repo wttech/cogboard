@@ -1,5 +1,6 @@
 {
-  "plugins": ["cypress"],
+  "plugins": ["prettier", "cypress"],
+  "extends": ["airbnb-base", "plugin:cypress/recommended", "plugin:prettier/recommended"],
   "rules": {
     "cypress/no-assigning-return-values": "error",
     "cypress/no-unnecessary-waiting": "error",
@@ -16,6 +17,5 @@
   },
   "env": {
     "cypress/globals": true
-  },
-  "extends": ["plugin:cypress/recommended"]
+  }
 }
