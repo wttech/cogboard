@@ -1,9 +1,10 @@
 package com.cognifide.cogboard.config.controller
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Props
+import com.cognifide.cogboard.CogboardConstants.Event
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.service.EndpointsService
-import com.cognifide.cogboard.config.utils.JsonUtils.findAllByKeyValue
+import com.cognifide.cogboard.utils.ExtensionFunctions.findAllByKeyValue
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.eventbus.Message
 import io.vertx.core.json.JsonArray
@@ -16,7 +17,7 @@ class EndpointsController : AbstractVerticle() {
 
     override fun start() {
         endpointsService = EndpointsService()
-        factory.create(CogboardConstants.EVENT_ENDPOINTS, vertx, prepareConfig())
+        factory.create(Event.ENDPOINTS, vertx, prepareConfig())
 
         listenOnCredentialsUpdate()
         listenOnEndpointsUpdate()
@@ -47,26 +48,26 @@ class EndpointsController : AbstractVerticle() {
 
     private fun listenOnCredentialsUpdate() = vertx
             .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_CREDENTIALS)
+            .consumer<JsonObject>(Event.UPDATE_CREDENTIALS)
             .handler {
                 val relatedEndpoints = endpointsWithChangedCredentials(it)
-                val message = JsonObject().put(CogboardConstants.PROP_ENDPOINTS, relatedEndpoints)
-                vertx.eventBus().send(CogboardConstants.EVENT_REFRESH_WIDGET_CONFIG, message)
+                val message = JsonObject().put(Props.ENDPOINTS, relatedEndpoints)
+                vertx.eventBus().send(Event.REFRESH_WIDGET_CONFIG, message)
             }
 
     private fun listenOnEndpointsUpdate() = vertx
             .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_UPDATE_ENDPOINTS)
+            .consumer<JsonObject>(Event.UPDATE_ENDPOINTS)
             .handler {
-                val message = JsonObject().put(CogboardConstants.PROP_ENDPOINTS, JsonArray().add(it.body()))
-                vertx.eventBus().send(CogboardConstants.EVENT_REFRESH_WIDGET_CONFIG, message)
+                val message = JsonObject().put(Props.ENDPOINTS, JsonArray().add(it.body()))
+                vertx.eventBus().send(Event.REFRESH_WIDGET_CONFIG, message)
             }
 
     private fun endpointsWithChangedCredentials(it: Message<JsonObject>): List<JsonObject>? {
-        val changedCredentialId = it.body().getString(CogboardConstants.PROP_ID)
+        val changedCredentialId = it.body().getString(Props.ID)
         return changedCredentialId
                 ?.let { id ->
-                    endpointsService.getAllEndpoints().findAllByKeyValue(id, CogboardConstants.PROP_CREDENTIALS)
+                    endpointsService.getAllEndpoints().findAllByKeyValue(id, Props.CREDENTIALS)
                 }
     }
 }

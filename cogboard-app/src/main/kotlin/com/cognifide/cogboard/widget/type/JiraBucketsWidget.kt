@@ -5,31 +5,30 @@ import com.cognifide.cogboard.widget.AsyncWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
-import com.cognifide.cogboard.CogboardConstants as CC
-
+import com.cognifide.cogboard.CogboardConstants.Props
 class JiraBucketsWidget(
     vertx: Vertx,
     config: JsonObject,
     serv: BoardsConfigService
 ) : AsyncWidget(vertx, config, serv) {
 
-    private val bucketQueries: JsonArray = config.getJsonArray(CC.PROP_BUCKET_QUERIES)
+    private val bucketQueries: JsonArray = config.getJsonArray(Props.BUCKET_QUERIES)
     private val buckets: JsonArray = JsonArray()
 
     init {
         bucketQueries.forEach {
             if (it is JsonObject) {
                 buckets.add(JsonObject()
-                        .put(CC.PROP_ID, it.getString(CC.PROP_ID))
-                        .put(CC.PROP_NAME, it.getString(CC.PROP_BUCKET_NAME))
-                        .put(CC.PROP_URL, createBucketUrl(it)))
+                        .put(Props.ID, it.getString(Props.ID))
+                        .put(Props.NAME, it.getString(Props.BUCKET_NAME))
+                        .put(Props.URL, createBucketUrl(it)))
             }
         }
     }
 
     override fun handleResponse(responseBody: JsonObject) {
         val totalIssues = responseBody.getInteger("total")
-        val bucketId = responseBody.getString(CC.PROP_REQUEST_ID)
+        val bucketId = responseBody.getString(Props.REQUEST_ID)
 
         (buckets.first { compareId(bucketId, it) } as JsonObject)
                 .put("issueCounts", totalIssues ?: "Error")
@@ -38,16 +37,16 @@ class JiraBucketsWidget(
     }
 
     private fun createBucketUrl(bucket: JsonObject) =
-            "${url}jira/issues/?jql=${bucket.getString(CC.PROP_JQL_QUERY)}&maxResults=0"
+            "${url}jira/issues/?jql=${bucket.getString(Props.JQL_QUERY)}&maxResults=0"
 
-    private fun compareId(bucketId: String?, it: Any?) = bucketId == (it as JsonObject).getString(CC.PROP_ID)
+    private fun compareId(bucketId: String?, it: Any?) = bucketId == (it as JsonObject).getString(Props.ID)
 
     override fun updateState() {
         if (url.isNotBlank()) {
             bucketQueries.list.forEach { bucketQuery ->
                 if (bucketQuery is JsonObject) {
-                    val bucketId = bucketQuery.getString(CC.PROP_ID)
-                    val jqlQuery = bucketQuery.getString(CC.PROP_JQL_QUERY)
+                    val bucketId = bucketQuery.getString(Props.ID)
+                    val jqlQuery = bucketQuery.getString(Props.JQL_QUERY)
                     httpGet(url = "$url/jira/rest/api/2/search/?jql=$jqlQuery&maxResults=0",
                             requestId = bucketId)
                 }

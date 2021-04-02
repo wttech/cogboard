@@ -3,7 +3,8 @@ package com.cognifide.cogboard.config.helper
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
-import com.cognifide.cogboard.CogboardConstants as CC
+import com.cognifide.cogboard.CogboardConstants.Props
+import com.cognifide.cogboard.CogboardConstants.Event
 
 class EntityCleanupHelper(private val vertx: Vertx) {
     fun handle(oldConfig: JsonObject, newConfig: JsonObject): List<String> {
@@ -27,8 +28,8 @@ class EntityCleanupHelper(private val vertx: Vertx) {
             .map { it.toString() }
 
         val declaredWidgets = config
-            .getJsonObject(CC.PROP_WIDGETS)
-            .getJsonObject(CC.PROP_WIDGETS_BY_ID)
+            .getJsonObject(Props.WIDGETS)
+            .getJsonObject(Props.WIDGETS_BY_ID)
             .map { it.key.toString() }
             .toList()
 
@@ -42,23 +43,23 @@ class EntityCleanupHelper(private val vertx: Vertx) {
 
     private fun getBoardWidgets(config: JsonObject, it: Any): JsonArray? =
         config
-            .getJsonObject(CC.PROP_BOARDS)
-            .getJsonObject(CC.PROP_BOARDS_BY_ID)
+            .getJsonObject(Props.BOARDS)
+            .getJsonObject(Props.BOARDS_BY_ID)
             .getJsonObject(it.toString())
-            ?.getJsonArray(CC.PROP_WIDGETS)
+            ?.getJsonArray(Props.WIDGETS)
 
     private fun getAllBoards(config: JsonObject) =
         config
-            .getJsonObject(CC.PROP_BOARDS)
-            .getJsonArray(CC.PROP_BOARDS_ALL)
+            .getJsonObject(Props.BOARDS)
+            .getJsonArray(Props.BOARDS_ALL)
 
     private fun sendWidgetPurgeEvent(widgetId: String) =
         vertx
             .eventBus()
             .publish(
-                CC.EVENT_PURGE_WIDGET_CONFIG,
+                Event.PURGE_WIDGET_CONFIG,
                 JsonObject().put(
-                    CC.PROP_ID,
+                    Props.ID,
                     widgetId)
             )
 }

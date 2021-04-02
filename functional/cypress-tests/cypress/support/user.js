@@ -2,6 +2,7 @@ Cypress.Commands.add(
   'login',
   (username = Cypress.env('username'), password = Cypress.env('password')) => {
     cy.get('[data-cy="user-login-login-icon"]').click();
+    cy.get('[data-cy="login-as-guest-select"]').uncheck();
     cy.get('[data-cy="user-login-username-input"]')
       .clear()
       .type(username);
@@ -16,6 +17,28 @@ Cypress.Commands.add(
     cy.get('[data-cy="user-login-login-icon"]').should('not.exist');
   }
 );
+
+Cypress.Commands.add('guestLogin', (username = Cypress.env('username')) => {
+  cy.get('[data-cy="user-login-login-icon"]').click();
+  cy.get('[data-cy="user-login-username-input"]')
+    .clear()
+    .type(username);
+  cy.get('[data-cy="user-login-submit-button"]').click();
+  cy.contains(
+    '[data-cy="notification-snackbar"]',
+    'Logged in as Guest: ' + Cypress.env('username')
+  ).should('is.visible');
+  cy.get('[data-cy="user-login-login-icon"]').should('not.exist');
+});
+
+Cypress.Commands.add('guestLogout', () => {
+  cy.get('[data-cy="user-login-logout-icon"]').click();
+  cy.contains(
+    '[data-cy="notification-snackbar"]',
+    'Guest: ' + Cypress.env('username') + ' logged out'
+  ).should('is.visible');
+  cy.get('[data-cy="user-login-logout-icon"]').should('not.exist');
+});
 
 Cypress.Commands.add('logout', () => {
   cy.get('[data-cy="user-login-logout-icon"]').click();
@@ -39,7 +62,7 @@ Cypress.Commands.add('getAuthenticationToken', () => {
       'Sec-Fetch-Mode': 'cors'
     },
     body: { username: 'admin', password: 'admin' }
-  }).then(result => `${result.body.token}`);
+  }).then(result => `${result.headers['token']}`);
 });
 
 Cypress.Commands.add('loginWithToken', () => {

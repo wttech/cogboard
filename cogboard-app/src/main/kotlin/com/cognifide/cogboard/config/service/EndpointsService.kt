@@ -5,9 +5,9 @@ import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINTS_ARRAY
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PREFIX
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_ID_PROP
 import com.cognifide.cogboard.config.EndpointsConfig.Companion.ENDPOINT_LABEL_PROP
-import com.cognifide.cogboard.config.utils.JsonUtils.findById
-import com.cognifide.cogboard.config.utils.JsonUtils.getObjectPositionById
-import com.cognifide.cogboard.config.utils.JsonUtils.putIfNotExist
+import com.cognifide.cogboard.utils.ExtensionFunctions.findById
+import com.cognifide.cogboard.utils.ExtensionFunctions.getObjectPositionById
+import com.cognifide.cogboard.utils.ExtensionFunctions.putIfNotExist
 import com.cognifide.cogboard.config.validation.endpoints.EndpointsValidator
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory.endpoints

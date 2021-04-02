@@ -11,7 +11,12 @@ import {
   updateWidgetContent,
   pushNewVersionNotification
 } from './actions/thunks';
-import { saveDataSuccess, loginSuccess } from './actions/actionCreators';
+import {
+  saveDataSuccess,
+  loginSuccess,
+  guestLoginSuccess,
+  refetchInitData
+} from './actions/actionCreators';
 import { getIsWaitingForNewVersion } from './selectors';
 import { useInterval } from './hooks';
 import { theme } from './theme';
@@ -19,11 +24,12 @@ import { CHECK_NEW_VERSION_DELAY } from './constants';
 
 import MainTemplate from './components/MainTemplate';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { isAuthenticated } from './utils/auth';
+import { getGuestName, isAuthenticated } from './utils/auth';
 import ServerErrorPage from './components/ServerErrorPage';
 
 function App() {
   const appInitialized = useSelector(({ app }) => app.initialized);
+  const refetchInitialData = useSelector(({ app }) => app.requiresRefetching);
   const dispatch = useDispatch();
   const isWaitingForNewVersion = useSelector(getIsWaitingForNewVersion);
   const pullingNewVersionInfoDelay = isWaitingForNewVersion
@@ -34,9 +40,17 @@ function App() {
     if (isAuthenticated()) {
       dispatch(loginSuccess());
     }
-
+    if (!!getGuestName()) {
+      dispatch(guestLoginSuccess(getGuestName()));
+    }
     dispatch(fetchInitialData());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (refetchInitialData) {
+      dispatch(fetchInitialData());
+    }
+  }, [refetchInitialData, dispatch]);
 
   useInterval(() => {
     if (!isWaitingForNewVersion) {
@@ -52,8 +66,9 @@ function App() {
 
         if (eventType === 'widget-update') {
           dispatch(updateWidgetContent(data));
-        } else if (eventType === 'notification-config-save') {
+        } else if (eventType === 'config-saved') {
           dispatch(saveDataSuccess());
+          dispatch(refetchInitData());
         } else if (eventType === 'new-version') {
           dispatch(pushNewVersionNotification(data));
         }

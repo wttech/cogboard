@@ -14,13 +14,7 @@ class DeleteWidget : RoutingHandlerFactory {
     override fun create(vertx: Vertx?, config: JsonObject?): Handler<RoutingContext> = Handler { event ->
         vertx
                 ?.eventBus()
-                ?.publish(CogboardConstants.EVENT_DELETE_WIDGET_CONFIG, event.body.toJsonObject())
-        event
-                .response()
-                .end(config?.getJsonObject("body", DEFAULT_NO_BODY)?.encode())
-    }
-
-    companion object {
-        val DEFAULT_NO_BODY: JsonObject = JsonObject().put("status", "failed")
+                ?.publish(CogboardConstants.Event.DELETE_WIDGET_CONFIG, event.body.toJsonObject())
+        event.reroute("/api/session/refresh")
     }
 }

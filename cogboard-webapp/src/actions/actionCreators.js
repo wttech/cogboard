@@ -15,9 +15,10 @@ import {
   SORT_WIDGETS,
   REORDER_BOARDS,
   DATA_CHANGED,
-  SAVE_DATA_START,
+  REFETCH_DATA,
   SAVE_DATA_SUCCESS,
   LOGIN_SUCCESS,
+  GUEST_LOGIN_SUCCESS,
   LOGIN_FAILURE,
   CLEAR_LOGIN_ERROR_MESSAGE,
   LOGOUT,
@@ -41,6 +42,11 @@ export const loginSuccess = () => ({
   type: LOGIN_SUCCESS
 });
 
+export const guestLoginSuccess = data => ({
+  type: GUEST_LOGIN_SUCCESS,
+  payload: data
+});
+
 export const loginFailure = data => ({
   type: LOGIN_FAILURE,
   payload: data
@@ -57,6 +63,10 @@ export const logout = () => ({
 export const receiveData = state => ({
   type: RECEIVE_DATA,
   payload: state
+});
+
+export const refetchInitData = () => ({
+  type: REFETCH_DATA
 });
 
 export const requestUpdate = id => ({
@@ -121,10 +131,6 @@ export const sortWidgets = payload => ({
 
 export const dataChanged = () => ({
   type: DATA_CHANGED
-});
-
-export const saveDataStart = () => ({
-  type: SAVE_DATA_START
 });
 
 export const saveDataSuccess = () => ({

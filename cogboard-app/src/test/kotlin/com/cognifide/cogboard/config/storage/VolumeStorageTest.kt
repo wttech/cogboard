@@ -1,9 +1,6 @@
 package com.cognifide.cogboard.config.storage
 
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_BOARDS
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_CREDENTIALS
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_ENDPOINTS
-import com.cognifide.cogboard.CogboardConstants.Companion.PROP_USER
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.ConfigType
 import com.cognifide.cogboard.storage.VolumeStorage
 import io.vertx.core.json.JsonObject
@@ -19,10 +16,10 @@ internal class VolumeStorageTest {
     private val storagePath = VolumeStorageTest::class.java.getResource("/board").path
 
     private val configs = listOf(
-            Triple(ConfigType.ADMIN, "admin.json", PROP_USER),
-            Triple(ConfigType.CREDENTIALS, "credentials.json", PROP_CREDENTIALS),
-            Triple(ConfigType.BOARDS, "config.json", PROP_BOARDS),
-            Triple(ConfigType.ENDPOINTS, "endpoints.json", PROP_ENDPOINTS)
+            Triple(ConfigType.ADMIN, "admin.json", Props.USER),
+            Triple(ConfigType.CREDENTIALS, "credentials.json", Props.CREDENTIALS),
+            Triple(ConfigType.BOARDS, "config.json", Props.BOARDS),
+            Triple(ConfigType.ENDPOINTS, "endpoints.json", Props.ENDPOINTS)
     )
 
     @TestFactory

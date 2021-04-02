@@ -1,6 +1,6 @@
 import { dataChanged, setLogoutReasonMessage } from './actionCreators';
 import { logout } from './thunks';
-import { isAuthenticated } from '../utils/auth';
+import { isAuthenticated, setToken } from '../utils/auth';
 import { mergeRight, assocPath } from 'ramda';
 import { checkResponseStatus } from '../utils/fetch';
 
@@ -29,7 +29,12 @@ export const fetchData = (
 
   return fetch(url, authenticationConfig)
     .then(checkResponseStatus)
-    .then(response => response.json());
+    .then(response => {
+      if (response.headers.get('token')) {
+        setToken(response.headers.get('token'));
+      }
+      return response.json();
+    });
 };
 
 const makeIdCreator = prefix => allIds => {

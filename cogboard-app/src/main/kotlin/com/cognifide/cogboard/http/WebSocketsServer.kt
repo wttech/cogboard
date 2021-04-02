@@ -25,7 +25,7 @@ class WebSocketsServer : AbstractVerticle() {
         LOGGER.info("Starting <{}>", this::class.java.simpleName)
 
         val sockets: MutableSet<ServerWebSocket> = hashSetOf()
-        val consumer = vertx.eventBus().consumer<JsonObject>(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET)
+        val consumer = vertx.eventBus().consumer<JsonObject>(CogboardConstants.Event.SEND_MESSAGE_TO_WEBSOCKET)
 
         vertx.createHttpServer().websocketHandler { socket ->
             sockets.add(socket)

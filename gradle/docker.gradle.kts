@@ -157,16 +157,7 @@ tasks {
         mustRunAfter("copyConfigs")
     }
 
-    register("createVersionFile") {
-        File(mountDir, ".version").writeText("""
-            {
-              "version": "$version"
-            }
-        """.trimIndent())
-        mustRunAfter("copyConfigs")
-    }
-
     register("prepareDocker") {
-        dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf", "createVersionFile")
+        dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf")
     }
 }

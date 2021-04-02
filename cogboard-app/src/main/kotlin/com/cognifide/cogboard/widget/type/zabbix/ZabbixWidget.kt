@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.widget.type.zabbix
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
@@ -11,6 +10,7 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import kotlin.math.roundToLong
+import com.cognifide.cogboard.CogboardConstants.Props
 
 class ZabbixWidget(
     vertx: Vertx,
@@ -42,8 +42,8 @@ class ZabbixWidget(
 
     private fun attachCredentialsToBody(): JsonObject {
         val credentials = JsonObject()
-                .put(CogboardConstants.PROP_USER, user)
-                .put(CogboardConstants.PROP_PASSWORD, password)
+                .put(Props.USER, user)
+                .put(Props.PASSWORD, password)
         return prepareRequestBody(USER_LOGIN, credentials)
     }
 
@@ -76,7 +76,7 @@ class ZabbixWidget(
                 .put(IS_EXPANDED_CONTENT, hasExpandedContent(responseParams.extractValue(NAME)))
                 .put(NAME, responseParams.extractValue(NAME))
                 .put(HISTORY, modifyHistory(responseParams))
-                .put(CogboardConstants.PROP_WIDGET_STATUS, getStatusResponse(lastValue))
+                .put(Props.WIDGET_STATUS, getStatusResponse(lastValue))
         send(state)
     }
 
@@ -93,7 +93,7 @@ class ZabbixWidget(
     }
 
     private fun fetchHistoryFromContent(): Map<String, Any> {
-        val widgetId = config.getString(CogboardConstants.PROP_ID)
+        val widgetId = config.getString(Props.ID)
         val content = boardService.getContent(widgetId)
         return content.getJsonObject(HISTORY, JsonObject()).map
     }
@@ -127,8 +127,8 @@ class ZabbixWidget(
         LOGGER.error("Error message: $errorMessage; Cause: $errorCause")
 
         send(JsonObject()
-                .put(CogboardConstants.PROP_ERROR_MESSAGE, errorMessage)
-                .put(CogboardConstants.PROP_ERROR_CAUSE, errorCause))
+                .put(Props.ERROR_MESSAGE, errorMessage)
+                .put(Props.ERROR_CAUSE, errorCause))
     }
 
     private fun saveToken(token: String) {
