@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.utils
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Props
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.ext.auth.KeyStoreOptions
@@ -10,7 +10,7 @@ import java.util.stream.Collectors
 
 object ExtensionFunctions {
 
-    fun JsonArray.findById(idValue: String, idKey: String = CogboardConstants.PROP_ID): JsonObject {
+    fun JsonArray.findById(idValue: String, idKey: String = Props.ID): JsonObject {
         return this.findByKeyValue(idValue, idKey)
     }
 
@@ -37,7 +37,7 @@ object ExtensionFunctions {
                 .collect(Collectors.toList())
     }
 
-    fun JsonArray.getObjectPositionById(idValue: String, idKey: String = CogboardConstants.PROP_ID): Int {
+    fun JsonArray.getObjectPositionById(idValue: String, idKey: String = Props.ID): Int {
         var index = 0
         while (index < this.size()) {
             val credential = this.getJsonObject(index)

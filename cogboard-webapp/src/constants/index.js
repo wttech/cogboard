@@ -331,5 +331,10 @@ export const NOTIFICATIONS = {
     type: 'error',
     message: message,
     duration: 3000
+  }),
+  CONFIG_LOADED: () => ({
+    type: 'info',
+    message: 'Config Loaded',
+    duration: 3000
   })
 };

@@ -8,7 +8,7 @@ import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import kotlin.streams.toList
-import com.cognifide.cogboard.CogboardConstants as CC
+import com.cognifide.cogboard.CogboardConstants.Props
 
 class JenkinsJobWidget(
     vertx: Vertx,
@@ -37,8 +37,8 @@ class JenkinsJobWidget(
         else Widget.Status.from(lastBuild.getString("result", ""))
 
         lastBuild.put("branch", extractBranchInfo(lastBuild))
-            .put(CC.PROP_URL, lastBuild.getString(CC.PROP_URL, "").makeUrlPublic(publicUrl))
-            .put(CC.PROP_WIDGET_STATUS, status)
+            .put(Props.URL, lastBuild.getString(Props.URL, "").makeUrlPublic(publicUrl))
+            .put(Props.WIDGET_STATUS, status)
 
         send(lastBuild)
     }

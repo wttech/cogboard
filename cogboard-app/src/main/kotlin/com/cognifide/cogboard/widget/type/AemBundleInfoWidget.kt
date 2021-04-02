@@ -6,7 +6,7 @@ import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
-import com.cognifide.cogboard.CogboardConstants as CC
+import com.cognifide.cogboard.CogboardConstants.Props
 
 class AemBundleInfoWidget(
     vertx: Vertx,
@@ -67,11 +67,11 @@ class AemBundleInfoWidget(
         val url = "$url/system/console/bundles"
 
         return JsonObject()
-            .put(CC.PROP_URL, url)
+            .put(Props.URL, url)
             .put(PROP_BUNDLE_STATUS, numericStatus)
             .put(PROP_EXCLUDED_BUNDLES, excludedBundles)
             .put(PROP_INACTIVE_BUNDLES, inactiveBundles)
-            .put(CC.PROP_WIDGET_STATUS, statusByNumbers(numericStatus))
+            .put(Props.WIDGET_STATUS, statusByNumbers(numericStatus))
     }
 
     private fun statusByNumbers(numericStatus: MutableMap<String, Int>): Widget.Status {

@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.widget.type.sonarqube
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.http.auth.AuthenticationType
 import com.cognifide.cogboard.widget.AsyncWidget
@@ -8,6 +7,7 @@ import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
+import com.cognifide.cogboard.CogboardConstants.Props
 
 class SonarQubeWidget(
     vertx: Vertx,
@@ -39,8 +39,8 @@ class SonarQubeWidget(
             val content = data.copy()
 
             attachMetrics(content, it)
-            content.put(CogboardConstants.PROP_URL, version.getDashboardUrl(publicUrl, key, idNumber))
-                    .put(CogboardConstants.PROP_WIDGET_STATUS, extractStatus(it))
+            content.put(Props.URL, version.getDashboardUrl(publicUrl, key, idNumber))
+                    .put(Props.WIDGET_STATUS, extractStatus(it))
 
             send(content)
         }

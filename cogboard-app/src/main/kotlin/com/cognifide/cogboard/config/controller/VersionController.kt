@@ -1,6 +1,8 @@
 package com.cognifide.cogboard.config.controller
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Props
+import com.cognifide.cogboard.CogboardConstants.Event
+import com.cognifide.cogboard.CogboardConstants.EventType
 import com.cognifide.cogboard.config.service.VersionService
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.http.HttpHeaders
@@ -19,7 +21,7 @@ class VersionController : AbstractVerticle() {
 
     private fun listenOnCheckVersion() = vertx
             .eventBus()
-            .consumer<JsonObject>(CogboardConstants.EVENT_VERSION_CONFIG)
+            .consumer<JsonObject>(Event.VERSION_CONFIG)
             .handler {
                 if (versionService.isLatestVersionAvailable()) {
                     sendResponse(versionService.prepareVersionResponse())
@@ -39,23 +41,22 @@ class VersionController : AbstractVerticle() {
 
     private fun sendResponse(response: JsonObject) {
         val message = JsonObject()
-        message.put(CogboardConstants.PROP_EVENT_TYPE, PROP_EVENT_TYPE_NEW_VERSION)
-        message.put(CogboardConstants.PROP_CONTENT, response)
-        vertx.eventBus().send(CogboardConstants.EVENT_SEND_MESSAGE_TO_WEBSOCKET, message)
+        message.put(Props.EVENT_TYPE, EventType.NEW_VERSION)
+        message.put(Props.CONTENT, response)
+        vertx.eventBus().send(Event.SEND_MESSAGE_TO_WEBSOCKET, message)
     }
 
     private fun sendRequestForNewVersion() {
-        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_GET,
+        vertx.eventBus().send(Event.HTTP_GET,
                 JsonObject()
-                        .put(CogboardConstants.PROP_URL, GITHUB_REPOSITORY_LATEST_VERSION_URL)
-                        .put(CogboardConstants.PROP_EVENT_ADDRESS, NEW_VERSION_RESPONSE)
-                        .put(CogboardConstants.PROP_HEADERS, JsonObject()
+                        .put(Props.URL, GITHUB_REPOSITORY_LATEST_VERSION_URL)
+                        .put(Props.EVENT_ADDRESS, NEW_VERSION_RESPONSE)
+                        .put(Props.HEADERS, JsonObject()
                                 .put(HttpHeaders.USER_AGENT.toString(), USER_AGENT_HEADER))
         )
     }
 
     companion object {
-        const val PROP_EVENT_TYPE_NEW_VERSION = "new-version"
         const val GITHUB_REPOSITORY_LATEST_VERSION_URL =
                 "https://api.github.com/repos/wttech/cogboard/releases/latest"
         const val USER_AGENT_HEADER = "Cogboard"

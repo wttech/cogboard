@@ -1,11 +1,11 @@
 package com.cognifide.cogboard.config.validation.boards
 
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.model.Board
 import com.cognifide.cogboard.config.model.Config
 import com.cognifide.cogboard.config.validation.Validator
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.cognifide.cogboard.CogboardConstants as CC
 
 object BoardsValidator : Validator {
 
@@ -41,8 +41,8 @@ object BoardsValidator : Validator {
 
         if (!checkColumnsRange(board)) {
             errors.add(BoardsValidationError(board,
-                    "Columns number should be between ${CC.PROP_BOARD_COLUMN_MIN} and " +
-                            "${CC.PROP_BOARD_COLUMN_MAX}"))
+                    "Columns number should be between ${Props.BOARD_COLUMN_MIN} and " +
+                            "${Props.BOARD_COLUMN_MAX}"))
         }
         if (!checkTitleLength(board)) {
             errors.add(BoardsValidationError(board,
@@ -60,7 +60,7 @@ object BoardsValidator : Validator {
     }
 
     private fun checkColumnsRange(board: Board) =
-            board.columns in CC.PROP_BOARD_COLUMN_MIN..CC.PROP_BOARD_COLUMN_MAX
+            board.columns in Props.BOARD_COLUMN_MIN..Props.BOARD_COLUMN_MAX
 
     private fun checkTitleLength(board: Board) =
             board.title.length in TITLE_LENGTH_MIN..TITLE_LENGTH_MAX

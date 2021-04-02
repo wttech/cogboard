@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.security
 
-import com.cognifide.cogboard.CogboardConstants.Companion.STATUS_CODE_401
+import com.cognifide.cogboard.CogboardConstants.StatusCode
 import com.cognifide.cogboard.utils.ExtensionFunctions.asJsonObject
 import com.cognifide.cogboard.storage.Storage
 import com.cognifide.cogboard.storage.VolumeStorageFactory
@@ -45,6 +45,6 @@ class SessionHandler(val storage: Storage = VolumeStorageFactory.admin()) : Rout
     }
 
     private fun sendUnauthorized(ctx: RoutingContext, message: String) {
-        ctx.response().setStatusMessage(message).setStatusCode(STATUS_CODE_401).end()
+        ctx.response().setStatusMessage(message).setStatusCode(StatusCode.a401).end()
     }
 }
