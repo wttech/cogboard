@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.widget.type
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Props
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -13,7 +13,7 @@ class BambooDeploymentWidgetTest : WidgetTestBase() {
 
     override fun initWidget(): JsonObject =
             super.initWidget()
-                    .put(CogboardConstants.PROP_ENDPOINT_LOADED,
+                    .put(Props.ENDPOINT_LOADED,
                             JsonObject().put("url", "https://test.bamboo.com"))
 
     @BeforeEach

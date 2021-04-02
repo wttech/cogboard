@@ -1,6 +1,7 @@
 package com.cognifide.cogboard.widget
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Props
+import com.cognifide.cogboard.CogboardConstants.Event
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.http.auth.AuthenticationType
 import io.vertx.core.Vertx
@@ -18,12 +19,12 @@ abstract class AsyncWidget(
     serv: BoardsConfigService
 ) : BaseWidget(vertx, config, serv) {
 
-    val user: String = config.endpointProp(CogboardConstants.PROP_USER)
-    val password: String = config.endpointProp(CogboardConstants.PROP_PASSWORD)
-    val token: String = config.endpointProp(CogboardConstants.PROP_TOKEN)
-    val url: String = config.endpointProp(CogboardConstants.PROP_URL)
-    val publicUrl: String = config.endpointProp(CogboardConstants.PROP_PUBLIC_URL).ifBlank { url }
-    private val contentType: String = config.getString(CogboardConstants.PROP_CONTENT_TYPE)
+    val user: String = config.endpointProp(Props.USER)
+    val password: String = config.endpointProp(Props.PASSWORD)
+    val token: String = config.endpointProp(Props.TOKEN)
+    val url: String = config.endpointProp(Props.URL)
+    val publicUrl: String = config.endpointProp(Props.PUBLIC_URL).ifBlank { url }
+    private val contentType: String = config.getString(Props.CONTENT_TYPE)
             ?: com.cognifide.cogboard.http.HttpConstants.CONTENT_TYPE_JSON
 
     private lateinit var consumer: MessageConsumer<JsonObject>
@@ -63,46 +64,46 @@ abstract class AsyncWidget(
     abstract fun handleResponse(responseBody: JsonObject)
 
     protected fun httpGet(url: String, requestId: String = "") {
-        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_GET,
+        vertx.eventBus().send(Event.HTTP_GET,
                 basicProps(url)
-                        .put(CogboardConstants.PROP_REQUEST_ID, requestId)
-                        .put(CogboardConstants.PROP_TOKEN, token)
+                        .put(Props.REQUEST_ID, requestId)
+                        .put(Props.TOKEN, token)
         )
     }
 
     protected fun httpGetStatus(url: String) {
-        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_CHECK,
+        vertx.eventBus().send(Event.HTTP_CHECK,
                 basicProps(url)
         )
     }
 
     protected fun httpPut(url: String, body: JsonObject) {
-        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_PUT,
+        vertx.eventBus().send(Event.HTTP_PUT,
                 basicProps(url)
-                        .put(CogboardConstants.PROP_BODY, body)
+                        .put(Props.BODY, body)
         )
     }
 
     protected fun httpPost(url: String, body: JsonObject) {
-        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_POST,
+        vertx.eventBus().send(Event.HTTP_POST,
                 basicProps(url)
-                        .put(CogboardConstants.PROP_BODY, body)
+                        .put(Props.BODY, body)
         )
     }
 
     protected fun httpDelete(url: String) {
-        vertx.eventBus().send(CogboardConstants.EVENT_HTTP_DELETE,
+        vertx.eventBus().send(Event.HTTP_DELETE,
                 basicProps(url)
         )
     }
 
     private fun basicProps(url: String): JsonObject {
         return JsonObject()
-                .put(CogboardConstants.PROP_URL, url)
-                .put(CogboardConstants.PROP_EVENT_ADDRESS, eventBusAddress)
-                .put(CogboardConstants.PROP_USER, user)
-                .put(CogboardConstants.PROP_PASSWORD, password)
-                .put(CogboardConstants.PROP_AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
-                .put(CogboardConstants.PROP_CONTENT_TYPE, contentType)
+                .put(Props.URL, url)
+                .put(Props.EVENT_ADDRESS, eventBusAddress)
+                .put(Props.USER, user)
+                .put(Props.PASSWORD, password)
+                .put(Props.AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
+                .put(Props.CONTENT_TYPE, contentType)
     }
 }

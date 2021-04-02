@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.widget
 
-import com.cognifide.cogboard.CogboardConstants as CC
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.widget.type.ServiceCheckWidget
 import com.cognifide.cogboard.widget.type.WhiteSpaceWidget
 import com.cognifide.cogboard.widget.type.WidgetTestBase
@@ -43,12 +43,12 @@ class WidgetIndexTest : WidgetTestBase() {
         val widget = WidgetIndex.availableWidgets()
                 .stream()
                 .map { it as JsonObject }
-                .filter { it.getString(CC.PROP_DISPLAY) == "Zabbix" }
+                .filter { it.getString(Props.DISPLAY) == "Zabbix" }
                 .findFirst()
                 .orElse(JsonObject())
 
-        assertEquals("Zabbix", widget.getString(CC.PROP_DISPLAY))
-        assertEquals("ZabbixWidget", widget.getString(CC.PROP_VALUE))
+        assertEquals("Zabbix", widget.getString(Props.DISPLAY))
+        assertEquals("ZabbixWidget", widget.getString(Props.VALUE))
     }
 
     @Test
@@ -56,15 +56,15 @@ class WidgetIndexTest : WidgetTestBase() {
         val widget = WidgetIndex.availableWidgets()
                 .stream()
                 .map { it as JsonObject }
-                .filter { it.getString(CC.PROP_DISPLAY) == "Service Check" }
+                .filter { it.getString(Props.DISPLAY) == "Service Check" }
                 .findFirst()
                 .orElse(JsonObject())
 
-        assertEquals("Service Check", widget.getString(CC.PROP_DISPLAY))
-        assertEquals("ServiceCheckWidget", widget.getString(CC.PROP_VALUE))
+        assertEquals("Service Check", widget.getString(Props.DISPLAY))
+        assertEquals("ServiceCheckWidget", widget.getString(Props.VALUE))
     }
 
-    private fun config(type: String) = JsonObject().put(CC.PROP_WIDGET_TYPE, type)
+    private fun config(type: String) = JsonObject().put(Props.WIDGET_TYPE, type)
 
     override fun widgetName() = "not required"
 }

@@ -1,6 +1,5 @@
 package com.cognifide.cogboard.widget.type.randompicker
 
-import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.storage.ContentRepository
 import com.cognifide.cogboard.widget.BaseWidget
@@ -8,6 +7,7 @@ import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import java.time.LocalDateTime
+import com.cognifide.cogboard.CogboardConstants.Props
 import java.time.ZoneOffset
 
 class RandomPickerWidget(
@@ -22,7 +22,7 @@ class RandomPickerWidget(
     private val isDaily: Boolean = config.getBoolean(PROP_IS_DAILY, false)
 
     init {
-        super.config.put(CogboardConstants.PROP_SCHEDULE_PERIOD, SYNC_INTERVAL)
+        super.config.put(Props.SCHEDULE_PERIOD, SYNC_INTERVAL)
         createDynamicChangeSubscriber()?.handler { userEventCycle() }
     }
 

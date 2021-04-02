@@ -1,6 +1,6 @@
 package com.cognifide.cogboard.config.controller
 
-import com.cognifide.cogboard.CogboardConstants.Companion.EVENT_USER_CONTROL
+import com.cognifide.cogboard.CogboardConstants.Event
 import com.cognifide.cogboard.config.service.UserService
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
@@ -12,7 +12,7 @@ class UserController : AbstractVerticle() {
 
     override fun start() {
         userService = UserService()
-        factory.create(EVENT_USER_CONTROL, vertx, prepareConfig())
+        factory.create(Event.USER_CONTROL, vertx, prepareConfig())
     }
 
     private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(

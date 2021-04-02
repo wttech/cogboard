@@ -5,7 +5,7 @@ import com.cognifide.cogboard.widget.AsyncWidget
 import com.cognifide.cogboard.widget.Widget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
-import com.cognifide.cogboard.CogboardConstants as CC
+import com.cognifide.cogboard.CogboardConstants.Props
 
 class BambooDeploymentWidget(
     vertx: Vertx,
@@ -29,9 +29,9 @@ class BambooDeploymentWidget(
 
     private fun sendNeverDeployed() {
         send(JsonObject()
-                .put(CC.PROP_ERROR_MESSAGE, "Never Deployed")
-                .put(CC.PROP_ERROR_CAUSE, "")
-                .put(CC.PROP_WIDGET_STATUS, Widget.Status.UNKNOWN))
+                .put(Props.ERROR_MESSAGE, "Never Deployed")
+                .put(Props.ERROR_CAUSE, "")
+                .put(Props.WIDGET_STATUS, Widget.Status.UNKNOWN))
     }
 
     private fun sendSuccess(result: JsonObject) {
@@ -39,9 +39,9 @@ class BambooDeploymentWidget(
         val deploymentResultId = result.getInteger("id")
 
         result.apply {
-            put(CC.PROP_URL, constructUrl(deploymentResultId))
-            put(CC.PROP_RELEASE_NAME, deploymentVersionName)
-            put(CC.PROP_WIDGET_STATUS, getStatus(result))
+            put(Props.URL, constructUrl(deploymentResultId))
+            put(Props.RELEASE_NAME, deploymentVersionName)
+            put(Props.WIDGET_STATUS, getStatus(result))
             remove("items")
         }
 
