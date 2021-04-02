@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSize } from 'react-hook-size';
 import { bool, string } from 'prop-types';
 
@@ -31,8 +31,9 @@ const TruncatedText = ({
   if (isVertical && parentDimensions !== null) {
     const { height } = parentDimensions;
     const ModifiedPre = ModifiedWidth(RotatedStyledPre, height);
+    const VerticalText = height ? ModifiedPre : RotatedStyledPre;
 
-    TruncatedPre = OverflowingText(ModifiedPre);
+    TruncatedPre = OverflowingText(VerticalText);
   } else if (singleLine) {
     TruncatedPre = SingleLineText(StyledPre);
   } else {
@@ -43,15 +44,22 @@ const TruncatedText = ({
 };
 
 const TextWidget = ({ text, textSize, isVertical, singleLine }) => {
-  const targetRef = useRef();
+  const targetRef = useRef(null);
   const centerWrapperDimensions = useSize(targetRef);
+  const [dimensions, setDimensions] = useState(null);
+
+  useEffect(() => {
+    if (centerWrapperDimensions.height) {
+      setDimensions(centerWrapperDimensions);
+    }
+  }, [centerWrapperDimensions]);
 
   return (
     <TypographyVariant variant={textSize}>
       <CenterWrapper ref={targetRef} isVertical={isVertical}>
         <TruncatedText
           isVertical={isVertical}
-          parentDimensions={centerWrapperDimensions}
+          parentDimensions={dimensions}
           singleLine={singleLine}
         >
           {text}
