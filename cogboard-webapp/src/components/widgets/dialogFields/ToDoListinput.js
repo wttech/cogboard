@@ -5,6 +5,7 @@ import { remove } from 'ramda';
 import { postWidgetContentUpdate } from '../../../utils/fetch';
 import { saveWidget } from '../../../actions/thunks';
 import { prepareChangeEvent } from './helpers';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
   FormControl,
   IconButton,
@@ -33,6 +34,16 @@ const ToDoListInput = ({ value, values, onChange }) => {
       };
     })
   );
+
+  const handleOnDragEnd = result => {
+    if (!result.destination) return;
+
+    const tempItems = items;
+    const [reorderedItem] = tempItems.splice(result.source.index, 1);
+    tempItems.splice(result.destination.index, 0, reorderedItem);
+
+    setItems(tempItems);
+  };
 
   const resetInput = () => {
     setFormValueItemText('');
@@ -162,52 +173,65 @@ const ToDoListInput = ({ value, values, onChange }) => {
           </StyledFab>
         )}
       </StyledFabGroup>
-      <StyledList>
-        {items.map((item, index) => (
-          <ListItem
-            key={item.id}
-            dense
-            button
-            selected={editMode === item.id}
-            onClick={() => {
-              handleEdit(item.id);
-            }}
-          >
-            <ListItemText
-              primary={item.itemText}
-              style={
-                selectedItems.includes(item.id)
-                  ? { textDecoration: 'line-through' }
-                  : {}
-              }
-            />
-            <ListItemSecondaryAction>
-              <Tooltip title="Edit" placement="bottom">
-                <IconButton
-                  aria-label="Edit"
-                  disabled={editMode === item.id}
-                  onClick={() => {
-                    handleEdit(item.id);
-                  }}
-                >
-                  <Edit />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Delete" placement="bottom">
-                <IconButton
-                  aria-label="Delete"
-                  disabled={editMode === item.id}
-                  onClick={() => {
-                    handleDelete(index);
-                  }}
-                >
-                  <Delete />
-                </IconButton>
-              </Tooltip>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </StyledList>
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="characters">
+          {provided => (
+            <StyledList {...provided.droppableProps} ref={provided.innerRef}>
+              {items.map((item, index) => (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
+                  {provided => (
+                    <ListItem
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      dense
+                      button
+                      selected={editMode === item.id}
+                      onClick={() => {
+                        handleEdit(item.id);
+                      }}
+                    >
+                      <ListItemText
+                        primary={item.itemText}
+                        style={
+                          selectedItems.includes(item.id)
+                            ? { textDecoration: 'line-through' }
+                            : {}
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <Tooltip title="Edit" placement="bottom">
+                          <IconButton
+                            aria-label="Edit"
+                            disabled={editMode === item.id}
+                            onClick={() => {
+                              handleEdit(item.id);
+                            }}
+                          >
+                            <Edit />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Delete" placement="bottom">
+                          <IconButton
+                            aria-label="Delete"
+                            disabled={editMode === item.id}
+                            onClick={() => {
+                              handleDelete(index);
+                            }}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </Tooltip>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </StyledList>
+          )}
+        </Droppable>
+      </DragDropContext>
     </FormControl>
   );
 };

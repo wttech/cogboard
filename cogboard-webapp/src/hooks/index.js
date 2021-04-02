@@ -14,6 +14,7 @@ export const useToggle = (initialState = false) => {
 };
 
 export const useFormData = (data, config = {}) => {
+  console.log(data);
   const [values, setValues] = useState(data);
   const { onChange = null, initialSchema = null } = config;
   const [status, setStatus] = useState({

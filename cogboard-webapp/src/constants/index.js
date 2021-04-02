@@ -122,7 +122,8 @@ export const CONTENT_TYPE = [
 
 export const ItemTypes = {
   WIDGET: 'widget',
-  BOARD: 'board'
+  BOARD: 'board',
+  LISTITEM: 'listitem'
 };
 
 export const DEFAULT_BOARD_TYPE = 'WidgetBoard';
