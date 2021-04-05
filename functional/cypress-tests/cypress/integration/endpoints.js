@@ -48,6 +48,7 @@ describe('Endpoints', () => {
     // adding the same endpoint for the second time
     addEndpoint(testEndpoint(uid))
       .applyConfig()
+      .save()
       .assertErrorMessageVisible('This field must be unique.');
   });
 

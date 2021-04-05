@@ -18,7 +18,6 @@ describe('Refresh widgets', () => {
   });
 
   it('Widget will be updated after edit endpoints', () => {
-    jenkinsJobWidget1.assertBackground(blueColor);
 
     changeUrls(fakeMocksUrl);
     jenkinsJobWidget1.assertBackground(redColor);

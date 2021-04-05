@@ -73,7 +73,7 @@ class Dashboard {
     cy.contains('[data-cy="board-card"]', this.name)
       .scrollIntoView()
       .should('is.visible');
-    cy.get('[data-cy="board-form-title-input-error"]').should('not.visible');
+    cy.get('[data-cy="board-form-title-input-error"]').should('not.exist');
     return this;
   }
 

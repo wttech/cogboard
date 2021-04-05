@@ -15,7 +15,7 @@ describe('Dashboard Persistence', () => {
     cy.addDashboard(name);
     cy.visit('/');
     cy.get('[data-cy="navbar-show-drawer-button"]').click();
-    cy.contains('[data-cy="board-card"]', name).should('not.visible');
+    cy.contains('[data-cy="board-card"]', name).should('not.exist');
   });
 
   it('Saved dashboard is displayed after refresh', () => {
@@ -54,7 +54,7 @@ describe('Widget Persistence', () => {
     cy.visit('/');
     cy.openDrawer();
     cy.chooseDashboard(dashboardName);
-    cy.contains('h3', widget.title).should('not.visible');
+    cy.contains('h3', widget.title).should('not.exist');
   });
 
   it('Saved Example widget is displayed after refresh', () => {

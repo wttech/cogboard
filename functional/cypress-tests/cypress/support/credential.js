@@ -72,7 +72,7 @@ class Credentials {
   }
 
   assertTabDisappear() {
-    cy.get('[data-cy="app-credential-form-tab"]').should('not.be.visible');
+    cy.get('[data-cy="app-credential-form-tab"]').should('not.exist');
     return this;
   }
 

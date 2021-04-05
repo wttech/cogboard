@@ -13,7 +13,7 @@ describe('Settings', () => {
   context('Anonymous user', () => {
     it('Anonymous user: settings menu button is not available', () => {
       cy.visit('/');
-      cy.get('[data-cy="settings-menu-open-button"]').should('not.be.visible');
+      cy.get('[data-cy="settings-menu-open-button"]').should('not.exist');
     });
   });
 
