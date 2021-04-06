@@ -35,6 +35,7 @@ describe('Basic Dashboard CRUD', () => {
   it('Anonymous user can choose dashboard', () => {
     const board = addWidgetsDashboard();
     cy.closeDrawer();
+    cy.saveState();
     cy.logout();
     cy.get('[data-cy="navbar-show-drawer-button"]').click();
     board.canBeSelected();

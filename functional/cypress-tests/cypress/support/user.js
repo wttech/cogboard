@@ -1,4 +1,4 @@
-Cypress.Commands.add(
+/*Cypress.Commands.add(
   'login',
   (username = Cypress.env('username'), password = Cypress.env('password')) => {
     cy.get('[data-cy="user-login-login-icon"]').click();
@@ -50,7 +50,7 @@ Cypress.Commands.add('logout', () => {
   ).should('is.visible');
   cy.get('[data-cy="user-login-logout-icon"]').should('not.exist');
 });
-
+*/
 Cypress.Commands.add('getAuthenticationToken', () => {
   cy.request({
     method: 'POST',

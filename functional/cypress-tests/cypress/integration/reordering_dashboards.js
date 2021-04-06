@@ -61,6 +61,7 @@ describe('Reordering dashboards', () => {
     cy.closeDrawer();
     cy.addDashboard(dashboardName2);
     cy.get('[alt="Cogboard logo"]').type('{esc}');
+    cy.saveState();
     cy.logout();
     cy.openDrawer();
     cy.get(`h3:contains("${dashboardName2}")`).drag(

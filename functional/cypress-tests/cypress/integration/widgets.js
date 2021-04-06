@@ -22,7 +22,6 @@ describe('Widgets', () => {
       let widget = createWidget(name).configure(false);
 
       validateWidgetConfig(widget);
-      widget.remove();
     });
   }
 
@@ -30,6 +29,5 @@ describe('Widgets', () => {
     createWidget(Widgets.whiteSpace.name)
       .configure(true)
       .isDisabled()
-      .remove();
   });
 });

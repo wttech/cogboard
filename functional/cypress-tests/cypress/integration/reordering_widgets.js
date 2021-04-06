@@ -43,7 +43,7 @@ describe('Reordering widgets', () => {
       thirdWidgetsTitle,
       secondWidgetsTitle
     ]);
-
+    cy.saveState();
     cy.logout();
     second.move(firstWidgetsTitle);
 

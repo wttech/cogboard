@@ -48,7 +48,7 @@ describe('Widget Persistence', () => {
   });
 
   it('Not saved Example widget is not displayed after refresh', () => {
-    const widget = createWidget(Widgets.whiteSpace.name)
+    const widget = createWidget(Widgets.linkList.name)
       .configure(true)
       .assertTitle();
     cy.visit('/');
