@@ -5,7 +5,8 @@ services:
 jdk:
   - oraclejdk11
 script:
-  - ./gradlew functionalTests -DcypressEnv=travis
+  - ./gradlew functionalTests
+#-DcypressEnv=travis
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
