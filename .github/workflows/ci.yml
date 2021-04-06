@@ -23,12 +23,14 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Build
+        run: ./gradlew :build -xdetekt -xtest
       - name: Run Detekt
-        run: ./gradlew :cogboard-app:detekt
+        run: ./gradlew :detekt
       - name: Run JUnit
         run: ./gradlew :cogboard-app:test
       - name: Run Cypress
-        run: ./gradlew functionalTests -DcypressEnv=travis -xdetekt -xtest
+        run: ./gradlew functionalTests -DcypressEnv=travis -xdetekt -xtest --stacktrace
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
         # Restoring these files from a GitHub Actions cache might cause problems for future builds.
