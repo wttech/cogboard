@@ -36,10 +36,13 @@ export function validateBambooPlan(widget) {
 export function validateCheckbox(widget) {
   cy.wait(2000);
   widget.click('[data-cy="checkbox"]');
+  cy.wait(2000);
   widget.assertBackground('rgb(1, 148, 48)');
   widget.click('[data-cy="checkbox"]');
+  cy.wait(2000);
   widget.assertBackground('rgb(225, 49, 47)');
   widget.click('[data-cy="checkbox"]');
+  cy.wait(2000);
   widget.assertBackground('rgb(38, 36, 62)');
 }
 

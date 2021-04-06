@@ -20,9 +20,11 @@ describe('Refresh widgets', () => {
   it('Widget will be updated after edit endpoints', () => {
 
     changeUrls(fakeMocksUrl);
+    cy.wait(5000);
     jenkinsJobWidget1.assertBackground(redColor);
 
     changeUrls(apiMocksUrl);
+    cy.wait(5000);
     jenkinsJobWidget1.assertBackground(blueColor);
 
     jenkinsJobWidget1.remove();

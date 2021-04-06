@@ -20,7 +20,7 @@ describe('Widgets', () => {
 
     it(`${name}${version} can be configured and added by logged in user`, () => {
       let widget = createWidget(name).configure(false);
-
+      cy.wait(3000);
       validateWidgetConfig(widget);
     });
   }
