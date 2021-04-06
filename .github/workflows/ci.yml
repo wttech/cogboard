@@ -13,7 +13,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-          architecture: 'x64'
 
         - name: Cache Gradle packages
           uses: actions/cache@v2
