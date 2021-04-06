@@ -13,20 +13,17 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-
-        - name: Cache Gradle packages
-          uses: actions/cache@v2
-          with:
-            path: |
-              ~/.gradle/caches
-              ~/.gradle/wrapper
-            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-            restore-keys: |
-              ${{ runner.os }}-gradle-
-
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Run Automation
         run: ./gradlew functionalTests -DcypressEnv=travis
-
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
         # Restoring these files from a GitHub Actions cache might cause problems for future builds.
