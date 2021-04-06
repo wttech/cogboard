@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost",
+  "baseUrl": "http://cogboard-local_frontend",
   "video": false,
   "defaultCommandTimeout": 10000,
   "env": {
