@@ -24,9 +24,11 @@ How it’s built. We’ve been using new technologies when working on CogBoard. 
 
 How it works. CogBoard allows for gathering data from a wide range of external data sources such as AEM, Bamboo, Jenkins, SonarQube etc, and gives a possibility of monitoring the data on your personalised dashboards, while using available [widgets](https://github.com/wttech/cogboard/wiki#widgets), or by creating [new widgets](https://github.com/wttech/cogboard/wiki#widget-development).
 
-## Example dashboard
+## Example dashboards
 
-![Board](docs/images/Cogboard.png)
+![Board 1](docs/images/cogboard-1.png)
+![Board 2](docs/images/cogboard-2.png)
+![Board 3](docs/images/cogboard-3.png)
 
 ## What benefits it brings?
 
