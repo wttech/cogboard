@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   automation:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -23,10 +23,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Run Detekt
-        run: ./gradlew :detekt
-      - name: Run JUnit
-        run: ./gradlew :cogboard-app:test -info
+#      - name: Run Detekt
+#        run: ./gradlew :detekt
+#      - name: Run JUnit
+#        run: ./gradlew :cogboard-app:test
       - name: Run Cypress
         run: ./gradlew functionalTests -DcypressEnv=travis -xdetekt -xtest --stacktrace
       - name: Cleanup Gradle Cache
