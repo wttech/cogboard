@@ -17,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo TODO-eslint"
+      "pre-commit": "echo TODO_ESLint_and_Prettier_config"
     }
   },
   "lint-staged": {
