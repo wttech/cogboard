@@ -18,12 +18,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm outdated",
-      "pre-push": "npx cypress open"
+      "pre-commit": "lint-staged",
+      "pre-push": "npx cypress run"
     }
   },
   "lint-staged": {
-    "**/*.{js,ts,json}": [
+    "cypress/*.{js,ts,json}": [
       "eslint --fix",
       "pretty-quick --staged"
     ]
