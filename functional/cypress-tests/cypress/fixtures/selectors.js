@@ -4,7 +4,8 @@ export const MAIN_SCREEN = {
     LOGIN_BUTTON: '[data-cy=user-login-login-icon]',
     LOGOUT_BUTTON: '[data-cy=user-login-logout-icon]',
     NOTIFICATION_MESSAGE: '[data-cy=notification-snackbar]',
-    SAVE_BUTTON: '[data-cy=main-template-save-data-button]'
+    SAVE_BUTTON: '[data-cy=main-template-save-data-button]',
+    SETTINGS_BUTTON: '[data-cy=settings-menu-open-button]'
 }
 
 export const LOGIN = {

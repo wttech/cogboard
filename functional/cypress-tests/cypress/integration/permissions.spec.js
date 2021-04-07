@@ -11,6 +11,9 @@ describe('Permissions', () => {
         it('Login', () => {
             cy.login();
         });
+        it('See settings button', () => {
+            cy.isVisible(MAIN_SCREEN.SETTINGS_BUTTON);
+        });
         it('See widget add button', () => {
             cy.isVisible(MAIN_SCREEN.ADD_WIDGET_BUTTON);
         });
@@ -38,6 +41,9 @@ describe('Permissions', () => {
         it('Login', () => {
             cy.guestLogin();
         });
+        it('No settings button', () => {
+            cy.notExist(MAIN_SCREEN.SETTINGS_BUTTON);
+        });
         it('No widget add button', () => {
             cy.notExist(MAIN_SCREEN.ADD_WIDGET_BUTTON);
         });
@@ -61,6 +67,9 @@ describe('Permissions', () => {
         });
         after(() => {
             cy.clearStorage();
+        });
+        it('No settings button', () => {
+            cy.notExist(MAIN_SCREEN.SETTINGS_BUTTON);
         });
         it('No widget add button', () => {
             cy.notExist(MAIN_SCREEN.ADD_WIDGET_BUTTON);
