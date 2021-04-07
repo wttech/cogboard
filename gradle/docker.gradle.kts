@@ -114,9 +114,8 @@ tasks {
                 "-v", "$functionalTestsPath:/e2e",
                 "-w", "/e2e",
                 "--network=$network",
-                "cypress/included:4.0.2",
-                "--browser", "chrome",
-                "--config-file", cypressConfigPath
+                "cypress/included:7.0.0",
+                "--env configFile=github"
         )
 
         dependsOn("redeployLocal", "copyCypressContent")
