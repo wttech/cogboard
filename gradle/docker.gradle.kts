@@ -115,7 +115,8 @@ tasks {
                 "-w", "/e2e",
                 "--network=$network",
                 "cypress/included:7.0.0",
-                "--env configFile=github"
+                "--browser", "chrome",
+                "--config-file", cypressConfigPath
         )
 
         dependsOn("redeployLocal", "copyCypressContent")
