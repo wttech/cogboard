@@ -20,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "echo lint-staged",
       "pre-push": "npx cypress run"
     }
   },
