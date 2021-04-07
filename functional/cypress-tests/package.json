@@ -19,7 +19,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm outdated",
-      "pre-push": "npx cypress run"
+      "pre-push": "npx cypress open"
     }
   },
   "lint-staged": {
