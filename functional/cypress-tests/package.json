@@ -20,14 +20,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo lint-staged",
+      "pre-commit": "npm outdated",
       "pre-push": "npx cypress run"
     }
   },
   "lint-staged": {
     "**/*.{js,ts,json}": [
       "eslint --fix",
-      "pretty-quick --staged" //test
+      "pretty-quick --staged"
     ]
   }
 }
