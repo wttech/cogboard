@@ -23,7 +23,7 @@
     }
   },
   "lint-staged": {
-    "cypress/*.{js,ts,json}": [
+    "cypress/**/*.{js,ts,json}": [
       "eslint --fix",
       "pretty-quick --staged"
     ]
