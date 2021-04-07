@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://localhost",
+  "video": false,
+  "defaultCommandTimeout": 10000,
+  "env": {
+    "username": "admin",
+    "password": "admin"
+  }
+}
