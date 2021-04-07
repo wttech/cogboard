@@ -2,15 +2,15 @@
   "devDependencies": {
     "cypress": "^7.0.0",
     "eslint": "^7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
+    "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
     "prettier": "2.2.1",
-    "pretty-quick": "^3.1.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "husky": "^6.0.0"
+    "pretty-quick": "^3.1.0"
   },
   "repository": {
     "type": "git",
