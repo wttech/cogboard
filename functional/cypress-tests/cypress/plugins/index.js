@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/* eslint-disable */
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -13,19 +14,19 @@
 // the project's config changing)
 
 // promisified fs module
-const fs = require('fs-extra')
-const path = require('path')
+const fs = require('fs-extra');
+const path = require('path');
 
 function getConfigurationByFile(file) {
-    const pathToConfigFile = path.resolve(`${file}.env.json`)
+  const pathToConfigFile = path.resolve(`${file}.env.json`);
 
-    return fs.readJson(pathToConfigFile)
+  return fs.readJson(pathToConfigFile);
 }
 
 // plugins file
 module.exports = (on, config) => {
-    // accept a configFile value or use development by default
-    const file = config.env.configFile || 'local'
+  // accept a configFile value or use development by default
+  const file = config.env.configFile || 'local';
 
-    return getConfigurationByFile(file)
-}
+  return getConfigurationByFile(file);
+};

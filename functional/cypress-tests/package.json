@@ -11,13 +11,18 @@
     "prettier": "2.2.1",
     "pretty-quick": "^3.1.0"
   },
+  "scripts": {
+    "cy:run": "npx cypress run",
+    "cy:open": "npx cypress open",
+    "cy:run:github": "npx cypress run --env configFile=github"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/wttech/cogboard"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo TODO_ESLint_and_Prettier_config"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
