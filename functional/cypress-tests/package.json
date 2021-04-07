@@ -6,13 +6,11 @@
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
-    "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "2.2.1",
-    "pretty-quick": "^3.1.0"
-  },
-  "dependencies": {
-    "eslint-config-airbnb": "^18.2.1"
+    "pretty-quick": "^3.1.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "husky": "^6.0.0"
   },
   "repository": {
     "type": "git",
