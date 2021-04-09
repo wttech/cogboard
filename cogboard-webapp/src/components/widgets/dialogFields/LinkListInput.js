@@ -1,24 +1,10 @@
 import React, { useState } from 'react';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
-import { prepareChangeEvent } from './helpers';
+import { prepareChangeEvent, RenderDragableList } from './helpers';
 import { hasError } from '../../../utils/components';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-import {
-  IconButton,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  Tooltip
-} from '@material-ui/core';
-import { Add, Edit, Check, Delete, Error } from '@material-ui/icons';
-import {
-  StyledFab,
-  StyledInput,
-  StyledList,
-  StyledFormControl
-} from './styled';
+import { Add, Check, Error } from '@material-ui/icons';
+import { StyledFab, StyledInput, StyledFormControl } from './styled';
 import { StyledFormHelperText } from '../../styled';
 
 const LinkListInput = ({ value, onChange }) => {
@@ -47,17 +33,6 @@ const LinkListInput = ({ value, onChange }) => {
       };
     })
   );
-
-  const handleOnDragEnd = result => {
-    if (!result.destination) return;
-
-    const tempItems = linkList;
-    const [reorderedItem] = tempItems.splice(result.source.index, 1);
-    tempItems.splice(result.destination.index, 0, reorderedItem);
-
-    setLinkList(tempItems);
-    onChange(prepareChangeEvent(tempItems, 'array'));
-  };
 
   const resetInput = () => {
     setFormValueTitle('');
@@ -186,59 +161,15 @@ const LinkListInput = ({ value, onChange }) => {
           </>
         )}
       </StyledFab>
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="characters">
-          {provided => (
-            <StyledList {...provided.droppableProps} ref={provided.innerRef}>
-              {linkList.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {provided => (
-                    <ListItem
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      key={item.id}
-                      dense
-                      button
-                      selected={editMode === item.id}
-                      onClick={() => {
-                        handleEdit(item.id);
-                      }}
-                    >
-                      <ListItemText primary={item.linkTitle} />
-                      <ListItemSecondaryAction>
-                        <Tooltip title="Edit" placement="bottom">
-                          <IconButton
-                            onClick={() => {
-                              handleEdit(item.id);
-                            }}
-                            aria-label="Edit"
-                            disabled={editMode === item.id}
-                          >
-                            <Edit />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Delete" placement="bottom">
-                          <IconButton
-                            aria-label="Delete"
-                            disabled={editMode === item.id}
-                            onClick={() => {
-                              handleDelete(index);
-                            }}
-                          >
-                            <Delete />
-                          </IconButton>
-                        </Tooltip>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </StyledList>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <RenderDragableList
+        items={linkList}
+        setEvent={setLinkList}
+        onChange={onChange}
+        prepareChangeEvent={prepareChangeEvent}
+        editMode={editMode}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      ></RenderDragableList>
     </StyledFormControl>
   );
 };

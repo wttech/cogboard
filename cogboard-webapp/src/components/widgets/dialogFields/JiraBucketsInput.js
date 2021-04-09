@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
-import { prepareChangeEvent } from './helpers';
-import {
-  FormControl,
-  IconButton,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  Tooltip
-} from '@material-ui/core';
-import { Add, Edit, Check, Delete } from '@material-ui/icons';
-import { StyledList, StyledInput, StyledFab } from './styled';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { prepareChangeEvent, RenderDragableList } from './helpers';
+import { FormControl } from '@material-ui/core';
+import { Add, Check } from '@material-ui/icons';
+import { StyledInput, StyledFab } from './styled';
 
 const JiraBucketsInput = ({ value, onChange }) => {
   const [formValueJqlQuery, setFormValueJqlQuery] = useState('');
@@ -32,17 +24,6 @@ const JiraBucketsInput = ({ value, onChange }) => {
       };
     })
   );
-
-  const handleOnDragEnd = result => {
-    if (!result.destination) return;
-
-    const tempItems = buckets;
-    const [reorderedItem] = tempItems.splice(result.source.index, 1);
-    tempItems.splice(result.destination.index, 0, reorderedItem);
-
-    setBuckets(tempItems);
-    onChange(prepareChangeEvent(tempItems, 'array'));
-  };
 
   const resetInput = () => {
     setFormValueJqlQuery('');
@@ -152,59 +133,15 @@ const JiraBucketsInput = ({ value, onChange }) => {
           </>
         )}
       </StyledFab>
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="characters">
-          {provided => (
-            <StyledList {...provided.droppableProps} ref={provided.innerRef}>
-              {buckets.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {provided => (
-                    <ListItem
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      key={item.id}
-                      dense
-                      button
-                      selected={editMode === item.id}
-                      onClick={() => {
-                        handleEdit(item.id);
-                      }}
-                    >
-                      <ListItemText primary={item.bucketName} />
-                      <ListItemSecondaryAction>
-                        <Tooltip title="Edit" placement="bottom">
-                          <IconButton
-                            onClick={() => {
-                              handleEdit(item.id);
-                            }}
-                            aria-label="Edit"
-                            disabled={editMode === item.id}
-                          >
-                            <Edit />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Delete" placement="bottom">
-                          <IconButton
-                            aria-label="Delete"
-                            disabled={editMode === item.id}
-                            onClick={() => {
-                              handleDelete(index);
-                            }}
-                          >
-                            <Delete />
-                          </IconButton>
-                        </Tooltip>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </StyledList>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <RenderDragableList
+        items={buckets}
+        setEvent={setBuckets}
+        onChange={onChange}
+        prepareChangeEvent={prepareChangeEvent}
+        editMode={editMode}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      ></RenderDragableList>
     </FormControl>
   );
 };
