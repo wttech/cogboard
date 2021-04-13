@@ -14,6 +14,6 @@ class HandlerUtil {
                 .end(body)
         }
 
-        val SESSION_REFRESHERS = setOf(HttpMethod.POST, HttpMethod.DELETE)
+        private val SESSION_REFRESHERS = setOf(HttpMethod.POST, HttpMethod.DELETE)
     }
 }

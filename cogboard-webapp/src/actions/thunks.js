@@ -49,6 +49,7 @@ import {
   getGuestName
 } from '../utils/auth';
 import { newVersionButtonsCreator } from '../components/NewVersionButtons/helpers';
+import { v4 } from 'uuid';
 
 export const fetchInitialData = () => dispatch => {
   dispatch(requestData());
@@ -78,6 +79,16 @@ export const saveDataThunk = () => (dispatch, getState) => {
   const token = getToken();
 
   return fetchData(URL.SAVE_DATA, { method: 'POST', data, token }).then(
+    () => dispatch(saveDataSuccess()),
+    console.error
+  );
+};
+
+const boardApiCall = (board, action) => dispatch => {
+  const token = getToken();
+  const url = `${URL.BOARD}/${board.id}`;
+
+  return fetchData(url, { method: action, data: board, token }).then(
     () => dispatch(saveDataSuccess()),
     console.error
   );
@@ -123,6 +134,7 @@ const deleteBoardWithWidgetsThunk = id => (dispatch, getState) => {
   const { currentBoard } = ui;
 
   dispatch(deleteBoard(id));
+  dispatch(boardApiCall({ id: id }, 'DELETE'));
 
   const [firstBoardId] = getState().boards.allBoards;
 
@@ -132,6 +144,23 @@ const deleteBoardWithWidgetsThunk = id => (dispatch, getState) => {
   }
 
   dispatch(deleteMultipleWidgets(widgets));
+};
+
+const addBoardThunk = data => dispatch => {
+  const newBoard = {
+    id: `board-${v4()}`,
+    theme: 'default',
+    widgets: [],
+    ...data
+  };
+
+  dispatch(addBoard(newBoard));
+  dispatch(boardApiCall(newBoard, 'POST'));
+};
+
+const editBoardThunk = data => dispatch => {
+  dispatch(editBoard(data));
+  dispatch(boardApiCall(data, 'POST'));
 };
 
 const makeWidgetUpdaterThunk = (
@@ -322,8 +351,8 @@ export const removeWidget = withAuthentication(
 );
 export const reorderWidgets = withDataChanged(reorderWidgetsThunk);
 export const reorderBoard = withDataChanged(reorderBoards);
-export const addNewBoard = withDataChanged(addBoard);
-export const saveBoard = withDataChanged(editBoard);
+export const addNewBoard = withDataChanged(addBoardThunk);
+export const saveBoard = withDataChanged(editBoardThunk);
 export const deleteBoardWithWidgets = withDataChanged(
   deleteBoardWithWidgetsThunk
 );

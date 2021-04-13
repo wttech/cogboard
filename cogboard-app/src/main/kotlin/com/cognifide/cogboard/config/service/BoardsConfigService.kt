@@ -33,6 +33,17 @@ class BoardsConfigService(
         contentRepository.save(widgetId, content)
     }
 
+    fun updateBoard(board: JsonObject) {
+        val config = storage.loadConfig()
+        val updatedConfig = BoardsConfigHelper.updateBoard(config, board)
+        saveBoardsConfig(updatedConfig)
+    }
+
+    fun deleteBoard(id: String) {
+        val config = storage.loadConfig()
+        val updatedConfig = BoardsConfigHelper.removeBoard(config, id)
+        saveBoardsConfig(updatedConfig)
+    }
     fun getContent(widgetId: String): JsonObject {
         return contentRepository.get(widgetId)
     }

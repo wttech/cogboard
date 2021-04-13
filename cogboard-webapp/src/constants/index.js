@@ -21,6 +21,7 @@ export const URL = {
   LOAD_INFO: '/api/version',
   LOAD_DATA: '/api/config',
   SAVE_DATA: '/api/config/save',
+  BOARD: '/api/board',
   UPDATE_WIDGET: '/api/widget/update',
   DELETE_WIDGET: '/api/widget/delete',
   LOGIN: '/api/login',

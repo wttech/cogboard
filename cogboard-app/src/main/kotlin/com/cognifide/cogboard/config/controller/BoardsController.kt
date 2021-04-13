@@ -24,17 +24,33 @@ class BoardsController(private val factory: ControllerFactory = ControllerFactor
     }
 
     private fun prepareConfig() = mapOf<String, (JsonObject) -> String>(
+        "save" to { body -> save(body) },
         "update" to { body -> update(body) },
+        "delete" to { body -> delete(body) },
         "get" to { _ -> get() }
     )
 
-    private fun update(body: JsonObject): String {
+    private fun save(body: JsonObject): String {
         boardsConfigService.saveBoardsConfig(body)
         sender.sendOk()
-        return JsonObject()
-            .put("message", "OK")
-            .toString()
+        return OK_MESSAGE
+    }
+
+    private fun update(body: JsonObject): String {
+        boardsConfigService.updateBoard(body)
+        sender.sendOk()
+        return OK_MESSAGE
+    }
+
+    private fun delete(body: JsonObject): String {
+        boardsConfigService.deleteBoard(body.getString("id"))
+        sender.sendOk()
+        return OK_MESSAGE
     }
 
     private fun get() = boardsConfigService.loadBoardsConfig().toString()
+
+    companion object {
+        const val OK_MESSAGE = "{\"message\":\"OK\"}"
+    }
 }

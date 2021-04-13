@@ -1,0 +1,10 @@
+{
+  "autoSwitch": false,
+  "switchInterval": 360,
+  "id": "board-3",
+  "theme": "default",
+  "widgets": [],
+  "columns": 8,
+  "title": "TestBoard 3",
+  "type": "WidgetBoard"
+}
