@@ -1,7 +1,7 @@
 import { dataChanged, setLogoutReasonMessage } from './actionCreators';
 import { logout } from './thunks';
 import { isAuthenticated, setToken } from '../utils/auth';
-import { mergeRight, assocPath } from 'ramda';
+import { assocPath } from 'ramda';
 import { checkResponseStatus } from '../utils/fetch';
 
 export const fetchData = (
