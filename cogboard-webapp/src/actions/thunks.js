@@ -72,7 +72,6 @@ export const saveDataThunk = () => (dispatch, getState) => {
   const state = getState();
   const { boards } = state;
   const widgets = {
-    allWidgets: state.widgets.allWidgets,
     widgetsById: state.widgets.widgetsById
   };
   const data = { boards, widgets };
@@ -167,9 +166,13 @@ const makeWidgetUpdaterThunk = (
   beforeUpdateActionCreator,
   widgetDataCreator
 ) => data => (dispatch, getState) => {
-  const allWidgets = getState().widgets.allWidgets;
+  const allWidgetNames = [];
+  // eslint-disable-next-line array-callback-return
+  Object.entries(getState().widgets.widgetsById).map(item => {
+    allWidgetNames.push(item[0]);
+  });
   const token = getToken();
-  const widgetData = widgetDataCreator({ ...data, allWidgets });
+  const widgetData = widgetDataCreator({ ...data, allWidgetNames });
   const { id } = widgetData;
   const { generalData, serverData } = mapDataToState(widgetData);
 

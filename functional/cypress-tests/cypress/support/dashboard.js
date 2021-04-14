@@ -95,3 +95,15 @@ export function addWidgetsDashboard(name, columns, switchInterval) {
 export function addIframeDashboard(name, columns, switchInterval) {
   return new Dashboard(name, dashboardTypes.iframe, columns, switchInterval);
 }
+
+export function deleteDashboard(name) {
+  cy.get('[data-cy="navbar-show-drawer-button"]').then(el => {
+    return el.click();
+  });
+  cy.contains('[data-cy="board-card"]', name)
+    .find('[data-cy="board-card-delete-button"]')
+    .scrollIntoView()
+    .click();
+  cy.get('[data-cy="confirmation-dialog-ok"]').click();
+  return this;
+}

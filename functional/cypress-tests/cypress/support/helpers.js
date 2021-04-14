@@ -1,14 +1,10 @@
 export const renewConfig = (config, newConfig) => {
   const {
-    boards: { allBoards },
-    widgets: { allWidgets }
+    boards: { allBoards }
   } = config;
 
   const filteredBoards = allBoards.filter(
     id => !newConfig.boards.allBoards.includes(id)
-  );
-  const filteredWidgets = allWidgets.filter(
-    id => !newConfig.widgets.allWidgets.includes(id)
   );
 
   const result = {
@@ -26,8 +22,7 @@ export const renewConfig = (config, newConfig) => {
       widgetsById: {
         ...config.widgets.widgetsById,
         ...newConfig.widgets.widgetsById
-      },
-      allWidgets: [...filteredWidgets, ...newConfig.widgets.allWidgets]
+      }
     }
   };
   return result;

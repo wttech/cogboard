@@ -48,7 +48,6 @@
         "isUpdating": false,
         "boardId": "board1"
       }
-    },
-    "allWidgets": ["newWidget,widgetThatIsNotEdited"]
+    }
   }
 }

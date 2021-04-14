@@ -25,7 +25,6 @@
     "allBoards": ["board-1", "board-2"]
   },
   "widgets": {
-    "allWidgets": ["widget1", "widget2"],
     "widgetsById": {
       "widget1": {
         "id": "widget1",
