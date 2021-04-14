@@ -89,5 +89,18 @@ class BoardsConfigHelperTest {
                 .getString("title")
         )
     }
+
+    @Test
+    fun `Expect widgets will not be deleted after board props updated`() {
+        board3.put("id", "board-2")
+        val updatedConfig = BoardsConfigHelper.updateBoard(config, board3)
+
+        assertEquals(
+            1,
+            updatedConfig.getJsonObject("boards").getJsonObject("boardsById").getJsonObject("board-2")
+                .getJsonArray("widgets").size(),
+        "board-2 still contains widgets"
+        )
+    }
 }
 

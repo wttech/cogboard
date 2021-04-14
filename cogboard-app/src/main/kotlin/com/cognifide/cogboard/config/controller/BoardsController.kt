@@ -14,7 +14,7 @@ class BoardsController(private val factory: ControllerFactory = ControllerFactor
 
     override fun start() {
         val contentRepository = ContentRepository()
-        sender = ConfirmationSender(vertx)
+        sender = ConfirmationSender(vertx) // TODO move to storage
         boardsConfigService = BoardsConfigService(
             contentRepository,
             EntityCleanupHelper(vertx)

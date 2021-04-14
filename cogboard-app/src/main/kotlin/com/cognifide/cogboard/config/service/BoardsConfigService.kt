@@ -44,6 +44,7 @@ class BoardsConfigService(
         val updatedConfig = BoardsConfigHelper.removeBoard(config, id)
         saveBoardsConfig(updatedConfig)
     }
+
     fun getContent(widgetId: String): JsonObject {
         return contentRepository.get(widgetId)
     }
