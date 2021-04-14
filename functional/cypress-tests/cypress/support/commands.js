@@ -63,10 +63,11 @@ Cypress.Commands.add('notExist', element => {
   cy.get(element).should('not.exist');
 });
 
-Cypress.Commands.add('openLoginForm', () => {
-  cy.visit('/');
-  cy.get(MAIN_SCREEN.LOGIN_BUTTON).click();
-  cy.get(LOGIN.DIALOG_CONTENT).should('be.visible');
+Cypress.Commands.add('removeCredentials', credentialId => {
+  const url = `/api/credentials/${credentialId}`;
+
+  cy.request('DELETE', url, {});
+  // cy.reload();
 });
 
 Cypress.Commands.add('saveState', () => {

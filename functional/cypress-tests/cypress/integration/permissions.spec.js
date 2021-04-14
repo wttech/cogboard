@@ -1,7 +1,7 @@
 import { MAIN_SCREEN, DASHBOARD } from '../fixtures/selectors.js';
 
 describe('Permissions', () => {
-  context('Admin permissions ', () => {
+  context('User permissions ', () => {
     before(() => {
       cy.visit('/');
     });

@@ -1,7 +1,7 @@
 import { MAIN_SCREEN } from '../fixtures/selectors.js';
 
 describe('Logout', () => {
-  context('Admin logout ', () => {
+  context('User logout ', () => {
     before(() => {
       cy.clearStorage();
       cy.visit('/');

@@ -3,7 +3,8 @@ import { MAIN_SCREEN, LOGIN } from '../fixtures/selectors.js';
 describe('Login', () => {
   context('Login form validations', () => {
     before(() => {
-      cy.openLoginForm();
+      cy.visit('/');
+      cy.clickAt(MAIN_SCREEN.LOGIN_BUTTON);
     });
     it('Invalid credentials', () => {
       cy.checkbox(LOGIN.GUEST_LOGIN_CHECKBOX, 'uncheck');
@@ -23,14 +24,15 @@ describe('Login', () => {
     });
     // TODO - after fix, add field required validation for guest user
   });
-  context('Admin can login', () => {
+  context('User can login', () => {
     before(() => {
-      cy.openLoginForm();
+      cy.visit('/');
+      cy.clickAt(MAIN_SCREEN.LOGIN_BUTTON);
     });
     after(() => {
       cy.clearStorage();
     });
-    it('Fill admin login form', () => {
+    it('Fill user login form', () => {
       cy.checkbox(LOGIN.GUEST_LOGIN_CHECKBOX, 'uncheck');
       cy.typeText(LOGIN.USERNAME_INPUT, Cypress.env('username'));
       cy.typeText(LOGIN.PASSWORD_INPUT, `${Cypress.env('password')}{enter}`);
@@ -47,7 +49,8 @@ describe('Login', () => {
   });
   context('Guest can login', () => {
     before(() => {
-      cy.openLoginForm();
+      cy.visit('/');
+      cy.clickAt(MAIN_SCREEN.LOGIN_BUTTON);
     });
     after(() => {
       cy.clearStorage();
