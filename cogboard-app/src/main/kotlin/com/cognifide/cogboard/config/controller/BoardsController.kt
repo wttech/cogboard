@@ -1,25 +1,16 @@
 package com.cognifide.cogboard.config.controller
 
 import com.cognifide.cogboard.CogboardConstants
-import com.cognifide.cogboard.config.helper.EntityCleanupHelper
 import com.cognifide.cogboard.config.service.BoardsConfigService
-import com.cognifide.cogboard.storage.ContentRepository
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
 
 class BoardsController(private val factory: ControllerFactory = ControllerFactory()) : AbstractVerticle() {
 
     private lateinit var boardsConfigService: BoardsConfigService
-    private lateinit var sender: ConfirmationSender
 
     override fun start() {
-        val contentRepository = ContentRepository()
-        sender = ConfirmationSender(vertx) // TODO move to storage
-        boardsConfigService = BoardsConfigService(
-            contentRepository,
-            EntityCleanupHelper(vertx)
-        )
-
+        boardsConfigService = BoardsConfigService(vertx)
         factory.create(CogboardConstants.Event.BOARDS_CONFIG, vertx, prepareConfig())
     }
 
@@ -32,19 +23,16 @@ class BoardsController(private val factory: ControllerFactory = ControllerFactor
 
     private fun save(body: JsonObject): String {
         boardsConfigService.saveBoardsConfig(body)
-        sender.sendOk()
         return OK_MESSAGE
     }
 
     private fun update(body: JsonObject): String {
         boardsConfigService.updateBoard(body)
-        sender.sendOk()
         return OK_MESSAGE
     }
 
     private fun delete(body: JsonObject): String {
         boardsConfigService.deleteBoard(body.getString("id"))
-        sender.sendOk()
         return OK_MESSAGE
     }
 
