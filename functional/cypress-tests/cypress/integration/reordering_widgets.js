@@ -1,21 +1,20 @@
 import { dashboardNameGen } from '../fixtures/Dashboard';
 import { createWidget } from '../support/widget';
 import Widgets from '../fixtures/Widgets';
-import { addWidgetsDashboard } from '../support/dashboard';
+import { addWidgetsDashboard, deleteDashboard } from '../support/dashboard';
 
 describe('Reordering widgets', () => {
   const firstWidgetsTitle = 'First Widget';
   const secondWidgetsTitle = 'Second Widget';
   const thirdWidgetsTitle = 'Third Widget';
-  let first, second, third, dashboard;
+  let first, second, third, dashboardName;
 
   before(() => {
     cy.visit('/');
     cy.login();
-    dashboard = addWidgetsDashboard(
-      dashboardNameGen('ReorderWidgetsTest')
-    ).select();
+    dashboardName = dashboardNameGen('ReorderWidgetsTest')
 
+    addWidgetsDashboard(dashboardName).select();
     first = createCheckboxWidget(firstWidgetsTitle);
     second = createCheckboxWidget(secondWidgetsTitle);
     third = createCheckboxWidget(thirdWidgetsTitle);
@@ -54,7 +53,7 @@ describe('Reordering widgets', () => {
 
     cy.login();
     cy.get('[data-cy="navbar-show-drawer-button"]').click();
-    dashboard.delete();
+    deleteDashboard(dashboardName)
   });
 
   function createCheckboxWidget(title) {
