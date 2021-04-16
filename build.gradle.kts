@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
     id("com.bmuschko.docker-remote-api")
     id("java")
@@ -44,8 +47,19 @@ allprojects {
     }
 }
 
-tasks.named("build") {
-    dependsOn(":cogboard-app:test", ":cogboard-webapp:buildImage")
+tasks {
+    named("build") {
+        dependsOn(":cogboard-app:test", ":cogboard-webapp:buildImage")
+    }
+    register("cypressInit", Exec::class) {
+        setWorkingDir("./functional/cypress-tests")
+        commandLine("npm${getCMD()}", "install")
+    }
+    register("cypressOpen", Exec::class) {
+        setWorkingDir("./functional/cypress-tests")
+        commandLine("npx${getCMD()}", "cypress", "open")
+        dependsOn("cypressInit")
+    }
 }
 
 detekt {
@@ -64,3 +78,5 @@ apply(from = "gradle/prepareCogboardCompose.gradle.kts")
 //gradle.taskGraph.whenReady {
 //    this.allTasks.forEach { logger.error(it.path + " " + it.name) }
 //}
+
+fun getCMD() = if (Os.isFamily(Os.FAMILY_WINDOWS)) ".cmd" else ""
