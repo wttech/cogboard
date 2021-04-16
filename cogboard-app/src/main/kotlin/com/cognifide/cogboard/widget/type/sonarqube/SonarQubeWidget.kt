@@ -66,7 +66,7 @@ class SonarQubeWidget(
                 .stream()
                 .map { it as String }
                 .forEach { metricName ->
-                    metrics.list
+                    (metrics.list as List<*>)
                             .stream()
                             .map { it as JsonObject }
                             .filter {
@@ -79,7 +79,7 @@ class SonarQubeWidget(
     }
 
     private fun extractStatus(metrics: JsonArray): Widget.Status {
-        return metrics.list
+        return (metrics.list as List<*>)
                 .stream()
                 .map { it as JsonObject }
                 .filter { it.getString(version.getMetricKey()) == "alert_status" }

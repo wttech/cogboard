@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.moowork.gradle:gradle-node-plugin:1.2.0")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61")
-    implementation("com.bmuschko:gradle-docker-plugin:6.1.2")
+    implementation("com.moowork.gradle:gradle-node-plugin:1.3.1")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
+    implementation("com.bmuschko:gradle-docker-plugin:6.7.0")
     implementation("io.knotx:knotx-gradle-plugins:0.1.4")
 }

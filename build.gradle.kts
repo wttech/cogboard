@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 plugins {
+    id("java-library")
     id("com.bmuschko.docker-remote-api")
     id("java")
-    id("io.gitlab.arturbosch.detekt") version "1.1.0"
+    id("io.gitlab.arturbosch.detekt") version "1.16.0"
     id("io.knotx.distribution")
 }
 
@@ -27,7 +28,13 @@ defaultTasks("redeployLocal")
 
 dependencies {
     subprojects.forEach { "dist"(project(":${it.name}")) }
-    "detektPlugins"("io.gitlab.arturbosch.detekt:detekt-formatting:1.1.0")
+    "detektPlugins"("io.gitlab.arturbosch.detekt:detekt-formatting:1.16.0")
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
 }
 
 allprojects {
@@ -53,7 +60,7 @@ detekt {
     config.from(file("detekt.yml"))
     parallel = true
     autoCorrect = true
-    failFast = true
+//    failFast = true
 }
 
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
