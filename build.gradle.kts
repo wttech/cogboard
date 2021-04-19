@@ -16,7 +16,6 @@
 plugins {
     id("java-library")
     id("com.bmuschko.docker-remote-api")
-    id("java")
     id("io.gitlab.arturbosch.detekt") version "1.16.0"
     id("io.knotx.distribution")
 }
@@ -60,7 +59,6 @@ detekt {
     config.from(file("detekt.yml"))
     parallel = true
     autoCorrect = true
-//    failFast = true
 }
 
 apply(from = "gradle/javaAndUnitTests.gradle.kts")
