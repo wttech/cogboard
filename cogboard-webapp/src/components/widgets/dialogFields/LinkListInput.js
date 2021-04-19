@@ -1,23 +1,10 @@
 import React, { useState } from 'react';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
-import { prepareChangeEvent } from './helpers';
+import { prepareChangeEvent, RenderDragableList } from './helpers';
 import { hasError } from '../../../utils/components';
-
-import {
-  IconButton,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  Tooltip
-} from '@material-ui/core';
-import { Add, Edit, Check, Delete, Error } from '@material-ui/icons';
-import {
-  StyledFab,
-  StyledInput,
-  StyledList,
-  StyledFormControl
-} from './styled';
+import { Add, Check, Error } from '@material-ui/icons';
+import { StyledFab, StyledInput, StyledFormControl } from './styled';
 import { StyledFormHelperText } from '../../styled';
 
 const LinkListInput = ({ value, onChange }) => {
@@ -64,7 +51,10 @@ const LinkListInput = ({ value, onChange }) => {
 
     if (urlError) {
       return;
-    } else if (linkItem.linkUrl.length === 0 || linkItem.linkTitle.length === 0) {
+    } else if (
+      linkItem.linkUrl.length === 0 ||
+      linkItem.linkTitle.length === 0
+    ) {
       setFormError('Fill Title and Url field');
       return;
     } else {
@@ -171,45 +161,15 @@ const LinkListInput = ({ value, onChange }) => {
           </>
         )}
       </StyledFab>
-      <StyledList>
-        {linkList.map((item, index) => (
-          <ListItem
-            key={item.id}
-            dense
-            button
-            selected={editMode === item.id}
-            onClick={() => {
-              handleEdit(item.id);
-            }}
-          >
-            <ListItemText primary={item.linkTitle} />
-            <ListItemSecondaryAction>
-              <Tooltip title="Edit" placement="bottom">
-                <IconButton
-                  onClick={() => {
-                    handleEdit(item.id);
-                  }}
-                  aria-label="Edit"
-                  disabled={editMode === item.id}
-                >
-                  <Edit />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Delete" placement="bottom">
-                <IconButton
-                  aria-label="Delete"
-                  disabled={editMode === item.id}
-                  onClick={() => {
-                    handleDelete(index);
-                  }}
-                >
-                  <Delete />
-                </IconButton>
-              </Tooltip>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </StyledList>
+      <RenderDragableList
+        items={linkList}
+        setEvent={setLinkList}
+        onChange={onChange}
+        prepareChangeEvent={prepareChangeEvent}
+        editMode={editMode}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      ></RenderDragableList>
     </StyledFormControl>
   );
 };
