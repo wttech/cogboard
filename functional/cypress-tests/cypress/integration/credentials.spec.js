@@ -55,11 +55,11 @@ describe('Credentials', () => {
 
       cy.intercept('/api/credentials').as('getSiteInfo');
       cy.clickAt(CREDENTIALS.SUBMIT_BUTTON);
+      cy.isVisible(CREDENTIALS.LIST_ITEM, id);
       cy.wait('@getSiteInfo').then(xhr => {
         credentialID = JSON.parse(xhr.response.body).id;
-        cy.log(credentialID);
-        cy.isVisible(CREDENTIALS.LIST_ITEM, id);
         cy.removeCredentials(credentialID);
+        cy.notExist(CREDENTIALS.LIST_ITEM, id);
       });
     });
     it('Assert that credentials were added', () => {

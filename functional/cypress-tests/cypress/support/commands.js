@@ -24,6 +24,10 @@ Cypress.Commands.add('clearStorage', () => {
   });
 });
 
+function getToken() {
+  return window.localStorage.getItem('token');
+};
+
 Cypress.Commands.add('guestLogin', (username = 'guestName') => {
   cy.window().then(window => {
     window.sessionStorage.setItem('guestName', username);
@@ -63,11 +67,25 @@ Cypress.Commands.add('notExist', element => {
   cy.get(element).should('not.exist');
 });
 
-Cypress.Commands.add('removeCredentials', credentialId => {
-  const url = `/api/credentials/${credentialId}`;
+Cypress.Commands.add('removeCredentials', credentialID => {
+  //const url = `/api/credentials/${credentialID}`;
+  /*
+  cy.intercept({
+        method: 'DELETE',
+        url: `/api/credentials/${credentialID}`
+      },
+      {
+        headers: {
+          "Authorization": getToken()
+        }
+      }
+  );*/
 
-  cy.request('DELETE', url, {});
-  // cy.reload();
+
+  cy.intercept(`/api/credentials/${credentialID}`, (req) => {
+    req.headers['Authorization'] = getToken();
+  })
+  cy.request('DELETE', `/api/credentials/${credentialID}`);
 });
 
 Cypress.Commands.add('saveState', () => {
