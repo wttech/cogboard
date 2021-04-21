@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
 import { remove } from 'ramda';
 import { v4 } from 'uuid';
-import { prepareChangeEvent } from './helpers';
-import {
-  FormControl,
-  IconButton,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  Tooltip
-} from '@material-ui/core';
-import { Add, Edit, Check, Delete } from '@material-ui/icons';
-import { StyledList, StyledInput, StyledFab } from './styled';
+import { prepareChangeEvent, RenderDragableList } from './helpers';
+import { FormControl } from '@material-ui/core';
+import { Add, Check } from '@material-ui/icons';
+import { StyledInput, StyledFab } from './styled';
 
 const JiraBucketsInput = ({ value, onChange }) => {
   const [formValueJqlQuery, setFormValueJqlQuery] = useState('');
   const [formValueBucketName, setFormValueBucketName] = useState('');
   const [editMode, setEditMode] = useState(false);
-  const handleChangeValJqlQuery = event => setFormValueJqlQuery(event.target.value);
-  const handleChangeValBucketName = event => setFormValueBucketName(event.target.value);
+  const handleChangeValJqlQuery = event =>
+    setFormValueJqlQuery(event.target.value);
+  const handleChangeValBucketName = event =>
+    setFormValueBucketName(event.target.value);
 
   const [buckets, setBuckets] = useState(() =>
     (value || []).map(bucket => {
@@ -138,45 +133,15 @@ const JiraBucketsInput = ({ value, onChange }) => {
           </>
         )}
       </StyledFab>
-      <StyledList>
-        {buckets.map((item, index) => (
-          <ListItem
-            key={item.id}
-            dense
-            button
-            selected={editMode === item.id}
-            onClick={() => {
-              handleEdit(item.id);
-            }}
-          >
-            <ListItemText primary={item.bucketName} />
-            <ListItemSecondaryAction>
-              <Tooltip title="Edit" placement="bottom">
-                <IconButton
-                  onClick={() => {
-                    handleEdit(item.id);
-                  }}
-                  aria-label="Edit"
-                  disabled={editMode === item.id}
-                >
-                  <Edit />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Delete" placement="bottom">
-                <IconButton
-                  aria-label="Delete"
-                  disabled={editMode === item.id}
-                  onClick={() => {
-                    handleDelete(index);
-                  }}
-                >
-                  <Delete />
-                </IconButton>
-              </Tooltip>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </StyledList>
+      <RenderDragableList
+        items={buckets}
+        setEvent={setBuckets}
+        onChange={onChange}
+        prepareChangeEvent={prepareChangeEvent}
+        editMode={editMode}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      ></RenderDragableList>
     </FormControl>
   );
 };

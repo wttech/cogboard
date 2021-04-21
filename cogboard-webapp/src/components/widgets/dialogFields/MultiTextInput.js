@@ -83,23 +83,25 @@ const MultiTextInput = ({ value, onChange }) => {
         </Tooltip>
       </FlexBoxWrapped>
       <StyledList>
-        {items.map((item, index) => (
-          <ListItem key={item.id} dense button>
-            <ListItemText primary={item.text} />
-            <ListItemSecondaryAction>
-              <Tooltip title="Delete" placement="bottom">
-                <IconButton
-                  aria-label="Delete"
-                  onClick={() => {
-                    handleDelete(index);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
+        {items
+          .sort((a, b) => a.text.localeCompare(b.text))
+          .map((item, index) => (
+            <ListItem key={item.id} dense button>
+              <ListItemText primary={item.text} />
+              <ListItemSecondaryAction>
+                <Tooltip title="Delete" placement="bottom">
+                  <IconButton
+                    aria-label="Delete"
+                    onClick={() => {
+                      handleDelete(index);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
       </StyledList>
     </FormControl>
   );

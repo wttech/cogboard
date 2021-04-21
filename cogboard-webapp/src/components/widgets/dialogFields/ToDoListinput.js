@@ -4,17 +4,10 @@ import { v4 } from 'uuid';
 import { remove } from 'ramda';
 import { postWidgetContentUpdate } from '../../../utils/fetch';
 import { saveWidget } from '../../../actions/thunks';
-import { prepareChangeEvent } from './helpers';
-import {
-  FormControl,
-  IconButton,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  Tooltip
-} from '@material-ui/core';
-import { Add, Check, Edit, Delete } from '@material-ui/icons';
-import { StyledFab, StyledList, StyledInput, StyledFabGroup } from './styled';
+import { prepareChangeEvent, RenderDragableList } from './helpers';
+import { FormControl } from '@material-ui/core';
+import { Add, Check, Delete } from '@material-ui/icons';
+import { StyledFab, StyledInput, StyledFabGroup } from './styled';
 
 const ToDoListInput = ({ value, values, onChange }) => {
   const [formValueItemText, setFormValueItemText] = useState('');
@@ -162,52 +155,15 @@ const ToDoListInput = ({ value, values, onChange }) => {
           </StyledFab>
         )}
       </StyledFabGroup>
-      <StyledList>
-        {items.map((item, index) => (
-          <ListItem
-            key={item.id}
-            dense
-            button
-            selected={editMode === item.id}
-            onClick={() => {
-              handleEdit(item.id);
-            }}
-          >
-            <ListItemText
-              primary={item.itemText}
-              style={
-                selectedItems.includes(item.id)
-                  ? { textDecoration: 'line-through' }
-                  : {}
-              }
-            />
-            <ListItemSecondaryAction>
-              <Tooltip title="Edit" placement="bottom">
-                <IconButton
-                  aria-label="Edit"
-                  disabled={editMode === item.id}
-                  onClick={() => {
-                    handleEdit(item.id);
-                  }}
-                >
-                  <Edit />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Delete" placement="bottom">
-                <IconButton
-                  aria-label="Delete"
-                  disabled={editMode === item.id}
-                  onClick={() => {
-                    handleDelete(index);
-                  }}
-                >
-                  <Delete />
-                </IconButton>
-              </Tooltip>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </StyledList>
+      <RenderDragableList
+        items={items}
+        setEvent={setItems}
+        onChange={onChange}
+        prepareChangeEvent={prepareChangeEvent}
+        editMode={editMode}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      ></RenderDragableList>
     </FormControl>
   );
 };

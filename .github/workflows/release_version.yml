@@ -49,6 +49,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git checkout master
           git pull
           git commit -m "[skip travis] Bump version" -a
       - name: Push Changes
