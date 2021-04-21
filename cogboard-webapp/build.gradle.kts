@@ -7,10 +7,10 @@ plugins {
     id("com.bmuschko.docker-remote-api")
 }
 
-node {
-    version = "10.16.0"
-    download = true
-}
+//node {
+//    version = "10.16.0"
+//    download = true
+//}
 
 val reactAppDestPath = "${rootProject.rootDir}/cogboard-app/src/main/resources"
 tasks {
