@@ -21,7 +21,7 @@ Thumbs.db
 # Intellij           #
 ######################
 .idea
-!.idea/runConfigurations
+!.idea/runConfigurations/
 *.iml
 **/build/
 **/out/

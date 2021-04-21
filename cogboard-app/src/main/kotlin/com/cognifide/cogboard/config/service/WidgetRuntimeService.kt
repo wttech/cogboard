@@ -13,10 +13,9 @@ import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import java.util.stream.Collectors
 
-class WidgetRuntimeService(
-    private val vertx: Vertx,
-    private val contentRepository: ContentRepository
-) {
+class WidgetRuntimeService(private val vertx: Vertx) {
+
+    private val contentRepository: ContentRepository = ContentRepository.DEFAULT
     private val widgets = mutableMapOf<String, Widget>()
 
     fun init(widgetsById: JsonObject): WidgetRuntimeService {

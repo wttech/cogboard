@@ -47,6 +47,28 @@ paths:
       responses:
         default:
           description: Boards Save Handler
+  /api/board/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: board add, update, delete
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: boards-update-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: Board Add/Update Handler
+    delete:
+      operationId: boards-delete-handler
+      security:
+        - cogboardAuth: []
+      responses:
+        default:
+          description: Board Delete Handler
   /api/login:
     post:
       operationId: login-handler

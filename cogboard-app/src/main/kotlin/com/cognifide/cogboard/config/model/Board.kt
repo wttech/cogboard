@@ -11,7 +11,6 @@ data class Board(
     val autoSwitch: Boolean = false,
     val switchInterval: Int,
     val widgets: List<String>,
-    val theme: String,
     val type: String = "WidgetBoard",
     @JsonIgnore
     val dynamicFields: MutableMap<String, Any> = mutableMapOf()

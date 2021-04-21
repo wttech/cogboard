@@ -43,7 +43,6 @@
         "isUpdating": false,
         "boardId": "board1"
       }
-    },
-    "allWidgets": ["widget1", "widget2"]
+    }
   }
 }

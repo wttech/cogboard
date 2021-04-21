@@ -46,7 +46,7 @@ abstract class WidgetTestBase {
     fun initService(): BoardsConfigService {
         val boardPath = JenkinsJobWidgetTest::class.java.getResource("/board").path
         val contentRepository = ContentRepository(boardPath)
-        return BoardsConfigService(contentRepository)
+        return BoardsConfigService(contentRepository = contentRepository)
     }
 
     fun captureWhatIsSent(eventBus: EventBus, captor: ArgumentCaptor<JsonObject>): Pair<JsonObject, JsonObject> {

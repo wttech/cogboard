@@ -1,0 +1,69 @@
+{
+  "boards": {
+    "boardsById": {
+      "board-1": {
+        "autoSwitch": false,
+        "switchInterval": 360,
+        "id": "board-1",
+        "theme": "default",
+        "widgets": ["widget1"],
+        "columns": 8,
+        "title": "TestBoard 1",
+        "type": "WidgetBoard"
+      },
+      "board-2": {
+        "autoSwitch": false,
+        "switchInterval": 360,
+        "id": "board-2",
+        "theme": "default",
+        "widgets": ["widget2"],
+        "columns": 8,
+        "title": "TestBoard 2",
+        "type": "WidgetBoard"
+      }
+    },
+    "allBoards": ["board-1", "board-2"]
+  },
+  "widgets": {
+    "widgetsById": {
+      "widget1": {
+        "id": "widget1",
+        "title": "",
+        "config": {
+          "columns": 4,
+          "goNewLine": false,
+          "rows": 0.5
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+        "text": "CogBoard",
+        "textSize": "h4",
+        "isVertical": false,
+        "expandContent": false
+      },
+      "widget2": {
+        "id": "widget2",
+        "title": "",
+        "config": {
+          "columns": 4,
+          "goNewLine": false,
+          "rows": 0.5
+        },
+        "type": "TextWidget",
+        "disabled": false,
+        "content": {},
+        "status": "UNKNOWN",
+        "isUpdating": false,
+        "boardId": "board-21b6c72f-a4ac-4c62-adc4-8a2ec8c5a71d",
+        "text": "CogBoard",
+        "textSize": "h4",
+        "isVertical": false,
+        "expandContent": false
+      }
+    }
+  }
+}

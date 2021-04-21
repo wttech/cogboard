@@ -13,7 +13,7 @@ internal class BoardsConfigServiceTest {
     private val boardPath = BoardsConfigServiceTest::class.java.getResource("/board").path
 
     private fun initService(configFilePath: String = "$boardPath/config-on-backend.json"): BoardsConfigService {
-        return BoardsConfigService(ContentRepository(boardPath), storage = boards(configFilePath))
+        return BoardsConfigService(contentRepository = ContentRepository(boardPath), storage = boards(configFilePath))
     }
 
     @Test
