@@ -10,18 +10,9 @@ describe('Dashboard Persistence', () => {
     cy.login();
   });
 
-  it('Not saved dashboard is not displayed after refresh', () => {
-    const name = dashboardNameGen();
-    cy.addDashboard(name);
-    cy.visit('/');
-    cy.get('[data-cy="navbar-show-drawer-button"]').click();
-    cy.contains('[data-cy="board-card"]', name).should('not.visible');
-  });
-
   it('Saved dashboard is displayed after refresh', () => {
     const name = dashboardNameGen();
     cy.addDashboard(name);
-    cy.saveState();
     cy.visit('/');
     cy.get('[data-cy="navbar-show-drawer-button"]').click();
     cy.contains('[data-cy="board-card"]', name)
@@ -32,7 +23,6 @@ describe('Dashboard Persistence', () => {
       .scrollIntoView()
       .click();
     cy.get('[data-cy="confirmation-dialog-ok"]').click();
-    cy.saveState();
   });
 });
 

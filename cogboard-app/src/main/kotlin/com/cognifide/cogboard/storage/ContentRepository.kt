@@ -20,4 +20,8 @@ class ContentRepository(private val configRoot: String = "/data") {
     }
 
     private fun getFile(widgetId: String) = File("$configRoot/content/$widgetId.json")
+
+    companion object {
+        val DEFAULT = ContentRepository()
+    }
 }

@@ -78,7 +78,6 @@
         "isUpdating": false,
         "schedulePeriod": 120
       }
-    },
-    "allWidgets": ["widget_1", "widget_2", "widget_3"]
+    }
   }
 }
