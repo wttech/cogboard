@@ -1,4 +1,4 @@
-import { LOGIN, MAIN_SCREEN } from '../fixtures/selectors';
+import {LOGIN, MAIN_SCREEN} from '../fixtures/selectors';
 
 Cypress.Commands.add('checkbox', (element, state) => {
   switch (state) {
@@ -68,24 +68,13 @@ Cypress.Commands.add('notExist', element => {
 });
 
 Cypress.Commands.add('removeCredentials', credentialID => {
-  //const url = `/api/credentials/${credentialID}`;
-  /*
-  cy.intercept({
-        method: 'DELETE',
-        url: `/api/credentials/${credentialID}`
-      },
-      {
-        headers: {
-          "Authorization": getToken()
-        }
-      }
-  );*/
-
-
-  cy.intercept(`/api/credentials/${credentialID}`, (req) => {
-    req.headers['Authorization'] = getToken();
+  cy.request({
+    method: 'DELETE',
+    url: `/api/credentials/${credentialID}`,
+    headers: {
+      'Authorization': getToken(),
+    },
   })
-  cy.request('DELETE', `/api/credentials/${credentialID}`);
 });
 
 Cypress.Commands.add('saveState', () => {
