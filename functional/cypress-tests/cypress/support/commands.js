@@ -67,12 +67,12 @@ Cypress.Commands.add('notExist', element => {
   cy.get(element).should('not.exist');
 });
 
-Cypress.Commands.add('removeCredentials', credentialID => {
+Cypress.Commands.add('removeCredentials', (credentialID, token) => {
   cy.request({
     method: 'DELETE',
     url: `/api/credentials/${credentialID}`,
     headers: {
-      'Authorization': getToken(),
+      'Authorization': token,
     },
   })
 });

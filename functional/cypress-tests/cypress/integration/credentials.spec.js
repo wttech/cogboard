@@ -36,17 +36,19 @@ describe('Credentials', () => {
   }); */
   context('User can add credentials', () => {
     let id;
-    let credentialID;
 
     before(() => {
-      id = Date.now().toString();
       cy.visit('/');
       cy.login();
       cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);
       cy.clickAt(SETTINGS.CREDENTIALS_TAB);
       cy.clickAt(CREDENTIALS.ADD_CREDENTIAL_BUTTON);
     });
+    beforeEach(() => {
+      id = `Cred_${Date.now().toString()}`;
+    })
     it('Add new credentials', () => {
+      cy.log(this)
       cy.typeText(CREDENTIALS.LABEL_INPUT, id);
       cy.typeText(CREDENTIALS.USERNAME_INPUT, 'username');
       cy.typeText(CREDENTIALS.PASSWORD_INPUT, 'password');
@@ -57,9 +59,12 @@ describe('Credentials', () => {
       cy.clickAt(CREDENTIALS.SUBMIT_BUTTON);
       cy.isVisible(CREDENTIALS.LIST_ITEM, id);
       cy.wait('@getSiteInfo').then(xhr => {
-        credentialID = JSON.parse(xhr.response.body).id;
-        cy.removeCredentials(credentialID);
-        // cy.notExist(CREDENTIALS.LIST_ITEM, id); // TODO to nie ma sensu skoro kasujemy wykonując call - nie zauważymy tego w UI - chyba że po reload strony
+        const credentialID = JSON.parse(xhr.response.body).id;
+        cy.removeCredentials(credentialID, window.localStorage.getItem('token'));
+        // cy.reload();
+        // cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);
+        // cy.clickAt(SETTINGS.CREDENTIALS_TAB);
+        // cy.notExist(CREDENTIALS.LIST_ITEM, id);
       });
     });
     it('Assert that credentials were added', () => {
