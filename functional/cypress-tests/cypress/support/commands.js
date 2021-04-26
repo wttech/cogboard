@@ -1,5 +1,24 @@
 import {LOGIN, MAIN_SCREEN} from '../fixtures/selectors';
 
+Cypress.Commands.add('addCredentials', (label, user, password, token) => {
+  cy.request({
+    method: 'POST',
+    url: `/api/credentials/`,
+    headers: {
+      'Authorization': getToken(),
+    },
+    body: {
+      label,
+      password,
+      token,
+      user,
+    },
+  }).then(xhr => {
+    return (xhr.body);
+    });
+  cy.reload();
+});
+
 Cypress.Commands.add('checkbox', (element, state) => {
   switch (state) {
     case 'check':
@@ -63,16 +82,20 @@ Cypress.Commands.add('logout', () => {
   cy.reload();
 });
 
-Cypress.Commands.add('notExist', element => {
-  cy.get(element).should('not.exist');
+Cypress.Commands.add('notExist', (element, text) => {
+  if (text) {
+    cy.contains(element, text).should('not.exist');
+  } else {
+    cy.get(element).should('not.exist');
+  }
 });
 
-Cypress.Commands.add('removeCredentials', (credentialID, token) => {
+Cypress.Commands.add('removeCredentials', (credentialID) => {
   cy.request({
     method: 'DELETE',
     url: `/api/credentials/${credentialID}`,
     headers: {
-      'Authorization': token,
+      'Authorization': getToken(),
     },
   })
 });
