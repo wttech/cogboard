@@ -67,6 +67,13 @@ const ToDoListInput = ({ value, values, onChange }) => {
     resetInput();
   };
 
+  const onInputKeyDown = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onSaveClick();
+    }
+  };
+
   const onClearClick = () => {
     if (!selectedItems) return;
 
@@ -118,6 +125,7 @@ const ToDoListInput = ({ value, values, onChange }) => {
         placeholder="Item Title"
         margin="normal"
         onChange={handleChangeValItemText}
+        onKeyDown={onInputKeyDown}
         value={formValueItemText}
       />
       <StyledFabGroup>
