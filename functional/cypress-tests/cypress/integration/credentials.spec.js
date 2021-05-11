@@ -33,17 +33,25 @@ describe('Credentials', () => {
     });
   });
   it('User can remove credentials', () => {
+    cy.intercept('/api/credentials').as('getSiteInfo');
     cy.addCredentials(label, username, password, token);
+    cy.wait('@getSiteInfo').then(xhr => {
+      cy.log(JSON.parse(xhr.response.body).id);
+    });
     cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);
     cy.clickAt(SETTINGS.CREDENTIALS_TAB);
     cy.isVisible(CREDENTIALS.LIST_ITEM, label);
-    cy.contains('[class=MuiListItem-container]', label).find('[data-cy=delete-credential-delete-button]').click();
-    cy.contains('span', 'delete').click();
+    cy.contains(CREDENTIALS.LIST_ITEM, label)
+      .find(CREDENTIALS.DELETE_BUTTON)
+      .click();
+    cy.contains('span', 'delete')
+      .click();
+    // TODO change selector
     cy.notExist(CREDENTIALS.LIST_ITEM, label);
   });
-  it('User cannot add duplicated credentials', () => {
+  it.only('User cannot add duplicated credentials', () => {
     cy.addCredentials(label, username, password, token);
-    // TODO retrieve credentialId to allov removing it after test
+    // TODO retrieve credentialId to allow removing it after test
     cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);
     cy.clickAt(SETTINGS.CREDENTIALS_TAB);
     cy.isVisible(CREDENTIALS.LIST_ITEM, label);
@@ -56,8 +64,9 @@ describe('Credentials', () => {
     cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);
     cy.clickAt(SETTINGS.CREDENTIALS_TAB);
     cy.isVisible(CREDENTIALS.LIST_ITEM, label);
-    cy.contains('[class=MuiListItem-container]', label).find('[data-cy=edit-credential-edit-button]').click();
-    // TODO change selectors
+    cy.contains(CREDENTIALS.LIST_ITEM, label)
+      .find(CREDENTIALS.EDIT_BUTTON)
+      .click();
     cy.typeText(CREDENTIALS.LABEL_INPUT, 'editedLabel');
     cy.intercept('/api/credentials').as('getSiteInfo');
     cy.clickAt(CREDENTIALS.SUBMIT_BUTTON);

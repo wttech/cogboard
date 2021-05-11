@@ -1,10 +1,13 @@
 export const CREDENTIALS = {
   ADD_CREDENTIAL_BUTTON: '[data-cy=add-credential-add-button]',
   CANCEL_BUTTON: '[data-cy=credential-form-cancel-button]',
+  DELETE_BUTTON: '[data-cy=delete-credential-delete-button]',
   DIALOG_CONTENT: '[data-cy=app-dialog-content]',
+  EDIT_BUTTON: '[data-cy=edit-credential-edit-button]',
   LABEL_INPUT: '[data-cy=credential-form-auth-label-input]',
   LABEL_INPUT_ERROR: '[data-cy=credential-form-auth-label-input-error]',
   LIST_ITEM: '[class=MuiListItem-container]',
+  // TODO change selector
   PASSWORD_INPUT: '[data-cy=credential-form-auth-password-input]',
   PASSWORD_CONFIRMATION_INPUT: '[data-cy=credential-form-auth-password-confirmation-input]',
   PASSWORD_CONFIRMATION_INPUT_ERROR: '[data-cy=credential-form-auth-password-confirmation-input-error]',

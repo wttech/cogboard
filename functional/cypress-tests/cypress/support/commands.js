@@ -1,4 +1,4 @@
-import {LOGIN, MAIN_SCREEN} from '../fixtures/selectors';
+import {MAIN_SCREEN} from '../fixtures/selectors';
 
 Cypress.Commands.add('addCredentials', (label, user, password, token) => {
   cy.request({
@@ -14,8 +14,8 @@ Cypress.Commands.add('addCredentials', (label, user, password, token) => {
       user,
     },
   }).then(xhr => {
-    return (xhr.body);
-    });
+    return (xhr.body.id);
+  });
   cy.reload();
 });
 
