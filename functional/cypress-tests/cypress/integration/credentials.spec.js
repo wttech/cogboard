@@ -1,4 +1,5 @@
 import { CREDENTIALS, MAIN_SCREEN, SETTINGS } from '../fixtures/selectors.js';
+import { genName } from '../support/utlis';
 
 describe('Credentials', () => {
   let label, username, password, token;
@@ -94,8 +95,3 @@ describe('Credentials', () => {
     cy.isVisible(CREDENTIALS.PASSWORD_CONFIRMATION_INPUT_ERROR, 'Password must match.');
   });
 });
-
-function genName(text){
-  return `${text}_${Date.now().toString()}`;
-}
-// TODO find a way to move this functions outside of test
