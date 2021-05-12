@@ -1,9 +1,9 @@
-import { CREDENTIALS, MAIN_SCREEN, SETTINGS } from '../fixtures/selectors.js';
+import { CREDENTIALS, DIALOG, MAIN_SCREEN, SETTINGS } from '../fixtures/selectors.js';
 import { genName } from '../support/utlis';
 
 describe('Credentials', () => {
   let label, username, password, token;
-  let credentialId = [];
+  let credentialId;
   beforeEach(() => {
     label = genName('label');
     username = genName('username');
@@ -11,12 +11,13 @@ describe('Credentials', () => {
     token = genName('token');
     cy.visit('/');
     cy.login();
-  })
+  });
   afterEach(() => {
-    credentialId.forEach(element => {
-      cy.removeCredentials(element);
-    })
-  })
+    if (credentialId) {
+      cy.removeCredentials(credentialId);
+    }
+    credentialId = undefined;
+  });
   it('User can add credentials', () => {
     cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);
     cy.clickAt(SETTINGS.CREDENTIALS_TAB);
@@ -30,29 +31,27 @@ describe('Credentials', () => {
     cy.clickAt(CREDENTIALS.SUBMIT_BUTTON);
     cy.isVisible(CREDENTIALS.LIST_ITEM, label);
     cy.wait('@getSiteInfo').then(xhr => {
-      credentialId.push(JSON.parse(xhr.response.body).id);
+      credentialId = JSON.parse(xhr.response.body).id;
     });
   });
   it('User can remove credentials', () => {
-    cy.intercept('/api/credentials').as('getSiteInfo');
     cy.addCredentials(label, username, password, token);
-    cy.wait('@getSiteInfo').then(xhr => {
-      cy.log(JSON.parse(xhr.response.body).id);
-    });
     cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);
     cy.clickAt(SETTINGS.CREDENTIALS_TAB);
     cy.isVisible(CREDENTIALS.LIST_ITEM, label);
     cy.contains(CREDENTIALS.LIST_ITEM, label)
       .find(CREDENTIALS.DELETE_BUTTON)
       .click();
-    cy.contains('span', 'delete')
+    cy.get(DIALOG.CONFIRM_BUTTON)
       .click();
-    // TODO change selector
     cy.notExist(CREDENTIALS.LIST_ITEM, label);
   });
-  it.only('User cannot add duplicated credentials', () => {
-    cy.addCredentials(label, username, password, token);
-    // TODO retrieve credentialId to allow removing it after test
+  it('User cannot add duplicated credentials', () => {
+    cy.addCredentials(label, username, password, token).then(
+      id => {
+        credentialId = id;
+      });
+    cy.reload();
     cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);
     cy.clickAt(SETTINGS.CREDENTIALS_TAB);
     cy.isVisible(CREDENTIALS.LIST_ITEM, label);
@@ -61,7 +60,11 @@ describe('Credentials', () => {
     cy.isVisible(CREDENTIALS.LABEL_INPUT_ERROR, 'This field must be unique.');
   });
   it('User can edit existing credentials', () => {
-    cy.addCredentials(label, username, password, token);
+    cy.addCredentials(label, username, password, token).then(
+      id => {
+        credentialId = id;
+      });
+    cy.reload();
     cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);
     cy.clickAt(SETTINGS.CREDENTIALS_TAB);
     cy.isVisible(CREDENTIALS.LIST_ITEM, label);
@@ -73,9 +76,6 @@ describe('Credentials', () => {
     cy.clickAt(CREDENTIALS.SUBMIT_BUTTON);
     cy.notExist(CREDENTIALS.LIST_ITEM, label);
     cy.isVisible(CREDENTIALS.LIST_ITEM, 'editedLabel');
-    cy.wait('@getSiteInfo').then(xhr => {
-      credentialId.push(JSON.parse(xhr.response.body).id);
-    });
   });
   it('Validations', () => {
     cy.clickAt(MAIN_SCREEN.SETTINGS_BUTTON);

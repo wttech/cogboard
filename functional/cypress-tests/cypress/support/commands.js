@@ -1,7 +1,7 @@
 import {MAIN_SCREEN} from '../fixtures/selectors';
 
 Cypress.Commands.add('addCredentials', (label, user, password, token) => {
-  cy.request({
+  return cy.request({
     method: 'POST',
     url: `/api/credentials/`,
     headers: {
@@ -14,9 +14,8 @@ Cypress.Commands.add('addCredentials', (label, user, password, token) => {
       user,
     },
   }).then(xhr => {
-    return (xhr.body.id);
+    return xhr.body.id;
   });
-  cy.reload();
 });
 
 Cypress.Commands.add('checkbox', (element, state) => {

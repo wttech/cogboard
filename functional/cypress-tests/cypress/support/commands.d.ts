@@ -9,7 +9,7 @@ declare namespace Cypress {
      * - @param token
      * - @example cy.addCredentials('label', 'username', 'pass', '123abc');
      */
-    addCredentials(): Chainable<any>;
+    addCredentials(label: string, user: string, password: string, token: string): Chainable<any>;
 
     /**
      * - check checkbox
@@ -17,7 +17,7 @@ declare namespace Cypress {
      * - @param state (check/uncheck)
      * - @example cy.checkbox(element, check);
      */
-    checkbox(): Chainable<any>;
+    checkbox(element: string, state: string): Chainable<any>;
 
     /**
      * - clear localStorage
@@ -31,14 +31,14 @@ declare namespace Cypress {
      * - @param element
      * - @example cy.clickAt(LOGIN.SUBMIT_BUTTON);
      */
-    clickAt(): Chainable<any>;
+    clickAt(element: string): Chainable<any>;
 
     /**
      * - log guest into application
      * - @param username
      * - @example cy.guestLogin(user);
      */
-    guestLogin(): Chainable<any>;
+    guestLogin(username?: string): Chainable<any>;
 
     /**
      * - check is element with text (if present) visible
@@ -46,7 +46,7 @@ declare namespace Cypress {
      * - @param text (optional)
      * - @example cy.isVisible(LOGIN.DIALOG_TITLE, 'text');
      */
-    isVisible(): Chainable<any>;
+    isVisible(element: string, text?: string): Chainable<any>;
 
     /**
      * - log user into application.
@@ -70,14 +70,14 @@ declare namespace Cypress {
      * - @param text
      * - @example cy.notExist(LOGIN.DIALOG_TITLE, 'title');
      */
-    notExist(): Chainable<any>;
+    notExist(element: string, text?: string): Chainable<any>;
 
     /**
      * - removing credential with given id
      * - @param id
      * - @example cy.removeCredentials(credentialId);
      */
-    removeCredentials(): Chainable<any>;
+    removeCredentials(id: string): Chainable<any>;
 
     /**
      * - click save button
@@ -93,6 +93,6 @@ declare namespace Cypress {
      * - @param text (optional)
      * - @example cy.typeText(LOGIN.USERNAME_INPUT, 'admin');
      */
-    typeText(): Chainable<any>;
+    typeText(element: string, text?: string): Chainable<any>;
   }
 }

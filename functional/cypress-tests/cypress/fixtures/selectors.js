@@ -16,6 +16,10 @@ export const CREDENTIALS = {
   USERNAME_INPUT: '[data-cy=credential-form-auth-user-input]',
 };
 
+export const DIALOG = {
+  CONFIRM_BUTTON: '[data-cy="confirmation-dialog-ok"]',
+}
+
 export const DASHBOARD = {
   ADD_BOARD_BUTTON: '[data-cy=add-board-add-button]',
   DELETE_BOARD_BUTTON: '[data-cy=board-card-delete-button]',
