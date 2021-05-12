@@ -1,9 +1,0 @@
-{
-  "baseUrl": "http://cogboard-local_frontend",
-  "env": {
-    "username": "admin",
-    "password": "admin"
-  },
-  "video": false,
-  "defaultCommandTimeout": 10000
-}

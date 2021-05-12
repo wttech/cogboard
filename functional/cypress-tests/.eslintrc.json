@@ -1,21 +1,95 @@
 {
-  "plugins": ["cypress"],
-  "rules": {
-    "cypress/no-assigning-return-values": "error",
-    "cypress/no-unnecessary-waiting": "error",
-    "cypress/assertion-before-screenshot": "warn",
-    "quotes": ["warn", "single"],
-    "newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 1 }],
-    "function-paren-newline": ["warn", { "minItems": 3 }],
-    "indent": ["warn", 2],
-    "semi": "warn",
-    "block-spacing": "warn",
-    "arrow-spacing": "warn",
-    "eol-last": "warn",
-    "prefer-const": "warn"
-  },
-  "env": {
-    "cypress/globals": true
-  },
-  "extends": ["plugin:cypress/recommended"]
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "airbnb",
+        "plugin:cypress/recommended",
+        "prettier"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "plugins": [
+        "prettier"
+    ],
+    "rules": {
+        "import/extensions": "off",
+        "import/prefer-default-export": 0,
+        "no-shadow": 1,
+        "no-unused-expressions": [
+            2,
+            {
+                "allowShortCircuit": true
+            }
+        ],
+        "no-underscore-dangle": [
+            2,
+            {
+                "allow": [
+                    "_satellite"
+                ]
+            }
+        ],
+        "no-unused-vars": 1,
+        "import/order": 1,
+        "consistent-return": 0,
+        "no-console": [
+            1,
+            {
+                "allow": [
+                    "warn",
+                    "error"
+                ]
+            }
+        ],
+        "no-debugger": 1,
+        "padding-line-between-statements": [
+            1,
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": "return"
+            },
+            {
+                "blankLine": "always",
+                "prev": [
+                    "const",
+                    "let",
+                    "var"
+                ],
+                "next": "*"
+            },
+            {
+                "blankLine": "any",
+                "prev": [
+                    "const",
+                    "let",
+                    "var"
+                ],
+                "next": [
+                    "const",
+                    "let",
+                    "var"
+                ]
+            }
+        ],
+        //Cypress
+        "cypress/no-assigning-return-values": "error",
+        "cypress/no-unnecessary-waiting": "off",
+        "cypress/assertion-before-screenshot": "warn",
+        "cypress/no-force": "warn",
+        "cypress/no-async-tests": "error"
+        // Cypress -- end
+    }
 }
