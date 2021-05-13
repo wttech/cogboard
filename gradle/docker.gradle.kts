@@ -89,7 +89,7 @@ tasks {
     }
 
     register<Exec>("deployLocal") {
-        environment = mapOf("COGBOARD_VERSION" to version)
+        environment.put("COGBOARD_VERSION", version)
         group = "swarm"
         commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
         dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed")
