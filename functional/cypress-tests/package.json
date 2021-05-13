@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Cypress automation for CogBoard development",
   "main": "index.js",
-  "dependencies": {},
   "devDependencies": {
     "cypress": "4.12.1",
     "eslint": "^6.8.0",
