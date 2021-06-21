@@ -11,6 +11,10 @@ export const FlexBoxWrapped = styled(Box)`
   display: flex;
 `;
 
+export const FlexBoxWrappedSpaced = styled(FlexBoxWrapped)`
+  justify-content: space-between;
+`;
+
 export const StyledInput = styled(Input)`
   margin-top: 16px;
   margin-bottom: 8px;

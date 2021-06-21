@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 import { prepareChangeEvent, RenderDragableList } from './helpers';
 import { FormControl } from '@material-ui/core';
 import { Add, Check } from '@material-ui/icons';
-import { StyledInput, StyledFab } from './styled';
+import { StyledInput, StyledFab, FlexBoxWrappedSpaced } from './styled';
 import IntegerInput from './IntegerInput';
 
 const JiraBucketsInput = ({ value, onChange }) => {
@@ -27,8 +27,10 @@ const JiraBucketsInput = ({ value, onChange }) => {
       return {
         id: v4(),
         bucketName: bucket.bucketName,
-        warningThreshold: bucket.warningThreshold,
-        errorThreshold: bucket.errorThreshold,
+        warningThreshold: bucket.warningThreshold
+          ? bucket.warningThreshold
+          : '',
+        errorThreshold: bucket.errorThreshold ? bucket.errorThreshold : '',
         jqlQuery: bucket.jqlQuery
       };
     })
@@ -138,22 +140,24 @@ const JiraBucketsInput = ({ value, onChange }) => {
         onChange={handleChangeValBucketName}
         onKeyPress={handleKeyPressed}
       />
-      <IntegerInput
-        data-cy="warning-threshold"
-        placeholder="Warning Threshold"
-        margin="normal"
-        value={formValueWarning}
-        onChange={handleChangeValWarning}
-        onKeyPress={handleKeyPressed}
-      />
-      <IntegerInput
-        data-cy="error-threshold"
-        placeholder="Error Threshold"
-        margin="normal"
-        value={formValueError}
-        onChange={handleChangeValError}
-        onKeyPress={handleKeyPressed}
-      />
+      <FlexBoxWrappedSpaced>
+        <IntegerInput
+          data-cy="warning-threshold"
+          placeholder="Warning Threshold"
+          margin="normal"
+          value={formValueWarning}
+          onChange={handleChangeValWarning}
+          onKeyPress={handleKeyPressed}
+        />
+        <IntegerInput
+          data-cy="error-threshold"
+          placeholder="Error Threshold"
+          margin="normal"
+          value={formValueError}
+          onChange={handleChangeValError}
+          onKeyPress={handleKeyPressed}
+        />
+      </FlexBoxWrappedSpaced>
       <StyledInput
         data-cy="jql-query"
         placeholder="JQL Query"

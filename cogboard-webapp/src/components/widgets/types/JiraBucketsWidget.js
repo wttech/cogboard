@@ -43,7 +43,6 @@ const JiraBucketsWidget = ({ buckets }) => {
                       {bucket.name}
                     </Link>
                   </TableCell>
-
                   <TableCell style={{ color: checkThreshold(bucket) }}>
                     {bucket.issueCounts}
                   </TableCell>
