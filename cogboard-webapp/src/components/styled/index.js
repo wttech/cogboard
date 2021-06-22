@@ -128,10 +128,27 @@ export const StyledFormControl = styled(FormControl)`
   max-width: 300px;
 `;
 
-export const StyledPopoverText = styled(Typography)`
+export const StyledPopoverText = styled('div')`
   background: ${COLORS.WHITE};
   color: ${COLORS.BLACK};
   padding: 1rem;
+`;
+
+export const StyledPopoverHeader = styled(Typography)`
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: ${COLORS.RED};
+  border-bottom: 2px ${COLORS.RED} solid;
+`;
+
+export const StyledPopoverTextWrapper = styled('div')`
+  display: flex;
+  justify-content: space-around;
+
+  & > * {
+    flex-basis: 50%;
+  }
 `;
 
 export const StyledTabs = styled(Tabs)`
