@@ -4,8 +4,12 @@ import { v4 } from 'uuid';
 import { prepareChangeEvent, RenderDragableList } from './helpers';
 import { FormControl } from '@material-ui/core';
 import { Add, Check } from '@material-ui/icons';
-import { StyledInput, StyledFab, FlexBoxWrappedSpaced } from './styled';
-import IntegerInput from './IntegerInput';
+import {
+  StyledInput,
+  StyledFab,
+  FlexBoxWrappedSpaced,
+  StyledThresholdInput
+} from './styled';
 
 const JiraBucketsInput = ({ value, onChange }) => {
   const [formValueJqlQuery, setFormValueJqlQuery] = useState('');
@@ -56,14 +60,7 @@ const JiraBucketsInput = ({ value, onChange }) => {
   const handleSave = bucket => {
     let updatedItems;
 
-    if (
-      bucket.jqlQuery.length === 0 ||
-      bucket.bucketName.length === 0 ||
-      bucket.errorThreshold < 0 ||
-      bucket.warningThreshold < 0
-    ) {
-      return;
-    } else if (bucket.errorThreshold < bucket.warningThreshold) {
+    if (bucket.jqlQuery.length === 0 || bucket.bucketName.length === 0) {
       return;
     }
 
@@ -140,24 +137,6 @@ const JiraBucketsInput = ({ value, onChange }) => {
         onChange={handleChangeValBucketName}
         onKeyPress={handleKeyPressed}
       />
-      <FlexBoxWrappedSpaced>
-        <IntegerInput
-          data-cy="warning-threshold"
-          placeholder="Warning Threshold"
-          margin="normal"
-          value={formValueWarning}
-          onChange={handleChangeValWarning}
-          onKeyPress={handleKeyPressed}
-        />
-        <IntegerInput
-          data-cy="error-threshold"
-          placeholder="Error Threshold"
-          margin="normal"
-          value={formValueError}
-          onChange={handleChangeValError}
-          onKeyPress={handleKeyPressed}
-        />
-      </FlexBoxWrappedSpaced>
       <StyledInput
         data-cy="jql-query"
         placeholder="JQL Query"
@@ -166,6 +145,27 @@ const JiraBucketsInput = ({ value, onChange }) => {
         onChange={handleChangeValJqlQuery}
         onKeyPress={handleKeyPressed}
       />
+      <FlexBoxWrappedSpaced>
+        <StyledThresholdInput
+          isWarning
+          min="0"
+          data-cy="warning-threshold"
+          placeholder="Warning Threshold"
+          margin="normal"
+          value={formValueWarning}
+          onChange={handleChangeValWarning}
+          onKeyPress={handleKeyPressed}
+        />
+        <StyledThresholdInput
+          min="0"
+          data-cy="error-threshold"
+          placeholder="Error Threshold"
+          margin="normal"
+          value={formValueError}
+          onChange={handleChangeValError}
+          onKeyPress={handleKeyPressed}
+        />
+      </FlexBoxWrappedSpaced>
       <StyledFab
         data-cy="add-bucket"
         onClick={onSaveClick}
