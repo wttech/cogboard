@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import copy from 'copy-to-clipboard';
-import { CaptionWithPointer, StyledPopoverText } from './styled';
+import {
+  CaptionWithPointer,
+  StyledPopoverText,
+  StyledPopoverTextWrapper,
+  StyledPopoverHeader
+} from './styled';
 import { Button, Popover } from '@material-ui/core';
 
 export const PopoverWithControls = ({
   title,
   titleHover,
   body,
+  bodyMessage,
+  expectedResponseBody,
   withCopy,
   className
 }) => {
@@ -39,7 +46,20 @@ export const PopoverWithControls = ({
       >
         {withCopy ? <Button onClick={copyBody}>Copy</Button> : null}
         <Button onClick={handlePopoverClose}>Close</Button>
-        <StyledPopoverText>{body}</StyledPopoverText>
+        {bodyMessage === 'NO MATCH' ? (
+          <StyledPopoverTextWrapper>
+            <StyledPopoverText>
+              <StyledPopoverHeader>EXPECTED RESPONSE BODY</StyledPopoverHeader>
+              {expectedResponseBody}
+            </StyledPopoverText>
+            <StyledPopoverText>
+              <StyledPopoverHeader>RECIVED RESPONSE BODY</StyledPopoverHeader>
+              {body}
+            </StyledPopoverText>
+          </StyledPopoverTextWrapper>
+        ) : (
+          <StyledPopoverText>{body}</StyledPopoverText>
+        )}
       </Popover>
     </>
   );
