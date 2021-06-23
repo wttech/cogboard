@@ -10,13 +10,14 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { StyledNoItemsInfo } from '../../Widget/styled';
 import { COLORS } from '../../../constants';
 
-const checkThreshold = ({ issueCounts, errorThreshold, warningThreshold }) => {
+const checkBucketThreshold = bucket => {
+  let { issueCounts, errorThreshold, warningThreshold } = bucket;
+
   errorThreshold = parseInt(errorThreshold);
   warningThreshold = parseInt(warningThreshold);
 
-  if (errorThreshold !== 0 && issueCounts >= errorThreshold) return COLORS.RED;
-  else if (warningThreshold !== 0 && issueCounts >= warningThreshold)
-    return COLORS.YELLOW;
+  if (issueCounts >= errorThreshold) return COLORS.RED;
+  else if (issueCounts >= warningThreshold) return COLORS.YELLOW;
 };
 
 const JiraBucketsWidget = ({ buckets }) => {
@@ -38,12 +39,12 @@ const JiraBucketsWidget = ({ buckets }) => {
                     <Link
                       href={bucket.url}
                       target="_blank"
-                      style={{ color: checkThreshold(bucket) }}
+                      style={{ color: checkBucketThreshold(bucket) }}
                     >
                       {bucket.name}
                     </Link>
                   </TableCell>
-                  <TableCell style={{ color: checkThreshold(bucket) }}>
+                  <TableCell style={{ color: checkBucketThreshold(bucket) }}>
                     {bucket.issueCounts}
                   </TableCell>
                 </TableRow>

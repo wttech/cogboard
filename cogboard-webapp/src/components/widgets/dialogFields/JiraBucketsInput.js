@@ -31,10 +31,8 @@ const JiraBucketsInput = ({ value, onChange }) => {
       return {
         id: v4(),
         bucketName: bucket.bucketName,
-        warningThreshold: bucket.warningThreshold
-          ? bucket.warningThreshold
-          : '',
-        errorThreshold: bucket.errorThreshold ? bucket.errorThreshold : '',
+        warningThreshold: bucket.warningThreshold,
+        errorThreshold: bucket.errorThreshold,
         jqlQuery: bucket.jqlQuery
       };
     })
