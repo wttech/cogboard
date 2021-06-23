@@ -204,7 +204,8 @@ const widgetTypes = {
     initialStatus: 'NONE'
   },
   PullRequestReminderWidget: {
-    component: PullRequestReminderWidget
+    component: PullRequestReminderWidget,
+    dialogFields: ['PullRequestReminder']
   }
 };
 

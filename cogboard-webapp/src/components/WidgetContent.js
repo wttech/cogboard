@@ -4,7 +4,6 @@ import { object, string } from 'prop-types';
 import widgetTypes from './widgets';
 
 const WidgetContent = ({ id, type, content }) => {
-  console.log(widgetTypes);
   const notFoundMessage =
     'Widget type not found. Delete or update this widget.';
   const WidgetType = widgetTypes[type]

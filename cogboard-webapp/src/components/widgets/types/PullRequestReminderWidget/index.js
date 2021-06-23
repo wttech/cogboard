@@ -1,13 +1,30 @@
 import React from 'react';
+import { array } from 'prop-types';
 
-import Typography from '@material-ui/core/Typography';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import { StyledNoItemsInfo } from '../../../Widget/styled';
 
-const PullRequestReminderWidget = () => {
+const PullRequestReminderWidget = ({ pullRequests }) => {
   return (
-    <Typography color="textSecondary" variant="subtitle2">
-      Test test test.
-    </Typography>
+    <>
+      {pullRequests.length > 0 ? (
+        <h1>SOME REQUESTS</h1>
+      ) : (
+        <StyledNoItemsInfo>
+          <InfoOutlinedIcon fontSize="large" />
+          <p>No Pull Requests</p>
+        </StyledNoItemsInfo>
+      )}
+    </>
   );
+};
+
+PullRequestReminderWidget.propTypes = {
+  pullRequests: array
+};
+
+PullRequestReminderWidget.defaultProps = {
+  pullRequests: []
 };
 
 export default PullRequestReminderWidget;
