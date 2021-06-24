@@ -205,7 +205,11 @@ const widgetTypes = {
   },
   PullRequestReminderWidget: {
     component: PullRequestReminderWidget,
-    dialogFields: ['PullRequestReminder']
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'Path'],
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 1800 }
+    }
   }
 };
 

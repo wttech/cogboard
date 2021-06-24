@@ -37,15 +37,8 @@ import RangeSlider from './RangeSlider';
 import LinkListInput from './LinkListInput';
 import ToDoListInput from './ToDoListinput';
 import WidgetTypeField from './WidgetTypeField';
-import PullRequestRedminderInput from './PullRequestRedminderInput';
 
 const dialogFields = {
-  PullRequestReminder: {
-    component: PullRequestRedminderInput,
-    name: 'pullRequestValues',
-    label: 'Pull Request Input',
-    validator: () => string()
-  },
   LabelField: {
     component: TextInput,
     name: 'label',
