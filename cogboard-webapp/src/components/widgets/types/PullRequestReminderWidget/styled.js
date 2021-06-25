@@ -7,7 +7,6 @@ export const PullRequestContainer = styled('div')`
   border-radius: 3px;
   background: ${COLORS.WHITE};
   color: ${COLORS.BLACK};
-  text-align: center;
 
   &:hover {
     color: ${COLORS.BLUE};

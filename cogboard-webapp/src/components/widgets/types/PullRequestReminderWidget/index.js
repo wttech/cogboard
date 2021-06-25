@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { formatPullRequestTitle } from './helpers.js';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+
+import { formatPullRequestTitle, preparePullRequestArray } from './helpers.js';
+
 import { StyledNoItemsInfo } from '../../../Widget/styled';
 import { PullRequestContainer, PullRequestLink } from './styled';
 
-const PullRequestReminderWidget = ({ pullRequests }) => {
+const PullRequestReminderWidget = ({ repositoryHub, pullRequests }) => {
+  pullRequests = preparePullRequestArray(repositoryHub, pullRequests);
+
   if (!pullRequests) {
     return (
       <StyledNoItemsInfo>
@@ -19,10 +23,10 @@ const PullRequestReminderWidget = ({ pullRequests }) => {
   return (
     <>
       {pullRequests.length > 0 ? (
-        pullRequests.map(({ id, title, html_url }) => (
-          <PullRequestLink key={id} href={html_url} target="_blank">
+        pullRequests.map(({ id, title, url }, index) => (
+          <PullRequestLink key={id} href={url} target="_blank">
             <PullRequestContainer>
-              {formatPullRequestTitle(title)}
+              {`${index + 1}. ${formatPullRequestTitle(title)}`}
             </PullRequestContainer>
           </PullRequestLink>
         ))
