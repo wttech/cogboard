@@ -11,10 +11,11 @@ export const StyledNumberInput = styled(NumberInput)`
 export const StyledThresholdInput = styled(IntegerInput)`
   input {
     color: ${({ isWarning }) =>
-      isWarning ? `${COLORS.YELLOW}` : `${COLORS.RED}`};
+      isWarning ? `${COLORS.YELLOW}` : `${COLORS.DARK_RED}`};
     &::placeholder {
+      opacity: 0.7;
       color: ${({ isWarning }) =>
-        isWarning ? `${COLORS.YELLOW}` : `${COLORS.RED}`};
+        isWarning ? `${COLORS.YELLOW}` : `${COLORS.DARK_RED}`};
     }
   }
 `;
