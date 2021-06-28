@@ -8,6 +8,10 @@ import {
 } from './styled';
 import { Button, Popover } from '@material-ui/core';
 
+const NO_MATCHING_RESPONSE = 'NO MATCH';
+const RECEIVED_RESPONSE = 'ACTUAL RESPONSE';
+const EXPECTED_RESPONSE = 'EXPECTED RESPONSE';
+
 export const PopoverWithControls = ({
   title,
   titleHover,
@@ -46,14 +50,14 @@ export const PopoverWithControls = ({
       >
         {withCopy ? <Button onClick={copyBody}>Copy</Button> : null}
         <Button onClick={handlePopoverClose}>Close</Button>
-        {bodyMessage === 'NO MATCH' ? (
+        {bodyMessage === NO_MATCHING_RESPONSE ? (
           <StyledPopoverTextWrapper>
             <StyledPopoverText>
-              <StyledPopoverHeader>EXPECTED RESPONSE BODY</StyledPopoverHeader>
+              <StyledPopoverHeader>{EXPECTED_RESPONSE}</StyledPopoverHeader>
               {expectedResponseBody}
             </StyledPopoverText>
             <StyledPopoverText>
-              <StyledPopoverHeader>RECIVED RESPONSE BODY</StyledPopoverHeader>
+              <StyledPopoverHeader>{RECEIVED_RESPONSE}</StyledPopoverHeader>
               {body}
             </StyledPopoverText>
           </StyledPopoverTextWrapper>

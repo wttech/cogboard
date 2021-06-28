@@ -128,7 +128,7 @@ export const StyledFormControl = styled(FormControl)`
   max-width: 300px;
 `;
 
-export const StyledPopoverText = styled('div')`
+export const StyledPopoverText = styled.div`
   background: ${COLORS.WHITE};
   color: ${COLORS.BLACK};
   padding: 1rem;
@@ -142,7 +142,7 @@ export const StyledPopoverHeader = styled(Typography)`
   border-bottom: 2px ${COLORS.RED} solid;
 `;
 
-export const StyledPopoverTextWrapper = styled('div')`
+export const StyledPopoverTextWrapper = styled.div`
   display: flex;
   justify-content: space-around;
 
