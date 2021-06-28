@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { COLORS } from '../../../../constants/';
 
-export const PullRequestContainer = styled('div')`
+export const PullRequestContainer = styled.div`
   padding: 15px 8px;
   margin: 10px auto;
   border-radius: 3px;
@@ -13,6 +13,6 @@ export const PullRequestContainer = styled('div')`
   }
 `;
 
-export const PullRequestLink = styled('a')`
+export const PullRequestLink = styled.a`
   text-decoration: none;
 `;
