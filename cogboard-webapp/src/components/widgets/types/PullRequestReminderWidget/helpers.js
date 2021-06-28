@@ -10,7 +10,7 @@ const HUB_TYPES = {
  * @returns {string} formated pull reuest's title
  */
 export const formatPullRequestTitle = title =>
-  title.length >= 30 ? `${title.substring(0, 30).trim()}...` : title;
+  title.length >= 30 ? `${title.substring(0, 40).trim()}...` : title;
 
 /**
  * handles formatting response from API to proper pull request array

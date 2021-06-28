@@ -1,16 +1,10 @@
 import styled from '@emotion/styled/macro';
-import { COLORS } from '../../../../constants/';
+import { Typography } from '@material-ui/core';
 
-export const PullRequestContainer = styled.div`
-  padding: 15px 8px;
+export const StyledPullRequestContainer = styled(Typography)`
   margin: 10px auto;
   border-radius: 3px;
-  background: ${COLORS.WHITE};
-  color: ${COLORS.BLACK};
-
-  &:hover {
-    color: ${COLORS.BLUE};
-  }
+  font-size: 0.8rem;
 `;
 
 export const PullRequestLink = styled.a`
