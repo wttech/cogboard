@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import {
+  SERVICE_CHECK_RESPONSES,
+  NO_MATCHING_SERVICE_CHECK_RESPONSE
+} from '../constants';
 import copy from 'copy-to-clipboard';
 import {
   CaptionWithPointer,
@@ -7,10 +11,6 @@ import {
   StyledPopoverHeader
 } from './styled';
 import { Button, Popover } from '@material-ui/core';
-
-const NO_MATCHING_RESPONSE = 'NO MATCH';
-const RECEIVED_RESPONSE = 'ACTUAL RESPONSE';
-const EXPECTED_RESPONSE = 'EXPECTED RESPONSE';
 
 export const PopoverWithControls = ({
   title,
@@ -50,14 +50,18 @@ export const PopoverWithControls = ({
       >
         {withCopy ? <Button onClick={copyBody}>Copy</Button> : null}
         <Button onClick={handlePopoverClose}>Close</Button>
-        {bodyMessage === NO_MATCHING_RESPONSE ? (
+        {bodyMessage === NO_MATCHING_SERVICE_CHECK_RESPONSE ? (
           <StyledPopoverTextWrapper>
             <StyledPopoverText>
-              <StyledPopoverHeader>{EXPECTED_RESPONSE}</StyledPopoverHeader>
+              <StyledPopoverHeader>
+                {SERVICE_CHECK_RESPONSES.expected}
+              </StyledPopoverHeader>
               {expectedResponseBody}
             </StyledPopoverText>
             <StyledPopoverText>
-              <StyledPopoverHeader>{RECEIVED_RESPONSE}</StyledPopoverHeader>
+              <StyledPopoverHeader>
+                {SERVICE_CHECK_RESPONSES.received}
+              </StyledPopoverHeader>
               {body}
             </StyledPopoverText>
           </StyledPopoverTextWrapper>
