@@ -7,15 +7,12 @@ import { formatPullRequestTitle, preparePullRequestArray } from './helpers.js';
 
 import { StyledNoItemsInfo } from '../../../Widget/styled';
 import { StyledPullRequestContainer } from './styled';
-import { Link, Typography } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 
-const PullRequestReminderWidget = ({
-  repositoryHub,
-  pullRequests,
-  ...rest
-}) => {
+const PullRequestReminderWidget = ({ repositoryHub, pullRequests }) => {
   pullRequests = preparePullRequestArray(repositoryHub, pullRequests);
-  console.log(rest);
+
+  console.log(pullRequests);
 
   if (!pullRequests) {
     return (
