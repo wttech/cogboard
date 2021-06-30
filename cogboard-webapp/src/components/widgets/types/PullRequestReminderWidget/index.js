@@ -2,17 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import { Link } from '@material-ui/core';
 
 import { formatPullRequestTitle, preparePullRequestArray } from './helpers.js';
 
 import { StyledNoItemsInfo } from '../../../Widget/styled';
 import { StyledPullRequestContainer } from './styled';
-import { Link } from '@material-ui/core';
 
-const PullRequestReminderWidget = ({ repositoryHub, pullRequests }) => {
+const PullRequestReminderWidget = ({
+  repositoryHub,
+  pullRequests,
+  ...rest
+}) => {
   pullRequests = preparePullRequestArray(repositoryHub, pullRequests);
-
-  console.log(pullRequests);
 
   if (!pullRequests) {
     return (

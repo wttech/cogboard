@@ -33,7 +33,7 @@ export const preparePullRequestArray = (repositoryHubType, pullRequests) => {
       pullRequests = pullRequests.map(pr => ({
         id: pr.id,
         title: pr.title,
-        url: pr.links.html ? pr.links.html.href : pr.links.self[0].href
+        url: pr.links.self[0].href
       }));
       break;
     default:

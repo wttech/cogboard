@@ -10,7 +10,6 @@ class PullRequestReminderWidget(vertx: Vertx, config: JsonObject, serv: BoardsCo
         AsyncWidget(vertx, config, serv) {
 
     private var path: String = config.getString("path", "")
-    private val companyName: String = config.getString("companyName", "")
 
     override fun handleResponse(responseBody: JsonObject) {
         var pullRequests = responseBody
@@ -31,12 +30,11 @@ class PullRequestReminderWidget(vertx: Vertx, config: JsonObject, serv: BoardsCo
     }
 
     override fun updateState() {
-        // TODO: FIND BETTER WAY TO MANAGE THE API CALLS
         if (url.isBlank() || path.isBlank()) {
             sendConfigurationError("Endpoint URL or Path is blank.")
         }
         if (path[0].equals('/')) {
-            path = path.replaceFirst("/", "")
+            path = path.drop(1)
         }
 
         var pathArgs = path.split("/")
@@ -45,14 +43,12 @@ class PullRequestReminderWidget(vertx: Vertx, config: JsonObject, serv: BoardsCo
             httpGet("$url/rest/api/1.0/dashboard/pull-requests")
             return
         } else if (pathArgs.size == 1) {
-            sendConfigurationError("Path incorrect!")
             return
         }
 
         if (url.contains("github")) {
-            var (owner, repo) = pathArgs
-            val apiUrl = url.replace("github.com/", "api.github.com")
-            httpGet(url = "$apiUrl/repos/$owner/$repo/pulls")
+            var apiUrl = url.replace("://github", "://api.github").replace(".com/", ".com")
+            httpGet(url = "$apiUrl/repos/$path/pulls")
         }
 
         var (project, repo) = pathArgs

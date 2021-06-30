@@ -13,6 +13,20 @@
       "publicUrl": "http://api-mocks:8080/zabbix/api_jsonrpc.php",
       "credentials": "credential1",
       "id": "endpoint3"
+    },
+    {
+      "id": "endpoint4",
+      "label": "Github",
+      "publicUrl": "https://github.com/",
+      "url": "https://github.com/",
+      "credentials": ""
+    },
+    {
+      "id": "endpoint5",
+      "label": "Bitbucket Cognifide",
+      "publicUrl": "https://bitbucket.cognifide.com/",
+      "url": "https://bitbucket.cognifide.com/",
+      "credentials": ""
     }
   ]
 }
