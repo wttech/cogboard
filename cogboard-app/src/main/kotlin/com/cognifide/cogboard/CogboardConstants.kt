@@ -73,6 +73,8 @@ class CogboardConstants {
             const val JQL_QUERY = "jqlQuery"
             const val BUCKET_QUERIES = "bucketQueries"
             const val BUCKET_NAME = "bucketName"
+            const val PULL_REQUESTS = "pullRequests"
+            const val REPOSITORY_HUB = "repositoryHub"
         }
     }
 

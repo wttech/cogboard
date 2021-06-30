@@ -15,12 +15,14 @@ import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 import ZabbixWidget from './types/ZabbixWidget';
 import LinkListWidget from './types/LinkListWidget';
 import ToDoListWidget from './types/ToDoListWidget';
+import PullRequestReminderWidget from './types/PullRequestReminderWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
     component: WhiteSpaceWidget,
     initialStatus: 'TRANSPARENT'
   },
+
   JenkinsJobWidget: {
     component: JenkinsJobWidget,
     dialogFields: [
@@ -200,6 +202,14 @@ const widgetTypes = {
     component: LinkListWidget,
     dialogFields: ['LinkListItems'],
     initialStatus: 'NONE'
+  },
+  PullRequestReminderWidget: {
+    component: PullRequestReminderWidget,
+    dialogFields: ['EndpointField', 'SchedulePeriod', 'Path'],
+    showUpdateTime: true,
+    validationConstraints: {
+      SchedulePeriod: { min: 1800 }
+    }
   }
 };
 

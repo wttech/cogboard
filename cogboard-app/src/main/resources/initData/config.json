@@ -136,7 +136,8 @@
           "widget90",
           "widget93",
           "widget94",
-          "widget74"
+          "widget74",
+          "widget95"
         ],
         "autoSwitch": true,
         "columns": 8,
@@ -1937,6 +1938,24 @@
         "resolvedThreshold": 2,
         "installedThreshold": 2,
         "excludedBundles": "",
+        "expandContent": false
+      },
+      "widget95": {
+        "id": "widget95",
+        "title": "Pull Requests Cogboard",
+        "config": {
+          "columns": 2,
+          "goNewLine": false,
+          "rows": 1
+        },
+        "type": "PullRequestReminderWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+        "endpoint": "endpoint4",
+        "schedulePeriod": 1800,
+        "path": "/wttech/cogboard",
         "expandContent": false
       }
     }
