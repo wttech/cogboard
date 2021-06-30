@@ -24,8 +24,8 @@ services:
       - "./mnt:/data"
     networks:
       - cognet
-    #  ports:
-    #    - "18092:18092"
+    # ports:
+    #   - "18092:18092"
 
   frontend:
     image: "cogboard/cogboard-web:${COGBOARD_VERSION}"

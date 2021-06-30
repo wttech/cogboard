@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -8,15 +8,30 @@ import { formatPullRequestTitle, preparePullRequestArray } from './helpers.js';
 
 import { StyledNoItemsInfo } from '../../../Widget/styled';
 import { StyledPullRequestContainer } from './styled';
+import { StyledCircularProgress } from '../../../Loader/styled.js';
 
-const PullRequestReminderWidget = ({
-  repositoryHub,
-  pullRequests,
-  ...rest
-}) => {
+const PullRequestReminderWidget = ({ repositoryHub, pullRequests }) => {
+  const [isLoading, setIsLoading] = useState(true);
   pullRequests = preparePullRequestArray(repositoryHub, pullRequests);
 
-  if (!pullRequests) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 4000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  if (!pullRequests && isLoading) {
+    return (
+      <StyledNoItemsInfo>
+        <StyledCircularProgress />
+        <p>Loading pull requests...</p>
+      </StyledNoItemsInfo>
+    );
+  } else if (!isLoading && !pullRequests) {
     return (
       <StyledNoItemsInfo>
         <InfoOutlinedIcon fontSize="large" />

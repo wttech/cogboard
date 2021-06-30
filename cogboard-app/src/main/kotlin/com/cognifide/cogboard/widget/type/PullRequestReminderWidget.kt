@@ -30,28 +30,21 @@ class PullRequestReminderWidget(vertx: Vertx, config: JsonObject, serv: BoardsCo
     }
 
     override fun updateState() {
+
         if (url.isBlank() || path.isBlank()) {
             sendConfigurationError("Endpoint URL or Path is blank.")
         }
-        if (path[0].equals('/')) {
-            path = path.drop(1)
-        }
-
-        var pathArgs = path.split("/")
-
-        if (url.contains("bitbucket") && pathArgs[0].equals("dashboard")) {
-            httpGet("$url/rest/api/1.0/dashboard/pull-requests")
-            return
-        } else if (pathArgs.size == 1) {
-            return
-        }
 
         if (url.contains("github")) {
-            var apiUrl = url.replace("://github", "://api.github").replace(".com/", ".com")
-            httpGet(url = "$apiUrl/repos/$path/pulls")
+            var (_, owner, repo) = path.split("/")
+            var apiUrl = url.replace("://", "://api.").replace("com/", "com")
+            httpGet("$apiUrl/repos/$owner/$repo/pulls")
+        } else if (url.contains("bitbucket") && path.contains("dashboard")) {
+            httpGet("$url/rest/api/1.0/dashboard/pull-requests")
+            return
+        } else {
+            var (_, project, repo) = path.split("/")
+            httpGet(url = "$url/rest/api/1.0/projects/$project/repos/$repo/pull-requests")
         }
-
-        var (project, repo) = pathArgs
-        httpGet(url = "$url/rest/api/1.0/projects/$project/repos/$repo/pull-requests")
     }
 }

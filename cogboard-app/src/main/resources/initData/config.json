@@ -1955,7 +1955,7 @@
         "boardId": "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
         "endpoint": "endpoint4",
         "schedulePeriod": 1800,
-        "path": "wttech/cogboard",
+        "path": "/wttech/cogboard",
         "expandContent": false
       }
     }
