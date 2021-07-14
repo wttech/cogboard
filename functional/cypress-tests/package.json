@@ -4,19 +4,22 @@
   "description": "Cypress automation for CogBoard development",
   "main": "index.js",
   "devDependencies": {
-    "cypress": "4.12.1",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-cypress": "^2.11.2",
-    "eslint-plugin-prettier": "^3.3.0",
-    "husky": "^4.3.6",
-    "lint-staged": "^9.5.0",
-    "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.2"
+    "cypress": "^7.7.0",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.0.1",
+    "prettier": "^2.3.2",
+    "pretty-quick": "^3.1.1"
   },
   "scripts": {
+    "lint": "eslint",
     "test": "npm install & npx cypress run --browser chrome",
-    "prettier": "prettier --write \"cypress/**/*.{js,ts,json}\""
+    "prettier": "prettier --write \"cypress/**/*.{js,ts,json}\"",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -24,15 +27,11 @@
   },
   "author": "",
   "license": "ISC",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "cypress/**/*.{js,ts,json}": [
       "pretty-quick --staged",
       "git add"
-    ]
+    ],
+    "*.js": "eslint --cache --fix"
   }
 }
