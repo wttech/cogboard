@@ -21,6 +21,8 @@ class JiraBucketsWidget(
                 buckets.add(JsonObject()
                         .put(Props.ID, it.getString(Props.ID))
                         .put(Props.NAME, it.getString(Props.BUCKET_NAME))
+                        .put(Props.ERROR_THRESHOLD, it.getString(Props.ERROR_THRESHOLD))
+                        .put(Props.WARNING_THRESHOLD, it.getString(Props.WARNING_THRESHOLD))
                         .put(Props.URL, createBucketUrl(it)))
             }
         }

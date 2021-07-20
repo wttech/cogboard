@@ -4,22 +4,35 @@ import { v4 } from 'uuid';
 import { prepareChangeEvent, RenderDragableList } from './helpers';
 import { FormControl } from '@material-ui/core';
 import { Add, Check } from '@material-ui/icons';
-import { StyledInput, StyledFab } from './styled';
+import {
+  StyledInput,
+  StyledFab,
+  FlexBoxWrappedSpaced,
+  StyledThresholdInput
+} from './styled';
 
 const JiraBucketsInput = ({ value, onChange }) => {
   const [formValueJqlQuery, setFormValueJqlQuery] = useState('');
   const [formValueBucketName, setFormValueBucketName] = useState('');
+  const [formValueWarning, setFormValueWarning] = useState('');
+  const [formValueError, setFormValueError] = useState('');
+
   const [editMode, setEditMode] = useState(false);
   const handleChangeValJqlQuery = event =>
     setFormValueJqlQuery(event.target.value);
   const handleChangeValBucketName = event =>
     setFormValueBucketName(event.target.value);
+  const handleChangeValWarning = event =>
+    setFormValueWarning(event.target.value);
+  const handleChangeValError = event => setFormValueError(event.target.value);
 
   const [buckets, setBuckets] = useState(() =>
     (value || []).map(bucket => {
       return {
         id: v4(),
         bucketName: bucket.bucketName,
+        warningThreshold: bucket.warningThreshold,
+        errorThreshold: bucket.errorThreshold,
         jqlQuery: bucket.jqlQuery
       };
     })
@@ -28,12 +41,16 @@ const JiraBucketsInput = ({ value, onChange }) => {
   const resetInput = () => {
     setFormValueJqlQuery('');
     setFormValueBucketName('');
+    setFormValueWarning('');
+    setFormValueError('');
   };
 
   const onSaveClick = () => {
     handleSave({
       id: v4(),
       jqlQuery: formValueJqlQuery,
+      warningThreshold: formValueWarning,
+      errorThreshold: formValueError,
       bucketName: formValueBucketName
     });
   };
@@ -51,13 +68,21 @@ const JiraBucketsInput = ({ value, onChange }) => {
       updatedItems[updatedItemId] = {
         id: v4(),
         bucketName: bucket.bucketName,
+        warningThreshold: bucket.warningThreshold,
+        errorThreshold: bucket.errorThreshold,
         jqlQuery: bucket.jqlQuery
       };
       setEditMode(false);
     } else {
       updatedItems = [
         ...buckets,
-        { id: v4(), bucketName: bucket.bucketName, jqlQuery: bucket.jqlQuery }
+        {
+          id: v4(),
+          bucketName: bucket.bucketName,
+          warningThreshold: bucket.warningThreshold,
+          errorThreshold: bucket.errorThreshold,
+          jqlQuery: bucket.jqlQuery
+        }
       ];
     }
 
@@ -83,10 +108,11 @@ const JiraBucketsInput = ({ value, onChange }) => {
       handleSave({
         id: v4(),
         jqlQuery: formValueJqlQuery,
+        warningThreshold: formValueWarning,
+        errorThreshold: formValueError,
         bucketName: formValueBucketName
       });
     }
-
     return;
   };
 
@@ -94,6 +120,8 @@ const JiraBucketsInput = ({ value, onChange }) => {
     const editJqlQuery = buckets.find(el => el.id === id);
     setFormValueJqlQuery(editJqlQuery.jqlQuery);
     setFormValueBucketName(editJqlQuery.bucketName);
+    setFormValueWarning(editJqlQuery.warningThreshold);
+    setFormValueError(editJqlQuery.errorThreshold);
     setEditMode(editJqlQuery.id);
   };
 
@@ -115,6 +143,27 @@ const JiraBucketsInput = ({ value, onChange }) => {
         onChange={handleChangeValJqlQuery}
         onKeyPress={handleKeyPressed}
       />
+      <FlexBoxWrappedSpaced>
+        <StyledThresholdInput
+          isWarning
+          min="0"
+          data-cy="warning-threshold"
+          placeholder="Warning Threshold"
+          margin="normal"
+          value={formValueWarning}
+          onChange={handleChangeValWarning}
+          onKeyPress={handleKeyPressed}
+        />
+        <StyledThresholdInput
+          min="0"
+          data-cy="error-threshold"
+          placeholder="Error Threshold"
+          margin="normal"
+          value={formValueError}
+          onChange={handleChangeValError}
+          onKeyPress={handleKeyPressed}
+        />
+      </FlexBoxWrappedSpaced>
       <StyledFab
         data-cy="add-bucket"
         onClick={onSaveClick}

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled/macro';
 import NumberInput from './NumberInput';
+import IntegerInput from './IntegerInput';
 import { COLORS } from '../../../constants';
 import { Box, Input, Fab, List, FormControl } from '@material-ui/core';
 
@@ -7,8 +8,24 @@ export const StyledNumberInput = styled(NumberInput)`
   flex-basis: calc(50% - 18px);
 `;
 
+export const StyledThresholdInput = styled(IntegerInput)`
+  input {
+    color: ${({ isWarning }) =>
+      isWarning ? `${COLORS.YELLOW}` : `${COLORS.DARK_RED}`};
+    &::placeholder {
+      opacity: 0.7;
+      color: ${({ isWarning }) =>
+        isWarning ? `${COLORS.YELLOW}` : `${COLORS.DARK_RED}`};
+    }
+  }
+`;
+
 export const FlexBoxWrapped = styled(Box)`
   display: flex;
+`;
+
+export const FlexBoxWrappedSpaced = styled(FlexBoxWrapped)`
+  justify-content: space-between;
 `;
 
 export const StyledInput = styled(Input)`

@@ -8,6 +8,17 @@ import TableBody from '@material-ui/core/TableBody';
 import Link from '@material-ui/core/Link';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { StyledNoItemsInfo } from '../../Widget/styled';
+import { COLORS } from '../../../constants';
+
+const checkBucketThreshold = bucket => {
+  let { issueCounts, errorThreshold, warningThreshold } = bucket;
+
+  errorThreshold = parseInt(errorThreshold);
+  warningThreshold = parseInt(warningThreshold);
+
+  if (issueCounts >= errorThreshold) return COLORS.RED;
+  else if (issueCounts >= warningThreshold) return COLORS.YELLOW;
+};
 
 const JiraBucketsWidget = ({ buckets }) => {
   return (
@@ -23,13 +34,19 @@ const JiraBucketsWidget = ({ buckets }) => {
             </TableHead>
             <TableBody>
               {buckets.map(bucket => (
-                <TableRow>
+                <TableRow key={bucket.id}>
                   <TableCell>
-                    <Link href={bucket.url} target="_blank">
+                    <Link
+                      href={bucket.url}
+                      target="_blank"
+                      style={{ color: checkBucketThreshold(bucket) }}
+                    >
                       {bucket.name}
                     </Link>
                   </TableCell>
-                  <TableCell>{bucket.issueCounts}</TableCell>
+                  <TableCell style={{ color: checkBucketThreshold(bucket) }}>
+                    {bucket.issueCounts}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -976,7 +976,7 @@
       },
       "widget52": {
         "id": "widget52",
-        "title": "Jira Buckers",
+        "title": "Jira Buckets",
         "config": {
           "columns": 2,
           "goNewLine": false,
@@ -993,31 +993,43 @@
           {
             "id": "ecb597bf-f092-444f-bdbb-6b8b4f2a9f4f",
             "bucketName": "New",
+            "warningThreshold": "5",
+            "errorThreshold": "",
             "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20New"
           },
           {
             "id": "2373d727-90a4-4969-a02c-73b22a7665b3",
             "bucketName": "Blocked",
+            "warningThreshold": "",
+            "errorThreshold": "2",
             "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20New"
           },
           {
             "id": "5fd0a58a-7b1f-45d4-819d-bf754425bbb2",
             "bucketName": "In Progress",
+            "warningThreshold": "4",
+            "errorThreshold": "10",
             "jqlQuery": "project%20%3D%20RND%20AND%20status%20in%20(%22In%20Progress%22%2C%20%22Code%20Review%22)"
           },
           {
             "id": "ffc4fe9f-bc67-420c-9155-7dd35b82d7b2",
             "bucketName": "Code Review",
+            "warningThreshold": "6",
+            "errorThreshold": "",
             "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20New"
           },
           {
             "id": "c550cf7a-ffdc-4815-82f7-e206f3ad7d43",
             "bucketName": "In Tests",
+            "warningThreshold": "2",
+            "errorThreshold": "4",
             "jqlQuery": "project%20%3D%20RND%20AND%20status%20in%20(%22In%20Progress%22%2C%20%22Code%20Review%22)"
           },
           {
             "id": "1e592d75-318f-465c-b858-e0b52d03a4a4",
             "bucketName": "Done",
+            "warningThreshold": "",
+            "errorThreshold": "",
             "jqlQuery": "project%20%3D%20RND%20AND%20status%20%3D%20Resolved"
           }
         ]
