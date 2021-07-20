@@ -9,7 +9,7 @@ export const TypographyVariant = styled(Typography)`
 `;
 
 export const CenterWrapper = styled.div`
-  height: 100%;
+  height: ${({ isVertical }) => (isVertical ? '100%' : 'auto')};
 
   display: flex;
   align-items: center;
