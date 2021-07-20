@@ -28,7 +28,7 @@ const WorldClockWidget = props => {
 
   return (
     <Typography variant={textSize}>
-      {displayTime && <TimePre>{time}</TimePre>}
+      {displayTime && <TimePre textSize={textSize}>{time}</TimePre>}
       {displayDate && <DatePre>{date}</DatePre>}
     </Typography>
   );
