@@ -1,0 +1,91 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "airbnb",
+    "plugin:cypress/recommended",
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "import/extensions": "off",
+    "import/prefer-default-export": 0,
+    "no-shadow": 1,
+    "no-unused-expressions": [
+      2,
+      {
+        "allowShortCircuit": true
+      }
+    ],
+    "no-underscore-dangle": [
+      2,
+      {
+        "allow": [
+          "_satellite"
+        ]
+      }
+    ],
+    "no-unused-vars": 1,
+    "import/order": 1,
+    "consistent-return": 0,
+    "no-console": [
+      1,
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
+    "no-debugger": 1,
+    "padding-line-between-statements": [
+      1,
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "return"
+      },
+      {
+        "blankLine": "always",
+        "prev": [
+          "const",
+          "let",
+          "var"
+        ],
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": [
+          "const",
+          "let",
+          "var"
+        ],
+        "next": [
+          "const",
+          "let",
+          "var"
+        ]
+      }
+    ],
+    //Cypress
+    "cypress/no-assigning-return-values": "error",
+    "cypress/no-unnecessary-waiting": "off",
+    "cypress/assertion-before-screenshot": "warn",
+    "cypress/no-force": "warn",
+    "cypress/no-async-tests": "error"
+    // Cypress -- end
+  }
+}
