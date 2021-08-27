@@ -15,6 +15,7 @@ import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 import ZabbixWidget from './types/ZabbixWidget';
 import LinkListWidget from './types/LinkListWidget';
 import ToDoListWidget from './types/ToDoListWidget';
+import LogViewerWidget from './types/LogViewerWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -199,6 +200,14 @@ const widgetTypes = {
   LinkListWidget: {
     component: LinkListWidget,
     dialogFields: ['LinkListItems'],
+    initialStatus: 'NONE'
+  },
+  LogViewerWidget: {
+    component: LogViewerWidget,
+    dialogFields: ['EndpointField', 'SchedulePeriod'],
+    validationConstraints: {
+      SchedulePeriod: { min: 3 }
+    },
     initialStatus: 'NONE'
   }
 };
