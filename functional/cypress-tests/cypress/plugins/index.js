@@ -5,6 +5,7 @@
 // the project's config changing)
 
 // promisified fs module
+// eslint-disable-next-line import/no-extraneous-dependencies
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -15,6 +16,7 @@ function getConfigurationByFile(file) {
 }
 
 // plugins file
+// eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
   // accept a configFile value or use development by default
   const file = config.env.configFile || 'local';
