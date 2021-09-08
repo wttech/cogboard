@@ -204,9 +204,19 @@ const widgetTypes = {
   },
   LogViewerWidget: {
     component: LogViewerWidget,
-    dialogFields: ['EndpointField', 'SchedulePeriod'],
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'Path',
+      'LogLinesField',
+      'LogFileSizeField',
+      'LogRecordExpirationField'
+    ],
     validationConstraints: {
-      SchedulePeriod: { min: 3 }
+      SchedulePeriod: { min: 3 },
+      LogLinesField: { min: 1, max: 10_000_000 },
+      LogFileSizeField: { min: 1, max: 1024 },
+      LogRecordExpirationField: { min: 1, max: 1000 }
     },
     initialStatus: 'NONE'
   }

@@ -11,5 +11,18 @@ class LogViewerWidget(
     serv: BoardsConfigService
 ) : BaseWidget(vertx, config, serv) {
 
-    override fun updateState() { }
+    override fun updateState() {
+        updateStateByCopingPropsToContent(PROPS)
+    }
+
+    companion object {
+        val PROPS = setOf(
+            "endpoint",
+            "schedulePeriod",
+            "path",
+            "logLinesField",
+            "logFileSizeField",
+            "logRecordExpirationField"
+        )
+    }
 }
