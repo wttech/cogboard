@@ -37,6 +37,8 @@ const ServiceCheckWidget = ({
       <PopoverWithControls
         title={`Response: ${bodyMessage}`}
         body={body}
+        bodyMessage={bodyMessage}
+        expectedResponseBody={expectedResponseBody}
         withCopy={true}
       />
       <WidgetButton href={url}>

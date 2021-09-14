@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
+import {
+  SERVICE_CHECK_RESPONSES,
+  NO_MATCHING_SERVICE_CHECK_RESPONSE
+} from '../constants';
 import copy from 'copy-to-clipboard';
-import { CaptionWithPointer, StyledPopoverText } from './styled';
+import {
+  CaptionWithPointer,
+  StyledPopoverText,
+  StyledPopoverTextWrapper,
+  StyledPopoverHeader
+} from './styled';
 import { Button, Popover } from '@material-ui/core';
 
 export const PopoverWithControls = ({
   title,
   titleHover,
   body,
+  bodyMessage,
+  expectedResponseBody,
   withCopy,
   className
 }) => {
@@ -39,7 +50,26 @@ export const PopoverWithControls = ({
       >
         {withCopy ? <Button onClick={copyBody}>Copy</Button> : null}
         <Button onClick={handlePopoverClose}>Close</Button>
-        <StyledPopoverText>{body}</StyledPopoverText>
+        {bodyMessage === NO_MATCHING_SERVICE_CHECK_RESPONSE ? (
+          <StyledPopoverTextWrapper>
+            <StyledPopoverText>
+              <StyledPopoverHeader>
+                {SERVICE_CHECK_RESPONSES.expected}
+              </StyledPopoverHeader>
+              <p>{expectedResponseBody}</p>
+            </StyledPopoverText>
+            <StyledPopoverText>
+              <StyledPopoverHeader>
+                {SERVICE_CHECK_RESPONSES.received}
+              </StyledPopoverHeader>
+              <p>{body}</p>
+            </StyledPopoverText>
+          </StyledPopoverTextWrapper>
+        ) : (
+          <StyledPopoverText>
+            <p>{body}</p>
+          </StyledPopoverText>
+        )}
       </Popover>
     </>
   );

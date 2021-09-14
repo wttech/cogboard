@@ -340,3 +340,9 @@ export const NOTIFICATIONS = {
     duration: 3000
   })
 };
+
+export const NO_MATCHING_SERVICE_CHECK_RESPONSE = 'NO MATCH';
+export const SERVICE_CHECK_RESPONSES = {
+  received: 'ACTUAL RESPONSE',
+  expected: 'EXPECTED RESPONSE'
+};
