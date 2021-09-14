@@ -132,6 +132,10 @@ export const StyledPopoverText = styled.div`
   background: ${COLORS.WHITE};
   color: ${COLORS.BLACK};
   padding: 1rem;
+
+  p {
+    word-break: break-word;
+  }
 `;
 
 export const StyledPopoverHeader = styled(Typography)`

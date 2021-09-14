@@ -56,17 +56,19 @@ export const PopoverWithControls = ({
               <StyledPopoverHeader>
                 {SERVICE_CHECK_RESPONSES.expected}
               </StyledPopoverHeader>
-              {expectedResponseBody}
+              <p>{expectedResponseBody}</p>
             </StyledPopoverText>
             <StyledPopoverText>
               <StyledPopoverHeader>
                 {SERVICE_CHECK_RESPONSES.received}
               </StyledPopoverHeader>
-              {body}
+              <p>{body}</p>
             </StyledPopoverText>
           </StyledPopoverTextWrapper>
         ) : (
-          <StyledPopoverText>{body}</StyledPopoverText>
+          <StyledPopoverText>
+            <p>{body}</p>
+          </StyledPopoverText>
         )}
       </Popover>
     </>
