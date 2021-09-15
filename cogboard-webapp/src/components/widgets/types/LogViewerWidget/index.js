@@ -10,24 +10,7 @@ const LogViewerWidget = ({
   logFileSizeField,
   logRecordExpirationField
 }) => {
-  return (
-    <>
-      id: {id}
-      <br />
-      endpoint: {endpoint}
-      <br />
-      schedulePeriod: {schedulePeriod}
-      <br />
-      logFileSizeField: {logFileSizeField}
-      <br />
-      logLinesField: {logLinesField}
-      <br />
-      logRecordExpirationField: {logRecordExpirationField}
-      <br />
-      path: {path}
-      <br />
-    </>
-  );
+  return <></>;
 };
 
 LogViewerWidget.propTypes = {
