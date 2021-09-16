@@ -38,9 +38,9 @@ class CogboardConstants {
             const val SCHEDULE_PERIOD = "schedulePeriod"
             const val SCHEDULE_PERIOD_DEFAULT = 120L // 120 seconds
             const val SCHEDULE_DELAY_DEFAULT = 10L // 10 seconds
+            const val SSH_TIMEOUT = 5000 // 5000ms -> 5s
             const val URL = "url"
             const val SSH_HOST = "sshAddress"
-            const val SSH_COMMAND = "sshCommand"
             const val LOG_LINES = "logLines"
             const val LOG_FILE_PATH = "logFilePath"
             const val SSH_KEY = "sshKey"
@@ -112,7 +112,7 @@ class CogboardConstants {
             const val HTTP_POST = "cogboard.httpclient.post"
             const val HTTP_PUT = "cogboard.httpclient.put"
             const val HTTP_DELETE = "cogboard.httpclient.delete"
-            const val SSH_COMMAND = "cogboard.sshclient."
+            const val SSH_COMMAND = "cogboard.sshclient.ssh"
         }
     }
 

@@ -2,10 +2,9 @@ package com.cognifide.cogboard.ssh
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.ssh.auth.AuthenticationType
-import com.jcraft.jsch.Channel
+import com.jcraft.jsch.ChannelExec
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.Session
-import io.reactivex.functions.Consumer
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.buffer.Buffer
 import io.vertx.core.eventbus.MessageConsumer
@@ -13,15 +12,12 @@ import io.vertx.core.json.Json
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import java.io.InputStream
-import java.io.OutputStream
-import kotlin.properties.Delegates
 
 class SSHClient : AbstractVerticle() {
     private lateinit var session: Session
     private lateinit var jsch: JSch
-    private lateinit var channel: Channel
+    private lateinit var channel: ChannelExec
     private lateinit var sshInputStream: InputStream
-    private lateinit var sshOutputStream: OutputStream
     private lateinit var consumer: MessageConsumer<JsonObject>
     override fun start() {
         registerSSHCommand()
@@ -34,14 +30,16 @@ class SSHClient : AbstractVerticle() {
     }
 
     private fun registerSSHCommand() {
-        consumer = vertx.eventBus().consumer<JsonObject>(CogboardConstants.Event.SSH_COMMAND).handler { message ->
-            message.body()?.let {
-                connect(it)
-            }
-        }
+        consumer = vertx.eventBus()
+                .consumer<JsonObject>(CogboardConstants.Event.SSH_COMMAND)
+                .handler { message ->
+                    message.body()?.let {
+                        connect(it)
+                    }
+                }
     }
 
-    private fun connect(config: JsonObject) {
+    fun connect(config: JsonObject) {
         val user = config.getString(CogboardConstants.Props.USER) ?: ""
         val pass = config.getString(CogboardConstants.Props.PASSWORD) ?: ""
         val token = config.getString(CogboardConstants.Props.TOKEN) ?: ""
@@ -55,60 +53,90 @@ class SSHClient : AbstractVerticle() {
 
         val authenticationType = getAuthenticationType(authTypes as JsonArray, user, token, pass, key)
 
-        jsch = JSch()
+        val securityString: String = getAuthenticationString(authenticationType, pass, token, key)
 
-        when (authenticationType) {
-            AuthenticationType.BASIC -> {
-                session = jsch.getSession(user, host)
-                session.setPassword(pass)
-            }
-            AuthenticationType.TOKEN -> {
-                session = jsch.getSession(user, host)
-                session.setPassword(token)
-            }
-            AuthenticationType.SSH_KEY -> {
-                jsch.addIdentity(key)
-                session = jsch.getSession(user, host)
-            }
-        }
-
-        channel = session.openChannel("shell")
-
-        sshInputStream = channel.inputStream
-        sshOutputStream = channel.outputStream
-
-        channel.connect(5000)
+        createSSHChannel(authenticationType, host, user, securityString, createCommand(config))
 
         if (channel.isConnected) {
             executeCommandAndSendResult(config)
         }
     }
 
-    private fun executeCommandAndSendResult(config: JsonObject) {
-        val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
+    private fun createCommand(config: JsonObject): String {
         val logLines = config.getString(CogboardConstants.Props.LOG_LINES) ?: "0"
         val logFilePath = config.getString(CogboardConstants.Props.LOG_FILE_PATH) ?: ""
 
-        val command = "cat $logFilePath | tail -$logLines"
-        sshOutputStream.write(command.toByteArray())
-        val responseBuffer = Buffer.buffer()
-        Delegates.observable(sshInputStream.available()) { _, _, newValue ->
-            if (newValue > 0) {
-                responseBuffer.appendBytes(sshInputStream.readAllBytes())
-            }
+        return "cat $logFilePath | tail -$logLines"
+    }
 
-            vertx.eventBus().send(eventBusAddress, responseBuffer)
-            channel.disconnect()
-            session.disconnect()
+    private fun createSSHChannel(
+        authenticationType: AuthenticationType,
+        host: String,
+        user: String,
+        securityString: String, // password / token / sshKey
+        command: String
+    ) {
+        jsch = JSch()
+
+        when (authenticationType) {
+            AuthenticationType.BASIC -> {
+                session = jsch.getSession(user, host)
+                session.setPassword(securityString)
+            }
+            AuthenticationType.TOKEN -> {
+                session = jsch.getSession(user, host)
+                session.setPassword(securityString)
+            }
+            AuthenticationType.SSH_KEY -> {
+                jsch.addIdentity(securityString)
+                session = jsch.getSession(user, host)
+            }
+        }
+        session.setConfig("StrictHostKeyChecking", "no")
+        session.connect()
+
+        channel = session.openChannel("exec") as ChannelExec
+
+        channel.setCommand(command)
+        channel.inputStream = null
+        sshInputStream = channel.inputStream
+
+        channel.connect(CogboardConstants.Props.SSH_TIMEOUT)
+    }
+
+    private fun getAuthenticationString(
+        authenticationType: AuthenticationType,
+        password: String,
+        token: String,
+        sshKey: String
+    ): String {
+        return when (authenticationType) {
+            AuthenticationType.BASIC -> password
+            AuthenticationType.TOKEN -> token
+            AuthenticationType.SSH_KEY -> sshKey
         }
     }
 
+    private fun executeCommandAndSendResult(config: JsonObject) {
+        val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
+
+        val responseBuffer = Buffer.buffer()
+
+        while (sshInputStream.available() > 0) {
+            responseBuffer.appendBytes(sshInputStream.readAllBytes())
+        }
+
+        vertx.eventBus().send(eventBusAddress, responseBuffer)
+        channel.disconnect()
+        session.disconnect()
+    }
+
     private fun getAuthenticationType(
-            authenticationTypes: JsonArray,
-            user: String,
-            token: String,
-            pass: String,
-            key: String
+        authenticationTypes: JsonArray,
+        user: String,
+        token: String,
+        pass: String,
+        key: String
     ): AuthenticationType {
 
         return authenticationTypes.stream()
@@ -119,11 +147,11 @@ class SSHClient : AbstractVerticle() {
     }
 
     private fun hasAuthTypeCorrectCredentials(
-            authType: AuthenticationType,
-            username: String,
-            token: String,
-            pass: String,
-            key: String
+        authType: AuthenticationType,
+        username: String,
+        token: String,
+        pass: String,
+        key: String
     ): Boolean {
         return when {
             authType == AuthenticationType.TOKEN && username.isNotBlank() && token.isNotBlank() -> true

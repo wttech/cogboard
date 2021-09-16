@@ -97,7 +97,7 @@ abstract class AsyncWidget(
         )
     }
 
-    private fun basicProps(url: String): JsonObject {
+    protected fun basicProps(url: String): JsonObject {
         return JsonObject()
                 .put(Props.URL, url)
                 .put(Props.EVENT_ADDRESS, eventBusAddress)
