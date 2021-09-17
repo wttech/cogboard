@@ -44,6 +44,7 @@ class CogboardConstants {
             const val LOG_LINES = "logLines"
             const val LOG_FILE_PATH = "logFilePath"
             const val SSH_KEY = "sshKey"
+            const val SSH_KEY_PASSPHRASE = "sshKeyPassphrase"
             const val REQUEST_ID = "requestId"
             const val PUBLIC_URL = "publicUrl"
             const val USER = "user"
