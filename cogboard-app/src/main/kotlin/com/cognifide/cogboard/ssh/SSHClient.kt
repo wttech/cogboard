@@ -44,7 +44,7 @@ class SSHClient : AbstractVerticle() {
         val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
         try {
             connect(config)
-        } catch (e: Exception) {
+        } catch (e: JSchException) {
             vertx.eventBus().send(eventBusAddress, e)
         }
     }
