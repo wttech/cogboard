@@ -7,10 +7,10 @@ import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 
 class LogViewerWidget(
-        vertx: Vertx,
-        config: JsonObject,
-        serv: BoardsConfigService
-): AsyncWidget(vertx, config, serv) {
+    vertx: Vertx,
+    config: JsonObject,
+    serv: BoardsConfigService
+) : AsyncWidget(vertx, config, serv) {
     private val lines = config.getInteger(Props.LOG_LINES)
 
     override fun updateState() {

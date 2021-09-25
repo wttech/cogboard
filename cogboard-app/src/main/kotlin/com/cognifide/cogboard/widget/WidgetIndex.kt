@@ -3,20 +3,7 @@ package com.cognifide.cogboard.widget
 import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.storage.VolumeStorageFactory.appConfig
-import com.cognifide.cogboard.widget.type.AemBundleInfoWidget
-import com.cognifide.cogboard.widget.type.AemHealthcheckWidget
-import com.cognifide.cogboard.widget.type.BambooDeploymentWidget
-import com.cognifide.cogboard.widget.type.BambooPlanWidget
-import com.cognifide.cogboard.widget.type.CheckboxWidget
-import com.cognifide.cogboard.widget.type.IframeEmbedWidget
-import com.cognifide.cogboard.widget.type.JenkinsJobWidget
-import com.cognifide.cogboard.widget.type.JiraBucketsWidget
-import com.cognifide.cogboard.widget.type.LinkListWidget
-import com.cognifide.cogboard.widget.type.WhiteSpaceWidget
-import com.cognifide.cogboard.widget.type.ServiceCheckWidget
-import com.cognifide.cogboard.widget.type.TextWidget
-import com.cognifide.cogboard.widget.type.ToDoListWidget
-import com.cognifide.cogboard.widget.type.WorldClockWidget
+import com.cognifide.cogboard.widget.type.*
 import com.cognifide.cogboard.widget.type.randompicker.RandomPickerWidget
 import com.cognifide.cogboard.widget.type.sonarqube.SonarQubeWidget
 import com.cognifide.cogboard.widget.type.zabbix.ZabbixWidget
@@ -48,7 +35,8 @@ class WidgetIndex {
                 "Jira Buckets" to JiraBucketsWidget::class.java,
                 "Service Check" to ServiceCheckWidget::class.java,
                 "SonarQube" to SonarQubeWidget::class.java,
-                "White Space" to WhiteSpaceWidget::class.java
+                "White Space" to WhiteSpaceWidget::class.java,
+                "Log Viewer" to LogViewerWidget::class.java
         )
 
         fun availableWidgets(): JsonArray {
