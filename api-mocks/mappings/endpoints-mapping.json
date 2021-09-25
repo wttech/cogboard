@@ -3,6 +3,24 @@
     {
       "request": {
         "method": "GET",
+        "url": "/logviewer",
+        "queryParameters": {
+          "lines": {
+            "matches": "^[0-9]+$"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "bodyFileName": "logViewer/logs.json"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
         "url": "/jira/rest/api/2/search/?jql=project%20%3D%20RND%20AND%20status%20%3D%20New&maxResults=0"
       },
       "response": {
