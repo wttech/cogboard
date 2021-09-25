@@ -39,6 +39,8 @@ class CogboardConstants {
             const val SCHEDULE_PERIOD_DEFAULT = 120L // 120 seconds
             const val SCHEDULE_DELAY_DEFAULT = 10L // 10 seconds
             const val URL = "url"
+
+            const val LOG_LINES = "logLines"
             const val REQUEST_ID = "requestId"
             const val PUBLIC_URL = "publicUrl"
             const val USER = "user"
