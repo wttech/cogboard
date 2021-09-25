@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, useTheme } from '@material-ui/core';
-import { RedButton, ScrollableDiv } from './styled';
+import { RedButton, Wrapper } from './styled';
 import SearchInput from './SearchInput';
 import ToolbarGroup from './ToolbarGroup';
 import DateRangePicker from './DateRangePicker';
@@ -12,7 +12,7 @@ export default function Toolbar() {
   const theme = useTheme();
 
   return (
-    <ScrollableDiv>
+    <Wrapper>
       <ToolbarGroup>
         <SearchInput />
       </ToolbarGroup>
@@ -31,6 +31,6 @@ export default function Toolbar() {
           Clear logs
         </RedButton>
       </ToolbarGroup>
-    </ScrollableDiv>
+    </Wrapper>
   );
 }

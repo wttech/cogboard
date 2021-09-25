@@ -25,6 +25,12 @@ export const theme = createMuiTheme({
         marginTop: 0,
         marginRight: 0
       }
+    },
+    // Datepicker dialog
+    MuiDialogActions: {
+      root: {
+        backgroundColor: COLORS.WHITE
+      }
     }
   },
   palette: {

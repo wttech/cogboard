@@ -6,13 +6,11 @@ export const RedButton = styled(Button)`
   background-color: ${({ theme }) => theme.palette.status.FAIL};
 `;
 
-export const ScrollableDiv = styled.div`
+export const Wrapper = styled.div`
   overflow-x: hidden;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   align-items: stretch;
   justify-content: space-between;
   gap: 16px;
-  overflow-x: scroll;
 `;

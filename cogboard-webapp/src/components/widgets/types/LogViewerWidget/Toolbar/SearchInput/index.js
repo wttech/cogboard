@@ -7,7 +7,7 @@ import SearchIcon from '@material-ui/icons/Search';
 export default function SearchInput() {
   return (
     <Wrapper>
-      <TextField id="query" label="Search logs..." />
+      <TextField id="query" label="Search..." />
       <CustomIconButton size="small" variant="contained">
         <SearchIcon />
       </CustomIconButton>
