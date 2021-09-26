@@ -1,42 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { string, number, bool, objectOf, oneOfType } from 'prop-types';
 import { AccordionSummary, AccordionDetails } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { GridSchema, Text, CustomAccordion } from './styled';
 
-export default function LogEntry() {
+export default function LogEntry({
+  type,
+  date,
+  provider,
+  shortMsg,
+  fullMsg,
+  additionalData
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  const additionalDataNames = additionalData && Object.keys(additionalData);
+
   return (
-    <CustomAccordion>
-      <AccordionSummary>
+    <CustomAccordion expanded={expanded}>
+      <AccordionSummary
+        onClick={() => setExpanded(!expanded)}
+        expandIcon={expanded && <ExpandMoreIcon />}
+      >
         <GridSchema>
-          <Text>INFO</Text>
-          <Text>2021-04-22 14:08:37</Text>
-          <Text>mongodb.log</Text>
-          <Text>
-            {'Expected corresponding JSX closing tag for <GridSchemaa>.'}
-          </Text>
+          <Text type={type}>{type?.toUpperCase()}</Text>
+          <Text>{date}</Text>
+          <Text>{provider}</Text>
+          <Text>{shortMsg}</Text>
         </GridSchema>
       </AccordionSummary>
       <AccordionDetails>
         <GridSchema>
-          <div></div>
+          <div></div> {/* first column empty */}
           <div>
-            <Text>ID</Text>
-            <Text>Type</Text>
-            <Text>IP address</Text>
-            <Text>Port</Text>
+            {additionalDataNames.map((name, index) => (
+              <Text key={index}>{name}</Text>
+            ))}
           </div>
           <div>
-            <Text>123456</Text>
-            <Text>sys</Text>
-            <Text>127.0.0.1</Text>
-            <Text>27017</Text>
+            {additionalDataNames.map((name, index) => (
+              <Text key={index}>{`${additionalData[name]}`}</Text>
+            ))}
           </div>
-          <Text>
-            {
-              'SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6)'
-            }
-          </Text>
+          <Text>{fullMsg}</Text>
         </GridSchema>
       </AccordionDetails>
     </CustomAccordion>
   );
 }
+
+LogEntry.propTypes = {
+  type: string,
+  date: string.isRequired,
+  provider: string,
+  shortMsg: string,
+  fullMsg: string,
+  additionalData: objectOf(oneOfType([string, number, bool]))
+};
+
+LogEntry.defaultProps = {
+  type: 'info',
+  provider: '',
+  shortMsg: '',
+  fullMsg: '',
+  additionalData: {}
+};

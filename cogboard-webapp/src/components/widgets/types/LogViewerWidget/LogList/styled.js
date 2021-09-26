@@ -1,10 +1,11 @@
 import styled from '@emotion/styled/macro';
+import { COLORS } from '../../../../../constants';
 import { Typography, Accordion } from '@material-ui/core';
 
 export const Container = styled.div`
   max-height: 100%;
   display: grid;
-  padding-top: 20px;
+  padding-top: 76px;
   grid-template-rows: 34px 1fr;
 `;
 
@@ -27,9 +28,24 @@ export const ColumnTitle = styled(Typography)`
   font-size: 0.85rem;
 `;
 
-export const Text = styled(Typography)`
-  font-size: 0.8rem;
-`;
+export const Text = styled(Typography)(props => {
+  const getColor = type =>
+    ({
+      info: COLORS.WHITE,
+      success: COLORS.GREEN,
+      warn: COLORS.YELLOW,
+      error: COLORS.RED
+    }[type.toLowerCase()]);
+
+  return `
+      font-size: 0.8rem;
+      ${props.type &&
+        `
+        font-weight: 500;
+        color: ${getColor(props.type)};
+      `}
+    `;
+});
 
 export const LogsWrapper = styled.div`
   padding: 6px 0;
@@ -52,12 +68,19 @@ export const CustomAccordion = styled(Accordion)`
     min-height: unset;
   }
 
-  .MuiButtonBase-root {
-    padding-left: unset;
-    padding-right: unset;
+  .MuiButtonBase-root .MuiIconButton-root {
+    position: absolute;
+    top: 0;
+    right: 16px;
   }
+
+  .MuiButtonBase-root {
+    padding: unset;
+  }
+
   .MuiAccordionSummary-content {
     margin: 0;
+    padding: 4px 0;
   }
   .MuiAccordionSummary-content.Mui-expanded {
     min-height: unset;

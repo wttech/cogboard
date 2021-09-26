@@ -7,6 +7,8 @@ export const RedButton = styled(Button)`
 `;
 
 export const Wrapper = styled.div`
+  top: 0;
+  position: absolute;
   overflow-x: hidden;
   display: flex;
   flex-direction: row;
