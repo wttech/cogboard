@@ -1,7 +1,8 @@
 import React from 'react';
 import { number, string } from 'prop-types';
-
 import Toolbar from './Toolbar';
+import LogList from './LogList';
+import { Container } from './styled';
 
 const LogViewerWidget = ({
   id,
@@ -12,7 +13,12 @@ const LogViewerWidget = ({
   logFileSizeField,
   logRecordExpirationField
 }) => {
-  return <Toolbar />;
+  return (
+    <Container>
+      <Toolbar />
+      <LogList />
+    </Container>
+  );
 };
 
 LogViewerWidget.propTypes = {
