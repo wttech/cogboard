@@ -87,6 +87,7 @@ export const CustomAccordion = styled(Accordion)`
   }
 
   .MuiAccordionDetails-root {
-    padding: 0 0 4px 0;
+    padding: 4px 0;
+    background-color: rgba(0, 0, 0, 0.15);
   }
 `;
