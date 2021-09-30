@@ -18,10 +18,18 @@ export const Header = styled.div`
 `;
 
 export const GridSchema = styled.div`
+  width: 100%;
   display: grid;
-  grid-template-columns: 70px 150px 190px 1fr;
+  grid-template-columns: 70px 150px 1fr;
   padding: 0 10px;
 `;
+export const VariableGridSchema = styled.div(
+  props => `
+    width: 100%;
+    display: grid;
+    grid-template-columns: ${props.template};
+  `
+);
 
 export const ColumnTitle = styled(Typography)`
   font-weight: 600;
@@ -38,7 +46,9 @@ export const Text = styled(Typography)(props => {
     }[type.toLowerCase()]);
 
   return `
+      line-height: 19px;
       font-size: 0.8rem;
+      font-weight: 400;
       ${props.type &&
         `
         font-weight: 500;

@@ -5,117 +5,107 @@ import {
   Header,
   GridSchema,
   ColumnTitle,
-  LogsWrapper
+  LogsWrapper,
+  VariableGridSchema
 } from './styled';
+import { getGridTemplate } from './helpers';
 
+const testLogTemplate = ['Provider', 'Message'];
 const testData = {
   date: '2021-04-22 14:08:37',
-  provider: 'mongodb.log',
-  fullMsg:
-    'SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6)',
-  shortMsg: 'Expected corresponding JSX closing tag for <GridSchemaa>.',
   additionalData: {
     ID: '123456',
     Type: 'sys',
     'IP address': '127.0.0.1',
     Port: '27017'
+  },
+  variableData: {
+    template: testLogTemplate,
+    header: [
+      'mongodb.log',
+      'Expected corresponding JSX closing tag for <GridSchemaa>.'
+    ],
+    description: [
+      'provider desc',
+      'SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6)'
+    ]
   }
 };
 
 export default function LogList() {
+  const VariableLogListHeader = () => (
+    <VariableGridSchema template={getGridTemplate(testLogTemplate)}>
+      {testLogTemplate.map((name, index) => (
+        <ColumnTitle key={index}>{name}</ColumnTitle>
+      ))}
+    </VariableGridSchema>
+  );
+
   return (
     <Container>
       <Header>
         <GridSchema>
           <ColumnTitle>Level</ColumnTitle>
           <ColumnTitle>Date</ColumnTitle>
-          <ColumnTitle>Provider</ColumnTitle>
-          <ColumnTitle>Message</ColumnTitle>
+          <VariableLogListHeader />
         </GridSchema>
       </Header>
 
       <LogsWrapper>
         {/* static presentation */}
         <LogEntry
-          date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
-        />
-        <LogEntry
-          type="INFO"
-          date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
-          additionalData={{
-            bool: true,
-            bool2: false,
-            num: 12,
-            num2: 12.5,
-            str: 'smth'
-          }}
-        />
-        <LogEntry
           type="info"
           date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
-        />
-        <LogEntry
-          type="SUCCESS"
-          date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
           additionalData={testData.additionalData}
-        />
-        <LogEntry
-          type="success"
-          date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
-          additionalData={testData.additionalData}
-        />
-        <LogEntry
-          type="ERROR"
-          date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
-          additionalData={testData.additionalData}
-        />
-        <LogEntry
-          type="error"
-          date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
-          additionalData={testData.additionalData}
-        />
-        <LogEntry
-          type="WARN"
-          date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
-          additionalData={testData.additionalData}
+          variableData={testData.variableData}
         />
         <LogEntry
           type="warn"
           date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
           additionalData={testData.additionalData}
+          variableData={testData.variableData}
+        />
+        <LogEntry
+          type="error"
+          date={testData.date}
+          additionalData={testData.additionalData}
+          variableData={testData.variableData}
+        />
+        <LogEntry
+          type="success"
+          date={testData.date}
+          additionalData={testData.additionalData}
+          variableData={testData.variableData}
         />
         <LogEntry
           date={testData.date}
-          provider={testData.provider}
-          shortMsg={testData.shortMsg}
-          fullMsg={testData.fullMsg}
+          additionalData={testData.additionalData}
+          variableData={testData.variableData}
+        />
+        <LogEntry type="error" date={testData.date} />
+        <LogEntry
+          type="info"
+          date={testData.date}
+          additionalData={testData.additionalData}
+          variableData={testData.variableData}
+        />
+        <LogEntry
+          type="warn"
+          date={testData.date}
+          additionalData={testData.additionalData}
+          variableData={testData.variableData}
+        />
+        <LogEntry
+          type="error"
+          date={testData.date}
+          additionalData={testData.additionalData}
+          variableData={testData.variableData}
+        />
+        <LogEntry
+          type="success"
+          date={testData.date}
+          additionalData={testData.additionalData}
+          variableData={testData.variableData}
         />
       </LogsWrapper>
     </Container>
