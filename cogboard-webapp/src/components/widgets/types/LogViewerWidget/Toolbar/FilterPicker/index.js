@@ -11,7 +11,7 @@ import { ScrollableBox } from './styled';
 import ToolbarGroup from '../ToolbarGroup';
 import { useState } from 'react';
 
-export default function FilterPicker() {
+const FilterPicker = () => {
   const handleDelete = name => {
     setFilters(filters.filter(item => item !== name));
   };
@@ -77,4 +77,6 @@ export default function FilterPicker() {
       </Button>
     </ToolbarGroup>
   );
-}
+};
+
+export default FilterPicker;

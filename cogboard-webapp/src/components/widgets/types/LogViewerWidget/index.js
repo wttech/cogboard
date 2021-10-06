@@ -4,22 +4,12 @@ import Toolbar from './Toolbar';
 import LogList from './LogList';
 import { Container } from './styled';
 
-const LogViewerWidget = ({
-  id,
-  endpoint,
-  schedulePeriod,
-  path,
-  logLinesField,
-  logFileSizeField,
-  logRecordExpirationField
-}) => {
-  return (
-    <Container>
-      <Toolbar />
-      <LogList />
-    </Container>
-  );
-};
+const LogViewerWidget = () => (
+  <Container>
+    <Toolbar />
+    <LogList />
+  </Container>
+);
 
 LogViewerWidget.propTypes = {
   endpoint: string,
