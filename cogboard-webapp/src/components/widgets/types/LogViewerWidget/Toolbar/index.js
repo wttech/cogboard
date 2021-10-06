@@ -8,7 +8,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterPicker from './FilterPicker';
 
-export default function Toolbar() {
+const Toolbar = () => {
   const theme = useTheme();
 
   return (
@@ -33,4 +33,6 @@ export default function Toolbar() {
       </ToolbarGroup>
     </Wrapper>
   );
-}
+};
+
+export default Toolbar;

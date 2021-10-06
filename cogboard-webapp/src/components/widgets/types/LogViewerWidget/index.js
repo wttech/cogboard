@@ -3,17 +3,7 @@ import { number, string } from 'prop-types';
 
 import Toolbar from './Toolbar';
 
-const LogViewerWidget = ({
-  id,
-  endpoint,
-  schedulePeriod,
-  path,
-  logLinesField,
-  logFileSizeField,
-  logRecordExpirationField
-}) => {
-  return <Toolbar />;
-};
+const LogViewerWidget = () => <Toolbar />;
 
 LogViewerWidget.propTypes = {
   endpoint: string,
