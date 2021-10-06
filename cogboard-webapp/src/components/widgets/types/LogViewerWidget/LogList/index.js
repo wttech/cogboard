@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '@material-ui/core';
 import LogEntry from './LogEntry';
 import {
   Container,
@@ -8,7 +9,7 @@ import {
   LogsWrapper,
   VariableGridSchema
 } from './styled';
-import { getGridTemplate } from './helpers';
+import getGridTemplate from './helpers';
 
 const testLogTemplate = ['Provider', 'Message'];
 const testData = {
@@ -33,6 +34,7 @@ const testData = {
 };
 
 export default function LogList() {
+  const theme = useTheme();
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(testLogTemplate)}>
       {testLogTemplate.map((name, index) => (
@@ -43,7 +45,7 @@ export default function LogList() {
 
   return (
     <Container>
-      <Header>
+      <Header theme={theme}>
         <GridSchema>
           <ColumnTitle>Level</ColumnTitle>
           <ColumnTitle>Date</ColumnTitle>

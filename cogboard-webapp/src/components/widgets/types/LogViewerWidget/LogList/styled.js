@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid ${({ theme }) => theme.palette.divider};
   border-left: none;
   border-right: none;
 

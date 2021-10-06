@@ -14,5 +14,5 @@ export const Wrapper = styled.div`
   flex-direction: row;
   align-items: stretch;
   justify-content: space-between;
-  gap: 16px;
+  gap: 1em;
 `;
