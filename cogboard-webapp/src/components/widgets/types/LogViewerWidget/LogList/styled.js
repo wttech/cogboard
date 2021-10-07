@@ -5,16 +5,15 @@ import { Typography, Accordion } from '@material-ui/core';
 export const Container = styled.div`
   max-height: 100%;
   display: grid;
-  padding-top: 76px;
-  grid-template-rows: 34px 1fr;
+  padding-top: 6em;
+  grid-template-rows: auto 1fr;
 `;
 
 export const Header = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.palette.divider};
   border-left: none;
   border-right: none;
-
-  padding: 6px 0;
+  padding: 0.25em 0;
 `;
 
 export const GridSchema = styled.div`
@@ -67,21 +66,21 @@ export const CustomAccordion = styled(Accordion)`
   margin: 2px 0;
 
   &.MuiPaper-root {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${COLORS.LIGHT_SHADE};
   }
   &.Mui-expanded {
-    margin: 8px 0;
+    margin: 0.5em 0;
   }
 
   .MuiAccordionSummary-root {
-    padding: 4px;
+    padding: 0.25em;
     min-height: unset;
   }
 
   .MuiButtonBase-root .MuiIconButton-root {
     position: absolute;
     top: 0;
-    right: 16px;
+    right: 1em;
   }
 
   .MuiButtonBase-root {
@@ -90,14 +89,14 @@ export const CustomAccordion = styled(Accordion)`
 
   .MuiAccordionSummary-content {
     margin: 0;
-    padding: 4px 0;
+    padding: 0.25em 0;
   }
   .MuiAccordionSummary-content.Mui-expanded {
     min-height: unset;
   }
 
   .MuiAccordionDetails-root {
-    padding: 4px 0;
-    background-color: rgba(0, 0, 0, 0.15);
+    padding: 0.25em 0;
+    background-color: ${COLORS.DARK_SHADE};
   }
 `;
