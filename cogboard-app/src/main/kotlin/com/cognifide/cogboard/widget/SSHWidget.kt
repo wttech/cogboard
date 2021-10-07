@@ -36,6 +36,11 @@ abstract class SSHWidget(
     }
 
     fun sendRequestForLogs(config: JsonObject) {
+        ensureConfigIsPrepared(config)
+        vertx.eventBus().send(Event.SSH_COMMAND, config)
+    }
+
+    private fun ensureConfigIsPrepared(config: JsonObject) {
         config.getString(Props.USER) ?: config.put(Props.USER, user)
         config.getString(Props.PASSWORD) ?: config.put(Props.PASSWORD, password)
         config.getString(Props.TOKEN) ?: config.put(Props.TOKEN, token)
@@ -43,7 +48,5 @@ abstract class SSHWidget(
         config.getString(Props.SSH_HOST) ?: config.put(Props.SSH_HOST, host)
         config.getString(Props.LOG_FILE_PATH) ?: config.put(Props.LOG_FILE_PATH, logPath)
         config.getString(Props.LOG_LINES) ?: config.put(Props.LOG_LINES, logLines)
-
-        vertx.eventBus().send(Event.SSH_COMMAND, config)
     }
 }
