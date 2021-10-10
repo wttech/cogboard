@@ -53,49 +53,38 @@ class SSHClient : AbstractVerticle() {
 
     private fun connect(config: JsonObject) {
         val authData = SSHAuthData(config)
-
         createSSHChannel(authData)
-
         executeCommandAndSendResult(config)
     }
 
     private fun createSSHChannel(authData: SSHAuthData) {
         with(authData) {
             initSSHSession(authData)
-
             if (session.isConnected) {
                 createChannel(createCommand())
             }
         }
     }
 
-    private fun initSSHSession(
-        authData: SSHAuthData
-    ) {
+    private fun initSSHSession(authData: SSHAuthData) {
         jsch = JSch()
         jsch.setKnownHosts("~/.ssh/known_hosts")
-
         val session = SessionStrategyFactory(jsch).create(authData).initSession()
-
         session.connect(CogboardConstants.Props.SSH_TIMEOUT)
     }
 
     private fun createChannel(command: String) {
         channel = session.openChannel("exec") as ChannelExec
-
         channel.setCommand(command)
         channel.inputStream = null
         sshInputStream = channel.inputStream
-
         channel.connect(CogboardConstants.Props.SSH_TIMEOUT)
     }
 
     private fun executeCommandAndSendResult(config: JsonObject) {
         val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
-
         val responseBuffer = Buffer.buffer()
         responseBuffer.appendBytes(sshInputStream.readAllBytes())
-
         vertx.eventBus().send(eventBusAddress, responseBuffer)
         channel.disconnect()
         session.disconnect()
