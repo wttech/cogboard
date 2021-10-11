@@ -2,7 +2,7 @@ import styled from '@emotion/styled/macro';
 
 export const Wrapper = styled.div`
   display: grid;
-  grid-template-rows: 24px auto;
+  grid-template-rows: 1.7em auto;
 `;
 
 export const GroupContainer = styled.div`
@@ -10,5 +10,5 @@ export const GroupContainer = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: flex-end;
-  gap: 5px;
+  gap: 0.5em;
 `;

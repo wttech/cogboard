@@ -15,7 +15,9 @@ export const COLORS = {
   LIGHT_BLUE: '#bbdefb',
   BLUE: '#198cbd',
   PURPLE: '#26243e',
-  YELLOW: '#FECD00'
+  YELLOW: '#FECD00',
+  LIGHT_SHADE: 'rgba(255,255,255, 0.1)',
+  DARK_SHADE: 'rgba(0,0,0, 0.15)'
 };
 
 export const URL = {

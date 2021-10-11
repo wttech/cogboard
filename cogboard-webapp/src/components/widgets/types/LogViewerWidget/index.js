@@ -1,9 +1,15 @@
 import React from 'react';
 import { number, string } from 'prop-types';
-
 import Toolbar from './Toolbar';
+import LogList from './LogList';
+import { Container } from './styled';
 
-const LogViewerWidget = () => <Toolbar />;
+const LogViewerWidget = () => (
+  <Container>
+    <Toolbar />
+    <LogList />
+  </Container>
+);
 
 LogViewerWidget.propTypes = {
   endpoint: string,

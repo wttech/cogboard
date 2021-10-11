@@ -7,10 +7,12 @@ export const RedButton = styled(Button)`
 `;
 
 export const Wrapper = styled.div`
+  top: 0;
+  position: absolute;
   overflow-x: hidden;
   display: flex;
   flex-direction: row;
   align-items: stretch;
   justify-content: space-between;
-  gap: 16px;
+  gap: 1em;
 `;
