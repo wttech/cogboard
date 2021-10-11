@@ -15,6 +15,7 @@ import AemBundleInfoWidget from './types/AemBundleInfoWidget';
 import ZabbixWidget from './types/ZabbixWidget';
 import LinkListWidget from './types/LinkListWidget';
 import ToDoListWidget from './types/ToDoListWidget';
+import LogViewerWidget from './types/LogViewerWidget';
 
 const widgetTypes = {
   WhiteSpaceWidget: {
@@ -199,6 +200,24 @@ const widgetTypes = {
   LinkListWidget: {
     component: LinkListWidget,
     dialogFields: ['LinkListItems'],
+    initialStatus: 'NONE'
+  },
+  LogViewerWidget: {
+    component: LogViewerWidget,
+    dialogFields: [
+      'EndpointField',
+      'SchedulePeriod',
+      'Path',
+      'LogLinesField',
+      'LogFileSizeField',
+      'LogRecordExpirationField'
+    ],
+    validationConstraints: {
+      SchedulePeriod: { min: 3 },
+      LogLinesField: { min: 1, max: 10_000_000 },
+      LogFileSizeField: { min: 1, max: 1024 },
+      LogRecordExpirationField: { min: 1, max: 1000 }
+    },
     initialStatus: 'NONE'
   }
 };

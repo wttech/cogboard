@@ -564,6 +564,51 @@ const dialogFields = {
     name: 'linkListItems',
     initialValue: [],
     validator: () => array().ensure()
+  },
+  LogLinesField: {
+    component: NumberInput,
+    name: 'logLinesField',
+    label: 'Number of lines to return',
+    initialValue: 1000,
+    min: 1,
+    step: 1,
+    pattern: /\d*/,
+    valueUpdater: transformMinValue(),
+    validator: ({ min, max }) =>
+      number()
+        .min(min, vm.NUMBER_MIN('Lines', min))
+        .max(max, vm.NUMBER_MAX('Lines', max))
+        .required(vm.FIELD_REQUIRED())
+  },
+  LogFileSizeField: {
+    component: NumberInput,
+    name: 'logFileSizeField',
+    label: 'Log file size limit [MB]',
+    initialValue: 50,
+    min: 1,
+    step: 1,
+    pattern: /\d*/,
+    valueUpdater: transformMinValue(),
+    validator: ({ min, max }) =>
+      number()
+        .min(min, vm.NUMBER_MIN('File size [MB]', min))
+        .max(max, vm.NUMBER_MAX('File size [MB]', max))
+        .required(vm.FIELD_REQUIRED())
+  },
+  LogRecordExpirationField: {
+    component: NumberInput,
+    name: 'logRecordExpirationField',
+    label: 'Log record expiration period [days]',
+    initialValue: 5,
+    min: 1,
+    step: 1,
+    pattern: /\d*/,
+    valueUpdater: transformMinValue(),
+    validator: ({ min, max }) =>
+      number()
+        .min(min, vm.NUMBER_MIN('Days', min))
+        .max(max, vm.NUMBER_MAX('Days', max))
+        .required(vm.FIELD_REQUIRED())
   }
 };
 

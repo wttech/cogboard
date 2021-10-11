@@ -20,6 +20,7 @@ import com.cognifide.cogboard.widget.type.WorldClockWidget
 import com.cognifide.cogboard.widget.type.randompicker.RandomPickerWidget
 import com.cognifide.cogboard.widget.type.sonarqube.SonarQubeWidget
 import com.cognifide.cogboard.widget.type.zabbix.ZabbixWidget
+import com.cognifide.cogboard.widget.type.LogViewerWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
@@ -48,7 +49,8 @@ class WidgetIndex {
                 "Jira Buckets" to JiraBucketsWidget::class.java,
                 "Service Check" to ServiceCheckWidget::class.java,
                 "SonarQube" to SonarQubeWidget::class.java,
-                "White Space" to WhiteSpaceWidget::class.java
+                "White Space" to WhiteSpaceWidget::class.java,
+                "Log Viewer" to LogViewerWidget::class.java,
         )
 
         fun availableWidgets(): JsonArray {
