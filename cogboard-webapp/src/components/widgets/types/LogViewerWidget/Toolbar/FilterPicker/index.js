@@ -17,7 +17,7 @@ const FilterPicker = () => {
   };
 
   const [filters, setFilters] = useState([]);
-  const [logLevel, setLogLevel] = useState('');
+  const [logLevel, setLogLevel] = useState('info');
 
   return (
     <ToolbarGroup title="Filters">
@@ -48,7 +48,6 @@ const FilterPicker = () => {
             </ScrollableBox>
           )}
         >
-          <MenuItem value="all">ALL</MenuItem>
           <MenuItem value="debug">DEBUG</MenuItem>
           <MenuItem value="info">INFO</MenuItem>
           <MenuItem value="warn">WARN</MenuItem>
@@ -65,7 +64,6 @@ const FilterPicker = () => {
           value={logLevel}
           onChange={e => setLogLevel(e.target.value)}
         >
-          <MenuItem value="">ALL</MenuItem>
           <MenuItem value="debug">DEBUG</MenuItem>
           <MenuItem value="info">INFO</MenuItem>
           <MenuItem value="warn">WARN</MenuItem>
