@@ -25,7 +25,12 @@ class LogViewerWidget(
         if (checkAuthorized(responseBody)) {
             val logs = responseBody.getString(Props.LOG_LINES)
 
-            send(logs)
+            send(prepareLogs(logs))
         }
+    }
+
+    private fun prepareLogs(logs: String): String {
+        // TODO
+        return logs
     }
 }
