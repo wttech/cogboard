@@ -46,6 +46,7 @@ class CogboardConstants {
 
             const val LOG_SOURCE = "logSource"
             const val LOG_SOURCE_TYPE = "logSourceType"
+            const val LOG_REQUEST_TYPE = "logRequestType"
             const val LOG_LINES = "logLines"
             const val LOG_FILE_PATH = "logFilePath"
             const val REQUEST_ID = "requestId"
