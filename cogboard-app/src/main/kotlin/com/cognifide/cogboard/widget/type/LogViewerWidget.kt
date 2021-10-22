@@ -5,6 +5,7 @@ import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.BaseWidget
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
+import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategyFactory
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
@@ -31,7 +32,7 @@ class LogViewerWidget(
 
     override fun updateState() {
         if (address.isNotBlank()) {
-            connectionStrategy.connectAndGetResources(address = address, lines.toString())
+            connectionStrategy.connectAndGetResources(address, config)
         } else {
             sendConfigurationError("Endpoint URL is blank")
         }
@@ -51,11 +52,10 @@ class LogViewerWidget(
     }
 
     private fun determineConnectionStrategy(config: JsonObject): ConnectionStrategy {
-        // Placeholder
-        return object : ConnectionStrategy() {
-            override fun connectAndGetResources(address: String, vararg arguments: String) {
-                TODO("Not yet implemented")
-            }
-        }
+        val type = config.getString(Props.LOG_SOURCE_TYPE)
+
+        return ConnectionStrategyFactory()
+                .addVertxInstance(vertx)
+                .build(type)
     }
 }

@@ -1,5 +1,9 @@
 package com.cognifide.cogboard.widget.connectionStrategy
 
-abstract class ConnectionStrategy {
-    abstract fun connectAndGetResources(address: String, vararg arguments: String)
+import io.vertx.core.Vertx
+import io.vertx.core.json.JsonObject
+
+abstract class ConnectionStrategy(protected val vertx: Vertx) {
+
+    abstract fun connectAndGetResources(address: String, arguments: JsonObject)
 }
