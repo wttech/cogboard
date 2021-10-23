@@ -1,7 +1,6 @@
 package com.cognifide.cogboard.widget.type
 
 import com.cognifide.cogboard.CogboardConstants.Props
-import com.cognifide.cogboard.CogboardConstants.ConnectionType
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.BaseWidget
 import com.cognifide.cogboard.widget.Widget
@@ -9,6 +8,7 @@ import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategyFactory
 import io.vertx.core.Vertx
 import io.vertx.core.buffer.Buffer
+import io.vertx.core.eventbus.Message
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 import java.nio.charset.Charset
@@ -23,25 +23,12 @@ class LogViewerWidget(
     private val connectionType = config.getString(Props.LOG_SOURCE_TYPE)
 
     private var consumer: MessageConsumer<*>? = null
-    var connectionStrategy: ConnectionStrategy = determineConnectionStrategy()
+    private val connectionStrategy: ConnectionStrategy = determineConnectionStrategy()
 
     override fun start(): Widget {
-        when (connectionType) {
-            ConnectionType.SSH -> {
-                consumer = vertx.eventBus()
-                        .consumer<Buffer>(eventBusAddress) {
-                            handleResponse(it.body())
-                        }
-            }
-            ConnectionType.HTTP -> {
-                consumer = vertx.eventBus()
-                        .consumer<JsonObject>(eventBusAddress) {
-                            handleResponse(it.body())
-                        }
-            }
-            else -> {
-                sendConfigurationError("No type of connection chosen")
-            }
+        consumer = connectionStrategy.getConsumer(eventBusAddress)
+        consumer!!.handler {
+            handleResponse(it)
         }
         return super.start()
     }
@@ -59,19 +46,25 @@ class LogViewerWidget(
         }
     }
 
+    private fun handleResponse(response: Message<*>) {
+        val responseBody = response.body()
+        if (responseBody is JsonObject) {
+            if (checkAuthorized(responseBody)) {
+                send(prepareLogs(connectionStrategy.handleResponse(responseBody)))
+            }
+        } else {
+            send(prepareLogs(connectionStrategy.handleResponse(responseBody)))
+        }
+    }
     private fun handleResponse(responseBody: JsonObject) {
         if (checkAuthorized(responseBody)) {
             val logs = responseBody.getString(Props.LOG_LINES)
-
             send(prepareLogs(logs))
         }
     }
 
     private fun handleResponse(responseBody: Buffer) {
-        val logs = prepareLogs(
-                responseBody.toString(Charset.defaultCharset())
-        )
-
+        val logs = prepareLogs(responseBody.toString(Charset.defaultCharset()))
         send(logs)
     }
 

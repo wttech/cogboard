@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/logviewer",
+        "url": "/log-viewer",
         "queryParameters": {
           "lines": {
             "matches": "^[0-9]+$"
