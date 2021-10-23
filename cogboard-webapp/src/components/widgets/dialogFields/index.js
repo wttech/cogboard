@@ -105,7 +105,7 @@ const dialogFields = {
     name: 'publicUrl',
     label: 'Public URL',
     validator: () =>
-      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+      string().matches(/^(http|https|ws|ftp|ssh):\/\/.*([:.]).*/, {
         message: vm.INVALID_PUBLIC_URL(),
         excludeEmptyString: true
       })
@@ -251,7 +251,7 @@ const dialogFields = {
     name: 'url',
     label: 'URL',
     validator: () =>
-      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+      string().matches(/^(http|https|ws|ftp|ssh):\/\/.*([:.]).*/, {
         message: vm.INVALID_URL(),
         excludeEmptyString: true
       })
