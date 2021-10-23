@@ -4,6 +4,7 @@ import com.cognifide.cogboard.CogboardConstants.ConnectionType
 import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.CogboardConstants.RequestMethod
 import io.vertx.core.buffer.Buffer
+import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -24,6 +25,9 @@ class LogViewerTest: WidgetTestBase() {
 
     @Test
     fun `Expect Buffer consumer to be used when type is SSH`() {
+        val consumerMock = mock(MessageConsumer::class.java) as MessageConsumer<Buffer>
+        `when`(eventBus.consumer<Buffer>(anyString())).thenReturn(consumerMock)
+
         val config = initWidget()
                 .put(Props.LOG_SOURCE_TYPE, ConnectionType.SSH)
                 .put(Props.LOG_SOURCE, "192.168.0.1")
@@ -32,11 +36,14 @@ class LogViewerTest: WidgetTestBase() {
 
         widget.start()
 
-        verify(eventBus).consumer<Buffer>(eq(widget.eventBusAddress), any())
+        verify(eventBus).consumer<Buffer>(eq(widget.eventBusAddress))
     }
 
     @Test
     fun `Expect JsonObject consumer to be used when type is HTTP`() {
+        val consumerMock = mock(MessageConsumer::class.java) as MessageConsumer<JsonObject>
+        `when`(eventBus.consumer<JsonObject>(anyString())).thenReturn(consumerMock)
+
         val config = initWidget()
                 .put(Props.LOG_SOURCE_TYPE, ConnectionType.HTTP)
                 .put(Props.LOG_REQUEST_TYPE, RequestMethod.GET)
@@ -46,6 +53,6 @@ class LogViewerTest: WidgetTestBase() {
 
         widget.start()
 
-        verify(eventBus).consumer<JsonObject>(eq(widget.eventBusAddress), any())
+        verify(eventBus).consumer<JsonObject>(eq(widget.eventBusAddress))
     }
 }
