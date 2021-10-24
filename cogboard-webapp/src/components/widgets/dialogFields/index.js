@@ -106,11 +106,11 @@ const dialogFields = {
     label: 'SSH Private Key',
     validator: () =>
       string()
-        .matches('^-----BEGIN OPENSSH PRIVATE KEY-----\n', {
+        .matches('^-----BEGIN ([A-Z]{1,} )*PRIVATE KEY-----\n', {
           message: vm.SSH_KEY_BEGIN,
           excludeEmptyString: true
         })
-        .matches('\n-----END OPENSSH PRIVATE KEY-----$', {
+        .matches('\n-----END ([A-Z]{1,} )*PRIVATE KEY-----$', {
           message: vm.SSH_KEY_END,
           excludeEmptyString: true
         })

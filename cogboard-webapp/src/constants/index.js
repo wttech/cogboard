@@ -306,9 +306,8 @@ export const validationMessages = {
   FIELD_MIN_ITEMS: () => 'This field must have at least 1 item.',
   UNIQUE_FIELD: () => 'This field must be unique.',
   PASSWORD_MATCH: () => 'Password must match.',
-  SSH_KEY_BEGIN: () =>
-    'The key must begin with "-----BEGIN OPENSSH PRIVATE KEY-----"',
-  SSH_KEY_END: () => 'The key must end with "-----END OPENSSH PRIVATE KEY-----"'
+  SSH_KEY_BEGIN: () => 'The key must begin with "-----BEGIN PRIVATE KEY-----"',
+  SSH_KEY_END: () => 'The key must end with "-----END PRIVATE KEY-----"'
 };
 
 export const NOTIFICATIONS = {

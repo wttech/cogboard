@@ -35,11 +35,11 @@ describe('Credentials', () => {
         'credential-form-auth-user-input-error'
       )
       .assertErrorMessageVisible(
-        'The key must begin with "-----BEGIN OPENSSH PRIVATE KEY-----"',
+        'The key must begin with "-----BEGIN PRIVATE KEY-----"',
         'credential-form-auth-ssh-key-input-error'
       )
       .assertErrorMessageVisible(
-        'The key must end with "-----END OPENSSH PRIVATE KEY-----"',
+        'The key must end with "-----END PRIVATE KEY-----"',
         'credential-form-auth-ssh-key-input-error'
       );
   });
