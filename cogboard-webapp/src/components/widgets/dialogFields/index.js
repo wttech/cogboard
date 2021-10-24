@@ -100,6 +100,21 @@ const dialogFields = {
     label: 'Token',
     validator: () => string()
   },
+  SSHKeyField: {
+    component: MultilineTextInput,
+    name: 'sshKey',
+    label: 'SSH Private Key',
+    validator: () =>
+      string()
+        .matches('^-----BEGIN OPENSSH PRIVATE KEY-----\n', {
+          message: vm.SSH_KEY_BEGIN,
+          excludeEmptyString: true
+        })
+        .matches('\n-----END OPENSSH PRIVATE KEY-----$', {
+          message: vm.SSH_KEY_END,
+          excludeEmptyString: true
+        })
+  },
   PublicURL: {
     component: TextInput,
     name: 'publicUrl',
