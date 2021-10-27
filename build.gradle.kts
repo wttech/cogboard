@@ -55,7 +55,7 @@ allprojects {
 
 tasks {
     named("build") {
-        dependsOn(":cogboard-app:test", ":cogboard-webapp:buildImage")
+        dependsOn(":cogboard-app:test", ":cogboard-webapp:buildImage", ":ssh:buildImage")
     }
     register("cypressInit", Exec::class) {
         setWorkingDir("./functional/cypress-tests")

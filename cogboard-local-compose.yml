@@ -16,6 +16,12 @@ services:
       - cognet
     command: ["--no-request-journal", "--global-response-templating"]
 
+  ssh-server:
+    image: ssh-server
+    hostname: ssh-server
+    networks:
+      - cognet
+
   backend:
     image: "cogboard/cogboard-app:${COGBOARD_VERSION}"
     environment:
