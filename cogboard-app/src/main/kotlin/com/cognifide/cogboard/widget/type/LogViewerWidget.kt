@@ -7,8 +7,11 @@ import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategyFactory
 import io.vertx.core.Vertx
+import io.vertx.core.buffer.Buffer
+import io.vertx.core.eventbus.Message
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
+import java.nio.charset.Charset
 
 class LogViewerWidget(
     vertx: Vertx,
@@ -16,18 +19,23 @@ class LogViewerWidget(
     serv: BoardsConfigService
 ) : BaseWidget(vertx, config, serv) {
     private val address = config.getString(Props.LOG_SOURCE)
-    private val lines = config.getInteger(Props.LOG_LINES)
+    private val lines = config.getString(Props.LOG_LINES)
+    private val connectionType = config.getString(Props.LOG_SOURCE_TYPE)
 
-    private lateinit var consumer: MessageConsumer<JsonObject>
-    private var connectionStrategy: ConnectionStrategy = determineConnectionStrategy(config)
+    private var consumer: MessageConsumer<*>? = null
+    private val connectionStrategy: ConnectionStrategy = determineConnectionStrategy()
 
     override fun start(): Widget {
-        consumer = vertx.eventBus()
-                .consumer<JsonObject>(eventBusAddress)
-                .handler {
-                    handleResponse(it.body())
-                }
+        consumer = connectionStrategy.getConsumer(eventBusAddress)
+        consumer!!.handler {
+            handleResponse(it)
+        }
         return super.start()
+    }
+
+    override fun stop(): Widget {
+        consumer?.unregister()
+        return super.stop()
     }
 
     override fun updateState() {
@@ -38,12 +46,26 @@ class LogViewerWidget(
         }
     }
 
+    private fun handleResponse(response: Message<*>) {
+        val responseBody = response.body()
+        if (responseBody is JsonObject) {
+            if (checkAuthorized(responseBody)) {
+                send(prepareLogs(connectionStrategy.handleResponse(responseBody)))
+            }
+        } else {
+            send(prepareLogs(connectionStrategy.handleResponse(responseBody)))
+        }
+    }
     private fun handleResponse(responseBody: JsonObject) {
         if (checkAuthorized(responseBody)) {
             val logs = responseBody.getString(Props.LOG_LINES)
-
             send(prepareLogs(logs))
         }
+    }
+
+    private fun handleResponse(responseBody: Buffer) {
+        val logs = prepareLogs(responseBody.toString(Charset.defaultCharset()))
+        send(logs)
     }
 
     private fun prepareLogs(logs: String): String {
@@ -51,11 +73,8 @@ class LogViewerWidget(
         return logs
     }
 
-    private fun determineConnectionStrategy(config: JsonObject): ConnectionStrategy {
-        val type = config.getString(Props.LOG_SOURCE_TYPE)
-
-        return ConnectionStrategyFactory()
+    private fun determineConnectionStrategy() =
+            ConnectionStrategyFactory(vertx, config)
                 .addVertxInstance(vertx)
-                .build(type)
-    }
+                .build()
 }

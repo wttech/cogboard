@@ -14,6 +14,7 @@ class SSHAuthData(private val config: JsonObject) {
     val token = config.getString(CogboardConstants.Props.TOKEN) ?: ""
     val key = config.getString(CogboardConstants.Props.SSH_KEY) ?: ""
     val host = config.getString(CogboardConstants.Props.SSH_HOST) ?: ""
+    val port = config.getInteger(CogboardConstants.Props.SSH_PORT) ?: 22
     val authenticationType = fromConfigAuthenticationType()
 
     private fun fromConfigAuthenticationType(): AuthenticationType {

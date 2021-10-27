@@ -41,7 +41,7 @@ class SSHClient : AbstractVerticle() {
                 }
     }
 
-    private fun tryToConnect(config: JsonObject) {
+    fun tryToConnect(config: JsonObject) {
         val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
         try {
             connect(config)
@@ -68,8 +68,9 @@ class SSHClient : AbstractVerticle() {
 
     private fun initSSHSession(authData: SSHAuthData) {
         jsch = JSch()
-        jsch.setKnownHosts("~/.ssh/known_hosts")
-        val session = SessionStrategyFactory(jsch).create(authData).initSession()
+        // jsch.setKnownHosts("~/.ssh/known_hosts")  for security reasons this should be used
+        session = SessionStrategyFactory(jsch).create(authData).initSession()
+        session.setConfig("StrictHostKeyChecking", "no") // not secure
         session.connect(CogboardConstants.Props.SSH_TIMEOUT)
     }
 

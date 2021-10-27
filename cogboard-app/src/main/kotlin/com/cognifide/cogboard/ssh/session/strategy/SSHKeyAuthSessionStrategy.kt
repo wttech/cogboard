@@ -11,7 +11,7 @@ class SSHKeyAuthSessionStrategy(jSch: JSch, authData: SSHAuthData) : SessionStra
         } else {
             jsch.addIdentity(securityString, authData.password)
         }
-        val session = jsch.getSession(authData.user, authData.host)
+        val session = jsch.getSession(authData.user, authData.host, authData.port)
         session.setConfig("PreferredAuthentications", "publickey")
 
         return session

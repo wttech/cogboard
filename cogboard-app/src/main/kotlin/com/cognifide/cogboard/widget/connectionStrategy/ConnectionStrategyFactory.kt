@@ -1,30 +1,31 @@
 package com.cognifide.cogboard.widget.connectionStrategy
 
 import com.cognifide.cogboard.CogboardConstants.ConnectionType
+import com.cognifide.cogboard.CogboardConstants.Props
 import io.vertx.core.Vertx
-import java.lang.Exception
+import io.vertx.core.json.JsonObject
 
-class ConnectionStrategyFactory {
-    class ConnectionTypeException : Exception("Unknown strategy type")
-    class MissingVertxException : Exception("Vertx hasn't been added to factory instance")
+class UnknownConnectionTypeException(
+    message: String?
+) : RuntimeException(message)
 
-    private lateinit var vertx: Vertx
+class ConnectionStrategyFactory(
+    private var vertx: Vertx,
+    props: JsonObject
+) {
+
+    private val connectionType = props.getString(Props.LOG_SOURCE_TYPE)
 
     fun addVertxInstance(vertx: Vertx): ConnectionStrategyFactory {
         this.vertx = vertx
-
         return this
     }
 
-    fun build(type: String): ConnectionStrategy {
-        if (!::vertx.isInitialized) {
-            throw MissingVertxException()
-        }
-
-        return when (type) {
-            ConnectionType.HTTP -> HTTPConnectionStrategy(vertx)
+    fun build(): ConnectionStrategy {
+        return when (connectionType) {
+            ConnectionType.HTTP -> HttpConnectionStrategy(vertx)
             ConnectionType.SSH -> SSHConnectionStrategy(vertx)
-            else -> throw ConnectionTypeException()
+            else -> throw UnknownConnectionTypeException("Unknown strategy type")
         }
     }
 }
