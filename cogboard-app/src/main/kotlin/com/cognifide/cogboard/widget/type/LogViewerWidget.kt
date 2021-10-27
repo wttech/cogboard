@@ -7,11 +7,9 @@ import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategyFactory
 import io.vertx.core.Vertx
-import io.vertx.core.buffer.Buffer
 import io.vertx.core.eventbus.Message
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
-import java.nio.charset.Charset
 
 class LogViewerWidget(
     vertx: Vertx,
@@ -40,7 +38,7 @@ class LogViewerWidget(
 
     override fun updateState() {
         if (address.isNotBlank()) {
-            connectionStrategy.connectAndGetResources(address, config)
+            connectionStrategy.sendRequest(address, config)
         } else {
             sendConfigurationError("Endpoint URL is blank")
         }
@@ -49,23 +47,16 @@ class LogViewerWidget(
     private fun handleResponse(response: Message<*>) {
         val responseBody = response.body()
         if (responseBody is JsonObject) {
-            if (checkAuthorized(responseBody)) {
-                send(prepareLogs(connectionStrategy.handleResponse(responseBody)))
-            }
+            handleHttpResponse(responseBody)
         } else {
             send(prepareLogs(connectionStrategy.handleResponse(responseBody)))
         }
     }
-    private fun handleResponse(responseBody: JsonObject) {
-        if (checkAuthorized(responseBody)) {
-            val logs = responseBody.getString(Props.LOG_LINES)
-            send(prepareLogs(logs))
-        }
-    }
 
-    private fun handleResponse(responseBody: Buffer) {
-        val logs = prepareLogs(responseBody.toString(Charset.defaultCharset()))
-        send(logs)
+    private fun handleHttpResponse(responseBody: JsonObject) {
+        if (checkAuthorized(responseBody)) {
+            send(prepareLogs(connectionStrategy.handleResponse(responseBody)))
+        }
     }
 
     private fun prepareLogs(logs: String): String {

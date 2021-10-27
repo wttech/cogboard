@@ -15,7 +15,7 @@ abstract class ConnectionStrategy(protected val vertx: Vertx) {
         return setOf(AuthenticationType.BASIC)
     }
 
-    abstract fun connectAndGetResources(address: String, arguments: JsonObject)
+    abstract fun sendRequest(address: String, arguments: JsonObject)
 
     abstract fun getConsumer(eventBusAddress: String): MessageConsumer<*>
 

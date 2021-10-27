@@ -12,7 +12,7 @@ import io.vertx.core.json.Json
 import io.vertx.core.json.JsonObject
 
 class HttpConnectionStrategy(vertx: Vertx) : ConnectionStrategy(vertx) {
-    override fun connectAndGetResources(address: String, arguments: JsonObject) {
+    override fun sendRequest(address: String, arguments: JsonObject) {
         when (arguments.getString(Props.LOG_REQUEST_TYPE, "")) {
             GET -> vertx.eventBus().send(Event.HTTP_GET, getProps(arguments))
             PUT -> vertx.eventBus().send(Event.HTTP_PUT, putProps(arguments))

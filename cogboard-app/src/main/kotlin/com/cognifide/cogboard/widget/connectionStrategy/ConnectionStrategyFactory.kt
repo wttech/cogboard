@@ -1,13 +1,10 @@
 package com.cognifide.cogboard.widget.connectionStrategy
 
-import com.cognifide.cogboard.CogboardConstants.ConnectionType
+import com.cognifide.cogboard.CogboardConstants.ConnectionType.Companion.HTTP
+import com.cognifide.cogboard.CogboardConstants.ConnectionType.Companion.SSH
 import com.cognifide.cogboard.CogboardConstants.Props
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
-
-class UnknownConnectionTypeException(
-    message: String?
-) : RuntimeException(message)
 
 class ConnectionStrategyFactory(
     private var vertx: Vertx,
@@ -23,9 +20,13 @@ class ConnectionStrategyFactory(
 
     fun build(): ConnectionStrategy {
         return when (connectionType) {
-            ConnectionType.HTTP -> HttpConnectionStrategy(vertx)
-            ConnectionType.SSH -> SSHConnectionStrategy(vertx)
+            HTTP -> HttpConnectionStrategy(vertx)
+            SSH -> SSHConnectionStrategy(vertx)
             else -> throw UnknownConnectionTypeException("Unknown strategy type")
         }
     }
 }
+
+class UnknownConnectionTypeException(
+    message: String?
+) : RuntimeException(message)
