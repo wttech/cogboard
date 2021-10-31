@@ -40,9 +40,14 @@ class CogboardConstants {
             const val SCHEDULE_DELAY_DEFAULT = 10L // 10 seconds
             const val SSH_TIMEOUT = 5000 // 5000ms -> 5s
             const val SSH_HOST = "sshAddress"
+            const val SSH_PORT = "sshPort"
             const val SSH_KEY = "sshKey"
             const val SSH_KEY_PASSPHRASE = "sshKeyPassphrase"
             const val URL = "url"
+
+            const val LOG_SOURCE = "logSource"
+            const val LOG_SOURCE_TYPE = "logSourceType"
+            const val LOG_REQUEST_TYPE = "logRequestType"
             const val LOG_LINES = "logLines"
             const val LOG_FILE_PATH = "logFilePath"
             const val REQUEST_ID = "requestId"
@@ -81,6 +86,13 @@ class CogboardConstants {
             const val BUCKET_NAME = "bucketName"
             const val ERROR_THRESHOLD = "errorThreshold"
             const val WARNING_THRESHOLD = "warningThreshold"
+        }
+    }
+
+    class ConnectionType {
+        companion object {
+            const val SSH = "SSH"
+            const val HTTP = "HTTP"
         }
     }
 
