@@ -25,6 +25,7 @@ describe('Credentials', () => {
       .applyPassword()
       .assertErrorMessageVisible('Password must match.', 'credential-form-auth')
       .applyToken()
+      .applySSHKey()
       .assertErrorMessageVisible(
         'This field is required',
         'credential-form-auth-label-input-error'
@@ -32,6 +33,14 @@ describe('Credentials', () => {
       .assertErrorMessageVisible(
         'Label length must be less or equal to 25.',
         'credential-form-auth-user-input-error'
+      )
+      .assertErrorMessageVisible(
+        'The key must begin with "-----BEGIN PRIVATE KEY-----"',
+        'credential-form-auth-ssh-key-input-error'
+      )
+      .assertErrorMessageVisible(
+        'The key must end with "-----END PRIVATE KEY-----"',
+        'credential-form-auth-ssh-key-input-error'
       );
   });
 
