@@ -6,6 +6,7 @@ import com.cognifide.cogboard.widget.BaseWidget
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
+import io.vertx.core.json.JsonArray
 
 class LogViewerWidget(
     vertx: Vertx,
@@ -39,12 +40,51 @@ class LogViewerWidget(
     //     return super.stop()
     // }
 
+    private val logs = createTemplateLogs(20)
     override fun updateState() {
         // if (address.isNotBlank()) {
         //     connectionStrategy.sendRequest(address, config)
         // } else {
         //     sendConfigurationError("Endpoint URL is blank")
         // }
+
+        send(JsonObject().put("logs", logs))
+    }
+
+    private fun createTemplateLogs(n: Int): JsonArray {
+        val types = arrayOf("info", "error", "debug", "success", "warn")
+        val logs = JsonArray()
+
+        for (i in 1..n) {
+            logs.add(createTemplateLog(types[i % types.size]))
+        }
+        return logs
+    }
+
+    private fun createTemplateLog(type: String): JsonObject {
+        return JsonObject("""
+            {
+                "type": "$type",
+                "date": "2021-04-22 14:08:37",
+                "additionalData": {
+                    "ID": "123456",
+                    "Type": "sys",
+                    "IP address": "127.0.0.1",
+                    "Port": "27017"
+                },
+                "variableData": {
+                    "template": ["Provider", "Message"],
+                    "header": [
+                    "mongodb.log",
+                    "Expected corresponding JSX closing tag for <GridSchemaa>."
+                    ],
+                    "description": [
+                    "provider desc",
+                    "SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6)"
+                    ]
+                }
+            }
+        """)
     }
 
     // private fun handleResponse(response: Message<*>) {

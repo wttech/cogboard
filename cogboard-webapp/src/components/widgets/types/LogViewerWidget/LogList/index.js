@@ -12,28 +12,8 @@ import {
 import getGridTemplate from './helpers';
 
 const testLogTemplate = ['Provider', 'Message'];
-const testData = {
-  date: '2021-04-22 14:08:37',
-  additionalData: {
-    ID: '123456',
-    Type: 'sys',
-    'IP address': '127.0.0.1',
-    Port: '27017'
-  },
-  variableData: {
-    template: testLogTemplate,
-    header: [
-      'mongodb.log',
-      'Expected corresponding JSX closing tag for <GridSchemaa>.'
-    ],
-    description: [
-      'provider desc',
-      'SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6) SyntaxError: /Users/celmer/Documents/js/cogboard/cogboard-webapp/src/components/widgets/types/LogViewerWidget/LogList/index.js: Expected corresponding JSX closing tag for <GridSchemaa>. (21:6)'
-    ]
-  }
-};
 
-export default function LogList() {
+export default function LogList({ children }) {
   const theme = useTheme();
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(testLogTemplate)}>
@@ -54,61 +34,14 @@ export default function LogList() {
       </Header>
 
       <LogsWrapper>
-        {/* static presentation */}
-        <LogEntry
-          type="info"
-          date={testData.date}
-          additionalData={testData.additionalData}
-          variableData={testData.variableData}
-        />
-        <LogEntry
-          type="warn"
-          date={testData.date}
-          additionalData={testData.additionalData}
-          variableData={testData.variableData}
-        />
-        <LogEntry
-          type="error"
-          date={testData.date}
-          additionalData={testData.additionalData}
-          variableData={testData.variableData}
-        />
-        <LogEntry
-          type="success"
-          date={testData.date}
-          additionalData={testData.additionalData}
-          variableData={testData.variableData}
-        />
-        <LogEntry
-          date={testData.date}
-          additionalData={testData.additionalData}
-          variableData={testData.variableData}
-        />
-        <LogEntry type="error" date={testData.date} />
-        <LogEntry
-          type="info"
-          date={testData.date}
-          additionalData={testData.additionalData}
-          variableData={testData.variableData}
-        />
-        <LogEntry
-          type="warn"
-          date={testData.date}
-          additionalData={testData.additionalData}
-          variableData={testData.variableData}
-        />
-        <LogEntry
-          type="error"
-          date={testData.date}
-          additionalData={testData.additionalData}
-          variableData={testData.variableData}
-        />
-        <LogEntry
-          type="success"
-          date={testData.date}
-          additionalData={testData.additionalData}
-          variableData={testData.variableData}
-        />
+        {children.map(log => (
+          <LogEntry
+            type={log.type}
+            date={log.date}
+            additionalData={log.additionalData}
+            variableData={log.variableData}
+          />
+        ))}
       </LogsWrapper>
     </Container>
   );
