@@ -23,8 +23,7 @@ open class SSHConnectionStrategy(vertx: Vertx) : ConnectionStrategy(vertx) {
 
     private fun prepareConfig(config: JsonObject): JsonObject {
         val tmpConfig = prepareConfigLines(config = config,
-            Props.USER, Props.PASSWORD, Props.TOKEN, Props.SSH_HOST, Props.SSH_KEY, Props.SSH_PORT,
-            Props.LOG_FILE_PATH, Props.LOG_LINES, Props.SSH_KEY_PASSPHRASE
+            Props.USER, Props.PASSWORD, Props.TOKEN, Props.SSH_KEY, Props.SSH_KEY_PASSPHRASE
         )
 
         tmpConfig.getString(Props.AUTHENTICATION_TYPES) ?: config.put(Props.AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))

@@ -16,9 +16,7 @@ class LogViewerWidget(
     config: JsonObject,
     serv: BoardsConfigService
 ) : BaseWidget(vertx, config, serv) {
-    private val address = config.getString(Props.LOG_SOURCE)
-    private val lines = config.getString(Props.LOG_LINES)
-    private val connectionType = config.getString(Props.LOG_SOURCE_TYPE)
+    private val address = config.endpointProp(Props.URL)
 
     private var consumer: MessageConsumer<*>? = null
     private val connectionStrategy: ConnectionStrategy = determineConnectionStrategy()
@@ -65,7 +63,7 @@ class LogViewerWidget(
     }
 
     private fun determineConnectionStrategy() =
-            ConnectionStrategyFactory(vertx, config)
+            ConnectionStrategyFactory(config, address)
                 .addVertxInstance(vertx)
                 .build()
 }
