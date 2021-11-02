@@ -37,6 +37,7 @@ import RangeSlider from './RangeSlider';
 import LinkListInput from './LinkListInput';
 import ToDoListInput from './ToDoListinput';
 import WidgetTypeField from './WidgetTypeField';
+import FileTextInput from './FileTextInput';
 
 const dialogFields = {
   LabelField: {
@@ -101,7 +102,7 @@ const dialogFields = {
     validator: () => string()
   },
   SSHKeyField: {
-    component: MultilineTextInput,
+    component: FileTextInput,
     name: 'sshKey',
     label: 'SSH Private Key',
     validator: () =>
