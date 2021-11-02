@@ -38,6 +38,7 @@ class CredentialsController : AbstractVerticle() {
     private fun JsonObject.filterSensitiveData(): JsonObject {
         this.remove(Props.PASSWORD)
         this.remove(Props.SSH_KEY)
+        this.remove(Props.SSH_KEY_PASSPHRASE)
         return this
     }
 

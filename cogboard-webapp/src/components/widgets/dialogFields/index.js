@@ -111,10 +111,16 @@ const dialogFields = {
           message: vm.SSH_KEY_BEGIN,
           excludeEmptyString: true
         })
-        .matches('\n-----END ([A-Z]{1,} )*PRIVATE KEY-----$', {
+        .matches('\n-----END ([A-Z]{1,} )*PRIVATE KEY-----\n$', {
           message: vm.SSH_KEY_END,
           excludeEmptyString: true
         })
+  },
+  SSHKeyPassphraseField: {
+    component: PasswordInput,
+    name: 'sshKeyPassphrase',
+    label: 'SSH Private Key Passphrase',
+    validator: () => string()
   },
   PublicURL: {
     component: TextInput,

@@ -6,5 +6,6 @@ data class Credential(
     val user: String,
     val password: String?,
     val token: String?,
-    val sshKey: String?
+    val sshKey: String?,
+    val sshKeyPassphrase: String?
 )
