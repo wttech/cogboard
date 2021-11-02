@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, InputLabel } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { StyledValidationMessages } from '../../WidgetForm/styled';
 import {
   DeleteButton,
@@ -9,15 +9,7 @@ import {
   StyledVerticalStack
 } from './styled';
 
-const FileTextInput = ({
-  error,
-  dataCy,
-  values,
-  label,
-  value,
-  onChange,
-  ...other
-}) => {
+const FileTextInput = ({ error, dataCy, onChange }) => {
   const [filename, setFilename] = useState('');
 
   const getFileContents = async e => {
@@ -29,8 +21,6 @@ const FileTextInput = ({
       let event = e;
       event.target.value = text;
       onChange(event);
-      alert(text);
-      console.log(text);
     };
     reader.readAsText(file);
     setFilename(file.name);
