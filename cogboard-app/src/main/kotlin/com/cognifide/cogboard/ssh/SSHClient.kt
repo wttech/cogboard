@@ -86,7 +86,10 @@ class SSHClient : AbstractVerticle() {
     private fun executeCommandAndSendResult(config: JsonObject) {
         val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
         val responseBuffer = Buffer.buffer()
-        responseBuffer.appendBytes(sshInputStream.readAllBytes())
+        val tmpBuf = ByteArray(512)
+        while (sshInputStream.read(tmpBuf, 0, 512) != -1) {
+            responseBuffer.appendBytes(tmpBuf)
+        }
         vertx.eventBus().send(eventBusAddress, responseBuffer)
         channel.disconnect()
         session.disconnect()

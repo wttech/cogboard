@@ -38,11 +38,14 @@ internal class EndpointTest {
         assert(validEndpoint.containsKey("password"))
         assert(validEndpoint.containsKey("token"))
         assert(validEndpoint.containsKey("sshKey"))
+        assert(validEndpoint.containsKey("sshKeyPassphrase"))
 
         assert(invalidEndpoint.containsKey("user"))
         assert(invalidEndpoint.containsKey("password"))
         assert(invalidEndpoint.containsKey("token"))
         assert(invalidEndpoint.containsKey("sshKey"))
+        assert(invalidEndpoint.containsKey("sshKeyPassphrase"))
+
     }
 
     @Test
@@ -51,6 +54,8 @@ internal class EndpointTest {
         assertEquals("password1", validEndpoint.getString("password"))
         assertEquals("token1", validEndpoint.getString("token"))
         assertEquals("key1", validEndpoint.getString("sshKey"))
+        assertEquals("pass1", validEndpoint.getString("sshKeyPassphrase"))
+
     }
 
     @Test
@@ -59,6 +64,7 @@ internal class EndpointTest {
         assertEquals("", invalidEndpoint.getString("password"))
         assertEquals("", invalidEndpoint.getString("token"))
         assertEquals("", invalidEndpoint.getString("sshKey"))
+        assertEquals("", invalidEndpoint.getString("sshKeyPassphrase"))
     }
 
     @Test
@@ -72,7 +78,8 @@ internal class EndpointTest {
                       "user" : "user1",
                       "password" : "password1",
                       "token" : "token1",
-                      "sshKey": "key1"
+                      "sshKey": "key1",
+                      "sshKeyPassphrase" : "pass1"
                     }
                     """)
 
@@ -89,7 +96,8 @@ internal class EndpointTest {
                       "user" : "",
                       "password" : "",
                       "token" : "",
-                      "sshKey" : ""
+                      "sshKey" : "",
+                      "sshKeyPassphrase" : ""
                     }
                     """)
 

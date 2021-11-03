@@ -14,7 +14,7 @@ const LogViewerWidget = ({ id }) => {
   return (
     <Container>
       <Toolbar />
-      <LogList logs={widgetData.content?.logs} />
+      {/* <LogList logs={widgetData.content?.logs} /> */}
     </Container>
   );
 };

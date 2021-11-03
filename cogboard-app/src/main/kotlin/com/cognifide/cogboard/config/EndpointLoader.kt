@@ -32,6 +32,7 @@ class EndpointLoader(
                 this.put(Props.PASSWORD, credentials.getString(Props.PASSWORD) ?: "")
                 this.put(Props.TOKEN, credentials.getString(Props.TOKEN) ?: "")
                 this.put(Props.SSH_KEY, credentials.getString(Props.SSH_KEY) ?: "")
+                this.put(Props.SSH_KEY_PASSPHRASE, credentials.getString(Props.SSH_KEY_PASSPHRASE) ?: "")
             }
         }
         return this
