@@ -13,7 +13,7 @@ import getGridTemplate from './helpers';
 
 const testLogTemplate = ['Provider', 'Message'];
 
-export default function LogList({ children }) {
+export default function LogList({ logs }) {
   const theme = useTheme();
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(testLogTemplate)}>
@@ -34,7 +34,7 @@ export default function LogList({ children }) {
       </Header>
 
       <LogsWrapper>
-        {children.map(log => (
+        {logs?.map(log => (
           <LogEntry
             type={log.type}
             date={log.date}

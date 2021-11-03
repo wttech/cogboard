@@ -3,7 +3,11 @@ package com.cognifide.cogboard.widget.type
 import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.service.BoardsConfigService
 import com.cognifide.cogboard.widget.BaseWidget
+import com.cognifide.cogboard.widget.Widget
+import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
+import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategyFactory
 import io.vertx.core.Vertx
+import io.vertx.core.eventbus.Message
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 import io.vertx.core.json.JsonArray
@@ -14,14 +18,6 @@ class LogViewerWidget(
     serv: BoardsConfigService
 ) : BaseWidget(vertx, config, serv) {
     private val address = config.endpointProp(Props.URL)
-
-    // private val user: String = config.endpointProp(Props.USER)
-    // private val password: String = config.endpointProp(Props.PASSWORD)
-    // private val token: String = config.endpointProp(Props.TOKEN)
-    private val sshKey: String = config.endpointProp(Props.SSH_KEY)
-    private val url: String = config.endpointProp(Props.URL)
-    private val publicUrl: String = config.endpointProp(Props.PUBLIC_URL).ifBlank { url }
-
     private var consumer: MessageConsumer<*>? = null
     private val connectionStrategy: ConnectionStrategy = determineConnectionStrategy()
 
