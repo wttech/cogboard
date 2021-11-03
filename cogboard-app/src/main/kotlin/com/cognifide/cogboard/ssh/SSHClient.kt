@@ -42,11 +42,12 @@ class SSHClient : AbstractVerticle() {
     }
 
     fun tryToConnect(config: JsonObject) {
-        val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
+
         try {
             connect(config)
         } catch (e: JSchException) {
             LOGGER.error(e.message)
+            val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
             vertx.eventBus().send(eventBusAddress, e)
         }
     }
