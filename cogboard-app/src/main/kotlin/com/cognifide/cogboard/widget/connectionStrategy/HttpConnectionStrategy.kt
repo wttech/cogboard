@@ -11,7 +11,8 @@ import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.Json
 import io.vertx.core.json.JsonObject
 
-class HttpConnectionStrategy(vertx: Vertx) : ConnectionStrategy(vertx) {
+class HttpConnectionStrategy(vertx: Vertx, eventBusAddress: String) :
+        ConnectionStrategy(vertx, eventBusAddress) {
     override fun sendRequest(address: String, arguments: JsonObject) {
         when (arguments.getString(Props.LOG_REQUEST_TYPE, "")) {
             GET -> vertx.eventBus().send(Event.HTTP_GET, getProps(arguments))
@@ -30,7 +31,7 @@ class HttpConnectionStrategy(vertx: Vertx) : ConnectionStrategy(vertx) {
     private fun basicProps(props: JsonObject): JsonObject =
          JsonObject()
              .put(Props.URL, props.endpointProp(Props.URL))
-             .put(Props.EVENT_ADDRESS, props.endpointProp(Props.EVENT_ADDRESS))
+             .put(Props.EVENT_ADDRESS, eventBusAddress)
              .put(Props.USER, props.endpointProp(Props.USER))
              .put(Props.PASSWORD, props.endpointProp(Props.PASSWORD))
              .put(Props.AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))

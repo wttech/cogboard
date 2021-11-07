@@ -20,7 +20,7 @@ import com.cognifide.cogboard.widget.type.WorldClockWidget
 import com.cognifide.cogboard.widget.type.randompicker.RandomPickerWidget
 import com.cognifide.cogboard.widget.type.sonarqube.SonarQubeWidget
 import com.cognifide.cogboard.widget.type.zabbix.ZabbixWidget
-import com.cognifide.cogboard.widget.type.LogViewerWidget
+import com.cognifide.cogboard.widget.type.logviewer.LogViewerWidget
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject

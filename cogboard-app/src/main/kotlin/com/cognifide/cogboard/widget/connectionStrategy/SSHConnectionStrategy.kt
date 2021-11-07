@@ -9,7 +9,8 @@ import io.vertx.core.json.Json
 import io.vertx.core.json.JsonObject
 import java.nio.charset.Charset
 
-open class SSHConnectionStrategy(vertx: Vertx) : ConnectionStrategy(vertx) {
+open class SSHConnectionStrategy(vertx: Vertx, eventBusAddress: String) :
+        ConnectionStrategy(vertx, eventBusAddress) {
     override fun sendRequest(address: String, arguments: JsonObject) {
         val config = prepareConfig(arguments)
         vertx.eventBus().send(CogboardConstants.Event.SSH_COMMAND, config)
@@ -27,6 +28,7 @@ open class SSHConnectionStrategy(vertx: Vertx) : ConnectionStrategy(vertx) {
         )
 
         tmpConfig.getString(Props.AUTHENTICATION_TYPES) ?: config.put(Props.AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
+        tmpConfig.put(Props.EVENT_ADDRESS, eventBusAddress)
         return tmpConfig
     }
 

@@ -39,8 +39,8 @@ class SSHAuthData(private val config: JsonObject) {
             }
 
     fun createCommand(): String {
-        val logLines = config.getString(CogboardConstants.Props.LOG_LINES) ?: "0"
-        val logFilePath = config.getString(CogboardConstants.Props.LOG_FILE_PATH) ?: ""
+        val logLines = config.getInteger(CogboardConstants.Props.LOG_LINES) ?: 0
+        val logFilePath = config.getString(CogboardConstants.Props.PATH) ?: ""
 
         return "cat $logFilePath | tail -$logLines"
     }

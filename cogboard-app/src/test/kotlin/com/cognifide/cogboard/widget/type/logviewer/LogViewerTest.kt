@@ -1,8 +1,8 @@
-package com.cognifide.cogboard.widget.type
+package com.cognifide.cogboard.widget.type.logviewer
 
-import com.cognifide.cogboard.CogboardConstants.ConnectionType
 import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.CogboardConstants.RequestMethod
+import com.cognifide.cogboard.widget.type.WidgetTestBase
 import io.vertx.core.buffer.Buffer
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
