@@ -6,7 +6,7 @@ import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 
-abstract class ConnectionStrategy(protected val vertx: Vertx) {
+abstract class ConnectionStrategy(protected val vertx: Vertx, protected val eventBusAddress: String) {
     protected fun JsonObject.endpointProp(prop: String): String {
         return this.getJsonObject(CogboardConstants.Props.ENDPOINT_LOADED)?.getString(prop) ?: ""
     }

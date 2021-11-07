@@ -13,6 +13,7 @@ class ConnectionStrategyFactory(
 ) {
     private val connectionType: String
     private lateinit var vertx: Vertx
+    private lateinit var eventBusAddress: String
 
     init {
         connectionType = determineConnectionType(uri, config)
@@ -20,6 +21,11 @@ class ConnectionStrategyFactory(
 
     fun addVertxInstance(vertx: Vertx): ConnectionStrategyFactory {
         this.vertx = vertx
+        return this
+    }
+
+    fun addEventBusAddress(eventBusAddress: String): ConnectionStrategyFactory {
+        this.eventBusAddress = eventBusAddress
         return this
     }
 
@@ -44,18 +50,32 @@ class ConnectionStrategyFactory(
         }
     }
 
-    fun build(): ConnectionStrategy {
-        if (!::vertx.isInitialized) {
-            throw RuntimeException("Vertx instance not passed to builder")
+    fun checkRequiredParameters() {
+        var message = ""
+        when {
+            !::vertx.isInitialized -> message = "Vertx instance not passed to builder"
+            !::eventBusAddress.isInitialized -> message = "Eventbus address not passed to builder"
         }
+
+        if (message.isNotBlank()) {
+            throw MissingBuilderParametersException(message)
+        }
+    }
+
+    fun build(): ConnectionStrategy {
+        checkRequiredParameters()
         return when (connectionType) {
-            HTTP -> HttpConnectionStrategy(vertx)
-            SSH -> SSHConnectionStrategy(vertx)
+            HTTP -> HttpConnectionStrategy(vertx, eventBusAddress)
+            SSH -> SSHConnectionStrategy(vertx, eventBusAddress)
             else -> throw UnknownConnectionTypeException("Unknown strategy type")
         }
     }
 }
 
 class UnknownConnectionTypeException(
+    message: String?
+) : RuntimeException(message)
+
+class MissingBuilderParametersException(
     message: String?
 ) : RuntimeException(message)
