@@ -34,10 +34,10 @@ export default function LogEntry({ type, date, additionalData, variableData }) {
 
   const VariablePart = ({ description }) => {
     const variableFieldsTemplate = getGridTemplate(variableData.template);
-    const data = description ? variableData.description : variableData.header;
+    const data = description ? variableData.description : variableData.headers;
     return (
       <VariableGridSchema template={variableFieldsTemplate}>
-        {data.map((text, index) => (
+        {data?.map((text, index) => (
           <Text key={index}>{text}</Text>
         ))}
       </VariableGridSchema>
@@ -73,7 +73,7 @@ LogEntry.propTypes = {
   additionalData: objectOf(oneOfType([string, number, bool])),
   variableData: shape({
     template: arrayOf(string).isRequired,
-    header: arrayOf(oneOfType([string, number, bool])).isRequired,
+    headers: arrayOf(oneOfType([string, number, bool])).isRequired,
     description: arrayOf(oneOfType([string, number, bool])).isRequired
   })
 };
@@ -82,7 +82,7 @@ LogEntry.defaultProps = {
   type: 'info',
   variableData: {
     template: [],
-    header: [],
+    headers: [],
     description: []
   },
   additionalData: {}

@@ -11,13 +11,11 @@ import {
 } from './styled';
 import getGridTemplate from './helpers';
 
-const testLogTemplate = ['Provider', 'Message'];
-
-export default function LogList({ logs }) {
+export default function LogList({ logs, template }) {
   const theme = useTheme();
   const VariableLogListHeader = () => (
-    <VariableGridSchema template={getGridTemplate(testLogTemplate)}>
-      {testLogTemplate.map((name, index) => (
+    <VariableGridSchema template={getGridTemplate(template)}>
+      {template.map((name, index) => (
         <ColumnTitle key={index}>{name}</ColumnTitle>
       ))}
     </VariableGridSchema>
@@ -34,8 +32,9 @@ export default function LogList({ logs }) {
       </Header>
 
       <LogsWrapper>
-        {logs?.map(log => (
+        {logs?.map((log, index) => (
           <LogEntry
+            key={index}
             type={log.type}
             date={log.date}
             additionalData={log.additionalData}
