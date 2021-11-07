@@ -99,7 +99,8 @@ class LogViewerWidget(
     }
 
     private fun prepareLogs(logs: String): JsonObject {
-        val logLines = logs.split("\n")
+        var logLines = logs.split("\n")
+        logLines = logLines.filter { it.isNotEmpty() }
         return JsonObject().put("logs", logParsingStrategy.parseLines(logLines))
     }
 
