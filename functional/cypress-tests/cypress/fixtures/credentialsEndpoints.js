@@ -5,7 +5,6 @@ export const badCredentials = () => {
     passwordConf: 'zzz',
     user: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
     label: ' ',
-    sshKey: 'xxx',
     sshKeyPassphrase: ''
   };
 };

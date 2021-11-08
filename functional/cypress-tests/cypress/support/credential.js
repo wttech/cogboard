@@ -58,17 +58,6 @@ class Credentials {
     return this;
   }
 
-  applySSHKey(config) {
-    if (config !== undefined) {
-      this.config = config;
-    }
-    cy.get('[data-cy="credential-form-auth-ssh-key-input"]')
-      .clear()
-      .type(this.config.sshKey)
-      .blur();
-    return this;
-  }
-
   applySSHKeyPassphrase(config) {
     if (config !== undefined) {
       this.config = config;
