@@ -1,6 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { COLORS } from '../../../../../constants';
 import { Typography, Accordion } from '@material-ui/core';
+import logLevels from '../logLevels';
 
 export const Container = styled.div`
   max-height: 100%;
@@ -36,23 +37,22 @@ export const ColumnTitle = styled(Typography)`
 `;
 
 export const Text = styled(Typography)(props => {
-  const getColor = type =>
-    ({
-      info: COLORS.WHITE,
-      success: COLORS.GREEN,
-      warn: COLORS.YELLOW,
-      error: COLORS.RED
-    }[type.toLowerCase()]);
+  let logTypeStyles = ``;
+  if (props.type) {
+    const logLevel = logLevels.find(
+      level => level.value === props.type?.toLowerCase()
+    );
+    logTypeStyles = `
+      font-weight: 500;
+      color: ${logLevel?.color || COLORS.WHITE};
+    `;
+  }
 
   return `
       line-height: 19px;
       font-size: 0.8rem;
       font-weight: 400;
-      ${props.type &&
-        `
-        font-weight: 500;
-        color: ${getColor(props.type)};
-      `}
+      ${logTypeStyles}
     `;
 });
 
