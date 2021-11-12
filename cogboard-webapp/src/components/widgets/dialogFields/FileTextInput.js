@@ -12,13 +12,12 @@ import {
 const FileTextInput = ({ error, dataCy, onChange }) => {
   const [filename, setFilename] = useState('');
 
-  const getFileContents = async e => {
-    e.preventDefault();
-    const file = e.target.files[0];
+  const getFileContents = async event => {
+    event.preventDefault();
+    const file = event.target.files[0];
     const reader = new FileReader();
-    reader.onload = async e => {
-      const text = e.target.result;
-      let event = e;
+    reader.onload = async event => {
+      const text = event.target.result;
       event.target.value = text;
       onChange(event);
     };
@@ -26,10 +25,9 @@ const FileTextInput = ({ error, dataCy, onChange }) => {
     setFilename(file.name);
   };
 
-  const deleteFile = e => {
-    e.preventDefault();
+  const deleteFile = event => {
+    event.preventDefault();
     setFilename('');
-    let event = e;
     event.target.value = '';
     onChange(event);
   };
