@@ -15,5 +15,3 @@ abstract class LogParserStrategy {
 
     abstract fun parseLine(logLine: String): JsonObject
 }
-
-class LogParsingException(message: String) : RuntimeException(message)

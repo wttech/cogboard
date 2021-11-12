@@ -11,7 +11,6 @@ class MockLogParserStrategy : LogParserStrategy() {
 
     override fun parseLine(logLine: String): JsonObject {
         val groups = regex.matchEntire(logLine.trim())?.groups
-            // ?: throw LogParsingException("Unable to parse line: $logLine")
 
         return createLogObject(groups)
     }

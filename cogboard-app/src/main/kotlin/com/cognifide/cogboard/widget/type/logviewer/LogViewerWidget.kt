@@ -74,6 +74,4 @@ class LogViewerWidget(
     private fun determineLogParsingStrategy() =
             LogParserStrategyFactory()
                     .build(LogParserStrategyFactory.MOCK)
-    /* temporary solution, we'll have to decide if we'll get information of log types from
-    front-end or if we'll determine it from the logs themselves */
 }
