@@ -8,12 +8,14 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 
 class SSHAuthData(private val config: JsonObject) {
-    val user = config.getString(Props.USER) ?: ""
-    val password = config.getString(Props.PASSWORD) ?: ""
-    val token = config.getString(Props.TOKEN) ?: ""
-    val key = config.getString(Props.SSH_KEY) ?: ""
-    val host = config.getString(Props.SSH_HOST) ?: ""
-    val port = config.getInteger(Props.SSH_PORT) ?: 22
+    private val id = config.getString(Props.ID, "")
+    val user = config.getString(Props.USER, "")
+    val password = config.getString(Props.PASSWORD, "")
+    val token = config.getString(Props.TOKEN, "")
+    var key = config.getString(Props.SSH_KEY, "")
+        private set
+    val host = config.getString(Props.SSH_HOST, "")
+    val port = config.getInteger(Props.SSH_PORT, 22)
     val authenticationType = fromConfigAuthenticationType()
 
     private fun fromConfigAuthenticationType(): AuthenticationType {
@@ -27,9 +29,18 @@ class SSHAuthData(private val config: JsonObject) {
 
     private fun hasAuthTypeCorrectCredentials(authType: AuthenticationType): Boolean =
             when {
-                authType == SSH_KEY && key.isNotBlank() -> true
+                authType == SSH_KEY && key.isNotBlank() -> {
+                    prepareForSSHKeyUsage()
+                    true
+                }
                 else -> authType == BASIC && user.isNotBlank() && password.isNotBlank()
             }
+
+    private fun prepareForSSHKeyUsage() {
+        val fileHelper = SSHKeyFileHelper(id, key)
+        fileHelper.saveToFile()
+        config.put(Props.SSH_KEY, fileHelper.path)
+    }
 
     fun getAuthenticationString(): String =
             when (authenticationType) {

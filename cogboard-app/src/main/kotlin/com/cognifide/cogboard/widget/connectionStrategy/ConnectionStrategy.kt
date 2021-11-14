@@ -11,7 +11,7 @@ abstract class ConnectionStrategy(protected val vertx: Vertx, protected val even
         return this.getJsonObject(CogboardConstants.Props.ENDPOINT_LOADED)?.getString(prop) ?: ""
     }
 
-    protected open fun authenticationTypes(): Set<AuthenticationType> {
+    protected open fun authenticationTypes(): Set<Any> {
         return setOf(AuthenticationType.BASIC)
     }
 
