@@ -8,7 +8,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterPicker from './FilterPicker';
 
-const Toolbar = () => {
+const Toolbar = ({ regExpFilters }) => {
   const theme = useTheme();
 
   return (
@@ -17,7 +17,7 @@ const Toolbar = () => {
         <SearchInput />
       </ToolbarGroup>
 
-      <FilterPicker />
+      <FilterPicker regExpFilters={regExpFilters} />
 
       <DateRangePicker />
 

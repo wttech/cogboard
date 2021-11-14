@@ -11,8 +11,34 @@ import {
 } from './styled';
 import getGridTemplate from './helpers';
 
-export default function LogList({ logs, template }) {
+export default function LogList({ logs, template, regExpFilters }) {
   const theme = useTheme();
+
+  const filterByRegExp = (log, filters) => {
+    let result = true;
+    filters.forEach(({ regExp }) => {
+      let filterPassed = false;
+      const regExpObj = new RegExp(regExp);
+      const texts = [
+        ...log.variableData.headers,
+        ...log.variableData.description
+      ];
+
+      texts.forEach(text => {
+        if (text.match(regExpObj)) {
+          filterPassed = true;
+        }
+      });
+
+      if (!filterPassed) {
+        result = false;
+      }
+    });
+    return result;
+  };
+
+  const filteredLogs = logs?.filter(log => filterByRegExp(log, regExpFilters));
+
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
       {template.map((name, index) => (
@@ -32,7 +58,7 @@ export default function LogList({ logs, template }) {
       </Header>
 
       <LogsWrapper>
-        {logs?.map((log, index) => (
+        {filteredLogs?.map((log, index) => (
           <LogEntry
             key={index}
             type={log.type}

@@ -14,7 +14,7 @@ import { ScrollableBox } from './styled';
 import ToolbarGroup from '../ToolbarGroup';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
-const FilterPicker = () => {
+const FilterPicker = ({ regExpFilters }) => {
   const handleDelete = name => {
     setFilters(filters.filter(item => item !== name));
   };
@@ -75,7 +75,7 @@ const FilterPicker = () => {
           ))}
         </Select>
       </FormControl>
-      <AdvancedFiltersMenu />
+      <AdvancedFiltersMenu regExpFilters={regExpFilters} />
     </ToolbarGroup>
   );
 };

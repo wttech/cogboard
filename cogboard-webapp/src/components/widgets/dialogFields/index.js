@@ -634,7 +634,7 @@ const dialogFields = {
   },
   RegExpField: {
     component: MultilineTextInput,
-    name: 'logFilterRegExp',
+    name: 'regExp',
     label: 'Regular expression',
     validator: () => string()
   }
