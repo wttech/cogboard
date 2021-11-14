@@ -1,4 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
+import logLevels from '../../logLevels';
+
 import {
   Button,
   Select,
@@ -9,8 +12,7 @@ import {
 } from '@material-ui/core';
 import { ScrollableBox } from './styled';
 import ToolbarGroup from '../ToolbarGroup';
-import { useState } from 'react';
-import logLevels from '../../logLevels';
+import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
 const FilterPicker = () => {
   const handleDelete = name => {
@@ -73,9 +75,7 @@ const FilterPicker = () => {
           ))}
         </Select>
       </FormControl>
-      <Button variant="contained" size="small">
-        Advanced
-      </Button>
+      <AdvancedFiltersMenu />
     </ToolbarGroup>
   );
 };
