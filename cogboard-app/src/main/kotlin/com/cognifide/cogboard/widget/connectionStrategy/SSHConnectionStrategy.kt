@@ -19,8 +19,13 @@ open class SSHConnectionStrategy(vertx: Vertx, eventBusAddress: String) :
     override fun getConsumer(eventBusAddress: String): MessageConsumer<*> =
         vertx.eventBus().consumer<Buffer>(eventBusAddress)
 
-    override fun handleResponse(response: Any): String =
-        (response as Buffer).toString(Charset.defaultCharset())
+    override fun handleResponse(response: Any): String {
+        return if (response !is String) {
+            (response as Buffer).toString(Charset.defaultCharset())
+        } else {
+            response
+        }
+    }
 
     private fun prepareConfig(config: JsonObject): JsonObject {
         val tmpConfig = prepareConfigLines(config = config,
