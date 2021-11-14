@@ -58,6 +58,17 @@ class Credentials {
     return this;
   }
 
+  applySSHKeyPassphrase(config) {
+    if (config !== undefined) {
+      this.config = config;
+    }
+    cy.get('[data-cy="credential-form-auth-ssh-key-passphrase-input"]')
+      .clear()
+      .type(this.config.sshKeyPassphrase)
+      .blur();
+    return this;
+  }
+
   save() {
     cy.get('[data-cy="credential-form-submit-button"]').click();
     return this;
@@ -77,7 +88,9 @@ class Credentials {
   }
 
   assertErrorMessageVisible(message, dataCYName) {
-    cy.contains(`[data-cy^="${dataCYName}"]`, message).should('is.visible');
+    cy.contains(`[data-cy^="${dataCYName}"]`, message)
+      .scrollIntoView()
+      .should('is.visible');
     return this;
   }
 }

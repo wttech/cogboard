@@ -7,7 +7,7 @@ import com.jcraft.jsch.Session
 class BasicAuthSessionStrategy(jsch: JSch, authData: SSHAuthData) : SessionStrategy(jsch, authData) {
 
     override fun initSession(): Session {
-        val session = jsch.getSession(authData.user, authData.host)
+        val session = jsch.getSession(authData.user, authData.host, authData.port)
         session.setPassword(securityString)
 
         return session

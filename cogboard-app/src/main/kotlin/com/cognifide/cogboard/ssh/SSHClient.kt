@@ -13,6 +13,10 @@ import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import java.io.InputStream
 
 class SSHClient : AbstractVerticle() {
@@ -41,35 +45,41 @@ class SSHClient : AbstractVerticle() {
                 }
     }
 
-    private fun tryToConnect(config: JsonObject) {
-        val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
-        try {
-            connect(config)
-        } catch (e: JSchException) {
-            LOGGER.error(e.message)
-            vertx.eventBus().send(eventBusAddress, e)
+    fun tryToConnect(config: JsonObject) {
+        LOGGER.info(config)
+        coroutineScope.launch {
+            try {
+                connect(config)
+            } catch (e: JSchException) {
+                LOGGER.error(e.message)
+                val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
+                vertx.eventBus().send(eventBusAddress, e.message)
+            }
         }
     }
 
-    private fun connect(config: JsonObject) {
+    private suspend fun connect(config: JsonObject) {
         val authData = SSHAuthData(config)
         createSSHChannel(authData)
         executeCommandAndSendResult(config)
     }
 
-    private fun createSSHChannel(authData: SSHAuthData) {
+    private suspend fun createSSHChannel(authData: SSHAuthData) {
         with(authData) {
             initSSHSession(authData)
             if (session.isConnected) {
                 createChannel(createCommand())
+            } else {
+                LOGGER.error("Failed to connect to ${authData.host}")
             }
         }
     }
 
     private fun initSSHSession(authData: SSHAuthData) {
         jsch = JSch()
-        jsch.setKnownHosts("~/.ssh/known_hosts")
-        val session = SessionStrategyFactory(jsch).create(authData).initSession()
+        // jsch.setKnownHosts("~/.ssh/known_hosts")  for security reasons this should be used
+        session = SessionStrategyFactory(jsch).create(authData).initSession()
+        session.setConfig("StrictHostKeyChecking", "no") // not secure
         session.connect(CogboardConstants.Props.SSH_TIMEOUT)
     }
 
@@ -83,14 +93,27 @@ class SSHClient : AbstractVerticle() {
 
     private fun executeCommandAndSendResult(config: JsonObject) {
         val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
-        val responseBuffer = Buffer.buffer()
-        responseBuffer.appendBytes(sshInputStream.readAllBytes())
+        val responseBuffer = readResponse()
         vertx.eventBus().send(eventBusAddress, responseBuffer)
         channel.disconnect()
         session.disconnect()
     }
 
+    private fun readResponse(): Buffer {
+        val responseBuffer = Buffer.buffer()
+        val tmpBuf = ByteArray(512)
+        var readBytes = sshInputStream.read(tmpBuf, 0, 512)
+        while (readBytes != -1) {
+            responseBuffer.appendBytes(tmpBuf, 0, readBytes)
+            readBytes = sshInputStream.read(tmpBuf, 0, 512)
+        }
+
+        return responseBuffer
+    }
+
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(SSHClient::class.java)
+
+        val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
     }
 }

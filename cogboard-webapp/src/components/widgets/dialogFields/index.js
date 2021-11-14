@@ -37,6 +37,7 @@ import RangeSlider from './RangeSlider';
 import LinkListInput from './LinkListInput';
 import ToDoListInput from './ToDoListinput';
 import WidgetTypeField from './WidgetTypeField';
+import FileTextInput from './FileTextInput';
 
 const dialogFields = {
   LabelField: {
@@ -100,12 +101,33 @@ const dialogFields = {
     label: 'Token',
     validator: () => string()
   },
+  SSHKeyField: {
+    component: FileTextInput,
+    name: 'sshKey',
+    label: 'SSH Private Key',
+    validator: () =>
+      string()
+        .matches('^-----BEGIN ([A-Z]{1,} )*PRIVATE KEY-----\n', {
+          message: vm.SSH_KEY_BEGIN,
+          excludeEmptyString: true
+        })
+        .matches('\n-----END ([A-Z]{1,} )*PRIVATE KEY-----\n$', {
+          message: vm.SSH_KEY_END,
+          excludeEmptyString: true
+        })
+  },
+  SSHKeyPassphraseField: {
+    component: PasswordInput,
+    name: 'sshKeyPassphrase',
+    label: 'SSH Private Key Passphrase',
+    validator: () => string()
+  },
   PublicURL: {
     component: TextInput,
     name: 'publicUrl',
     label: 'Public URL',
     validator: () =>
-      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+      string().matches(/^(http|https|ws|ftp|ssh):\/\/.*([:.]).*/, {
         message: vm.INVALID_PUBLIC_URL(),
         excludeEmptyString: true
       })
@@ -251,7 +273,7 @@ const dialogFields = {
     name: 'url',
     label: 'URL',
     validator: () =>
-      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+      string().matches(/^(http|https|ws|ftp|ssh):\/\/.*([:.]).*/, {
         message: vm.INVALID_URL(),
         excludeEmptyString: true
       })

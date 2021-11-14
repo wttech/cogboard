@@ -10,6 +10,7 @@ import {
 import { ScrollableBox } from './styled';
 import ToolbarGroup from '../ToolbarGroup';
 import { useState } from 'react';
+import logLevels from '../../logLevels';
 
 const FilterPicker = () => {
   const handleDelete = name => {
@@ -17,7 +18,7 @@ const FilterPicker = () => {
   };
 
   const [filters, setFilters] = useState([]);
-  const [logLevel, setLogLevel] = useState('');
+  const [logLevel, setLogLevel] = useState('info');
 
   return (
     <ToolbarGroup title="Filters">
@@ -48,11 +49,11 @@ const FilterPicker = () => {
             </ScrollableBox>
           )}
         >
-          <MenuItem value="all">ALL</MenuItem>
-          <MenuItem value="debug">DEBUG</MenuItem>
-          <MenuItem value="info">INFO</MenuItem>
-          <MenuItem value="warn">WARN</MenuItem>
-          <MenuItem value="error">ERROR</MenuItem>
+          {logLevels.map((level, index) => (
+            <MenuItem key={index} value={level.value}>
+              {level.value.toUpperCase()}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
 
@@ -65,11 +66,11 @@ const FilterPicker = () => {
           value={logLevel}
           onChange={e => setLogLevel(e.target.value)}
         >
-          <MenuItem value="">ALL</MenuItem>
-          <MenuItem value="debug">DEBUG</MenuItem>
-          <MenuItem value="info">INFO</MenuItem>
-          <MenuItem value="warn">WARN</MenuItem>
-          <MenuItem value="error">ERROR</MenuItem>
+          {logLevels.map((level, index) => (
+            <MenuItem key={index} value={level.value}>
+              {level.value.toUpperCase()}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <Button variant="contained" size="small">

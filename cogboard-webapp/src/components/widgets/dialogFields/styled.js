@@ -2,7 +2,7 @@ import styled from '@emotion/styled/macro';
 import NumberInput from './NumberInput';
 import IntegerInput from './IntegerInput';
 import { COLORS } from '../../../constants';
-import { Box, Input, Fab, List, FormControl } from '@material-ui/core';
+import { Box, Input, Fab, List, FormControl, Button } from '@material-ui/core';
 
 export const StyledNumberInput = styled(NumberInput)`
   flex-basis: calc(50% - 18px);
@@ -150,5 +150,36 @@ export const StyledMultiLineWrapper = styled.div`
 
   .MuiTextField-root {
     flex: 1 0 auto;
+  }
+`;
+
+export const StyledHorizontalStack = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+`;
+
+export const StyledVerticalStack = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+export const StyledLabel = styled.p`
+  font-size: 1rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  transform: translate(0, 1.5px) scale(0.75);
+  transform-origin: top left;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.00938em;
+`;
+
+export const DeleteButton = styled(Button)`
+  background-color: ${COLORS.RED};
+
+  &:hover {
+    background-color: ${COLORS.DARK_RED};
   }
 `;
