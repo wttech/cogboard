@@ -46,25 +46,23 @@ class SSHClient : AbstractVerticle() {
     }
 
     fun tryToConnect(config: JsonObject) {
-        LOGGER.info(config)
         coroutineScope.launch {
             try {
                 connect(config)
             } catch (e: JSchException) {
-                LOGGER.error(e.message)
                 val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
-                vertx.eventBus().send(eventBusAddress, e.message)
+                sendError(e, eventBusAddress)
             }
         }
     }
 
-    private suspend fun connect(config: JsonObject) {
+    private fun connect(config: JsonObject) {
         val authData = SSHAuthData(config)
         createSSHChannel(authData)
         executeCommandAndSendResult(config)
     }
 
-    private suspend fun createSSHChannel(authData: SSHAuthData) {
+    private fun createSSHChannel(authData: SSHAuthData) {
         with(authData) {
             initSSHSession(authData)
             if (session.isConnected) {
@@ -109,6 +107,11 @@ class SSHClient : AbstractVerticle() {
         }
 
         return responseBuffer
+    }
+
+    private fun sendError(e: Exception, eventBusAddress: String) {
+        LOGGER.error(e.message)
+        vertx.eventBus().send(eventBusAddress, e.message)
     }
 
     companion object {
