@@ -5,13 +5,13 @@ import DynamicForm from '../../../../../../DynamicForm';
 import { Button } from '@material-ui/core';
 import CancelButton from '../../../../../../CancelButton';
 
-export default function FilterForm({
+const FilterForm = ({
   filters,
   onSubmit,
   handleCancel,
   id,
   ...initialFormValues
-}) {
+}) => {
   const formFields = ['LabelField', 'RegExpField'];
   const constraints = {
     LabelField: {
@@ -53,4 +53,6 @@ export default function FilterForm({
       />
     </form>
   );
-}
+};
+
+export default FilterForm;

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
+
 import { useToggle } from '../../../../../../../hooks';
 
-import AppDialog from '../../../../../../AppDialog';
-import AddItem from '../../../../../../AddItem';
-import DeleteItem from '../../../../../../DeleteItem';
-import FilterForm from './FilterForm';
 import {
   Button,
   List,
@@ -12,22 +9,44 @@ import {
   ListItemText,
   ListItemSecondaryAction
 } from '@material-ui/core';
+import AppDialog from '../../../../../../AppDialog';
+import AddItem from '../../../../../../AddItem';
+import EditFilter from './EditFilter';
+import DeleteItem from '../../../../../../DeleteItem';
+import FilterForm from './FilterForm';
 
-export default function AdvancedFiltersMenu() {
+const AdvancedFiltersMenu = () => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
-  const [filters, setFilters] = useState([{ id: 'filter1', label: 'filter1' }]);
-  const addFilter = filter => {
-    setFilters([...filters, filter]);
-    console.log('wywołany AddFilter');
+  const [filters, setFilters] = useState([]);
+  const addFilter = values => {
+    const maxId = filters.reduce((acc, { id }) => (id > acc ? id : acc), 0);
+    setFilters([...filters, { id: maxId + 1, ...values }]);
   };
 
-  const renderListItems = (items, name, EditComponent, deleteAction) =>
+  const editFilter = ({ id, values }) => {
+    setFilters(
+      filters.map(filter => {
+        if (filter.id === id) {
+          return { id, ...values };
+        }
+        return filter;
+      })
+    );
+  };
+
+  const renderListItems = (
+    items,
+    name,
+    EditComponent,
+    editAction,
+    deleteAction
+  ) =>
     items.map(({ id, label }) => (
       <ListItem key={id}>
         <ListItemText primary={label} />
         <ListItemSecondaryAction>
-          <EditComponent id={id} />
+          <EditComponent id={id} filters={items} editAction={editAction} />
           {/* USES REDUX */}
           {/* <DeleteItem
             id={id}
@@ -41,7 +60,7 @@ export default function AdvancedFiltersMenu() {
 
   return (
     <>
-      <Button variant="contained" size="small" onClick={() => openDialog()}>
+      <Button variant="contained" size="small" onClick={openDialog}>
         Advanced
       </Button>
       <AppDialog
@@ -54,7 +73,8 @@ export default function AdvancedFiltersMenu() {
           {renderListItems(
             filters,
             'filter',
-            () => 'E',
+            EditFilter,
+            editFilter,
             () => 'D'
           )}
         </List>
@@ -73,4 +93,6 @@ export default function AdvancedFiltersMenu() {
       </AppDialog>
     </>
   );
-}
+};
+
+export default AdvancedFiltersMenu;
