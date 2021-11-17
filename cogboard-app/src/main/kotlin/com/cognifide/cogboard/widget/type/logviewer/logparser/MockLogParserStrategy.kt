@@ -7,7 +7,9 @@ import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companio
 import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.MESSAGE
 
 class MockLogParserStrategy : LogParserStrategy() {
-    private val regex = """^(?<$DATE>[0-9-:]+) \*(?<$TYPE>[A-Z]+)\* \[(?<$PROVIDER>[a-zA-Z]+)\][ ]+(?<$MESSAGE>.+)$""".trimMargin().toRegex()
+    private val regex = """^(?<$DATE>[0-9-:]+) \*(?<$TYPE>[A-Z]+)\* \[(?<$PROVIDER>[a-zA-Z]+)\][ ]+(?<$MESSAGE>.+)$"""
+            .trimMargin()
+            .toRegex()
 
     override fun parseLine(logLine: String): JsonObject {
         val groups = regex.matchEntire(logLine.trim())?.groups

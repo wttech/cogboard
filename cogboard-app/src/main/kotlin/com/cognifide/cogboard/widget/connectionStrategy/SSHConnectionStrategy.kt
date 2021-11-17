@@ -2,6 +2,7 @@ package com.cognifide.cogboard.widget.connectionStrategy
 
 import com.cognifide.cogboard.CogboardConstants
 import com.cognifide.cogboard.CogboardConstants.Props
+import com.cognifide.cogboard.ssh.SSHCoroutineClient
 import io.vertx.core.Vertx
 import io.vertx.core.buffer.Buffer
 import io.vertx.core.eventbus.MessageConsumer
@@ -23,12 +24,57 @@ open class SSHConnectionStrategy(vertx: Vertx, eventBusAddress: String) :
         (response as Buffer).toString(Charset.defaultCharset())
 
     private fun prepareConfig(config: JsonObject): JsonObject {
-        val tmpConfig = prepareConfigLines(config = config,
+        val tmpConfig = prepareConfigLines(config,
             Props.USER, Props.PASSWORD, Props.TOKEN, Props.SSH_KEY, Props.SSH_KEY_PASSPHRASE
         )
 
-        tmpConfig.getString(Props.AUTHENTICATION_TYPES) ?: config.put(Props.AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
+        tmpConfig.getString(Props.AUTHENTICATION_TYPES)
+                ?: config.put(Props.AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
         tmpConfig.put(Props.EVENT_ADDRESS, eventBusAddress)
+        return tmpConfig
+    }
+
+    private fun prepareConfigLines(config: JsonObject, vararg fields: String): JsonObject {
+        for (field in fields) {
+            config.getString(field) ?: config.put(field, config.endpointProp(field))
+        }
+        return config
+    }
+}
+
+class SSHConnectionStrategyInt : ConnectionStrategyInt() {
+
+    var configuration: JsonObject? = null
+
+    override suspend fun getNumberOfLines(): Int? {
+        val config = configuration ?: return null
+        val logFilePath = config.getString(Props.PATH) ?: return null
+
+        return SSHCoroutineClient(prepareConfig(config))
+                .executeAndClose("wc -l < $logFilePath")
+                ?.trim()
+                ?.toIntOrNull()
+    }
+
+    override suspend fun getLogs(skipFirstLines: Int?): Collection<String> {
+        val config = configuration ?: return emptyList()
+        val logFilePath = config.getString(Props.PATH) ?: return emptyList()
+        val command = skipFirstLines?.let { "tail -n +${it + 1} $logFilePath" } ?: "cat $logFilePath"
+
+        return SSHCoroutineClient(prepareConfig(config))
+                .executeAndClose(command)
+                ?.trim()
+                ?.lines()
+                ?: emptyList()
+    }
+
+    private fun prepareConfig(config: JsonObject): JsonObject {
+        val tmpConfig = prepareConfigLines(config,
+                Props.USER, Props.PASSWORD, Props.TOKEN, Props.SSH_KEY, Props.SSH_KEY_PASSPHRASE
+        )
+
+        tmpConfig.getString(Props.AUTHENTICATION_TYPES)
+                ?: config.put(Props.AUTHENTICATION_TYPES, Json.encode(authenticationTypes()))
         return tmpConfig
     }
 

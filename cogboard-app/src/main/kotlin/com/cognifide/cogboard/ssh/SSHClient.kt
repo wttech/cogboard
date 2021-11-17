@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import java.io.InputStream
+import java.nio.charset.Charset
 
 class SSHClient : AbstractVerticle() {
     private lateinit var session: Session
@@ -50,6 +51,7 @@ class SSHClient : AbstractVerticle() {
         coroutineScope.launch {
             try {
                 connect(config)
+                executeCommandAndSendResult(config)
             } catch (e: JSchException) {
                 LOGGER.error(e.message)
                 val eventBusAddress = config.getString(CogboardConstants.Props.EVENT_ADDRESS)
@@ -61,7 +63,6 @@ class SSHClient : AbstractVerticle() {
     private suspend fun connect(config: JsonObject) {
         val authData = SSHAuthData(config)
         createSSHChannel(authData)
-        executeCommandAndSendResult(config)
     }
 
     private suspend fun createSSHChannel(authData: SSHAuthData) {
@@ -113,6 +114,75 @@ class SSHClient : AbstractVerticle() {
 
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(SSHClient::class.java)
+
+        val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
+    }
+}
+
+class SSHCoroutineClient(private val config: JsonObject) {
+    private var session: Session? = null
+    private var jsch: JSch? = null
+
+    private suspend fun openSession() {
+        LOGGER.info(config)
+        val authData = SSHAuthData(config)
+        val jsch = JSch()
+        // jsch.setKnownHosts("~/.ssh/known_hosts")  for security reasons this should be used
+        val session = SessionStrategyFactory(jsch).create(authData).initSession()
+        session.setConfig("StrictHostKeyChecking", "no") // not secure
+        session.connect(CogboardConstants.Props.SSH_TIMEOUT)
+        this.session = session
+        this.jsch = jsch
+    }
+
+    fun closeSession() {
+        session?.disconnect()
+        session = null
+        jsch = null
+    }
+
+    suspend fun execute(command: String): String? {
+        if (session == null || jsch == null) {
+            openSession()
+        }
+        if (session?.isConnected != true) {
+            return null
+        }
+        val (channel, inputStream) = createChannel(command) ?: return null
+        val response = readResponse(inputStream)
+        channel.disconnect()
+        return response
+    }
+
+    suspend fun executeAndClose(command: String): String? {
+        val result = execute(command)
+        closeSession()
+        return result
+    }
+
+    private suspend fun createChannel(command: String): Pair<ChannelExec, InputStream>? {
+        val session = session ?: return null
+        val channel = session.openChannel("exec") as ChannelExec
+        channel.setCommand(command)
+        channel.inputStream = null
+        val inputStream = channel.inputStream
+        channel.connect(CogboardConstants.Props.SSH_TIMEOUT)
+        return Pair(channel, inputStream)
+    }
+
+    private fun readResponse(stream: InputStream): String? {
+        val responseBuffer = Buffer.buffer()
+        val tmpBuf = ByteArray(512)
+        var readBytes = stream.read(tmpBuf, 0, 512)
+        while (readBytes != -1) {
+            responseBuffer.appendBytes(tmpBuf, 0, readBytes)
+            readBytes = stream.read(tmpBuf, 0, 512)
+        }
+        return responseBuffer.toString(Charset.defaultCharset())
+    }
+
+    companion object {
+        val LOGGER: Logger = LoggerFactory.getLogger(SSHCoroutineClient::class.java)
 
         val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
     }

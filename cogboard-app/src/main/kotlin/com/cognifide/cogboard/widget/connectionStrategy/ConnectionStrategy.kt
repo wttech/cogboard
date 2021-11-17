@@ -21,3 +21,16 @@ abstract class ConnectionStrategy(protected val vertx: Vertx, protected val even
 
     abstract fun handleResponse(response: Any): String
 }
+
+abstract class ConnectionStrategyInt {
+    protected fun JsonObject.endpointProp(prop: String): String {
+        return this.getJsonObject(CogboardConstants.Props.ENDPOINT_LOADED)?.getString(prop) ?: ""
+    }
+
+    protected open fun authenticationTypes(): Set<AuthenticationType> {
+        return setOf(AuthenticationType.BASIC)
+    }
+
+    abstract suspend fun getNumberOfLines(): Int?
+    abstract suspend fun getLogs(skipFirstLines: Int?): Collection<String>
+}

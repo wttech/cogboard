@@ -6,7 +6,7 @@ import java.sql.Timestamp
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class MockLogParser: LogParser {
+class MockLogParser : LogParser {
     private val regex = """^(?<$DATE>[0-9-:]+) \*(?<$TYPE>[A-Z]+)\* \[(?<$PROVIDER>[a-zA-Z]+)\][ ]+(?<$MESSAGE>.+)$"""
             .trimMargin()
             .toRegex()
@@ -27,8 +27,7 @@ class MockLogParser: LogParser {
                 LogVariableData("Message", message, "No message description")
         )
 
-
-        return Log(date, type, variableData, null)
+        return Log(date = date, type = type, variableData = variableData)
     }
 
     companion object {

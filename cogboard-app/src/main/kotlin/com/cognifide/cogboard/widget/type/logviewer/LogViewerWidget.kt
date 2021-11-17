@@ -2,12 +2,14 @@ package com.cognifide.cogboard.widget.type.logviewer
 
 import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.config.service.BoardsConfigService
+import com.cognifide.cogboard.logStorage.MongoLogStorage
 import com.cognifide.cogboard.widget.BaseWidget
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategyFactory
 import com.cognifide.cogboard.widget.type.logviewer.logparser.LogParserStrategy
 import com.cognifide.cogboard.widget.type.logviewer.logparser.LogParserStrategyFactory
+import com.cognifide.cogboard.widget.type.logviewer.logparser.MockLogParser
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.Message
 import io.vertx.core.eventbus.MessageConsumer
@@ -22,6 +24,7 @@ class LogViewerWidget(
     private var consumer: MessageConsumer<*>? = null
     private val connectionStrategy: ConnectionStrategy = determineConnectionStrategy()
     private val logParsingStrategy: LogParserStrategy = determineLogParsingStrategy()
+    private val logStorage: MongoLogStorage = MongoLogStorage(connectionStrategy, MockLogParser())
 
     override fun start(): Widget {
         consumer = connectionStrategy.getConsumer(eventBusAddress)
@@ -39,6 +42,7 @@ class LogViewerWidget(
     override fun updateState() {
         if (address.isNotBlank()) {
             connectionStrategy.sendRequest(address, config)
+            logStorage.updateLogs(address, config)
         } else {
             sendConfigurationError("Endpoint URL is blank")
         }
