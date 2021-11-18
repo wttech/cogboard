@@ -7,8 +7,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MockLogParser : LogParser {
+    override val variableFields = listOf("Provider", "Message")
+
     private val regex = """^(?<$DATE>[0-9-:]+) \*(?<$TYPE>[A-Z]+)\* \[(?<$PROVIDER>[a-zA-Z]+)\][ ]+(?<$MESSAGE>.+)$"""
-            .trimMargin()
             .toRegex()
 
     override fun parseLine(line: String): Log? {
@@ -17,14 +18,17 @@ class MockLogParser : LogParser {
         val date = groups[DATE]?.value
                 ?.let { LocalDateTime.parse(it, dateTimeFormatter) }
                 ?.let { Timestamp.valueOf(it)?.time }
-                ?: return null
-        val type = groups[TYPE]?.value ?: return null
-        val provider = groups[PROVIDER]?.value ?: return null
-        val message = groups[MESSAGE]?.value ?: return null
+        val type = groups[TYPE]?.value
+        val provider = groups[PROVIDER]?.value
+        val message = groups[MESSAGE]?.value
+
+        if (date == null || type == null || provider == null || message == null) {
+            return null
+        }
 
         val variableData = listOf(
-                LogVariableData("Provider", provider, "No description"),
-                LogVariableData("Message", message, "No message description")
+                LogVariableData(provider, "No description"),
+                LogVariableData(message, "No message description")
         )
 
         return Log(date = date, type = type, variableData = variableData)

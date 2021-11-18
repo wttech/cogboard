@@ -13,7 +13,7 @@ class SSHAuthData(private val config: JsonObject) {
     val token = config.getString(CogboardConstants.Props.TOKEN) ?: ""
     val key = config.getString(CogboardConstants.Props.SSH_KEY) ?: ""
     val host = config.getString(CogboardConstants.Props.SSH_HOST) ?: ""
-    val port = config.getInteger(CogboardConstants.Props.SSH_PORT) ?: 22
+    val port = config.getInteger(CogboardConstants.Props.SSH_PORT) ?: DEFAULT_PORT
     val authenticationType = fromConfigAuthenticationType()
 
     private fun fromConfigAuthenticationType(): AuthenticationType {
@@ -43,5 +43,9 @@ class SSHAuthData(private val config: JsonObject) {
         val logFilePath = config.getString(CogboardConstants.Props.PATH) ?: ""
 
         return "cat $logFilePath | tail -$logLines"
+    }
+
+    companion object {
+        private const val DEFAULT_PORT: Int = 22
     }
 }

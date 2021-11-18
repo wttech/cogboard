@@ -102,11 +102,11 @@ class SSHClient : AbstractVerticle() {
 
     private fun readResponse(): Buffer {
         val responseBuffer = Buffer.buffer()
-        val tmpBuf = ByteArray(512)
-        var readBytes = sshInputStream.read(tmpBuf, 0, 512)
+        val tmpBuf = ByteArray(BUFFER_SIZE)
+        var readBytes = sshInputStream.read(tmpBuf, 0, BUFFER_SIZE)
         while (readBytes != -1) {
             responseBuffer.appendBytes(tmpBuf, 0, readBytes)
-            readBytes = sshInputStream.read(tmpBuf, 0, 512)
+            readBytes = sshInputStream.read(tmpBuf, 0, BUFFER_SIZE)
         }
 
         return responseBuffer
@@ -114,7 +114,7 @@ class SSHClient : AbstractVerticle() {
 
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(SSHClient::class.java)
-
+        private const val BUFFER_SIZE: Int = 512
         val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
     }
 }
@@ -123,7 +123,7 @@ class SSHCoroutineClient(private val config: JsonObject) {
     private var session: Session? = null
     private var jsch: JSch? = null
 
-    private suspend fun openSession() {
+    private fun openSession() {
         LOGGER.info(config)
         val authData = SSHAuthData(config)
         val jsch = JSch()
@@ -141,7 +141,7 @@ class SSHCoroutineClient(private val config: JsonObject) {
         jsch = null
     }
 
-    suspend fun execute(command: String): String? {
+    fun execute(command: String): String? {
         if (session == null || jsch == null) {
             openSession()
         }
@@ -154,13 +154,13 @@ class SSHCoroutineClient(private val config: JsonObject) {
         return response
     }
 
-    suspend fun executeAndClose(command: String): String? {
+    fun executeAndClose(command: String): String? {
         val result = execute(command)
         closeSession()
         return result
     }
 
-    private suspend fun createChannel(command: String): Pair<ChannelExec, InputStream>? {
+    private fun createChannel(command: String): Pair<ChannelExec, InputStream>? {
         val session = session ?: return null
         val channel = session.openChannel("exec") as ChannelExec
         channel.setCommand(command)
@@ -172,18 +172,17 @@ class SSHCoroutineClient(private val config: JsonObject) {
 
     private fun readResponse(stream: InputStream): String? {
         val responseBuffer = Buffer.buffer()
-        val tmpBuf = ByteArray(512)
-        var readBytes = stream.read(tmpBuf, 0, 512)
+        val tmpBuf = ByteArray(BUFFER_SIZE)
+        var readBytes = stream.read(tmpBuf, 0, BUFFER_SIZE)
         while (readBytes != -1) {
             responseBuffer.appendBytes(tmpBuf, 0, readBytes)
-            readBytes = stream.read(tmpBuf, 0, 512)
+            readBytes = stream.read(tmpBuf, 0, BUFFER_SIZE)
         }
         return responseBuffer.toString(Charset.defaultCharset())
     }
 
     companion object {
-        val LOGGER: Logger = LoggerFactory.getLogger(SSHCoroutineClient::class.java)
-
-        val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
+        private val LOGGER: Logger = LoggerFactory.getLogger(SSHCoroutineClient::class.java)
+        private const val BUFFER_SIZE: Int = 512
     }
 }

@@ -5,13 +5,11 @@ import org.bson.types.ObjectId
 import io.vertx.core.json.JsonObject
 
 data class LogVariableData(
-    val name: String,
     val header: String,
     var description: String
 ) {
     private val map: Map<String, Any>
         get() = mapOf(
-                "name" to name,
                 "header" to header,
                 "description" to description)
 
@@ -20,11 +18,10 @@ data class LogVariableData(
 
     companion object {
         fun from(document: Document): LogVariableData? {
-            val name = document.getString("name") ?: return null
             val header = document.getString("header") ?: return null
             val description = document.getString("description") ?: return null
 
-            return LogVariableData(name, header, description)
+            return LogVariableData(header, description)
         }
     }
 }
@@ -54,7 +51,7 @@ data class Log(
             val date = document.getLong("date")
             val type = document.getString("type")
 
-            if(arrayOf(id, seq,date, type).contains(null)) { return null }
+            if (arrayOf(id, seq, date, type).contains(null)) { return null }
 
             val variableData = document
                     .getList("variableData", Document::class.java)

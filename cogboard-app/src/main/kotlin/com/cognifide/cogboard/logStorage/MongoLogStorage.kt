@@ -48,8 +48,8 @@ class MongoLogStorage(private val connection: ConnectionStrategy, private val pa
     private fun getConfiguration(id: String): LogStorageConfiguration? {
         return getClient()
                 ?.getDatabase(DATABASE_NAME)
-                ?.getCollection(id + CONFIG_COLLECTION_SUFFIX)
-                ?.find(eq("_id", LogStorageConfiguration.CONFIG_ID))
+                ?.getCollection(CONFIGURATION_COLLECTION_NAME)
+                ?.find(eq("_id", id))
                 ?.first()
                 ?.let { LogStorageConfiguration.from(it) }
     }
@@ -58,9 +58,9 @@ class MongoLogStorage(private val connection: ConnectionStrategy, private val pa
         val options = ReplaceOptions().upsert(true)
         getClient()
                 ?.getDatabase(DATABASE_NAME)
-                ?.getCollection(id + CONFIG_COLLECTION_SUFFIX)
+                ?.getCollection(CONFIGURATION_COLLECTION_NAME)
                 ?.replaceOne(
-                        eq("_id", LogStorageConfiguration.CONFIG_ID),
+                        eq("_id", id),
                         configuration.toDocument(),
                         options
                 )
@@ -68,11 +68,11 @@ class MongoLogStorage(private val connection: ConnectionStrategy, private val pa
 
     // MongoDB - logs
 
-    private suspend fun removeAllLogs(id: String) {
+    private fun removeAllLogs(id: String) {
         getLogsCollection(id)?.deleteMany(Document())
     }
 
-    private suspend fun insertLogs(id: String, logs: List<Document>) {
+    private fun insertLogs(id: String, logs: List<Document>) {
         getLogsCollection(id)?.insertMany(logs)
         // TODO: Check for the limit of the number of lines
     }
@@ -125,7 +125,7 @@ class MongoLogStorage(private val connection: ConnectionStrategy, private val pa
             }
             // else do nothing
 
-            saveConfiguration(id, LogStorageConfiguration(lastLine, seq))
+            saveConfiguration(id, LogStorageConfiguration(id, lastLine, seq, parser.variableFields))
         }
     }
 
@@ -155,6 +155,7 @@ class MongoLogStorage(private val connection: ConnectionStrategy, private val pa
     companion object {
         private var client: MongoClient? = null
         private const val DATABASE_NAME: String = "logs"
+        private const val CONFIGURATION_COLLECTION_NAME: String = "config"
         private const val LOGS_COLLECTION_SUFFIX: String = "_logs"
         private const val CONFIG_COLLECTION_SUFFIX: String = "_config"
 
