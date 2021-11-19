@@ -1,9 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { setFilters } from './helpers';
+
 import logLevels from '../../logLevels';
 
 import {
-  Button,
   Select,
   Chip,
   MenuItem,
@@ -15,12 +15,25 @@ import ToolbarGroup from '../ToolbarGroup';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
 const FilterPicker = ({ widgetLocalStorage }) => {
-  const handleDelete = name => {
-    setFilters(filters.filter(item => item !== name));
-  };
-
-  const [filters, setFilters] = useState([]);
+  const regExpFilters = widgetLocalStorage.get()?.regExpFilters || [];
   const [logLevel, setLogLevel] = useState('info');
+
+  const handleSelection = selectedList =>
+    setFilters(
+      widgetLocalStorage,
+      regExpFilters.map(filter => ({
+        ...filter,
+        checked: selectedList.map(({ id }) => id).includes(filter.id)
+      }))
+    );
+
+  const handleDelete = id =>
+    setFilters(
+      widgetLocalStorage,
+      regExpFilters.map(filter =>
+        filter.id === id ? { ...filter, checked: !filter.checked } : filter
+      )
+    );
 
   return (
     <ToolbarGroup title="Filters">
@@ -31,19 +44,17 @@ const FilterPicker = ({ widgetLocalStorage }) => {
           labelId="filters-label"
           multiple
           style={{ width: '200px' }}
-          value={filters}
+          value={regExpFilters.filter(filter => filter.checked)}
           size="small"
-          onChange={e => setFilters(e.target.value)}
+          onChange={e => handleSelection(e.target.value)}
           renderValue={selected => (
             <ScrollableBox>
-              {selected.map(value => (
+              {selected.map(({ id, label }) => (
                 <Chip
-                  key={value}
-                  label={value}
-                  onDelete={e => handleDelete(value)}
-                  onMouseDown={e => {
-                    e.stopPropagation();
-                  }}
+                  key={id}
+                  label={label}
+                  onDelete={() => handleDelete(id)}
+                  onMouseDown={e => e.stopPropagation()}
                   style={{ marginRight: '4px' }}
                   size="small"
                 />
@@ -51,9 +62,9 @@ const FilterPicker = ({ widgetLocalStorage }) => {
             </ScrollableBox>
           )}
         >
-          {logLevels.map((level, index) => (
-            <MenuItem key={index} value={level.value}>
-              {level.value.toUpperCase()}
+          {regExpFilters.map(filter => (
+            <MenuItem key={filter.id} value={filter}>
+              {filter.label}
             </MenuItem>
           ))}
         </Select>

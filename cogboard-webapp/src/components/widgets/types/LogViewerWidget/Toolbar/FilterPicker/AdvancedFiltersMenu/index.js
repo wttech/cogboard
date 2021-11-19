@@ -1,13 +1,14 @@
 import React from 'react';
 import { useToggle } from '../../../../../../../hooks';
-import { setFilters } from './helpers';
+import { setFilters } from '../helpers';
 
 import {
   Button,
   List,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction
+  ListItemSecondaryAction,
+  Switch
 } from '@material-ui/core';
 import AppDialog from '../../../../../../AppDialog';
 import AddItem from '../../../../../../AddItem';
@@ -21,7 +22,10 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
 
   const addFilter = values => {
     const maxId = filters.reduce((acc, { id }) => (id > acc ? id : acc), 0);
-    setFilters(widgetLocalStorage, [...filters, { id: maxId + 1, ...values }]);
+    setFilters(widgetLocalStorage, [
+      ...filters,
+      { id: maxId + 1, checked: true, ...values }
+    ]);
   };
 
   const editFilter = ({ id, values }) => {
@@ -43,6 +47,14 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
     );
   };
 
+  const handleSwitch = id =>
+    setFilters(
+      widgetLocalStorage,
+      filters.map(filter =>
+        filter.id === id ? { ...filter, checked: !filter.checked } : filter
+      )
+    );
+
   const renderListItems = (
     items,
     name,
@@ -50,7 +62,7 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
     editAction,
     deleteAction
   ) =>
-    items.map(({ id, label }) => (
+    items.map(({ id, label, checked }) => (
       <ListItem key={id}>
         <ListItemText primary={label} />
         <ListItemSecondaryAction>
@@ -60,6 +72,11 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
             label={label}
             itemName={name}
             deleteAction={deleteAction}
+          />
+          <Switch
+            checked={checked}
+            onChange={() => handleSwitch(id)}
+            color="secondary"
           />
         </ListItemSecondaryAction>
       </ListItem>

@@ -17,22 +17,24 @@ export default function LogList({ widgetLocalStorage, logs, template }) {
 
   const filterByRegExp = (log, filters) => {
     let result = true;
-    filters.forEach(({ regExp }) => {
-      let filterPassed = false;
-      const regExpObj = new RegExp(regExp);
-      const texts = [
-        ...log.variableData.headers,
-        ...log.variableData.description
-      ];
+    filters.forEach(({ regExp, checked }) => {
+      if (checked) {
+        let filterPassed = false;
+        const regExpObj = new RegExp(regExp);
+        const texts = [
+          ...log.variableData.headers,
+          ...log.variableData.description
+        ];
 
-      texts.forEach(text => {
-        if (text.match(regExpObj)) {
-          filterPassed = true;
+        texts.forEach(text => {
+          if (text.match(regExpObj)) {
+            filterPassed = true;
+          }
+        });
+
+        if (!filterPassed) {
+          result = false;
         }
-      });
-
-      if (!filterPassed) {
-        result = false;
       }
     });
     return result;
