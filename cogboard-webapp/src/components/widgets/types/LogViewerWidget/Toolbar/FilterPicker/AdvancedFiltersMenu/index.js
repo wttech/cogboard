@@ -33,7 +33,7 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
       widgetLocalStorage,
       filters.map(filter => {
         if (filter.id === id) {
-          return { id, ...values };
+          return { id, checked: true, ...values };
         }
         return filter;
       })
