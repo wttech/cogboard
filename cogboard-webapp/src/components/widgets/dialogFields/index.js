@@ -636,7 +636,7 @@ const dialogFields = {
     component: MultilineTextInput,
     name: 'regExp',
     label: 'Regular expression',
-    validator: () => string()
+    validator: () => string().required(vm.FIELD_REQUIRED())
   }
 };
 

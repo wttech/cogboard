@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { number, string } from 'prop-types';
+import { useLocalStorage } from '../../../../hooks';
+
 import Toolbar from './Toolbar';
 import LogList from './LogList';
 import { Container } from './styled';
 
 const LogViewerWidget = ({ id }) => {
-  const [regExpFiltersGet, regExpFiltersSet] = useState([]);
-  const regExpFilters = [regExpFiltersGet, regExpFiltersSet];
-
   const widgetData = useSelector(
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
   useEffect(() => console.log(widgetData), [widgetData]);
 
+  const [widgetLocalStorage, setWidgetLocalStorage] = useLocalStorage(id);
+
   const logs = widgetData.content?.logs;
   return (
     <Container>
-      <Toolbar regExpFilters={regExpFilters} />
+      <Toolbar
+        widgetLocalStorage={{
+          get: () => widgetLocalStorage,
+          set: setWidgetLocalStorage
+        }}
+      />
       {logs && (
         <LogList
+          widgetLocalStorage={widgetLocalStorage}
           logs={logs}
           template={logs[0].variableData.template}
-          regExpFilters={regExpFiltersGet}
         />
       )}
     </Container>

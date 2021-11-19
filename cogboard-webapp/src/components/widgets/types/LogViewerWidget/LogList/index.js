@@ -11,8 +11,9 @@ import {
 } from './styled';
 import getGridTemplate from './helpers';
 
-export default function LogList({ logs, template, regExpFilters }) {
+export default function LogList({ widgetLocalStorage, logs, template }) {
   const theme = useTheme();
+  const filters = widgetLocalStorage?.regExpFilters || [];
 
   const filterByRegExp = (log, filters) => {
     let result = true;
@@ -37,7 +38,7 @@ export default function LogList({ logs, template, regExpFilters }) {
     return result;
   };
 
-  const filteredLogs = logs?.filter(log => filterByRegExp(log, regExpFilters));
+  const filteredLogs = logs?.filter(log => filterByRegExp(log, filters));
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>

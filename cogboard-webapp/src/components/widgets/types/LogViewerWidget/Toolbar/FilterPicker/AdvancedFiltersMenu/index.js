@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import { useToggle } from '../../../../../../../hooks';
+import { setFilters } from './helpers';
 
 import {
   Button,
@@ -15,17 +15,18 @@ import EditFilter from './EditFilter';
 import DeleteItem from '../../../../../../DeleteItem';
 import FilterForm from './FilterForm';
 
-const AdvancedFiltersMenu = ({ regExpFilters }) => {
+const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+  const filters = widgetLocalStorage.get()?.regExpFilters || [];
 
-  const [filters, setFilters] = regExpFilters;
   const addFilter = values => {
     const maxId = filters.reduce((acc, { id }) => (id > acc ? id : acc), 0);
-    setFilters([...filters, { id: maxId + 1, ...values }]);
+    setFilters(widgetLocalStorage, [...filters, { id: maxId + 1, ...values }]);
   };
 
   const editFilter = ({ id, values }) => {
     setFilters(
+      widgetLocalStorage,
       filters.map(filter => {
         if (filter.id === id) {
           return { id, ...values };
