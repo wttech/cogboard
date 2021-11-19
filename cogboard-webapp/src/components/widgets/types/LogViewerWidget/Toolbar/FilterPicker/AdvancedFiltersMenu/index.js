@@ -36,6 +36,13 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
     );
   };
 
+  const deleteFilter = id => {
+    setFilters(
+      widgetLocalStorage,
+      filters.filter(filter => filter.id !== id)
+    );
+  };
+
   const renderListItems = (
     items,
     name,
@@ -48,13 +55,12 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
         <ListItemText primary={label} />
         <ListItemSecondaryAction>
           <EditComponent id={id} filters={items} editAction={editAction} />
-          {/* USES REDUX */}
-          {/* <DeleteItem
+          <DeleteItem
             id={id}
             label={label}
             itemName={name}
             deleteAction={deleteAction}
-          /> */}
+          />
         </ListItemSecondaryAction>
       </ListItem>
     ));
@@ -76,7 +82,7 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
             'filter',
             EditFilter,
             editFilter,
-            () => 'D'
+            deleteFilter
           )}
         </List>
         <AddItem largeButton itemName="filter" submitAction={addFilter}>

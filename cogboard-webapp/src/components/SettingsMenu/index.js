@@ -84,7 +84,7 @@ const SettingsMenu = ({ className }) => {
             id={id}
             label={label}
             itemName={name}
-            deleteAction={deleteAction}
+            deleteAction={id => dispatch(deleteAction(id))}
           />
         </ListItemSecondaryAction>
       </ListItem>
