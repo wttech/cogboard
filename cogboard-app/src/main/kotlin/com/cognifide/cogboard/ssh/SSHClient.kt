@@ -75,9 +75,8 @@ class SSHClient : AbstractVerticle() {
 
     private fun initSSHSession(authData: SSHAuthData) {
         jsch = JSch()
-        // jsch.setKnownHosts("~/.ssh/known_hosts")  for security reasons this should be used
         session = SessionStrategyFactory(jsch).create(authData).initSession()
-        session.setConfig("StrictHostKeyChecking", "no") // not secure
+        session.setConfig("StrictHostKeyChecking", "no")
         session.connect(CogboardConstants.Props.SSH_TIMEOUT)
     }
 
