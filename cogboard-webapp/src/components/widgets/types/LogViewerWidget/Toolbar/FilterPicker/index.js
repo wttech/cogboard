@@ -39,8 +39,11 @@ const FilterPicker = ({ widgetLocalStorage }) => {
   return (
     <ToolbarGroup title="Filters">
       <FormControl>
-        <InputLabel id="filters-label">Filters</InputLabel>
+        <InputLabel id="filters-label">
+          {regExpFilters.length > 0 ? `Filters` : `No filters defined`}
+        </InputLabel>
         <Select
+          disabled={regExpFilters.length <= 0}
           id="filters"
           labelId="filters-label"
           multiple
@@ -52,11 +55,11 @@ const FilterPicker = ({ widgetLocalStorage }) => {
             <ScrollableBox>
               {selected.map(({ id, label, regExp }) => (
                 <Tooltip
+                  key={id}
                   title={`Regular expression: ${regExp}`}
                   placement="bottom"
                 >
                   <Chip
-                    key={id}
                     label={label}
                     onDelete={() => handleDelete(id)}
                     onMouseDown={e => e.stopPropagation()}
