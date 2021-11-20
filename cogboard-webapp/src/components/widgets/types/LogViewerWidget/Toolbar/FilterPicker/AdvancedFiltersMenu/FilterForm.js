@@ -1,9 +1,10 @@
 import React from 'react';
 import { createValidationSchema } from '../../../../../../validation';
 import { useFormData } from '../../../../../../../hooks';
-import DynamicForm from '../../../../../../DynamicForm';
+
 import { Button } from '@material-ui/core';
-import CancelButton from '../../../../../../CancelButton';
+import DynamicForm from '../../../../../../DynamicForm';
+import { StyledCancelButton } from './styled';
 
 const FilterForm = ({
   filters,
@@ -47,7 +48,7 @@ const FilterForm = ({
       >
         Save
       </Button>
-      <CancelButton
+      <StyledCancelButton
         handleCancelClick={handleCancel}
         data-cy="endpoint-form-cancel-button"
       />

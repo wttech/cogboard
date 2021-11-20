@@ -14,17 +14,16 @@ const LogViewerWidget = ({ id }) => {
   );
   useEffect(() => console.log(widgetData), [widgetData]);
 
-  const [widgetLocalStorage, setWidgetLocalStorage] = useLocalStorage(id);
+  const [widgetLocalStorageData, setWidgetLocalStorage] = useLocalStorage(id);
+  const widgetLocalStorage = {
+    get: () => widgetLocalStorageData,
+    set: setWidgetLocalStorage
+  };
 
   const logs = widgetData.content?.logs;
   return (
     <Container>
-      <Toolbar
-        widgetLocalStorage={{
-          get: () => widgetLocalStorage,
-          set: setWidgetLocalStorage
-        }}
-      />
+      <Toolbar widgetLocalStorage={widgetLocalStorage} />
       {logs && (
         <LogList
           widgetLocalStorage={widgetLocalStorage}

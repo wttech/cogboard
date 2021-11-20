@@ -10,10 +10,11 @@ import {
   VariableGridSchema
 } from './styled';
 import getGridTemplate from './helpers';
+import { getFilters } from '../Toolbar/FilterPicker/helpers';
 
 export default function LogList({ widgetLocalStorage, logs, template }) {
   const theme = useTheme();
-  const filters = widgetLocalStorage?.regExpFilters || [];
+  const filters = getFilters(widgetLocalStorage);
 
   const filterByRegExp = (log, filters) => {
     let result = true;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useToggle } from '../../../../../../../hooks';
-import { setFilters } from '../helpers';
+import { getFilters, setFilters } from '../helpers';
 
 import {
   Button,
@@ -8,17 +8,19 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Switch
+  Switch,
+  Tooltip
 } from '@material-ui/core';
 import AppDialog from '../../../../../../AppDialog';
 import AddItem from '../../../../../../AddItem';
 import EditFilter from './EditFilter';
 import DeleteItem from '../../../../../../DeleteItem';
 import FilterForm from './FilterForm';
+import { StyledExitButton } from './styled';
 
 const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
-  const filters = widgetLocalStorage.get()?.regExpFilters || [];
+  const filters = getFilters(widgetLocalStorage);
 
   const addFilter = values => {
     const maxId = filters.reduce((acc, { id }) => (id > acc ? id : acc), 0);
@@ -62,9 +64,14 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
     editAction,
     deleteAction
   ) =>
-    items.map(({ id, label, checked }) => (
+    items.map(({ id, label, checked, regExp }) => (
       <ListItem key={id}>
-        <ListItemText primary={label} />
+        <Tooltip
+          title={`Regular expression: ${regExp}`}
+          placement="bottom-start"
+        >
+          <ListItemText primary={label} />
+        </Tooltip>
         <ListItemSecondaryAction>
           <EditComponent id={id} filters={items} editAction={editAction} />
           <DeleteItem
@@ -73,11 +80,16 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
             itemName={name}
             deleteAction={deleteAction}
           />
-          <Switch
-            checked={checked}
-            onChange={() => handleSwitch(id)}
-            color="secondary"
-          />
+          <Tooltip
+            title={`Filter status: ${checked ? 'ON' : 'OFF'}`}
+            placement="bottom"
+          >
+            <Switch
+              checked={checked}
+              onChange={() => handleSwitch(id)}
+              color="secondary"
+            />
+          </Tooltip>
         </ListItemSecondaryAction>
       </ListItem>
     ));
@@ -105,7 +117,7 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
         <AddItem largeButton itemName="filter" submitAction={addFilter}>
           <FilterForm filters={filters} />
         </AddItem>
-        <Button
+        <StyledExitButton
           onClick={handleDialogClose}
           variant="contained"
           color="default"
@@ -113,7 +125,7 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
           fullWidth
         >
           exit
-        </Button>
+        </StyledExitButton>
       </AppDialog>
     </>
   );

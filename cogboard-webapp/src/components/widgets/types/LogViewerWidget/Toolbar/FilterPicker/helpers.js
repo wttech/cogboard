@@ -5,3 +5,6 @@ export const setFilters = (
   const newWidgetData = { ...localStorage(), regExpFilters: filters };
   setLocalStorage(newWidgetData);
 };
+
+export const getFilters = widgetLocalStorage =>
+  widgetLocalStorage.get()?.regExpFilters || [];

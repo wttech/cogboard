@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setFilters } from './helpers';
+import { getFilters, setFilters } from './helpers';
 
 import logLevels from '../../logLevels';
 
@@ -8,14 +8,15 @@ import {
   Chip,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
+  Tooltip
 } from '@material-ui/core';
 import { ScrollableBox } from './styled';
 import ToolbarGroup from '../ToolbarGroup';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
 const FilterPicker = ({ widgetLocalStorage }) => {
-  const regExpFilters = widgetLocalStorage.get()?.regExpFilters || [];
+  const regExpFilters = getFilters(widgetLocalStorage);
   const [logLevel, setLogLevel] = useState('info');
 
   const handleSelection = selectedList =>
@@ -49,15 +50,20 @@ const FilterPicker = ({ widgetLocalStorage }) => {
           onChange={e => handleSelection(e.target.value)}
           renderValue={selected => (
             <ScrollableBox>
-              {selected.map(({ id, label }) => (
-                <Chip
-                  key={id}
-                  label={label}
-                  onDelete={() => handleDelete(id)}
-                  onMouseDown={e => e.stopPropagation()}
-                  style={{ marginRight: '4px' }}
-                  size="small"
-                />
+              {selected.map(({ id, label, regExp }) => (
+                <Tooltip
+                  title={`Regular expression: ${regExp}`}
+                  placement="bottom"
+                >
+                  <Chip
+                    key={id}
+                    label={label}
+                    onDelete={() => handleDelete(id)}
+                    onMouseDown={e => e.stopPropagation()}
+                    style={{ marginRight: '4px' }}
+                    size="small"
+                  />
+                </Tooltip>
               ))}
             </ScrollableBox>
           )}
