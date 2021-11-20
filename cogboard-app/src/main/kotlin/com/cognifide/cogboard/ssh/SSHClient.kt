@@ -130,7 +130,11 @@ class SSHCoroutineClient(private val config: JsonObject) {
         // jsch.setKnownHosts("~/.ssh/known_hosts")  for security reasons this should be used
         val session = SessionStrategyFactory(jsch).create(authData).initSession()
         session.setConfig("StrictHostKeyChecking", "no") // not secure
-        session.connect(CogboardConstants.Props.SSH_TIMEOUT)
+        try {
+            session.connect(CogboardConstants.Props.SSH_TIMEOUT)
+        } catch (exception: JSchException) {
+            LOGGER.error("Cannot connect to SSH server: $exception")
+        }
         this.session = session
         this.jsch = jsch
     }

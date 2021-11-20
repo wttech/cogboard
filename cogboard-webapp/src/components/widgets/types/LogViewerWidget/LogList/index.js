@@ -35,10 +35,11 @@ export default function LogList({ logs, template }) {
         {logs?.map((log, index) => (
           <LogEntry
             key={index}
+            id={log._id}
             type={log.type}
             date={log.date}
-            additionalData={log.additionalData}
             variableData={log.variableData}
+            template={template}
           />
         ))}
       </LogsWrapper>

@@ -31,6 +31,6 @@ abstract class ConnectionStrategyInt {
         return setOf(AuthenticationType.BASIC)
     }
 
-    abstract fun getNumberOfLines(): Int?
-    abstract fun getLogs(skipFirstLines: Int?): Collection<String>
+    abstract fun getNumberOfLines(): Long?
+    abstract fun getLogs(skipFirstLines: Long?): Collection<String>
 }

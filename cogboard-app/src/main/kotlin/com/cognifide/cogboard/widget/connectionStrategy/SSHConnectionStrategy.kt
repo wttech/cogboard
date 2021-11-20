@@ -44,16 +44,16 @@ open class SSHConnectionStrategy(vertx: Vertx, eventBusAddress: String) :
 
 class SSHConnectionStrategyInt(val config: JsonObject) : ConnectionStrategyInt() {
 
-    override fun getNumberOfLines(): Int? {
+    override fun getNumberOfLines(): Long? {
         val logFilePath = config.getString(Props.PATH) ?: return null
 
         return SSHCoroutineClient(prepareConfig(config))
                 .executeAndClose("wc -l < $logFilePath")
                 ?.trim()
-                ?.toIntOrNull()
+                ?.toLongOrNull()
     }
 
-    override fun getLogs(skipFirstLines: Int?): Collection<String> {
+    override fun getLogs(skipFirstLines: Long?): Collection<String> {
         val logFilePath = config.getString(Props.PATH) ?: return emptyList()
         val command = skipFirstLines?.let { "tail -n +${it + 1} $logFilePath" } ?: "cat $logFilePath"
 

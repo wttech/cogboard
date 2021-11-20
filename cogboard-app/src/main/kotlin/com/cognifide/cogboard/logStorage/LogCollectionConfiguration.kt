@@ -4,7 +4,7 @@ import org.bson.Document
 
 data class LogCollectionConfiguration(
     var id: String,
-    var lastLine: Int,
+    var lastLine: Long,
     var seq: Long
 ) {
     private val map: Map<String, Any>
@@ -19,7 +19,7 @@ data class LogCollectionConfiguration(
         const val CONFIG_ID: String = "config"
         fun from(document: Document): LogCollectionConfiguration? {
             val id = document.getString("_id")
-            val lastLine = document.getInteger("lastLine")
+            val lastLine = document.getLong("lastLine")
             val seq = document.getLong("seq")
 
             if (arrayOf(id, lastLine, seq).contains(null)) {

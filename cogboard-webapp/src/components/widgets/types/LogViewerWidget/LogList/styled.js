@@ -28,6 +28,7 @@ export const VariableGridSchema = styled.div(
     width: 100%;
     display: grid;
     grid-template-columns: ${props.template};
+    ${props.skipColumns ? 'grid-column: 3 / 4' : ''}
   `
 );
 

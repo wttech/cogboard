@@ -7,12 +7,14 @@ import com.mongodb.MongoException
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
-import com.mongodb.client.model.Filters.eq
+import com.mongodb.client.model.Filters.*
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.ReplaceOptions
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
+import io.vertx.core.logging.Logger
+import io.vertx.core.logging.LoggerFactory
 import org.bson.Document
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -20,6 +22,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import main.kotlin.com.cognifide.cogboard.logStorage.Log
 import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
+import java.time.Instant
 
 class MongoLogStorage(
     private val config: LogStorageConfiguration,
@@ -27,36 +30,93 @@ class MongoLogStorage(
     private val parser: LogParser
 ) : AbstractVerticle() {
 
+    /** Returns a logs collection associated with this widget. */
     private val logsCollection: MongoCollection<Document>?
     get() = database?.getCollection(config.id + LOGS_COLLECTION_SUFFIX)
 
     // Storage configuration
 
+    /** Returns a logs collection configuration associated with this widget (if present). */
     private val collectionConfiguration: LogCollectionConfiguration?
     get() = database
             ?.getCollection(CONFIGURATION_COLLECTION_NAME)
-            ?.find(eq("_id", config.id))
+            ?.find(eq(Log.ID, config.id))
             ?.first()
             ?.let { LogCollectionConfiguration.from(it) }
 
+    /** Saves a new logs collection [configuration] associated with this widget. */
     private fun saveConfiguration(configuration: LogCollectionConfiguration) {
         val options = ReplaceOptions().upsert(true)
         database
                 ?.getCollection(CONFIGURATION_COLLECTION_NAME)
                 ?.replaceOne(
-                        eq("_id", config.id),
-                        configuration.toDocument(),
-                        options
+                    eq(Log.ID, config.id),
+                    configuration.toDocument(),
+                    options
                 )
     }
 
     // MongoDB - logs
 
+    /** Removes all logs from the collection. */
     private fun removeAllLogs() {
-        logsCollection?.deleteMany(Document())
+        logsCollection?.drop()
     }
 
-    private fun downloadInsertLogs(seq: Long, skipFirstLines: Int? = null): Int {
+    /** Removes the [n] first logs (ordered by their sequence number). */
+    private fun removeFirstLogs(n: Long) {
+        val collection = logsCollection ?: return
+        val ids = collection
+                .find()
+                .sort(descending(Log.SEQ))
+                .limit(n.toInt())
+                .mapNotNull { it?.getObjectId(Log.ID) }
+        try {
+            val result = collection.deleteMany(`in`(Log.ID, ids))
+            LOGGER.debug("Deleted ${result.deletedCount} first logs")
+        } catch (exception: MongoException) {
+            LOGGER.error("Cannot delete first logs: $exception")
+        }
+    }
+
+    /** Removes logs when they are too old, there are too many of them or they take too much space. */
+    private fun removeOldLogs() {
+        val database = database ?: return
+        val logsCollection = logsCollection ?: return
+
+        // Delete old logs
+        val now = Instant.now().epochSecond
+        val beforeTimestamp = now - (config.expirationDays * DAY_TO_TIMESTAMP)
+        try {
+            val result = logsCollection.deleteMany(lt(Log.INSERTED_ON, beforeTimestamp))
+            LOGGER.debug("Deleted ${result.deletedCount} old logs")
+        } catch (exception: MongoException) {
+            LOGGER.error("Cannot delete old logs: $exception")
+        }
+
+        // Delete too many lines
+        val toDelete = logsCollection.countDocuments() - config.logLines
+        if (toDelete > 0) {
+            removeFirstLogs(toDelete)
+        }
+
+        // Delete logs when they take too much space
+        val size = database
+                .runCommand(Document(STATS_COMMAND, config.id + LOGS_COLLECTION_SUFFIX))
+                .getInteger(STATS_SIZE) ?: 0
+        val desiredSize = config.fileSizeMB * MB_TO_KB
+        if (size > 0 && size > desiredSize) {
+            var deleteFactor = ((size - desiredSize).toDouble() / desiredSize.toLong())
+            val logCount = logsCollection.countDocuments()
+            val toDelete = (logCount.toDouble() * deleteFactor).toLong()
+            if (toDelete > 0) {
+                removeFirstLogs(toDelete)
+            }
+        }
+    }
+
+    /** Downloads new logs and inserts the to the database. */
+    private fun downloadInsertLogs(seq: Long, skipFirstLines: Long? = null): Long {
         var sequence = seq
         val logs = connection
                 .getLogs(skipFirstLines)
@@ -67,19 +127,20 @@ class MongoLogStorage(
         }
 
         logsCollection?.insertMany(logs.map { it.toDocument() })
-        // TODO: Check for the limit of the number of lines
 
-        return logs.size
+        return logs.size.toLong()
     }
 
+    /** Returns all logs for this instance, sorted by their sequence number. */
     private val logs: List<Log>
     get() = logsCollection
             ?.find()
-            ?.sort(descending("seq"))
+            ?.sort(descending(Log.SEQ))
             ?.mapNotNull { it }
             ?.mapNotNull { Log.from(it) }
             ?: emptyList()
 
+    /** Prepares a JSON response to be displayed */
     private fun prepareResponse(): JsonObject {
         return JsonObject(mapOf(
             "variableFields" to parser.variableFields,
@@ -87,23 +148,18 @@ class MongoLogStorage(
         ))
     }
 
+    /** Updates the logs and sends them to the widget. */
     fun updateLogs() {
-
         // Get the last read line from the configuration
         val storageConfig = collectionConfiguration
         var lastLine = storageConfig?.lastLine ?: 0
         var seq = storageConfig?.seq ?: 0
-        println("LASTLINE: $lastLine")
-        println("HAVE VERTX A? $vertx")
 
         // Get the length of the file
         coroutineScope.launch {
-            println("COROUTINE START")
-            println("HAVE VERTX B? $vertx")
 
             // Get the number of lines in the file
             val fileLineCount = connection.getNumberOfLines() ?: 0
-            println("COROUTINE END, LINES: $fileLineCount")
 
             if (fileLineCount > 0 && fileLineCount > lastLine) {
                 // Download new logs and append
@@ -116,16 +172,15 @@ class MongoLogStorage(
                 seq = 0
                 val inserted = downloadInsertLogs(seq)
                 lastLine = inserted
-                seq += inserted.toLong()
+                seq += inserted
             }
-            // else do nothing
 
+            removeOldLogs()
             saveConfiguration(LogCollectionConfiguration(config.id, lastLine, seq))
 
             // Fetch the logs from database
             val response = prepareResponse()
-            println("HAVE VERTX C? $vertx")
-            vertx?.eventBus()?.send("event.widget.widget1_alt", response)
+            vertx?.eventBus()?.send(config.eventBusAddress, response)
         }
     }
 
@@ -133,6 +188,10 @@ class MongoLogStorage(
         private const val DATABASE_NAME: String = "logs"
         private const val CONFIGURATION_COLLECTION_NAME: String = "config"
         private const val LOGS_COLLECTION_SUFFIX: String = "_logs"
+        private const val STATS_COMMAND: String = "collStats"
+        private const val STATS_SIZE: String = "size"
+        private const val MB_TO_KB: Long = 1024
+        private const val DAY_TO_TIMESTAMP = 24 * 60 * 60
         private var mongoClient: MongoClient? = null
 
         private val client: MongoClient?
@@ -144,7 +203,7 @@ class MongoLogStorage(
                 mongoClient = MongoClients.create("mongodb://root:root@mongo:27017/")
                 return mongoClient
             } catch (exception: MongoException) {
-                println("EXCEPTION: $exception")
+                LOGGER.error("Cannot create a mongo client: $exception")
             }
             return null
         }
@@ -152,6 +211,7 @@ class MongoLogStorage(
         private val database: MongoDatabase?
         get() = client?.getDatabase(DATABASE_NAME)
 
+        private val LOGGER: Logger = LoggerFactory.getLogger(MongoLogStorage::class.java)
         val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
     }
 }

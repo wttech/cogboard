@@ -3,6 +3,8 @@ package main.kotlin.com.cognifide.cogboard.logStorage
 import org.bson.Document
 import org.bson.types.ObjectId
 import io.vertx.core.json.JsonObject
+import java.time.Instant
+import java.util.*
 
 data class LogVariableData(
     val header: String,
@@ -29,39 +31,50 @@ data class LogVariableData(
 data class Log(
     var id: ObjectId = ObjectId(),
     var seq: Long = 0,
+    var insertedOn: Long = Instant.now().epochSecond,
     var date: Long,
     var type: String,
     var variableData: List<LogVariableData>
 ) {
     fun toDocument() = Document(mapOf(
-            "_id" to id,
-            "seq" to seq,
-            "date" to date,
-            "type" to type,
-            "variableData" to variableData.map { it.toDocument() }
+            ID to id,
+            SEQ to seq,
+            INSERTED_ON to insertedOn,
+            DATE to date,
+            TYPE to type,
+            VARIABLE_DATA to variableData.map { it.toDocument() }
     ))
     fun toJson() = JsonObject(mapOf(
-            "_id" to id.toHexString(),
-            "seq" to seq,
-            "date" to date,
-            "type" to type,
-            "variableData" to variableData.map { it.toJson() }
+            ID to id.toHexString(),
+            SEQ to seq,
+            INSERTED_ON to insertedOn,
+            DATE to date,
+            TYPE to type,
+            VARIABLE_DATA to variableData.map { it.toJson() }
     ))
 
     companion object {
-        fun from(document: Document): Log? {
-            val id = document.getObjectId("_id")
-            val seq = document.getLong("seq")
-            val date = document.getLong("date")
-            val type = document.getString("type")
+        const val ID = "_id"
+        const val SEQ = "seq"
+        const val INSERTED_ON = "insertedOn"
+        const val DATE = "date"
+        const val TYPE = "type"
+        const val VARIABLE_DATA = "variableData"
 
-            if (arrayOf(id, seq, date, type).contains(null)) { return null }
+        fun from(document: Document): Log? {
+            val id = document.getObjectId(ID)
+            val seq = document.getLong(SEQ)
+            val insertedOn = document.getLong(INSERTED_ON)
+            val date = document.getLong(DATE)
+            val type = document.getString(TYPE)
+
+            if (arrayOf(id, seq, insertedOn, date, type).contains(null)) { return null }
 
             val variableData = document
-                    .getList("variableData", Document::class.java)
+                    .getList(VARIABLE_DATA, Document::class.java)
                     ?.mapNotNull { it }
                     ?.mapNotNull { LogVariableData.from(it) } ?: listOf()
-            return Log(id, seq, date, type, variableData)
+            return Log(id, seq, insertedOn, date, type, variableData)
         }
     }
 }
