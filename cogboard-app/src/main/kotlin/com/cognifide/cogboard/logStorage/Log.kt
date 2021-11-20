@@ -4,7 +4,9 @@ import org.bson.Document
 import org.bson.types.ObjectId
 import io.vertx.core.json.JsonObject
 import java.time.Instant
-import java.util.*
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 data class LogVariableData(
     val header: String,
@@ -48,7 +50,9 @@ data class Log(
             ID to id.toHexString(),
             SEQ to seq,
             INSERTED_ON to insertedOn,
-            DATE to date,
+            DATE to (LocalDateTime
+                    .ofEpochSecond(date, 0, ZoneOffset.UTC)
+                    .format(DateTimeFormatter.ISO_DATE) ?: ""),
             TYPE to type,
             VARIABLE_DATA to variableData.map { it.toJson() }
     ))
@@ -62,19 +66,21 @@ data class Log(
         const val VARIABLE_DATA = "variableData"
 
         fun from(document: Document): Log? {
-            val id = document.getObjectId(ID)
-            val seq = document.getLong(SEQ)
-            val insertedOn = document.getLong(INSERTED_ON)
-            val date = document.getLong(DATE)
-            val type = document.getString(TYPE)
+            try {
+                val id = document.getObjectId(ID)
+                val seq = document.getLong(SEQ)
+                val insertedOn = document.getLong(INSERTED_ON)
+                val date = document.getLong(DATE)
+                val type = document.getString(TYPE)
 
-            if (arrayOf(id, seq, insertedOn, date, type).contains(null)) { return null }
-
-            val variableData = document
-                    .getList(VARIABLE_DATA, Document::class.java)
-                    ?.mapNotNull { it }
-                    ?.mapNotNull { LogVariableData.from(it) } ?: listOf()
-            return Log(id, seq, insertedOn, date, type, variableData)
+                val variableData = document
+                        .getList(VARIABLE_DATA, Document::class.java)
+                        ?.mapNotNull { it }
+                        ?.mapNotNull { LogVariableData.from(it) } ?: listOf()
+                return Log(id, seq, insertedOn, date, type, variableData)
+            } catch (_: NullPointerException) {
+                return null
+            }
         }
     }
 }

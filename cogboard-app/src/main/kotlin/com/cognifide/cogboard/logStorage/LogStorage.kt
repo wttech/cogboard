@@ -1,13 +1,15 @@
 package com.cognifide.cogboard.logStorage
 
-import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategyInt
+import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
 import com.cognifide.cogboard.widget.type.logviewer.logparser.LogParser
 import com.mongodb.client.MongoClient
 import com.mongodb.MongoException
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
-import com.mongodb.client.model.Filters.*
+import com.mongodb.client.model.Filters.eq
+import com.mongodb.client.model.Filters.lt
+import com.mongodb.client.model.Filters.`in`
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.ReplaceOptions
 import io.vertx.core.AbstractVerticle
@@ -24,9 +26,9 @@ import main.kotlin.com.cognifide.cogboard.logStorage.Log
 import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
 import java.time.Instant
 
-class MongoLogStorage(
+class LogStorage(
     private val config: LogStorageConfiguration,
-    private val connection: ConnectionStrategyInt,
+    private val connection: ConnectionStrategy,
     private val parser: LogParser
 ) : AbstractVerticle() {
 
@@ -95,9 +97,9 @@ class MongoLogStorage(
         }
 
         // Delete too many lines
-        val toDelete = logsCollection.countDocuments() - config.logLines
-        if (toDelete > 0) {
-            removeFirstLogs(toDelete)
+        val redundantLines = logsCollection.countDocuments() - config.logLines
+        if (redundantLines > 0) {
+            removeFirstLogs(redundantLines)
         }
 
         // Delete logs when they take too much space
@@ -106,7 +108,7 @@ class MongoLogStorage(
                 .getInteger(STATS_SIZE) ?: 0
         val desiredSize = config.fileSizeMB * MB_TO_KB
         if (size > 0 && size > desiredSize) {
-            var deleteFactor = ((size - desiredSize).toDouble() / desiredSize.toLong())
+            val deleteFactor = ((size - desiredSize).toDouble() / desiredSize)
             val logCount = logsCollection.countDocuments()
             val toDelete = (logCount.toDouble() * deleteFactor).toLong()
             if (toDelete > 0) {
@@ -194,6 +196,7 @@ class MongoLogStorage(
         private const val DAY_TO_TIMESTAMP = 24 * 60 * 60
         private var mongoClient: MongoClient? = null
 
+        /** Returns a shared instance of the Mongo client. */
         private val client: MongoClient?
         get() {
             if (mongoClient != null) {
@@ -208,10 +211,11 @@ class MongoLogStorage(
             return null
         }
 
+        /** Returns a database for storing logs and collection configurations. */
         private val database: MongoDatabase?
         get() = client?.getDatabase(DATABASE_NAME)
 
-        private val LOGGER: Logger = LoggerFactory.getLogger(MongoLogStorage::class.java)
+        private val LOGGER: Logger = LoggerFactory.getLogger(LogStorage::class.java)
         val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
     }
 }

@@ -16,17 +16,20 @@ data class LogCollectionConfiguration(
     fun toDocument() = Document(map)
 
     companion object {
-        const val CONFIG_ID: String = "config"
         fun from(document: Document): LogCollectionConfiguration? {
-            val id = document.getString("_id")
-            val lastLine = document.getLong("lastLine")
-            val seq = document.getLong("seq")
+            try {
+                val id = document.getString("_id")
+                val lastLine = document.getLong("lastLine")
+                val seq = document.getLong("seq")
 
-            if (arrayOf(id, lastLine, seq).contains(null)) {
+                if (arrayOf(id, lastLine, seq).contains(null)) {
+                    return null
+                }
+
+                return LogCollectionConfiguration(id, lastLine, seq)
+            } catch (_: NullPointerException) {
                 return null
             }
-
-            return LogCollectionConfiguration(id, lastLine, seq)
         }
     }
 }

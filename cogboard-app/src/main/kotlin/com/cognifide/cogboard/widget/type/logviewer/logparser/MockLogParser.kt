@@ -2,8 +2,8 @@ package com.cognifide.cogboard.widget.type.logviewer.logparser
 
 import main.kotlin.com.cognifide.cogboard.logStorage.Log
 import main.kotlin.com.cognifide.cogboard.logStorage.LogVariableData
-import java.sql.Timestamp
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 class MockLogParser : LogParser {
@@ -15,23 +15,23 @@ class MockLogParser : LogParser {
     override fun parseLine(line: String): Log? {
         val groups = regex.matchEntire(line.trim())?.groups ?: return null
 
-        val date = groups[DATE]?.value
-                ?.let { LocalDateTime.parse(it, dateTimeFormatter) }
-                ?.let { Timestamp.valueOf(it)?.time }
-        val type = groups[TYPE]?.value
-        val provider = groups[PROVIDER]?.value
-        val message = groups[MESSAGE]?.value
+        try {
+            val date = LocalDateTime
+                .parse(groups[DATE]!!.value, dateTimeFormatter)
+                .toEpochSecond(ZoneOffset.UTC)
+            val type = groups[TYPE]!!.value
+            val provider = groups[PROVIDER]!!.value
+            val message = groups[MESSAGE]!!.value
 
-        if (date == null || type == null || provider == null || message == null) {
+            val variableData = listOf(
+                    LogVariableData(provider, "No description"),
+                    LogVariableData(message, "No message description")
+            )
+
+            return Log(date = date, type = type, variableData = variableData)
+        } catch (_: NullPointerException) {
             return null
         }
-
-        val variableData = listOf(
-                LogVariableData(provider, "No description"),
-                LogVariableData(message, "No message description")
-        )
-
-        return Log(date = date, type = type, variableData = variableData)
     }
 
     companion object {
