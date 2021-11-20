@@ -33,16 +33,20 @@ data class Log(
     var type: String,
     var variableData: List<LogVariableData>
 ) {
-    private val map: Map<String, Any>
-        get() = mapOf(
-                "_id" to id,
-                "seq" to seq,
-                "date" to date,
-                "type" to type,
-                "variableData" to variableData.map { it.toDocument() }
-        )
-    fun toDocument() = Document(map)
-    fun toJson() = JsonObject(map)
+    fun toDocument() = Document(mapOf(
+            "_id" to id,
+            "seq" to seq,
+            "date" to date,
+            "type" to type,
+            "variableData" to variableData.map { it.toDocument() }
+    ))
+    fun toJson() = JsonObject(mapOf(
+            "_id" to id.toHexString(),
+            "seq" to seq,
+            "date" to date,
+            "type" to type,
+            "variableData" to variableData.map { it.toJson() }
+    ))
 
     companion object {
         fun from(document: Document): Log? {

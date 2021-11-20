@@ -42,12 +42,9 @@ open class SSHConnectionStrategy(vertx: Vertx, eventBusAddress: String) :
     }
 }
 
-class SSHConnectionStrategyInt : ConnectionStrategyInt() {
+class SSHConnectionStrategyInt(val config: JsonObject) : ConnectionStrategyInt() {
 
-    var configuration: JsonObject? = null
-
-    override suspend fun getNumberOfLines(): Int? {
-        val config = configuration ?: return null
+    override fun getNumberOfLines(): Int? {
         val logFilePath = config.getString(Props.PATH) ?: return null
 
         return SSHCoroutineClient(prepareConfig(config))
@@ -56,8 +53,7 @@ class SSHConnectionStrategyInt : ConnectionStrategyInt() {
                 ?.toIntOrNull()
     }
 
-    override suspend fun getLogs(skipFirstLines: Int?): Collection<String> {
-        val config = configuration ?: return emptyList()
+    override fun getLogs(skipFirstLines: Int?): Collection<String> {
         val logFilePath = config.getString(Props.PATH) ?: return emptyList()
         val command = skipFirstLines?.let { "tail -n +${it + 1} $logFilePath" } ?: "cat $logFilePath"
 

@@ -47,6 +47,8 @@ class CogboardConstants {
 
             const val LOG_REQUEST_TYPE = "logRequestType"
             const val LOG_LINES = "logLinesField"
+            const val LOG_FILE_SIZE = "logFileSizeField"
+            const val LOG_EXPIRATION_DAYS = "logRecordExpirationField"
             const val REQUEST_ID = "requestId"
             const val PUBLIC_URL = "publicUrl"
             const val USER = "user"
