@@ -1,23 +1,31 @@
 package com.cognifide.cogboard.ssh.auth
 
-import com.cognifide.cogboard.CogboardConstants
+import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.ssh.auth.AuthenticationType.BASIC
 import com.cognifide.cogboard.ssh.auth.AuthenticationType.SSH_KEY
 import io.vertx.core.json.Json
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
+import java.net.URI
 
 class SSHAuthData(private val config: JsonObject) {
-    val user = config.getString(CogboardConstants.Props.USER) ?: ""
-    val password = config.getString(CogboardConstants.Props.PASSWORD) ?: ""
-    val token = config.getString(CogboardConstants.Props.TOKEN) ?: ""
-    val key = config.getString(CogboardConstants.Props.SSH_KEY) ?: ""
-    val host = config.getString(CogboardConstants.Props.SSH_HOST) ?: ""
-    val port = config.getInteger(CogboardConstants.Props.SSH_PORT) ?: DEFAULT_PORT
+    val user: String = config.getString(Props.USER, "")
+    val password: String = config.getString(Props.PASSWORD, "")
+    val token: String = config.getString(Props.TOKEN, "")
+    val key: String = config.getString(Props.SSH_KEY, "")
+    val host: String
+    val port: Int
     val authenticationType = fromConfigAuthenticationType()
 
+    init {
+        val uriString = config.getJsonObject(Props.ENDPOINT_LOADED)?.getString(Props.URL) ?: ""
+        val uri = URI.create(uriString)
+        host = uri.host
+        port = uri.port
+    }
+
     private fun fromConfigAuthenticationType(): AuthenticationType {
-        val authTypesString = config.getString(CogboardConstants.Props.AUTHENTICATION_TYPES)
+        val authTypesString = config.getString(Props.AUTHENTICATION_TYPES)
 
         val authTypes = authTypesString?.let { Json.decodeValue(authTypesString) } ?: JsonArray()
 
@@ -34,18 +42,7 @@ class SSHAuthData(private val config: JsonObject) {
 
     fun getAuthenticationString(): String =
             when (authenticationType) {
-                BASIC -> config.getString(CogboardConstants.Props.PASSWORD)
-                SSH_KEY -> config.getString(CogboardConstants.Props.SSH_KEY)
+                BASIC -> config.getString(Props.PASSWORD)
+                SSH_KEY -> config.getString(Props.SSH_KEY)
             }
-
-    fun createCommand(): String {
-        val logLines = config.getInteger(CogboardConstants.Props.LOG_LINES) ?: 0
-        val logFilePath = config.getString(CogboardConstants.Props.PATH) ?: ""
-
-        return "cat $logFilePath | tail -$logLines"
-    }
-
-    companion object {
-        private const val DEFAULT_PORT: Int = 22
-    }
 }

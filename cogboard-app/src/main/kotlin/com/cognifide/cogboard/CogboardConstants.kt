@@ -124,7 +124,6 @@ class CogboardConstants {
             const val HTTP_POST = "cogboard.httpclient.post"
             const val HTTP_PUT = "cogboard.httpclient.put"
             const val HTTP_DELETE = "cogboard.httpclient.delete"
-            const val SSH_COMMAND = "cogboard.sshclient.ssh"
         }
     }
 

@@ -157,9 +157,7 @@ class LogStorage(
         var lastLine = storageConfig?.lastLine ?: 0
         var seq = storageConfig?.seq ?: 0
 
-        // Get the length of the file
         coroutineScope.launch {
-
             // Get the number of lines in the file
             val fileLineCount = connection.getNumberOfLines() ?: 0
 
