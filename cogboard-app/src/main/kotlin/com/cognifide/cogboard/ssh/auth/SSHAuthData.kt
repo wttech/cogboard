@@ -25,9 +25,8 @@ class SSHAuthData(private val config: JsonObject) {
     }
 
     private fun fromConfigAuthenticationType(): AuthenticationType {
-        val authTypesString = config.getString(Props.AUTHENTICATION_TYPES)
-
-        val authTypes = authTypesString?.let { Json.decodeValue(authTypesString) } ?: JsonArray()
+        val authTypes = config.getString(Props.AUTHENTICATION_TYPES)?.let {
+            Json.decodeValue(it) } ?: JsonArray()
 
         return (authTypes as JsonArray)
                 .map { AuthenticationType.valueOf(it.toString()) }

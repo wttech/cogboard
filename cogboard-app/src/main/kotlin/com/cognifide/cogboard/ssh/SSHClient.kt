@@ -19,7 +19,6 @@ class SSHClient(private val config: JsonObject) {
     private var jsch: JSch? = null
 
     private fun openSession() {
-        LOGGER.info(config)
         val authData = SSHAuthData(config)
         val jsch = JSch()
         val session = SessionStrategyFactory(jsch).create(authData).initSession()
@@ -77,6 +76,11 @@ class SSHClient(private val config: JsonObject) {
             readBytes = stream.read(tmpBuf, 0, BUFFER_SIZE)
         }
         return responseBuffer.toString(Charset.defaultCharset())
+    }
+
+    private fun sendError(e: Exception, eventBusAddress: String) {
+        LOGGER.error(e.message)
+        vertx.eventBus().send(eventBusAddress, e.message)
     }
 
     companion object {

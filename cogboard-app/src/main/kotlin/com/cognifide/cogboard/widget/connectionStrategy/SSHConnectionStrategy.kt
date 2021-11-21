@@ -26,6 +26,7 @@ class SSHConnectionStrategy(val config: JsonObject) : ConnectionStrategy() {
                 ?.lines()
                 ?: emptyList()
     }
+    }
 
     private fun prepareConfig(config: JsonObject): JsonObject {
         val tmpConfig = prepareConfigLines(config,

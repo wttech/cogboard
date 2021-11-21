@@ -9,6 +9,7 @@ import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
 import com.cognifide.cogboard.widget.connectionStrategy.SSHConnectionStrategy
 import com.cognifide.cogboard.widget.type.logviewer.logparser.LogParserFactory
 import io.vertx.core.Vertx
+import io.vertx.core.buffer.Buffer
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
@@ -73,6 +74,13 @@ class LogViewerWidget(
         }
     }
 
+         try {
+        } catch (e: RuntimeException) {
+            if (e is UnknownConnectionTypeException) {
+                sendConfigurationError("Unknown endpoint type")
+            }
+            null
+        }
     private fun determineLogParsingStrategy() =
         LogParserFactory()
             .build(LogParserFactory.Type.MOCK)
