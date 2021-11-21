@@ -9,6 +9,8 @@ interface Widget {
 
     fun start(): Widget
 
+    fun delete(): Widget
+
     fun stop(): Widget
 
     fun updateState()

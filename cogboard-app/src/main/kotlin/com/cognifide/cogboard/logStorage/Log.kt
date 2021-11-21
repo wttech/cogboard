@@ -52,7 +52,7 @@ data class Log(
             INSERTED_ON to insertedOn,
             DATE to (LocalDateTime
                     .ofEpochSecond(date, 0, ZoneOffset.UTC)
-                    .format(DateTimeFormatter.ISO_DATE) ?: ""),
+                    .format(DateTimeFormatter.ISO_DATE_TIME) ?: ""),
             TYPE to type,
             VARIABLE_DATA to variableData.map { it.toJson() }
     ))

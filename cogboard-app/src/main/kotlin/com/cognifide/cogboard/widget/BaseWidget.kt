@@ -105,6 +105,13 @@ abstract class BaseWidget(
     }
 
     /**
+     * Will clean up the resources.
+     */
+    override fun delete(): Widget {
+        return this
+    }
+
+    /**
      * Will stop scheduled task from `start` method
      */
     override fun stop(): Widget {

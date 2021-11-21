@@ -10,18 +10,16 @@ import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.Filters.lt
 import com.mongodb.client.model.Filters.`in`
+import com.mongodb.client.model.Indexes
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.ReplaceOptions
+import com.mongodb.client.model.Sorts.ascending
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import org.bson.Document
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import main.kotlin.com.cognifide.cogboard.logStorage.Log
 import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
 import java.time.Instant
@@ -32,87 +30,103 @@ class LogStorage(
     private val parser: LogParser
 ) : AbstractVerticle() {
 
+    override fun start() {
+        super.start()
+        logsCollection?.createIndex(Indexes.descending(Log.SEQ))
+    }
+
     /** Returns a logs collection associated with this widget. */
     private val logsCollection: MongoCollection<Document>?
-    get() = database?.getCollection(config.id + LOGS_COLLECTION_SUFFIX)
+    get() = database?.getCollection(config.id)
 
     // Storage configuration
 
     /** Returns a logs collection configuration associated with this widget (if present). */
     private val collectionConfiguration: LogCollectionConfiguration?
-    get() = database
-            ?.getCollection(CONFIGURATION_COLLECTION_NAME)
+    get() = configCollection
             ?.find(eq(Log.ID, config.id))
             ?.first()
             ?.let { LogCollectionConfiguration.from(it) }
 
-    /** Saves a new logs collection [configuration] associated with this widget. */
-    private fun saveConfiguration(configuration: LogCollectionConfiguration) {
-        val options = ReplaceOptions().upsert(true)
-        database
-                ?.getCollection(CONFIGURATION_COLLECTION_NAME)
-                ?.replaceOne(
-                    eq(Log.ID, config.id),
-                    configuration.toDocument(),
-                    options
-                )
+    /** Saves or deletes a logs collection [configuration] associated with this widget. */
+    private fun saveConfiguration(configuration: LogCollectionConfiguration?) {
+        if (configuration != null) {
+            val options = ReplaceOptions().upsert(true)
+            configCollection
+                    ?.replaceOne(
+                            eq(LogCollectionConfiguration.ID, config.id),
+                            configuration.toDocument(),
+                            options
+                    )
+        } else {
+            configCollection?.deleteOne((eq(LogCollectionConfiguration.ID, config.id)))
+        }
     }
 
     // MongoDB - logs
 
-    /** Removes all logs from the collection. */
-    private fun removeAllLogs() {
+    /** Deletes all logs from the collection. */
+    private fun deleteAllLogs() {
         logsCollection?.drop()
     }
 
-    /** Removes the [n] first logs (ordered by their sequence number). */
-    private fun removeFirstLogs(n: Long) {
+    /** Deletes the [n] first logs (ordered by their sequence number). */
+    private fun deleteFirstLogs(n: Long) {
         val collection = logsCollection ?: return
         val ids = collection
                 .find()
-                .sort(descending(Log.SEQ))
+                .sort(ascending(Log.SEQ))
                 .limit(n.toInt())
                 .mapNotNull { it?.getObjectId(Log.ID) }
-        try {
-            val result = collection.deleteMany(`in`(Log.ID, ids))
-            LOGGER.debug("Deleted ${result.deletedCount} first logs")
-        } catch (exception: MongoException) {
-            LOGGER.error("Cannot delete first logs: $exception")
+        if (ids.isNotEmpty()) {
+            try {
+                val result = collection.deleteMany(`in`(Log.ID, ids))
+                LOGGER.debug("Deleted ${result.deletedCount} first logs")
+            } catch (exception: MongoException) {
+                LOGGER.error("Cannot delete first logs: $exception")
+            }
         }
     }
 
-    /** Removes logs when they are too old, there are too many of them or they take too much space. */
-    private fun removeOldLogs() {
-        val database = database ?: return
-        val logsCollection = logsCollection ?: return
-
-        // Delete old logs
+    /** Deletes old logs (based on the number of days before expiration). */
+    private fun deleteOldLogs() {
+        val collection = logsCollection ?: return
         val now = Instant.now().epochSecond
         val beforeTimestamp = now - (config.expirationDays * DAY_TO_TIMESTAMP)
         try {
-            val result = logsCollection.deleteMany(lt(Log.INSERTED_ON, beforeTimestamp))
+            val result = collection.deleteMany(lt(Log.INSERTED_ON, beforeTimestamp))
             LOGGER.debug("Deleted ${result.deletedCount} old logs")
         } catch (exception: MongoException) {
             LOGGER.error("Cannot delete old logs: $exception")
         }
+    }
 
-        // Delete too many lines
-        val redundantLines = logsCollection.countDocuments() - config.logLines
+    /** Deletes oldest logs when there are too many logs. */
+    private fun deleteRedundantLogs() {
+        val collection = logsCollection ?: return
+        val redundantLines = collection.countDocuments() - config.logLines
         if (redundantLines > 0) {
-            removeFirstLogs(redundantLines)
+            LOGGER.debug("Deleting redundant $redundantLines logs")
+            deleteFirstLogs(redundantLines)
         }
+    }
 
-        // Delete logs when they take too much space
+    /** Deletes oldest logs when logs take up too much space. */
+    private fun deleteSpaceConsumingLogs() {
+        val database = database ?: return
+        val collection = logsCollection ?: return
+
         val size = database
-                .runCommand(Document(STATS_COMMAND, config.id + LOGS_COLLECTION_SUFFIX))
+                .runCommand(Document(STATS_COMMAND, config.id))
                 .getInteger(STATS_SIZE) ?: 0
-        val desiredSize = config.fileSizeMB * MB_TO_KB
-        if (size > 0 && size > desiredSize) {
-            val deleteFactor = ((size - desiredSize).toDouble() / desiredSize)
-            val logCount = logsCollection.countDocuments()
+        val maxSize = config.fileSizeMB * MB_TO_BYTES
+        if (size > 0 && size > maxSize) {
+            val deleteFactor = ((size - maxSize).toDouble() / size)
+            val logCount = collection.countDocuments()
             val toDelete = (logCount.toDouble() * deleteFactor).toLong()
             if (toDelete > 0) {
-                removeFirstLogs(toDelete)
+                LOGGER.debug("Deleting $toDelete logs as the size $size exceeds maximum size of $maxSize")
+                deleteFirstLogs(toDelete)
             }
         }
     }
@@ -157,40 +171,48 @@ class LogStorage(
         var lastLine = storageConfig?.lastLine ?: 0
         var seq = storageConfig?.seq ?: 0
 
-        coroutineScope.launch {
-            // Get the number of lines in the file
-            val fileLineCount = connection.getNumberOfLines() ?: 0
+        // Get the number of lines in the file
+        val fileLineCount = connection.getNumberOfLines() ?: 0
 
-            if (fileLineCount > 0 && fileLineCount > lastLine) {
-                // Download new logs and append
-                val inserted = downloadInsertLogs(seq, lastLine)
-                lastLine += inserted
-                seq += inserted
-            } else if (fileLineCount in 1 until lastLine) {
-                // Remove all logs and download from the beginning
-                removeAllLogs()
-                seq = 0
-                val inserted = downloadInsertLogs(seq)
-                lastLine = inserted
-                seq += inserted
-            }
-
-            removeOldLogs()
-            saveConfiguration(LogCollectionConfiguration(config.id, lastLine, seq))
-
-            // Fetch the logs from database
-            val response = prepareResponse()
-            vertx?.eventBus()?.send(config.eventBusAddress, response)
+        if (fileLineCount > 0 && fileLineCount > lastLine) {
+            // Download new logs and append
+            val inserted = downloadInsertLogs(seq, lastLine)
+            lastLine += inserted
+            seq += inserted
+        } else if (fileLineCount in 1 until lastLine) {
+            // Remove all logs and download from the beginning
+            deleteAllLogs()
+            seq = 0
+            val inserted = downloadInsertLogs(seq)
+            lastLine = inserted
+            seq += inserted
         }
+
+        // Delete unnecessary logs
+        deleteOldLogs()
+        deleteRedundantLogs()
+        deleteSpaceConsumingLogs()
+
+        // Save the new configuration
+        saveConfiguration(LogCollectionConfiguration(config.id, lastLine, seq))
+
+        // Fetch the logs from database
+        val response = prepareResponse()
+        vertx?.eventBus()?.send(config.eventBusAddress, response)
+    }
+
+    /** Deletes all data associated with the widget. */
+    fun delete() {
+        deleteAllLogs()
+        saveConfiguration(null)
     }
 
     companion object {
         private const val DATABASE_NAME: String = "logs"
         private const val CONFIGURATION_COLLECTION_NAME: String = "config"
-        private const val LOGS_COLLECTION_SUFFIX: String = "_logs"
         private const val STATS_COMMAND: String = "collStats"
         private const val STATS_SIZE: String = "size"
-        private const val MB_TO_KB: Long = 1024
+        private const val MB_TO_BYTES: Long = 1024L * 1024L
         private const val DAY_TO_TIMESTAMP = 24 * 60 * 60
         private var mongoClient: MongoClient? = null
 
@@ -213,7 +235,10 @@ class LogStorage(
         private val database: MongoDatabase?
         get() = client?.getDatabase(DATABASE_NAME)
 
+        /** Returns a configuration collection. */
+        val configCollection: MongoCollection<Document>?
+        get() = database?.getCollection(CONFIGURATION_COLLECTION_NAME)
+
         private val LOGGER: Logger = LoggerFactory.getLogger(LogStorage::class.java)
-        val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
     }
 }

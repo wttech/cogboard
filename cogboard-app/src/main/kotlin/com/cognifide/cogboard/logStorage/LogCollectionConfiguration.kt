@@ -9,26 +9,26 @@ data class LogCollectionConfiguration(
 ) {
     private val map: Map<String, Any>
         get() = mapOf(
-                "_id" to id,
-                "lastLine" to lastLine,
-                "seq" to seq
+                ID to id,
+                LAST_LINE to lastLine,
+                SEQ to seq
         )
     fun toDocument() = Document(map)
 
     companion object {
+        const val ID = "_id"
+        const val LAST_LINE = "lastLine"
+        const val SEQ = "seq"
+
         fun from(document: Document): LogCollectionConfiguration? {
-            try {
-                val id = document.getString("_id")
-                val lastLine = document.getLong("lastLine")
-                val seq = document.getLong("seq")
+            return try {
+                val id = document.getString(ID)
+                val lastLine = document.getLong(LAST_LINE)
+                val seq = document.getLong(SEQ)
 
-                if (arrayOf(id, lastLine, seq).contains(null)) {
-                    return null
-                }
-
-                return LogCollectionConfiguration(id, lastLine, seq)
+                LogCollectionConfiguration(id, lastLine, seq)
             } catch (_: NullPointerException) {
-                return null
+                null
             }
         }
     }

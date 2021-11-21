@@ -38,6 +38,10 @@ abstract class AsyncWidget(
         return super.start()
     }
 
+    override fun delete(): Widget {
+        return this
+    }
+
     override fun stop(): Widget {
         consumer.unregister()
         return super.stop()

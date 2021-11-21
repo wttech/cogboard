@@ -41,7 +41,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: "root"
       MONGO_INITDB_DATABASE: "logs"
     volumes:
-      - "./mongo:/data/db"
+      - "./mnt/mongo:/data/db"
     networks:
       - cognet
 
