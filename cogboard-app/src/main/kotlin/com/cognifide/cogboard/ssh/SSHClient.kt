@@ -78,11 +78,6 @@ class SSHClient(private val config: JsonObject) {
         return responseBuffer.toString(Charset.defaultCharset())
     }
 
-    private fun sendError(e: Exception, eventBusAddress: String) {
-        LOGGER.error(e.message)
-        vertx.eventBus().send(eventBusAddress, e.message)
-    }
-
     companion object {
         private val LOGGER: Logger = LoggerFactory.getLogger(SSHClient::class.java)
         private const val BUFFER_SIZE: Int = 512
