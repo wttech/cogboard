@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
+import { v4 } from 'uuid';
 import {
   Button,
   List,
@@ -30,10 +30,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
     const maxId = quarantine.reduce((acc, { id }) => (id > acc ? id : acc), 0);
     postWidgetContentUpdate({
       wid,
-      quarantineRules: [
-        ...quarantine,
-        { id: maxId + 1, checked: true, ...values }
-      ]
+      quarantineRules: [...quarantine, { id: v4(), checked: true, ...values }]
     });
   };
 
@@ -61,7 +58,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
   const deleteItem = id => {
     postWidgetContentUpdate({
       wid,
-      quarantineRules: quarantine.filter(quarantine => filter.id !== id)
+      quarantineRules: quarantine.filter(quarantine => quarantine.id !== id)
     });
   };
 

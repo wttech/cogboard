@@ -12,7 +12,6 @@ import io.vertx.core.Vertx
 import io.vertx.core.eventbus.Message
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
-import io.vertx.core.json.JsonArray
 
 class LogViewerWidget(
     vertx: Vertx,
@@ -102,13 +101,7 @@ class LogViewerWidget(
     private fun prepareLogs(logs: String): JsonObject {
         var logLines = logs.split("\n")
         logLines = logLines.filter { it.isNotEmpty() }
-        var ugabuga = JsonArray("""[{"id": 1, "label": "No kdkgnfk1", "checked": false,
-        "regExp": "^kdslaf", "reasonField": "No reason"},
-        {"id": 2, "label": "No kdkgnfk2", "checked": true,
-        "regExp": "^kdslaf", "reasonField": "No reason"}]""")
-        var drugaugabuga = JsonObject().put("logs", logParsingStrategy.parseLines(logLines))
-        drugaugabuga.put("quarantine", ugabuga)
-        return drugaugabuga
+        return JsonObject().put("logs", logParsingStrategy.parseLines(logLines))
     }
 
     private fun determineConnectionStrategy() =
