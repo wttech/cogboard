@@ -18,6 +18,12 @@ class SSHAuthData(private val config: JsonObject) {
     val port = config.getInteger(Props.SSH_PORT, 22)
     val authenticationType = fromConfigAuthenticationType()
 
+    init {
+        if(authenticationType == SSH_KEY) {
+            prepareForSSHKeyUsage()
+        }
+    }
+
     private fun fromConfigAuthenticationType(): AuthenticationType {
         val authTypes = config.getString(Props.AUTHENTICATION_TYPES)?.let {
             Json.decodeValue(it) } ?: JsonArray()
@@ -29,10 +35,7 @@ class SSHAuthData(private val config: JsonObject) {
 
     private fun hasAuthTypeCorrectCredentials(authType: AuthenticationType): Boolean =
             when {
-                authType == SSH_KEY && key.isNotBlank() -> {
-                    prepareForSSHKeyUsage()
-                    true
-                }
+                authType == SSH_KEY && key.isNotBlank() -> true
                 else -> authType == BASIC && user.isNotBlank() && password.isNotBlank()
             }
 
@@ -40,6 +43,7 @@ class SSHAuthData(private val config: JsonObject) {
         val fileHelper = SSHKeyFileHelper(id, key)
         fileHelper.saveToFile()
         config.put(Props.SSH_KEY, fileHelper.path)
+        key = fileHelper.path
     }
 
     fun getAuthenticationString(): String =
