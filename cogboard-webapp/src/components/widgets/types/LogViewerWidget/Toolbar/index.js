@@ -7,10 +7,10 @@ import DateRangePicker from './DateRangePicker';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterPicker from './FilterPicker';
+import QuarantineModal from './QuarantineModal';
 
-const Toolbar = () => {
+const Toolbar = ({ wid, quarantine }) => {
   const theme = useTheme();
-
   return (
     <Wrapper>
       <ToolbarGroup>
@@ -30,6 +30,9 @@ const Toolbar = () => {
           <DeleteIcon />
           Clear logs
         </RedButton>
+      </ToolbarGroup>
+      <ToolbarGroup>
+        <QuarantineModal wid={wid} quarantine={quarantine} />
       </ToolbarGroup>
     </Wrapper>
   );

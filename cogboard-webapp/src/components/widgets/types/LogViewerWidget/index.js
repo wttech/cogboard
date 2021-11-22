@@ -11,11 +11,11 @@ const LogViewerWidget = ({ id }) => {
     shallowEqual
   );
   useEffect(() => console.log(widgetData), [widgetData]);
-
   const logs = widgetData.content?.logs;
+  const quarantine = widgetData.content?.quarantine || [];
   return (
     <Container>
-      <Toolbar />
+      <Toolbar wid={id} quarantine={quarantine} />
       {logs && <LogList logs={logs} template={logs[0].variableData.template} />}
     </Container>
   );
