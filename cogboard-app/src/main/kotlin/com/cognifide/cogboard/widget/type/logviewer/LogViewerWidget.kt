@@ -6,13 +6,13 @@ import com.cognifide.cogboard.logStorage.LogStorage
 import com.cognifide.cogboard.widget.BaseWidget
 import com.cognifide.cogboard.widget.Widget
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
-import com.cognifide.cogboard.widget.connectionStrategy.SSHConnectionStrategy
-import com.cognifide.cogboard.widget.type.logviewer.logparser.LogParserFactory
+import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategyFactory
+import com.cognifide.cogboard.widget.connectionStrategy.UnknownConnectionTypeException
+import com.cognifide.cogboard.widget.type.logviewer.logparser.LogParserStrategyFactory
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonObject
 import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
-import java.net.URI
 
 class LogViewerWidget(
     vertx: Vertx,
@@ -21,11 +21,14 @@ class LogViewerWidget(
 ) : BaseWidget(vertx, config, serv) {
     private val address = config.endpointProp(Props.URL)
     private var consumer: MessageConsumer<JsonObject>? = null
-    private val logStorage = LogStorage(
-        buildConfiguration(config),
-        determineConnectionStrategy(),
-        determineLogParsingStrategy()
-    )
+    private val connectionStrategy: ConnectionStrategy? = determineConnectionStrategy()
+    private val logStorage: LogStorage? = connectionStrategy?.let {
+        LogStorage(
+                buildConfiguration(config),
+                it,
+                determineLogParsingStrategy()
+        )
+    }
 
     override fun start(): Widget {
         vertx.deployVerticle(logStorage)
@@ -37,20 +40,16 @@ class LogViewerWidget(
         return super.start()
     }
 
-    override fun delete(): Widget {
-        logStorage.delete()
-        return super.delete()
-    }
-
     override fun stop(): Widget {
-        logStorage.deploymentID()?.let { vertx.undeploy(it) }
+        logStorage?.delete()
+        logStorage?.deploymentID()?.let { vertx.undeploy(it) }
         consumer?.unregister()
         return super.stop()
     }
 
     override fun updateState() {
         if (address.isNotBlank()) {
-            logStorage.updateLogs()
+            logStorage?.updateLogs()
         } else {
             sendConfigurationError("Endpoint URL is blank")
         }
@@ -66,16 +65,19 @@ class LogViewerWidget(
         )
     }
 
-    private fun determineConnectionStrategy(): ConnectionStrategy {
-        return when (URI.create(address).scheme) {
-            "ssh" -> SSHConnectionStrategy(config)
-            else -> throw UnknownConnectionTypeException("Connection type not supported")
+    private fun determineConnectionStrategy(): ConnectionStrategy? {
+        return try {
+            ConnectionStrategyFactory(config, address)
+                    .build()
+        } catch (e: UnknownConnectionTypeException) {
+            sendConfigurationError("Unknown endpoint type")
+            null
         }
     }
 
     private fun determineLogParsingStrategy() =
-        LogParserFactory()
-            .build(LogParserFactory.Type.MOCK)
+        LogParserStrategyFactory()
+            .build(LogParserStrategyFactory.Type.MOCK)
 
     companion object {
         private const val DEFAULT_ID = "0"
@@ -84,5 +86,3 @@ class LogViewerWidget(
         private const val DEFAULT_LOG_EXPIRATION_DAYS = 5L
     }
 }
-
-class UnknownConnectionTypeException(message: String?) : RuntimeException(message)

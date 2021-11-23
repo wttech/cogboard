@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
-class MockLogParser : LogParser {
+class MockLogParserStrategy : LogParserStrategy {
     override val variableFields = listOf("Provider", "Message")
 
     private val regex = """^(?<$DATE>[0-9-:]+) \*(?<$TYPE>[A-Z]+)\* \[(?<$PROVIDER>[a-zA-Z]+)\][ ]+(?<$MESSAGE>.+)$"""

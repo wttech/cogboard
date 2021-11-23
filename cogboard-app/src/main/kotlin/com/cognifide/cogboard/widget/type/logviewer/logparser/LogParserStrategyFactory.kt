@@ -1,13 +1,13 @@
 package com.cognifide.cogboard.widget.type.logviewer.logparser
 
-class LogParserFactory {
+class LogParserStrategyFactory {
     enum class Type {
         MOCK
     }
 
-    fun build(type: Type): LogParser {
+    fun build(type: Type): LogParserStrategy {
         return when (type) {
-            Type.MOCK -> MockLogParser()
+            Type.MOCK -> MockLogParserStrategy()
             else -> throw UnknownParserTypeException("Unknown log parsing type")
         }
     }

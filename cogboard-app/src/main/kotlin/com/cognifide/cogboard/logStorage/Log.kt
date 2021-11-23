@@ -66,20 +66,20 @@ data class Log(
         const val VARIABLE_DATA = "variableData"
 
         fun from(document: Document): Log? {
-            try {
-                val id = document.getObjectId(ID)
-                val seq = document.getLong(SEQ)
-                val insertedOn = document.getLong(INSERTED_ON)
-                val date = document.getLong(DATE)
-                val type = document.getString(TYPE)
+            return try {
+                val id = document.getObjectId(ID)!!
+                val seq = document.getLong(SEQ)!!
+                val insertedOn = document.getLong(INSERTED_ON)!!
+                val date = document.getLong(DATE)!!
+                val type = document.getString(TYPE)!!
 
                 val variableData = document
                         .getList(VARIABLE_DATA, Document::class.java)
                         ?.mapNotNull { it }
                         ?.mapNotNull { LogVariableData.from(it) } ?: listOf()
-                return Log(id, seq, insertedOn, date, type, variableData)
+                Log(id, seq, insertedOn, date, type, variableData)
             } catch (_: NullPointerException) {
-                return null
+                null
             }
         }
     }

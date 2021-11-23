@@ -76,7 +76,7 @@ class WidgetRuntimeService(private val vertx: Vertx) {
     private fun stopAndRemove(action: String, widgetConfig: JsonObject): String? {
         val id = widgetConfig.getId()
         if (id != null) {
-            widgets.remove(id)?.delete()?.stop()
+            widgets.remove(id)?.stop()
             LOGGER.info("Widget $action: $widgetConfig")
         } else {
             LOGGER.error("Widget $action | " +

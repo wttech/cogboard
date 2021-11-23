@@ -26,6 +26,10 @@ services:
     image: "cogboard/cogboard-app:${COGBOARD_VERSION}"
     environment:
       - COGBOARD_VERSION=${COGBOARD_VERSION}
+      - MONGO_USERNAME=root
+      - MONGO_PASSWORD=root
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
     volumes:
       - "./mnt:/data"
     networks:

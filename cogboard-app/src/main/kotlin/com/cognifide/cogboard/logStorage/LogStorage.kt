@@ -1,7 +1,7 @@
 package com.cognifide.cogboard.logStorage
 
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
-import com.cognifide.cogboard.widget.type.logviewer.logparser.LogParser
+import com.cognifide.cogboard.widget.type.logviewer.logparser.LogParserStrategy
 import com.mongodb.client.MongoClient
 import com.mongodb.MongoException
 import com.mongodb.client.MongoClients
@@ -22,12 +22,13 @@ import io.vertx.core.logging.LoggerFactory
 import org.bson.Document
 import main.kotlin.com.cognifide.cogboard.logStorage.Log
 import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
+import java.net.URI
 import java.time.Instant
 
 class LogStorage(
     private val config: LogStorageConfiguration,
     private val connection: ConnectionStrategy,
-    private val parser: LogParser
+    private val parserStrategy: LogParserStrategy
 ) : AbstractVerticle() {
 
     override fun start() {
@@ -101,16 +102,6 @@ class LogStorage(
         }
     }
 
-    /** Deletes oldest logs when there are too many logs. */
-    private fun deleteRedundantLogs() {
-        val collection = logsCollection ?: return
-        val redundantLines = collection.countDocuments() - config.logLines
-        if (redundantLines > 0) {
-            LOGGER.debug("Deleting redundant $redundantLines logs")
-            deleteFirstLogs(redundantLines)
-        }
-    }
-
     /** Deletes oldest logs when logs take up too much space. */
     private fun deleteSpaceConsumingLogs() {
         val database = database ?: return
@@ -131,12 +122,12 @@ class LogStorage(
         }
     }
 
-    /** Downloads new logs and inserts the to the database. */
+    /** Downloads new logs and inserts the to the database. Returns the number of inserted logs. */
     private fun downloadInsertLogs(seq: Long, skipFirstLines: Long? = null): Long {
         var sequence = seq
         val logs = connection
                 .getLogs(skipFirstLines)
-                .mapNotNull { parser.parseLine(it) }
+                .mapNotNull { parserStrategy.parseLine(it) }
         logs.forEach {
             it.seq = sequence
             sequence += 1
@@ -145,6 +136,34 @@ class LogStorage(
         logsCollection?.insertMany(logs.map { it.toDocument() })
 
         return logs.size.toLong()
+    }
+
+    /** Checks how many logs to download, downloads them and saves them to the database. */
+    private fun downloadLogs() {
+        // Get the current settings
+        val storageConfig = collectionConfiguration
+        var lastLine = storageConfig?.lastLine ?: 0
+        var seq = storageConfig?.seq ?: 0
+
+        // Get the number of lines in the file
+        val fileLineCount = connection.getNumberOfLines() ?: 0
+
+        if (fileLineCount > 0 && fileLineCount > lastLine) {
+            // Download new logs and append them
+            val inserted = downloadInsertLogs(seq, lastLine)
+            lastLine += inserted
+            seq += inserted
+        } else if (fileLineCount in 1 until lastLine) {
+            // Remove all logs and download from the beginning
+            deleteAllLogs()
+            seq = 0
+            val inserted = downloadInsertLogs(seq)
+            lastLine = inserted
+            seq += inserted
+        }
+
+        // Save the new configuration
+        saveConfiguration(LogCollectionConfiguration(config.id, lastLine, seq))
     }
 
     /** Returns all logs for this instance, sorted by their sequence number. */
@@ -159,44 +178,21 @@ class LogStorage(
     /** Prepares a JSON response to be displayed */
     private fun prepareResponse(): JsonObject {
         return JsonObject(mapOf(
-            "variableFields" to parser.variableFields,
+            "variableFields" to parserStrategy.variableFields,
             "logs" to JsonArray(logs.map { it.toJson() })
         ))
     }
 
     /** Updates the logs and sends them to the widget. */
     fun updateLogs() {
-        // Get the last read line from the configuration
-        val storageConfig = collectionConfiguration
-        var lastLine = storageConfig?.lastLine ?: 0
-        var seq = storageConfig?.seq ?: 0
-
-        // Get the number of lines in the file
-        val fileLineCount = connection.getNumberOfLines() ?: 0
-
-        if (fileLineCount > 0 && fileLineCount > lastLine) {
-            // Download new logs and append
-            val inserted = downloadInsertLogs(seq, lastLine)
-            lastLine += inserted
-            seq += inserted
-        } else if (fileLineCount in 1 until lastLine) {
-            // Remove all logs and download from the beginning
-            deleteAllLogs()
-            seq = 0
-            val inserted = downloadInsertLogs(seq)
-            lastLine = inserted
-            seq += inserted
-        }
+        // Download new logs
+        downloadLogs()
 
         // Delete unnecessary logs
         deleteOldLogs()
-        deleteRedundantLogs()
         deleteSpaceConsumingLogs()
 
-        // Save the new configuration
-        saveConfiguration(LogCollectionConfiguration(config.id, lastLine, seq))
-
-        // Fetch the logs from database
+        // Fetch the logs from the database and send them back
         val response = prepareResponse()
         vertx?.eventBus()?.send(config.eventBusAddress, response)
     }
@@ -214,6 +210,11 @@ class LogStorage(
         private const val STATS_SIZE: String = "size"
         private const val MB_TO_BYTES: Long = 1024L * 1024L
         private const val DAY_TO_TIMESTAMP = 24 * 60 * 60
+        private const val MONGO_SCHEME = "mongodb"
+        private val MONGO_USERNAME = System.getenv("MONGO_USERNAME") ?: "root"
+        private val MONGO_PASSWORD = System.getenv("MONGO_PASSWORD") ?: "root"
+        private val MONGO_HOST = System.getenv("MONGO_HOST") ?: "mongo"
+        private val MONGO_PORT = System.getenv("MONGO_PORT")?.toIntOrNull() ?: 27017
         private var mongoClient: MongoClient? = null
 
         /** Returns a shared instance of the Mongo client. */
@@ -223,7 +224,16 @@ class LogStorage(
                 return mongoClient
             }
             try {
-                mongoClient = MongoClients.create("mongodb://root:root@mongo:27017/")
+                val uri = URI(
+                        MONGO_SCHEME,
+                        "$MONGO_USERNAME:$MONGO_PASSWORD",
+                        MONGO_HOST,
+                        MONGO_PORT,
+                        null,
+                        null,
+                        null
+                )
+                mongoClient = MongoClients.create(uri.toString())
                 return mongoClient
             } catch (exception: MongoException) {
                 LOGGER.error("Cannot create a mongo client: $exception")
