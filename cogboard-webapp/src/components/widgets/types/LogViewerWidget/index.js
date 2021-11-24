@@ -13,10 +13,12 @@ const LogViewerWidget = ({ id }) => {
   useEffect(() => console.log(widgetData), [widgetData]);
 
   const logs = widgetData.content?.logs;
+  const template = widgetData.content?.variableFields;
+  console.log(widgetData);
   return (
     <Container>
       <Toolbar />
-      {logs && <LogList logs={logs} template={logs[0].variableData.template} />}
+      {logs && <LogList logs={logs} template={template} />}
     </Container>
   );
 };

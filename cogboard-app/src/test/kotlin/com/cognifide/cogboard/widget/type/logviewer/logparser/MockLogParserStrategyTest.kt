@@ -1,13 +1,7 @@
 package com.cognifide.cogboard.widget.type.logviewer.logparser
 
 import org.junit.jupiter.api.Test
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.TYPE
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.DATE
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.VARIABLE_DATA
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.HEADERS
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.TEMPLATE
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.PROVIDER
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.MESSAGE
+import java.lang.AssertionError
 
 class MockLogParserStrategyTest {
     private val sampleLog = "2021-11-06:22:40:25 *DEBUG* [FelixStartLevel]  Integer lobortis. bibendum Nulla mi"
@@ -15,16 +9,14 @@ class MockLogParserStrategyTest {
 
     @Test
     fun parseSampleLog() {
-        val output = parser.parseLine(sampleLog)
-        val variableData = output.getJsonObject(VARIABLE_DATA)
-        val template = variableData.getJsonArray(TEMPLATE)
-        val headers = variableData.getJsonArray(HEADERS)
+        assert(parser.variableFields == listOf("Provider", "Message"))
 
-        assert(output.getString(TYPE) == "DEBUG")
-        assert(output.getString(DATE) == "2021-11-06:22:40:25")
-        assert(template.getString(0) == PROVIDER)
-        assert(template.getString(1) == MESSAGE)
-        assert(headers.getString(0) == "FelixStartLevel")
-        assert(headers.getString(1) == "Integer lobortis. bibendum Nulla mi")
+        val output = parser.parseLine(sampleLog) ?: throw AssertionError("Parsed log should not be null")
+
+        assert(output.type == "DEBUG")
+        assert(output.date == 1636238425L)
+        assert(output.variableData.size == 2)
+        assert(output.variableData[0].header == "FelixStartLevel")
+        assert(output.variableData[1].header == "Integer lobortis. bibendum Nulla mi")
     }
 }
