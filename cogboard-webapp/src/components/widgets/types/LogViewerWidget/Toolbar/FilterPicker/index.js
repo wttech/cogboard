@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getFilters, setFilters } from './helpers';
+import { getFilters, saveFilters } from './helpers';
 
 import logLevels from '../../logLevels';
 
@@ -20,7 +20,7 @@ const FilterPicker = ({ widgetLocalStorage }) => {
   const [logLevel, setLogLevel] = useState('info');
 
   const handleSelection = selectedList =>
-    setFilters(
+    saveFilters(
       widgetLocalStorage,
       regExpFilters.map(filter => ({
         ...filter,
@@ -29,7 +29,7 @@ const FilterPicker = ({ widgetLocalStorage }) => {
     );
 
   const handleDelete = id =>
-    setFilters(
+    saveFilters(
       widgetLocalStorage,
       regExpFilters.map(filter =>
         filter.id === id ? { ...filter, checked: !filter.checked } : filter

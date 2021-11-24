@@ -1,6 +1,7 @@
 import React from 'react';
 import { useToggle } from '../../../../../../../hooks';
-import { getFilters, setFilters } from '../helpers';
+import { v4 } from 'uuid';
+import { getFilters, saveFilters } from '../helpers';
 
 import {
   Button,
@@ -23,15 +24,14 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
   const filters = getFilters(widgetLocalStorage);
 
   const addFilter = values => {
-    const maxId = filters.reduce((acc, { id }) => (id > acc ? id : acc), 0);
-    setFilters(widgetLocalStorage, [
+    saveFilters(widgetLocalStorage, [
       ...filters,
-      { id: maxId + 1, checked: true, ...values }
+      { id: `filter-${v4()}`, checked: true, ...values }
     ]);
   };
 
   const editFilter = ({ id, values }) => {
-    setFilters(
+    saveFilters(
       widgetLocalStorage,
       filters.map(filter => {
         if (filter.id === id) {
@@ -43,14 +43,14 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
   };
 
   const deleteFilter = id => {
-    setFilters(
+    saveFilters(
       widgetLocalStorage,
       filters.filter(filter => filter.id !== id)
     );
   };
 
   const handleSwitch = id =>
-    setFilters(
+    saveFilters(
       widgetLocalStorage,
       filters.map(filter =>
         filter.id === id ? { ...filter, checked: !filter.checked } : filter

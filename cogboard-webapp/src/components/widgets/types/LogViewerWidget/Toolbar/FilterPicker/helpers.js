@@ -1,4 +1,4 @@
-export const setFilters = (
+export const saveFilters = (
   { get: localStorage, set: setLocalStorage },
   filters
 ) => {
