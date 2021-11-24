@@ -9,13 +9,15 @@ import {
   ListItemSecondaryAction,
   Switch
 } from '@material-ui/core';
+import { StyledExitButton } from './styled';
 import { getIsAuthenticated } from '../../../../../../selectors';
 import { useToggle } from '../../../../../../hooks';
+import { postWidgetContentUpdate } from '../../../../../../utils/fetch';
 import AppDialog from '../../../../../AppDialog';
 import AddItem from '../../../../../AddItem';
 import QuarantineForm from './QuarantineForm';
 import EditQFilter from './EditQFilter';
-import { postWidgetContentUpdate } from '../../../../../../utils/fetch';
+import DeleteItem from '../../../../../DeleteItem';
 
 const QuarantineModal = ({ wid, quarantine }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
@@ -27,7 +29,6 @@ const QuarantineModal = ({ wid, quarantine }) => {
   };
 
   const addFilter = values => {
-    const maxId = quarantine.reduce((acc, { id }) => (id > acc ? id : acc), 0);
     postWidgetContentUpdate({
       wid,
       quarantineRules: [...quarantine, { id: v4(), checked: true, ...values }]
@@ -55,7 +56,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
     });
   };
 
-  const deleteItem = id => {
+  const deleteAction = id => {
     postWidgetContentUpdate({
       wid,
       quarantineRules: quarantine.filter(quarantine => quarantine.id !== id)
@@ -80,12 +81,12 @@ const QuarantineModal = ({ wid, quarantine }) => {
         <ListItemText primary={reasonField} />
         <ListItemSecondaryAction>
           <EditComponent id={id} filters={items} editAction={editAction} />
-          {/* <DeleteItem
-          id={id}
-          label={label}
-          itemName={name}
-          deleteAction={deleteAction}
-         /> */}
+          <DeleteItem
+            id={id}
+            label={label}
+            itemName={name}
+            deleteAction={deleteAction}
+          />
           <Switch
             checked={checked}
             onChange={handleSwitchChange(id)}
@@ -112,10 +113,13 @@ const QuarantineModal = ({ wid, quarantine }) => {
             'quarantine',
             EditQFilter,
             editFilter,
-            () => null
+            deleteAction
           )}
         </List>
-        <Button
+        <AddItem largeButton itemName="quarantine" submitAction={addFilter}>
+          <QuarantineForm filters={quarantine} />
+        </AddItem>
+        <StyledExitButton
           onClick={handleDialogClose}
           variant="contained"
           color="default"
@@ -123,10 +127,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
           fullWidth
         >
           Exit
-        </Button>
-        <AddItem largeButton itemName="quarantine" submitAction={addFilter}>
-          <QuarantineForm filters={quarantine} />
-        </AddItem>
+        </StyledExitButton>
       </AppDialog>
     </>
   );
