@@ -156,13 +156,15 @@ export const StyledMultiLineWrapper = styled.div`
 export const StyledHorizontalStack = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 12px;
 `;
 
 export const StyledVerticalStack = styled.div`
+  margin: 16px 0 8px 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 `;
 
 export const StyledLabel = styled.p`

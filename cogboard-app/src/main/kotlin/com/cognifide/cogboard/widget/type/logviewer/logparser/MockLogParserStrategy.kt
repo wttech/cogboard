@@ -1,29 +1,44 @@
 package com.cognifide.cogboard.widget.type.logviewer.logparser
 
-import io.vertx.core.json.JsonObject
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.TYPE
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.DATE
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.PROVIDER
-import com.cognifide.cogboard.widget.type.logviewer.logparser.ParsedLog.Companion.MESSAGE
+import main.kotlin.com.cognifide.cogboard.logStorage.Log
+import main.kotlin.com.cognifide.cogboard.logStorage.LogVariableData
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
-class MockLogParserStrategy : LogParserStrategy() {
-    private val regex = """^(?<$DATE>[0-9-:]+) \*(?<$TYPE>[A-Z]+)\* \[(?<$PROVIDER>[a-zA-Z]+)\][ ]+(?<$MESSAGE>.+)$""".trimMargin().toRegex()
+class MockLogParserStrategy : LogParserStrategy {
+    override val variableFields = listOf("Provider", "Message")
 
-    override fun parseLine(logLine: String): JsonObject {
-        val groups = regex.matchEntire(logLine.trim())?.groups
-            // ?: throw LogParsingException("Unable to parse line: $logLine")
+    private val regex = """^(?<$DATE>[0-9-:]+) \*(?<$TYPE>[A-Z]+)\* \[(?<$PROVIDER>[a-zA-Z]+)\][ ]+(?<$MESSAGE>.+)$"""
+            .toRegex()
 
-        return createLogObject(groups)
+    override fun parseLine(line: String): Log? {
+        val groups = regex.matchEntire(line.trim())?.groups ?: return null
+
+        try {
+            val date = LocalDateTime
+                .parse(groups[DATE]!!.value, dateTimeFormatter)
+                .toEpochSecond(ZoneOffset.UTC)
+            val type = groups[TYPE]!!.value
+            val provider = groups[PROVIDER]!!.value
+            val message = groups[MESSAGE]!!.value
+
+            val variableData = listOf(
+                    LogVariableData(provider, "No description"),
+                    LogVariableData(message, "No message description")
+            )
+
+            return Log(date = date, type = type, variableData = variableData)
+        } catch (_: NullPointerException) {
+            return null
+        }
     }
 
-    private fun createLogObject(groups: MatchGroupCollection?): JsonObject {
-        val mapOfCapturedValues = mutableMapOf<String, String>()
-        mapOfCapturedValues[TYPE] = groups?.get(TYPE)?.value ?: ""
-        mapOfCapturedValues[DATE] = groups?.get(DATE)?.value ?: ""
-        mapOfCapturedValues[PROVIDER] = groups?.get(PROVIDER)?.value ?: ""
-        mapOfCapturedValues[MESSAGE] = groups?.get(MESSAGE)?.value ?: ""
-
-        val parsedLog = ParsedLog(mapOfCapturedValues)
-        return parsedLog.parsedLogJson
+    companion object {
+        private val dateTimeFormatter = DateTimeFormatter.ofPattern("u-M-d:H:m:s")
+        private const val DATE = "date"
+        private const val TYPE = "type"
+        private const val PROVIDER = "provider"
+        private const val MESSAGE = "message"
     }
 }

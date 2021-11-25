@@ -119,7 +119,7 @@ const dialogFields = {
   SSHKeyPassphraseField: {
     component: PasswordInput,
     name: 'sshKeyPassphrase',
-    label: 'SSH Private Key Passphrase',
+    label: 'SSH private key passphrase',
     validator: () => string()
   },
   PublicURL: {
@@ -590,7 +590,7 @@ const dialogFields = {
   LogLinesField: {
     component: NumberInput,
     name: 'logLinesField',
-    label: 'Number of lines to return',
+    label: 'Maximum number of lines to return',
     initialValue: 1000,
     min: 1,
     step: 1,

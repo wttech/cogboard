@@ -1,19 +1,8 @@
 package com.cognifide.cogboard.widget.type.logviewer.logparser
 
-import io.vertx.core.json.JsonArray
-import io.vertx.core.json.JsonObject
+import main.kotlin.com.cognifide.cogboard.logStorage.Log
 
-abstract class LogParserStrategy {
-    fun parseLines(logLines: Collection<String>): JsonArray {
-        val resultArray = JsonArray()
-        for (line in logLines) {
-            val parsedLine = parseLine(line)
-            resultArray.add(parsedLine)
-        }
-        return resultArray
-    }
-
-    abstract fun parseLine(logLine: String): JsonObject
+interface LogParserStrategy {
+    val variableFields: List<String>
+    fun parseLine(line: String): Log?
 }
-
-class LogParsingException(message: String) : RuntimeException(message)

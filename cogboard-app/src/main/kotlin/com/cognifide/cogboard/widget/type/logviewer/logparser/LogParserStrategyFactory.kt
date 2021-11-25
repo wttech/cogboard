@@ -1,14 +1,14 @@
 package com.cognifide.cogboard.widget.type.logviewer.logparser
 
 class LogParserStrategyFactory {
-    companion object {
-        const val MOCK = "mock"
+    enum class Type {
+        MOCK
     }
 
-    fun build(type: String): LogParserStrategy {
+    fun build(type: Type): LogParserStrategy {
         return when (type) {
-            MOCK -> MockLogParserStrategy()
-            else -> throw UnknownParserTypeException("Unknown strategy type")
+            Type.MOCK -> MockLogParserStrategy()
+            else -> throw UnknownParserTypeException("Unknown log parsing type")
         }
     }
 }
