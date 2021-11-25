@@ -67,7 +67,6 @@ const QuarantineModal = ({ wid, quarantine }) => {
     return null;
   }
 
-  console.log(quarantine);
   const renderListItems = (
     items,
     name,
@@ -105,7 +104,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
         open={dialogOpened}
-        title="Manage a quarantine"
+        title="Quarantine management"
       >
         <List>
           {renderListItems(
