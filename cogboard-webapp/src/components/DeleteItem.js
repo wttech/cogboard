@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import { useToggle } from '../hooks';
 
@@ -8,11 +7,10 @@ import { Delete } from '@material-ui/icons';
 import ConfirmationDialog from './ConfirmationDialog';
 
 const DeleteItem = ({ id, label, itemName, deleteAction }) => {
-  const dispatch = useDispatch();
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
   const handleDelete = id => () => {
-    dispatch(deleteAction(id));
+    deleteAction(id);
     handleDialogClose();
   };
 
