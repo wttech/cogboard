@@ -1,57 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { getFilters, saveFilters } from './helpers';
+
+import logLevels from '../../logLevels';
+
 import {
-  Button,
   Select,
   Chip,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
+  Tooltip
 } from '@material-ui/core';
 import { ScrollableBox } from './styled';
 import ToolbarGroup from '../ToolbarGroup';
-import { useState } from 'react';
-import logLevels from '../../logLevels';
+import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
-const FilterPicker = () => {
-  const handleDelete = name => {
-    setFilters(filters.filter(item => item !== name));
-  };
-
-  const [filters, setFilters] = useState([]);
+const FilterPicker = ({ widgetLocalStorage }) => {
+  const regExpFilters = getFilters(widgetLocalStorage);
   const [logLevel, setLogLevel] = useState('info');
+
+  const handleSelection = selectedList =>
+    saveFilters(
+      widgetLocalStorage,
+      regExpFilters.map(filter => ({
+        ...filter,
+        checked: selectedList.map(({ id }) => id).includes(filter.id)
+      }))
+    );
+
+  const handleDelete = id =>
+    saveFilters(
+      widgetLocalStorage,
+      regExpFilters.map(filter =>
+        filter.id === id ? { ...filter, checked: !filter.checked } : filter
+      )
+    );
 
   return (
     <ToolbarGroup title="Filters">
       <FormControl>
-        <InputLabel id="filters-label">Filters</InputLabel>
+        <InputLabel id="filters-label">
+          {regExpFilters.length > 0 ? `Filters` : `No filters defined`}
+        </InputLabel>
         <Select
+          disabled={regExpFilters.length <= 0}
           id="filters"
           labelId="filters-label"
           multiple
           style={{ width: '200px' }}
-          value={filters}
+          value={regExpFilters.filter(filter => filter.checked)}
           size="small"
-          onChange={e => setFilters(e.target.value)}
+          onChange={e => handleSelection(e.target.value)}
           renderValue={selected => (
             <ScrollableBox>
-              {selected.map(value => (
-                <Chip
-                  key={value}
-                  label={value}
-                  onDelete={e => handleDelete(value)}
-                  onMouseDown={e => {
-                    e.stopPropagation();
-                  }}
-                  style={{ marginRight: '4px' }}
-                  size="small"
-                />
+              {selected.map(({ id, label, regExp }) => (
+                <Tooltip
+                  key={id}
+                  title={`Regular expression: ${regExp}`}
+                  placement="bottom"
+                >
+                  <Chip
+                    label={label}
+                    onDelete={() => handleDelete(id)}
+                    onMouseDown={e => e.stopPropagation()}
+                    style={{ marginRight: '4px' }}
+                    size="small"
+                  />
+                </Tooltip>
               ))}
             </ScrollableBox>
           )}
         >
-          {logLevels.map((level, index) => (
-            <MenuItem key={index} value={level.value}>
-              {level.value.toUpperCase()}
+          {regExpFilters.map(filter => (
+            <MenuItem key={filter.id} value={filter}>
+              {filter.label}
             </MenuItem>
           ))}
         </Select>
@@ -73,9 +95,7 @@ const FilterPicker = () => {
           ))}
         </Select>
       </FormControl>
-      <Button variant="contained" size="small">
-        Advanced
-      </Button>
+      <AdvancedFiltersMenu widgetLocalStorage={widgetLocalStorage} />
     </ToolbarGroup>
   );
 };

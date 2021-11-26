@@ -9,7 +9,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterPicker from './FilterPicker';
 import QuarantineModal from './QuarantineModal';
 
-const Toolbar = ({ wid, quarantine }) => {
+
+const Toolbar = ({ wid, quarantine, widgetLocalStorage }) => {
   const theme = useTheme();
   return (
     <Wrapper>
@@ -17,7 +18,7 @@ const Toolbar = ({ wid, quarantine }) => {
         <SearchInput />
       </ToolbarGroup>
 
-      <FilterPicker />
+      <FilterPicker widgetLocalStorage={widgetLocalStorage} />
 
       <DateRangePicker />
 
