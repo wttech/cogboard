@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { number, string } from 'prop-types';
+import { useLocalStorage } from '../../../../hooks';
+
 import Toolbar from './Toolbar';
 import LogList from './LogList';
 import { Container } from './styled';
@@ -12,11 +14,29 @@ const LogViewerWidget = ({ id }) => {
   );
   useEffect(() => console.log(widgetData), [widgetData]);
 
+  const [widgetLocalStorageData, setWidgetLocalStorage] = useLocalStorage(id);
+  const widgetLocalStorage = {
+    get: () => widgetLocalStorageData,
+    set: setWidgetLocalStorage
+  };
+
   const logs = widgetData.content?.logs;
+  const template = widgetData.content?.variableFields;
+  const quarantine = widgetData.content?.quarantine || [];
   return (
     <Container>
-      <Toolbar />
-      {logs && <LogList logs={logs} template={logs[0].variableData.template} />}
+      <Toolbar 
+        wid={id} 
+        quarantine={quarantine} 
+        widgetLocalStorage={widgetLocalStorage} 
+      />
+      {logs && (
+        <LogList 
+          widgetLocalStorage={widgetLocalStorage}
+          logs={logs} 
+          template={template} 
+        />
+      )}
     </Container>
   );
 };

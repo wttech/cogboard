@@ -136,3 +136,16 @@ export function useEventListener(eventName, handler, element = window) {
     };
   }, [eventName, element]);
 }
+
+export function useLocalStorage(key) {
+  const localStorage = window.localStorage.getItem(key);
+  const [data, setStoredValue] = useState(
+    localStorage ? JSON.parse(localStorage) : null
+  );
+
+  const setData = data => {
+    window.localStorage.setItem(key, JSON.stringify(data));
+    setStoredValue(data);
+  };
+  return [data, setData];
+}
