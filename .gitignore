@@ -17,6 +17,8 @@ Thumbs.db
 /mnt/content/*.json
 /mnt/.version
 /cogboard-compose.yml
+/mnt/mongo/*
+!/mnt/mongo/.gitkeep
 
 # Intellij           #
 ######################

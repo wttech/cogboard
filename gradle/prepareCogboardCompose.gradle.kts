@@ -18,6 +18,16 @@ services:
       - COGBOARD_VERSION=$currentVersion
     volumes:
       - "./mnt:/data"
+  
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "root"
+      MONGO_INITDB_DATABASE: "logs"
+    volumes:
+      - "./mnt/mongo:/data/db"
 
   frontend:
     image: "cogboard/cogboard-web:$currentVersion"
