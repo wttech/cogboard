@@ -9,10 +9,12 @@ import io.vertx.core.json.JsonObject
 import java.net.URI
 
 class SSHAuthData(config: JsonObject) {
+    private val id = config.getString(Props.ID, "")
     val user: String = config.getString(Props.USER, "")
     val password: String = config.getString(Props.PASSWORD, "")
     val token: String = config.getString(Props.TOKEN, "")
-    val key: String = config.getString(Props.SSH_KEY, "")
+    var key = config.getString(Props.SSH_KEY, "")
+        private set
     val host: String
     val port: Int
     val authenticationType = fromConfigAuthenticationType(config)
@@ -22,6 +24,9 @@ class SSHAuthData(config: JsonObject) {
         val uri = URI.create(uriString)
         host = uri.host
         port = uri.port
+        if(authenticationType == SSH_KEY) {
+            prepareForSSHKeyUsage()
+        }
     }
 
     private fun fromConfigAuthenticationType(config: JsonObject): AuthenticationType {
@@ -38,6 +43,13 @@ class SSHAuthData(config: JsonObject) {
                 authType == SSH_KEY && key.isNotBlank() -> true
                 else -> authType == BASIC && user.isNotBlank() && password.isNotBlank()
             }
+
+    private fun prepareForSSHKeyUsage() {
+        val fileHelper = SSHKeyFileHelper(id, key)
+        fileHelper.saveToFile()
+        config.put(Props.SSH_KEY, fileHelper.path)
+        key = fileHelper.path
+    }
 
     fun getAuthenticationString(): String =
             when (authenticationType) {
