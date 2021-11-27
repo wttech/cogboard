@@ -16,30 +16,20 @@ export default function LogList({ widgetLocalStorage, logs, template }) {
   const theme = useTheme();
   const filters = getFilters(widgetLocalStorage);
 
-  const filterByRegExp = (log, filters) => {
-    let result = true;
-    filters.forEach(({ regExp, checked }) => {
-      if (checked) {
-        let filterPassed = false;
+  const filterByRegExp = (log, filters) =>
+    filters
+      .filter(f => f.checked)
+      .every(({ regExp }) => {
         const regExpObj = new RegExp(regExp);
-        const texts = [
-          ...log.variableData.headers,
-          ...log.variableData.description
-        ];
-
-        texts.forEach(text => {
-          if (text.match(regExpObj)) {
-            filterPassed = true;
-          }
+        const texts = [];
+        // loop through log variable columns
+        log.variableData.forEach(({ header, description }) => {
+          texts.push(header);
+          texts.push(description);
         });
 
-        if (!filterPassed) {
-          result = false;
-        }
-      }
-    });
-    return result;
-  };
+        return texts.some(text => text.match(regExpObj));
+      });
 
   const filteredLogs = logs?.filter(log => filterByRegExp(log, filters));
 
