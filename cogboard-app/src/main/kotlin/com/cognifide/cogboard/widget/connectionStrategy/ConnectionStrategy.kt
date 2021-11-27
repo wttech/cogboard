@@ -9,7 +9,7 @@ abstract class ConnectionStrategy {
         return this.getJsonObject(CogboardConstants.Props.ENDPOINT_LOADED)?.getString(prop) ?: ""
     }
 
-    protected open fun authenticationTypes(): Set<AuthenticationType> {
+    protected open fun authenticationTypes(): Set<Any> {
         return setOf(AuthenticationType.BASIC)
     }
 
