@@ -137,7 +137,7 @@ export function useEventListener(eventName, handler, element = window) {
   }, [eventName, element]);
 }
 
-export function useLocalStorage(key) {
+export const useLocalStorage = key => {
   const localStorage = window.localStorage.getItem(key);
   const [data, setStoredValue] = useState(
     localStorage ? JSON.parse(localStorage) : null
@@ -148,4 +148,13 @@ export function useLocalStorage(key) {
     setStoredValue(data);
   };
   return [data, setData];
-}
+};
+
+export const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const timeoutRef = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(timeoutRef);
+  }, [value, delay]);
+  return debouncedValue;
+};

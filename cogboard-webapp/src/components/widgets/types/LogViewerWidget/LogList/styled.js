@@ -101,3 +101,8 @@ export const CustomAccordion = styled(Accordion)`
     background-color: ${COLORS.DARK_SHADE};
   }
 `;
+
+export const HighlightedAccordion = styled(CustomAccordion)`
+  border: 1px solid ${COLORS.YELLOW};
+  margin: 2px 0 3px;
+`;

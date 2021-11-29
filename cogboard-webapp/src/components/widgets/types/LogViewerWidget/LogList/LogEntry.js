@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { string, number, bool, shape, oneOfType, arrayOf } from 'prop-types';
+import { getGridTemplate } from './helpers';
 import { AccordionSummary, AccordionDetails } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   GridSchema,
   Text,
   CustomAccordion,
-  VariableGridSchema
+  VariableGridSchema,
+  HighlightedAccordion
 } from './styled';
-import getGridTemplate from './helpers';
 
-export default function LogEntry({ type, date, variableData, template }) {
+export default function LogEntry({
+  type,
+  date,
+  variableData,
+  template,
+  highlight
+}) {
   const [expanded, setExpanded] = useState(false);
 
   const VariablePart = ({ description }) => {
@@ -29,8 +36,10 @@ export default function LogEntry({ type, date, variableData, template }) {
     );
   };
 
+  const SelectedAccordion = highlight ? HighlightedAccordion : CustomAccordion;
+
   return (
-    <CustomAccordion expanded={expanded}>
+    <SelectedAccordion expanded={expanded}>
       <AccordionSummary
         onClick={() => setExpanded(!expanded)}
         expandIcon={expanded && <ExpandMoreIcon />}
@@ -46,7 +55,7 @@ export default function LogEntry({ type, date, variableData, template }) {
           <VariablePart description />
         </GridSchema>
       </AccordionDetails>
-    </CustomAccordion>
+    </SelectedAccordion>
   );
 }
 
@@ -55,8 +64,8 @@ LogEntry.propTypes = {
   date: string.isRequired,
   variableData: arrayOf(
     shape({
-      header: arrayOf(oneOfType([string, number, bool])).isRequired,
-      description: arrayOf(oneOfType([string, number, bool])).isRequired
+      header: oneOfType([string, number, bool]).isRequired,
+      description: oneOfType([string, number, bool]).isRequired
     })
   )
 };

@@ -9,13 +9,16 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterPicker from './FilterPicker';
 import QuarantineModal from './QuarantineModal';
 
-
-const Toolbar = ({ wid, quarantine, widgetLocalStorage }) => {
+const Toolbar = ({ wid, quarantine, widgetLocalStorage, setSearchFilter }) => {
   const theme = useTheme();
   return (
     <Wrapper>
       <ToolbarGroup>
-        <SearchInput />
+        <SearchInput
+          setSearchFilter={setSearchFilter}
+          debounce={500}
+          minLetters={3}
+        />
       </ToolbarGroup>
 
       <FilterPicker widgetLocalStorage={widgetLocalStorage} />
