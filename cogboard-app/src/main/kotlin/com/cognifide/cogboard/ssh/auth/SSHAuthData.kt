@@ -47,7 +47,6 @@ class SSHAuthData(config: JsonObject) {
     private fun prepareForSSHKeyUsage() {
         val fileHelper = SSHKeyFileHelper(id, key)
         fileHelper.saveToFile()
-        config.put(Props.SSH_KEY, fileHelper.path)
         key = fileHelper.path
     }
 
