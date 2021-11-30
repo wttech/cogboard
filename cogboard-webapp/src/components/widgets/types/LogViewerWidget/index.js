@@ -22,19 +22,19 @@ const LogViewerWidget = ({ id }) => {
 
   const logs = widgetData.content?.logs;
   const template = widgetData.content?.variableFields;
-  const quarantine = widgetData.content?.quarantine || [];
+  const quarantine = widgetData.content?.quarantineRules || [];
   return (
     <Container>
-      <Toolbar 
-        wid={id} 
-        quarantine={quarantine} 
-        widgetLocalStorage={widgetLocalStorage} 
+      <Toolbar
+        wid={id}
+        quarantine={quarantine}
+        widgetLocalStorage={widgetLocalStorage}
       />
       {logs && (
-        <LogList 
+        <LogList
           widgetLocalStorage={widgetLocalStorage}
-          logs={logs} 
-          template={template} 
+          logs={logs}
+          template={template}
         />
       )}
     </Container>

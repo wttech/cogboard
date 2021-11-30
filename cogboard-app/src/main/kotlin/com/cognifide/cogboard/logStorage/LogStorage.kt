@@ -22,13 +22,15 @@ import io.vertx.core.logging.LoggerFactory
 import org.bson.Document
 import main.kotlin.com.cognifide.cogboard.logStorage.Log
 import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
+import main.kotlin.com.cognifide.cogboard.logStorage.QuarantineRule
 import java.net.URI
 import java.time.Instant
 
 class LogStorage(
     private val config: LogStorageConfiguration,
     private val connection: ConnectionStrategy,
-    private val parserStrategy: LogParserStrategy
+    private val parserStrategy: LogParserStrategy,
+    var rules: List<QuarantineRule> = emptyList()
 ) : AbstractVerticle() {
 
     override fun start() {
@@ -122,12 +124,27 @@ class LogStorage(
         }
     }
 
+    /** Filters the logs in place. */
+    private fun filter(logs: MutableList<Log>) {
+        if (rules.isEmpty()) { return }
+        val regexes = rules.map { it.regex }
+        logs.retainAll { log ->
+            log.variableData.any { variable ->
+                regexes.any { it.containsMatchIn(variable.header) }
+            }
+        }
+    }
+
     /** Downloads new logs and inserts the to the database. Returns the number of inserted logs. */
     private fun downloadInsertLogs(seq: Long, skipFirstLines: Long? = null): Long {
         var sequence = seq
-        val logs = connection
+        var logs = connection
                 .getLogs(skipFirstLines)
                 .mapNotNull { parserStrategy.parseLine(it) }
+                .toMutableList()
+
+        // Filter the logs by quarantine rules
+        filter(logs)
         logs.forEach {
             it.seq = sequence
             sequence += 1
@@ -184,13 +201,15 @@ class LogStorage(
     }
 
     /** Updates the logs and sends them to the widget. */
-    fun updateLogs() {
-        // Download new logs
-        downloadLogs()
+    fun updateLogs(fetchNewLogs: Boolean) {
+        if (fetchNewLogs) {
+            // Download new logs
+            downloadLogs()
 
-        // Delete unnecessary logs
-        deleteOldLogs()
-        deleteSpaceConsumingLogs()
+            // Delete unnecessary logs
+            deleteOldLogs()
+            deleteSpaceConsumingLogs()
+        }
 
         // Fetch the logs from the database and send them back
         val response = prepareResponse()
