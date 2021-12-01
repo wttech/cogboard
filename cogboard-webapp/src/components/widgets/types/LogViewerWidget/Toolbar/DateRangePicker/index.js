@@ -6,7 +6,7 @@ import ToolbarGroup from '../ToolbarGroup';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import CustomPicker from './CustomPicker';
 
-const format = 'hh:mm DD/MM/YY';
+const format = 'hh:mm  DD/MM/YY';
 
 const DateRangePicker = ({ widgetLocalStorage }) => {
   const { begin, end } = getDateSpan(widgetLocalStorage);

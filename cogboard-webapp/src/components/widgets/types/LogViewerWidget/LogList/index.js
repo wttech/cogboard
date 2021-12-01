@@ -9,12 +9,14 @@ import {
   LogsWrapper,
   VariableGridSchema
 } from './styled';
-import getGridTemplate from './helpers';
+import { getGridTemplate, filterByDateSpan } from './helpers';
 import { getFilters } from '../Toolbar/FilterPicker/helpers';
+import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
 
 export default function LogList({ widgetLocalStorage, logs, template }) {
   const theme = useTheme();
   const filters = getFilters(widgetLocalStorage);
+  const dateSpan = getDateSpan(widgetLocalStorage);
 
   const filterByRegExp = (log, filters) =>
     filters
@@ -31,7 +33,9 @@ export default function LogList({ widgetLocalStorage, logs, template }) {
         return texts.some(text => text.match(regExpObj));
       });
 
-  const filteredLogs = logs?.filter(log => filterByRegExp(log, filters));
+  const filteredLogs = logs
+    ?.filter(log => filterByRegExp(log, filters))
+    .filter(log => filterByDateSpan(log, dateSpan));
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
