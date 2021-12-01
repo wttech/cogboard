@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { func, number } from 'prop-types';
 import { useDebounce } from '../../../../../../hooks';
 
 import { TextField } from '@material-ui/core';
@@ -30,16 +31,22 @@ const SearchInput = ({ setSearchFilter, debounce, minLetters }) => {
         value={searchBoxValue}
         onChange={handleChange}
       />
-      <CustomIconButton
-        disabled={!enoughLetters}
-        size="small"
-        variant="contained"
-        onClick={clearSearch}
-      >
+      <CustomIconButton disabled={!enoughLetters} onClick={clearSearch}>
         {enoughLetters ? <CloseIcon /> : <SearchIcon />}
       </CustomIconButton>
     </Wrapper>
   );
+};
+
+SearchInput.propTypes = {
+  setSearchFilter: func.isRequired,
+  debounce: number,
+  minLetters: number
+};
+
+SearchInput.defaultProps = {
+  debounce: 500,
+  minLetters: 3
 };
 
 export default SearchInput;
