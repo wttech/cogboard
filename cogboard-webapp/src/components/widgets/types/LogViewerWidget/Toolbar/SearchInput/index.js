@@ -4,6 +4,7 @@ import { useDebounce } from '../../../../../../hooks';
 import { TextField } from '@material-ui/core';
 import { Wrapper, CustomIconButton } from './styled';
 import SearchIcon from '@material-ui/icons/Search';
+import CloseIcon from '@material-ui/icons/Close';
 
 const SearchInput = ({ setSearchFilter, debounce, minLetters }) => {
   const [searchBoxValue, setSearchBoxValue] = useState('');
@@ -17,6 +18,10 @@ const SearchInput = ({ setSearchFilter, debounce, minLetters }) => {
   ]);
 
   const handleChange = e => setSearchBoxValue(e.target.value);
+  const clearSearch = () => {
+    setSearchBoxValue('');
+    setSearchFilter('');
+  };
 
   return (
     <Wrapper>
@@ -25,8 +30,13 @@ const SearchInput = ({ setSearchFilter, debounce, minLetters }) => {
         value={searchBoxValue}
         onChange={handleChange}
       />
-      <CustomIconButton disabled size="small" variant="contained">
-        <SearchIcon />
+      <CustomIconButton
+        disabled={!enoughLetters}
+        size="small"
+        variant="contained"
+        onClick={clearSearch}
+      >
+        {enoughLetters ? <CloseIcon /> : <SearchIcon />}
       </CustomIconButton>
     </Wrapper>
   );
