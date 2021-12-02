@@ -39,6 +39,8 @@ class LogViewerWidget(
         createDynamicChangeSubscriber()?.handler { newState ->
             newState?.body()?.let {
                 contentRepository.save(id, it)
+                logStorage?.rules = rules
+                logStorage?.filterExistingLogs()
                 updateWidget(false)
             }
         }
@@ -83,11 +85,11 @@ class LogViewerWidget(
     }
 
     /** Gets the quarantine rules from the */
-    private val rules: List<QuarantineRule> =
-            contentRepository
-                .get(id)
-                .getJsonArray(QUARANTINE_RULES)
-                ?.let { QuarantineRule.from(it) } ?: emptyList()
+    private val rules: List<QuarantineRule>
+    get() = contentRepository
+            .get(id)
+            .getJsonArray(QUARANTINE_RULES)
+            ?.let { QuarantineRule.from(it) } ?: emptyList()
 
     private fun buildConfiguration(config: JsonObject): LogStorageConfiguration {
         return LogStorageConfiguration(
