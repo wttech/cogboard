@@ -1,4 +1,7 @@
 import React from 'react';
+import moment from 'moment-timezone';
+import { saveDateSpan } from './DateRangePicker/helpers';
+
 import { Button, useTheme } from '@material-ui/core';
 import { RedButton, Wrapper } from './styled';
 import SearchInput from './SearchInput';
@@ -11,6 +14,10 @@ import QuarantineModal from './QuarantineModal';
 
 const Toolbar = ({ wid, quarantine, widgetLocalStorage }) => {
   const theme = useTheme();
+
+  const handleClearLogs = () =>
+    saveDateSpan(widgetLocalStorage, { begin: moment(), end: null });
+
   return (
     <Wrapper>
       <ToolbarGroup>
@@ -26,7 +33,12 @@ const Toolbar = ({ wid, quarantine, widgetLocalStorage }) => {
           <GetAppIcon />
           Follow logs
         </Button>
-        <RedButton variant="contained" size="small" theme={theme}>
+        <RedButton
+          variant="contained"
+          size="small"
+          theme={theme}
+          onClick={handleClearLogs}
+        >
           <DeleteIcon />
           Clear logs
         </RedButton>
