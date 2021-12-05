@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { number, string } from 'prop-types';
 import { useLocalStorage } from '../../../../hooks';
@@ -12,6 +12,9 @@ const LogViewerWidget = ({ id }) => {
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
+
+  const [followLogs, setFollow] = useState(true);
+
   useEffect(() => console.log(widgetData), [widgetData]);
 
   const [widgetLocalStorageData, setWidgetLocalStorage] = useLocalStorage(id);
@@ -25,16 +28,21 @@ const LogViewerWidget = ({ id }) => {
   const quarantine = widgetData.content?.quarantine || [];
   return (
     <Container>
-      <Toolbar 
-        wid={id} 
-        quarantine={quarantine} 
-        widgetLocalStorage={widgetLocalStorage} 
+      <Toolbar
+        wid={id}
+        quarantine={quarantine}
+        widgetLocalStorage={widgetLocalStorage}
+        logs={logs}
+        followLogs={followLogs}
+        handleFollowChange={setFollow}
       />
       {logs && (
-        <LogList 
+        <LogList
           widgetLocalStorage={widgetLocalStorage}
-          logs={logs} 
-          template={template} 
+          logs={logs}
+          template={template}
+          followLogs={followLogs}
+          handleFollowChange={setFollow}
         />
       )}
     </Container>

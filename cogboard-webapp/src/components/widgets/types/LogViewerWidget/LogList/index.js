@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTheme } from '@material-ui/core';
 import LogEntry from './LogEntry';
 import {
@@ -12,10 +12,17 @@ import {
 import getGridTemplate from './helpers';
 import { getFilters } from '../Toolbar/FilterPicker/helpers';
 
-export default function LogList({ widgetLocalStorage, logs, template }) {
+export default function LogList({
+  widgetLocalStorage,
+  logs,
+  template,
+  followLogs,
+  handleFollowChange
+}) {
   const theme = useTheme();
   const filters = getFilters(widgetLocalStorage);
-
+  const logWrapperRef = useRef();
+  const [scroll, setScroll] = useState(0);
   const filterByRegExp = (log, filters) =>
     filters
       .filter(f => f.checked)
@@ -32,6 +39,24 @@ export default function LogList({ widgetLocalStorage, logs, template }) {
       });
 
   const filteredLogs = logs?.filter(log => filterByRegExp(log, filters));
+
+  useEffect(() => {
+    if (followLogs) {
+      logWrapperRef.current.scrollTo({
+        top: logWrapperRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+    setScroll(logWrapperRef.current.scrollTop);
+    console.log(scroll);
+  }, [filteredLogs, followLogs, scroll]);
+
+  const unfollowOnUpScroll = () => {
+    if (scroll > logWrapperRef.current.scrollTop) {
+      handleFollowChange(false);
+    }
+    setScroll(logWrapperRef.current.scrollTop);
+  };
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
@@ -51,7 +76,7 @@ export default function LogList({ widgetLocalStorage, logs, template }) {
         </GridSchema>
       </Header>
 
-      <LogsWrapper>
+      <LogsWrapper ref={logWrapperRef} onScroll={unfollowOnUpScroll}>
         {filteredLogs?.map((log, index) => (
           <LogEntry
             key={index}

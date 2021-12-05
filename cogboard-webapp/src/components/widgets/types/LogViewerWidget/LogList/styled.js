@@ -58,6 +58,8 @@ export const Text = styled(Typography)(props => {
 });
 
 export const LogsWrapper = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
   padding: 6px 0;
   overflow-y: auto;
   height: 100%;

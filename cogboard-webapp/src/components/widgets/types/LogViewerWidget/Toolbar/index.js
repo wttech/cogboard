@@ -9,9 +9,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterPicker from './FilterPicker';
 import QuarantineModal from './QuarantineModal';
 
-
-const Toolbar = ({ wid, quarantine, widgetLocalStorage }) => {
+const Toolbar = ({
+  wid,
+  quarantine,
+  widgetLocalStorage,
+  followLogs,
+  handleFollowChange
+}) => {
   const theme = useTheme();
+
   return (
     <Wrapper>
       <ToolbarGroup>
@@ -23,9 +29,13 @@ const Toolbar = ({ wid, quarantine, widgetLocalStorage }) => {
       <DateRangePicker />
 
       <ToolbarGroup>
-        <Button variant="contained" size="small">
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => handleFollowChange(!followLogs)}
+        >
           <GetAppIcon />
-          Follow logs
+          {followLogs ? 'Unfollow logs' : 'Follow logs'}
         </Button>
         <RedButton variant="contained" size="small" theme={theme}>
           <DeleteIcon />
