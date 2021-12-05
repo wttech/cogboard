@@ -206,6 +206,7 @@ class LogStorage(
     private val logs: List<Log>
     get() = logsCollection
             ?.find()
+            ?.limit(config.logLines.toInt())
             ?.sort(descending(Log.SEQ))
             ?.mapNotNull { it }
             ?.mapNotNull { Log.from(it) }
