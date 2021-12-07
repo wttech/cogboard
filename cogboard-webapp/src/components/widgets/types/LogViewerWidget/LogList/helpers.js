@@ -16,7 +16,7 @@ const getLogTexts = log => {
 };
 
 export const isLogHighlighted = (log, search) =>
-  search && getLogTexts(log).some(text => text.match(search));
+  search && getLogTexts(log).some(text => text.match(new RegExp(search, 'i')));
 
 export const highlightText = (text, search, Component) =>
   search
