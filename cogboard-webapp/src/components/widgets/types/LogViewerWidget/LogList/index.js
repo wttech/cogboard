@@ -1,6 +1,13 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core';
-import { getGridTemplate, filterByRegExp, isLogHighlighted } from './helpers';
+import {
+  getGridTemplate,
+  filterByRegExp,
+  filterByDateSpan,
+  isLogHighlighted
+} from './helpers';
+import { getFilters } from '../Toolbar/FilterPicker/helpers';
+import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
 import LogEntry from './LogEntry';
 import {
   Container,
@@ -10,7 +17,6 @@ import {
   LogsWrapper,
   VariableGridSchema
 } from './styled';
-import { getFilters } from '../Toolbar/FilterPicker/helpers';
 
 export default function LogList({
   widgetLocalStorage,
@@ -20,8 +26,11 @@ export default function LogList({
 }) {
   const theme = useTheme();
   const filters = getFilters(widgetLocalStorage);
+  const dateSpan = getDateSpan(widgetLocalStorage);
 
-  const filteredLogs = logs?.filter(log => filterByRegExp(log, filters));
+  const filteredLogs = logs
+    ?.filter(log => filterByRegExp(log, filters))
+    .filter(log => filterByDateSpan(log, dateSpan));
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>

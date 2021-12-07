@@ -12,14 +12,14 @@ import {
   HighlightMark
 } from './styled';
 
-export default function LogEntry({
+const LogEntry = ({
   type,
   date,
   variableData,
   template,
   search,
   highlight
-}) {
+}) => {
   const [expanded, setExpanded] = useState(false);
 
   const VariablePart = ({ description }) => {
@@ -61,7 +61,9 @@ export default function LogEntry({
       </AccordionDetails>
     </CustomAccordion>
   );
-}
+};
+
+export default LogEntry;
 
 LogEntry.propTypes = {
   type: string,

@@ -37,3 +37,12 @@ export const filterByRegExp = (log, filters) =>
     .every(({ regExp }) =>
       getLogTexts(log).some(text => text.match(new RegExp(regExp)))
     );
+
+export const filterByDateSpan = (log, { begin, end }) => {
+  const date = new Date(log.date);
+
+  if (begin && date < begin) return false;
+  if (end && date > end) return false;
+
+  return true;
+};
