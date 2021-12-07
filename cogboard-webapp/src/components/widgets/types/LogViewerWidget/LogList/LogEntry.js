@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { string, number, bool, shape, oneOfType, arrayOf } from 'prop-types';
-import { getGridTemplate } from './helpers';
+import { getGridTemplate, highlightText } from './helpers';
 import { AccordionSummary, AccordionDetails } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
@@ -8,7 +8,8 @@ import {
   Text,
   CustomAccordion,
   VariableGridSchema,
-  HighlightedAccordion
+  HighlightedText,
+  HighlightMark
 } from './styled';
 
 export default function LogEntry({
@@ -16,6 +17,7 @@ export default function LogEntry({
   date,
   variableData,
   template,
+  search,
   highlight
 }) {
   const [expanded, setExpanded] = useState(false);
@@ -27,23 +29,25 @@ export default function LogEntry({
         template={variableFieldsTemplate}
         skipColumns={description}
       >
-        {variableData.map((entry, index) => (
-          <Text key={index}>
-            {description ? entry.description : entry.header}
-          </Text>
-        ))}
+        {variableData.map((entry, index) => {
+          const entryText = description ? entry.description : entry.header;
+          return (
+            <Text key={index}>
+              {highlightText(entryText, search, HighlightedText)}
+            </Text>
+          );
+        })}
       </VariableGridSchema>
     );
   };
 
-  const SelectedAccordion = highlight ? HighlightedAccordion : CustomAccordion;
-
   return (
-    <SelectedAccordion expanded={expanded}>
+    <CustomAccordion expanded={expanded}>
       <AccordionSummary
         onClick={() => setExpanded(!expanded)}
         expandIcon={expanded && <ExpandMoreIcon />}
       >
+        {highlight && <HighlightMark />}
         <GridSchema>
           <Text type={type}>{type?.toUpperCase()}</Text>
           <Text>{date}</Text>
@@ -55,7 +59,7 @@ export default function LogEntry({
           <VariablePart description />
         </GridSchema>
       </AccordionDetails>
-    </SelectedAccordion>
+    </CustomAccordion>
   );
 }
 

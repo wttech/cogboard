@@ -15,8 +15,21 @@ const getLogTexts = log => {
   return texts;
 };
 
-export const shouldHighlight = (log, search) =>
-  search && getLogTexts(log).some(text => text.match(new RegExp(search, 'i')));
+export const isLogHighlighted = (log, search) =>
+  search && getLogTexts(log).some(text => text.match(search));
+
+export const highlightText = (text, search, Component) =>
+  search
+    ? text
+        .split(new RegExp(`(${search})`, 'gi'))
+        .map((part, index) =>
+          part.toLowerCase() === search.toLowerCase() ? (
+            <Component key={index}>{part}</Component>
+          ) : (
+            <span key={index}>{part}</span>
+          )
+        )
+    : text;
 
 export const filterByRegExp = (log, filters) =>
   filters

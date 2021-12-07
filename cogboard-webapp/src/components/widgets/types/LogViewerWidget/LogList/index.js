@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core';
-import { getGridTemplate, filterByRegExp, shouldHighlight } from './helpers';
+import { getGridTemplate, filterByRegExp, isLogHighlighted } from './helpers';
 import LogEntry from './LogEntry';
 import {
   Container,
@@ -50,7 +50,8 @@ export default function LogList({
             date={log.date}
             variableData={log.variableData}
             template={template}
-            highlight={shouldHighlight(log, search)}
+            search={search}
+            highlight={isLogHighlighted(log, search)}
           />
         ))}
       </LogsWrapper>
