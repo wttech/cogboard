@@ -3,9 +3,10 @@ import {
   getGridTemplate,
   filterByRegExp,
   filterByDateSpan,
-  isLogHighlighted
+  isLogHighlighted,
+  filterByLevel
 } from './helpers';
-import { getFilters } from '../Toolbar/FilterPicker/helpers';
+import { getFilters, getLevel } from '../Toolbar/FilterPicker/helpers';
 import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
 import { useTheme } from '@material-ui/core';
 import LogEntry from './LogEntry';
@@ -32,12 +33,15 @@ export default function LogList({
   const [scroll, setScroll] = useState(0);
 
   const filters = getFilters(widgetLocalStorage);
+  const level = getLevel(widgetLocalStorage);
   const dateSpan = getDateSpan(widgetLocalStorage);
 
   const filteredLogs = logs
     ?.filter(log => filterByRegExp(log, filters))
     .filter(log => filterByDateSpan(log, dateSpan))
+    .filter(log => filterByLevel(log, level))
     .reverse(); // maybe logs can be sent in correct order
+
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
