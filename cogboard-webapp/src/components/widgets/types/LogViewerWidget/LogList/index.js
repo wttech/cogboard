@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core';
 import {
   getGridTemplate,
   filterByRegExp,
@@ -8,6 +7,7 @@ import {
 } from './helpers';
 import { getFilters } from '../Toolbar/FilterPicker/helpers';
 import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
+import { useTheme } from '@material-ui/core';
 import LogEntry from './LogEntry';
 import {
   Container,
@@ -15,6 +15,7 @@ import {
   GridSchema,
   ColumnTitle,
   LogsWrapper,
+  StyledVirtuoso,
   VariableGridSchema
 } from './styled';
 
@@ -30,7 +31,8 @@ export default function LogList({
 
   const filteredLogs = logs
     ?.filter(log => filterByRegExp(log, filters))
-    .filter(log => filterByDateSpan(log, dateSpan));
+    .filter(log => filterByDateSpan(log, dateSpan))
+    .reverse(); // maybe logs can be sent in correct order
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
@@ -51,18 +53,26 @@ export default function LogList({
       </Header>
 
       <LogsWrapper>
-        {filteredLogs?.map((log, index) => (
-          <LogEntry
-            key={index}
-            id={log._id}
-            type={log.type}
-            date={log.date}
-            variableData={log.variableData}
-            template={template}
-            search={search}
-            highlight={isLogHighlighted(log, search)}
-          />
-        ))}
+        <StyledVirtuoso
+          totalCount={filteredLogs.length}
+          increaseViewportBy={300}
+          followOutput={false}
+          itemContent={index => {
+            const log = filteredLogs[index];
+            return (
+              <LogEntry
+                key={index}
+                id={log._id}
+                type={log.type}
+                date={log.date}
+                variableData={log.variableData}
+                template={template}
+                search={search}
+                highlight={isLogHighlighted(log, search)}
+              />
+            );
+          }}
+        />
       </LogsWrapper>
     </Container>
   );

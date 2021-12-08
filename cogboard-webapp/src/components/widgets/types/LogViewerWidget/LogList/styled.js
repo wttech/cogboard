@@ -1,10 +1,11 @@
 import styled from '@emotion/styled/macro';
+import { Virtuoso } from 'react-virtuoso';
 import { COLORS } from '../../../../../constants';
 import { Typography, Accordion } from '@material-ui/core';
 import logLevels from '../logLevels';
 
 export const Container = styled.div`
-  max-height: 100%;
+  height: 100%;
   display: grid;
   padding-top: 6em;
   grid-template-rows: auto 1fr;
@@ -63,8 +64,11 @@ export const HighlightedText = styled.span`
 `;
 
 export const LogsWrapper = styled.div`
-  padding: 6px 0;
-  overflow-y: auto;
+  padding-top: 6px;
+  height: 100%;
+`;
+
+export const StyledVirtuoso = styled(Virtuoso)`
   height: 100%;
 `;
 
@@ -76,7 +80,7 @@ export const CustomAccordion = styled(Accordion)`
     overflow: hidden;
   }
   &.Mui-expanded {
-    margin: 0.5em 0;
+    margin: 0.5em 0 !important;
   }
 
   .MuiAccordionSummary-root {

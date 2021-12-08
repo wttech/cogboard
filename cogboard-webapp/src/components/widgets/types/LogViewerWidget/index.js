@@ -25,14 +25,13 @@ const LogViewerWidget = ({ id }) => {
   const logs = widgetData.content?.logs;
   const template = widgetData.content?.variableFields;
   const quarantine = widgetData.content?.quarantineRules || [];
-  
+
   return (
     <Container>
       <Toolbar
         wid={id}
         quarantine={quarantine}
         widgetLocalStorage={widgetLocalStorage}
-
         setSearchFilter={setSearchFilter}
       />
       {logs && (
