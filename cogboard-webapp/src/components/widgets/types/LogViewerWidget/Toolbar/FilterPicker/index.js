@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { getFilters, saveFilters } from './helpers';
+import React from 'react';
+import { getFilters, getLevel, saveFilters, saveLevel } from './helpers';
 
 import logLevels from '../../logLevels';
 
@@ -17,7 +17,7 @@ import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
 const FilterPicker = ({ widgetLocalStorage }) => {
   const regExpFilters = getFilters(widgetLocalStorage);
-  const [logLevel, setLogLevel] = useState('info');
+  const logLevel = getLevel(widgetLocalStorage);
 
   const handleSelection = selectedList =>
     saveFilters(
@@ -35,6 +35,8 @@ const FilterPicker = ({ widgetLocalStorage }) => {
         filter.id === id ? { ...filter, checked: !filter.checked } : filter
       )
     );
+
+  const handleLevelSelection = level => saveLevel(widgetLocalStorage, level);
 
   return (
     <ToolbarGroup title="Filters">
@@ -86,7 +88,7 @@ const FilterPicker = ({ widgetLocalStorage }) => {
           label="Log level"
           style={{ width: '100px' }}
           value={logLevel}
-          onChange={e => setLogLevel(e.target.value)}
+          onChange={e => handleLevelSelection(e.target.value)}
         >
           {logLevels.map((level, index) => (
             <MenuItem key={index} value={level.value}>

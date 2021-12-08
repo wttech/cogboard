@@ -4,9 +4,10 @@ import {
   getGridTemplate,
   filterByRegExp,
   filterByDateSpan,
-  isLogHighlighted
+  isLogHighlighted,
+  filterByLevel
 } from './helpers';
-import { getFilters } from '../Toolbar/FilterPicker/helpers';
+import { getFilters, getLevel } from '../Toolbar/FilterPicker/helpers';
 import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
 import LogEntry from './LogEntry';
 import {
@@ -26,11 +27,13 @@ export default function LogList({
 }) {
   const theme = useTheme();
   const filters = getFilters(widgetLocalStorage);
+  const level = getLevel(widgetLocalStorage);
   const dateSpan = getDateSpan(widgetLocalStorage);
 
   const filteredLogs = logs
     ?.filter(log => filterByRegExp(log, filters))
-    .filter(log => filterByDateSpan(log, dateSpan));
+    .filter(log => filterByDateSpan(log, dateSpan))
+    .filter(log => filterByLevel(log, level));
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
