@@ -9,9 +9,8 @@ import {
   LogsWrapper,
   VariableGridSchema
 } from './styled';
-import getGridTemplate from './helpers';
+import { getGridTemplate, filterByLevel } from './helpers';
 import { getFilters, getLevel } from '../Toolbar/FilterPicker/helpers';
-import logLevels from '../logLevels';
 
 export default function LogList({ widgetLocalStorage, logs, template }) {
   const theme = useTheme();
@@ -33,20 +32,9 @@ export default function LogList({ widgetLocalStorage, logs, template }) {
         return texts.some(text => text.match(regExpObj));
       });
 
-  const filterByLevel = (log, level) => {
-    const lowestLevel = logLevels.find(
-      elem => elem.value.toLowerCase() === level.toLowerCase()
-    );
-    const logLevel = logLevels.find(
-      elem => elem.value.toLowerCase() === log.type.toLowerCase()
-    );
-    return logLevel.level >= lowestLevel.level;
-  };
-
-  const prefilteredLogs = logs?.filter(log => filterByRegExp(log, filters));
-  const filteredLogs = prefilteredLogs?.filter(log =>
-    filterByLevel(log, level)
-  );
+  const filteredLogs = logs
+    ?.filter(log => filterByRegExp(log, filters))
+    .filter(log => filterByLevel(log, level));
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>

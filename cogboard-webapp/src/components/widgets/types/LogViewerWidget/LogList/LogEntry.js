@@ -8,7 +8,7 @@ import {
   CustomAccordion,
   VariableGridSchema
 } from './styled';
-import getGridTemplate from './helpers';
+import { getGridTemplate } from './helpers';
 
 export default function LogEntry({ type, date, variableData, template }) {
   const [expanded, setExpanded] = useState(false);
