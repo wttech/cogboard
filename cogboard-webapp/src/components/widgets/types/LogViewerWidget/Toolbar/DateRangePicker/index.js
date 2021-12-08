@@ -1,23 +1,31 @@
 import React from 'react';
 import MomentUtils from '@date-io/moment';
-import { MuiPickersUtilsProvider, DateTimePicker } from '@material-ui/pickers';
-import ToolbarGroup from '../ToolbarGroup';
+import { getDateSpan, saveDateSpan } from './helpers';
 
-const DateRangePicker = () => (
-  <ToolbarGroup title="Date span">
-    <MuiPickersUtilsProvider utils={MomentUtils}>
-      <DateTimePicker
-        label="Begin"
-        format="hh:mm DD/MM/YY"
-        onChange={() => console.log('TODO')}
-      />
-      <DateTimePicker
-        label="End"
-        format="hh:mm DD/MM/YY"
-        onChange={() => console.log('TODO')}
-      />
-    </MuiPickersUtilsProvider>
-  </ToolbarGroup>
-);
+import ToolbarGroup from '../ToolbarGroup';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import CustomPicker from './CustomPicker';
+
+const DateRangePicker = ({ widgetLocalStorage }) => {
+  const { begin, end } = getDateSpan(widgetLocalStorage);
+
+  const handleBeginChange = date =>
+    saveDateSpan(widgetLocalStorage, { begin: date, end });
+  const handleEndChange = date =>
+    saveDateSpan(widgetLocalStorage, { begin, end: date });
+
+  return (
+    <ToolbarGroup title="Date span">
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <CustomPicker
+          label="Begin"
+          value={begin}
+          onChange={handleBeginChange}
+        />
+        <CustomPicker label="End" value={end} onChange={handleEndChange} />
+      </MuiPickersUtilsProvider>
+    </ToolbarGroup>
+  );
+};
 
 export default DateRangePicker;

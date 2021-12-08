@@ -37,11 +37,11 @@ export const ColumnTitle = styled(Typography)`
   font-size: 0.85rem;
 `;
 
-export const Text = styled(Typography)(props => {
+export const Text = styled(Typography)(({ type }) => {
   let logTypeStyles = ``;
-  if (props.type) {
+  if (type) {
     const logLevel = logLevels.find(
-      level => level.value === props.type?.toLowerCase()
+      level => level.value === type?.toLowerCase()
     );
     logTypeStyles = `
       font-weight: 500;
@@ -57,6 +57,11 @@ export const Text = styled(Typography)(props => {
     `;
 });
 
+export const HighlightedText = styled.span`
+  color: ${COLORS.BLACK};
+  background-color: ${COLORS.YELLOW};
+`;
+
 export const LogsWrapper = styled.div`
   display: flex;
   flex-direction: column-reverse;
@@ -70,6 +75,7 @@ export const CustomAccordion = styled(Accordion)`
 
   &.MuiPaper-root {
     background-color: ${COLORS.LIGHT_SHADE};
+    overflow: hidden;
   }
   &.Mui-expanded {
     margin: 0.5em 0;
@@ -102,4 +108,14 @@ export const CustomAccordion = styled(Accordion)`
     padding: 0.25em 0;
     background-color: ${COLORS.DARK_SHADE};
   }
+`;
+
+export const HighlightMark = styled.div`
+  position: absolute;
+  left: -0.6rem;
+  top: -0.7rem;
+  height: 1.7rem;
+  width: 1rem;
+  transform: rotate(45deg);
+  background-color: ${COLORS.YELLOW};
 `;

@@ -1,5 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTheme } from '@material-ui/core';
+import {
+  getGridTemplate,
+  filterByRegExp,
+  filterByDateSpan,
+  isLogHighlighted
+} from './helpers';
+import { getFilters } from '../Toolbar/FilterPicker/helpers';
+import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
 import LogEntry from './LogEntry';
 import {
   Container,
@@ -9,36 +17,24 @@ import {
   LogsWrapper,
   VariableGridSchema
 } from './styled';
-import getGridTemplate from './helpers';
-import { getFilters } from '../Toolbar/FilterPicker/helpers';
 
 export default function LogList({
   widgetLocalStorage,
   logs,
   template,
   shouldFollowLogs,
-  handleFollowChange
+  handleFollowChange,
+  search
 }) {
   const theme = useTheme();
   const filters = getFilters(widgetLocalStorage);
+  const dateSpan = getDateSpan(widgetLocalStorage);
   const logWrapperRef = useRef();
   const [scroll, setScroll] = useState(0);
-  const filterByRegExp = (log, filters) =>
-    filters
-      .filter(f => f.checked)
-      .every(({ regExp }) => {
-        const regExpObj = new RegExp(regExp);
-        const texts = [];
-        // loop through log variable columns
-        log.variableData.forEach(({ header, description }) => {
-          texts.push(header);
-          texts.push(description);
-        });
-
-        return texts.some(text => text.match(regExpObj));
-      });
-
-  const filteredLogs = logs?.filter(log => filterByRegExp(log, filters));
+  
+  const filteredLogs = logs
+    ?.filter(log => filterByRegExp(log, filters))
+    .filter(log => filterByDateSpan(log, dateSpan));
 
   useEffect(() => {
     if (shouldFollowLogs) {
@@ -85,6 +81,8 @@ export default function LogList({
             date={log.date}
             variableData={log.variableData}
             template={template}
+            search={search}
+            highlight={isLogHighlighted(log, search)}
           />
         ))}
       </LogsWrapper>

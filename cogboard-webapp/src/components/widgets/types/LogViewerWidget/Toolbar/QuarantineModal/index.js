@@ -30,14 +30,14 @@ const QuarantineModal = ({ wid, quarantine }) => {
 
   const addFilter = values => {
     postWidgetContentUpdate({
-      wid,
+      id: wid,
       quarantineRules: [...quarantine, { id: v4(), checked: true, ...values }]
     });
   };
 
   const editFilter = ({ id, values }) => {
     postWidgetContentUpdate({
-      wid,
+      id: wid,
       quarantineRules: quarantine.map(filter => {
         if (filter.id === id) {
           return { id, ...values };
@@ -49,7 +49,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
 
   const handleSwitchChange = id => {
     postWidgetContentUpdate({
-      wid,
+      id: wid,
       quarantineRules: quarantine.map(filter =>
         filter.id === id ? { ...filter, checked: !filter.checked } : filter
       )
@@ -58,7 +58,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
 
   const deleteAction = id => {
     postWidgetContentUpdate({
-      wid,
+      id: wid,
       quarantineRules: quarantine.filter(quarantine => quarantine.id !== id)
     });
   };
@@ -88,7 +88,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
           />
           <Switch
             checked={checked}
-            onChange={handleSwitchChange(id)}
+            onChange={() => handleSwitchChange(id)}
             color="secondary"
           ></Switch>
         </ListItemSecondaryAction>

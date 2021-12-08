@@ -12,3 +12,7 @@ export const CustomIconButton = styled(IconButton)`
   bottom: 0;
   right: 0;
 `;
+CustomIconButton.defaultProps = {
+  variant: 'outlined',
+  size: 'small'
+};
