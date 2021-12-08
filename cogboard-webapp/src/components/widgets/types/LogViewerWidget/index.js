@@ -13,7 +13,7 @@ const LogViewerWidget = ({ id }) => {
     shallowEqual
   );
 
-  const [followLogs, setFollow] = useState(true);
+  const [shouldFollowLogs, setFollow] = useState(true);
 
   useEffect(() => console.log(widgetData), [widgetData]);
 
@@ -33,7 +33,7 @@ const LogViewerWidget = ({ id }) => {
         quarantine={quarantine}
         widgetLocalStorage={widgetLocalStorage}
         logs={logs}
-        followLogs={followLogs}
+        shouldFollowLogs={shouldFollowLogs}
         handleFollowChange={setFollow}
       />
       {logs && (
@@ -41,7 +41,7 @@ const LogViewerWidget = ({ id }) => {
           widgetLocalStorage={widgetLocalStorage}
           logs={logs}
           template={template}
-          followLogs={followLogs}
+          shouldFollowLogs={shouldFollowLogs}
           handleFollowChange={setFollow}
         />
       )}

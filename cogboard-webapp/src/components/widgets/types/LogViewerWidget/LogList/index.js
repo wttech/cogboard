@@ -16,7 +16,7 @@ export default function LogList({
   widgetLocalStorage,
   logs,
   template,
-  followLogs,
+  shouldFollowLogs,
   handleFollowChange
 }) {
   const theme = useTheme();
@@ -41,7 +41,7 @@ export default function LogList({
   const filteredLogs = logs?.filter(log => filterByRegExp(log, filters));
 
   useEffect(() => {
-    if (followLogs) {
+    if (shouldFollowLogs) {
       logWrapperRef.current.scrollTo({
         top: logWrapperRef.current.scrollHeight,
         behavior: 'smooth'
@@ -49,9 +49,9 @@ export default function LogList({
     }
     setScroll(logWrapperRef.current.scrollTop);
     console.log(scroll);
-  }, [filteredLogs, followLogs, scroll]);
+  }, [filteredLogs, shouldFollowLogs, scroll]);
 
-  const unfollowOnUpScroll = () => {
+  const stopFollowingOnUpScroll = () => {
     if (scroll > logWrapperRef.current.scrollTop) {
       handleFollowChange(false);
     }
@@ -76,7 +76,7 @@ export default function LogList({
         </GridSchema>
       </Header>
 
-      <LogsWrapper ref={logWrapperRef} onScroll={unfollowOnUpScroll}>
+      <LogsWrapper ref={logWrapperRef} onScroll={stopFollowingOnUpScroll}>
         {filteredLogs?.map((log, index) => (
           <LogEntry
             key={index}

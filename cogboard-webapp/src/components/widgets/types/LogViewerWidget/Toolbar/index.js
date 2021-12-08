@@ -13,7 +13,7 @@ const Toolbar = ({
   wid,
   quarantine,
   widgetLocalStorage,
-  followLogs,
+  shouldFollowLogs,
   handleFollowChange
 }) => {
   const theme = useTheme();
@@ -32,10 +32,10 @@ const Toolbar = ({
         <Button
           variant="contained"
           size="small"
-          onClick={() => handleFollowChange(!followLogs)}
+          onClick={() => handleFollowChange(!shouldFollowLogs)}
         >
           <GetAppIcon />
-          {followLogs ? 'Unfollow logs' : 'Follow logs'}
+          {shouldFollowLogs ? 'Stop following' : 'Follow logs'}
         </Button>
         <RedButton variant="contained" size="small" theme={theme}>
           <DeleteIcon />
