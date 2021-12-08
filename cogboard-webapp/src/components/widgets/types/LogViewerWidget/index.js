@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { number, string } from 'prop-types';
 import { useLocalStorage } from '../../../../hooks';
@@ -20,21 +20,27 @@ const LogViewerWidget = ({ id }) => {
     set: setWidgetLocalStorage
   };
 
+  const [searchFilter, setSearchFilter] = useState('');
+
   const logs = widgetData.content?.logs;
   const template = widgetData.content?.variableFields;
-  const quarantine = widgetData.content?.quarantine || [];
+  const quarantine = widgetData.content?.quarantineRules || [];
+  
   return (
     <Container>
-      <Toolbar 
-        wid={id} 
-        quarantine={quarantine} 
-        widgetLocalStorage={widgetLocalStorage} 
+      <Toolbar
+        wid={id}
+        quarantine={quarantine}
+        widgetLocalStorage={widgetLocalStorage}
+
+        setSearchFilter={setSearchFilter}
       />
       {logs && (
-        <LogList 
+        <LogList
           widgetLocalStorage={widgetLocalStorage}
-          logs={logs} 
-          template={template} 
+          logs={logs}
+          template={template}
+          search={searchFilter}
         />
       )}
     </Container>

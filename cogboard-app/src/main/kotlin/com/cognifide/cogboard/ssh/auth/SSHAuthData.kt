@@ -8,7 +8,7 @@ import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import java.net.URI
 
-class SSHAuthData(private val config: JsonObject) {
+class SSHAuthData(config: JsonObject) {
     private val id = config.getString(Props.ID, "")
     val user: String = config.getString(Props.USER, "")
     val password: String = config.getString(Props.PASSWORD, "")
@@ -17,19 +17,19 @@ class SSHAuthData(private val config: JsonObject) {
         private set
     val host: String
     val port: Int
-    val authenticationType = fromConfigAuthenticationType()
+    val authenticationType = fromConfigAuthenticationType(config)
 
     init {
         val uriString = config.getJsonObject(Props.ENDPOINT_LOADED)?.getString(Props.URL) ?: ""
         val uri = URI.create(uriString)
         host = uri.host
         port = uri.port
-        if(authenticationType == SSH_KEY) {
+        if (authenticationType == SSH_KEY) {
             prepareForSSHKeyUsage()
         }
     }
 
-    private fun fromConfigAuthenticationType(): AuthenticationType {
+    private fun fromConfigAuthenticationType(config: JsonObject): AuthenticationType {
         val authTypes = config.getString(Props.AUTHENTICATION_TYPES)?.let {
             Json.decodeValue(it) } ?: JsonArray()
 
@@ -47,13 +47,12 @@ class SSHAuthData(private val config: JsonObject) {
     private fun prepareForSSHKeyUsage() {
         val fileHelper = SSHKeyFileHelper(id, key)
         fileHelper.saveToFile()
-        config.put(Props.SSH_KEY, fileHelper.path)
         key = fileHelper.path
     }
 
     fun getAuthenticationString(): String =
             when (authenticationType) {
-                BASIC -> config.getString(Props.PASSWORD)
-                SSH_KEY -> config.getString(Props.SSH_KEY)
+                BASIC -> password
+                SSH_KEY -> key
             }
 }
