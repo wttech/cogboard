@@ -21,6 +21,7 @@ const LogViewerWidget = ({ id }) => {
   };
 
   const [searchFilter, setSearchFilter] = useState('');
+  const [shouldFollowLogs, setFollow] = useState(true);
 
   const logs = widgetData.content?.logs;
   const template = widgetData.content?.variableFields;
@@ -33,6 +34,8 @@ const LogViewerWidget = ({ id }) => {
         quarantine={quarantine}
         widgetLocalStorage={widgetLocalStorage}
         setSearchFilter={setSearchFilter}
+        shouldFollowLogs={shouldFollowLogs}
+        handleFollowChange={setFollow}
       />
       {logs && (
         <LogList
@@ -40,6 +43,8 @@ const LogViewerWidget = ({ id }) => {
           logs={logs}
           template={template}
           search={searchFilter}
+          shouldFollowLogs={shouldFollowLogs}
+          handleFollowChange={setFollow}
         />
       )}
     </Container>

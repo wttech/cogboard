@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   getGridTemplate,
   filterByRegExp,
@@ -23,9 +23,14 @@ export default function LogList({
   widgetLocalStorage,
   logs,
   template,
-  search
+  search,
+  shouldFollowLogs,
+  handleFollowChange
 }) {
   const theme = useTheme();
+  const scrollerRef = useRef(null);
+  const [scroll, setScroll] = useState(0);
+
   const filters = getFilters(widgetLocalStorage);
   const dateSpan = getDateSpan(widgetLocalStorage);
 
@@ -42,6 +47,26 @@ export default function LogList({
     </VariableGridSchema>
   );
 
+  useEffect(() => {
+    if (shouldFollowLogs) {
+      console.log(scrollerRef.current.scrollHeight);
+      console.log(scrollerRef.current.scrollTop);
+      scrollerRef.current.scrollTo({
+        top: scrollerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+    setScroll(scrollerRef.current.scrollTop);
+    console.log(scroll);
+  }, [filteredLogs, shouldFollowLogs, scroll]);
+
+  const stopFollowingOnUpScroll = () => {
+    if (scroll > scrollerRef.current.scrollTop) {
+      handleFollowChange(false);
+    }
+    setScroll(scrollerRef.current.scrollTop);
+  };
+
   return (
     <Container>
       <Header theme={theme}>
@@ -54,14 +79,15 @@ export default function LogList({
 
       <LogsWrapper>
         <StyledVirtuoso
+          scrollerRef={ref => (scrollerRef.current = ref)}
+          isScrolling={isScrolling => isScrolling && stopFollowingOnUpScroll()}
           totalCount={filteredLogs.length}
-          increaseViewportBy={300}
-          followOutput={false}
+          increaseViewportBy={300} // defines loading overlap (in pixels)
           itemContent={index => {
             const log = filteredLogs[index];
             return (
               <LogEntry
-                key={index}
+                key={log._id}
                 id={log._id}
                 type={log.type}
                 date={log.date}
