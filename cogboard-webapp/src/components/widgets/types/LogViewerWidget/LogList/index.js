@@ -1,5 +1,13 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core';
+import {
+  getGridTemplate,
+  filterByRegExp,
+  filterByDateSpan,
+  isLogHighlighted
+} from './helpers';
+import { getFilters } from '../Toolbar/FilterPicker/helpers';
+import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
 import LogEntry from './LogEntry';
 import {
   Container,
@@ -9,29 +17,16 @@ import {
   LogsWrapper,
   VariableGridSchema
 } from './styled';
-import { getGridTemplate, filterByDateSpan } from './helpers';
-import { getFilters } from '../Toolbar/FilterPicker/helpers';
-import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
 
-export default function LogList({ widgetLocalStorage, logs, template }) {
+export default function LogList({
+  widgetLocalStorage,
+  logs,
+  template,
+  search
+}) {
   const theme = useTheme();
   const filters = getFilters(widgetLocalStorage);
   const dateSpan = getDateSpan(widgetLocalStorage);
-
-  const filterByRegExp = (log, filters) =>
-    filters
-      .filter(f => f.checked)
-      .every(({ regExp }) => {
-        const regExpObj = new RegExp(regExp);
-        const texts = [];
-        // loop through log variable columns
-        log.variableData.forEach(({ header, description }) => {
-          texts.push(header);
-          texts.push(description);
-        });
-
-        return texts.some(text => text.match(regExpObj));
-      });
 
   const filteredLogs = logs
     ?.filter(log => filterByRegExp(log, filters))
@@ -64,6 +59,8 @@ export default function LogList({ widgetLocalStorage, logs, template }) {
             date={log.date}
             variableData={log.variableData}
             template={template}
+            search={search}
+            highlight={isLogHighlighted(log, search)}
           />
         ))}
       </LogsWrapper>
