@@ -143,10 +143,23 @@
         "switchInterval": 100,
         "title": "QA/DEV board",
         "type": "WidgetBoard"
+      },
+      "board-7d6e23ea-78a1-4f89-a5d2-47c499f9657d": {
+        "autoSwitch": true,
+        "switchInterval": 60,
+        "id": "board-7d6e23ea-78a1-4f89-a5d2-47c499f9657d",
+        "theme": "default",
+        "widgets": [
+          "widget95"
+        ],
+        "columns": 4,
+        "title": "Log Viewer",
+        "type": "WidgetBoard"
       }
     },
     "allBoards": [
       "board-9ebbc895-41e7-45b3-b6be-2e88b8dd4e5b",
+      "board-7d6e23ea-78a1-4f89-a5d2-47c499f9657d",
       "board-acdc6ecc-2bcd-4f8f-80a3-5db8a5db8394",
       "board-b93ed3ae-698c-43d3-be8c-06331560e65a",
       "board-7fd129fd-9f2e-42ee-abc4-a1299c3dadc1",
@@ -1950,6 +1963,26 @@
         "installedThreshold": 2,
         "excludedBundles": "",
         "expandContent": false
+      },
+      "widget95": {
+        "id": "widget95",
+        "title": "SSH Mock Server Logs",
+        "config": {
+          "columns": 4,
+          "goNewLine": false,
+          "rows": 3
+        },
+        "type": "LogViewerWidget",
+        "disabled": false,
+        "content": {},
+        "isUpdating": false,
+        "boardId": "board-7d6e23ea-78a1-4f89-a5d2-47c499f9657d",
+        "endpoint": "endpoint6",
+        "schedulePeriod": 60,
+        "path": "/home/mock/example.txt",
+        "logLinesField": 300,
+        "logFileSizeField": 50,
+        "logRecordExpirationField": 5
       }
     }
   }

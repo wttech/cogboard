@@ -13,6 +13,13 @@
       "publicUrl": "http://api-mocks:8080/zabbix/api_jsonrpc.php",
       "credentials": "credential1",
       "id": "endpoint3"
+    },
+    {
+      "label": "SSH Logs Server",
+      "url": "ssh://ssh-server:2222",
+      "publicUrl": "",
+      "credentials": "credential4",
+      "id": "endpoint6"
     }
   ]
 }
