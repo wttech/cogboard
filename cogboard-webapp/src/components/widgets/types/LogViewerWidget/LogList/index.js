@@ -70,6 +70,22 @@ export default function LogList({
   const handleScrollChange = isScrolling =>
     isScrolling && stopFollowingOnUpScroll();
 
+  const getLogByIndex = index => {
+    const log = filteredLogs[index];
+    return (
+      <LogEntry
+        key={log._id}
+        id={log._id}
+        type={log.type}
+        date={log.date}
+        variableData={log.variableData}
+        template={template}
+        search={search}
+        highlight={isLogHighlighted(log, search)}
+      />
+    );
+  };
+
   return (
     <Container>
       <Header theme={theme}>
@@ -86,21 +102,7 @@ export default function LogList({
           isScrolling={handleScrollChange}
           totalCount={filteredLogs.length}
           increaseViewportBy={300} // defines loading overlap (in pixels)
-          itemContent={index => {
-            const log = filteredLogs[index];
-            return (
-              <LogEntry
-                key={log._id}
-                id={log._id}
-                type={log.type}
-                date={log.date}
-                variableData={log.variableData}
-                template={template}
-                search={search}
-                highlight={isLogHighlighted(log, search)}
-              />
-            );
-          }}
+          itemContent={getLogByIndex}
         />
       </LogsWrapper>
     </Container>
