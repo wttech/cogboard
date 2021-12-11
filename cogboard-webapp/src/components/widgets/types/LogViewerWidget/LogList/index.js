@@ -42,7 +42,6 @@ export default function LogList({
     .filter(log => filterByLevel(log, level))
     .reverse(); // maybe logs can be sent in correct order
 
-
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
       {template.map((name, index) => (
@@ -53,15 +52,12 @@ export default function LogList({
 
   useEffect(() => {
     if (shouldFollowLogs) {
-      console.log(scrollerRef.current.scrollHeight);
-      console.log(scrollerRef.current.scrollTop);
       scrollerRef.current.scrollTo({
         top: scrollerRef.current.scrollHeight,
         behavior: 'smooth'
       });
     }
     setScroll(scrollerRef.current.scrollTop);
-    console.log(scroll);
   }, [filteredLogs, shouldFollowLogs, scroll]);
 
   const stopFollowingOnUpScroll = () => {
@@ -70,6 +66,9 @@ export default function LogList({
     }
     setScroll(scrollerRef.current.scrollTop);
   };
+
+  const handleScrollChange = isScrolling =>
+    isScrolling && stopFollowingOnUpScroll();
 
   return (
     <Container>
@@ -84,7 +83,7 @@ export default function LogList({
       <LogsWrapper>
         <StyledVirtuoso
           scrollerRef={ref => (scrollerRef.current = ref)}
-          isScrolling={isScrolling => isScrolling && stopFollowingOnUpScroll()}
+          isScrolling={handleScrollChange}
           totalCount={filteredLogs.length}
           increaseViewportBy={300} // defines loading overlap (in pixels)
           itemContent={index => {

@@ -79,8 +79,8 @@ export const CustomAccordion = styled(Accordion)`
     background-color: ${COLORS.LIGHT_SHADE};
     overflow: hidden;
   }
-  &.Mui-expanded {
-    margin: 0.5em 0 !important;
+  &&.Mui-expanded {
+    margin: 0.5em 0;
   }
 
   .MuiAccordionSummary-root {
