@@ -18,12 +18,18 @@ const Toolbar = ({
   widgetLocalStorage,
   setSearchFilter,
   shouldFollowLogs,
-  handleFollowChange
+  handleFollowChange,
+  firstLog
 }) => {
   const theme = useTheme();
 
-  const handleClearLogs = () =>
-    saveDateSpan(widgetLocalStorage, { begin: moment(), end: null });
+  const handleClearLogs = () => {
+    let date = firstLog?.date;
+    if (date) {
+      let beginDate = moment(date).add(1, 'seconds');
+      saveDateSpan(widgetLocalStorage, { begin: beginDate, end: null });
+    }
+  };
 
   return (
     <Wrapper>
