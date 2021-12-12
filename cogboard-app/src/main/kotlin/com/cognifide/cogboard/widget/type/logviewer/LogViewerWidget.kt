@@ -117,7 +117,7 @@ class LogViewerWidget(
 
     companion object {
         private const val DEFAULT_ID = "0"
-        private const val DEFAULT_LOG_LINES = 100L
+        private const val DEFAULT_LOG_LINES = 1000L
         private const val DEFAULT_LOG_FILE_SIZE = 50L
         private const val DEFAULT_LOG_EXPIRATION_DAYS = 5L
 
