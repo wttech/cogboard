@@ -12,7 +12,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterPicker from './FilterPicker';
 import QuarantineModal from './QuarantineModal';
 
-const Toolbar = ({ wid, quarantine, widgetLocalStorage, setSearchFilter }) => {
+const Toolbar = ({
+  wid,
+  quarantine,
+  widgetLocalStorage,
+  setSearchFilter,
+  shouldFollowLogs,
+  handleFollowChange
+}) => {
   const theme = useTheme();
 
   const handleClearLogs = () =>
@@ -33,9 +40,13 @@ const Toolbar = ({ wid, quarantine, widgetLocalStorage, setSearchFilter }) => {
       <DateRangePicker widgetLocalStorage={widgetLocalStorage} />
 
       <ToolbarGroup>
-        <Button variant="contained" size="small">
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => handleFollowChange(!shouldFollowLogs)}
+        >
           <GetAppIcon />
-          Follow logs
+          {shouldFollowLogs ? 'Stop following' : 'Follow logs'}
         </Button>
         <RedButton
           variant="contained"
