@@ -12,15 +12,16 @@ Has its own state. If input contains at least `minLetters` characters, value wil
 
 ### FilterPicker
 
-Use browser local storage.
+Uses local storage of the browser.
 
-- `filters` - ui disabled when no filter is defined.
+- `filters`
+  - ui disabled when no filter is defined.
 - `logLevel`
 - `advanced` - filters management
 
 ### DateRangePicker
 
-Uses browser local storage and `momentjs`. Ignores seconds.
+Uses local storage of the browser and `momentjs` library. Ignores seconds.
 
 ### Follow logs
 
