@@ -24,7 +24,7 @@ class SSHAuthData(private val config: JsonObject) {
         val uri = URI.create(uriString)
         host = uri.host
         port = uri.port
-        if(authenticationType == SSH_KEY) {
+        if (authenticationType == SSH_KEY) {
             prepareForSSHKeyUsage()
         }
     }

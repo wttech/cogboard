@@ -5,10 +5,13 @@ class LogParserStrategyFactory {
         MOCK
     }
 
-    fun build(type: Type): LogParserStrategy {
-        return when (type) {
-            Type.MOCK -> MockLogParserStrategy()
-            else -> throw UnknownParserTypeException("Unknown log parsing type")
+    fun build(typeStr: String): LogParserStrategy {
+        return try {
+            when (Type.valueOf(typeStr.toUpperCase())) {
+                Type.MOCK -> MockLogParserStrategy()
+            }
+        } catch (e : IllegalArgumentException) {
+            throw UnknownParserTypeException("Unknown log parsing type")
         }
     }
 }
