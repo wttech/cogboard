@@ -210,7 +210,8 @@ const widgetTypes = {
       'Path',
       'LogLinesField',
       'LogFileSizeField',
-      'LogRecordExpirationField'
+      'LogRecordExpirationField',
+      'LogParserField'
     ],
     validationConstraints: {
       SchedulePeriod: { min: 3 },
