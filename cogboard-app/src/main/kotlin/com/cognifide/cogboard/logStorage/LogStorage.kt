@@ -10,6 +10,8 @@ import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.Filters.lt
 import com.mongodb.client.model.Filters.`in`
+import com.mongodb.client.model.Filters.regex
+import com.mongodb.client.model.Filters.nor
 import com.mongodb.client.model.Indexes
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.ReplaceOptions
@@ -22,14 +24,21 @@ import io.vertx.core.logging.LoggerFactory
 import org.bson.Document
 import main.kotlin.com.cognifide.cogboard.logStorage.Log
 import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
+import main.kotlin.com.cognifide.cogboard.logStorage.LogVariableData
+import main.kotlin.com.cognifide.cogboard.logStorage.QuarantineRule
 import java.net.URI
 import java.time.Instant
 
 class LogStorage(
     private val config: LogStorageConfiguration,
     private val connection: ConnectionStrategy,
-    private val parserStrategy: LogParserStrategy
+    private val parserStrategy: LogParserStrategy,
+    var rules: List<QuarantineRule> = emptyList()
 ) : AbstractVerticle() {
+
+    /** Returns the list of regexes of enabled rules. */
+    private val enabledRegexes: List<Regex>
+    get() = rules.filter { it.enabled }.map { it.regex }
 
     override fun start() {
         super.start()
@@ -122,12 +131,39 @@ class LogStorage(
         }
     }
 
+    /** Filters in place the logs not matching the rules. */
+    private fun filter(logs: MutableList<Log>) {
+        val regexes = enabledRegexes
+        if (regexes.isEmpty()) { return }
+        logs.retainAll { log ->
+            log.variableData.any { variable ->
+                regexes.any { it.containsMatchIn(variable.header) }
+            }
+        }
+    }
+
+    /** Deletes logs not matching to the rules from the database. */
+    fun filterExistingLogs() {
+        val collection = logsCollection ?: return
+
+        val fieldName = Log.VARIABLE_DATA + "." + LogVariableData.HEADER
+        val regexes = enabledRegexes.map { regex(fieldName, it.pattern) }
+
+        if (regexes.isEmpty()) { return }
+
+        collection.deleteMany(nor(regexes))
+    }
+
     /** Downloads new logs and inserts the to the database. Returns the number of inserted logs. */
     private fun downloadInsertLogs(seq: Long, skipFirstLines: Long? = null): Long {
         var sequence = seq
         val logs = connection
                 .getLogs(skipFirstLines)
                 .mapNotNull { parserStrategy.parseLine(it) }
+                .toMutableList()
+
+        // Filter the logs by quarantine rules
+        filter(logs)
         logs.forEach {
             it.seq = sequence
             sequence += 1
@@ -170,6 +206,7 @@ class LogStorage(
     private val logs: List<Log>
     get() = logsCollection
             ?.find()
+            ?.limit(config.logLines.toInt())
             ?.sort(descending(Log.SEQ))
             ?.mapNotNull { it }
             ?.mapNotNull { Log.from(it) }
@@ -184,13 +221,15 @@ class LogStorage(
     }
 
     /** Updates the logs and sends them to the widget. */
-    fun updateLogs() {
-        // Download new logs
-        downloadLogs()
+    fun updateLogs(fetchNewLogs: Boolean) {
+        if (fetchNewLogs) {
+            // Download new logs
+            downloadLogs()
 
-        // Delete unnecessary logs
-        deleteOldLogs()
-        deleteSpaceConsumingLogs()
+            // Delete unnecessary logs
+            deleteOldLogs()
+            deleteSpaceConsumingLogs()
+        }
 
         // Fetch the logs from the database and send them back
         val response = prepareResponse()

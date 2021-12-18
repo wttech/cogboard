@@ -1,4 +1,13 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import {
+  getGridTemplate,
+  filterByRegExp,
+  filterByDateSpan,
+  isLogHighlighted,
+  filterByLevel
+} from './helpers';
+import { getFilters, getLevel } from '../Toolbar/FilterPicker/helpers';
+import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
 import { useTheme } from '@material-ui/core';
 import LogEntry from './LogEntry';
 import {
@@ -7,31 +16,31 @@ import {
   GridSchema,
   ColumnTitle,
   LogsWrapper,
+  StyledVirtuoso,
   VariableGridSchema
 } from './styled';
-import getGridTemplate from './helpers';
-import { getFilters } from '../Toolbar/FilterPicker/helpers';
 
-export default function LogList({ widgetLocalStorage, logs, template }) {
+export default function LogList({
+  widgetLocalStorage,
+  logs,
+  template,
+  search,
+  shouldFollowLogs,
+  handleFollowChange
+}) {
   const theme = useTheme();
+  const scrollerRef = useRef(null);
+  const [scroll, setScroll] = useState(0);
+
   const filters = getFilters(widgetLocalStorage);
+  const level = getLevel(widgetLocalStorage);
+  const dateSpan = getDateSpan(widgetLocalStorage);
 
-  const filterByRegExp = (log, filters) =>
-    filters
-      .filter(f => f.checked)
-      .every(({ regExp }) => {
-        const regExpObj = new RegExp(regExp);
-        const texts = [];
-        // loop through log variable columns
-        log.variableData.forEach(({ header, description }) => {
-          texts.push(header);
-          texts.push(description);
-        });
-
-        return texts.some(text => text.match(regExpObj));
-      });
-
-  const filteredLogs = logs?.filter(log => filterByRegExp(log, filters));
+  const filteredLogs = logs
+    ?.filter(log => filterByRegExp(log, filters))
+    .filter(log => filterByDateSpan(log, dateSpan))
+    .filter(log => filterByLevel(log, level))
+    .reverse(); // maybe logs can be sent in correct order
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
@@ -40,6 +49,42 @@ export default function LogList({ widgetLocalStorage, logs, template }) {
       ))}
     </VariableGridSchema>
   );
+
+  useEffect(() => {
+    if (shouldFollowLogs) {
+      scrollerRef.current.scrollTo({
+        top: scrollerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+    setScroll(scrollerRef.current.scrollTop);
+  }, [filteredLogs, shouldFollowLogs, scroll]);
+
+  const stopFollowingOnUpScroll = () => {
+    if (scroll > scrollerRef.current.scrollTop) {
+      handleFollowChange(false);
+    }
+    setScroll(scrollerRef.current.scrollTop);
+  };
+
+  const handleScrollChange = isScrolling =>
+    isScrolling && stopFollowingOnUpScroll();
+
+  const getLogByIndex = index => {
+    const log = filteredLogs[index];
+    return (
+      <LogEntry
+        key={log._id}
+        id={log._id}
+        type={log.type}
+        date={log.date}
+        variableData={log.variableData}
+        template={template}
+        search={search}
+        highlight={isLogHighlighted(log, search)}
+      />
+    );
+  };
 
   return (
     <Container>
@@ -52,16 +97,13 @@ export default function LogList({ widgetLocalStorage, logs, template }) {
       </Header>
 
       <LogsWrapper>
-        {filteredLogs?.map((log, index) => (
-          <LogEntry
-            key={index}
-            id={log._id}
-            type={log.type}
-            date={log.date}
-            variableData={log.variableData}
-            template={template}
-          />
-        ))}
+        <StyledVirtuoso
+          scrollerRef={ref => (scrollerRef.current = ref)}
+          isScrolling={handleScrollChange}
+          totalCount={filteredLogs.length}
+          increaseViewportBy={300} // defines loading overlap (in pixels)
+          itemContent={getLogByIndex}
+        />
       </LogsWrapper>
     </Container>
   );
