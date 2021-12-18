@@ -2,6 +2,7 @@ import React from 'react';
 import { useToggle } from '../../../../../../../hooks';
 import { v4 } from 'uuid';
 import { getFilters, saveFilters } from '../helpers';
+import QuarantineModal from '../../QuarantineModal';
 
 import {
   Button,
@@ -19,7 +20,7 @@ import DeleteItem from '../../../../../../DeleteItem';
 import FilterForm from './FilterForm';
 import { StyledExitButton } from './styled';
 
-const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
+const AdvancedFiltersMenu = ({ widgetLocalStorage, wid, quarantine }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
   const filters = getFilters(widgetLocalStorage);
 
@@ -117,6 +118,7 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
         <AddItem largeButton itemName="filter" submitAction={addFilter}>
           <FilterForm filters={filters} />
         </AddItem>
+        <QuarantineModal wid={wid} quarantine={quarantine} />
         <StyledExitButton
           onClick={handleDialogClose}
           variant="contained"

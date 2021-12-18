@@ -2,14 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import {
-  Button,
   List,
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
   Switch
 } from '@material-ui/core';
-import { StyledExitButton } from './styled';
+import { StyledButton } from './styled';
 import { getIsAuthenticated } from '../../../../../../selectors';
 import { useToggle } from '../../../../../../hooks';
 import { postWidgetContentUpdate } from '../../../../../../utils/fetch';
@@ -97,9 +96,14 @@ const QuarantineModal = ({ wid, quarantine }) => {
 
   return (
     <>
-      <Button variant="contained" size="small" onClick={handleQuarantineClick}>
+      <StyledButton
+        variant="contained"
+        fullWidth
+        onClick={handleQuarantineClick}
+        data-cy="quarantine-show-dialog-button"
+      >
         Quarantine
-      </Button>
+      </StyledButton>
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}
@@ -118,7 +122,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
         <AddItem largeButton itemName="quarantine" submitAction={addFilter}>
           <QuarantineForm filters={quarantine} />
         </AddItem>
-        <StyledExitButton
+        <StyledButton
           onClick={handleDialogClose}
           variant="contained"
           color="default"
@@ -126,7 +130,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
           fullWidth
         >
           Exit
-        </StyledExitButton>
+        </StyledButton>
       </AppDialog>
     </>
   );
