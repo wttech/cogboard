@@ -96,7 +96,12 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage }) => {
 
   return (
     <>
-      <Button variant="contained" size="small" onClick={openDialog}>
+      <Button
+        variant="contained"
+        size="small"
+        onClick={openDialog}
+        data-cy="advanced-filters-button"
+      >
         Advanced
       </Button>
       <AppDialog

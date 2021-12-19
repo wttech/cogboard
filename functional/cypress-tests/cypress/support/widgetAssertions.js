@@ -83,9 +83,8 @@ export function validateLinkList(widget) {
 }
 
 export function validateLogsViewer(widget) {
-  widget.assertTitle(widget.title)
-  widget.assertText('p', 'Filters')
-  widget.assertText('p', 'Level')
+  widget.assertText('p', 'Filters');
+  widget.assertText('p', 'Level');
 }
 
 export function validateServiceCheck(widget) {
@@ -190,6 +189,7 @@ export function validateWidgetConfig(widget) {
       break;
     case 'Log Viewer':
       validateLogsViewer(widget);
+      break;
     case 'Service Check':
       validateServiceCheck(widget);
       break;
