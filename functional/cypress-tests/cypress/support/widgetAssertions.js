@@ -82,6 +82,12 @@ export function validateLinkList(widget) {
   }
 }
 
+export function validateLogsViewer(widget) {
+  widget.assertTitle(widget.title)
+  widget.assertText('p', 'Filters')
+  widget.assertText('p', 'Level')
+}
+
 export function validateServiceCheck(widget) {
   widget
     .assertBackground('rgb(1, 148, 48)')
@@ -182,6 +188,8 @@ export function validateWidgetConfig(widget) {
     case 'Link List':
       validateLinkList(widget);
       break;
+    case 'Log Viewer':
+      validateLogsViewer(widget);
     case 'Service Check':
       validateServiceCheck(widget);
       break;
