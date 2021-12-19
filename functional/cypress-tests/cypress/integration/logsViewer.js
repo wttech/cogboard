@@ -28,11 +28,38 @@ describe('Logs Viewer', () => {
       });
     };
 
-    const first = { label: 'starts with a', regExp: '^a' };
-    const second = { label: 'ends with a', regExp: 'a$' };
+    const openAdvancedMenu = () =>
+      widget.click('[data-cy="advanced-filters-button"]');
+    const closeAdvancedMenu = () =>
+      widget.click('[data-cy="advanced-filters-menu-exit-button"]');
+    const isFilterVisibleInAdvancedMenu = label => {
+      widget.assertText('span.MuiListItemText-primary', label);
+      widget.isChecked(
+        '.MuiListItemSecondaryAction-root input[type="checkbox"]',
+        true
+      );
+    };
+    const fillFormField = (field, value) => {
+      cy.get(`[data-cy="filter-form-${field}-input"]`)
+        .clear()
+        .type(value);
+    };
+    const submitForm = () =>
+      widget.click('[data-cy="filter-form-submit-button"]');
+
+    const filters = [
+      {
+        label: 'starts with a',
+        regExp: '^a'
+      },
+      {
+        label: 'ends with a',
+        regExp: 'a$'
+      }
+    ];
 
     it('Advanced filters modal shows', () => {
-      widget.click('[data-cy="advanced-filters-button"]');
+      openAdvancedMenu();
       widget.assertText('h2', 'Advanced filters');
     });
 
@@ -40,41 +67,65 @@ describe('Logs Viewer', () => {
       widget.click('[data-cy="add-filter-add-button"]');
 
       widget.assertText('h2', 'Add new filter');
-      cy.get('[data-cy="filter-form-label-input"]')
-        .clear()
-        .type(first.label);
-      cy.get('[data-cy="filter-form-reg-exp-input"]').type(first.regExp);
-      widget.click('[data-cy="filter-form-submit-button"]');
+      fillFormField('label', filters[0].label);
+      fillFormField('reg-exp', filters[0].regExp);
+      submitForm();
 
-      widget.assertText('span.MuiListItemText-primary', first.label);
-      widget.isChecked(
-        '.MuiListItemSecondaryAction-root input[type="checkbox"]',
-        true
+      isFilterVisibleInAdvancedMenu(filters[0].label);
+      closeAdvancedMenu();
+    });
+
+    it('Filter filters logs correctly', () => {
+      logsMatchFilter(filters[0].regExp);
+    });
+
+    it('Multiselect dialog works', () => {
+      widget.assertText(
+        '[data-cy="filters-chip"] .MuiChip-label',
+        filters[0].label
       );
-
-      widget.click('[data-cy="advanced-filters-menu-exit-button"]');
-    });
-
-    it('Filter removes logs correctly', () => {
-      logsMatchFilter(first.regExp);
-    });
-
-    it('Filter multiselect dialog works', () => {
-      widget.assertText('[data-cy="filters-chip"] .MuiChip-label', first.label);
       widget.click('[data-cy="filters-chip"] .MuiChip-deleteIcon');
       cy.contains(
         '[data-cy="filters-chip"] .MuiChip-label',
-        first.label
+        filters[0].label
       ).should('not.exist');
 
       widget.click('[data-cy="filters-menu"]');
       widget.click('[data-cy="filters-menu-option"]');
       cy.get('[data-cy="filters-menu-option"]').type('{esc}');
-      widget.assertText('[data-cy="filters-chip"] .MuiChip-label', first.label);
+      widget.assertText(
+        '[data-cy="filters-chip"] .MuiChip-label',
+        filters[0].label
+      );
+    });
+
+    it('Editing filter works', () => {
+      openAdvancedMenu();
+      widget.click('[data-cy="edit-filter-edit-button"]');
+      widget.assertText('h2', 'Edit filter');
+      cy.get('[data-cy="filter-form-label-input"]').should(
+        'have.attr',
+        'value',
+        filters[0].label
+      );
+      widget.assertText(
+        '[data-cy="filter-form-reg-exp-input"]',
+        filters[0].regExp
+      );
+      fillFormField('label', filters[1].label);
+      fillFormField('reg-exp', filters[1].regExp);
+      submitForm();
+
+      isFilterVisibleInAdvancedMenu(filters[1].label);
+      closeAdvancedMenu();
+
+      logsMatchFilter(filters[1].regExp);
+      widget.assertText(
+        '[data-cy="filters-chip"] .MuiChip-label',
+        filters[1].label
+      );
     });
   });
-
-  // data-cy="filters-chip"
 
   // doesn't work
 
