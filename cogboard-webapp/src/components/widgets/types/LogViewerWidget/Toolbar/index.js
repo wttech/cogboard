@@ -24,9 +24,9 @@ const Toolbar = ({
   const theme = useTheme();
 
   const handleClearLogs = () => {
-    let date = firstLog?.date;
+    const date = firstLog?.date;
     if (date) {
-      let beginDate = moment(date).add(1, 'seconds');
+      const beginDate = moment(date).add(1, 'seconds');
       saveDateSpan(widgetLocalStorage, { begin: beginDate, end: null });
     }
   };

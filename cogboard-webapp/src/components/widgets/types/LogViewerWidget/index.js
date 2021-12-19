@@ -36,7 +36,7 @@ const LogViewerWidget = ({ id }) => {
         setSearchFilter={setSearchFilter}
         shouldFollowLogs={shouldFollowLogs}
         handleFollowChange={setFollow}
-        firstLog={logs[0]}
+        firstLog={logs && logs[0]}
       />
       {logs && (
         <LogList
