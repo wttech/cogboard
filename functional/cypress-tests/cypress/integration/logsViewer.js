@@ -1,5 +1,7 @@
 import { logsViewer } from '../fixtures/Widgets';
 import { createWidget } from '../support/widget';
+import { openAdvancedMenu, closeAdvancedMenu, addFilter, isFilterVisibleInAdvancedMenu, fillFormField, logsMatchFilter, submitForm, assertChip} from '../support/logsViewer/filters';
+import { filters } from '../fixtures/logsViewer';
 
 const dashboardName = 'Welcome to Cogboard';
 
@@ -19,87 +21,37 @@ describe('Logs Viewer', () => {
   });
 
   describe('Filters', () => {
-    const logsMatchFilter = regExp => {
-      cy.get('[data-cy="log-entry"] ').each(log => {
-        cy.wrap(log).contains(
-          '[data-cy="log-variable-data"] p',
-          new RegExp(regExp)
-        );
-      });
-    };
 
-    const openAdvancedMenu = () =>
-      widget.click('[data-cy="advanced-filters-button"]');
-    const closeAdvancedMenu = () =>
-      widget.click('[data-cy="advanced-filters-menu-exit-button"]');
-    const isFilterVisibleInAdvancedMenu = label => {
-      widget.assertText('span.MuiListItemText-primary', label);
-      widget.isChecked(
-        '.MuiListItemSecondaryAction-root input[type="checkbox"]',
-        true
-      );
-    };
-    const fillFormField = (field, value) => {
-      cy.get(`[data-cy="filter-form-${field}-input"]`)
-        .clear()
-        .type(value);
-    };
-    const submitForm = () =>
-      widget.click('[data-cy="filter-form-submit-button"]');
-
-    const filters = [
-      {
-        label: 'starts with a',
-        regExp: '^a'
-      },
-      {
-        label: 'ends with a',
-        regExp: 'a$'
-      }
-    ];
-
-    it('Advanced filters modal shows', () => {
+    it('Advanced filters modal', () => {
       openAdvancedMenu();
       widget.assertText('h2', 'Advanced filters');
-    });
-
-    it('Adding filter works', () => {
-      widget.click('[data-cy="add-filter-add-button"]');
-
-      widget.assertText('h2', 'Add new filter');
-      fillFormField('label', filters[0].label);
-      fillFormField('reg-exp', filters[0].regExp);
-      submitForm();
-
-      isFilterVisibleInAdvancedMenu(filters[0].label);
       closeAdvancedMenu();
     });
 
-    it('Filter filters logs correctly', () => {
+    it('Adding filter', () => {
+      openAdvancedMenu();
+      addFilter(filters[0])
+
+      isFilterVisibleInAdvancedMenu(widget, filters[0].label);
+      closeAdvancedMenu();
+    });
+
+    it('Filters correctly with 1 rule', () => {
       logsMatchFilter(filters[0].regExp);
     });
 
     it('Multiselect dialog works', () => {
-      widget.assertText(
-        '[data-cy="filters-chip"] .MuiChip-label',
-        filters[0].label
-      );
+      assertChip(widget, filters[0].label)
       widget.click('[data-cy="filters-chip"] .MuiChip-deleteIcon');
-      cy.contains(
-        '[data-cy="filters-chip"] .MuiChip-label',
-        filters[0].label
-      ).should('not.exist');
+      assertChip(widget, filters[0].label, "not.exist")
 
       widget.click('[data-cy="filters-menu"]');
       widget.click('[data-cy="filters-menu-option"]');
       cy.get('[data-cy="filters-menu-option"]').type('{esc}');
-      widget.assertText(
-        '[data-cy="filters-chip"] .MuiChip-label',
-        filters[0].label
-      );
+      assertChip(widget, filters[0].label)
     });
 
-    it('Editing filter works', () => {
+    it('Editing filter', () => {
       openAdvancedMenu();
       widget.click('[data-cy="edit-filter-edit-button"]');
       widget.assertText('h2', 'Edit filter');
@@ -116,15 +68,33 @@ describe('Logs Viewer', () => {
       fillFormField('reg-exp', filters[1].regExp);
       submitForm();
 
-      isFilterVisibleInAdvancedMenu(filters[1].label);
+      isFilterVisibleInAdvancedMenu(widget, filters[1].label);
       closeAdvancedMenu();
 
       logsMatchFilter(filters[1].regExp);
-      widget.assertText(
-        '[data-cy="filters-chip"] .MuiChip-label',
-        filters[1].label
-      );
+      assertChip(widget, filters[1].label)
     });
+
+    it('Filters correctly with 2 rules', () => {
+      openAdvancedMenu();
+      addFilter(filters[0]);
+      closeAdvancedMenu();
+
+      logsMatchFilter(filters[0].regExp);
+      logsMatchFilter(filters[1].regExp);
+    })
+
+    it('Deleting filters', () => {
+      openAdvancedMenu();
+      
+      cy.get('[data-cy="delete-filter-delete-button"]').each(filter => {
+        cy.wrap(filter).click()
+        cy.get('[data-cy="confirmation-dialog-ok"]').click()
+      })
+      
+      filters.forEach( filter => widget.assertText('span.MuiListItemText-primary', filter.label, 'not.exist'))
+      closeAdvancedMenu();
+    })
   });
 
   // doesn't work
