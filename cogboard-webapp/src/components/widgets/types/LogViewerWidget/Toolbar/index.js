@@ -10,7 +10,6 @@ import DateRangePicker from './DateRangePicker';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterPicker from './FilterPicker';
-import QuarantineModal from './QuarantineModal';
 
 const Toolbar = ({
   wid,
@@ -41,7 +40,11 @@ const Toolbar = ({
         />
       </ToolbarGroup>
 
-      <FilterPicker widgetLocalStorage={widgetLocalStorage} />
+      <FilterPicker
+        widgetLocalStorage={widgetLocalStorage}
+        wid={wid}
+        quarantine={quarantine}
+      />
 
       <DateRangePicker widgetLocalStorage={widgetLocalStorage} />
 
@@ -63,9 +66,6 @@ const Toolbar = ({
           <DeleteIcon />
           Clear logs
         </RedButton>
-      </ToolbarGroup>
-      <ToolbarGroup>
-        <QuarantineModal wid={wid} quarantine={quarantine} />
       </ToolbarGroup>
     </Wrapper>
   );
