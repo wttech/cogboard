@@ -5,6 +5,7 @@ export const logsMatchFilter = (regExp) =>
       cy
         .wrap(log)
         .contains('[data-cy="log-variable-data"] p', new RegExp(regExp))
+        .should('exist')
     );
 
 export const openAdvancedMenu = () =>
@@ -21,7 +22,7 @@ export const isFilterVisibleInAdvancedMenu = (widget, label) => {
   );
 };
 
-export const assertChip = (widget, label, chainer) => {
+export const assertChip = (widget, label, chainer = 'exist') => {
   widget.assertText('[data-cy="filters-chip"] .MuiChip-label', label, chainer);
 };
 

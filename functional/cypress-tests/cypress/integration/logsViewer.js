@@ -80,7 +80,6 @@ describe('Logs Viewer', () => {
       closeAdvancedMenu();
 
       logsMatchFilter(filters[1].regExp);
-      assertChip(widget, filters[1].label);
     });
 
     it('Filters correctly with 2 rules', () => {

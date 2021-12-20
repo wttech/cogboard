@@ -4,7 +4,7 @@ export const filters = [
     regExp: '^a',
   },
   {
-    label: 'ends with a',
-    regExp: 'a$',
+    label: 'amet',
+    regExp: 'amet',
   },
 ];
