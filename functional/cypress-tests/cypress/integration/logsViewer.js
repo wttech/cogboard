@@ -1,6 +1,15 @@
 import { logsViewer } from '../fixtures/Widgets';
 import { createWidget } from '../support/widget';
-import { openAdvancedMenu, closeAdvancedMenu, addFilter, isFilterVisibleInAdvancedMenu, fillFormField, logsMatchFilter, submitForm, assertChip} from '../support/logsViewer/filters';
+import {
+  openAdvancedMenu,
+  closeAdvancedMenu,
+  addFilter,
+  isFilterVisibleInAdvancedMenu,
+  fillFormField,
+  logsMatchFilter,
+  submitForm,
+  assertChip,
+} from '../support/logsViewer/filters';
 import { filters } from '../fixtures/logsViewer';
 
 const dashboardName = 'Welcome to Cogboard';
@@ -16,12 +25,11 @@ describe('Logs Viewer', () => {
     cy.clickAddWidgetButton();
     widget = createWidget(logsViewer.name).configure(false, {
       cols: 8,
-      rows: 2
+      rows: 2,
     });
   });
 
   describe('Filters', () => {
-
     it('Advanced filters modal', () => {
       openAdvancedMenu();
       widget.assertText('h2', 'Advanced filters');
@@ -30,7 +38,7 @@ describe('Logs Viewer', () => {
 
     it('Adding filter', () => {
       openAdvancedMenu();
-      addFilter(filters[0])
+      addFilter(filters[0]);
 
       isFilterVisibleInAdvancedMenu(widget, filters[0].label);
       closeAdvancedMenu();
@@ -41,14 +49,14 @@ describe('Logs Viewer', () => {
     });
 
     it('Multiselect dialog works', () => {
-      assertChip(widget, filters[0].label)
+      assertChip(widget, filters[0].label);
       widget.click('[data-cy="filters-chip"] .MuiChip-deleteIcon');
-      assertChip(widget, filters[0].label, "not.exist")
+      assertChip(widget, filters[0].label, 'not.exist');
 
       widget.click('[data-cy="filters-menu"]');
       widget.click('[data-cy="filters-menu-option"]');
       cy.get('[data-cy="filters-menu-option"]').type('{esc}');
-      assertChip(widget, filters[0].label)
+      assertChip(widget, filters[0].label);
     });
 
     it('Editing filter', () => {
@@ -72,7 +80,7 @@ describe('Logs Viewer', () => {
       closeAdvancedMenu();
 
       logsMatchFilter(filters[1].regExp);
-      assertChip(widget, filters[1].label)
+      assertChip(widget, filters[1].label);
     });
 
     it('Filters correctly with 2 rules', () => {
@@ -82,19 +90,25 @@ describe('Logs Viewer', () => {
 
       logsMatchFilter(filters[0].regExp);
       logsMatchFilter(filters[1].regExp);
-    })
+    });
 
     it('Deleting filters', () => {
       openAdvancedMenu();
-      
-      cy.get('[data-cy="delete-filter-delete-button"]').each(filter => {
-        cy.wrap(filter).click()
-        cy.get('[data-cy="confirmation-dialog-ok"]').click()
-      })
-      
-      filters.forEach( filter => widget.assertText('span.MuiListItemText-primary', filter.label, 'not.exist'))
+
+      cy.get('[data-cy="delete-filter-delete-button"]').each((filter) => {
+        cy.wrap(filter).click();
+        cy.get('[data-cy="confirmation-dialog-ok"]').click();
+      });
+
+      filters.forEach((filter) =>
+        widget.assertText(
+          'span.MuiListItemText-primary',
+          filter.label,
+          'not.exist'
+        )
+      );
       closeAdvancedMenu();
-    })
+    });
   });
 
   // doesn't work
