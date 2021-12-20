@@ -11,7 +11,7 @@ import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.Filters.lt
 import com.mongodb.client.model.Filters.`in`
 import com.mongodb.client.model.Filters.regex
-import com.mongodb.client.model.Filters.nor
+import com.mongodb.client.model.Filters.or
 import com.mongodb.client.model.Indexes
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.ReplaceOptions
@@ -135,7 +135,7 @@ class LogStorage(
     private fun filter(logs: MutableList<Log>) {
         val regexes = enabledRegexes
         if (regexes.isEmpty()) { return }
-        logs.retainAll { log ->
+        logs.removeAll { log ->
             log.variableData.any { variable ->
                 regexes.any { it.containsMatchIn(variable.header) }
             }
@@ -151,7 +151,7 @@ class LogStorage(
 
         if (regexes.isEmpty()) { return }
 
-        collection.deleteMany(nor(regexes))
+        collection.deleteMany(or(regexes))
     }
 
     /** Downloads new logs and inserts the to the database. Returns the number of inserted logs. */

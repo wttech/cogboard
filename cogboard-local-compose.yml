@@ -38,7 +38,7 @@ services:
   #      - "18092:18092"
 
   mongo:
-    image: mongo
+    image: mongo:4
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: "root"
