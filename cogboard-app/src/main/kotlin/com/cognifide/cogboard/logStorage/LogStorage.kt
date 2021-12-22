@@ -22,10 +22,11 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import org.bson.Document
-import main.kotlin.com.cognifide.cogboard.logStorage.Log
-import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
-import main.kotlin.com.cognifide.cogboard.logStorage.LogVariableData
-import main.kotlin.com.cognifide.cogboard.logStorage.QuarantineRule
+import com.cognifide.cogboard.logStorage.model.Log
+import com.cognifide.cogboard.logStorage.model.LogStorageConfiguration
+import com.cognifide.cogboard.logStorage.model.LogVariableData
+import com.cognifide.cogboard.logStorage.model.QuarantineRule
+import com.cognifide.cogboard.logStorage.model.LogCollectionConfiguration
 import java.net.URI
 import java.time.Instant
 
@@ -155,7 +156,7 @@ class LogStorage(
     }
 
     /** Downloads new logs and inserts the to the database. Returns the number of inserted logs. */
-    private fun downloadInsertLogs(seq: Long, skipFirstLines: Long? = null): Long {
+    private fun downloadInsertLogs(seq: Long, skipFirstLines: Long? = null): List<Log> {
         var sequence = seq
         val logs = connection
                 .getLogs(skipFirstLines)
@@ -169,62 +170,59 @@ class LogStorage(
             sequence += 1
         }
 
-        logsCollection?.insertMany(logs.map { it.toDocument() })
+        if (logs.isNotEmpty()) {
+            logsCollection?.insertMany(logs.map { it.toDocument() })
+        }
 
-        return logs.size.toLong()
+        return logs
     }
 
     /** Checks how many logs to download, downloads them and saves them to the database. */
-    private fun downloadLogs() {
+    private fun downloadLogs(): List<Log> {
         // Get the current settings
         val storageConfig = collectionConfiguration
         var lastLine = storageConfig?.lastLine ?: 0
         var seq = storageConfig?.seq ?: 0
+        var inserted: List<Log> = emptyList()
 
         // Get the number of lines in the file
         val fileLineCount = connection.getNumberOfLines() ?: 0
 
         if (fileLineCount > 0 && fileLineCount > lastLine) {
             // Download new logs and append them
-            val inserted = downloadInsertLogs(seq, lastLine)
-            lastLine += inserted
-            seq += inserted
+            inserted = downloadInsertLogs(seq, lastLine)
+            lastLine += inserted.size
+            seq += inserted.size
         } else if (fileLineCount in 1 until lastLine) {
             // Remove all logs and download from the beginning
             deleteAllLogs()
             seq = 0
-            val inserted = downloadInsertLogs(seq)
-            lastLine = inserted
-            seq += inserted
+            inserted = downloadInsertLogs(seq)
+            lastLine = inserted.size.toLong()
+            seq += inserted.size
         }
 
         // Save the new configuration
         saveConfiguration(LogCollectionConfiguration(config.id, lastLine, seq))
+
+        return inserted
     }
 
-    /** Returns all logs for this instance, sorted by their sequence number. */
-    private val logs: List<Log>
-    get() = logsCollection
-            ?.find()
-            ?.limit(config.logLines.toInt())
-            ?.sort(descending(Log.SEQ))
-            ?.mapNotNull { it }
-            ?.mapNotNull { Log.from(it) }
-            ?: emptyList()
-
-    /** Prepares a JSON response to be displayed */
-    private fun prepareResponse(): JsonObject {
+    /** Prepares a JSON response to be displayed. */
+    private fun prepareResponse(insertedLogs: List<Log>): JsonObject {
         return JsonObject(mapOf(
             "variableFields" to parserStrategy.variableFields,
-            "logs" to JsonArray(logs.map { it.toJson() })
+            "logs" to JsonArray(insertedLogs.map { it.toJson() })
         ))
     }
 
     /** Updates the logs and sends them to the widget. */
     fun updateLogs(fetchNewLogs: Boolean) {
+        var insertedLogs: List<Log> = emptyList()
+
         if (fetchNewLogs) {
             // Download new logs
-            downloadLogs()
+            insertedLogs = downloadLogs()
 
             // Delete unnecessary logs
             deleteOldLogs()
@@ -232,7 +230,7 @@ class LogStorage(
         }
 
         // Fetch the logs from the database and send them back
-        val response = prepareResponse()
+        val response = prepareResponse(insertedLogs)
         vertx?.eventBus()?.send(config.eventBusAddress, response)
     }
 
@@ -281,7 +279,7 @@ class LogStorage(
         }
 
         /** Returns a database for storing logs and collection configurations. */
-        private val database: MongoDatabase?
+        val database: MongoDatabase?
         get() = client?.getDatabase(DATABASE_NAME)
 
         /** Returns a configuration collection. */

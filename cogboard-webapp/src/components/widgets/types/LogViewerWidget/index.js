@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { number, string } from 'prop-types';
 import { useLocalStorage } from '../../../../hooks';
@@ -6,6 +6,8 @@ import { useLocalStorage } from '../../../../hooks';
 import Toolbar from './Toolbar';
 import LogList from './LogList';
 import { Container } from './styled';
+import { getInitialLogs } from '../../../../utils/fetch';
+import { joinLogs } from './helpers';
 
 const LogViewerWidget = ({ id }) => {
   const widgetData = useSelector(
@@ -23,9 +25,20 @@ const LogViewerWidget = ({ id }) => {
   const [searchFilter, setSearchFilter] = useState('');
   const [shouldFollowLogs, setFollow] = useState(true);
 
-  const logs = widgetData.content?.logs;
+  const storedLogs = useRef([]);
+
+  useEffect(() => {
+    getInitialLogs(id).then(logs => {
+      storedLogs.current = logs;
+    });
+  }, [id]);
+
+  const newLogs = widgetData.content?.logs || [];
   const template = widgetData.content?.variableFields;
   const quarantine = widgetData.content?.quarantineRules || [];
+  const logLines = widgetData.logLinesField || 1000;
+
+  storedLogs.current = joinLogs(storedLogs.current, newLogs, logLines);
 
   return (
     <Container>
@@ -37,10 +50,10 @@ const LogViewerWidget = ({ id }) => {
         shouldFollowLogs={shouldFollowLogs}
         handleFollowChange={setFollow}
       />
-      {logs && (
+      {storedLogs.current && (
         <LogList
           widgetLocalStorage={widgetLocalStorage}
-          logs={logs}
+          logs={storedLogs.current}
           template={template}
           search={searchFilter}
           shouldFollowLogs={shouldFollowLogs}

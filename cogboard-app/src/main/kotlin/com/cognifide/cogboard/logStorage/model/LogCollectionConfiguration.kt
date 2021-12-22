@@ -1,4 +1,4 @@
-package com.cognifide.cogboard.logStorage
+package com.cognifide.cogboard.logStorage.model
 
 import org.bson.Document
 

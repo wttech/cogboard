@@ -14,8 +14,8 @@ import io.vertx.core.Vertx
 import io.vertx.core.eventbus.MessageConsumer
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
-import main.kotlin.com.cognifide.cogboard.logStorage.LogStorageConfiguration
-import main.kotlin.com.cognifide.cogboard.logStorage.QuarantineRule
+import com.cognifide.cogboard.logStorage.model.LogStorageConfiguration
+import com.cognifide.cogboard.logStorage.model.QuarantineRule
 
 class LogViewerWidget(
     vertx: Vertx,
@@ -117,7 +117,7 @@ class LogViewerWidget(
 
     companion object {
         private const val DEFAULT_ID = "0"
-        private const val DEFAULT_LOG_LINES = 100L
+        const val DEFAULT_LOG_LINES = 1000L
         private const val DEFAULT_LOG_FILE_SIZE = 50L
         private const val DEFAULT_LOG_EXPIRATION_DAYS = 5L
 

@@ -32,7 +32,8 @@ export const URL = {
   CREDENTIALS_ENDPOINT: '/api/credentials',
   UPDATE_USER_SETTINGS: '/api/user/update',
   UPDATE_INFO: 'https://github.com/wttech/cogboard/wiki#update',
-  CREDENTIAL_INFO: 'https://github.com/wttech/cogboard/wiki#credentials'
+  CREDENTIAL_INFO: 'https://github.com/wttech/cogboard/wiki#credentials',
+  LOGS_ENDPOINT: '/api/logs'
 };
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;

@@ -185,6 +185,19 @@ paths:
       responses:
         default:
           description: Widget Content Refresh Handler
+  /api/logs/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: id of the widget for which to get logs
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: logs-get-handler
+      responses:
+        default:
+          description: Initial Logs Handler
 components:
   securitySchemes:
     cogboardAuth:
