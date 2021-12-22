@@ -8,13 +8,9 @@ export const getGridTemplate = columnNames => {
 };
 
 export const filterByLevel = (log, level) => {
-  const lowestLevel = logLevels.find(
-    elem => elem.value.toLowerCase() === level.toLowerCase()
-  );
-  const logLevel = logLevels.find(
-    elem => elem.value.toLowerCase() === log.type.toLowerCase()
-  );
-  return logLevel.level >= lowestLevel.level;
+  const logLevel = logLevels[log.type.toLowerCase()]?.level;
+  const selectedLevel = logLevels[level.toLowerCase()].level;
+  return logLevel ? logLevel >= selectedLevel : true;
 };
 
 const getLogTexts = log => {
