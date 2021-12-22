@@ -37,9 +37,9 @@ export default function LogList({
   const dateSpan = getDateSpan(widgetLocalStorage);
 
   const filteredLogs = logs
-    ?.filter(log => filterByRegExp(log, filters))
+    ?.filter(log => filterByLevel(log, level))
     .filter(log => filterByDateSpan(log, dateSpan))
-    .filter(log => filterByLevel(log, level))
+    .filter(log => filterByRegExp(log, filters))
     .reverse(); // maybe logs can be sent in correct order
 
   const VariableLogListHeader = () => (
