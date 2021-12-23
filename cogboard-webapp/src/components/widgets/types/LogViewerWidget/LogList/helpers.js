@@ -46,7 +46,16 @@ export const filterByRegExp = (log, filters) =>
       getLogTexts(log).some(text => text.match(new RegExp(regExp)))
     );
 
+/*
+  log: string?
+  begin: momentjs-object?
+  end: momentjs-object?
+*/
 export const filterByDateSpan = (log, { begin, end }) => {
+  if (!log.date) {
+    return !begin && !end; // let empty date through if there is no date span
+  }
+
   const date = new Date(log.date);
 
   if (begin && date < begin) return false;
