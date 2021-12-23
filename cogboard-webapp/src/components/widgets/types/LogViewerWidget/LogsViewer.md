@@ -23,6 +23,10 @@ Uses local storage of the browser.
 
 Uses local storage of the browser and `momentjs` library. Ignores seconds.
 
+Dates (begin and end) are held in state as `momentjs` objects. Each time value changes, it is saved as `string` in browser local storage. When it is loaded from local storage(eg. Logs Viewer reload) it is converted back to `momentjs` object.
+
+Log dates are strings.
+
 ### Follow logs
 
 _TODO_
