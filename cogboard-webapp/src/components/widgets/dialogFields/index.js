@@ -38,6 +38,7 @@ import LinkListInput from './LinkListInput';
 import ToDoListInput from './ToDoListinput';
 import WidgetTypeField from './WidgetTypeField';
 import FileTextInput from './FileTextInput';
+import ParserTypeInput from './ParserTypeInput';
 
 const dialogFields = {
   LabelField: {
@@ -642,6 +643,12 @@ const dialogFields = {
     component: TextInput,
     name: 'reasonField',
     label: 'Reason',
+    validator: () => string()
+  },
+  LogParserField: {
+    component: ParserTypeInput,
+    name: 'logParserField',
+    label: 'Log parser type',
     validator: () => string()
   }
 };

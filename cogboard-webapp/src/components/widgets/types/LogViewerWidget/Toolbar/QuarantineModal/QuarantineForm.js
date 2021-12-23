@@ -3,7 +3,8 @@ import { createValidationSchema } from '../../../../../validation';
 import { useFormData } from '../../../../../../hooks';
 import DynamicForm from '../../../../../DynamicForm';
 import { Button } from '@material-ui/core';
-import CancelButton from '../../../../../CancelButton';
+import InfoIcon from '@material-ui/icons/Info';
+import { StyledHorizontalContainer, StyledCancelButton } from './styled';
 
 const QuarantineForm = ({
   filters,
@@ -32,6 +33,13 @@ const QuarantineForm = ({
 
   return (
     <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
+      <StyledHorizontalContainer>
+        <InfoIcon />
+        <p>
+          Logs, any fields of which will be matched by the regular expression,
+          will not be stored in the database or displayed.
+        </p>
+      </StyledHorizontalContainer>
       <DynamicForm
         fields={formFields}
         values={values}
@@ -47,7 +55,7 @@ const QuarantineForm = ({
       >
         Save
       </Button>
-      <CancelButton
+      <StyledCancelButton
         handleCancelClick={handleCancel}
         data-cy="quarantine-form-cancel-button"
       />

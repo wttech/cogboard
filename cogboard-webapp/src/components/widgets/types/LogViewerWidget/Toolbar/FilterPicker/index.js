@@ -15,7 +15,7 @@ import { ScrollableBox } from './styled';
 import ToolbarGroup from '../ToolbarGroup';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
-const FilterPicker = ({ widgetLocalStorage }) => {
+const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
   const regExpFilters = getFilters(widgetLocalStorage);
   const logLevel = getLevel(widgetLocalStorage);
 
@@ -97,7 +97,11 @@ const FilterPicker = ({ widgetLocalStorage }) => {
           ))}
         </Select>
       </FormControl>
-      <AdvancedFiltersMenu widgetLocalStorage={widgetLocalStorage} />
+      <AdvancedFiltersMenu
+        widgetLocalStorage={widgetLocalStorage}
+        wid={wid}
+        quarantine={quarantine}
+      />
     </ToolbarGroup>
   );
 };
