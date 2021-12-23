@@ -10,7 +10,7 @@ class LogParserStrategyFactory {
             when (Type.valueOf(typeStr.toUpperCase())) {
                 Type.MOCK -> MockLogParserStrategy()
             }
-        } catch (e : IllegalArgumentException) {
+        } catch (e: IllegalArgumentException) {
             throw UnknownParserTypeException("Unknown log parsing type")
         }
     }
