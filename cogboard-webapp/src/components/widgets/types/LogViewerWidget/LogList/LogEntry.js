@@ -48,7 +48,7 @@ const LogEntry = ({
         onClick={() => setExpanded(!expanded)}
         expandIcon={expanded && <ExpandMoreIcon />}
       >
-        {highlight && <HighlightMark />}
+        {highlight && <HighlightMark data-cy="highlight-mark" />}
         <GridSchema>
           <Text type={type} data-cy="log-entry-level">
             {type?.toUpperCase()}

@@ -29,9 +29,14 @@ const SearchInput = ({ setSearchFilter, debounce, minLetters }) => {
         label="Search"
         value={searchBoxValue}
         onChange={handleChange}
+        data-cy="search-input-field"
       />
       <CustomIconButton disabled={!enoughLetters} onClick={clearSearch}>
-        {enoughLetters ? <CloseIcon /> : <SearchIcon />}
+        {enoughLetters ? (
+          <CloseIcon data-cy="close-icon" />
+        ) : (
+          <SearchIcon data-cy="search-icon" />
+        )}
       </CustomIconButton>
     </Wrapper>
   );

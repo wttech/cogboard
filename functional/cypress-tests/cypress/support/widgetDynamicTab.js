@@ -91,8 +91,11 @@ export function fillLogsViewer() {
   cy.get(`[data-value="${Widgets.logsViewer.endpoint}"]`).click();
   cy.fillSchedulePeriod(Widgets.logsViewer.schedulePeriod);
   cy.get('[data-cy="widget-form-path-input"]').type(Widgets.logsViewer.path);
+<<<<<<< HEAD
   cy.get('[data-cy="widget-form-log-parser-field-input"]').click();
   cy.get(`[data-value="${Widgets.logsViewer.parserType}"]`).click();
+=======
+>>>>>>> Seaarchbar tests added
 }
 
 export function fillServiceCheck() {
