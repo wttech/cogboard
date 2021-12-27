@@ -13,7 +13,6 @@ import com.mongodb.client.model.Filters.`in`
 import com.mongodb.client.model.Filters.regex
 import com.mongodb.client.model.Filters.or
 import com.mongodb.client.model.Indexes
-import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.client.model.Sorts.ascending
 import io.vertx.core.AbstractVerticle
@@ -155,9 +154,8 @@ class LogStorage(
         collection.deleteMany(or(regexes))
     }
 
-    /** Downloads new logs and inserts the to the database. Returns the number of inserted logs. */
-    private fun downloadInsertLogs(seq: Long, skipFirstLines: Long? = null): List<Log> {
-        var sequence = seq
+    /** Downloads new logs and filters them by quarantine rules. */
+    private fun downloadFilterLogs(skipFirstLines: Long? = null): List<Log> {
         val logs = connection
                 .getLogs(skipFirstLines)
                 .mapNotNull { parserStrategy.parseLine(it) }
@@ -165,16 +163,22 @@ class LogStorage(
 
         // Filter the logs by quarantine rules
         filter(logs)
+
+        return logs
+    }
+
+    /** Inserts the logs to the database. */
+    private fun insertLogs(seq: Long, logs: Collection<Log>) {
+        if (logs.isEmpty()) return
+
+        var sequence = seq
+
         logs.forEach {
             it.seq = sequence
             sequence += 1
         }
 
-        if (logs.isNotEmpty()) {
-            logsCollection?.insertMany(logs.map { it.toDocument() })
-        }
-
-        return logs
+        logsCollection?.insertMany(logs.map { it.toDocument() })
     }
 
     /** Checks how many logs to download, downloads them and saves them to the database. */
@@ -183,29 +187,30 @@ class LogStorage(
         val storageConfig = collectionConfiguration
         var lastLine = storageConfig?.lastLine ?: 0
         var seq = storageConfig?.seq ?: 0
-        var inserted: List<Log> = emptyList()
+        var newLogs: List<Log> = emptyList()
 
         // Get the number of lines in the file
         val fileLineCount = connection.getNumberOfLines() ?: 0
 
         if (fileLineCount > 0 && fileLineCount > lastLine) {
             // Download new logs and append them
-            inserted = downloadInsertLogs(seq, lastLine)
-            lastLine += inserted.size
-            seq += inserted.size
+            newLogs = downloadFilterLogs(lastLine)
         } else if (fileLineCount in 1 until lastLine) {
             // Remove all logs and download from the beginning
             deleteAllLogs()
             seq = 0
-            inserted = downloadInsertLogs(seq)
-            lastLine = inserted.size.toLong()
-            seq += inserted.size
+            lastLine = 0
+            newLogs = downloadFilterLogs()
         }
+
+        insertLogs(seq, newLogs)
+        lastLine += newLogs.size
+        seq += newLogs.size
 
         // Save the new configuration
         saveConfiguration(LogCollectionConfiguration(config.id, lastLine, seq))
 
-        return inserted
+        return newLogs
     }
 
     /** Prepares a JSON response to be displayed. */
