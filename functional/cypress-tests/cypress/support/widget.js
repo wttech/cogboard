@@ -7,8 +7,15 @@ class Widget {
     this.title = `Test-${name}`;
   }
 
-  configure(disabled) {
-    cy.fillNewWidgetGeneral(this.name, this.title, false, disabled, 2, 1);
+  configure(disabled, size = { cols: 2, rows: 1 }) {
+    cy.fillNewWidgetGeneral(
+      this.name,
+      this.title,
+      false,
+      disabled,
+      size.cols,
+      size.rows
+    );
     fillDynamicTab(this);
     cy.confirmAddWidget();
     return this;

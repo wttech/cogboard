@@ -44,13 +44,13 @@ const FilterForm = ({
         color="secondary"
         variant="contained"
         type="submit"
-        data-cy="endpoint-form-submit-button"
+        data-cy="filter-form-submit-button"
       >
         Save
       </Button>
       <StyledCancelButton
         handleCancelClick={handleCancel}
-        data-cy="endpoint-form-cancel-button"
+        data-cy="filter-form-cancel-button"
       />
     </form>
   );
