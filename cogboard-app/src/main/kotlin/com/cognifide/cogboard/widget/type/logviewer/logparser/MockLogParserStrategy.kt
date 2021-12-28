@@ -12,8 +12,8 @@ class MockLogParserStrategy : LogParserStrategy {
     private val regex = """^(?<$DATE>[0-9-:]+) \*(?<$TYPE>[A-Z]+)\* \[(?<$PROVIDER>[a-zA-Z]+)\][ ]+(?<$MESSAGE>.+)$"""
             .toRegex()
 
-    override fun parseLine(line: String): Log? {
-        val groups = regex.matchEntire(line.trim())?.groups ?: return null
+    override fun parseLine(line: String): Log {
+        val groups = regex.matchEntire(line.trim())?.groups ?: return makeParsingErrorLog(line)
 
         try {
             val date = LocalDateTime
@@ -30,7 +30,7 @@ class MockLogParserStrategy : LogParserStrategy {
 
             return Log(date = date, type = type, variableData = variableData)
         } catch (_: NullPointerException) {
-            return null
+            return makeParsingErrorLog(line)
         }
     }
 
@@ -40,5 +40,14 @@ class MockLogParserStrategy : LogParserStrategy {
         private const val TYPE = "type"
         private const val PROVIDER = "provider"
         private const val MESSAGE = "message"
+
+        private fun makeParsingErrorLog(line: String): Log = Log(
+                date = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC),
+                type = "ERROR",
+                variableData = listOf(
+                        LogVariableData("MockLogParserStrategy", "No description"),
+                        LogVariableData("Cannot parse a log", "Line causing the error: $line")
+                )
+        )
     }
 }

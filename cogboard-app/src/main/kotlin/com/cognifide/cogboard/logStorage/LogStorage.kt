@@ -1,5 +1,11 @@
 package com.cognifide.cogboard.logStorage
 
+import com.cognifide.cogboard.logStorage.model.Log
+import com.cognifide.cogboard.logStorage.model.LogCollectionState
+import com.cognifide.cogboard.logStorage.model.asLogCollectionState
+import com.cognifide.cogboard.logStorage.model.LogStorageConfiguration
+import com.cognifide.cogboard.logStorage.model.LogVariableData
+import com.cognifide.cogboard.logStorage.model.QuarantineRule
 import com.cognifide.cogboard.widget.connectionStrategy.ConnectionStrategy
 import com.cognifide.cogboard.widget.type.logviewer.logparser.LogParserStrategy
 import com.mongodb.client.MongoClient
@@ -21,11 +27,6 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
 import org.bson.Document
-import com.cognifide.cogboard.logStorage.model.Log
-import com.cognifide.cogboard.logStorage.model.LogStorageConfiguration
-import com.cognifide.cogboard.logStorage.model.LogVariableData
-import com.cognifide.cogboard.logStorage.model.QuarantineRule
-import com.cognifide.cogboard.logStorage.model.LogCollectionConfiguration
 import java.net.URI
 import java.time.Instant
 
@@ -52,24 +53,24 @@ class LogStorage(
     // Storage configuration
 
     /** Returns a logs collection configuration associated with this widget (if present). */
-    private val collectionConfiguration: LogCollectionConfiguration?
-    get() = configCollection
+    private val collectionState: LogCollectionState?
+    get() = stateCollection
             ?.find(eq(Log.ID, config.id))
             ?.first()
-            ?.let { LogCollectionConfiguration.from(it) }
+            ?.let { it.asLogCollectionState() }
 
-    /** Saves or deletes a logs collection [configuration] associated with this widget. */
-    private fun saveConfiguration(configuration: LogCollectionConfiguration?) {
-        if (configuration != null) {
+    /** Saves or deletes a logs collection [state] associated with this widget. */
+    private fun saveState(state: LogCollectionState?) {
+        if (state != null) {
             val options = ReplaceOptions().upsert(true)
-            configCollection
+            stateCollection
                     ?.replaceOne(
-                            eq(LogCollectionConfiguration.ID, config.id),
-                            configuration.toDocument(),
+                            eq(LogCollectionState.ID, config.id),
+                            state.toDocument(),
                             options
                     )
         } else {
-            configCollection?.deleteOne((eq(LogCollectionConfiguration.ID, config.id)))
+            stateCollection?.deleteOne((eq(LogCollectionState.ID, config.id)))
         }
     }
 
@@ -161,7 +162,6 @@ class LogStorage(
                 .mapNotNull { parserStrategy.parseLine(it) }
                 .toMutableList()
 
-        // Filter the logs by quarantine rules
         filter(logs)
 
         return logs
@@ -175,7 +175,7 @@ class LogStorage(
 
         logs.forEach {
             it.seq = sequence
-            sequence += 1
+            sequence++
         }
 
         logsCollection?.insertMany(logs.map { it.toDocument() })
@@ -183,20 +183,15 @@ class LogStorage(
 
     /** Checks how many logs to download, downloads them and saves them to the database. */
     private fun downloadLogs(): List<Log> {
-        // Get the current settings
-        val storageConfig = collectionConfiguration
-        var lastLine = storageConfig?.lastLine ?: 0
-        var seq = storageConfig?.seq ?: 0
+        var lastLine = collectionState?.lastLine ?: 0
+        var seq = collectionState?.seq ?: 0
         var newLogs: List<Log> = emptyList()
 
-        // Get the number of lines in the file
         val fileLineCount = connection.getNumberOfLines() ?: 0
 
         if (fileLineCount > 0 && fileLineCount > lastLine) {
-            // Download new logs and append them
             newLogs = downloadFilterLogs(lastLine)
         } else if (fileLineCount in 1 until lastLine) {
-            // Remove all logs and download from the beginning
             deleteAllLogs()
             seq = 0
             lastLine = 0
@@ -207,8 +202,7 @@ class LogStorage(
         lastLine += newLogs.size
         seq += newLogs.size
 
-        // Save the new configuration
-        saveConfiguration(LogCollectionConfiguration(config.id, lastLine, seq))
+        saveState(LogCollectionState(config.id, lastLine, seq))
 
         return newLogs
     }
@@ -226,15 +220,12 @@ class LogStorage(
         var insertedLogs: List<Log> = emptyList()
 
         if (fetchNewLogs) {
-            // Download new logs
             insertedLogs = downloadLogs()
 
-            // Delete unnecessary logs
             deleteOldLogs()
             deleteSpaceConsumingLogs()
         }
 
-        // Fetch the logs from the database and send them back
         val response = prepareResponse(insertedLogs)
         vertx?.eventBus()?.send(config.eventBusAddress, response)
     }
@@ -242,12 +233,12 @@ class LogStorage(
     /** Deletes all data associated with the widget. */
     fun delete() {
         deleteAllLogs()
-        saveConfiguration(null)
+        saveState(null)
     }
 
     companion object {
         private const val DATABASE_NAME: String = "logs"
-        private const val CONFIGURATION_COLLECTION_NAME: String = "config"
+        private const val STATE_COLLECTION_NAME: String = "config"
         private const val STATS_COMMAND: String = "collStats"
         private const val STATS_SIZE: String = "size"
         private const val MB_TO_BYTES: Long = 1024L * 1024L
@@ -283,13 +274,13 @@ class LogStorage(
             return null
         }
 
-        /** Returns a database for storing logs and collection configurations. */
+        /** Returns a database for storing logs and collection states. */
         val database: MongoDatabase?
         get() = client?.getDatabase(DATABASE_NAME)
 
-        /** Returns a configuration collection. */
-        val configCollection: MongoCollection<Document>?
-        get() = database?.getCollection(CONFIGURATION_COLLECTION_NAME)
+        /** Returns a state collection. */
+        val stateCollection: MongoCollection<Document>?
+        get() = database?.getCollection(STATE_COLLECTION_NAME)
 
         private val LOGGER: Logger = LoggerFactory.getLogger(LogStorage::class.java)
     }

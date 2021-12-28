@@ -2,6 +2,7 @@ package com.cognifide.cogboard.logStorage
 
 import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.logStorage.model.Log
+import com.cognifide.cogboard.logStorage.model.asLog
 import com.cognifide.cogboard.storage.VolumeStorageFactory.boards
 import com.cognifide.cogboard.widget.type.logviewer.LogViewerWidget
 import com.mongodb.client.model.Sorts
@@ -41,8 +42,7 @@ class LogController : RoutingHandlerFactory {
                 ?.find()
                 ?.sort(Sorts.descending(Log.SEQ))
                 ?.limit(logLines)
-                ?.mapNotNull { it }
-                ?.mapNotNull { Log.from(it) }
+                ?.mapNotNull { it?.asLog() }
                 ?.sortedBy { it.seq }
                 ?: emptyList()
     }

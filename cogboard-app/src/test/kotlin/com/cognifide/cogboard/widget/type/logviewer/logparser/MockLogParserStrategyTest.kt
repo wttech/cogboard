@@ -11,7 +11,7 @@ class MockLogParserStrategyTest {
     fun parseSampleLog() {
         assert(parser.variableFields == listOf("Provider", "Message"))
 
-        val output = parser.parseLine(sampleLog) ?: throw AssertionError("Parsed log should not be null")
+        val output = parser.parseLine(sampleLog)
 
         assert(output.type == "DEBUG")
         assert(output.date == 1636238425L)

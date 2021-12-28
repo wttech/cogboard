@@ -24,7 +24,7 @@ class LogViewerWidget(
 ) : BaseWidget(vertx, config, serv) {
     private val contentRepository: ContentRepository = ContentRepository.DEFAULT
     private val address = config.endpointProp(Props.URL)
-    private var consumer: MessageConsumer<JsonObject>? = null
+    private lateinit var consumer: MessageConsumer<JsonObject>
     private val connectionStrategy: ConnectionStrategy? = determineConnectionStrategy()
     private val logStorage: LogStorage? = connectionStrategy?.let {
         LogStorage(
@@ -84,7 +84,7 @@ class LogViewerWidget(
         send(logs)
     }
 
-    /** Gets the quarantine rules from the */
+    /** Gets the quarantine rules from the content repository. */
     private val rules: List<QuarantineRule>
     get() = contentRepository
             .get(id)
