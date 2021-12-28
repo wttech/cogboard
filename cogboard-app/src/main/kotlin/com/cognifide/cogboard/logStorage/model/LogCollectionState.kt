@@ -2,7 +2,7 @@ package com.cognifide.cogboard.logStorage.model
 
 import org.bson.Document
 
-data class LogCollectionConfiguration(
+data class LogCollectionState(
     var id: String,
     var lastLine: Long,
     var seq: Long
@@ -19,17 +19,17 @@ data class LogCollectionConfiguration(
         const val ID = "_id"
         const val LAST_LINE = "lastLine"
         const val SEQ = "seq"
+    }
+}
 
-        fun from(document: Document): LogCollectionConfiguration? {
-            return try {
-                val id = document.getString(ID)
-                val lastLine = document.getLong(LAST_LINE)
-                val seq = document.getLong(SEQ)
+fun Document.asLogCollectionState(): LogCollectionState? {
+    return try {
+        val id = getString(LogCollectionState.ID)
+        val lastLine = getLong(LogCollectionState.LAST_LINE)
+        val seq = getLong(LogCollectionState.SEQ)
 
-                LogCollectionConfiguration(id, lastLine, seq)
-            } catch (_: NullPointerException) {
-                null
-            }
-        }
+        LogCollectionState(id, lastLine, seq)
+    } catch (_: NullPointerException) {
+        null
     }
 }

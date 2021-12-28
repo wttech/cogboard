@@ -18,12 +18,12 @@ data class LogVariableData(
     companion object {
         const val HEADER = "header"
         const val DESCRIPTION = "description"
-
-        fun from(document: Document): LogVariableData? {
-            val header = document.getString(HEADER) ?: return null
-            val description = document.getString(DESCRIPTION) ?: return null
-
-            return LogVariableData(header, description)
-        }
     }
+}
+
+fun Document.asLogVariableData(): LogVariableData? {
+    val header = getString(LogVariableData.HEADER) ?: return null
+    val description = getString(LogVariableData.DESCRIPTION) ?: return null
+
+    return LogVariableData(header, description)
 }
