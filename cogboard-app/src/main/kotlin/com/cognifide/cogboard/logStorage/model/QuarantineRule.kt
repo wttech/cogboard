@@ -1,4 +1,4 @@
-package main.kotlin.com.cognifide.cogboard.logStorage
+package com.cognifide.cogboard.logStorage.model
 
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject

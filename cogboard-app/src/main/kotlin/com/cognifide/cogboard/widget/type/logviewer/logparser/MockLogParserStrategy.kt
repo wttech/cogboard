@@ -1,7 +1,7 @@
 package com.cognifide.cogboard.widget.type.logviewer.logparser
 
-import main.kotlin.com.cognifide.cogboard.logStorage.Log
-import main.kotlin.com.cognifide.cogboard.logStorage.LogVariableData
+import com.cognifide.cogboard.logStorage.model.Log
+import com.cognifide.cogboard.logStorage.model.LogVariableData
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter

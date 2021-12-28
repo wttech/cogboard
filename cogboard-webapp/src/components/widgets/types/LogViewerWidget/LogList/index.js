@@ -39,8 +39,7 @@ export default function LogList({
   const filteredLogs = logs
     ?.filter(log => filterByRegExp(log, filters))
     .filter(log => filterByDateSpan(log, dateSpan))
-    .filter(log => filterByLevel(log, level))
-    .reverse(); // maybe logs can be sent in correct order
+    .filter(log => filterByLevel(log, level));
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>

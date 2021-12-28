@@ -1,4 +1,5 @@
 import { navigate } from '@reach/router';
+import { URL } from '../constants';
 
 export const checkResponseStatus = response => {
   const { status, statusText } = response;
@@ -25,4 +26,8 @@ export const postWidgetContentUpdate = (data = {}) => {
   return fetch('/api/widget/contentUpdate', postConfig)
     .then(checkResponseStatus)
     .then(response => response.json());
+};
+
+export const getInitialLogs = id => {
+  return fetch(`${URL.LOGS_ENDPOINT}/${id}`).then(response => response.json());
 };
