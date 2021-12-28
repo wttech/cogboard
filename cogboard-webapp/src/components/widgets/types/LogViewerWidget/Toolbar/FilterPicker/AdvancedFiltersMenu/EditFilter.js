@@ -19,7 +19,7 @@ const EditFilter = ({ id, filters, editAction }) => {
   return (
     <>
       <Tooltip title="Edit" placement="bottom">
-        <IconButton onClick={openDialog} data-cy="edit-endpoint-edit-button">
+        <IconButton onClick={openDialog} data-cy="edit-filter-edit-button">
           <Build />
         </IconButton>
       </Tooltip>
