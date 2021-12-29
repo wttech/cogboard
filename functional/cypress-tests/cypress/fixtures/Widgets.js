@@ -142,7 +142,8 @@ module.exports = {
     name: 'Log Viewer',
     endpoint: 'endpoint6',
     schedulePeriod: '60',
-    path: '/home/mock/example.txt'
+    path: '/home/mock/example.txt',
+    parserType: 'mock'
   },
   serviceCheck: {
     name: 'Service Check',
