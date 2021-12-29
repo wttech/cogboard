@@ -1,10 +1,10 @@
 import logLevels from '../logLevels';
 
 export const getGridTemplate = columnNames => {
-  const widths = columnNames.map(name =>
+  const widths = columnNames?.map(name =>
     name.toLowerCase() === 'message' ? '3fr ' : '1fr '
   );
-  return widths.reduce((acc, current) => acc + current, '');
+  return widths?.reduce((acc, current) => acc + current, '') || '';
 };
 
 export const filterByLevel = (log, level) => {

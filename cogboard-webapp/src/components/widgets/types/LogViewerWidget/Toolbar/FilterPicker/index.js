@@ -1,17 +1,14 @@
 import React from 'react';
 import { getFilters, getLevel, saveFilters, saveLevel } from './helpers';
-
 import logLevels from '../../logLevels';
 
+import { MenuItem, FormControl, InputLabel, Tooltip } from '@material-ui/core';
 import {
-  Select,
-  Chip,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Tooltip
-} from '@material-ui/core';
-import { ScrollableBox } from './styled';
+  ScrollableBox,
+  FiltersSelect,
+  LogLevelSelect,
+  StyledChip
+} from './styled';
 import ToolbarGroup from '../ToolbarGroup';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
@@ -44,14 +41,12 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
         <InputLabel id="filters-label">
           {regExpFilters.length > 0 ? `Filters` : `No filters defined`}
         </InputLabel>
-        <Select
+        <FiltersSelect
+          data-cy="filters-menu"
           disabled={regExpFilters.length <= 0}
-          id="filters"
           labelId="filters-label"
           multiple
-          style={{ width: '200px' }}
           value={regExpFilters.filter(filter => filter.checked)}
-          size="small"
           onChange={e => handleSelection(e.target.value)}
           renderValue={selected => (
             <ScrollableBox>
@@ -61,12 +56,11 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
                   title={`Regular expression: ${regExp}`}
                   placement="bottom"
                 >
-                  <Chip
+                  <StyledChip
                     label={label}
                     onDelete={() => handleDelete(id)}
                     onMouseDown={e => e.stopPropagation()}
-                    style={{ marginRight: '4px' }}
-                    size="small"
+                    data-cy="filters-chip"
                   />
                 </Tooltip>
               ))}
@@ -74,19 +68,21 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
           )}
         >
           {regExpFilters.map(filter => (
-            <MenuItem key={filter.id} value={filter}>
+            <MenuItem
+              key={filter.id}
+              value={filter}
+              data-cy="filters-menu-option"
+            >
               {filter.label}
             </MenuItem>
           ))}
-        </Select>
+        </FiltersSelect>
       </FormControl>
 
       <FormControl>
         <InputLabel id="log-level-label">Log level</InputLabel>
-        <Select
+        <LogLevelSelect
           labelId="log-level-label"
-          label="Log level"
-          style={{ width: '100px' }}
           value={logLevel}
           onChange={e => handleLevelSelection(e.target.value)}
         >
@@ -95,7 +91,7 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
               {key.toUpperCase()}
             </MenuItem>
           ))}
-        </Select>
+        </LogLevelSelect>
       </FormControl>
       <AdvancedFiltersMenu
         widgetLocalStorage={widgetLocalStorage}

@@ -4,8 +4,13 @@ import com.cognifide.cogboard.CogboardConstants.Props
 import com.cognifide.cogboard.ssh.SSHClient
 import io.vertx.core.json.Json
 import io.vertx.core.json.JsonObject
+import com.cognifide.cogboard.ssh.auth.AuthenticationType
 
 class SSHConnectionStrategy(val config: JsonObject) : ConnectionStrategy() {
+
+    override fun authenticationTypes(): Set<Any> {
+        return setOf(AuthenticationType.BASIC, AuthenticationType.SSH_KEY)
+    }
 
     override fun getNumberOfLines(): Long? {
         val logFilePath = config.getString(Props.PATH) ?: return null
