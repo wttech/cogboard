@@ -111,4 +111,17 @@ describe('Logs Viewer', () => {
       closeAdvancedMenu();
     });
   });
+
+  describe('Log level', () => {
+    it('show only error logs', () => {
+      widget.click('[data-cy="log-level-menu"]');
+      widget.click('[data-cy="log-level-menu-option-error"]');
+      cy.get('[data-cy="log-entry"] ').each(log =>
+        cy
+          .wrap(log)
+          .contains('[data-cy="log-entry-level"]', new RegExp('ERROR'))
+          .should('exist')
+      );
+    });
+  });
 });
