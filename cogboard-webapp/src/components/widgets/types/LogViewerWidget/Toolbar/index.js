@@ -18,7 +18,9 @@ const Toolbar = ({
   setSearchFilter,
   shouldFollowLogs,
   handleFollowChange,
-  lastLog
+  lastLog,
+  filterSimilarLogsState,
+  quarantineSimilarLogsState
 }) => {
   const theme = useTheme();
 
@@ -44,6 +46,8 @@ const Toolbar = ({
         widgetLocalStorage={widgetLocalStorage}
         wid={wid}
         quarantine={quarantine}
+        filterSimilarLogsState={filterSimilarLogsState}
+        quarantineSimilarLogsState={quarantineSimilarLogsState}
       />
 
       <DateRangePicker widgetLocalStorage={widgetLocalStorage} />

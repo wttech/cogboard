@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { Virtuoso } from 'react-virtuoso';
 import { COLORS } from '../../../../../constants';
-import { Typography, Accordion } from '@material-ui/core';
+import { Typography, Accordion, Button } from '@material-ui/core';
 import logLevels from '../logLevels';
 
 export const Container = styled.div`
@@ -16,6 +16,12 @@ export const Header = styled.div`
   border-left: none;
   border-right: none;
   padding: 0.25em 0;
+`;
+
+export const VerticalStack = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const GridSchema = styled.div`
@@ -88,13 +94,14 @@ export const CustomAccordion = styled(Accordion)`
     min-height: unset;
   }
 
-  .MuiButtonBase-root .MuiIconButton-root {
+  .MuiAccordionSummary-root .MuiIconButton-root {
     position: absolute;
     top: 0;
     right: 1em;
   }
 
-  .MuiButtonBase-root {
+  .MuiAccordionSummary-root,
+  .MuiAccordionSummary-root .MuiButtonBase-root {
     padding: unset;
   }
 
@@ -120,4 +127,16 @@ export const HighlightMark = styled.div`
   width: 1rem;
   transform: rotate(45deg);
   background-color: ${COLORS.YELLOW};
+`;
+
+export const SimilarLogsButtonsContainer = styled.div`
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin: 0.25rem 0.5em 0.25em 0;
+`;
+
+export const SimilarLogsButton = styled(Button)`
+  display: block;
 `;

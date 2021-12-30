@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createValidationSchema } from '../../../../../validation';
 import { useFormData } from '../../../../../../hooks';
 import DynamicForm from '../../../../../DynamicForm';
 import { Button } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import { StyledHorizontalContainer, StyledCancelButton } from './styled';
+import dialogFields from '../../../../dialogFields';
 
 const QuarantineForm = ({
   filters,
   onSubmit,
   handleCancel,
   id,
+  quarantineSimilarLogsState,
   ...initialFormValues
 }) => {
+  const [
+    quarantineSimilarLogs,
+    setQuarantineSimilarLogs
+  ] = quarantineSimilarLogsState;
+
+  useEffect(() => {
+    if (quarantineSimilarLogs) {
+      setFieldValue(dialogFields.RegExpField.name, quarantineSimilarLogs);
+      setQuarantineSimilarLogs(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quarantineSimilarLogs]);
+
   const formFields = ['LabelField', 'RegExpField', 'ReasonField'];
   const constraints = {
     LabelField: {
@@ -23,13 +38,16 @@ const QuarantineForm = ({
   };
 
   const validationSchema = createValidationSchema(formFields, constraints);
-  const { values, handleChange, withValidation, errors } = useFormData(
-    initialFormValues,
-    {
-      initialSchema: validationSchema,
-      onChange: true
-    }
-  );
+  const {
+    values,
+    handleChange,
+    withValidation,
+    errors,
+    setFieldValue
+  } = useFormData(initialFormValues, {
+    initialSchema: validationSchema,
+    onChange: true
+  });
 
   return (
     <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">

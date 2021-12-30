@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useToggle } from '../../../../../../../hooks';
 import { v4 } from 'uuid';
 import { getFilters, saveFilters } from '../helpers';
@@ -20,8 +20,25 @@ import DeleteItem from '../../../../../../DeleteItem';
 import FilterForm from './FilterForm';
 import { StyledExitButton } from './styled';
 
-const AdvancedFiltersMenu = ({ widgetLocalStorage, wid, quarantine }) => {
+const AdvancedFiltersMenu = ({
+  widgetLocalStorage,
+  wid,
+  quarantine,
+  filterSimilarLogsState,
+  quarantineSimilarLogsState
+}) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+
+  const [filterSimilarLogs] = filterSimilarLogsState;
+  const [quarantineSimilarLogs] = quarantineSimilarLogsState;
+
+  useEffect(() => {
+    if (filterSimilarLogs || quarantineSimilarLogs) {
+      openDialog();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterSimilarLogs, quarantineSimilarLogs]);
+
   const filters = getFilters(widgetLocalStorage);
 
   const addFilter = values => {
@@ -120,10 +137,22 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage, wid, quarantine }) => {
             deleteFilter
           )}
         </List>
-        <AddItem largeButton itemName="filter" submitAction={addFilter}>
-          <FilterForm filters={filters} />
+        <AddItem
+          largeButton
+          itemName="filter"
+          submitAction={addFilter}
+          shouldOpen={filterSimilarLogs}
+        >
+          <FilterForm
+            filters={filters}
+            filterSimilarLogsState={filterSimilarLogsState}
+          />
         </AddItem>
-        <QuarantineModal wid={wid} quarantine={quarantine} />
+        <QuarantineModal
+          wid={wid}
+          quarantine={quarantine}
+          quarantineSimilarLogsState={quarantineSimilarLogsState}
+        />
         <StyledExitButton
           onClick={handleDialogClose}
           variant="contained"

@@ -43,6 +43,9 @@ const LogViewerWidget = ({ id }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [widgetData]);
 
+  const [filterSimilarLogs, setFilterSimilarLogs] = useState(null);
+  const [quarantineSimilarLogs, setQuarantineSimilarLogs] = useState(null);
+
   return (
     <Container>
       <Toolbar
@@ -57,6 +60,11 @@ const LogViewerWidget = ({ id }) => {
           storedLogs.length > 0 &&
           storedLogs[storedLogs.length - 1]
         }
+        filterSimilarLogsState={[filterSimilarLogs, setFilterSimilarLogs]}
+        quarantineSimilarLogsState={[
+          quarantineSimilarLogs,
+          setQuarantineSimilarLogs
+        ]}
       />
       {storedLogs && (
         <LogList
@@ -66,6 +74,8 @@ const LogViewerWidget = ({ id }) => {
           search={searchFilter}
           shouldFollowLogs={shouldFollowLogs}
           handleFollowChange={setFollow}
+          setFilterSimilarLogs={setFilterSimilarLogs}
+          setQuarantineSimilarLogs={setQuarantineSimilarLogs}
         />
       )}
     </Container>

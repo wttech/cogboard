@@ -9,8 +9,13 @@ import {
   CustomAccordion,
   VariableGridSchema,
   HighlightedText,
-  HighlightMark
+  HighlightMark,
+  VerticalStack,
+  SimilarLogsButtonsContainer,
+  SimilarLogsButton
 } from './styled';
+import { useSelector } from 'react-redux';
+import { getIsAuthenticated } from '../../../../../selectors';
 
 const LogEntry = ({
   type,
@@ -18,9 +23,15 @@ const LogEntry = ({
   variableData,
   template,
   search,
-  highlight
+  highlight,
+  setFilterSimilarLogs,
+  setQuarantineSimilarLogs
 }) => {
   const [expanded, setExpanded] = useState(false);
+  const isAuthenticated = useSelector(getIsAuthenticated);
+
+  const getLastVariableHeader = () =>
+    variableData[variableData.length - 1]?.header ?? '';
 
   const VariablePart = ({ description }) => {
     const variableFieldsTemplate = getGridTemplate(template);
@@ -56,9 +67,31 @@ const LogEntry = ({
         </GridSchema>
       </AccordionSummary>
       <AccordionDetails>
-        <GridSchema>
-          <VariablePart description />
-        </GridSchema>
+        <VerticalStack>
+          <GridSchema>
+            <VariablePart description />
+          </GridSchema>
+          <SimilarLogsButtonsContainer>
+            <SimilarLogsButton
+              variant="outlined"
+              size="small"
+              onClick={() => setFilterSimilarLogs(getLastVariableHeader())}
+            >
+              Filter similar logs
+            </SimilarLogsButton>
+            {isAuthenticated && (
+              <SimilarLogsButton
+                variant="outlined"
+                size="small"
+                onClick={() =>
+                  setQuarantineSimilarLogs(getLastVariableHeader())
+                }
+              >
+                Add similar logs to quarantine
+              </SimilarLogsButton>
+            )}
+          </SimilarLogsButtonsContainer>
+        </VerticalStack>
       </AccordionDetails>
     </CustomAccordion>
   );

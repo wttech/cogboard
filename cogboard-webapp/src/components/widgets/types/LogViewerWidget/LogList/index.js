@@ -26,7 +26,9 @@ export default function LogList({
   template,
   search,
   shouldFollowLogs,
-  handleFollowChange
+  handleFollowChange,
+  setFilterSimilarLogs,
+  setQuarantineSimilarLogs
 }) {
   const theme = useTheme();
   const scrollerRef = useRef(null);
@@ -81,6 +83,8 @@ export default function LogList({
         template={template}
         search={search}
         highlight={isLogHighlighted(log, search)}
+        setFilterSimilarLogs={setFilterSimilarLogs}
+        setQuarantineSimilarLogs={setQuarantineSimilarLogs}
       />
     );
   };

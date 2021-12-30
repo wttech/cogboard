@@ -93,7 +93,8 @@ export const useFormData = (data, config = {}) => {
     withValidation,
     errors,
     validationSchema,
-    setValidationSchema
+    setValidationSchema,
+    setFieldValue
   };
 };
 
