@@ -8,9 +8,10 @@ import {
   fillFormField,
   logsMatchFilter,
   submitForm,
-  assertChip
+  assertChip,
+  logsMatchLogLevel,
 } from '../support/logsViewer/filters';
-import { filters } from '../fixtures/logsViewer';
+import { filters, logLevels } from '../fixtures/logsViewer';
 
 const dashboardName = 'Welcome to Cogboard';
 const ametFilter = filters.amet;
@@ -27,7 +28,7 @@ describe('Logs Viewer', () => {
     cy.clickAddWidgetButton();
     widget = createWidget(logsViewer.name).configure(false, {
       cols: 8,
-      rows: 2
+      rows: 2,
     });
   });
 
@@ -96,7 +97,7 @@ describe('Logs Viewer', () => {
     it('should delete filters', () => {
       openAdvancedMenu();
 
-      cy.get('[data-cy="delete-filter-delete-button"]').each(filter => {
+      cy.get('[data-cy="delete-filter-delete-button"]').each((filter) => {
         cy.wrap(filter).click();
         cy.get('[data-cy="confirmation-dialog-ok"]').click();
       });
@@ -113,15 +114,14 @@ describe('Logs Viewer', () => {
   });
 
   describe('Log level', () => {
-    it('show only error logs', () => {
-      widget.click('[data-cy="log-level-menu"]');
-      widget.click('[data-cy="log-level-menu-option-error"]');
-      cy.get('[data-cy="log-entry"] ').each(log =>
-        cy
-          .wrap(log)
-          .contains('[data-cy="log-entry-level"]', new RegExp('ERROR'))
-          .should('exist')
-      );
+    logLevels.forEach((selectedLevel) => {
+      it(`show logs with greater or equal level to ${selectedLevel.value}`, () => {
+        widget.click('[data-cy="log-level-menu"]');
+        widget.click(
+          `[data-cy="log-level-menu-option-${selectedLevel.value}"]`
+        );
+        logsMatchLogLevel(selectedLevel, logLevels);
+      });
     });
   });
 });

@@ -8,3 +8,10 @@ export const filters = {
     regExp: 'amet'
   }
 };
+
+export const logLevels = [
+  { level: 10, value: "debug" },
+  { level: 20, value: "info"},
+  { level: 30, value: "warning" },
+  { level: 40, value: "error" }
+]
