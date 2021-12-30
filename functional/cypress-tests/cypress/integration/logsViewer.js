@@ -10,6 +10,7 @@ import {
   submitForm,
   assertChip,
   logsMatchLogLevel,
+  selectLogLevel,
 } from '../support/logsViewer/filters';
 import { filters, logLevels } from '../fixtures/logsViewer';
 
@@ -116,11 +117,9 @@ describe('Logs Viewer', () => {
   describe('Log level', () => {
     logLevels.forEach((selectedLevel) => {
       it(`show logs with greater or equal level to ${selectedLevel.value}`, () => {
-        widget.click('[data-cy="log-level-menu"]');
-        widget.click(
-          `[data-cy="log-level-menu-option-${selectedLevel.value}"]`
-        );
+        selectLogLevel(selectedLevel.value);
         logsMatchLogLevel(selectedLevel, logLevels);
+        selectLogLevel('info'); // default
       });
     });
   });

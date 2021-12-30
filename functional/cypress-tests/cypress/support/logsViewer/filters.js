@@ -19,6 +19,11 @@ export const logsMatchLogLevel = (selectedLevel, levels) => {
   logsContains('[data-cy="log-entry-level"]', regExp);
 };
 
+export const selectLogLevel = (levelSlug) => {
+  cy.get('[data-cy="log-level-menu"]').click();
+  cy.get(`[data-cy="log-level-menu-option-${levelSlug}"]`).click();
+};
+
 export const openAdvancedMenu = () =>
   cy.get('[data-cy="advanced-filters-button"]').click();
 
