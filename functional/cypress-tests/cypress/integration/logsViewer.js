@@ -10,7 +10,7 @@ import {
   submitForm,
   assertChip,
   logsMatchLogLevel,
-  selectLogLevel,
+  selectLogLevel
 } from '../support/logsViewer/filters';
 import { filters, logLevels } from '../fixtures/logsViewer';
 
@@ -29,7 +29,7 @@ describe('Logs Viewer', () => {
     cy.clickAddWidgetButton();
     widget = createWidget(logsViewer.name).configure(false, {
       cols: 8,
-      rows: 2,
+      rows: 2
     });
   });
 
@@ -98,7 +98,7 @@ describe('Logs Viewer', () => {
     it('should delete filters', () => {
       openAdvancedMenu();
 
-      cy.get('[data-cy="delete-filter-delete-button"]').each((filter) => {
+      cy.get('[data-cy="delete-filter-delete-button"]').each(filter => {
         cy.wrap(filter).click();
         cy.get('[data-cy="confirmation-dialog-ok"]').click();
       });
@@ -115,12 +115,37 @@ describe('Logs Viewer', () => {
   });
 
   describe('Log level', () => {
-    logLevels.forEach((selectedLevel) => {
+    logLevels.forEach(selectedLevel => {
       it(`show logs with greater or equal level to ${selectedLevel.value}`, () => {
         selectLogLevel(selectedLevel.value);
         logsMatchLogLevel(selectedLevel, logLevels);
         selectLogLevel('info'); // default
       });
+    });
+  });
+
+  describe('Date span', () => {
+    it('sets begin date on CLEAR LOGS button click', () => {
+      widget.click('[data-cy="clear-logs-button"');
+
+      // begin date span picker should not be empty
+      cy.get('[data-cy="date-time-picker-begin"] .MuiInput-root input').should(
+        'not.have.value',
+        ''
+      );
+    });
+
+    it('filters logs by begin date span', () =>
+      cy.get('[data-cy="log-entry"]').should('not.exist'));
+
+    it('removes date when X icon is clicked', () => {
+      widget.click('[data-cy="date-time-picker-begin-clear"]');
+      // should be empty
+      cy.get('[data-cy="date-time-picker-begin"] .MuiInput-root input').should(
+        'have.value',
+        ''
+      );
+      cy.get('[data-cy="log-entry"]').should('exist');
     });
   });
 });
