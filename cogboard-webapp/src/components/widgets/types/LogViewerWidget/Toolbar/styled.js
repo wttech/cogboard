@@ -1,10 +1,6 @@
 import styled from '@emotion/styled/macro';
-import { Button } from '@material-ui/core';
-
-export const RedButton = styled(Button)`
-  color: white;
-  background-color: ${({ theme }) => theme.palette.status.FAIL};
-`;
+import { IconButton } from '@material-ui/core';
+import { COLORS } from '../../../../../constants';
 
 export const Wrapper = styled.div`
   top: 0;
@@ -16,3 +12,16 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   gap: 1em;
 `;
+
+export const StyledIconButton = styled(IconButton)`
+  ${props =>
+    props.enabled
+      ? `
+        color: ${COLORS.BLUE}; 
+        background-color: ${COLORS.LIGHT_SHADE}
+      `
+      : ''}
+`;
+StyledIconButton.defaultProps = {
+  size: 'small'
+};
