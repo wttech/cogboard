@@ -3,14 +3,23 @@ import { IconButton } from '@material-ui/core';
 import { COLORS } from '../../../../../constants';
 
 export const Wrapper = styled.div`
+  width: 100%;
   top: 0;
   position: absolute;
-  overflow-x: hidden;
+  overflow-x: scroll;
   display: flex;
   flex-direction: row;
-  align-items: stretch;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1em;
+
+
+  /* hide scrollbar */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
+}
 `;
 
 export const StyledIconButton = styled(IconButton)`
