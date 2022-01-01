@@ -4,4 +4,5 @@ object HttpConstants {
 
     const val HEADER_CONTENT_TYPE = "Content-Type"
     const val CONTENT_TYPE_JSON = "application/json"
+    const val CONTENT_TYPE_TEXT = "text/plain"
 }

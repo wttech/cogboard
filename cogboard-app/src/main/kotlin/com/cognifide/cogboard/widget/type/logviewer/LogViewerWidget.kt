@@ -103,8 +103,8 @@ class LogViewerWidget(
 
     private fun determineConnectionStrategy(): ConnectionStrategy? {
         return try {
-            ConnectionStrategyFactory(config, address)
-                    .build()
+            ConnectionStrategyFactory(config, address, eventBusAddress)
+                    .build(vertx)
         } catch (e: UnknownConnectionTypeException) {
             sendConfigurationError("Unknown endpoint type")
             null

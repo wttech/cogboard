@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/log-viewer",
+        "url": "/logs-viewer",
         "queryParameters": {
           "lines": {
             "matches": "^[0-9]+$"
@@ -13,9 +13,10 @@
       "response": {
         "status": 200,
         "headers": {
-          "Content-Type": "application/json"
+          "Content-Type": "text/plain"
         },
-        "bodyFileName": "logViewer/logs.json"
+        "bodyFileName": "logs-viewer/logs.txt",
+        "transformers": ["response-template"]
       }
     },
     {

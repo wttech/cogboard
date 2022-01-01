@@ -63,4 +63,7 @@ object ExtensionFunctions {
         val rest = this.substringAfter("//").substringAfter("/")
         return "${publicDomain.removeSuffix("/")}/$rest"
     }
+
+    fun JsonObject.endpointProp(key: String) =
+            this.getJsonObject(Props.ENDPOINT_LOADED).getString(key, "")
 }
