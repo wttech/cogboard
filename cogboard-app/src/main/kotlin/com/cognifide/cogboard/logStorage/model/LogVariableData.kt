@@ -21,9 +21,7 @@ data class LogVariableData(
     }
 }
 
-fun Document.asLogVariableData(): LogVariableData? {
-    val header = getString(LogVariableData.HEADER) ?: return null
-    val description = getString(LogVariableData.DESCRIPTION) ?: return null
-
-    return LogVariableData(header, description)
-}
+fun Document.asLogVariableData() = LogVariableData(
+        getString(LogVariableData.HEADER),
+        getString(LogVariableData.DESCRIPTION)
+)
