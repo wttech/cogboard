@@ -24,13 +24,13 @@ class LogController : RoutingHandlerFactory {
         }
     }
 
-    fun getLogs(id: String): List<Log> {
+    private fun getLogs(id: String): List<Log> {
         val logLines = boards()
                 .loadConfig()
-                ?.getJsonObject(Props.WIDGETS)
-                ?.getJsonObject(Props.WIDGETS_BY_ID)
-                ?.getJsonObject(id)
-                ?.getInteger(Props.LOG_LINES)
+                .getJsonObject(Props.WIDGETS)
+                .getJsonObject(Props.WIDGETS_BY_ID)
+                .getJsonObject(id)
+                .getInteger(Props.LOG_LINES)
                 ?: LogViewerWidget.DEFAULT_LOG_LINES.toInt()
 
         return fetchLogs(id, logLines)
@@ -38,12 +38,11 @@ class LogController : RoutingHandlerFactory {
 
     private fun fetchLogs(id: String, logLines: Int): List<Log> {
         return LogStorage.database
-                ?.getCollection(id)
-                ?.find()
-                ?.sort(Sorts.descending(Log.SEQ))
-                ?.limit(logLines)
-                ?.mapNotNull { it?.asLog() }
-                ?.sortedBy { it.seq }
-                ?: emptyList()
+                .getCollection(id)
+                .find()
+                .sort(Sorts.descending(Log.SEQ))
+                .limit(logLines)
+                .map { it.asLog() }
+                .sortedBy { it.seq }
     }
 }

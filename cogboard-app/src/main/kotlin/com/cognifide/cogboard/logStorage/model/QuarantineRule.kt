@@ -31,7 +31,6 @@ data class QuarantineRule(
 
         fun from(array: JsonArray): List<QuarantineRule> =
                 array
-                        .mapNotNull { it }
                         .mapNotNull { it as? JsonObject }
                         .map { from(it) }
     }

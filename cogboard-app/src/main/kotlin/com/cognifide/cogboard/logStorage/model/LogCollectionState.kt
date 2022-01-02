@@ -22,14 +22,8 @@ data class LogCollectionState(
     }
 }
 
-fun Document.asLogCollectionState(): LogCollectionState? {
-    return try {
-        val id = getString(LogCollectionState.ID)
-        val lastLine = getLong(LogCollectionState.LAST_LINE)
-        val seq = getLong(LogCollectionState.SEQ)
-
-        LogCollectionState(id, lastLine, seq)
-    } catch (_: NullPointerException) {
-        null
-    }
-}
+fun Document.asLogCollectionState() = LogCollectionState(
+        getString(LogCollectionState.ID),
+        getLong(LogCollectionState.LAST_LINE),
+        getLong(LogCollectionState.SEQ)
+)

@@ -45,18 +45,11 @@ data class Log(
     }
 }
 
-fun Document.asLog(): Log? {
-    return try {
-        val id = getObjectId(Log.ID)!!
-        val seq = getLong(Log.SEQ)!!
-        val insertedOn = getLong(Log.INSERTED_ON)!!
-        val date = getLong(Log.DATE)!!
-        val type = getString(Log.TYPE)!!
-
-        val variableData = getList(Log.VARIABLE_DATA, Document::class.java)
-                ?.mapNotNull { it?.asLogVariableData() } ?: listOf()
-        Log(id, seq, insertedOn, date, type, variableData)
-    } catch (_: NullPointerException) {
-        null
-    }
-}
+fun Document.asLog() = Log(
+        getObjectId(Log.ID),
+        getLong(Log.SEQ),
+        getLong(Log.INSERTED_ON),
+        getLong(Log.DATE),
+        getString(Log.TYPE),
+        getList(Log.VARIABLE_DATA, Document::class.java).map { it.asLogVariableData() }
+)
