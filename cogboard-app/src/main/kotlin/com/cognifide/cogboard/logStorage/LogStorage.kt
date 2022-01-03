@@ -43,34 +43,34 @@ class LogStorage(
 
     override fun start() {
         super.start()
-        logsCollection?.createIndex(Indexes.descending(Log.SEQ))
+        logsCollection.createIndex(Indexes.descending(Log.SEQ))
     }
 
     /** Returns a logs collection associated with this widget. */
-    private val logsCollection: MongoCollection<Document>?
-    get() = database?.getCollection(config.id)
+    private val logsCollection: MongoCollection<Document>
+    get() = database.getCollection(config.id)
 
     // Storage configuration
 
     /** Returns a logs collection configuration associated with this widget (if present). */
     private val collectionState: LogCollectionState?
     get() = stateCollection
-            ?.find(eq(Log.ID, config.id))
-            ?.first()
-            ?.let { it.asLogCollectionState() }
+            .find(eq(Log.ID, config.id))
+            .first()
+            ?.asLogCollectionState()
 
     /** Saves or deletes a logs collection [state] associated with this widget. */
     private fun saveState(state: LogCollectionState?) {
         if (state != null) {
             val options = ReplaceOptions().upsert(true)
             stateCollection
-                    ?.replaceOne(
+                    .replaceOne(
                             eq(LogCollectionState.ID, config.id),
                             state.toDocument(),
                             options
                     )
         } else {
-            stateCollection?.deleteOne((eq(LogCollectionState.ID, config.id)))
+            stateCollection.deleteOne((eq(LogCollectionState.ID, config.id)))
         }
     }
 
@@ -78,20 +78,20 @@ class LogStorage(
 
     /** Deletes all logs from the collection. */
     private fun deleteAllLogs() {
-        logsCollection?.drop()
+        logsCollection.drop()
     }
 
     /** Deletes the [n] first logs (ordered by their sequence number). */
     private fun deleteFirstLogs(n: Long) {
-        val collection = logsCollection ?: return
-        val ids = collection
+        val ids = logsCollection
                 .find()
                 .sort(ascending(Log.SEQ))
                 .limit(n.toInt())
-                .mapNotNull { it?.getObjectId(Log.ID) }
+                .map { it.getObjectId(Log.ID) }
+                .toList()
         if (ids.isNotEmpty()) {
             try {
-                val result = collection.deleteMany(`in`(Log.ID, ids))
+                val result = logsCollection.deleteMany(`in`(Log.ID, ids))
                 LOGGER.debug("Deleted ${result.deletedCount} first logs")
             } catch (exception: MongoException) {
                 LOGGER.error("Cannot delete first logs: $exception")
@@ -101,11 +101,10 @@ class LogStorage(
 
     /** Deletes old logs (based on the number of days before expiration). */
     private fun deleteOldLogs() {
-        val collection = logsCollection ?: return
         val now = Instant.now().epochSecond
         val beforeTimestamp = now - (config.expirationDays * DAY_TO_TIMESTAMP)
         try {
-            val result = collection.deleteMany(lt(Log.INSERTED_ON, beforeTimestamp))
+            val result = logsCollection.deleteMany(lt(Log.INSERTED_ON, beforeTimestamp))
             LOGGER.debug("Deleted ${result.deletedCount} old logs")
         } catch (exception: MongoException) {
             LOGGER.error("Cannot delete old logs: $exception")
@@ -114,16 +113,13 @@ class LogStorage(
 
     /** Deletes oldest logs when logs take up too much space. */
     private fun deleteSpaceConsumingLogs() {
-        val database = database ?: return
-        val collection = logsCollection ?: return
-
         val size = database
                 .runCommand(Document(STATS_COMMAND, config.id))
-                .getInteger(STATS_SIZE) ?: 0
+                .getInteger(STATS_SIZE)
         val maxSize = config.fileSizeMB * MB_TO_BYTES
         if (size > 0 && size > maxSize) {
             val deleteFactor = ((size - maxSize).toDouble() / size)
-            val logCount = collection.countDocuments()
+            val logCount = logsCollection.countDocuments()
             val toDelete = (logCount.toDouble() * deleteFactor).toLong()
             if (toDelete > 0) {
                 LOGGER.debug("Deleting $toDelete logs as the size $size exceeds maximum size of $maxSize")
@@ -145,14 +141,12 @@ class LogStorage(
 
     /** Deletes logs not matching to the rules from the database. */
     fun filterExistingLogs() {
-        val collection = logsCollection ?: return
-
         val fieldName = Log.VARIABLE_DATA + "." + LogVariableData.HEADER
         val regexes = enabledRegexes.map { regex(fieldName, it.pattern) }
 
         if (regexes.isEmpty()) { return }
 
-        collection.deleteMany(or(regexes))
+        logsCollection.deleteMany(or(regexes))
     }
 
     /** Downloads new logs and filters them by quarantine rules. */
@@ -178,7 +172,7 @@ class LogStorage(
             sequence++
         }
 
-        logsCollection?.insertMany(logs.map { it.toDocument() })
+        logsCollection.insertMany(logs.map { it.toDocument() })
     }
 
     /** Checks how many logs to download, downloads them and saves them to the database. */
@@ -227,7 +221,7 @@ class LogStorage(
         }
 
         val response = prepareResponse(insertedLogs)
-        vertx?.eventBus()?.send(config.eventBusAddress, response)
+        vertx.eventBus().send(config.eventBusAddress, response)
     }
 
     /** Deletes all data associated with the widget. */
@@ -248,39 +242,28 @@ class LogStorage(
         private val MONGO_PASSWORD = System.getenv("MONGO_PASSWORD") ?: "root"
         private val MONGO_HOST = System.getenv("MONGO_HOST") ?: "mongo"
         private val MONGO_PORT = System.getenv("MONGO_PORT")?.toIntOrNull() ?: 27017
-        private var mongoClient: MongoClient? = null
 
         /** Returns a shared instance of the Mongo client. */
-        private val client: MongoClient?
-        get() {
-            if (mongoClient != null) {
-                return mongoClient
-            }
-            try {
-                val uri = URI(
-                        MONGO_SCHEME,
-                        "$MONGO_USERNAME:$MONGO_PASSWORD",
-                        MONGO_HOST,
-                        MONGO_PORT,
-                        null,
-                        null,
-                        null
-                )
-                mongoClient = MongoClients.create(uri.toString())
-                return mongoClient
-            } catch (exception: MongoException) {
-                LOGGER.error("Cannot create a mongo client: $exception")
-            }
-            return null
+        private val mongoClient: MongoClient by lazy {
+            val uri = URI(
+                    MONGO_SCHEME,
+                    "$MONGO_USERNAME:$MONGO_PASSWORD",
+                    MONGO_HOST,
+                    MONGO_PORT,
+                    null,
+                    null,
+                    null
+            )
+            MongoClients.create(uri.toString())
         }
 
         /** Returns a database for storing logs and collection states. */
-        val database: MongoDatabase?
-        get() = client?.getDatabase(DATABASE_NAME)
+        val database: MongoDatabase
+        get() = mongoClient.getDatabase(DATABASE_NAME)
 
         /** Returns a state collection. */
-        val stateCollection: MongoCollection<Document>?
-        get() = database?.getCollection(STATE_COLLECTION_NAME)
+        val stateCollection: MongoCollection<Document>
+        get() = database.getCollection(STATE_COLLECTION_NAME)
 
         private val LOGGER: Logger = LoggerFactory.getLogger(LogStorage::class.java)
     }
