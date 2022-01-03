@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { string, number, bool, shape, oneOfType, arrayOf } from 'prop-types';
 import { getGridTemplate, highlightText } from './helpers';
-import { AccordionSummary, AccordionDetails } from '@material-ui/core';
+import { AccordionSummary, AccordionDetails, Tooltip } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   GridSchema,
@@ -10,12 +10,13 @@ import {
   VariableGridSchema,
   HighlightedText,
   HighlightMark,
-  VerticalStack,
   SimilarLogsButtonsContainer,
-  SimilarLogsButton
+  FilterSimilarLogsButton,
+  QuarantineSimilarLogsButton
 } from './styled';
 import { useSelector } from 'react-redux';
 import { getIsAuthenticated } from '../../../../../selectors';
+import { FilterList, Schedule } from '@material-ui/icons';
 
 const LogEntry = ({
   type,
@@ -67,31 +68,29 @@ const LogEntry = ({
         </GridSchema>
       </AccordionSummary>
       <AccordionDetails>
-        <VerticalStack>
-          <GridSchema>
-            <VariablePart description />
-          </GridSchema>
+        <GridSchema>
+          <VariablePart description />
           <SimilarLogsButtonsContainer>
-            <SimilarLogsButton
-              variant="outlined"
-              size="small"
-              onClick={() => setFilterSimilarLogs(getLastVariableHeader())}
-            >
-              Filter similar logs
-            </SimilarLogsButton>
-            {isAuthenticated && (
-              <SimilarLogsButton
-                variant="outlined"
-                size="small"
-                onClick={() =>
-                  setQuarantineSimilarLogs(getLastVariableHeader())
-                }
+            <Tooltip title="Filter similar logs" placement="left">
+              <FilterSimilarLogsButton
+                onClick={() => setFilterSimilarLogs(getLastVariableHeader())}
               >
-                Add similar logs to quarantine
-              </SimilarLogsButton>
+                <FilterList />
+              </FilterSimilarLogsButton>
+            </Tooltip>
+            {isAuthenticated && (
+              <Tooltip title="Add similar logs to quarantine" placement="left">
+                <QuarantineSimilarLogsButton
+                  onClick={() =>
+                    setQuarantineSimilarLogs(getLastVariableHeader())
+                  }
+                >
+                  <Schedule />
+                </QuarantineSimilarLogsButton>
+              </Tooltip>
             )}
           </SimilarLogsButtonsContainer>
-        </VerticalStack>
+        </GridSchema>
       </AccordionDetails>
     </CustomAccordion>
   );

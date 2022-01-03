@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { Virtuoso } from 'react-virtuoso';
 import { COLORS } from '../../../../../constants';
-import { Typography, Accordion, Button } from '@material-ui/core';
+import { Typography, Accordion, IconButton } from '@material-ui/core';
 import logLevels from '../logLevels';
 
 export const Container = styled.div`
@@ -18,16 +18,10 @@ export const Header = styled.div`
   padding: 0.25em 0;
 `;
 
-export const VerticalStack = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
 export const GridSchema = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 70px 150px 1fr;
+  grid-template-columns: 70px 150px 1fr 56px;
   padding: 0 10px;
 `;
 export const VariableGridSchema = styled.div(
@@ -130,13 +124,21 @@ export const HighlightMark = styled.div`
 `;
 
 export const SimilarLogsButtonsContainer = styled.div`
-  align-self: flex-end;
   display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  margin: 0.25rem 0.5em 0.25em 0;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 8px 0;
+  gap: 8px;
+  box-sizing: border-box;
 `;
 
-export const SimilarLogsButton = styled(Button)`
-  display: block;
+export const FilterSimilarLogsButton = styled(IconButton)`
+  background-color: ${COLORS.LIGHT_SHADE};
+`;
+
+export const QuarantineSimilarLogsButton = styled(IconButton)`
+  background-color: ${COLORS.RED};
+  &:hover {
+    background-color: ${COLORS.DARK_RED};
+  }
 `;
