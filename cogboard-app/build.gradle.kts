@@ -19,6 +19,7 @@ dependencies {
         implementation("$v-auth-jwt")
         implementation("$v-web-client")
         implementation("$v-rx-java2")
+        implementation("$v-lang-kotlin-coroutines")
     }
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0")
     implementation(kotlin("stdlib-jdk8"))

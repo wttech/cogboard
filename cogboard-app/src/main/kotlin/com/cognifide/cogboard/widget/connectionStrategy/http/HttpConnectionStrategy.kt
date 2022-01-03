@@ -17,11 +17,11 @@ class HttpConnectionStrategy(
     private val token: String
         get() = config.endpointProp(Props.TOKEN)
 
-    override fun getNumberOfLines(): Long? {
-        TODO("Not yet implemented")
+    override suspend fun getNumberOfLines(): Long? {
+        TODO()
     }
 
-    override fun getLogs(skipFirstLines: Long?): Collection<String> {
+    override suspend fun getLogs(skipFirstLines: Long?): Collection<String> {
         TODO("Not yet implemented")
     }
 

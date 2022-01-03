@@ -12,7 +12,7 @@ class SSHConnectionStrategy(val config: JsonObject) : ConnectionStrategy() {
         return setOf(AuthenticationType.BASIC, AuthenticationType.SSH_KEY)
     }
 
-    override fun getNumberOfLines(): Long? {
+    override suspend fun getNumberOfLines(): Long? {
         val logFilePath = config.getString(Props.PATH) ?: return null
 
         return SSHClient(prepareConfig(config))
@@ -21,7 +21,7 @@ class SSHConnectionStrategy(val config: JsonObject) : ConnectionStrategy() {
                 ?.toLongOrNull()
     }
 
-    override fun getLogs(skipFirstLines: Long?): Collection<String> {
+    override suspend fun getLogs(skipFirstLines: Long?): Collection<String> {
         val logFilePath = config.getString(Props.PATH) ?: return emptyList()
         val command = skipFirstLines?.let { "tail -n +${it + 1} $logFilePath" } ?: "cat $logFilePath"
 

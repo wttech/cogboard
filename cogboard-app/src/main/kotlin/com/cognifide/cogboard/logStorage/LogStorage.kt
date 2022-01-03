@@ -15,7 +15,6 @@ import com.mongodb.client.model.Filters.or
 import com.mongodb.client.model.Indexes
 import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.client.model.Sorts.ascending
-import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
@@ -26,35 +25,40 @@ import com.cognifide.cogboard.logStorage.model.LogStorageConfiguration
 import com.cognifide.cogboard.logStorage.model.LogVariableData
 import com.cognifide.cogboard.logStorage.model.QuarantineRule
 import com.cognifide.cogboard.logStorage.model.LogCollectionConfiguration
+import io.vertx.kotlin.coroutines.CoroutineVerticle
+import kotlinx.coroutines.runBlocking
 import java.net.URI
 import java.time.Instant
 
 class LogStorage(
-    private val config: LogStorageConfiguration,
+    private val storageConfig: LogStorageConfiguration,
     private val connection: ConnectionStrategy,
     private val parserStrategy: LogParserStrategy,
     var rules: List<QuarantineRule> = emptyList()
-) : AbstractVerticle() {
+) : CoroutineVerticle() {
 
     /** Returns the list of regexes of enabled rules. */
     private val enabledRegexes: List<Regex>
     get() = rules.filter { it.enabled }.map { it.regex }
 
-    override fun start() {
+    val deploymentId: String
+    get() = deploymentID
+
+    override suspend fun start() {
         super.start()
         logsCollection?.createIndex(Indexes.descending(Log.SEQ))
     }
 
     /** Returns a logs collection associated with this widget. */
     private val logsCollection: MongoCollection<Document>?
-    get() = database?.getCollection(config.id)
+    get() = database?.getCollection(storageConfig.id)
 
     // Storage configuration
 
     /** Returns a logs collection configuration associated with this widget (if present). */
     private val collectionConfiguration: LogCollectionConfiguration?
     get() = configCollection
-            ?.find(eq(Log.ID, config.id))
+            ?.find(eq(Log.ID, storageConfig.id))
             ?.first()
             ?.let { LogCollectionConfiguration.from(it) }
 
@@ -64,12 +68,12 @@ class LogStorage(
             val options = ReplaceOptions().upsert(true)
             configCollection
                     ?.replaceOne(
-                            eq(LogCollectionConfiguration.ID, config.id),
+                            eq(LogCollectionConfiguration.ID, storageConfig.id),
                             configuration.toDocument(),
                             options
                     )
         } else {
-            configCollection?.deleteOne((eq(LogCollectionConfiguration.ID, config.id)))
+            configCollection?.deleteOne((eq(LogCollectionConfiguration.ID, storageConfig.id)))
         }
     }
 
@@ -102,7 +106,7 @@ class LogStorage(
     private fun deleteOldLogs() {
         val collection = logsCollection ?: return
         val now = Instant.now().epochSecond
-        val beforeTimestamp = now - (config.expirationDays * DAY_TO_TIMESTAMP)
+        val beforeTimestamp = now - (storageConfig.expirationDays * DAY_TO_TIMESTAMP)
         try {
             val result = collection.deleteMany(lt(Log.INSERTED_ON, beforeTimestamp))
             LOGGER.debug("Deleted ${result.deletedCount} old logs")
@@ -117,9 +121,9 @@ class LogStorage(
         val collection = logsCollection ?: return
 
         val size = database
-                .runCommand(Document(STATS_COMMAND, config.id))
+                .runCommand(Document(STATS_COMMAND, storageConfig.id))
                 .getInteger(STATS_SIZE) ?: 0
-        val maxSize = config.fileSizeMB * MB_TO_BYTES
+        val maxSize = storageConfig.fileSizeMB * MB_TO_BYTES
         if (size > 0 && size > maxSize) {
             val deleteFactor = ((size - maxSize).toDouble() / size)
             val logCount = collection.countDocuments()
@@ -156,14 +160,16 @@ class LogStorage(
 
     /** Downloads new logs and filters them by quarantine rules. */
     private fun downloadFilterLogs(skipFirstLines: Long? = null): List<Log> {
-        val logs = connection
-                .getLogs(skipFirstLines)
-                .mapNotNull { parserStrategy.parseLine(it) }
-                .toMutableList()
+        val logs = mutableListOf<Log>()
+        runBlocking {
+            logs.addAll(connection
+                    .getLogs(skipFirstLines)
+                    .mapNotNull { parserStrategy.parseLine(it) }
+            )
 
-        // Filter the logs by quarantine rules
-        filter(logs)
-
+            // Filter the logs by quarantine rules
+            filter(logs)
+        }
         return logs
     }
 
@@ -190,7 +196,10 @@ class LogStorage(
         var newLogs: List<Log> = emptyList()
 
         // Get the number of lines in the file
-        val fileLineCount = connection.getNumberOfLines() ?: 0
+        var fileLineCount: Long = 0
+        runBlocking {
+            fileLineCount = connection.getNumberOfLines() ?: 0
+        }
 
         if (fileLineCount > 0 && fileLineCount > lastLine) {
             // Download new logs and append them
@@ -208,7 +217,7 @@ class LogStorage(
         seq += newLogs.size
 
         // Save the new configuration
-        saveConfiguration(LogCollectionConfiguration(config.id, lastLine, seq))
+        saveConfiguration(LogCollectionConfiguration(this.storageConfig.id, lastLine, seq))
 
         return newLogs
     }
@@ -236,7 +245,7 @@ class LogStorage(
 
         // Fetch the logs from the database and send them back
         val response = prepareResponse(insertedLogs)
-        vertx?.eventBus()?.send(config.eventBusAddress, response)
+        vertx?.eventBus()?.send(storageConfig.eventBusAddress, response)
     }
 
     /** Deletes all data associated with the widget. */

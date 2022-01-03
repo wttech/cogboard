@@ -13,6 +13,6 @@ abstract class ConnectionStrategy {
         return setOf(AuthenticationType.BASIC)
     }
 
-    abstract fun getNumberOfLines(): Long?
-    abstract fun getLogs(skipFirstLines: Long?): Collection<String>
+    abstract suspend fun getNumberOfLines(): Long?
+    abstract suspend fun getLogs(skipFirstLines: Long?): Collection<String>
 }
