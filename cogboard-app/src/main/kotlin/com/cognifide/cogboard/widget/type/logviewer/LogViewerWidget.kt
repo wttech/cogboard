@@ -59,7 +59,7 @@ class LogViewerWidget(
     override fun stop(): Widget {
         logStorage?.delete()
         logStorage?.deploymentID()?.let { vertx.undeploy(it) }
-        consumer?.unregister()
+        consumer.unregister()
         return super.stop()
     }
 

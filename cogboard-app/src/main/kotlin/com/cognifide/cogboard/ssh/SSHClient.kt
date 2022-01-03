@@ -11,6 +11,7 @@ import io.vertx.core.buffer.Buffer
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.Logger
 import io.vertx.core.logging.LoggerFactory
+import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
 
@@ -46,9 +47,14 @@ class SSHClient(private val config: JsonObject) {
             return null
         }
         val (channel, inputStream) = createChannel(command) ?: return null
-        val response = readResponse(inputStream)
-        channel.disconnect()
-        return response
+
+        return try {
+            readResponse(inputStream)
+        } catch (e: IOException) {
+            null
+        } finally {
+            channel.disconnect()
+        }
     }
 
     fun executeAndClose(command: String): String? {
