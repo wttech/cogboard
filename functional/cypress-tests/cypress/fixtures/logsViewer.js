@@ -1,5 +1,3 @@
-import appLogLevels from '../../../../cogboard-webapp/src/components/widgets/types/LogViewerWidget/logLevels';
-
 export const filters = {
   startsWithA: {
     label: 'starts with a',
@@ -11,7 +9,9 @@ export const filters = {
   },
 };
 
-export const logLevels = Object.keys(appLogLevels).map((key) => ({
-  level: appLogLevels[key].level,
-  value: key,
-}));
+export const logLevels = [
+  { level: 10, value: 'debug' },
+  { level: 20, value: 'info' },
+  { level: 30, value: 'warning' },
+  { level: 40, value: 'error' },
+];
