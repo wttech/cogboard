@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { string, number, bool, shape, oneOfType, arrayOf } from 'prop-types';
 import { getGridTemplate, highlightText } from './helpers';
 import { AccordionSummary, AccordionDetails, Tooltip } from '@material-ui/core';
@@ -17,6 +17,7 @@ import {
 import { useSelector } from 'react-redux';
 import { getIsAuthenticated } from '../../../../../selectors';
 import { FilterList, Schedule } from '@material-ui/icons';
+import { SimilarLogsContext } from '../context';
 
 const LogEntry = ({
   type,
@@ -24,12 +25,12 @@ const LogEntry = ({
   variableData,
   template,
   search,
-  highlight,
-  setFilterSimilarLogs,
-  setQuarantineSimilarLogs
+  highlight
 }) => {
   const [expanded, setExpanded] = useState(false);
   const isAuthenticated = useSelector(getIsAuthenticated);
+
+  const similarLogs = useContext(SimilarLogsContext);
 
   const getLastVariableHeader = () =>
     variableData[variableData.length - 1]?.header ?? '';
@@ -73,7 +74,7 @@ const LogEntry = ({
           <SimilarLogsButtonsContainer>
             <Tooltip title="Filter similar logs" placement="left">
               <FilterSimilarLogsButton
-                onClick={() => setFilterSimilarLogs(getLastVariableHeader())}
+                onClick={() => similarLogs.setFilter(getLastVariableHeader())}
               >
                 <FilterList />
               </FilterSimilarLogsButton>
@@ -82,7 +83,7 @@ const LogEntry = ({
               <Tooltip title="Add similar logs to quarantine" placement="left">
                 <QuarantineSimilarLogsButton
                   onClick={() =>
-                    setQuarantineSimilarLogs(getLastVariableHeader())
+                    similarLogs.setQuarantine(getLastVariableHeader())
                   }
                 >
                   <Schedule />

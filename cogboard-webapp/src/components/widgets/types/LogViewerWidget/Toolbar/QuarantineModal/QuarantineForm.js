@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { createValidationSchema } from '../../../../../validation';
 import { useFormData } from '../../../../../../hooks';
 import DynamicForm from '../../../../../DynamicForm';
@@ -6,27 +6,24 @@ import { Button } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import { StyledHorizontalContainer, StyledCancelButton } from './styled';
 import dialogFields from '../../../../dialogFields';
+import { SimilarLogsContext } from '../../context';
 
 const QuarantineForm = ({
   filters,
   onSubmit,
   handleCancel,
   id,
-  quarantineSimilarLogsState,
   ...initialFormValues
 }) => {
-  const [
-    quarantineSimilarLogs,
-    setQuarantineSimilarLogs
-  ] = quarantineSimilarLogsState;
+  const similarLogs = useContext(SimilarLogsContext);
 
   useEffect(() => {
-    if (quarantineSimilarLogs) {
-      setFieldValue(dialogFields.RegExpField.name, quarantineSimilarLogs);
-      setQuarantineSimilarLogs(null);
+    if (similarLogs.quarantine) {
+      setFieldValue(dialogFields.RegExpField.name, similarLogs.quarantine);
+      similarLogs.setQuarantine(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quarantineSimilarLogs]);
+  }, [similarLogs.quarantine]);
 
   const formFields = ['LabelField', 'RegExpField', 'ReasonField'];
   const constraints = {

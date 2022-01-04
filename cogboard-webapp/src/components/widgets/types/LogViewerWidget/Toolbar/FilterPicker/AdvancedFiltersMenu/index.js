@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useToggle } from '../../../../../../../hooks';
 import { v4 } from 'uuid';
 import { getFilters, saveFilters } from '../helpers';
@@ -19,25 +19,19 @@ import EditFilter from './EditFilter';
 import DeleteItem from '../../../../../../DeleteItem';
 import FilterForm from './FilterForm';
 import { StyledExitButton } from './styled';
+import { SimilarLogsContext } from '../../../context';
 
-const AdvancedFiltersMenu = ({
-  widgetLocalStorage,
-  wid,
-  quarantine,
-  filterSimilarLogsState,
-  quarantineSimilarLogsState
-}) => {
+const AdvancedFiltersMenu = ({ widgetLocalStorage, wid, quarantine }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
-  const [filterSimilarLogs] = filterSimilarLogsState;
-  const [quarantineSimilarLogs] = quarantineSimilarLogsState;
+  const similarLogs = useContext(SimilarLogsContext);
 
   useEffect(() => {
-    if (filterSimilarLogs || quarantineSimilarLogs) {
+    if (similarLogs.filter || similarLogs.quarantine) {
       openDialog();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterSimilarLogs, quarantineSimilarLogs]);
+  }, [similarLogs.filter, similarLogs.quarantine]);
 
   const filters = getFilters(widgetLocalStorage);
 
@@ -141,18 +135,11 @@ const AdvancedFiltersMenu = ({
           largeButton
           itemName="filter"
           submitAction={addFilter}
-          shouldOpen={filterSimilarLogs}
+          shouldOpen={similarLogs.filter}
         >
-          <FilterForm
-            filters={filters}
-            filterSimilarLogsState={filterSimilarLogsState}
-          />
+          <FilterForm filters={filters} />
         </AddItem>
-        <QuarantineModal
-          wid={wid}
-          quarantine={quarantine}
-          quarantineSimilarLogsState={quarantineSimilarLogsState}
-        />
+        <QuarantineModal wid={wid} quarantine={quarantine} />
         <StyledExitButton
           onClick={handleDialogClose}
           variant="contained"

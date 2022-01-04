@@ -12,13 +12,7 @@ import {
 import ToolbarGroup from '../ToolbarGroup';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
-const FilterPicker = ({
-  widgetLocalStorage,
-  wid,
-  quarantine,
-  filterSimilarLogsState,
-  quarantineSimilarLogsState
-}) => {
+const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
   const regExpFilters = getFilters(widgetLocalStorage);
   const logLevel = getLevel(widgetLocalStorage);
 
@@ -103,8 +97,6 @@ const FilterPicker = ({
         widgetLocalStorage={widgetLocalStorage}
         wid={wid}
         quarantine={quarantine}
-        filterSimilarLogsState={filterSimilarLogsState}
-        quarantineSimilarLogsState={quarantineSimilarLogsState}
       />
     </ToolbarGroup>
   );

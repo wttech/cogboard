@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import {
@@ -17,19 +17,20 @@ import AddItem from '../../../../../AddItem';
 import QuarantineForm from './QuarantineForm';
 import EditQFilter from './EditQFilter';
 import DeleteItem from '../../../../../DeleteItem';
+import { SimilarLogsContext } from '../../context';
 
-const QuarantineModal = ({ wid, quarantine, quarantineSimilarLogsState }) => {
+const QuarantineModal = ({ wid, quarantine }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
-  const [quarantineSimilarLogs] = quarantineSimilarLogsState;
+  const similarLogs = useContext(SimilarLogsContext);
 
   useEffect(() => {
-    if (quarantineSimilarLogs) {
+    if (similarLogs.quarantine) {
       openDialog();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quarantineSimilarLogs]);
+  }, [similarLogs.quarantine]);
 
   const handleQuarantineClick = event => {
     event.stopPropagation();
@@ -132,12 +133,9 @@ const QuarantineModal = ({ wid, quarantine, quarantineSimilarLogsState }) => {
           largeButton
           itemName="quarantine"
           submitAction={addFilter}
-          shouldOpen={quarantineSimilarLogs}
+          shouldOpen={similarLogs.quarantine}
         >
-          <QuarantineForm
-            filters={quarantine}
-            quarantineSimilarLogsState={quarantineSimilarLogsState}
-          />
+          <QuarantineForm filters={quarantine} />
         </AddItem>
         <StyledButton
           onClick={handleDialogClose}

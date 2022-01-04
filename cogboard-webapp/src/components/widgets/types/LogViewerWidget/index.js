@@ -8,6 +8,7 @@ import LogList from './LogList';
 import { Container } from './styled';
 import { getInitialLogs } from '../../../../utils/fetch';
 import { joinLogs } from './helpers';
+import { SimilarLogsContext } from './context';
 
 const LogViewerWidget = ({ id }) => {
   const widgetData = useSelector(
@@ -48,36 +49,38 @@ const LogViewerWidget = ({ id }) => {
 
   return (
     <Container>
-      <Toolbar
-        wid={id}
-        quarantine={quarantine}
-        widgetLocalStorage={widgetLocalStorage}
-        setSearchFilter={setSearchFilter}
-        shouldFollowLogs={shouldFollowLogs}
-        handleFollowChange={setFollow}
-        lastLog={
-          storedLogs &&
-          storedLogs.length > 0 &&
-          storedLogs[storedLogs.length - 1]
-        }
-        filterSimilarLogsState={[filterSimilarLogs, setFilterSimilarLogs]}
-        quarantineSimilarLogsState={[
-          quarantineSimilarLogs,
-          setQuarantineSimilarLogs
-        ]}
-      />
-      {storedLogs && (
-        <LogList
+      <SimilarLogsContext.Provider
+        value={{
+          filter: filterSimilarLogs,
+          setFilter: setFilterSimilarLogs,
+          quarantine: quarantineSimilarLogs,
+          setQuarantine: setQuarantineSimilarLogs
+        }}
+      >
+        <Toolbar
+          wid={id}
+          quarantine={quarantine}
           widgetLocalStorage={widgetLocalStorage}
-          logs={storedLogs}
-          template={template}
-          search={searchFilter}
+          setSearchFilter={setSearchFilter}
           shouldFollowLogs={shouldFollowLogs}
           handleFollowChange={setFollow}
-          setFilterSimilarLogs={setFilterSimilarLogs}
-          setQuarantineSimilarLogs={setQuarantineSimilarLogs}
+          lastLog={
+            storedLogs &&
+            storedLogs.length > 0 &&
+            storedLogs[storedLogs.length - 1]
+          }
         />
-      )}
+        {storedLogs && (
+          <LogList
+            widgetLocalStorage={widgetLocalStorage}
+            logs={storedLogs}
+            template={template}
+            search={searchFilter}
+            shouldFollowLogs={shouldFollowLogs}
+            handleFollowChange={setFollow}
+          />
+        )}
+      </SimilarLogsContext.Provider>
     </Container>
   );
 };

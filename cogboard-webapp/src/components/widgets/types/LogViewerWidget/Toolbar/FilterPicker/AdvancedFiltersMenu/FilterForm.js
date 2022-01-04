@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { createValidationSchema } from '../../../../../../validation';
 import { useFormData } from '../../../../../../../hooks';
 
@@ -6,6 +6,7 @@ import { Button } from '@material-ui/core';
 import DynamicForm from '../../../../../../DynamicForm';
 import { StyledCancelButton } from './styled';
 import dialogFields from '../../../../../dialogFields';
+import { SimilarLogsContext } from '../../../context';
 
 const FilterForm = ({
   filters,
@@ -15,15 +16,15 @@ const FilterForm = ({
   filterSimilarLogsState,
   ...initialFormValues
 }) => {
-  const [filterSimilarLogs, setFilterSimilarLogs] = filterSimilarLogsState;
+  const similarLogs = useContext(SimilarLogsContext);
 
   useEffect(() => {
-    if (filterSimilarLogs) {
-      setFieldValue(dialogFields.RegExpField.name, filterSimilarLogs);
-      setFilterSimilarLogs(null);
+    if (similarLogs.filter) {
+      setFieldValue(dialogFields.RegExpField.name, similarLogs.filter);
+      similarLogs.setFilter(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterSimilarLogs]);
+  }, [similarLogs.filter]);
 
   const formFields = ['LabelField', 'RegExpField'];
   const constraints = {
