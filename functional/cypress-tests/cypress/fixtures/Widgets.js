@@ -340,14 +340,5 @@ module.exports = {
     displayDate: true,
     displayTime: true,
     textsize: 'h6'
-  },
-  logViewer: {
-    name: 'Log Viewer',
-    endpoint: 'endpoint1',
-    schedulePeriod: 30,
-    path: '/home/mock/example.txt',
-    logLinesField: 10,
-    logFileSizeField: 1,
-    logRecordExpirationField: 5
   }
 };
