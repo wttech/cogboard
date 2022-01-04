@@ -1,11 +1,10 @@
 import { COLORS } from '../../../../constants';
 
-const logLevels = [
-  { value: 'debug', color: COLORS.WHITE, level: 0 },
-  { value: 'info', color: COLORS.WHITE, level: 1 },
-  { value: 'warning', color: COLORS.YELLOW, level: 2 },
-  { value: 'error', color: COLORS.RED, level: 3 },
-  { value: 'success', color: COLORS.GREEN, level: 4 }
-];
+const logLevels = {
+  debug: { level: 10, color: COLORS.WHITE },
+  info: { level: 20, color: COLORS.WHITE },
+  warning: { level: 30, color: COLORS.YELLOW },
+  error: { level: 40, color: COLORS.RED }
+};
 
 export default logLevels;

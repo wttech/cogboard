@@ -7,7 +7,8 @@ import {
   ScrollableBox,
   FiltersSelect,
   LogLevelSelect,
-  StyledChip
+  StyledChip,
+  FiltersWrapper
 } from './styled';
 import ToolbarGroup from '../ToolbarGroup';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
@@ -38,66 +39,72 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
   return (
     <ToolbarGroup title="Filters">
       <FormControl>
-        <InputLabel id="filters-label">
-          {regExpFilters.length > 0 ? `Filters` : `No filters defined`}
-        </InputLabel>
-        <FiltersSelect
-          data-cy="filters-menu"
-          disabled={regExpFilters.length <= 0}
-          labelId="filters-label"
-          multiple
-          value={regExpFilters.filter(filter => filter.checked)}
-          onChange={e => handleSelection(e.target.value)}
-          renderValue={selected => (
-            <ScrollableBox>
-              {selected.map(({ id, label, regExp }) => (
-                <Tooltip
-                  key={id}
-                  title={`Regular expression: ${regExp}`}
-                  placement="bottom"
-                >
-                  <StyledChip
-                    label={label}
-                    onDelete={() => handleDelete(id)}
-                    onMouseDown={e => e.stopPropagation()}
-                    data-cy="filters-chip"
-                  />
-                </Tooltip>
-              ))}
-            </ScrollableBox>
-          )}
-        >
-          {regExpFilters.map(filter => (
-            <MenuItem
-              key={filter.id}
-              value={filter}
-              data-cy="filters-menu-option"
-            >
-              {filter.label}
-            </MenuItem>
-          ))}
-        </FiltersSelect>
-      </FormControl>
-
-      <FormControl>
         <InputLabel id="log-level-label">Log level</InputLabel>
         <LogLevelSelect
           labelId="log-level-label"
           value={logLevel}
           onChange={e => handleLevelSelection(e.target.value)}
+          data-cy="log-level-menu"
         >
-          {logLevels.map((level, index) => (
-            <MenuItem key={index} value={level.value}>
-              {level.value.toUpperCase()}
+          {Object.keys(logLevels).map((key, index) => (
+            <MenuItem
+              key={index}
+              value={key}
+              data-cy={`log-level-menu-option-${key}`}
+            >
+              {key.toUpperCase()}
             </MenuItem>
           ))}
         </LogLevelSelect>
       </FormControl>
-      <AdvancedFiltersMenu
-        widgetLocalStorage={widgetLocalStorage}
-        wid={wid}
-        quarantine={quarantine}
-      />
+      <FiltersWrapper>
+        <FormControl>
+          <InputLabel id="filters-label">
+            {regExpFilters.length > 0 ? `Filters` : `No filters defined`}
+          </InputLabel>
+          <FiltersSelect
+            data-cy="filters-menu"
+            disabled={regExpFilters.length <= 0}
+            labelId="filters-label"
+            multiple
+            value={regExpFilters.filter(filter => filter.checked)}
+            onChange={e => handleSelection(e.target.value)}
+            renderValue={selected => (
+              <ScrollableBox>
+                {selected.map(({ id, label, regExp }) => (
+                  <Tooltip
+                    key={id}
+                    title={`Regular expression: ${regExp}`}
+                    placement="bottom"
+                  >
+                    <StyledChip
+                      label={label}
+                      onDelete={() => handleDelete(id)}
+                      onMouseDown={e => e.stopPropagation()}
+                      data-cy="filters-chip"
+                    />
+                  </Tooltip>
+                ))}
+              </ScrollableBox>
+            )}
+          >
+            {regExpFilters.map(filter => (
+              <MenuItem
+                key={filter.id}
+                value={filter}
+                data-cy="filters-menu-option"
+              >
+                {filter.label}
+              </MenuItem>
+            ))}
+          </FiltersSelect>
+        </FormControl>
+        <AdvancedFiltersMenu
+          widgetLocalStorage={widgetLocalStorage}
+          wid={wid}
+          quarantine={quarantine}
+        />
+      </FiltersWrapper>
     </ToolbarGroup>
   );
 };

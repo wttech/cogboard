@@ -1,20 +1,16 @@
 import logLevels from '../logLevels';
 
 export const getGridTemplate = columnNames => {
-  const widths = columnNames.map(name =>
+  const widths = columnNames?.map(name =>
     name.toLowerCase() === 'message' ? '3fr ' : '1fr '
   );
-  return widths.reduce((acc, current) => acc + current, '');
+  return widths?.reduce((acc, current) => acc + current, '') || '';
 };
 
 export const filterByLevel = (log, level) => {
-  const lowestLevel = logLevels.find(
-    elem => elem.value.toLowerCase() === level.toLowerCase()
-  );
-  const logLevel = logLevels.find(
-    elem => elem.value.toLowerCase() === log.type.toLowerCase()
-  );
-  return logLevel.level >= lowestLevel.level;
+  const logLevel = logLevels[log.type.toLowerCase()]?.level;
+  const selectedLevel = logLevels[level.toLowerCase()].level;
+  return logLevel ? logLevel >= selectedLevel : true;
 };
 
 const getLogTexts = log => {
@@ -50,7 +46,19 @@ export const filterByRegExp = (log, filters) =>
       getLogTexts(log).some(text => text.match(new RegExp(regExp)))
     );
 
+/*
+  log: string?
+  begin: momentjs-object?
+  end: momentjs-object?
+*/
 export const filterByDateSpan = (log, { begin, end }) => {
+  const isEmptyLogDate = !log.date;
+  const isNoDateSpanSpecified = !begin && !end;
+
+  if (isEmptyLogDate) {
+    return isNoDateSpanSpecified;
+  }
+
   const date = new Date(log.date);
 
   if (begin && date < begin) return false;

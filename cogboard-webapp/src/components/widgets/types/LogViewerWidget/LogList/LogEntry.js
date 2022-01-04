@@ -63,8 +63,10 @@ const LogEntry = ({
       >
         {highlight && <HighlightMark />}
         <GridSchema>
-          <Text type={type}>{type?.toUpperCase()}</Text>
-          <Text>{date}</Text>
+          <Text type={type} data-cy="log-entry-level">
+            {type?.toUpperCase()}
+          </Text>
+          <Text data-cy="log-entry-data">{date}</Text>
           <VariablePart />
         </GridSchema>
       </AccordionSummary>

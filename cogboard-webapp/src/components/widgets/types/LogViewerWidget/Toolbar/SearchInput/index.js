@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { func, number } from 'prop-types';
 import { useDebounce } from '../../../../../../hooks';
 
-import { TextField } from '@material-ui/core';
-import { Wrapper, CustomIconButton } from './styled';
+import { Wrapper, CustomIconButton, StyledTextField } from './styled';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -26,8 +25,8 @@ const SearchInput = ({ setSearchFilter, debounce, minLetters }) => {
 
   return (
     <Wrapper>
-      <TextField
-        label="Search..."
+      <StyledTextField
+        label="Search"
         value={searchBoxValue}
         onChange={handleChange}
       />

@@ -3,9 +3,9 @@ import { useToggle } from '../../../../../../../hooks';
 import { v4 } from 'uuid';
 import { getFilters, saveFilters } from '../helpers';
 import QuarantineModal from '../../QuarantineModal';
+import ToggleIconButton from '../../ToggleIconButton';
 
 import {
-  Button,
   List,
   ListItem,
   ListItemText,
@@ -13,6 +13,7 @@ import {
   Switch,
   Tooltip
 } from '@material-ui/core';
+import AdvancedIcon from '@material-ui/icons/FilterList';
 import AppDialog from '../../../../../../AppDialog';
 import AddItem from '../../../../../../AddItem';
 import EditFilter from './EditFilter';
@@ -108,14 +109,13 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage, wid, quarantine }) => {
 
   return (
     <>
-      <Button
-        variant="contained"
-        size="small"
+      <ToggleIconButton
+        tooltip="Advanced"
+        enabled={dialogOpened}
         onClick={openDialog}
+        Icon={AdvancedIcon}
         data-cy="advanced-filters-button"
-      >
-        Advanced
-      </Button>
+      />
       <AppDialog
         disableBackdropClick={true}
         handleDialogClose={handleDialogClose}

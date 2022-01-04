@@ -1,5 +1,5 @@
 import styled from '@emotion/styled/macro';
-import { IconButton } from '@material-ui/core';
+import { IconButton, TextField } from '@material-ui/core';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -16,3 +16,11 @@ CustomIconButton.defaultProps = {
   variant: 'outlined',
   size: 'small'
 };
+
+export const StyledTextField = styled(TextField)`
+  min-width: 5rem;
+
+  & > input {
+    margin-right: 1.8rem;
+  }
+`;
