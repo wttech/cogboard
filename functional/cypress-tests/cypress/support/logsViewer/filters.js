@@ -1,12 +1,29 @@
-export const logsMatchFilter = (regExp) =>
-  cy
-    .get('[data-cy="log-entry"] ')
-    .each((log) =>
-      cy
-        .wrap(log)
-        .contains('[data-cy="log-variable-data"] p', new RegExp(regExp))
-        .should('exist')
-    );
+const logsContains = (logPartSelector, regExp) =>
+  cy.get('[data-cy="log-entry"] ').each(log =>
+    cy
+      .wrap(log)
+      .contains(logPartSelector, regExp)
+      .should('exist')
+  );
+
+export const logsMatchFilter = regExp =>
+  logsContains('[data-cy="log-variable-data"] p', new RegExp(regExp));
+
+export const logsMatchLogLevel = (selectedLevel, levels) => {
+  const greaterLogLevels = levels.filter(
+    level => level.level >= selectedLevel.level
+  );
+  const regExp = new RegExp(
+    greaterLogLevels.map(lvl => lvl.value).join('|'),
+    'i'
+  );
+  logsContains('[data-cy="log-entry-level"]', regExp);
+};
+
+export const selectLogLevel = levelSlug => {
+  cy.get('[data-cy="log-level-menu"]').click();
+  cy.get(`[data-cy="log-level-menu-option-${levelSlug}"]`).click();
+};
 
 export const openAdvancedMenu = () =>
   cy.get('[data-cy="advanced-filters-button"]').click();
@@ -27,13 +44,15 @@ export const assertChip = (widget, label, chainer = 'exist') => {
 };
 
 export const fillFormField = (field, value) => {
-  cy.get(`[data-cy="filter-form-${field}-input"]`).clear().type(value);
+  cy.get(`[data-cy="filter-form-${field}-input"]`)
+    .clear()
+    .type(value);
 };
 
 export const submitForm = () =>
   cy.get('[data-cy="filter-form-submit-button"]').click();
 
-export const addFilter = (filter) => {
+export const addFilter = filter => {
   cy.get('[data-cy="add-filter-add-button"]').click();
   fillFormField('label', filter.label);
   fillFormField('reg-exp', filter.regExp);

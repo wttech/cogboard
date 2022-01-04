@@ -44,10 +44,15 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
           labelId="log-level-label"
           value={logLevel}
           onChange={e => handleLevelSelection(e.target.value)}
+          data-cy="log-level-menu"
         >
-          {logLevels.map((level, index) => (
-            <MenuItem key={index} value={level.value}>
-              {level.value.toUpperCase()}
+          {Object.keys(logLevels).map((key, index) => (
+            <MenuItem
+              key={index}
+              value={key}
+              data-cy={`log-level-menu-option-${key}`}
+            >
+              {key.toUpperCase()}
             </MenuItem>
           ))}
         </LogLevelSelect>
