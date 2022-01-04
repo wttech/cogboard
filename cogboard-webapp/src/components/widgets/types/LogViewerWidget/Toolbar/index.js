@@ -62,6 +62,7 @@ const Toolbar = ({
           size="small"
           theme={theme}
           onClick={handleClearLogs}
+          data-cy="clear-logs-button"
         >
           <DeleteIcon />
           Clear logs

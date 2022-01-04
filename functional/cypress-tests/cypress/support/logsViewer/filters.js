@@ -1,12 +1,28 @@
-export const logsMatchFilter = (regExp) =>
+const logsContains = (logPartSelector, regExp) =>
   cy
     .get('[data-cy="log-entry"] ')
     .each((log) =>
-      cy
-        .wrap(log)
-        .contains('[data-cy="log-variable-data"] p', new RegExp(regExp))
-        .should('exist')
+      cy.wrap(log).contains(logPartSelector, regExp).should('exist')
     );
+
+export const logsMatchFilter = (regExp) =>
+  logsContains('[data-cy="log-variable-data"] p', new RegExp(regExp));
+
+export const logsMatchLogLevel = (selectedLevel, levels) => {
+  const greaterLogLevels = levels.filter(
+    (level) => level.level >= selectedLevel.level
+  );
+  const regExp = new RegExp(
+    greaterLogLevels.map((lvl) => lvl.value).join('|'),
+    'i'
+  );
+  logsContains('[data-cy="log-entry-level"]', regExp);
+};
+
+export const selectLogLevel = (levelSlug) => {
+  cy.get('[data-cy="log-level-menu"]').click();
+  cy.get(`[data-cy="log-level-menu-option-${levelSlug}"]`).click();
+};
 
 export const openAdvancedMenu = () =>
   cy.get('[data-cy="advanced-filters-button"]').click();

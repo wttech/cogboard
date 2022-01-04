@@ -138,10 +138,9 @@ export function useEventListener(eventName, handler, element = window) {
 }
 
 export const useLocalStorage = key => {
-  const localStorage = window.localStorage.getItem(key);
-  const [data, setStoredValue] = useState(
-    localStorage ? JSON.parse(localStorage) : null
-  );
+  const stringValue = window.localStorage.getItem(key);
+  const objectValue = stringValue ? JSON.parse(stringValue) : null;
+  const [data, setStoredValue] = useState(objectValue);
 
   const setData = data => {
     window.localStorage.setItem(key, JSON.stringify(data));
