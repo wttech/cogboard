@@ -1,8 +1,7 @@
-package com.cognifide.cogboard.logStorage
+package com.cognifide.cogboard.logStorage.model
 
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
-import main.kotlin.com.cognifide.cogboard.logStorage.QuarantineRule
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
