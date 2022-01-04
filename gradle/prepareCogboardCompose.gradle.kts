@@ -9,6 +9,8 @@ fun createComposeFile() {
     val composeFilePath = "$rootDir/cogboard-compose.yml"
     logger.lifecycle(">> createZip >> Creating $composeFilePath")
 
+    val user = project.property("mongo.user")
+    val password = project.property("mongo.password")
     File(composeFilePath).writeText("""version: "3.7"
 
 services:
@@ -16,6 +18,8 @@ services:
     image: "cogboard/cogboard-app:$currentVersion"
     environment:
       - COGBOARD_VERSION=$currentVersion
+      - MONGO_USERNAME=$user
+      - MONGO_PASSWORD=$password
     volumes:
       - "./mnt:/data"
   
@@ -23,8 +27,8 @@ services:
     image: mongo
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "root"
-      MONGO_INITDB_ROOT_PASSWORD: "root"
+      MONGO_INITDB_ROOT_USERNAME: "$user"
+      MONGO_INITDB_ROOT_PASSWORD: "$password"
       MONGO_INITDB_DATABASE: "logs"
     volumes:
       - "./mnt/mongo:/data/db"

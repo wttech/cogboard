@@ -26,8 +26,8 @@ services:
     image: "cogboard/cogboard-app:${COGBOARD_VERSION}"
     environment:
       - COGBOARD_VERSION=${COGBOARD_VERSION}
-      - MONGO_USERNAME=root
-      - MONGO_PASSWORD=root
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
       - MONGO_HOST=mongo
       - MONGO_PORT=27017
     volumes:
@@ -41,8 +41,8 @@ services:
     image: mongo:4
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "root"
-      MONGO_INITDB_ROOT_PASSWORD: "root"
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: "logs"
     volumes:
       - "./mnt/mongo:/data/db"
