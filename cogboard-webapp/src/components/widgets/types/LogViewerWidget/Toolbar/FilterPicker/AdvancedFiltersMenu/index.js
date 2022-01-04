@@ -13,7 +13,7 @@ import {
   Switch,
   Tooltip
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import AdvancedIcon from '@material-ui/icons/FilterList';
 import AppDialog from '../../../../../../AppDialog';
 import AddItem from '../../../../../../AddItem';
 import EditFilter from './EditFilter';
@@ -102,7 +102,7 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage, wid, quarantine }) => {
         tooltip="Advanced"
         enabled={dialogOpened}
         onClick={openDialog}
-        Icon={AddIcon}
+        Icon={AdvancedIcon}
         data-cy="advanced-filters-button"
       />
       <AppDialog
