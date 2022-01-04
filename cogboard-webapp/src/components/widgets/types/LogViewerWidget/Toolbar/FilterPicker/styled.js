@@ -30,3 +30,9 @@ export const StyledChip = styled(Chip)`
 StyledChip.defaultProps = {
   size: 'small'
 };
+
+export const FiltersWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+`;

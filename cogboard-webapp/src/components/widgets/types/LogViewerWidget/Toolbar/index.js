@@ -2,12 +2,12 @@ import React from 'react';
 import moment from 'moment-timezone';
 import { saveDateSpan } from './DateRangePicker/helpers';
 
-import { Button, useTheme } from '@material-ui/core';
-import { RedButton, Wrapper } from './styled';
+import ToggleIconButton from './ToggleIconButton';
+import { Wrapper } from './styled';
 import SearchInput from './SearchInput';
 import ToolbarGroup from './ToolbarGroup';
 import DateRangePicker from './DateRangePicker';
-import GetAppIcon from '@material-ui/icons/GetApp';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterPicker from './FilterPicker';
 
@@ -20,8 +20,6 @@ const Toolbar = ({
   handleFollowChange,
   lastLog
 }) => {
-  const theme = useTheme();
-
   const handleClearLogs = () => {
     const date = lastLog?.date;
     if (date) {
@@ -49,24 +47,18 @@ const Toolbar = ({
       <DateRangePicker widgetLocalStorage={widgetLocalStorage} />
 
       <ToolbarGroup>
-        <Button
-          variant="contained"
-          size="small"
+        <ToggleIconButton
+          tooltip={shouldFollowLogs ? 'Following logs' : 'Follow logs'}
           onClick={() => handleFollowChange(!shouldFollowLogs)}
-        >
-          <GetAppIcon />
-          {shouldFollowLogs ? 'Stop following' : 'Follow logs'}
-        </Button>
-        <RedButton
-          variant="contained"
-          size="small"
-          theme={theme}
-          onClick={handleClearLogs}
+          enabled={shouldFollowLogs}
+          Icon={ArrowDownwardIcon}
+        />
+        <ToggleIconButton
+          tooltip="Clear logs"
           data-cy="clear-logs-button"
-        >
-          <DeleteIcon />
-          Clear logs
-        </RedButton>
+          onClick={handleClearLogs}
+          Icon={DeleteIcon}
+        />
       </ToolbarGroup>
     </Wrapper>
   );

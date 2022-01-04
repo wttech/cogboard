@@ -1,18 +1,29 @@
 import styled from '@emotion/styled/macro';
-import { Button } from '@material-ui/core';
-
-export const RedButton = styled(Button)`
-  color: white;
-  background-color: ${({ theme }) => theme.palette.status.FAIL};
-`;
+import { IconButton } from '@material-ui/core';
+import { COLORS } from '../../../../../constants';
 
 export const Wrapper = styled.div`
+  width: 100%;
   top: 0;
   position: absolute;
-  overflow-x: hidden;
+  overflow-x: scroll;
   display: flex;
   flex-direction: row;
-  align-items: stretch;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1em;
+  overflow-x: hidden;
+}
 `;
+
+export const StyledIconButton = styled(IconButton)`
+  ${props =>
+    props.enabled
+      ? `
+        color: ${COLORS.BLUE}; 
+        background-color: ${COLORS.LIGHT_SHADE}
+      `
+      : ''}
+`;
+StyledIconButton.defaultProps = {
+  size: 'small'
+};
