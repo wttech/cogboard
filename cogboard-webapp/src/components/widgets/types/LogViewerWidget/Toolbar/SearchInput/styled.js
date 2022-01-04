@@ -20,7 +20,7 @@ CustomIconButton.defaultProps = {
 export const StyledTextField = styled(TextField)`
   min-width: 5rem;
 
-  & input {
+  & > input {
     margin-right: 1.8rem;
   }
 `;
