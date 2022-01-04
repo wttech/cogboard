@@ -51,7 +51,7 @@ class SSHClient(private val config: JsonObject) {
         return try {
             readResponse(inputStream)
         } catch (e: IOException) {
-            null
+            e.message
         } finally {
             channel.disconnect()
         }
