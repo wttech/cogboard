@@ -52,8 +52,11 @@ export const filterByRegExp = (log, filters) =>
   end: momentjs-object?
 */
 export const filterByDateSpan = (log, { begin, end }) => {
-  if (!log.date) {
-    return !begin && !end; // let empty date through if there is no date span
+  const isEmptyLogDate = !log.date;
+  const isNoDateSpanSpecified = !begin && !end;
+
+  if (isEmptyLogDate) {
+    return isNoDateSpanSpecified;
   }
 
   const date = new Date(log.date);
