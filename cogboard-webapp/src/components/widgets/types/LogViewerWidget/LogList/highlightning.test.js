@@ -9,7 +9,7 @@ const logHeader = {
   variableData: null
 };
 
-it('log highlighting', () => {
+describe('log highlighting', () => {
   const variableData = [
     {
       header: 'FelixStartLevel',
@@ -22,13 +22,17 @@ it('log highlighting', () => {
   ];
   const log = { ...logHeader, variableData };
 
-  expect(isLogHighlighted(log, 'eli')).toEqual(true);
-  expect(isLogHighlighted(log, 'ELI')).toEqual(true);
-  expect(isLogHighlighted(log, 'id velit')).toEqual(true);
-  expect(isLogHighlighted(log, 'cipit')).toEqual(true);
-  expect(isLogHighlighted(log, 'val')).toEqual(false);
-  expect(isLogHighlighted(log, 'FelixStartLevel')).toEqual(true);
-  expect(isLogHighlighted(log, 'description')).toEqual(true);
-  expect(isLogHighlighted(log, 'message')).toEqual(true);
-  expect(isLogHighlighted(log, '')).toBeFalsy();
+  it('should highlight logs', () => {
+    expect(isLogHighlighted(log, 'eli')).toEqual(true);
+    expect(isLogHighlighted(log, 'ELI')).toEqual(true);
+    expect(isLogHighlighted(log, 'id velit')).toEqual(true);
+    expect(isLogHighlighted(log, 'cipit')).toEqual(true);
+    expect(isLogHighlighted(log, 'FelixStartLevel')).toEqual(true);
+    expect(isLogHighlighted(log, 'description')).toEqual(true);
+    expect(isLogHighlighted(log, 'message')).toEqual(true);
+  });
+  it('should not highlight logs', () => {
+    expect(isLogHighlighted(log, 'val')).toEqual(false);
+    expect(isLogHighlighted(log, '')).toBeFalsy();
+  });
 });
