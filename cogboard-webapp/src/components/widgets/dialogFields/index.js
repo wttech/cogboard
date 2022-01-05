@@ -39,6 +39,7 @@ import ToDoListInput from './ToDoListinput';
 import WidgetTypeField from './WidgetTypeField';
 import FileTextInput from './FileTextInput';
 import ParserTypeInput from './ParserTypeInput';
+import TimestampInput from './TimestampInput';
 
 const dialogFields = {
   LabelField: {
@@ -644,6 +645,13 @@ const dialogFields = {
     name: 'reasonField',
     label: 'Reason',
     validator: () => string()
+  },
+  EndTimestampField: {
+    component: TimestampInput,
+    name: 'endTimestamp',
+    label: 'End date (optional)',
+    initialValue: null,
+    validator: () => number().nullable()
   },
   LogParserField: {
     component: ParserTypeInput,

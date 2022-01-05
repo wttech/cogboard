@@ -39,7 +39,14 @@ class LogStorage(
 
     /** Returns the list of regexes of enabled rules. */
     private val enabledRegexes: List<Regex>
-    get() = rules.filter { it.enabled }.map { it.regex }
+    get() {
+        val now = Instant.now()
+        return rules
+                .filter { rule ->
+                    rule.enabled && (rule.endTimestamp?.let { it > now } ?: true)
+                }
+                .map { it.regex }
+    }
 
     override fun start() {
         super.start()
