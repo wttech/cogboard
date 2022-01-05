@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { Virtuoso } from 'react-virtuoso';
 import { COLORS } from '../../../../../constants';
-import { Typography, Accordion } from '@material-ui/core';
+import { Typography, Accordion, IconButton } from '@material-ui/core';
 import logLevels from '../logLevels';
 
 export const Container = styled.div`
@@ -21,7 +21,7 @@ export const Header = styled.div`
 export const GridSchema = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 70px 150px 1fr;
+  grid-template-columns: 70px 150px 1fr 56px;
   padding: 0 10px;
 `;
 export const VariableGridSchema = styled.div(
@@ -85,13 +85,14 @@ export const CustomAccordion = styled(Accordion)`
     min-height: unset;
   }
 
-  .MuiButtonBase-root .MuiIconButton-root {
+  .MuiAccordionSummary-root .MuiIconButton-root {
     position: absolute;
     top: 0;
     right: 1em;
   }
 
-  .MuiButtonBase-root {
+  .MuiAccordionSummary-root,
+  .MuiAccordionSummary-root .MuiButtonBase-root {
     padding: unset;
   }
 
@@ -117,4 +118,24 @@ export const HighlightMark = styled.div`
   width: 1rem;
   transform: rotate(45deg);
   background-color: ${COLORS.YELLOW};
+`;
+
+export const SimilarLogsButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 8px 0;
+  gap: 8px;
+  box-sizing: border-box;
+`;
+
+export const FilterSimilarLogsButton = styled(IconButton)`
+  background-color: ${COLORS.LIGHT_SHADE};
+`;
+
+export const QuarantineSimilarLogsButton = styled(IconButton)`
+  background-color: ${COLORS.RED};
+  &:hover {
+    background-color: ${COLORS.DARK_RED};
+  }
 `;
