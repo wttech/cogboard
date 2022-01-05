@@ -9,6 +9,13 @@ import { Container } from './styled';
 import { getInitialLogs } from '../../../../utils/fetch';
 import { joinLogs } from './helpers';
 import { SimilarLogsContext } from './context';
+import { getFilters, getLevel } from './Toolbar/FilterPicker/helpers';
+import { getDateSpan } from './Toolbar/DateRangePicker/helpers';
+import {
+  filterByRegExp,
+  filterByDateSpan,
+  filterByLevel
+} from './LogList/helpers';
 
 const LogViewerWidget = ({ id }) => {
   const widgetData = useSelector(
@@ -47,6 +54,15 @@ const LogViewerWidget = ({ id }) => {
   const [filterSimilarLogs, setFilterSimilarLogs] = useState(null);
   const [quarantineSimilarLogs, setQuarantineSimilarLogs] = useState(null);
 
+  const filters = getFilters(widgetLocalStorage);
+  const level = getLevel(widgetLocalStorage);
+  const dateSpan = getDateSpan(widgetLocalStorage);
+
+  const filteredLogs = storedLogs
+    ?.filter(log => filterByLevel(log, level))
+    .filter(log => filterByDateSpan(log, dateSpan))
+    .filter(log => filterByRegExp(log, filters));
+
   return (
     <Container>
       <SimilarLogsContext.Provider
@@ -69,11 +85,13 @@ const LogViewerWidget = ({ id }) => {
             storedLogs.length > 0 &&
             storedLogs[storedLogs.length - 1]
           }
+          logs={filteredLogs}
         />
         {storedLogs && (
           <LogList
             widgetLocalStorage={widgetLocalStorage}
-            logs={storedLogs}
+            //logs={storedLogs}
+            logs={filteredLogs}
             template={template}
             search={searchFilter}
             shouldFollowLogs={shouldFollowLogs}

@@ -9,7 +9,9 @@ import ToolbarGroup from './ToolbarGroup';
 import DateRangePicker from './DateRangePicker';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import DeleteIcon from '@material-ui/icons/Delete';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import FilterPicker from './FilterPicker';
+import { saveFile } from './helpers';
 
 const Toolbar = ({
   wid,
@@ -18,7 +20,8 @@ const Toolbar = ({
   setSearchFilter,
   shouldFollowLogs,
   handleFollowChange,
-  lastLog
+  lastLog,
+  logs
 }) => {
   const handleClearLogs = () => {
     const date = lastLog?.date;
@@ -58,6 +61,11 @@ const Toolbar = ({
           data-cy="clear-logs-button"
           onClick={handleClearLogs}
           Icon={DeleteIcon}
+        />
+        <ToggleIconButton
+          tooltip={'Export to file'}
+          Icon={GetAppIcon}
+          onClick={() => saveFile(new Blob([JSON.stringify(logs)]))}
         />
       </ToolbarGroup>
     </Wrapper>
