@@ -18,6 +18,7 @@ import QuarantineForm from './QuarantineForm';
 import EditQFilter from './EditQFilter';
 import DeleteItem from '../../../../../DeleteItem';
 import { SimilarLogsContext } from '../../context';
+import moment from 'moment-timezone';
 
 const QuarantineModal = ({ wid, quarantine }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
@@ -31,6 +32,25 @@ const QuarantineModal = ({ wid, quarantine }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [similarLogs.quarantine]);
+
+  const isChecked = (checked, endTimestamp) => {
+    if (endTimestamp) {
+      const inFuture = moment.utc(endTimestamp * 1000).local() > moment();
+      return checked && inFuture;
+    }
+    return checked;
+  };
+
+  const toggleChecked = rule => {
+    const endTimestamp = rule.endTimestamp;
+    if (endTimestamp) {
+      const inFuture = moment.utc(endTimestamp * 1000).local() > moment();
+      if (!inFuture) {
+        return { ...rule, checked: true, endTimestamp: null };
+      }
+    }
+    return { ...rule, checked: !rule.checked };
+  };
 
   const handleQuarantineClick = event => {
     event.stopPropagation();
@@ -59,8 +79,8 @@ const QuarantineModal = ({ wid, quarantine }) => {
   const handleSwitchChange = id => {
     postWidgetContentUpdate({
       id: wid,
-      quarantineRules: quarantine.map(filter =>
-        filter.id === id ? { ...filter, checked: !filter.checked } : filter
+      quarantineRules: quarantine.map(rule =>
+        rule.id === id ? toggleChecked(rule) : rule
       )
     });
   };
@@ -83,7 +103,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
     editAction,
     deleteAction
   ) =>
-    items.map(({ id, label, checked, reasonField }) => (
+    items.map(({ id, label, checked, reasonField, endTimestamp }) => (
       <ListItem key={id}>
         <ListItemText primary={label} />
         <ListItemText primary={reasonField} />
@@ -96,7 +116,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
             deleteAction={deleteAction}
           />
           <Switch
-            checked={checked}
+            checked={isChecked(checked, endTimestamp)}
             onChange={() => handleSwitchChange(id)}
             color="secondary"
           ></Switch>
