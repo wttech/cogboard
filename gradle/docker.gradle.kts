@@ -29,6 +29,8 @@ val cypressConfigPath = "cypress/config/$cypressEnvCode.json"
 val network = "${project.name}-local_cognet"
 val wsPort = project.property("ws.port")
 val appPort = project.property("app.port")
+val mongoUsername = project.property("mongo.user")
+val mongoPassword = project.property("mongo.password")
 
 logger.lifecycle(">> dockerContainerName: $dockerContainerName")
 logger.lifecycle(">> dockerImageName: $dockerImageName")
@@ -90,9 +92,11 @@ tasks {
 
     register<Exec>("deployLocal") {
         environment.put("COGBOARD_VERSION", version)
+        environment.put("MONGO_USER", mongoUsername)
+        environment.put("MONGO_PASSWORD", mongoPassword)
         group = "swarm"
         commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
-        dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed")
+        dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed", "prepareMongoConfig")
         mustRunAfter("undeployLocal")
     }
 
@@ -160,4 +164,6 @@ tasks {
     register("prepareDocker") {
         dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf")
     }
+
+    apply(from = "gradle/prepareMongoConfig.gradle.kts")
 }

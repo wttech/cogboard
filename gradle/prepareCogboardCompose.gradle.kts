@@ -32,6 +32,7 @@ services:
       MONGO_INITDB_DATABASE: "logs"
     volumes:
       - "./mnt/mongo:/data/db"
+      - "./mnt/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro"
 
   frontend:
     image: "cogboard/cogboard-web:$currentVersion"
