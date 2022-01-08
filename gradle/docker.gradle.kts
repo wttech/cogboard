@@ -96,7 +96,7 @@ tasks {
         environment.put("MONGO_PASSWORD", mongoPassword)
         group = "swarm"
         commandLine = listOf("docker", "stack", "deploy", "-c", "${project.name}-local-compose.yml", "${project.name}-local")
-        dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed", "prepareMongoConfig")
+        dependsOn("initSwarm", "buildImage", "awaitLocalStackUndeployed")
         mustRunAfter("undeployLocal")
     }
 
@@ -164,6 +164,4 @@ tasks {
     register("prepareDocker") {
         dependsOn("cleanDistribution", "overwriteCustomFiles", "copyDockerfile", "copyWsConf")
     }
-
-    apply(from = "gradle/prepareMongoConfig.gradle.kts")
 }
