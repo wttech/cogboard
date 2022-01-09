@@ -143,7 +143,7 @@ module.exports = {
     endpoint: 'endpoint6',
     schedulePeriod: '60',
     path: '/home/mock/example.txt',
-    parserType: 'mock'
+    parserType: 'default'
   },
   serviceCheck: {
     name: 'Service Check',

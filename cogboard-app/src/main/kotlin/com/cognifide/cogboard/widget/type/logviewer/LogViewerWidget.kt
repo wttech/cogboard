@@ -114,7 +114,7 @@ class LogViewerWidget(
     private fun determineLogParsingStrategy() =
         LogParserStrategyFactory()
             .build(config.getString(Props.LOG_PARSER)
-                    ?: LogParserStrategyFactory.Type.MOCK.toString()
+                    ?: LogParserStrategyFactory.Type.DEFAULT.toString()
             )
 
     companion object {

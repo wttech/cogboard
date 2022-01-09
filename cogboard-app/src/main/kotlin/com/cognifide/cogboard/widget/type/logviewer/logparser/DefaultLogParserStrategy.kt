@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
-class MockLogParserStrategy : LogParserStrategy {
+class DefaultLogParserStrategy : LogParserStrategy {
     override val variableFields = listOf("Provider", "Message")
 
     private val regex = """^(?<$DATE>[0-9-:]+) \*(?<$TYPE>[A-Z]+)\* \[(?<$PROVIDER>[a-zA-Z]+)\][ ]+(?<$MESSAGE>.+)$"""
@@ -45,7 +45,7 @@ class MockLogParserStrategy : LogParserStrategy {
                 date = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC),
                 type = "ERROR",
                 variableData = listOf(
-                        LogVariableData("MockLogParserStrategy", "No description"),
+                        LogVariableData("DefaultLogParserStrategy", "No description"),
                         LogVariableData("Cannot parse a log", "Line causing the error: $line")
                 )
         )

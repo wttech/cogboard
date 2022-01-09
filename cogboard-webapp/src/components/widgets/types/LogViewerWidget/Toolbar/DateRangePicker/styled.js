@@ -19,3 +19,9 @@ StyledIconButton.defaultProps = {
 export const CustomDateTimePicker = styled(DateTimePicker)`
   width: 10rem;
 `;
+
+export const DatePickerWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+`;

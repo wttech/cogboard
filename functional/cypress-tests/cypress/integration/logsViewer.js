@@ -130,7 +130,7 @@ describe('Logs Viewer', () => {
 
   describe('Date span', () => {
     it('sets begin date on CLEAR LOGS button click', () => {
-      widget.click('[data-cy="clear-logs-button"');
+      widget.click('[data-cy="show-logs-from-now-button"');
 
       // begin date span picker should not be empty
       cy.get('[data-cy="date-time-picker-begin"] .MuiInput-root input').should(
