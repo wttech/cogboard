@@ -130,7 +130,7 @@ describe('Logs Viewer', () => {
 
   describe('Date span', () => {
     it('sets begin date on CLEAR LOGS button click', () => {
-      widget.click('[data-cy="clear-logs-button"');
+      widget.click('[data-cy="show-logs-from-now-button"');
 
       // begin date span picker should not be empty
       cy.get('[data-cy="date-time-picker-begin"] .MuiInput-root input').should(
@@ -150,23 +150,22 @@ describe('Logs Viewer', () => {
         ''
       );
       cy.get('[data-cy="log-entry"]').should('exist');
-      });
     });
-    
-  describe('Quarantine', () => {  
+  });
+
+  describe('Quarantine', () => {
     it('should allow logged in users to click quarantine button', () => {
       cy.get('[data-cy="advanced-filters-button"]').click();
       cy.get('[data-cy="quarantine-show-dialog-button"]').should('exist');
       cy.get('[data-cy="advanced-filters-menu-exit-button"]').click();
     });
-  
+
     it('should not allow logged out users to click quarantine button', () => {
       cy.get('[data-cy="user-login-logout-icon"]').click();
       cy.get('[data-cy="advanced-filters-button"]').click();
       cy.get('[data-cy="quarantine-show-dialog-button"]').should('not.exist');
       cy.get('[data-cy="advanced-filters-menu-exit-button"]').click();
       cy.login();
-      widget.remove();
     });
   });
 

@@ -6,7 +6,8 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Switch
+  Switch,
+  Tooltip
 } from '@material-ui/core';
 import { StyledButton } from './styled';
 import { getIsAuthenticated } from '../../../../../../selectors';
@@ -105,8 +106,9 @@ const QuarantineModal = ({ wid, quarantine }) => {
   ) =>
     items.map(({ id, label, checked, reasonField, endTimestamp }) => (
       <ListItem key={id}>
-        <ListItemText primary={label} />
-        <ListItemText primary={reasonField} />
+        <Tooltip title={`Reason: ${reasonField}`} placement="bottom-start">
+          <ListItemText primary={label} />
+        </Tooltip>
         <ListItemSecondaryAction>
           <EditComponent id={id} filters={items} editAction={editAction} />
           <DeleteItem

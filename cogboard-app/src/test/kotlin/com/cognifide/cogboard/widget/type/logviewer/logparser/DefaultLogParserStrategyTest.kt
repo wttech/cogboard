@@ -3,9 +3,9 @@ package com.cognifide.cogboard.widget.type.logviewer.logparser
 import org.junit.jupiter.api.Test
 import java.lang.AssertionError
 
-class MockLogParserStrategyTest {
+class DefaultLogParserStrategyTest {
     private val sampleLog = "2021-11-06:22:40:25 *DEBUG* [FelixStartLevel]  Integer lobortis. bibendum Nulla mi"
-    private val parser = MockLogParserStrategy()
+    private val parser = DefaultLogParserStrategy()
 
     @Test
     fun parseSampleLog() {
