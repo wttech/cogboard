@@ -90,7 +90,6 @@ const LogViewerWidget = ({ id }) => {
         {storedLogs && (
           <LogList
             widgetLocalStorage={widgetLocalStorage}
-            //logs={storedLogs}
             logs={filteredLogs}
             template={template}
             search={searchFilter}
