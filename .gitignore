@@ -14,7 +14,6 @@ Thumbs.db
 # Project specific
 /mnt/*.json
 /mnt/*.backup
-/mnt/init-mongo.js
 /mnt/content/*.json
 /mnt/.version
 /cogboard-compose.yml

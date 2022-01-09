@@ -34,8 +34,8 @@ services:
       - "./mnt:/data"
     networks:
       - cognet
-    ports:
-      - "18092:18092"
+#    ports:
+#      - "18092:18092"
 
   mongo:
     image: mongo:4
