@@ -33,6 +33,10 @@ describe('Logs Viewer', () => {
     });
   });
 
+  beforeEach(() => {
+    cy.viewport(1920, 1080);
+  });
+
   describe('Filters', () => {
     it('opens advanced filters modal', () => {
       openAdvancedMenu();
@@ -126,7 +130,7 @@ describe('Logs Viewer', () => {
 
   describe('Date span', () => {
     it('sets begin date on CLEAR LOGS button click', () => {
-      widget.click('[data-cy="clear-logs-button"');
+      widget.click('[data-cy="show-logs-from-now-button"');
 
       // begin date span picker should not be empty
       cy.get('[data-cy="date-time-picker-begin"] .MuiInput-root input').should(
@@ -146,6 +150,54 @@ describe('Logs Viewer', () => {
         ''
       );
       cy.get('[data-cy="log-entry"]').should('exist');
+    });
+  });
+
+  describe('Quarantine', () => {
+    it('should allow logged in users to click quarantine button', () => {
+      cy.get('[data-cy="advanced-filters-button"]').click();
+      cy.get('[data-cy="quarantine-show-dialog-button"]').should('exist');
+      cy.get('[data-cy="advanced-filters-menu-exit-button"]').click();
+    });
+
+    it('should not allow logged out users to click quarantine button', () => {
+      cy.get('[data-cy="user-login-logout-icon"]').click();
+      cy.get('[data-cy="advanced-filters-button"]').click();
+      cy.get('[data-cy="quarantine-show-dialog-button"]').should('not.exist');
+      cy.get('[data-cy="advanced-filters-menu-exit-button"]').click();
+      cy.login();
+    });
+  });
+
+  describe('Searchbar', () => {
+    it('shows search icon while there are less than 3 letters in input', () => {
+      cy.get('[data-cy="search-icon"]').should('exist');
+      cy.get('[data-cy="search-input-field"]').type('l');
+      cy.get('[data-cy="search-icon"]').should('exist');
+      cy.get('[data-cy="search-input-field"]').type('o');
+      cy.get('[data-cy="search-icon"]').should('exist');
+      cy.get('[data-cy="search-input-field"]').type('r');
+      cy.get('[data-cy="search-icon"]').should('not.exist');
+    });
+
+    it('it shows close icon when at least 3 letters are in input', () => {
+      cy.get('[data-cy="close-icon"]').should('exist');
+    });
+
+    it('shows highlight mark on logs fitting expression', () => {
+      cy.get('[data-cy="highlight-mark"]').each(mark => {
+        cy.wrap(mark)
+          .closest('[data-cy="log-entry"]')
+          .contains(new RegExp('lor', 'gi'))
+          .should('exist');
+      });
+    });
+
+    it('clears input after clicking close icon', () => {
+      cy.get('[data-cy="close-icon"]').click();
+      cy.get('[data-cy="search-input-field"]')
+        .invoke('val')
+        .should('be.empty');
     });
   });
 });

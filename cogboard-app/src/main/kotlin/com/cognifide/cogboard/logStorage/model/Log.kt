@@ -42,23 +42,14 @@ data class Log(
         const val DATE = "date"
         const val TYPE = "type"
         const val VARIABLE_DATA = "variableData"
-
-        fun from(document: Document): Log? {
-            return try {
-                val id = document.getObjectId(ID)!!
-                val seq = document.getLong(SEQ)!!
-                val insertedOn = document.getLong(INSERTED_ON)!!
-                val date = document.getLong(DATE)!!
-                val type = document.getString(TYPE)!!
-
-                val variableData = document
-                        .getList(VARIABLE_DATA, Document::class.java)
-                        ?.mapNotNull { it }
-                        ?.mapNotNull { LogVariableData.from(it) } ?: listOf()
-                Log(id, seq, insertedOn, date, type, variableData)
-            } catch (_: NullPointerException) {
-                null
-            }
-        }
     }
 }
+
+fun Document.asLog() = Log(
+        getObjectId(Log.ID),
+        getLong(Log.SEQ),
+        getLong(Log.INSERTED_ON),
+        getLong(Log.DATE),
+        getString(Log.TYPE),
+        getList(Log.VARIABLE_DATA, Document::class.java).map { it.asLogVariableData() }
+)

@@ -3,7 +3,7 @@ import DropdownField from '../../DropdownField';
 import { MenuItem } from '@material-ui/core';
 
 const ParserTypeInput = props => {
-  const parsers = [{ id: 'mock', label: 'Mock Parser' }];
+  const parsers = [{ id: 'default', label: 'Default' }];
 
   return (
     <DropdownField dropdownItems={parsers} {...props}>

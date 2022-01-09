@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { createValidationSchema } from '../../../../../../validation';
 import { useFormData } from '../../../../../../../hooks';
 
 import { Button } from '@material-ui/core';
 import DynamicForm from '../../../../../../DynamicForm';
 import { StyledCancelButton } from './styled';
+import dialogFields from '../../../../../dialogFields';
+import { SimilarLogsContext } from '../../../context';
 
 const FilterForm = ({
   filters,
   onSubmit,
   handleCancel,
   id,
+  filterSimilarLogsState,
   ...initialFormValues
 }) => {
+  const similarLogs = useContext(SimilarLogsContext);
+
+  useEffect(() => {
+    if (similarLogs.filter) {
+      setFieldValue(dialogFields.RegExpField.name, similarLogs.filter);
+      similarLogs.setFilter(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [similarLogs.filter]);
+
   const formFields = ['LabelField', 'RegExpField'];
   const constraints = {
     LabelField: {
@@ -21,15 +34,17 @@ const FilterForm = ({
       labelId: id
     }
   };
-
   const validationSchema = createValidationSchema(formFields, constraints);
-  const { values, handleChange, withValidation, errors } = useFormData(
-    initialFormValues,
-    {
-      initialSchema: validationSchema,
-      onChange: true
-    }
-  );
+  const {
+    values,
+    handleChange,
+    withValidation,
+    errors,
+    setFieldValue
+  } = useFormData(initialFormValues, {
+    initialSchema: validationSchema,
+    onChange: true
+  });
 
   return (
     <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">

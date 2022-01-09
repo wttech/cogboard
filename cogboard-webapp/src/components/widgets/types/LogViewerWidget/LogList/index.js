@@ -1,13 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import {
-  getGridTemplate,
-  filterByRegExp,
-  filterByDateSpan,
-  isLogHighlighted,
-  filterByLevel
-} from './helpers';
-import { getFilters, getLevel } from '../Toolbar/FilterPicker/helpers';
-import { getDateSpan } from '../Toolbar/DateRangePicker/helpers';
+import { getGridTemplate, isLogHighlighted } from './helpers';
 import { useTheme } from '@material-ui/core';
 import LogEntry from './LogEntry';
 import {
@@ -21,7 +13,6 @@ import {
 } from './styled';
 
 export default function LogList({
-  widgetLocalStorage,
   logs,
   template,
   search,
@@ -31,17 +22,6 @@ export default function LogList({
   const theme = useTheme();
   const scrollerRef = useRef(null);
   const [scroll, setScroll] = useState(0);
-
-  const filters = getFilters(widgetLocalStorage);
-  const level = getLevel(widgetLocalStorage);
-  const dateSpan = getDateSpan(widgetLocalStorage);
-
-  const filteredLogs = logs
-    ?.filter(log => filterByLevel(log, level))
-    .filter(log => filterByDateSpan(log, dateSpan))
-    .filter(log => filterByRegExp(log, filters));
-
-  console.log(template);
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
@@ -59,7 +39,7 @@ export default function LogList({
       });
     }
     setScroll(scrollerRef.current.scrollTop);
-  }, [filteredLogs, shouldFollowLogs, scroll]);
+  }, [logs, shouldFollowLogs, scroll]);
 
   const stopFollowingOnUpScroll = () => {
     if (scroll > scrollerRef.current.scrollTop) {
@@ -72,7 +52,7 @@ export default function LogList({
     isScrolling && stopFollowingOnUpScroll();
 
   const getLogByIndex = index => {
-    const log = filteredLogs[index];
+    const log = logs[index];
     return (
       <LogEntry
         key={log._id}
@@ -101,7 +81,7 @@ export default function LogList({
         <StyledVirtuoso
           scrollerRef={ref => (scrollerRef.current = ref)}
           isScrolling={handleScrollChange}
-          totalCount={filteredLogs.length}
+          totalCount={logs.length}
           increaseViewportBy={300} // defines loading overlap (in pixels)
           itemContent={getLogByIndex}
         />

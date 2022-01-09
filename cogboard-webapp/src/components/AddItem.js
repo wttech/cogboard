@@ -1,11 +1,24 @@
-import React, { cloneElement } from 'react';
+import React, { cloneElement, useEffect } from 'react';
 
 import { useToggle } from '../hooks';
 import AddButton from './AddButton';
 import AppDialog from './AppDialog';
 
-const AddItem = ({ itemName, largeButton, submitAction, children }) => {
+const AddItem = ({
+  itemName,
+  largeButton,
+  submitAction,
+  children,
+  shouldOpen
+}) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+
+  useEffect(() => {
+    if (shouldOpen) {
+      openDialog();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shouldOpen]);
 
   const handleAddItemClick = event => {
     event.stopPropagation();

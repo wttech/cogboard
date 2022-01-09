@@ -9,7 +9,7 @@ const StyledDialog = styled(props => (
   <Dialog classes={{ paper: 'paper' }} {...props} />
 ))`
   .paper {
-    width: 500px;
+    width: 700px;
     max-width: calc(100vw - 30px);
     padding: 15px;
   }

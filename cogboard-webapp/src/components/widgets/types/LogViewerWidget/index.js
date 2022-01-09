@@ -8,6 +8,14 @@ import LogList from './LogList';
 import { Container } from './styled';
 import { getInitialLogs } from '../../../../utils/fetch';
 import { joinLogs } from './helpers';
+import { SimilarLogsContext } from './context';
+import { getFilters, getLevel } from './Toolbar/FilterPicker/helpers';
+import { getDateSpan } from './Toolbar/DateRangePicker/helpers';
+import {
+  filterByRegExp,
+  filterByDateSpan,
+  filterByLevel
+} from './LogList/helpers';
 
 const LogViewerWidget = ({ id }) => {
   const widgetData = useSelector(
@@ -43,31 +51,53 @@ const LogViewerWidget = ({ id }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [widgetData]);
 
+  const [filterSimilarLogs, setFilterSimilarLogs] = useState(null);
+  const [quarantineSimilarLogs, setQuarantineSimilarLogs] = useState(null);
+
+  const filters = getFilters(widgetLocalStorage);
+  const level = getLevel(widgetLocalStorage);
+  const dateSpan = getDateSpan(widgetLocalStorage);
+
+  const filteredLogs = storedLogs
+    ?.filter(log => filterByLevel(log, level))
+    .filter(log => filterByDateSpan(log, dateSpan))
+    .filter(log => filterByRegExp(log, filters));
+
   return (
     <Container>
-      <Toolbar
-        wid={id}
-        quarantine={quarantine}
-        widgetLocalStorage={widgetLocalStorage}
-        setSearchFilter={setSearchFilter}
-        shouldFollowLogs={shouldFollowLogs}
-        handleFollowChange={setFollow}
-        lastLog={
-          storedLogs &&
-          storedLogs.length > 0 &&
-          storedLogs[storedLogs.length - 1]
-        }
-      />
-      {storedLogs && (
-        <LogList
+      <SimilarLogsContext.Provider
+        value={{
+          filter: filterSimilarLogs,
+          setFilter: setFilterSimilarLogs,
+          quarantine: quarantineSimilarLogs,
+          setQuarantine: setQuarantineSimilarLogs
+        }}
+      >
+        <Toolbar
+          wid={id}
+          quarantine={quarantine}
           widgetLocalStorage={widgetLocalStorage}
-          logs={storedLogs}
-          template={template}
-          search={searchFilter}
+          setSearchFilter={setSearchFilter}
           shouldFollowLogs={shouldFollowLogs}
           handleFollowChange={setFollow}
+          lastLog={
+            storedLogs &&
+            storedLogs.length > 0 &&
+            storedLogs[storedLogs.length - 1]
+          }
+          logs={filteredLogs}
         />
-      )}
+        {storedLogs && (
+          <LogList
+            widgetLocalStorage={widgetLocalStorage}
+            logs={filteredLogs}
+            template={template}
+            search={searchFilter}
+            shouldFollowLogs={shouldFollowLogs}
+            handleFollowChange={setFollow}
+          />
+        )}
+      </SimilarLogsContext.Provider>
     </Container>
   );
 };

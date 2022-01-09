@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import {
@@ -6,7 +6,8 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Switch
+  Switch,
+  Tooltip
 } from '@material-ui/core';
 import { StyledButton } from './styled';
 import { getIsAuthenticated } from '../../../../../../selectors';
@@ -17,10 +18,20 @@ import AddItem from '../../../../../AddItem';
 import QuarantineForm from './QuarantineForm';
 import EditQFilter from './EditQFilter';
 import DeleteItem from '../../../../../DeleteItem';
+import { SimilarLogsContext } from '../../context';
 
 const QuarantineModal = ({ wid, quarantine }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
+
+  const similarLogs = useContext(SimilarLogsContext);
+
+  useEffect(() => {
+    if (similarLogs.quarantine) {
+      openDialog();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [similarLogs.quarantine]);
 
   const handleQuarantineClick = event => {
     event.stopPropagation();
@@ -75,8 +86,9 @@ const QuarantineModal = ({ wid, quarantine }) => {
   ) =>
     items.map(({ id, label, checked, reasonField }) => (
       <ListItem key={id}>
-        <ListItemText primary={label} />
-        <ListItemText primary={reasonField} />
+        <Tooltip title={`Reason: ${reasonField}`} placement="bottom-start">
+          <ListItemText primary={label} />
+        </Tooltip>
         <ListItemSecondaryAction>
           <EditComponent id={id} filters={items} editAction={editAction} />
           <DeleteItem
@@ -119,7 +131,12 @@ const QuarantineModal = ({ wid, quarantine }) => {
             deleteAction
           )}
         </List>
-        <AddItem largeButton itemName="quarantine" submitAction={addFilter}>
+        <AddItem
+          largeButton
+          itemName="quarantine"
+          submitAction={addFilter}
+          shouldOpen={similarLogs.quarantine}
+        >
           <QuarantineForm filters={quarantine} />
         </AddItem>
         <StyledButton

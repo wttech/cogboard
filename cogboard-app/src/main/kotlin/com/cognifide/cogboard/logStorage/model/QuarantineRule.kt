@@ -14,8 +14,9 @@ data class QuarantineRule(
         private const val REASON = "reasonField"
         private const val REGEX = "regExp"
         private const val ENABLED = "checked"
+        private val default = QuarantineRule("Default", "", "(?!x)x".toRegex(), false)
 
-        fun from(json: JsonObject): QuarantineRule? {
+        fun from(json: JsonObject): QuarantineRule {
             return try {
                 QuarantineRule(
                         json.getString(LABEL)!!,
@@ -24,14 +25,13 @@ data class QuarantineRule(
                         json.getBoolean(ENABLED)!!
                 )
             } catch (_: NullPointerException) {
-                null
+                default
             }
         }
 
         fun from(array: JsonArray): List<QuarantineRule> =
                 array
-                        .mapNotNull { it }
                         .mapNotNull { it as? JsonObject }
-                        .mapNotNull { from(it) }
+                        .map { from(it) }
     }
 }

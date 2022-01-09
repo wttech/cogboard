@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { string, number, bool, shape, oneOfType, arrayOf } from 'prop-types';
 import { getGridTemplate, highlightText } from './helpers';
-import { AccordionSummary, AccordionDetails } from '@material-ui/core';
+import { AccordionSummary, AccordionDetails, Tooltip } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   GridSchema,
@@ -9,8 +9,15 @@ import {
   CustomAccordion,
   VariableGridSchema,
   HighlightedText,
-  HighlightMark
+  HighlightMark,
+  SimilarLogsButtonsContainer,
+  FilterSimilarLogsButton,
+  QuarantineSimilarLogsButton
 } from './styled';
+import { useSelector } from 'react-redux';
+import { getIsAuthenticated } from '../../../../../selectors';
+import { FilterList, Schedule } from '@material-ui/icons';
+import { SimilarLogsContext } from '../context';
 
 const LogEntry = ({
   type,
@@ -21,6 +28,12 @@ const LogEntry = ({
   highlight
 }) => {
   const [expanded, setExpanded] = useState(false);
+  const isAuthenticated = useSelector(getIsAuthenticated);
+
+  const similarLogs = useContext(SimilarLogsContext);
+
+  const getLastVariableHeader = () =>
+    variableData[variableData.length - 1]?.header ?? '';
 
   const VariablePart = ({ description }) => {
     const variableFieldsTemplate = getGridTemplate(template);
@@ -48,7 +61,7 @@ const LogEntry = ({
         onClick={() => setExpanded(!expanded)}
         expandIcon={expanded && <ExpandMoreIcon />}
       >
-        {highlight && <HighlightMark />}
+        {highlight && <HighlightMark data-cy="highlight-mark" />}
         <GridSchema>
           <Text type={type} data-cy="log-entry-level">
             {type?.toUpperCase()}
@@ -60,6 +73,26 @@ const LogEntry = ({
       <AccordionDetails>
         <GridSchema>
           <VariablePart description />
+          <SimilarLogsButtonsContainer>
+            <Tooltip title="Filter similar logs" placement="left">
+              <FilterSimilarLogsButton
+                onClick={() => similarLogs.setFilter(getLastVariableHeader())}
+              >
+                <FilterList />
+              </FilterSimilarLogsButton>
+            </Tooltip>
+            {isAuthenticated && (
+              <Tooltip title="Add similar logs to quarantine" placement="left">
+                <QuarantineSimilarLogsButton
+                  onClick={() =>
+                    similarLogs.setQuarantine(getLastVariableHeader())
+                  }
+                >
+                  <Schedule />
+                </QuarantineSimilarLogsButton>
+              </Tooltip>
+            )}
+          </SimilarLogsButtonsContainer>
         </GridSchema>
       </AccordionDetails>
     </CustomAccordion>

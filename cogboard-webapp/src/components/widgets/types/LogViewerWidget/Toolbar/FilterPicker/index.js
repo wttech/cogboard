@@ -2,15 +2,16 @@ import React from 'react';
 import { getFilters, getLevel, saveFilters, saveLevel } from './helpers';
 import logLevels from '../../logLevels';
 
-import { MenuItem, FormControl, InputLabel, Tooltip } from '@material-ui/core';
+import { MenuItem, InputLabel, Tooltip } from '@material-ui/core';
 import {
   ScrollableBox,
+  FiltersFormControl,
   FiltersSelect,
+  LogLevelFormControl,
   LogLevelSelect,
   StyledChip,
   FiltersWrapper
 } from './styled';
-import ToolbarGroup from '../ToolbarGroup';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
 const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
@@ -37,8 +38,8 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
   const handleLevelSelection = level => saveLevel(widgetLocalStorage, level);
 
   return (
-    <ToolbarGroup title="Filters">
-      <FormControl>
+    <>
+      <LogLevelFormControl>
         <InputLabel id="log-level-label">Log level</InputLabel>
         <LogLevelSelect
           labelId="log-level-label"
@@ -56,9 +57,9 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
             </MenuItem>
           ))}
         </LogLevelSelect>
-      </FormControl>
+      </LogLevelFormControl>
       <FiltersWrapper>
-        <FormControl>
+        <FiltersFormControl>
           <InputLabel id="filters-label">
             {regExpFilters.length > 0 ? `Filters` : `No filters defined`}
           </InputLabel>
@@ -98,14 +99,14 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
               </MenuItem>
             ))}
           </FiltersSelect>
-        </FormControl>
+        </FiltersFormControl>
         <AdvancedFiltersMenu
           widgetLocalStorage={widgetLocalStorage}
           wid={wid}
           quarantine={quarantine}
         />
       </FiltersWrapper>
-    </ToolbarGroup>
+    </>
   );
 };
 
