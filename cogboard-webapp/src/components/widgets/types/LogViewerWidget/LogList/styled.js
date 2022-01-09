@@ -132,6 +132,9 @@ export const SimilarLogsButtonsContainer = styled.div`
 export const FilterSimilarLogsButton = styled(IconButton)`
   background-color: ${COLORS.LIGHT_SHADE};
 `;
+FilterSimilarLogsButton.defaultProps = {
+  size: 'small'
+};
 
 export const QuarantineSimilarLogsButton = styled(IconButton)`
   background-color: ${COLORS.RED};
@@ -139,3 +142,6 @@ export const QuarantineSimilarLogsButton = styled(IconButton)`
     background-color: ${COLORS.DARK_RED};
   }
 `;
+QuarantineSimilarLogsButton.defaultProps = {
+  size: 'small'
+};
