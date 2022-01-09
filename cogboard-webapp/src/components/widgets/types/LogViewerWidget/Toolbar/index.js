@@ -5,7 +5,9 @@ import { Wrapper } from './styled';
 import SearchInput from './SearchInput';
 import DateRangePicker from './DateRangePicker';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import FilterPicker from './FilterPicker';
+import { saveFile } from './helpers';
 
 const Toolbar = ({
   wid,
@@ -14,7 +16,8 @@ const Toolbar = ({
   setSearchFilter,
   shouldFollowLogs,
   handleFollowChange,
-  lastLog
+  lastLog,
+  logs
 }) => {
   return (
     <Wrapper>
@@ -37,6 +40,11 @@ const Toolbar = ({
         onClick={() => handleFollowChange(!shouldFollowLogs)}
         enabled={shouldFollowLogs}
         Icon={ArrowDownwardIcon}
+      />
+      <ToggleIconButton
+        tooltip={'Export to file'}
+        Icon={GetAppIcon}
+        onClick={() => saveFile(new Blob([JSON.stringify(logs)]))}
       />
     </Wrapper>
   );

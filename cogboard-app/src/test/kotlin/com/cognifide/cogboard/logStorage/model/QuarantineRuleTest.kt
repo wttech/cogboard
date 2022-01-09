@@ -17,12 +17,12 @@ class QuarantineRuleTest {
     }
 
     @Test
-    fun `Ignores different fields`() {
+    fun `Uses default rule if at least one of fields are missing`() {
         val rule = QuarantineRule.from(JsonObject("{\"Field1\": \"Example field\", \"SecondField\": 2, \"Another field\": \"Lorem ipsum\", \"Last field\": []}"))
-        assertNull(rule?.label)
-        assertNull(rule?.reasonField)
-        assertNull(rule?.regex)
-        assertNull(rule?.enabled)
+        assertEquals("Default", rule?.label)
+        assertEquals("", rule?.reasonField)
+        assertEquals("(?!x)x", rule?.regex?.pattern)
+        assertEquals(false, rule?.enabled)
     }
 
     @Test

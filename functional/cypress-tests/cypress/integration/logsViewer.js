@@ -166,7 +166,6 @@ describe('Logs Viewer', () => {
       cy.get('[data-cy="quarantine-show-dialog-button"]').should('not.exist');
       cy.get('[data-cy="advanced-filters-menu-exit-button"]').click();
       cy.login();
-      widget.remove();
     });
   });
 
