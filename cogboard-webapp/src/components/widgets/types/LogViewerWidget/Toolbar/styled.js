@@ -10,8 +10,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: flex-end;
   gap: 1em;
   overflow-x: hidden;
+  padding: 0 10px;
 }
 `;
 

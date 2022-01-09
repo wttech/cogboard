@@ -7,7 +7,7 @@ import logLevels from '../logLevels';
 export const Container = styled.div`
   height: 100%;
   display: grid;
-  padding-top: 6em;
+  padding-top: 4.5em;
   grid-template-rows: auto 1fr;
 `;
 

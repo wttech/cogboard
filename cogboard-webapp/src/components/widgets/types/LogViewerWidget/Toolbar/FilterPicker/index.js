@@ -10,7 +10,6 @@ import {
   StyledChip,
   FiltersWrapper
 } from './styled';
-import ToolbarGroup from '../ToolbarGroup';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
 const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
@@ -37,7 +36,7 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
   const handleLevelSelection = level => saveLevel(widgetLocalStorage, level);
 
   return (
-    <ToolbarGroup title="Filters">
+    <>
       <FormControl>
         <InputLabel id="log-level-label">Log level</InputLabel>
         <LogLevelSelect
@@ -105,7 +104,7 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
           quarantine={quarantine}
         />
       </FiltersWrapper>
-    </ToolbarGroup>
+    </>
   );
 };
 

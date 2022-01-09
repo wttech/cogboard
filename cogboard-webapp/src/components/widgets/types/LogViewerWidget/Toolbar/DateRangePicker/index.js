@@ -5,7 +5,6 @@ import { getDateSpan, saveDateSpan } from './helpers';
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import UpdateIcon from '@material-ui/icons/Update';
-import ToolbarGroup from '../ToolbarGroup';
 import ToggleIconButton from '../ToggleIconButton';
 import CustomPicker from './CustomPicker';
 import { DatePickerWrapper } from './styled';
@@ -27,24 +26,28 @@ const DateRangePicker = ({ widgetLocalStorage, lastLog }) => {
   };
 
   return (
-    <ToolbarGroup title="Date span">
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <DatePickerWrapper>
-          <CustomPicker
-            label="Begin"
-            value={begin}
-            onChange={handleBeginChange}
-          />
-          <ToggleIconButton
-            tooltip="Show logs from now"
-            data-cy="show-logs-from-now-button"
-            onClick={handleClearLogs}
-            Icon={UpdateIcon}
-          />
-        </DatePickerWrapper>
-        <CustomPicker label="End" value={end} onChange={handleEndChange} />
-      </MuiPickersUtilsProvider>
-    </ToolbarGroup>
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      <DatePickerWrapper>
+        <CustomPicker
+          id="begin"
+          label="Start date"
+          value={begin}
+          onChange={handleBeginChange}
+        />
+        <ToggleIconButton
+          tooltip="Show logs from now"
+          data-cy="show-logs-from-now-button"
+          onClick={handleClearLogs}
+          Icon={UpdateIcon}
+        />
+      </DatePickerWrapper>
+      <CustomPicker
+        id="end"
+        label="End date"
+        value={end}
+        onChange={handleEndChange}
+      />
+    </MuiPickersUtilsProvider>
   );
 };
 

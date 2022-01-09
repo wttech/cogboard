@@ -83,7 +83,7 @@ export function validateLinkList(widget) {
 }
 
 export function validateLogsViewer(widget) {
-  widget.assertText('p', 'Filters');
+  widget.assertText('label', 'Log level');
   widget.assertText('p', 'Level');
 }
 
