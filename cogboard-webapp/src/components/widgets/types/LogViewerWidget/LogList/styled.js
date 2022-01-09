@@ -5,9 +5,8 @@ import { Typography, Accordion, IconButton } from '@material-ui/core';
 import logLevels from '../logLevels';
 
 export const Container = styled.div`
-  height: 100%;
+  flex-grow: 1;
   display: grid;
-  padding-top: 4.5em;
   grid-template-rows: auto 1fr;
 `;
 

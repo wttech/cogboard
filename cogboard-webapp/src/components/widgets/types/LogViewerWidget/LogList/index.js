@@ -23,8 +23,6 @@ export default function LogList({
   const scrollerRef = useRef(null);
   const [scroll, setScroll] = useState(0);
 
-  console.log(template);
-
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
       {template?.map((name, index) => (
