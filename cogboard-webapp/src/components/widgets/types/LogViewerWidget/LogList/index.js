@@ -15,6 +15,7 @@ import {
 export default function LogList({
   logs,
   template,
+  toggleExpandLog,
   search,
   shouldFollowLogs,
   handleFollowChange
@@ -55,8 +56,9 @@ export default function LogList({
     const log = logs[index];
     return (
       <LogEntry
-        key={log._id}
         id={log._id}
+        expanded={log.expanded}
+        toggleExpanded={() => toggleExpandLog(log._id)}
         type={log.type}
         date={log.date}
         variableData={log.variableData}

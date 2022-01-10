@@ -1,5 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { string, number, bool, shape, oneOfType, arrayOf } from 'prop-types';
+import React, { useContext } from 'react';
+import {
+  string,
+  number,
+  bool,
+  shape,
+  oneOfType,
+  arrayOf,
+  func
+} from 'prop-types';
 import { getGridTemplate, highlightText } from './helpers';
 import { AccordionSummary, AccordionDetails, Tooltip } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -20,6 +28,9 @@ import { FilterList, Schedule } from '@material-ui/icons';
 import { SimilarLogsContext } from '../context';
 
 const LogEntry = ({
+  id,
+  expanded,
+  toggleExpanded,
   type,
   date,
   variableData,
@@ -27,9 +38,7 @@ const LogEntry = ({
   search,
   highlight
 }) => {
-  const [expanded, setExpanded] = useState(false);
   const isAuthenticated = useSelector(getIsAuthenticated);
-
   const similarLogs = useContext(SimilarLogsContext);
 
   const getLastVariableHeader = () =>
@@ -56,9 +65,9 @@ const LogEntry = ({
   };
 
   return (
-    <CustomAccordion expanded={expanded} data-cy="log-entry">
+    <CustomAccordion key={id} expanded={expanded} data-cy="log-entry">
       <AccordionSummary
-        onClick={() => setExpanded(!expanded)}
+        onClick={toggleExpanded}
         expandIcon={expanded && <ExpandMoreIcon />}
       >
         {highlight && <HighlightMark data-cy="highlight-mark" />}
@@ -102,6 +111,9 @@ const LogEntry = ({
 export default LogEntry;
 
 LogEntry.propTypes = {
+  id: string.isRequired,
+  expanded: bool.isRequired,
+  toggleExpanded: func,
   type: string,
   date: string.isRequired,
   variableData: arrayOf(
@@ -109,11 +121,17 @@ LogEntry.propTypes = {
       header: oneOfType([string, number, bool]).isRequired,
       description: oneOfType([string, number, bool]).isRequired
     })
-  )
+  ),
+  template: arrayOf(string),
+  search: string,
+  highlight: bool
 };
 
 LogEntry.defaultProps = {
+  toggleExpanded: () => {},
   type: 'info',
-  date: '0',
-  variableData: []
+  variableData: [],
+  template: [],
+  search: undefined,
+  highlight: false
 };

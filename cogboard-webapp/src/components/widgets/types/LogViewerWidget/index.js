@@ -7,7 +7,7 @@ import Toolbar from './Toolbar';
 import LogList from './LogList';
 import { Container } from './styled';
 import { getInitialLogs } from '../../../../utils/fetch';
-import { joinLogs } from './helpers';
+import { addAccordionControler, joinLogs, toggleAccordion } from './helpers';
 import { SimilarLogsContext } from './context';
 import { getFilters, getLevel } from './Toolbar/FilterPicker/helpers';
 import { getDateSpan } from './Toolbar/DateRangePicker/helpers';
@@ -17,12 +17,11 @@ import {
   filterByLevel
 } from './LogList/helpers';
 
-const LogViewerWidget = ({ id }) => {
+const LogViewerWidget = ({ id, logLinesField }) => {
   const widgetData = useSelector(
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
-  useEffect(() => console.log(widgetData), [widgetData]);
 
   const [widgetLocalStorageData, setWidgetLocalStorage] = useLocalStorage(id);
   const widgetLocalStorage = {
@@ -34,20 +33,18 @@ const LogViewerWidget = ({ id }) => {
   const [shouldFollowLogs, setFollow] = useState(true);
 
   useEffect(() => {
-    getInitialLogs(id).then(logs => {
-      setStoredLogs(logs);
-    });
+    getInitialLogs(id).then(logs => setStoredLogs(addAccordionControler(logs)));
   }, [id]);
 
   const newLogs = widgetData.content?.logs || [];
   const template = widgetData.content?.variableFields;
   const quarantine = widgetData.content?.quarantineRules || [];
-  const logLines = widgetData.logLinesField || 1000;
 
   const [storedLogs, setStoredLogs] = useState([]);
+  const toggleExpandLog = id => setStoredLogs(toggleAccordion(storedLogs, id));
 
   useEffect(() => {
-    setStoredLogs(joinLogs(storedLogs, newLogs, logLines));
+    setStoredLogs(joinLogs(storedLogs, newLogs, logLinesField));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [widgetData]);
 
@@ -80,17 +77,14 @@ const LogViewerWidget = ({ id }) => {
           setSearchFilter={setSearchFilter}
           shouldFollowLogs={shouldFollowLogs}
           handleFollowChange={setFollow}
-          lastLog={
-            storedLogs &&
-            storedLogs.length > 0 &&
-            storedLogs[storedLogs.length - 1]
-          }
+          lastLog={storedLogs?.length > 0 && storedLogs[storedLogs.length - 1]}
           logs={filteredLogs}
         />
         {storedLogs && (
           <LogList
             widgetLocalStorage={widgetLocalStorage}
             logs={filteredLogs}
+            toggleExpandLog={toggleExpandLog}
             template={template}
             search={searchFilter}
             shouldFollowLogs={shouldFollowLogs}
