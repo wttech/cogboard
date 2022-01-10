@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 
 export const StyledIconButton = styled(IconButton)`
   ${props =>
-    props.enabled
+    props.enabled === true.toString()
       ? `
         color: ${COLORS.BLUE}; 
         background-color: ${COLORS.LIGHT_SHADE}
