@@ -347,3 +347,5 @@ export const NOTIFICATIONS = {
     duration: 3000
   })
 };
+
+export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';

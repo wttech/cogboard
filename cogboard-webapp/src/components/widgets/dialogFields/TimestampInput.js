@@ -12,6 +12,7 @@ import {
   StyledDateTimePicker,
   StyledIconButton
 } from './styled';
+import { DATE_TIME_FORMAT } from '../../../constants';
 
 const TimestampInput = ({
   error,
@@ -43,7 +44,7 @@ const TimestampInput = ({
           }
           error={hasError(error)}
           onChange={handleChange}
-          format="YYYY-MM-DD HH:mm"
+          format={DATE_TIME_FORMAT}
           ampm={false}
           helperText={
             <StyledValidationMessages

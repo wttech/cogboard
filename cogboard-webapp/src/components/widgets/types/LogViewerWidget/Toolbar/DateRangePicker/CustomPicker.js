@@ -6,6 +6,7 @@ import {
   StyledIconButton,
   CustomDateTimePicker
 } from './styled';
+import { DATE_TIME_FORMAT } from '../../../../../../constants';
 
 const CustomPicker = ({ id, value, onChange, label, ...props }) => {
   const handleChange = data => onChange(data?.seconds(0).milliseconds(0));
@@ -15,7 +16,7 @@ const CustomPicker = ({ id, value, onChange, label, ...props }) => {
         data-cy={`date-time-picker-${id}`}
         value={value}
         onChange={handleChange}
-        format="YYYY-MM-DD HH:mm"
+        format={DATE_TIME_FORMAT}
         ampm={false}
         openTo="hours"
         label={label}
