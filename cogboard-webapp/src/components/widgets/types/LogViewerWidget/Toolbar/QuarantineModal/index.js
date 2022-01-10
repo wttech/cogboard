@@ -43,14 +43,15 @@ const QuarantineModal = ({ wid, quarantine }) => {
   };
 
   const toggleChecked = rule => {
-    const endTimestamp = rule.endTimestamp;
-    if (endTimestamp) {
-      const inFuture = moment.utc(endTimestamp * 1000).local() > moment();
-      if (!inFuture) {
-        return { ...rule, checked: true, endTimestamp: null };
-      }
+    const endTimestamp =
+      Number.isInteger(rule.endTimestamp) &&
+      moment.utc(rule.endTimestamp * 1000).local();
+    const disabledByEndTimestamp = endTimestamp && endTimestamp <= moment();
+    if (disabledByEndTimestamp) {
+      return { ...rule, checked: true, endTimestamp: null };
+    } else {
+      return { ...rule, checked: !rule.checked };
     }
-    return { ...rule, checked: !rule.checked };
   };
 
   const handleQuarantineClick = event => {
