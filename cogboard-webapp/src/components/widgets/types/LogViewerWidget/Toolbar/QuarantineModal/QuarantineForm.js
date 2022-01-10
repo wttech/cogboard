@@ -2,11 +2,12 @@ import React, { useEffect, useContext } from 'react';
 import { createValidationSchema } from '../../../../../validation';
 import { useFormData } from '../../../../../../hooks';
 import DynamicForm from '../../../../../DynamicForm';
-import { Button } from '@material-ui/core';
+import { Button, Tooltip, IconButton } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import { StyledHorizontalContainer, StyledCancelButton } from './styled';
 import dialogFields from '../../../../dialogFields';
 import { SimilarLogsContext } from '../../context';
+import { URL } from '../../../../../../constants';
 
 const QuarantineForm = ({
   filters,
@@ -54,7 +55,15 @@ const QuarantineForm = ({
   return (
     <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
       <StyledHorizontalContainer>
-        <InfoIcon />
+        <Tooltip title="Click on icon for more information">
+          <IconButton
+            href={URL.LOGSVIEWER_QUARANTINE}
+            target="_blank"
+            rel="noopener"
+          >
+            <InfoIcon />
+          </IconButton>
+        </Tooltip>
         <p>
           Logs, any fields of which will be matched by the regular expression,
           will not be stored in the database or displayed.
