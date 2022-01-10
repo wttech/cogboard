@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 import { getIsAuthenticated } from '../../../../../selectors';
 import { FilterList, Schedule } from '@material-ui/icons';
 import { SimilarLogsContext } from '../context';
+import TextWithCopyButton from './TextWithCopyButton';
 
 const LogEntry = ({
   type,
@@ -46,9 +47,10 @@ const LogEntry = ({
         {variableData.map((entry, index) => {
           const entryText = description ? entry.description : entry.header;
           return (
-            <Text key={index}>
-              {highlightText(entryText, search, HighlightedText)}
-            </Text>
+            <TextWithCopyButton
+              key={index}
+              text={highlightText(entryText, search, HighlightedText)}
+            />
           );
         })}
       </VariableGridSchema>
@@ -66,7 +68,7 @@ const LogEntry = ({
           <Text type={type} data-cy="log-entry-level">
             {type?.toUpperCase()}
           </Text>
-          <Text data-cy="log-entry-data">{date}</Text>
+          <TextWithCopyButton text={date} data-cy="log-entry-data" />
           <VariablePart />
         </GridSchema>
       </AccordionSummary>
