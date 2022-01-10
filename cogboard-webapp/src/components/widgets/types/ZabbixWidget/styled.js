@@ -9,7 +9,7 @@ export const StyledArrowDown = styled(ArrowDownward)`
 `;
 
 export const StyledArrowUp = styled(ArrowUpward)`
-  color: ${COLORS.GREEN_DEFAULT};;
+  color: ${COLORS.GREEN_DEFAULT};
 `;
 
 export const StyledMetricName = styled(Typography)`
