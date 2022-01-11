@@ -16,7 +16,6 @@ import {
   ZABBIX_METRICS_WITH_PROGRESS
 } from '../../../../constants';
 
-
 const progressBarWidth = {
   column1: {
     diameter: 150
@@ -39,8 +38,12 @@ const ZabbixWidget = ({ id, lastvalue, history }) => {
   const widgetZabbixMetric = widgetData.selectedZabbixMetric;
   const maxValue = widgetData.maxValue;
 
-  const checkMetricHasProgress = ZABBIX_METRICS_WITH_PROGRESS.includes(widgetZabbixMetric);
-  const checkMetricHasMaxValue = ZABBIX_METRICS_WITH_MAX_VALUE.includes(widgetZabbixMetric);
+  const checkMetricHasProgress = ZABBIX_METRICS_WITH_PROGRESS.includes(
+    widgetZabbixMetric
+  );
+  const checkMetricHasMaxValue = ZABBIX_METRICS_WITH_MAX_VALUE.includes(
+    widgetZabbixMetric
+  );
 
   const setProgressSize = () => {
     const widgetColumns = widgetConfig.columns;
@@ -59,7 +62,8 @@ const ZabbixWidget = ({ id, lastvalue, history }) => {
   const convertMetricTitle = () => {
     if (!widgetZabbixMetric) return '';
 
-    return ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric).display;
+    return ZABBIX_METRICS.find(item => item.value === widgetZabbixMetric)
+      .display;
   };
 
   const convertToGigaBytes = () => {
@@ -88,16 +92,18 @@ const ZabbixWidget = ({ id, lastvalue, history }) => {
 
     return (
       <>
-        {
-          widgetZabbixMetric === upTimeMetricName ? (
-            <StyledNumericValue>{value}</StyledNumericValue>
-          ) : (
-            <StyledNumericValueWithIcon>
-              {value}
-              { historyCurrentValue > historyPrevValue ?  <StyledArrowUp /> : <StyledArrowDown /> }
-            </StyledNumericValueWithIcon>
-          )
-        }
+        {widgetZabbixMetric === upTimeMetricName ? (
+          <StyledNumericValue>{value}</StyledNumericValue>
+        ) : (
+          <StyledNumericValueWithIcon>
+            {value}
+            {historyCurrentValue > historyPrevValue ? (
+              <StyledArrowUp />
+            ) : (
+              <StyledArrowDown />
+            )}
+          </StyledNumericValueWithIcon>
+        )}
       </>
     );
   };
