@@ -22,13 +22,16 @@ export const GridSchema = styled.div`
   display: grid;
   grid-template-columns: 70px 150px 1fr 56px;
   padding: 0 10px;
+  justify-items: flex-start;
 `;
 export const VariableGridSchema = styled.div(
   props => `
     width: 100%;
     display: grid;
+    justify-items: flex-start;
+    align-items: flex-start;
     grid-template-columns: ${props.template};
-    ${props.skipColumns ? 'grid-column: 3 / 4' : ''}
+    ${props.skipColumns ? 'grid-column: 3 / 4;' : ''}
   `
 );
 
@@ -121,6 +124,7 @@ export const HighlightMark = styled.div`
 
 export const SimilarLogsButtonsContainer = styled.div`
   display: flex;
+  justify-self: end;
   flex-direction: column;
   align-items: flex-end;
   margin: 8px 0;
@@ -144,3 +148,29 @@ export const QuarantineSimilarLogsButton = styled(IconButton)`
 QuarantineSimilarLogsButton.defaultProps = {
   size: 'small'
 };
+
+export const StyledCopyButton = styled(IconButton)`
+  position: absolute;
+  &&& {
+    top: 0.1rem;
+    right: -1rem;
+  }
+  padding: 0;
+  font-size: 14px;
+
+  visiblity: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+`;
+StyledCopyButton.defaultProps = {
+  size: 'small'
+};
+
+export const TextWithCopyButtonContainer = styled.div`
+  position: relative;
+
+  &:hover ${StyledCopyButton} {
+    opacity: 1;
+    visiblity: visible;
+  }
+`;

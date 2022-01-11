@@ -22,7 +22,7 @@ export const StyledTextField = styled(TextField)`
   min-width: 5rem;
   width: 100%;
 
-  & > input {
+  & input {
     margin-right: 1.8rem;
   }
 `;
