@@ -37,7 +37,7 @@ const TimestampInput = ({
           value={
             Number.isInteger(value)
               ? moment
-                  .utc(value * 1000)
+                  .utc(value * 1000) // seconds to milliseconds
                   .local()
                   .format()
               : null

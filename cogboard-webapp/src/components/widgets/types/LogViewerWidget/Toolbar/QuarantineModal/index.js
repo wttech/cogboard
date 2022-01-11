@@ -36,7 +36,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
 
   const isChecked = (checked, endTimestamp) => {
     if (endTimestamp) {
-      const inFuture = moment.utc(endTimestamp * 1000).local() > moment();
+      const inFuture = moment.utc(endTimestamp * 1000).local() > moment(); // seconds to milliseconds
       return checked && inFuture;
     }
     return checked;
@@ -45,9 +45,9 @@ const QuarantineModal = ({ wid, quarantine }) => {
   const toggleChecked = rule => {
     const endTimestamp =
       Number.isInteger(rule.endTimestamp) &&
-      moment.utc(rule.endTimestamp * 1000).local();
-    const disabledByEndTimestamp = endTimestamp && endTimestamp <= moment();
-    if (disabledByEndTimestamp) {
+      moment.utc(rule.endTimestamp * 1000).local(); // seconds to milliseconds
+    const shouldSkipEndTimestamp = endTimestamp && endTimestamp <= moment();
+    if (shouldSkipEndTimestamp) {
       return { ...rule, checked: true, endTimestamp: null };
     } else {
       return { ...rule, checked: !rule.checked };
