@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { StyledSemiCircleContainer, StyledPercentageText } from './styled';
 
 const SemiCircleProgress = ({
@@ -27,16 +27,13 @@ const SemiCircleProgress = ({
     }
 
     return percentageValue;
-  }
+  };
 
   const semiCirclePercentage = setPercentageValue() * (circumference / 100);
 
   return (
     <StyledSemiCircleContainer>
-      <svg
-        width={ diameter }
-        height={ diameter / 2 }
-      >
+      <svg width={diameter} height={diameter / 2}>
         <circle
           cx={coordinateForCircle}
           cy={coordinateForCircle}
@@ -60,7 +57,7 @@ const SemiCircleProgress = ({
           style={{
             strokeDashoffset: semiCirclePercentage,
             transition:
-              "stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s"
+              'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s'
           }}
         />
       </svg>
@@ -86,8 +83,8 @@ SemiCircleProgress.defaultProps = {
   strokeWidth: 10,
   diameter: 200,
   showPercentValue: false,
-  stroke: "#02B732",
-  background: "#D0D0CE",
+  stroke: '#02B732',
+  background: '#D0D0CE'
 };
 
 export default SemiCircleProgress;

@@ -6,7 +6,7 @@ import { StyledIconButton } from './styled';
 const ToggleIconButton = ({ tooltip, Icon, enabled, ...props }) => {
   return (
     <Tooltip title={tooltip} placement="bottom">
-      <StyledIconButton enabled={enabled} {...props}>
+      <StyledIconButton enabled={enabled.toString()} {...props}>
         <Icon />
       </StyledIconButton>
     </Tooltip>
