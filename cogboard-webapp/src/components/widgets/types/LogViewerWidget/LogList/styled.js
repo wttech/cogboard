@@ -153,7 +153,7 @@ export const StyledCopyButton = styled(IconButton)`
   position: absolute;
   &&& {
     top: 0.1rem;
-    right: -1rem;
+    right: -1.15rem;
   }
   padding: 0;
   font-size: 14px;
