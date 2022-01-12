@@ -12,7 +12,7 @@ import {
   StyledDateTimePicker,
   StyledIconButton
 } from './styled';
-import { DATE_TIME_FORMAT } from '../../../constants';
+import { DATE_TIME_FORMAT, MILLIS_IN_SECOND } from '../../../constants';
 
 const TimestampInput = ({
   error,
@@ -37,7 +37,7 @@ const TimestampInput = ({
           value={
             Number.isInteger(value)
               ? moment
-                  .utc(value * 1000) // seconds to milliseconds
+                  .utc(value * MILLIS_IN_SECOND)
                   .local()
                   .format()
               : null

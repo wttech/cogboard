@@ -20,6 +20,7 @@ import EditQFilter from './EditQFilter';
 import DeleteItem from '../../../../../DeleteItem';
 import { SimilarLogsContext } from '../../context';
 import moment from 'moment-timezone';
+import { MILLIS_IN_SECOND } from '../../../../../../constants';
 
 const QuarantineModal = ({ wid, quarantine }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
@@ -36,7 +37,8 @@ const QuarantineModal = ({ wid, quarantine }) => {
 
   const isChecked = (checked, endTimestamp) => {
     if (endTimestamp) {
-      const inFuture = moment.utc(endTimestamp * 1000).local() > moment(); // seconds to milliseconds
+      const inFuture =
+        moment.utc(endTimestamp * MILLIS_IN_SECOND).local() > moment();
       return checked && inFuture;
     }
     return checked;
@@ -45,7 +47,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
   const toggleChecked = rule => {
     const endTimestamp =
       Number.isInteger(rule.endTimestamp) &&
-      moment.utc(rule.endTimestamp * 1000).local(); // seconds to milliseconds
+      moment.utc(rule.endTimestamp * MILLIS_IN_SECOND).local();
     const shouldSkipEndTimestamp = endTimestamp && endTimestamp <= moment();
     if (shouldSkipEndTimestamp) {
       return { ...rule, checked: true, endTimestamp: null };

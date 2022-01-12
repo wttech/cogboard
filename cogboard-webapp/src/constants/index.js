@@ -349,3 +349,4 @@ export const NOTIFICATIONS = {
 };
 
 export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
+export const MILLIS_IN_SECOND = 1000;
