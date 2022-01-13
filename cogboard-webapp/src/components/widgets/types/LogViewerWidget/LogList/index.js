@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { getGridTemplate, isLogHighlighted } from './helpers';
 import { useTheme } from '@material-ui/core';
 import LogEntry from './LogEntry';
@@ -21,8 +21,9 @@ export default function LogList({
   handleFollowChange
 }) {
   const theme = useTheme();
+  const virtuosoRef = useRef(null);
   const scrollerRef = useRef(null);
-  const [scroll, setScroll] = useState(0);
+  const listScrollPos = useRef(0);
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
@@ -32,42 +33,38 @@ export default function LogList({
     </VariableGridSchema>
   );
 
-  useEffect(() => {
-    if (shouldFollowLogs) {
-      scrollerRef.current.scrollTo({
-        top: scrollerRef.current.scrollHeight,
-        behavior: 'smooth'
-      });
-    }
-    setScroll(scrollerRef.current.scrollTop);
-  }, [logs, shouldFollowLogs, scroll]);
-
-  const stopFollowingOnUpScroll = () => {
-    if (scroll > scrollerRef.current.scrollTop) {
+  const handleScroll = () => {
+    const isScrollingUpward =
+      listScrollPos.current > scrollerRef.current.scrollTop;
+    if (isScrollingUpward) {
       handleFollowChange(false);
     }
-    setScroll(scrollerRef.current.scrollTop);
+    listScrollPos.current = scrollerRef.current.scrollTop;
   };
 
-  const handleScrollChange = isScrolling =>
-    isScrolling && stopFollowingOnUpScroll();
+  useEffect(() => {
+    if (shouldFollowLogs) {
+      virtuosoRef.current.scrollToIndex(logs.length - 1);
+    }
+  }, [shouldFollowLogs]);
 
-  const getLogByIndex = index => {
-    const log = logs[index];
-    return (
-      <LogEntry
-        id={log._id}
-        expanded={log.expanded}
-        toggleExpanded={() => toggleExpandLog(log._id)}
-        type={log.type}
-        date={log.date}
-        variableData={log.variableData}
-        template={template}
-        search={search}
-        highlight={isLogHighlighted(log, search)}
-      />
-    );
-  };
+  const getLogByIndex = index => (
+    <MemoLogEntry key={logs[index]._id} log={logs[index]} />
+  );
+
+  const MemoLogEntry = React.memo(({ log }) => (
+    <LogEntry
+      id={log._id}
+      expanded={log.expanded}
+      toggleExpanded={() => toggleExpandLog(log._id)}
+      type={log.type}
+      date={log.date}
+      variableData={log.variableData}
+      template={template}
+      search={search}
+      highlight={isLogHighlighted(log, search)}
+    />
+  ));
 
   return (
     <Container>
@@ -81,11 +78,16 @@ export default function LogList({
 
       <LogsWrapper>
         <StyledVirtuoso
+          ref={virtuosoRef}
           scrollerRef={ref => (scrollerRef.current = ref)}
-          isScrolling={handleScrollChange}
+          isScrolling={handleScroll}
           totalCount={logs.length}
           increaseViewportBy={300} // defines loading overlap (in pixels)
           itemContent={getLogByIndex}
+          atBottomThreshold={0}
+          followOutput={isAtBottom =>
+            shouldFollowLogs && !isAtBottom ? 'smooth' : false
+          }
         />
       </LogsWrapper>
     </Container>

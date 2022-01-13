@@ -41,7 +41,10 @@ const LogViewerWidget = ({ id, logLinesField }) => {
   const quarantine = widgetData.content?.quarantineRules || [];
 
   const [storedLogs, setStoredLogs] = useState([]);
-  const toggleExpandLog = id => setStoredLogs(toggleAccordion(storedLogs, id));
+  const toggleExpandLog = id => {
+    setStoredLogs(toggleAccordion(storedLogs, id));
+    setFollow(false);
+  };
 
   useEffect(() => {
     setStoredLogs(joinLogs(storedLogs, newLogs, logLinesField));

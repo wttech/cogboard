@@ -20,7 +20,8 @@ import {
   HighlightMark,
   SimilarLogsButtonsContainer,
   FilterSimilarLogsButton,
-  QuarantineSimilarLogsButton
+  QuarantineSimilarLogsButton,
+  LogMargin
 } from './styled';
 import { useSelector } from 'react-redux';
 import { getIsAuthenticated } from '../../../../../selectors';
@@ -67,46 +68,51 @@ const LogEntry = ({
   };
 
   return (
-    <CustomAccordion key={id} expanded={expanded} data-cy="log-entry">
-      <AccordionSummary
-        onClick={toggleExpanded}
-        expandIcon={expanded && <ExpandMoreIcon />}
-      >
-        {highlight && <HighlightMark data-cy="highlight-mark" />}
-        <GridSchema>
-          <Text type={type} data-cy="log-entry-level">
-            {type?.toUpperCase()}
-          </Text>
-          <TextWithCopyButton text={date} data-cy="log-entry-data" />
-          <VariablePart />
-        </GridSchema>
-      </AccordionSummary>
-      <AccordionDetails>
-        <GridSchema>
-          <VariablePart description />
-          <SimilarLogsButtonsContainer>
-            <Tooltip title="Filter similar logs" placement="left">
-              <FilterSimilarLogsButton
-                onClick={() => similarLogs.setFilter(getLastVariableHeader())}
-              >
-                <FilterList />
-              </FilterSimilarLogsButton>
-            </Tooltip>
-            {isAuthenticated && (
-              <Tooltip title="Add similar logs to quarantine" placement="left">
-                <QuarantineSimilarLogsButton
-                  onClick={() =>
-                    similarLogs.setQuarantine(getLastVariableHeader())
-                  }
+    <LogMargin>
+      <CustomAccordion key={id} expanded={expanded} data-cy="log-entry">
+        <AccordionSummary
+          onClick={toggleExpanded}
+          expandIcon={expanded && <ExpandMoreIcon />}
+        >
+          {highlight && <HighlightMark data-cy="highlight-mark" />}
+          <GridSchema>
+            <Text type={type} data-cy="log-entry-level">
+              {type?.toUpperCase()}
+            </Text>
+            <TextWithCopyButton text={date} data-cy="log-entry-data" />
+            <VariablePart />
+          </GridSchema>
+        </AccordionSummary>
+        <AccordionDetails>
+          <GridSchema>
+            <VariablePart description />
+            <SimilarLogsButtonsContainer>
+              <Tooltip title="Filter similar logs" placement="left">
+                <FilterSimilarLogsButton
+                  onClick={() => similarLogs.setFilter(getLastVariableHeader())}
                 >
-                  <Schedule />
-                </QuarantineSimilarLogsButton>
+                  <FilterList />
+                </FilterSimilarLogsButton>
               </Tooltip>
-            )}
-          </SimilarLogsButtonsContainer>
-        </GridSchema>
-      </AccordionDetails>
-    </CustomAccordion>
+              {isAuthenticated && (
+                <Tooltip
+                  title="Add similar logs to quarantine"
+                  placement="left"
+                >
+                  <QuarantineSimilarLogsButton
+                    onClick={() =>
+                      similarLogs.setQuarantine(getLastVariableHeader())
+                    }
+                  >
+                    <Schedule />
+                  </QuarantineSimilarLogsButton>
+                </Tooltip>
+              )}
+            </SimilarLogsButtonsContainer>
+          </GridSchema>
+        </AccordionDetails>
+      </CustomAccordion>
+    </LogMargin>
   );
 };
 
