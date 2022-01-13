@@ -1,4 +1,7 @@
 import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleLogsViewerLog } from '../../../../../actions/actionCreators';
+import { getIsAuthenticated } from '../../../../../selectors';
 import {
   string,
   number,
@@ -8,9 +11,11 @@ import {
   arrayOf,
   func
 } from 'prop-types';
+import { SimilarLogsContext } from '../context';
 import { getGridTemplate, highlightText } from './helpers';
+
 import { AccordionSummary, AccordionDetails, Tooltip } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { FilterList, Schedule, ExpandMore } from '@material-ui/icons';
 import {
   GridSchema,
   Text,
@@ -23,16 +28,12 @@ import {
   QuarantineSimilarLogsButton,
   LogMargin
 } from './styled';
-import { useSelector } from 'react-redux';
-import { getIsAuthenticated } from '../../../../../selectors';
-import { FilterList, Schedule } from '@material-ui/icons';
-import { SimilarLogsContext } from '../context';
 import TextWithCopyButton from './TextWithCopyButton';
 
 const LogEntry = ({
+  wid,
+  onToggle,
   id,
-  expanded,
-  toggleExpanded,
   type,
   date,
   variableData,
@@ -40,8 +41,19 @@ const LogEntry = ({
   search,
   highlight
 }) => {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector(getIsAuthenticated);
   const similarLogs = useContext(SimilarLogsContext);
+
+  const expandedList =
+    useSelector(store => store.widgets.logsViewersCache[wid]?.expandedLogs) ||
+    [];
+  const isExpanded = expandedList.includes(id);
+
+  const toggleExpanded = () => {
+    dispatch(toggleLogsViewerLog({ wid, logid: id }));
+    onToggle();
+  };
 
   const getLastVariableHeader = () =>
     variableData[variableData.length - 1]?.header ?? '';
@@ -69,10 +81,15 @@ const LogEntry = ({
 
   return (
     <LogMargin>
-      <CustomAccordion key={id} expanded={expanded} data-cy="log-entry">
+      <CustomAccordion
+        key={id}
+        expanded={isExpanded}
+        data-cy="log-entry"
+        TransitionProps={{ unmountOnExit: true }}
+      >
         <AccordionSummary
           onClick={toggleExpanded}
-          expandIcon={expanded && <ExpandMoreIcon />}
+          expandIcon={isExpanded && <ExpandMore />}
         >
           {highlight && <HighlightMark data-cy="highlight-mark" />}
           <GridSchema>
@@ -119,9 +136,8 @@ const LogEntry = ({
 export default LogEntry;
 
 LogEntry.propTypes = {
+  wid: string.isRequired,
   id: string.isRequired,
-  expanded: bool.isRequired,
-  toggleExpanded: func,
   type: string,
   date: string.isRequired,
   variableData: arrayOf(
@@ -132,11 +148,12 @@ LogEntry.propTypes = {
   ),
   template: arrayOf(string),
   search: string,
-  highlight: bool
+  highlight: bool,
+  onToggle: func
 };
 
 LogEntry.defaultProps = {
-  toggleExpanded: () => {},
+  onToggle: () => {},
   type: 'info',
   variableData: [],
   template: [],

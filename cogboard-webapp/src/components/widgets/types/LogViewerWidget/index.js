@@ -7,7 +7,7 @@ import Toolbar from './Toolbar';
 import LogList from './LogList';
 import { Container } from './styled';
 import { getInitialLogs } from '../../../../utils/fetch';
-import { addAccordionControler, joinLogs, toggleAccordion } from './helpers';
+import { joinLogs } from './helpers';
 import { SimilarLogsContext } from './context';
 import { getFilters, getLevel } from './Toolbar/FilterPicker/helpers';
 import { getDateSpan } from './Toolbar/DateRangePicker/helpers';
@@ -17,7 +17,7 @@ import {
   filterByLevel
 } from './LogList/helpers';
 
-const LogViewerWidget = ({ id, logLinesField }) => {
+const LogViewerWidget = ({ id }) => {
   const widgetData = useSelector(
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
@@ -33,23 +33,20 @@ const LogViewerWidget = ({ id, logLinesField }) => {
   const [shouldFollowLogs, setFollow] = useState(true);
 
   useEffect(() => {
-    getInitialLogs(id).then(logs => setStoredLogs(addAccordionControler(logs)));
+    getInitialLogs(id).then(logs => setStoredLogs(logs));
   }, [id]);
 
   const newLogs = widgetData.content?.logs || [];
+  const logLinesField = widgetData.logLinesField;
   const template = widgetData.content?.variableFields;
   const quarantine = widgetData.content?.quarantineRules || [];
 
   const [storedLogs, setStoredLogs] = useState([]);
-  const toggleExpandLog = id => {
-    setStoredLogs(toggleAccordion(storedLogs, id));
-    setFollow(false);
-  };
 
   useEffect(() => {
     setStoredLogs(joinLogs(storedLogs, newLogs, logLinesField));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [widgetData]);
+  }, [widgetData.content?.logs]);
 
   const [filterSimilarLogs, setFilterSimilarLogs] = useState(null);
   const [quarantineSimilarLogs, setQuarantineSimilarLogs] = useState(null);
@@ -83,17 +80,14 @@ const LogViewerWidget = ({ id, logLinesField }) => {
           lastLog={storedLogs?.length > 0 && storedLogs[storedLogs.length - 1]}
           logs={filteredLogs}
         />
-        {storedLogs && (
-          <LogList
-            widgetLocalStorage={widgetLocalStorage}
-            logs={filteredLogs}
-            toggleExpandLog={toggleExpandLog}
-            template={template}
-            search={searchFilter}
-            shouldFollowLogs={shouldFollowLogs}
-            handleFollowChange={setFollow}
-          />
-        )}
+        <LogList
+          wid={id}
+          logs={filteredLogs}
+          template={template}
+          search={searchFilter}
+          shouldFollowLogs={shouldFollowLogs}
+          handleFollowChange={setFollow}
+        />
       </SimilarLogsContext.Provider>
     </Container>
   );

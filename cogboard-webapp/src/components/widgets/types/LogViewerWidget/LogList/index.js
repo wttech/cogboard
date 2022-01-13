@@ -13,9 +13,9 @@ import {
 } from './styled';
 
 export default function LogList({
+  wid,
   logs,
   template,
-  toggleExpandLog,
   search,
   shouldFollowLogs,
   handleFollowChange
@@ -54,15 +54,16 @@ export default function LogList({
 
   const MemoLogEntry = React.memo(({ log }) => (
     <LogEntry
+      wid={wid}
+      key={log._id}
       id={log._id}
-      expanded={log.expanded}
-      toggleExpanded={() => toggleExpandLog(log._id)}
       type={log.type}
       date={log.date}
       variableData={log.variableData}
       template={template}
       search={search}
       highlight={isLogHighlighted(log, search)}
+      onToggle={() => handleFollowChange(false)}
     />
   ));
 
