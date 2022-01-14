@@ -29,7 +29,12 @@ const QuarantineForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logsViewerContext.quarantine]);
 
-  const formFields = ['LabelField', 'RegExpField', 'ReasonField'];
+  const formFields = [
+    'LabelField',
+    'RegExpField',
+    'ReasonField',
+    'EndTimestampField'
+  ];
   const constraints = {
     LabelField: {
       max: 25,

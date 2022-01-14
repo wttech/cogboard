@@ -2,7 +2,16 @@ import styled from '@emotion/styled/macro';
 import NumberInput from './NumberInput';
 import IntegerInput from './IntegerInput';
 import { COLORS } from '../../../constants';
-import { Box, Input, Fab, List, FormControl, Button } from '@material-ui/core';
+import {
+  Box,
+  Input,
+  Fab,
+  List,
+  FormControl,
+  Button,
+  IconButton
+} from '@material-ui/core';
+import { DateTimePicker } from '@material-ui/pickers';
 
 export const StyledNumberInput = styled(NumberInput)`
   flex-basis: calc(50% - 18px);
@@ -184,4 +193,18 @@ export const DeleteButton = styled(Button)`
   &:hover {
     background-color: ${COLORS.DARK_RED};
   }
+`;
+
+export const DatePickerWrapper = styled.div`
+  position: relative;
+`;
+
+export const StyledIconButton = styled(IconButton)`
+  position: absolute;
+  right: 0;
+  top: 24px;
+`;
+
+export const StyledDateTimePicker = styled(DateTimePicker)`
+  width: 100%;
 `;

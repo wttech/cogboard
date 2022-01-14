@@ -1,6 +1,9 @@
 import React, { useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
+import moment from 'moment-timezone';
 import { v4 } from 'uuid';
+import LogsViewerContext from '../../context';
+import { MILLIS_IN_SECOND } from '../../../../../../constants';
 import {
   List,
   ListItem,
@@ -18,7 +21,6 @@ import AddItem from '../../../../../AddItem';
 import QuarantineForm from './QuarantineForm';
 import EditQFilter from './EditQFilter';
 import DeleteItem from '../../../../../DeleteItem';
-import LogsViewerContext from '../../context';
 
 const QuarantineModal = ({ quarantine }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
@@ -32,6 +34,27 @@ const QuarantineModal = ({ quarantine }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logsViewerContext.quarantine]);
+
+  const isChecked = (checked, endTimestamp) => {
+    if (endTimestamp) {
+      const inFuture =
+        moment.utc(endTimestamp * MILLIS_IN_SECOND).local() > moment();
+      return checked && inFuture;
+    }
+    return checked;
+  };
+
+  const toggleChecked = rule => {
+    const endTimestamp =
+      Number.isInteger(rule.endTimestamp) &&
+      moment.utc(rule.endTimestamp * MILLIS_IN_SECOND).local();
+    const shouldSkipEndTimestamp = endTimestamp && endTimestamp <= moment();
+    if (shouldSkipEndTimestamp) {
+      return { ...rule, checked: true, endTimestamp: null };
+    } else {
+      return { ...rule, checked: !rule.checked };
+    }
+  };
 
   const handleQuarantineClick = event => {
     event.stopPropagation();
@@ -60,8 +83,8 @@ const QuarantineModal = ({ quarantine }) => {
   const handleSwitchChange = id => {
     postWidgetContentUpdate({
       id: logsViewerContext.wid,
-      quarantineRules: quarantine.map(filter =>
-        filter.id === id ? { ...filter, checked: !filter.checked } : filter
+      quarantineRules: quarantine.map(rule =>
+        rule.id === id ? toggleChecked(rule) : rule
       )
     });
   };
@@ -84,7 +107,7 @@ const QuarantineModal = ({ quarantine }) => {
     editAction,
     deleteAction
   ) =>
-    items.map(({ id, label, checked, reasonField }) => (
+    items.map(({ id, label, checked, reasonField, endTimestamp }) => (
       <ListItem key={id}>
         <Tooltip title={`Reason: ${reasonField}`} placement="bottom-start">
           <ListItemText primary={label} />
@@ -98,7 +121,7 @@ const QuarantineModal = ({ quarantine }) => {
             deleteAction={deleteAction}
           />
           <Switch
-            checked={checked}
+            checked={isChecked(checked, endTimestamp)}
             onChange={() => handleSwitchChange(id)}
             color="secondary"
           ></Switch>
