@@ -18,20 +18,20 @@ import AddItem from '../../../../../AddItem';
 import QuarantineForm from './QuarantineForm';
 import EditQFilter from './EditQFilter';
 import DeleteItem from '../../../../../DeleteItem';
-import { SimilarLogsContext } from '../../context';
+import LogsViewerContext from '../../context';
 
-const QuarantineModal = ({ wid, quarantine }) => {
+const QuarantineModal = ({ quarantine }) => {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
-  const similarLogs = useContext(SimilarLogsContext);
+  const logsViewerContext = useContext(LogsViewerContext);
 
   useEffect(() => {
-    if (similarLogs.quarantine) {
+    if (logsViewerContext.quarantine) {
       openDialog();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [similarLogs.quarantine]);
+  }, [logsViewerContext.quarantine]);
 
   const handleQuarantineClick = event => {
     event.stopPropagation();
@@ -40,14 +40,14 @@ const QuarantineModal = ({ wid, quarantine }) => {
 
   const addFilter = values => {
     postWidgetContentUpdate({
-      id: wid,
+      id: logsViewerContext.wid,
       quarantineRules: [...quarantine, { id: v4(), checked: true, ...values }]
     });
   };
 
   const editFilter = ({ id, values }) => {
     postWidgetContentUpdate({
-      id: wid,
+      id: logsViewerContext.wid,
       quarantineRules: quarantine.map(filter => {
         if (filter.id === id) {
           return { id, ...values };
@@ -59,7 +59,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
 
   const handleSwitchChange = id => {
     postWidgetContentUpdate({
-      id: wid,
+      id: logsViewerContext.wid,
       quarantineRules: quarantine.map(filter =>
         filter.id === id ? { ...filter, checked: !filter.checked } : filter
       )
@@ -68,7 +68,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
 
   const deleteAction = id => {
     postWidgetContentUpdate({
-      id: wid,
+      id: logsViewerContext.wid,
       quarantineRules: quarantine.filter(quarantine => quarantine.id !== id)
     });
   };
@@ -135,7 +135,7 @@ const QuarantineModal = ({ wid, quarantine }) => {
           largeButton
           itemName="quarantine"
           submitAction={addFilter}
-          shouldOpen={similarLogs.quarantine}
+          shouldOpen={logsViewerContext.quarantine}
         >
           <QuarantineForm filters={quarantine} />
         </AddItem>

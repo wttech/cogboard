@@ -10,7 +10,6 @@ import FilterPicker from './FilterPicker';
 import { saveFile } from './helpers';
 
 const Toolbar = ({
-  wid,
   quarantine,
   widgetLocalStorage,
   setSearchFilter,
@@ -28,7 +27,6 @@ const Toolbar = ({
       />
       <FilterPicker
         widgetLocalStorage={widgetLocalStorage}
-        wid={wid}
         quarantine={quarantine}
       />
       <DateRangePicker

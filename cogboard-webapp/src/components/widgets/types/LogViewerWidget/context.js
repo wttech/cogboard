@@ -1,3 +1,5 @@
 import { createContext } from 'react';
 
-export const SimilarLogsContext = createContext();
+const logsViewerContext = createContext();
+
+export default logsViewerContext;

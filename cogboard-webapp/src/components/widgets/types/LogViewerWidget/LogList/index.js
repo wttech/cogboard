@@ -15,7 +15,6 @@ import {
 const logHeight = 28;
 
 export default function LogList({
-  wid,
   logs,
   template,
   search,
@@ -42,7 +41,9 @@ export default function LogList({
   const handleScroll = () => {
     const scrollerOffset =
       scrollerRef.current.scrollTop - prevScrollPos.current;
-    const isScrollingUpward = scrollerOffset < logHeight * logsCountOffset;
+
+    const isScrollingUpward =
+      scrollerOffset < 0 && scrollerOffset < logHeight * logsCountOffset;
     if (isScrollingUpward) {
       handleFollowChange(false);
     }
@@ -72,7 +73,7 @@ export default function LogList({
           offset += 1;
         }
 
-        const COULD_NOT_FIND_LOG = offset == logs.length;
+        const COULD_NOT_FIND_LOG = offset === logs.length;
         if (!COULD_NOT_FIND_LOG) {
           offset -= logsCountOffset;
 
@@ -84,6 +85,7 @@ export default function LogList({
       }
     }
     prevLastLogId.current = logs.length > 0 && logs[logs.length - 1]._id;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logs]);
 
   const getLogByIndex = index => (
@@ -92,7 +94,6 @@ export default function LogList({
 
   const MemoLogEntry = React.memo(({ log }) => (
     <LogEntry
-      wid={wid}
       key={log._id}
       id={log._id}
       type={log.type}
@@ -122,10 +123,11 @@ export default function LogList({
           isScrolling={handleScroll}
           totalCount={logs.length}
           increaseViewportBy={300} // defines loading overlap (in pixels)
+          totalListHeightChanged={height => console.log('height', height)}
           itemContent={getLogByIndex}
           atBottomThreshold={0}
           followOutput={isAtBottom =>
-            shouldFollowLogs && !isAtBottom ? 'instant' : false
+            shouldFollowLogs && !isAtBottom ? 'smooth' : false
           }
         />
       </LogsWrapper>

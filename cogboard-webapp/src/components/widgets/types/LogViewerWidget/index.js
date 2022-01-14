@@ -8,7 +8,7 @@ import LogList from './LogList';
 import { Container } from './styled';
 import { getInitialLogs } from '../../../../utils/fetch';
 import { joinLogs } from './helpers';
-import { SimilarLogsContext } from './context';
+import LogsViewerContext from './context';
 import { getFilters, getLevel } from './Toolbar/FilterPicker/helpers';
 import { getDateSpan } from './Toolbar/DateRangePicker/helpers';
 import {
@@ -62,8 +62,9 @@ const LogViewerWidget = ({ id }) => {
 
   return (
     <Container>
-      <SimilarLogsContext.Provider
+      <LogsViewerContext.Provider
         value={{
+          wid: id,
           filter: filterSimilarLogs,
           setFilter: setFilterSimilarLogs,
           quarantine: quarantineSimilarLogs,
@@ -71,7 +72,6 @@ const LogViewerWidget = ({ id }) => {
         }}
       >
         <Toolbar
-          wid={id}
           quarantine={quarantine}
           widgetLocalStorage={widgetLocalStorage}
           setSearchFilter={setSearchFilter}
@@ -81,14 +81,13 @@ const LogViewerWidget = ({ id }) => {
           logs={filteredLogs}
         />
         <LogList
-          wid={id}
           logs={filteredLogs}
           template={template}
           search={searchFilter}
           shouldFollowLogs={shouldFollowLogs}
           handleFollowChange={setFollow}
         />
-      </SimilarLogsContext.Provider>
+      </LogsViewerContext.Provider>
     </Container>
   );
 };

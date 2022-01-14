@@ -11,7 +11,7 @@ import {
   arrayOf,
   func
 } from 'prop-types';
-import { SimilarLogsContext } from '../context';
+import LogsViewerContext from '../context';
 import { getGridTemplate, highlightText } from './helpers';
 
 import { AccordionSummary, AccordionDetails, Tooltip } from '@material-ui/core';
@@ -31,7 +31,6 @@ import {
 import TextWithCopyButton from './TextWithCopyButton';
 
 const LogEntry = ({
-  wid,
   onToggle,
   id,
   type,
@@ -43,7 +42,7 @@ const LogEntry = ({
 }) => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(getIsAuthenticated);
-  const similarLogs = useContext(SimilarLogsContext);
+  const { wid, setFilter, setQuarantine } = useContext(LogsViewerContext);
 
   const expandedList =
     useSelector(store => store.widgets.logsViewersCache[wid]?.expandedLogs) ||
@@ -106,7 +105,7 @@ const LogEntry = ({
             <SimilarLogsButtonsContainer>
               <Tooltip title="Filter similar logs" placement="left">
                 <FilterSimilarLogsButton
-                  onClick={() => similarLogs.setFilter(getLastVariableHeader())}
+                  onClick={() => setFilter(getLastVariableHeader())}
                 >
                   <FilterList />
                 </FilterSimilarLogsButton>
@@ -117,9 +116,7 @@ const LogEntry = ({
                   placement="left"
                 >
                   <QuarantineSimilarLogsButton
-                    onClick={() =>
-                      similarLogs.setQuarantine(getLastVariableHeader())
-                    }
+                    onClick={() => setQuarantine(getLastVariableHeader())}
                   >
                     <Schedule />
                   </QuarantineSimilarLogsButton>
@@ -136,7 +133,6 @@ const LogEntry = ({
 export default LogEntry;
 
 LogEntry.propTypes = {
-  wid: string.isRequired,
   id: string.isRequired,
   type: string,
   date: string.isRequired,
