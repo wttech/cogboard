@@ -7,7 +7,6 @@ import DateRangePicker from './DateRangePicker';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import FilterPicker from './FilterPicker';
-import { saveFile } from './helpers';
 
 const Toolbar = ({
   quarantine,
@@ -16,7 +15,7 @@ const Toolbar = ({
   shouldFollowLogs,
   handleFollowChange,
   lastLog,
-  logs
+  onSaveLogs
 }) => {
   return (
     <Wrapper>
@@ -42,7 +41,7 @@ const Toolbar = ({
       <ToggleIconButton
         tooltip={'Export to file'}
         Icon={GetAppIcon}
-        onClick={() => saveFile(new Blob([JSON.stringify(logs)]))}
+        onClick={onSaveLogs}
       />
     </Wrapper>
   );

@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { number, string } from 'prop-types';
 import { useLocalStorage } from '../../../../hooks';
-
-import Toolbar from './Toolbar';
-import LogList from './LogList';
-import { Container } from './styled';
-import { getInitialLogs } from '../../../../utils/fetch';
-import { joinLogs } from './helpers';
+import { joinLogs, saveLogsToFile } from './helpers';
 import LogsViewerContext from './context';
+import { getInitialLogs } from '../../../../utils/fetch';
 import { getFilters, getLevel } from './Toolbar/FilterPicker/helpers';
 import { getDateSpan } from './Toolbar/DateRangePicker/helpers';
 import {
@@ -16,6 +12,10 @@ import {
   filterByDateSpan,
   filterByLevel
 } from './LogList/helpers';
+
+import Toolbar from './Toolbar';
+import LogList from './LogList';
+import { Container } from './styled';
 
 const LogViewerWidget = ({ id }) => {
   const widgetData = useSelector(
@@ -78,7 +78,7 @@ const LogViewerWidget = ({ id }) => {
           shouldFollowLogs={shouldFollowLogs}
           handleFollowChange={setFollow}
           lastLog={storedLogs?.length > 0 && storedLogs[storedLogs.length - 1]}
-          logs={filteredLogs}
+          onSaveLogs={() => saveLogsToFile(filteredLogs)}
         />
         <LogList
           logs={filteredLogs}
