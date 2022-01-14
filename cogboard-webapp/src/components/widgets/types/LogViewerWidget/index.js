@@ -82,6 +82,7 @@ const LogViewerWidget = ({ id }) => {
         />
         <LogList
           logs={filteredLogs}
+          logListFull={storedLogs.length === logLinesField}
           template={template}
           search={searchFilter}
           shouldFollowLogs={shouldFollowLogs}

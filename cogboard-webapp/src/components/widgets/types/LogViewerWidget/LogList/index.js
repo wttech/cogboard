@@ -19,7 +19,8 @@ export default function LogList({
   template,
   search,
   shouldFollowLogs,
-  handleFollowChange
+  handleFollowChange,
+  logListFull
 }) {
   const theme = useTheme();
   const virtuosoRef = useRef(null);
@@ -63,7 +64,7 @@ export default function LogList({
   }, [shouldFollowLogs]);
 
   useEffect(() => {
-    if (!shouldFollowLogs) {
+    if (!shouldFollowLogs && logListFull) {
       if (prevLastLogId.current !== null) {
         let offset = 0;
         for (let i = logs.length - 1; i >= 0; i--) {
@@ -123,7 +124,6 @@ export default function LogList({
           isScrolling={handleScroll}
           totalCount={logs.length}
           increaseViewportBy={300} // defines loading overlap (in pixels)
-          totalListHeightChanged={height => console.log('height', height)}
           itemContent={getLogByIndex}
           atBottomThreshold={0}
           followOutput={isAtBottom =>
