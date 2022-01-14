@@ -12,6 +12,8 @@ import {
   VariableGridSchema
 } from './styled';
 
+const logHeight = 28;
+
 export default function LogList({
   wid,
   logs,
@@ -23,7 +25,11 @@ export default function LogList({
   const theme = useTheme();
   const virtuosoRef = useRef(null);
   const scrollerRef = useRef(null);
-  const listScrollPos = useRef(0);
+  const prevScrollPos = useRef(0);
+  const prevLastLogId = useRef(null);
+  const prevLogsLength = useRef(null);
+
+  const logsCountOffset = logs.length - prevLogsLength.current;
 
   const VariableLogListHeader = () => (
     <VariableGridSchema template={getGridTemplate(template)}>
@@ -34,19 +40,51 @@ export default function LogList({
   );
 
   const handleScroll = () => {
-    const isScrollingUpward =
-      listScrollPos.current > scrollerRef.current.scrollTop;
+    const scrollerOffset =
+      scrollerRef.current.scrollTop - prevScrollPos.current;
+    const isScrollingUpward = scrollerOffset < logHeight * logsCountOffset;
     if (isScrollingUpward) {
       handleFollowChange(false);
     }
-    listScrollPos.current = scrollerRef.current.scrollTop;
+    prevScrollPos.current = scrollerRef.current.scrollTop;
+    prevLogsLength.current = logs.length;
   };
 
   useEffect(() => {
     if (shouldFollowLogs) {
-      virtuosoRef.current.scrollToIndex(logs.length - 1);
+      virtuosoRef.current.scrollToIndex({
+        index: logs.length - 1,
+        align: 'bottom',
+        behavior: 'smooth'
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldFollowLogs]);
+
+  useEffect(() => {
+    if (!shouldFollowLogs) {
+      if (prevLastLogId.current !== null) {
+        let offset = 0;
+        for (let i = logs.length - 1; i >= 0; i--) {
+          if (logs[i]._id === prevLastLogId.current) {
+            break;
+          }
+          offset += 1;
+        }
+
+        const COULD_NOT_FIND_LOG = offset == logs.length;
+        if (!COULD_NOT_FIND_LOG) {
+          offset -= logsCountOffset;
+
+          virtuosoRef.current.scrollTo({
+            top: prevScrollPos.current - offset * logHeight,
+            behavior: 'instant'
+          });
+        }
+      }
+    }
+    prevLastLogId.current = logs.length > 0 && logs[logs.length - 1]._id;
+  }, [logs]);
 
   const getLogByIndex = index => (
     <MemoLogEntry key={logs[index]._id} log={logs[index]} />
@@ -87,7 +125,7 @@ export default function LogList({
           itemContent={getLogByIndex}
           atBottomThreshold={0}
           followOutput={isAtBottom =>
-            shouldFollowLogs && !isAtBottom ? 'smooth' : false
+            shouldFollowLogs && !isAtBottom ? 'instant' : false
           }
         />
       </LogsWrapper>
