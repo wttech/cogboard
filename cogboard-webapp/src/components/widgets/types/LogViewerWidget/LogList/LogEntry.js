@@ -80,12 +80,7 @@ const LogEntry = ({
 
   return (
     <LogMargin>
-      <CustomAccordion
-        key={id}
-        expanded={isExpanded}
-        data-cy="log-entry"
-        TransitionProps={{ unmountOnExit: true }}
-      >
+      <CustomAccordion key={id} expanded={isExpanded} data-cy="log-entry">
         <AccordionSummary
           onClick={toggleExpanded}
           expandIcon={isExpanded && <ExpandMore />}
