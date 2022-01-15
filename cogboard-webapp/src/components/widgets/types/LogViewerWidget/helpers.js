@@ -1,5 +1,5 @@
 export const joinLogs = (currentLogs, newLogs, logLines) => {
-  let joined = currentLogs.slice();
+  const joined = currentLogs.slice();
   newLogs.forEach(newLog => {
     if (!joined.some(log => log._id === newLog._id)) {
       joined.push(newLog);
