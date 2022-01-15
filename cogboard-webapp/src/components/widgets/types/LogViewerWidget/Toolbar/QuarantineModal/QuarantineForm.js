@@ -6,7 +6,7 @@ import { Button, Tooltip, IconButton } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import { StyledHorizontalContainer, StyledCancelButton } from './styled';
 import dialogFields from '../../../../dialogFields';
-import { SimilarLogsContext } from '../../context';
+import LogsViewerContext from '../../context';
 import { URL } from '../../../../../../constants';
 
 const QuarantineForm = ({
@@ -16,15 +16,18 @@ const QuarantineForm = ({
   id,
   ...initialFormValues
 }) => {
-  const similarLogs = useContext(SimilarLogsContext);
+  const logsViewerContext = useContext(LogsViewerContext);
 
   useEffect(() => {
-    if (similarLogs.quarantine) {
-      setFieldValue(dialogFields.RegExpField.name, similarLogs.quarantine);
-      similarLogs.setQuarantine(null);
+    if (logsViewerContext.quarantine) {
+      setFieldValue(
+        dialogFields.RegExpField.name,
+        logsViewerContext.quarantine
+      );
+      logsViewerContext.setQuarantine(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [similarLogs.quarantine]);
+  }, [logsViewerContext.quarantine]);
 
   const formFields = [
     'LabelField',

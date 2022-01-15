@@ -30,7 +30,8 @@ import {
   ADD_SETTINGS_ITEM,
   EDIT_SETTINGS_ITEM,
   DELETE_SETTINGS_ITEM,
-  WAITING_FOR_NEW_VERSION_DATA
+  WAITING_FOR_NEW_VERSION_DATA,
+  TOGGLE_LOGS_VIEWER_LOG
 } from './types';
 import { INITIAL_BOARD_PROPS } from '../constants';
 
@@ -192,4 +193,9 @@ export const deleteSettingsItem = (name, data) => ({
 export const waitingForNewVersion = data => ({
   type: WAITING_FOR_NEW_VERSION_DATA,
   payload: data
+});
+
+export const toggleLogsViewerLog = ({ wid, logid }) => ({
+  type: TOGGLE_LOGS_VIEWER_LOG,
+  payload: { wid, logid }
 });
