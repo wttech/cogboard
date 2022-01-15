@@ -14,7 +14,7 @@ import {
 } from './styled';
 import AdvancedFiltersMenu from './AdvancedFiltersMenu';
 
-const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
+const FilterPicker = ({ widgetLocalStorage, quarantine }) => {
   const regExpFilters = getFilters(widgetLocalStorage);
   const logLevel = getLevel(widgetLocalStorage);
 
@@ -102,7 +102,6 @@ const FilterPicker = ({ widgetLocalStorage, wid, quarantine }) => {
         </FiltersFormControl>
         <AdvancedFiltersMenu
           widgetLocalStorage={widgetLocalStorage}
-          wid={wid}
           quarantine={quarantine}
         />
       </FiltersWrapper>
