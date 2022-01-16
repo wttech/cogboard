@@ -5,7 +5,7 @@ import { Wrapper } from './styled';
 import SearchInput from './SearchInput';
 import DateRangePicker from './DateRangePicker';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import GetAppIcon from '@material-ui/icons/GetApp';
+import SaveIcon from '@material-ui/icons/Save';
 import FilterPicker from './FilterPicker';
 
 const Toolbar = ({
@@ -40,7 +40,7 @@ const Toolbar = ({
       />
       <ToggleIconButton
         tooltip={'Export to file'}
-        Icon={GetAppIcon}
+        Icon={SaveIcon}
         onClick={onSaveLogs}
       />
     </Wrapper>

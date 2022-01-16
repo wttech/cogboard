@@ -26,7 +26,7 @@ const SearchInput = ({ setSearchFilter, debounce, minLetters }) => {
   return (
     <Wrapper>
       <StyledTextField
-        label="Search"
+        label="Highlight"
         value={searchBoxValue}
         onChange={handleChange}
         data-cy="search-input-field"
