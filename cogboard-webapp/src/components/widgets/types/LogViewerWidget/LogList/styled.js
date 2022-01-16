@@ -72,14 +72,15 @@ export const StyledVirtuoso = styled(Virtuoso)`
 `;
 
 export const CustomAccordion = styled(Accordion)`
-  margin: 2px 0;
+  margin: 0;
+  box-shadow: none;
 
   &.MuiPaper-root {
     background-color: ${COLORS.LIGHT_SHADE};
     overflow: hidden;
   }
   &&.Mui-expanded {
-    margin: 0.5em 0;
+    margin: 0;
   }
 
   .MuiAccordionSummary-root {
@@ -151,7 +152,7 @@ QuarantineSimilarLogsButton.defaultProps = {
 
 export const StyledCopyButton = styled(IconButton)`
   position: absolute;
-  &&& {
+  &&&& {
     top: 0.1rem;
     right: -1.15rem;
   }
@@ -173,4 +174,8 @@ export const TextWithCopyButtonContainer = styled.div`
     opacity: 1;
     visiblity: visible;
   }
+`;
+
+export const LogMargin = styled.div`
+  padding: 1px 0;
 `;

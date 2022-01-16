@@ -10,7 +10,7 @@ import {
   submitForm,
   assertChip,
   logsMatchLogLevel,
-  selectLogLevel
+  selectLogLevel,
 } from '../support/logsViewer/filters';
 import { filters, logLevels } from '../fixtures/logsViewer';
 
@@ -29,7 +29,7 @@ describe('Logs Viewer', () => {
     cy.clickAddWidgetButton();
     widget = createWidget(logsViewer.name).configure(false, {
       cols: 8,
-      rows: 2
+      rows: 2,
     });
   });
 
@@ -102,7 +102,7 @@ describe('Logs Viewer', () => {
     it('should delete filters', () => {
       openAdvancedMenu();
 
-      cy.get('[data-cy="delete-filter-delete-button"]').each(filter => {
+      cy.get('[data-cy="delete-filter-delete-button"]').each((filter) => {
         cy.wrap(filter).click();
         cy.get('[data-cy="confirmation-dialog-ok"]').click();
       });
@@ -119,7 +119,7 @@ describe('Logs Viewer', () => {
   });
 
   describe('Log level', () => {
-    logLevels.forEach(selectedLevel => {
+    logLevels.forEach((selectedLevel) => {
       it(`show logs with greater or equal level to ${selectedLevel.value}`, () => {
         selectLogLevel(selectedLevel.value);
         logsMatchLogLevel(selectedLevel, logLevels);
@@ -172,11 +172,11 @@ describe('Logs Viewer', () => {
   describe('Searchbar', () => {
     it('shows search icon while there are less than 3 letters in input', () => {
       cy.get('[data-cy="search-icon"]').should('exist');
-      cy.get('[data-cy="search-input-field"]').type('l');
+      cy.get('[data-cy="search-input-field"]').type('m');
       cy.get('[data-cy="search-icon"]').should('exist');
-      cy.get('[data-cy="search-input-field"]').type('o');
+      cy.get('[data-cy="search-input-field"]').type('e');
       cy.get('[data-cy="search-icon"]').should('exist');
-      cy.get('[data-cy="search-input-field"]').type('r');
+      cy.get('[data-cy="search-input-field"]').type('s');
       cy.get('[data-cy="search-icon"]').should('not.exist');
     });
 
@@ -185,19 +185,17 @@ describe('Logs Viewer', () => {
     });
 
     it('shows highlight mark on logs fitting expression', () => {
-      cy.get('[data-cy="highlight-mark"]').each(mark => {
+      cy.get('[data-cy="highlight-mark"]').each((mark) => {
         cy.wrap(mark)
           .closest('[data-cy="log-entry"]')
-          .contains(new RegExp('lor', 'gi'))
+          .contains('[data-cy="log-variable-data"] p', new RegExp('mes', 'gi'))
           .should('exist');
       });
     });
 
     it('clears input after clicking close icon', () => {
       cy.get('[data-cy="close-icon"]').click();
-      cy.get('[data-cy="search-input-field"]')
-        .invoke('val')
-        .should('be.empty');
+      cy.get('[data-cy="search-input-field"]').invoke('val').should('be.empty');
     });
   });
 });

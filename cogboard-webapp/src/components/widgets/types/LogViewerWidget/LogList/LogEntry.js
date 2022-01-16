@@ -1,8 +1,21 @@
-import React, { useState, useContext } from 'react';
-import { string, number, bool, shape, oneOfType, arrayOf } from 'prop-types';
+import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleLogsViewerLog } from '../../../../../actions/actionCreators';
+import { getIsAuthenticated } from '../../../../../selectors';
+import {
+  string,
+  number,
+  bool,
+  shape,
+  oneOfType,
+  arrayOf,
+  func
+} from 'prop-types';
+import LogsViewerContext from '../context';
 import { getGridTemplate, highlightText } from './helpers';
+
 import { AccordionSummary, AccordionDetails, Tooltip } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { FilterList, Schedule, ExpandMore } from '@material-ui/icons';
 import {
   GridSchema,
   Text,
@@ -12,15 +25,14 @@ import {
   HighlightMark,
   SimilarLogsButtonsContainer,
   FilterSimilarLogsButton,
-  QuarantineSimilarLogsButton
+  QuarantineSimilarLogsButton,
+  LogMargin
 } from './styled';
-import { useSelector } from 'react-redux';
-import { getIsAuthenticated } from '../../../../../selectors';
-import { FilterList, Schedule } from '@material-ui/icons';
-import { SimilarLogsContext } from '../context';
 import TextWithCopyButton from './TextWithCopyButton';
 
 const LogEntry = ({
+  onToggle,
+  id,
   type,
   date,
   variableData,
@@ -28,10 +40,19 @@ const LogEntry = ({
   search,
   highlight
 }) => {
-  const [expanded, setExpanded] = useState(false);
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector(getIsAuthenticated);
+  const { wid, setFilter, setQuarantine } = useContext(LogsViewerContext);
 
-  const similarLogs = useContext(SimilarLogsContext);
+  const expandedList =
+    useSelector(store => store.widgets.logsViewersCache[wid]?.expandedLogs) ||
+    [];
+  const isExpanded = expandedList.includes(id);
+
+  const toggleExpanded = () => {
+    dispatch(toggleLogsViewerLog({ wid, logid: id }));
+    onToggle();
+  };
 
   const getLastVariableHeader = () =>
     variableData[variableData.length - 1]?.header ?? '';
@@ -58,52 +79,56 @@ const LogEntry = ({
   };
 
   return (
-    <CustomAccordion expanded={expanded} data-cy="log-entry">
-      <AccordionSummary
-        onClick={() => setExpanded(!expanded)}
-        expandIcon={expanded && <ExpandMoreIcon />}
-      >
-        {highlight && <HighlightMark data-cy="highlight-mark" />}
-        <GridSchema>
-          <Text type={type} data-cy="log-entry-level">
-            {type?.toUpperCase()}
-          </Text>
-          <TextWithCopyButton text={date} data-cy="log-entry-data" />
-          <VariablePart />
-        </GridSchema>
-      </AccordionSummary>
-      <AccordionDetails>
-        <GridSchema>
-          <VariablePart description />
-          <SimilarLogsButtonsContainer>
-            <Tooltip title="Filter similar logs" placement="left">
-              <FilterSimilarLogsButton
-                onClick={() => similarLogs.setFilter(getLastVariableHeader())}
-              >
-                <FilterList />
-              </FilterSimilarLogsButton>
-            </Tooltip>
-            {isAuthenticated && (
-              <Tooltip title="Add similar logs to quarantine" placement="left">
-                <QuarantineSimilarLogsButton
-                  onClick={() =>
-                    similarLogs.setQuarantine(getLastVariableHeader())
-                  }
+    <LogMargin>
+      <CustomAccordion key={id} expanded={isExpanded} data-cy="log-entry">
+        <AccordionSummary
+          onClick={toggleExpanded}
+          expandIcon={isExpanded && <ExpandMore />}
+        >
+          {highlight && <HighlightMark data-cy="highlight-mark" />}
+          <GridSchema>
+            <Text type={type} data-cy="log-entry-level">
+              {type?.toUpperCase()}
+            </Text>
+            <TextWithCopyButton text={date} data-cy="log-entry-data" />
+            <VariablePart />
+          </GridSchema>
+        </AccordionSummary>
+        <AccordionDetails>
+          <GridSchema>
+            <VariablePart description />
+            <SimilarLogsButtonsContainer>
+              <Tooltip title="Filter similar logs" placement="left">
+                <FilterSimilarLogsButton
+                  onClick={() => setFilter(getLastVariableHeader())}
                 >
-                  <Schedule />
-                </QuarantineSimilarLogsButton>
+                  <FilterList />
+                </FilterSimilarLogsButton>
               </Tooltip>
-            )}
-          </SimilarLogsButtonsContainer>
-        </GridSchema>
-      </AccordionDetails>
-    </CustomAccordion>
+              {isAuthenticated && (
+                <Tooltip
+                  title="Add similar logs to quarantine"
+                  placement="left"
+                >
+                  <QuarantineSimilarLogsButton
+                    onClick={() => setQuarantine(getLastVariableHeader())}
+                  >
+                    <Schedule />
+                  </QuarantineSimilarLogsButton>
+                </Tooltip>
+              )}
+            </SimilarLogsButtonsContainer>
+          </GridSchema>
+        </AccordionDetails>
+      </CustomAccordion>
+    </LogMargin>
   );
 };
 
 export default LogEntry;
 
 LogEntry.propTypes = {
+  id: string.isRequired,
   type: string,
   date: string.isRequired,
   variableData: arrayOf(
@@ -111,11 +136,18 @@ LogEntry.propTypes = {
       header: oneOfType([string, number, bool]).isRequired,
       description: oneOfType([string, number, bool]).isRequired
     })
-  )
+  ),
+  template: arrayOf(string),
+  search: string,
+  highlight: bool,
+  onToggle: func
 };
 
 LogEntry.defaultProps = {
+  onToggle: () => {},
   type: 'info',
-  date: '0',
-  variableData: []
+  variableData: [],
+  template: [],
+  search: undefined,
+  highlight: false
 };

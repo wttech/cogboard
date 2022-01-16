@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 import DynamicForm from '../../../../../../DynamicForm';
 import { StyledCancelButton } from './styled';
 import dialogFields from '../../../../../dialogFields';
-import { SimilarLogsContext } from '../../../context';
+import LogsViewerContext from '../../../context';
 
 const FilterForm = ({
   filters,
@@ -16,15 +16,15 @@ const FilterForm = ({
   filterSimilarLogsState,
   ...initialFormValues
 }) => {
-  const similarLogs = useContext(SimilarLogsContext);
+  const logsViewerContext = useContext(LogsViewerContext);
 
   useEffect(() => {
-    if (similarLogs.filter) {
-      setFieldValue(dialogFields.RegExpField.name, similarLogs.filter);
-      similarLogs.setFilter(null);
+    if (logsViewerContext.filter) {
+      setFieldValue(dialogFields.RegExpField.name, logsViewerContext.filter);
+      logsViewerContext.setFilter(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [similarLogs.filter]);
+  }, [logsViewerContext.filter]);
 
   const formFields = ['LabelField', 'RegExpField'];
   const constraints = {
