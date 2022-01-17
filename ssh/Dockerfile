@@ -5,7 +5,28 @@ ENV PASSWORD_ACCESS=true
 ENV USER_NAME=mock
 ENV USER_PASSWORD=TLQuoLMn*T89&Y*r*YqHviSFH6MkR!4E
 
-ADD gen.sh /home/mock/gen.sh
-RUN chmod +x /home/mock/gen.sh && /home/mock/gen.sh 50 > /home/mock/example.txt &&\
-    echo '* * * * * /home/mock/gen.sh 10 >> /home/mock/example.txt' > /etc/crontabs/root
+RUN mkdir /home/mock
+RUN echo $'#!/bin/bash\n\
+labels=(DEBUG INFO WARNING ERROR)\n\
+words=(Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet massa sit amet mi feugiat lobortis. Morbi ultrices hendrerit luctus. Donec fermentum viverra viverra. Integer convallis sapien sit amet facilisis pretium. Ut quis commodo odio, ac bibendum urna. Ut imperdiet ante sed ex sollicitudin auctor. Nulla vel eros sit amet velit vulputate suscipit a malesuada felis. Curabitur commodo, erat eget condimentum tristique, ante diam porttitor nulla, condimentum vulputate nibh ex sit amet velit. Vestibulum vel lectus bibendum, pellentesque nisl id, vehicula tellus. Suspendisse sem turpis, dignissim quis aliquet nec, laoreet sit amet urna. Nulla non euismod tellus, id varius)\n\
+\n\
+COUNT=5\n\
+if ! [ -z "$1" ]; then\n\
+    COUNT=$1\n\
+fi\n\
+\n\
+for run in $( seq 1 $COUNT ); do\n\
+    d=$(date +%Y-%m-%d:%H:%M:%S)\n\
+    l=${labels[$(($RANDOM%4))]}\n\
+    w=()\n\
+    wCount=$(($RANDOM%5+5))\n\
+    for (( i=0; i<$wCount; i++ ))\n\
+    do\n\
+            w[i]=${words[$(($RANDOM%${#words[@]}))]}\n\
+    done\n\
+    echo $d "*"${l}"* [FelixStartLevel] " ${w[*]}\n\
+done' > /home/mock/gen.sh
+RUN chmod +x /home/mock/gen.sh
+RUN /home/mock/gen.sh 50 > /home/mock/example.txt
+RUN echo '* * * * * /home/mock/gen.sh 10 >> /home/mock/example.txt' > /etc/crontabs/root
 CMD /usr/sbin/crond -l 2 -f
