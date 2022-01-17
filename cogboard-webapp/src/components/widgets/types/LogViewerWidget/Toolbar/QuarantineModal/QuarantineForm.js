@@ -4,10 +4,11 @@ import { useFormData } from '../../../../../../hooks';
 import DynamicForm from '../../../../../DynamicForm';
 import { Button, Tooltip, IconButton } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
-import { StyledHorizontalContainer, StyledCancelButton } from './styled';
+import { StyledHorizontalContainer, StyledButtonContainer } from './styled';
 import dialogFields from '../../../../dialogFields';
 import LogsViewerContext from '../../context';
 import { URL } from '../../../../../../constants';
+import CancelButton from '../../../../../CancelButton';
 
 const QuarantineForm = ({
   filters,
@@ -79,18 +80,21 @@ const QuarantineForm = ({
         errors={errors}
         rootName="quarantine-form"
       />
-      <Button
-        color="secondary"
-        variant="contained"
-        type="submit"
-        data-cy="quarantine-form-submit-button"
-      >
-        Save
-      </Button>
-      <StyledCancelButton
-        handleCancelClick={handleCancel}
-        data-cy="quarantine-form-cancel-button"
-      />
+      <StyledButtonContainer>
+        <Button
+          color="secondary"
+          variant="contained"
+          type="submit"
+          data-cy="quarantine-form-submit-button"
+        >
+          Save
+        </Button>
+        <CancelButton
+          handleCancelClick={handleCancel}
+          data-cy="quarantine-form-cancel-button"
+        />
+        <p>In order to see the changes, you have to refresh the page.</p>
+      </StyledButtonContainer>
     </form>
   );
 };
