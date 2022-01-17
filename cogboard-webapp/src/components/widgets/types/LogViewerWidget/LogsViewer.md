@@ -27,23 +27,39 @@ Dates (begin and end) are held in state as `momentjs` objects. Each time value c
 
 Log dates are strings.
 
-### Follow logs
-
-_TODO_
-
 ### Clear logs
 
 Hides all logs that have been delivered before usage.
 Sets begin date of `DateRangePicker` to arrival date of last log.
 
-### Quarantine
-
-_TODO_
-
 ## LogList
 
 Displays logs and column names.
 Will not render if logs are not provided (template required).
+
+Loglist flow is straight forward untill count of logs meets maximum number of logs. Then new logs are pushing old ones upward and you have to manually compensate to prevent screen shaking. Component remembers last:
+
+- `prevScrollPos` - previous scroll position
+- `prevLastLogId` - previous last log on the list
+- `prevLogsLength` - previous logs length
+
+### On logs change:
+
+It finds where is lastLog after adding new logs (offset).
+It subtracts new logs count from offset because
+Offset != newLogsCount.
+Depending on filters, there might be less logs after adding new logs - old logs mathed filter, new ones don't).
+Then it updates last log id (it won't update logsCount, because this function will call onScroll and it needs old logsCount value).
+
+### On scroll:
+
+- `scrollerOffset` < 0
+
+  it moved upward
+
+- `scrollerOffset` < `logHeight` \* `logsCountOffset`
+
+  it moved more than moving from 'on logs change' could
 
 ### VariableGridSchema
 
@@ -53,7 +69,7 @@ Component which provides equal columns widths for `Header` and `LogEntry`.
 
 ### Logs
 
-Virtuoso is used to virtualize list.
+Virtuoso is used to virtualize the list.
 
 ### Highlighting
 
