@@ -77,7 +77,7 @@ There is double check for highlight - one for marker in the left-upper corner (`
 
 ### Following logs
 
-_TODO_
+Virtuoso handles scrolling. It is triggered only when logs.length changes. When log limit isn't met it works, when it is it doesn't need to work. There is manual scroll to the last log on following start.
 
 ### LogEntry
 
