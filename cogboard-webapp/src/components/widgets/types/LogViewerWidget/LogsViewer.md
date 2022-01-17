@@ -69,7 +69,7 @@ Component which provides equal columns widths for `Header` and `LogEntry`.
 
 ### Logs
 
-Virtuoso is used to virtualize the list.
+Virtuoso is used to virtualize the list. (https://virtuoso.dev)
 
 ### Highlighting
 
@@ -82,3 +82,7 @@ Virtuoso handles scrolling. It is triggered only when logs.length changes. When 
 ### LogEntry
 
 Every log column consists of `header` (accordion summary) and `description` (accordion details).
+
+Outer container cannot have margins (wrong virtuoso calculations).
+
+Copying feature doesn't work on servers without HTTPS.
