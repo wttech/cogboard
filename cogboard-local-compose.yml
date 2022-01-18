@@ -5,6 +5,9 @@ networks:
     driver: overlay
     attachable: true
 
+volumes:
+  mongo-data:
+
 services:
   api-mocks:
     image: rodolpheche/wiremock
@@ -45,7 +48,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-root}
       MONGO_INITDB_DATABASE: "logs"
     volumes:
-      - "./mnt/mongo:/data/db"
+      - "mongo-data:/data/db"
     networks:
       - cognet
 
