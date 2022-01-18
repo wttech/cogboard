@@ -23,8 +23,8 @@ services:
     volumes:
       - "./mnt:/data"
   
-  mongo:
-    image: mongo
+  mongo-logs-storage:
+    image: mongo:4
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: "$user"
