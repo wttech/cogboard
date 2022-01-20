@@ -4,6 +4,11 @@
 - `searchFilter` - state of searchbox highlight (not to be confused with state of searchbox input)
 - `template` - log template (array of column names, does not include `type` and `date`)
 
+## index
+
+- `newLogs` - logs delivered through knotx, new every iteration
+- `storedLogs` - all logs in app; first iteration of logs is delivered through rest api, then appends logs from `newLogs`
+
 ## Toolbar
 
 ### SearchInput
