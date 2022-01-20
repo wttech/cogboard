@@ -12,7 +12,6 @@ class SSHAuthData(config: JsonObject) {
     private val id = config.getString(Props.ID, "")
     val user: String = config.getString(Props.USER, "")
     val password: String = config.getString(Props.PASSWORD, "")
-    val token: String = config.getString(Props.TOKEN, "")
     var key = config.getString(Props.SSH_KEY, "")
         private set
     val host: String

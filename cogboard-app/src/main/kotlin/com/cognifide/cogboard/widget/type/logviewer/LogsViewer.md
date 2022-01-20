@@ -195,3 +195,151 @@ Factory class that creates needed `ConnectionStrategy` implementation based on `
 Returns created `ConnectionStrategy` implementation which is created based on `scheme` from instance of `URI`
 class created by passing `address` to its static `create` method. Upon adding support for new protocol of 
 communication, value of `scheme` for that protocol should be added to this method's `when` expression
+
+### SSHClient
+Class responsible for connecting and executing commands on remote server via SSH
+
+#### Fields
+- session: Session?
+
+Field for storing object representing SSH session established between server and remote containing the logs.
+
+- jsch: JSch?
+
+Field storing instance of main class for using `JSch` library, managing SSH connection.
+
+#### Methods
+- openSession()
+
+Populates fields `session` and `jsch` with proper data by creating `JSch` instance and delegating establishing of
+`Session` to proper `SessionStrategy`.
+
+- closeSession()
+
+Closes connection to remote server and removes references to objects from `session` and `jsch` fields
+
+- execute(command: String): String?
+
+Executes bash command on remote server, passed in `command` parameter.
+
+- executeAndClose(command: String): String?
+
+Calls `execute` method and closes session via call to `closeSession`
+
+- createChannel(command: String): Pair<ChannelExec, InputStream>?
+
+Opens channel used for executing commands on remote server. After execution of command it returns created 
+`ChannelExec` object and `InputStream` later used for reading the response.
+
+- readResponse(stream: InputStream): String?
+
+Reads from `stream` and returns the response.
+
+### SessionStrategy
+Abstract class used for proper authentication via SSH, depending on available user data.
+
+#### Fields
+- jsch: JSch
+
+Instance `JSch` managing current SSH connection.
+
+- authData: SSHAuthData
+
+Container with data used for authentication on the remote server.
+
+- securityString: String
+
+Retrieves string used for authentication, such as password or SSH key, from `authData`
+
+#### Methods
+- initSession(): Session
+
+Method used to properly authenticate via SSH on the remote.
+
+### BasicAuthSessionStrategy
+Authenticates on the server using username and password.
+
+### SSHKeyAuthSessionStrategy
+Authenticates on the server using username and SSH key.
+
+### SSHAuthData
+Class used to retrieve and store data later used to authenticate on the server.
+
+#### Fields
+- id: String
+
+Id of the widget connecting to the server via SSH
+
+- user: String
+
+Username used to authenticate on the server.
+
+- password: String
+
+Password to authenticate on the server. Might be an empty string.
+
+- key: String
+
+SSH key used to authorize on the server. Might be an empty string.
+
+- host: String
+
+Hostname to connect to via SSH
+
+- port: Int
+
+Port to connect to via SSH
+
+- authenticationType: AuthenticationType
+
+Determines whether connection will be authenticated via username and password or via SSH key
+
+#### Methods
+- fromConfigAuthenticationType(config: JsonObject): AuthenticationType
+
+Returns `AuthenticationType` value based on `authenticationTypes` field in config
+
+- hasAuthTypeCorrectCredentials(authType: AuthenticationType): Boolean
+
+Checks whether proper credentials were provided for chosen `AuthenticationType`
+
+- prepareForSSHKeyUsage()
+
+Saves SSH key from endpoint credentials to file to be used by Jsch library.
+
+- getAuthenticationString(): String
+
+Returns proper string to be used for authentication alongside username.
+
+### SSHKeyFileHelper
+Class used for managing the process of saving SSH key from property in JsonObject
+
+#### Fields
+- id: String
+
+Id of widget establishing the connection.
+
+- key: String
+
+SSH key to be saved to file
+
+- file: File
+
+Object representing file to which SSH key will be saved
+
+- path: String
+
+Path to the file with SSH key
+
+#### Methods
+- saveToFile()
+
+Method which saves the SSH key to the file
+
+- getOrCreateFile()
+
+Creates of fetches the reference to the file to which the SSH key will be saved
+
+- determineFilepath()
+
+Determines where to look for the file containing SSH key
