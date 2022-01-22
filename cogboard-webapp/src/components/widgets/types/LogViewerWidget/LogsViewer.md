@@ -90,4 +90,4 @@ Every log column consists of `header` (accordion summary) and `description` (acc
 
 Outer container cannot have margins (wrong virtuoso calculations).
 
-Copying feature doesn't work on servers without HTTPS.
+Copying feature uses depreciated functions. Recomended ones wouldn't work on unsecured HTTP serwer (w/o HTTPS). There is try catch to remain app stability if those functions were to be removed from browser.
