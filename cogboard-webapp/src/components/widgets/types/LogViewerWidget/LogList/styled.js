@@ -50,6 +50,7 @@ export const Text = styled(Typography)(({ type }) => {
   }
 
   return `
+      user-select: auto;
       line-height: 19px;
       font-size: 0.8rem;
       font-weight: 400;
