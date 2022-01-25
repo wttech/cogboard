@@ -2,11 +2,13 @@ import React, { useEffect, useContext } from 'react';
 import { createValidationSchema } from '../../../../../validation';
 import { useFormData } from '../../../../../../hooks';
 import DynamicForm from '../../../../../DynamicForm';
-import { Button } from '@material-ui/core';
+import { Button, Tooltip, IconButton } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
-import { StyledHorizontalContainer, StyledCancelButton } from './styled';
+import { StyledHorizontalContainer, StyledButtonContainer } from './styled';
 import dialogFields from '../../../../dialogFields';
-import { SimilarLogsContext } from '../../context';
+import LogsViewerContext from '../../context';
+import { URL } from '../../../../../../constants';
+import CancelButton from '../../../../../CancelButton';
 
 const QuarantineForm = ({
   filters,
@@ -15,17 +17,25 @@ const QuarantineForm = ({
   id,
   ...initialFormValues
 }) => {
-  const similarLogs = useContext(SimilarLogsContext);
+  const logsViewerContext = useContext(LogsViewerContext);
 
   useEffect(() => {
-    if (similarLogs.quarantine) {
-      setFieldValue(dialogFields.RegExpField.name, similarLogs.quarantine);
-      similarLogs.setQuarantine(null);
+    if (logsViewerContext.quarantine) {
+      setFieldValue(
+        dialogFields.RegExpField.name,
+        logsViewerContext.quarantine
+      );
+      logsViewerContext.setQuarantine(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [similarLogs.quarantine]);
+  }, [logsViewerContext.quarantine]);
 
-  const formFields = ['LabelField', 'RegExpField', 'ReasonField'];
+  const formFields = [
+    'LabelField',
+    'RegExpField',
+    'ReasonField',
+    'EndTimestampField'
+  ];
   const constraints = {
     LabelField: {
       max: 25,
@@ -49,7 +59,15 @@ const QuarantineForm = ({
   return (
     <form onSubmit={withValidation(onSubmit)} noValidate="novalidate">
       <StyledHorizontalContainer>
-        <InfoIcon />
+        <Tooltip title="Click on icon for more information">
+          <IconButton
+            href={URL.LOGSVIEWER_QUARANTINE}
+            target="_blank"
+            rel="noopener"
+          >
+            <InfoIcon />
+          </IconButton>
+        </Tooltip>
         <p>
           Logs, any fields of which will be matched by the regular expression,
           will not be stored in the database or displayed.
@@ -62,18 +80,21 @@ const QuarantineForm = ({
         errors={errors}
         rootName="quarantine-form"
       />
-      <Button
-        color="secondary"
-        variant="contained"
-        type="submit"
-        data-cy="quarantine-form-submit-button"
-      >
-        Save
-      </Button>
-      <StyledCancelButton
-        handleCancelClick={handleCancel}
-        data-cy="quarantine-form-cancel-button"
-      />
+      <StyledButtonContainer>
+        <Button
+          color="secondary"
+          variant="contained"
+          type="submit"
+          data-cy="quarantine-form-submit-button"
+        >
+          Save
+        </Button>
+        <CancelButton
+          handleCancelClick={handleCancel}
+          data-cy="quarantine-form-cancel-button"
+        />
+        <p>In order to see the changes, you have to refresh the page.</p>
+      </StyledButtonContainer>
     </form>
   );
 };

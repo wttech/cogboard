@@ -20,19 +20,19 @@ import EditFilter from './EditFilter';
 import DeleteItem from '../../../../../../DeleteItem';
 import FilterForm from './FilterForm';
 import { StyledExitButton } from './styled';
-import { SimilarLogsContext } from '../../../context';
+import LogsViewerContext from '../../../context';
 
-const AdvancedFiltersMenu = ({ widgetLocalStorage, wid, quarantine }) => {
+const AdvancedFiltersMenu = ({ widgetLocalStorage, quarantine }) => {
   const [dialogOpened, openDialog, handleDialogClose] = useToggle();
 
-  const similarLogs = useContext(SimilarLogsContext);
+  const logsViewerContect = useContext(LogsViewerContext);
 
   useEffect(() => {
-    if (similarLogs.filter || similarLogs.quarantine) {
+    if (logsViewerContect.filter || logsViewerContect.quarantine) {
       openDialog();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [similarLogs.filter, similarLogs.quarantine]);
+  }, [logsViewerContect.filter, logsViewerContect.quarantine]);
 
   const filters = getFilters(widgetLocalStorage);
 
@@ -135,11 +135,11 @@ const AdvancedFiltersMenu = ({ widgetLocalStorage, wid, quarantine }) => {
           largeButton
           itemName="filter"
           submitAction={addFilter}
-          shouldOpen={similarLogs.filter}
+          shouldOpen={logsViewerContect.filter}
         >
           <FilterForm filters={filters} />
         </AddItem>
-        <QuarantineModal wid={wid} quarantine={quarantine} />
+        <QuarantineModal quarantine={quarantine} />
         <StyledExitButton
           onClick={handleDialogClose}
           variant="contained"

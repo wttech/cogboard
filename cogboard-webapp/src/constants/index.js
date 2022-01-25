@@ -33,7 +33,9 @@ export const URL = {
   UPDATE_USER_SETTINGS: '/api/user/update',
   UPDATE_INFO: 'https://github.com/wttech/cogboard/wiki#update',
   CREDENTIAL_INFO: 'https://github.com/wttech/cogboard/wiki#credentials',
-  LOGS_ENDPOINT: '/api/logs'
+  LOGS_ENDPOINT: '/api/logs',
+  LOGSVIEWER_QUARANTINE:
+    'https://github.com/wttech/cogboard/wiki/4.-Widgets#LogsViewer'
 };
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;
@@ -345,3 +347,6 @@ export const NOTIFICATIONS = {
     duration: 3000
   })
 };
+
+export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
+export const MILLIS_IN_SECOND = 1000;

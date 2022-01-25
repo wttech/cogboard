@@ -39,7 +39,14 @@ class LogStorage(
 
     /** Returns the list of regexes of enabled rules. */
     private val enabledRegexes: List<Regex>
-    get() = rules.filter { it.enabled }.map { it.regex }
+    get() {
+        val now = Instant.now()
+        return rules
+                .filter { rule ->
+                    rule.enabled && (rule.endTimestamp?.let { it > now } ?: true)
+                }
+                .map { it.regex }
+    }
 
     override fun start() {
         super.start()
@@ -240,7 +247,7 @@ class LogStorage(
         private const val MONGO_SCHEME = "mongodb"
         private val MONGO_USERNAME = System.getenv("MONGO_USERNAME") ?: "root"
         private val MONGO_PASSWORD = System.getenv("MONGO_PASSWORD") ?: "root"
-        private val MONGO_HOST = System.getenv("MONGO_HOST") ?: "mongo"
+        private val MONGO_HOST = System.getenv("MONGO_HOST") ?: "mongo-logs-storage"
         private val MONGO_PORT = System.getenv("MONGO_PORT")?.toIntOrNull() ?: 27017
 
         /** Returns a shared instance of the Mongo client. */

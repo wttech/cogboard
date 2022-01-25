@@ -5,9 +5,8 @@ import { Typography, Accordion, IconButton } from '@material-ui/core';
 import logLevels from '../logLevels';
 
 export const Container = styled.div`
-  height: 100%;
+  flex-grow: 1;
   display: grid;
-  padding-top: 6em;
   grid-template-rows: auto 1fr;
 `;
 
@@ -23,13 +22,16 @@ export const GridSchema = styled.div`
   display: grid;
   grid-template-columns: 70px 150px 1fr 56px;
   padding: 0 10px;
+  justify-items: flex-start;
 `;
 export const VariableGridSchema = styled.div(
   props => `
     width: 100%;
     display: grid;
+    justify-items: flex-start;
+    align-items: flex-start;
     grid-template-columns: ${props.template};
-    ${props.skipColumns ? 'grid-column: 3 / 4' : ''}
+    ${props.skipColumns ? 'grid-column: 3 / 4;' : ''}
   `
 );
 
@@ -48,6 +50,7 @@ export const Text = styled(Typography)(({ type }) => {
   }
 
   return `
+      user-select: auto;
       line-height: 19px;
       font-size: 0.8rem;
       font-weight: 400;
@@ -70,14 +73,15 @@ export const StyledVirtuoso = styled(Virtuoso)`
 `;
 
 export const CustomAccordion = styled(Accordion)`
-  margin: 2px 0;
+  margin: 0;
+  box-shadow: none;
 
   &.MuiPaper-root {
     background-color: ${COLORS.LIGHT_SHADE};
     overflow: hidden;
   }
   &&.Mui-expanded {
-    margin: 0.5em 0;
+    margin: 0;
   }
 
   .MuiAccordionSummary-root {
@@ -122,6 +126,7 @@ export const HighlightMark = styled.div`
 
 export const SimilarLogsButtonsContainer = styled.div`
   display: flex;
+  justify-self: end;
   flex-direction: column;
   align-items: flex-end;
   margin: 8px 0;
@@ -132,10 +137,46 @@ export const SimilarLogsButtonsContainer = styled.div`
 export const FilterSimilarLogsButton = styled(IconButton)`
   background-color: ${COLORS.LIGHT_SHADE};
 `;
+FilterSimilarLogsButton.defaultProps = {
+  size: 'small'
+};
 
 export const QuarantineSimilarLogsButton = styled(IconButton)`
   background-color: ${COLORS.RED};
   &:hover {
     background-color: ${COLORS.DARK_RED};
   }
+`;
+QuarantineSimilarLogsButton.defaultProps = {
+  size: 'small'
+};
+
+export const StyledCopyButton = styled(IconButton)`
+  position: absolute;
+  &&&& {
+    top: 0.1rem;
+    right: -1.15rem;
+  }
+  padding: 0;
+  font-size: 14px;
+
+  visiblity: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+`;
+StyledCopyButton.defaultProps = {
+  size: 'small'
+};
+
+export const TextWithCopyButtonContainer = styled.div`
+  position: relative;
+
+  &:hover ${StyledCopyButton} {
+    opacity: 1;
+    visiblity: visible;
+  }
+`;
+
+export const LogMargin = styled.div`
+  padding: 1px 0;
 `;

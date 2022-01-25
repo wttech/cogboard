@@ -149,9 +149,7 @@
         "switchInterval": 60,
         "id": "board-7d6e23ea-78a1-4f89-a5d2-47c499f9657d",
         "theme": "default",
-        "widgets": [
-          "widget95"
-        ],
+        "widgets": ["widget95"],
         "columns": 4,
         "title": "Log Viewer",
         "type": "WidgetBoard"
@@ -1982,7 +1980,8 @@
         "path": "/home/mock/example.txt",
         "logLinesField": 300,
         "logFileSizeField": 50,
-        "logRecordExpirationField": 5
+        "logRecordExpirationField": 5,
+        "logParserField": "default"
       }
     }
   }

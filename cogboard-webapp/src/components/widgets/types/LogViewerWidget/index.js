@@ -2,20 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { number, string } from 'prop-types';
 import { useLocalStorage } from '../../../../hooks';
+import { joinLogs, saveLogsToFile } from './helpers';
+import LogsViewerContext from './context';
+import { getInitialLogs } from '../../../../utils/fetch';
+import { getFilters, getLevel } from './Toolbar/FilterPicker/helpers';
+import { getDateSpan } from './Toolbar/DateRangePicker/helpers';
+import {
+  filterByRegExp,
+  filterByDateSpan,
+  filterByLevel
+} from './LogList/helpers';
 
 import Toolbar from './Toolbar';
 import LogList from './LogList';
 import { Container } from './styled';
-import { getInitialLogs } from '../../../../utils/fetch';
-import { joinLogs } from './helpers';
-import { SimilarLogsContext } from './context';
 
 const LogViewerWidget = ({ id }) => {
   const widgetData = useSelector(
     ({ widgets }) => widgets.widgetsById[id],
     shallowEqual
   );
-  useEffect(() => console.log(widgetData), [widgetData]);
 
   const [widgetLocalStorageData, setWidgetLocalStorage] = useLocalStorage(id);
   const widgetLocalStorage = {
@@ -27,30 +33,38 @@ const LogViewerWidget = ({ id }) => {
   const [shouldFollowLogs, setFollow] = useState(true);
 
   useEffect(() => {
-    getInitialLogs(id).then(logs => {
-      setStoredLogs(logs);
-    });
+    getInitialLogs(id).then(logs => setStoredLogs(logs));
   }, [id]);
 
   const newLogs = widgetData.content?.logs || [];
+  const logLinesField = widgetData.logLinesField;
   const template = widgetData.content?.variableFields;
   const quarantine = widgetData.content?.quarantineRules || [];
-  const logLines = widgetData.logLinesField || 1000;
 
   const [storedLogs, setStoredLogs] = useState([]);
 
   useEffect(() => {
-    setStoredLogs(joinLogs(storedLogs, newLogs, logLines));
+    setStoredLogs(joinLogs(storedLogs, newLogs, logLinesField));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [widgetData]);
+  }, [widgetData.content?.logs]);
 
   const [filterSimilarLogs, setFilterSimilarLogs] = useState(null);
   const [quarantineSimilarLogs, setQuarantineSimilarLogs] = useState(null);
 
+  const filters = getFilters(widgetLocalStorage);
+  const level = getLevel(widgetLocalStorage);
+  const dateSpan = getDateSpan(widgetLocalStorage);
+
+  const filteredLogs = storedLogs
+    ?.filter(log => filterByLevel(log, level))
+    .filter(log => filterByDateSpan(log, dateSpan))
+    .filter(log => filterByRegExp(log, filters));
+
   return (
     <Container>
-      <SimilarLogsContext.Provider
+      <LogsViewerContext.Provider
         value={{
+          wid: id,
           filter: filterSimilarLogs,
           setFilter: setFilterSimilarLogs,
           quarantine: quarantineSimilarLogs,
@@ -58,29 +72,23 @@ const LogViewerWidget = ({ id }) => {
         }}
       >
         <Toolbar
-          wid={id}
           quarantine={quarantine}
           widgetLocalStorage={widgetLocalStorage}
           setSearchFilter={setSearchFilter}
           shouldFollowLogs={shouldFollowLogs}
           handleFollowChange={setFollow}
-          lastLog={
-            storedLogs &&
-            storedLogs.length > 0 &&
-            storedLogs[storedLogs.length - 1]
-          }
+          lastLog={storedLogs?.length > 0 && storedLogs[storedLogs.length - 1]}
+          onSaveLogs={() => saveLogsToFile(filteredLogs)}
         />
-        {storedLogs && (
-          <LogList
-            widgetLocalStorage={widgetLocalStorage}
-            logs={storedLogs}
-            template={template}
-            search={searchFilter}
-            shouldFollowLogs={shouldFollowLogs}
-            handleFollowChange={setFollow}
-          />
-        )}
-      </SimilarLogsContext.Provider>
+        <LogList
+          logs={filteredLogs}
+          logListFull={storedLogs.length === logLinesField}
+          template={template}
+          search={searchFilter}
+          shouldFollowLogs={shouldFollowLogs}
+          handleFollowChange={setFollow}
+        />
+      </LogsViewerContext.Provider>
     </Container>
   );
 };

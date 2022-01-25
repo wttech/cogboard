@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
+  flex-grow: 4;
 `;
 
 export const CustomIconButton = styled(IconButton)`
@@ -19,8 +20,9 @@ CustomIconButton.defaultProps = {
 
 export const StyledTextField = styled(TextField)`
   min-width: 5rem;
+  width: 100%;
 
-  & > input {
+  & input {
     margin-right: 1.8rem;
   }
 `;
