@@ -13,7 +13,7 @@
     "http-proxy-middleware": "^0.20.0",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.35",
     "ramda": "^0.26.1",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
