@@ -24,7 +24,7 @@
     "react-hook-size": "^1.3.5",
     "react-iframe": "latest",
     "react-redux": "^7.2.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
