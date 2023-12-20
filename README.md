@@ -1,7 +1,3 @@
-<p>
-  <img src="docs/images/wtt_logo.png" alt="Wunderman Thompson Technology logo Logo"/>
-</p>
-
 [![Build Status](https://api.travis-ci.org/wttech/cogboard.svg?branch=master)](https://travis-ci.org/wttech/cogboard)
 
 # Cogboard
