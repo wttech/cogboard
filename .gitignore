@@ -14,9 +14,12 @@ Thumbs.db
 # Project specific
 /mnt/*.json
 /mnt/*.backup
+/mnt/widget*
 /mnt/content/*.json
 /mnt/.version
 /cogboard-compose.yml
+/mnt/mongo/*
+!/mnt/mongo/.gitkeep
 
 # Intellij           #
 ######################

@@ -15,7 +15,9 @@ export const COLORS = {
   LIGHT_BLUE: '#bbdefb',
   BLUE: '#198cbd',
   PURPLE: '#26243e',
-  YELLOW: '#FECD00'
+  YELLOW: '#FECD00',
+  LIGHT_SHADE: 'rgba(255,255,255, 0.1)',
+  DARK_SHADE: 'rgba(0,0,0, 0.15)'
 };
 
 export const URL = {
@@ -30,7 +32,10 @@ export const URL = {
   CREDENTIALS_ENDPOINT: '/api/credentials',
   UPDATE_USER_SETTINGS: '/api/user/update',
   UPDATE_INFO: 'https://github.com/wttech/cogboard/wiki#update',
-  CREDENTIAL_INFO: 'https://github.com/wttech/cogboard/wiki#credentials'
+  CREDENTIAL_INFO: 'https://github.com/wttech/cogboard/wiki#credentials',
+  LOGS_ENDPOINT: '/api/logs',
+  LOGSVIEWER_QUARANTINE:
+    'https://github.com/wttech/cogboard/wiki/4.-Widgets#LogsViewer'
 };
 export const COLUMN_MULTIPLIER = 2;
 export const ROW_MULTIPLIER = 2;
@@ -303,7 +308,9 @@ export const validationMessages = {
   INVALID_PUBLIC_URL: () => 'Invalid Public URL',
   FIELD_MIN_ITEMS: () => 'This field must have at least 1 item.',
   UNIQUE_FIELD: () => 'This field must be unique.',
-  PASSWORD_MATCH: () => 'Password must match.'
+  PASSWORD_MATCH: () => 'Password must match.',
+  SSH_KEY_BEGIN: () => 'The key must begin with "-----BEGIN PRIVATE KEY-----"',
+  SSH_KEY_END: () => 'The key must end with "-----END PRIVATE KEY-----"'
 };
 
 export const NOTIFICATIONS = {
@@ -340,3 +347,6 @@ export const NOTIFICATIONS = {
     duration: 3000
   })
 };
+
+export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
+export const MILLIS_IN_SECOND = 1000;

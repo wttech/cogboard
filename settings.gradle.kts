@@ -17,3 +17,4 @@ rootProject.name = "cogboard"
 
 include("cogboard-app")
 include("cogboard-webapp")
+include("ssh")

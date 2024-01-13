@@ -138,6 +138,13 @@ module.exports = {
       }
     ]
   },
+  logsViewer: {
+    name: 'Log Viewer',
+    endpoint: 'endpoint6',
+    schedulePeriod: '60',
+    path: '/home/mock/example.txt',
+    parserType: 'default'
+  },
   serviceCheck: {
     name: 'Service Check',
     schedulePeriod: '3',

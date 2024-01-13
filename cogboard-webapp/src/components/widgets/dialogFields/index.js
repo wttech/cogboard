@@ -37,6 +37,9 @@ import RangeSlider from './RangeSlider';
 import LinkListInput from './LinkListInput';
 import ToDoListInput from './ToDoListinput';
 import WidgetTypeField from './WidgetTypeField';
+import FileTextInput from './FileTextInput';
+import ParserTypeInput from './ParserTypeInput';
+import TimestampInput from './TimestampInput';
 
 const dialogFields = {
   LabelField: {
@@ -100,12 +103,33 @@ const dialogFields = {
     label: 'Token',
     validator: () => string()
   },
+  SSHKeyField: {
+    component: FileTextInput,
+    name: 'sshKey',
+    label: 'SSH Private Key',
+    validator: () =>
+      string()
+        .matches('^-----BEGIN ([A-Z]{1,} )*PRIVATE KEY-----\n', {
+          message: vm.SSH_KEY_BEGIN,
+          excludeEmptyString: true
+        })
+        .matches('\n-----END ([A-Z]{1,} )*PRIVATE KEY-----\n$', {
+          message: vm.SSH_KEY_END,
+          excludeEmptyString: true
+        })
+  },
+  SSHKeyPassphraseField: {
+    component: PasswordInput,
+    name: 'sshKeyPassphrase',
+    label: 'SSH private key passphrase',
+    validator: () => string()
+  },
   PublicURL: {
     component: TextInput,
     name: 'publicUrl',
     label: 'Public URL',
     validator: () =>
-      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+      string().matches(/^(http|https|ws|ftp|ssh):\/\/.*([:.]).*/, {
         message: vm.INVALID_PUBLIC_URL(),
         excludeEmptyString: true
       })
@@ -251,7 +275,7 @@ const dialogFields = {
     name: 'url',
     label: 'URL',
     validator: () =>
-      string().matches(/^(http|https|ws|ftp):\/\/.*([:.]).*/, {
+      string().matches(/^(http|https|ws|ftp|ssh):\/\/.*([:.]).*/, {
         message: vm.INVALID_URL(),
         excludeEmptyString: true
       })
@@ -564,6 +588,76 @@ const dialogFields = {
     name: 'linkListItems',
     initialValue: [],
     validator: () => array().ensure()
+  },
+  LogLinesField: {
+    component: NumberInput,
+    name: 'logLinesField',
+    label: 'Maximum number of lines to return',
+    initialValue: 1000,
+    min: 1,
+    step: 1,
+    pattern: /\d*/,
+    valueUpdater: transformMinValue(),
+    validator: ({ min, max }) =>
+      number()
+        .min(min, vm.NUMBER_MIN('Lines', min))
+        .max(max, vm.NUMBER_MAX('Lines', max))
+        .required(vm.FIELD_REQUIRED())
+  },
+  LogFileSizeField: {
+    component: NumberInput,
+    name: 'logFileSizeField',
+    label: 'Log file size limit [MB]',
+    initialValue: 50,
+    min: 1,
+    step: 1,
+    pattern: /\d*/,
+    valueUpdater: transformMinValue(),
+    validator: ({ min, max }) =>
+      number()
+        .min(min, vm.NUMBER_MIN('File size [MB]', min))
+        .max(max, vm.NUMBER_MAX('File size [MB]', max))
+        .required(vm.FIELD_REQUIRED())
+  },
+  LogRecordExpirationField: {
+    component: NumberInput,
+    name: 'logRecordExpirationField',
+    label: 'Log record expiration period [days]',
+    initialValue: 5,
+    min: 1,
+    step: 1,
+    pattern: /\d*/,
+    valueUpdater: transformMinValue(),
+    validator: ({ min, max }) =>
+      number()
+        .min(min, vm.NUMBER_MIN('Days', min))
+        .max(max, vm.NUMBER_MAX('Days', max))
+        .required(vm.FIELD_REQUIRED())
+  },
+  RegExpField: {
+    component: MultilineTextInput,
+    name: 'regExp',
+    label: 'Regular expression',
+    validator: () => string().required(vm.FIELD_REQUIRED())
+  },
+  ReasonField: {
+    component: TextInput,
+    name: 'reasonField',
+    label: 'Reason',
+    validator: () => string()
+  },
+  EndTimestampField: {
+    component: TimestampInput,
+    name: 'endTimestamp',
+    label: 'End date (optional)',
+    initialValue: null,
+    validator: () => number().nullable()
+  },
+  LogParserField: {
+    component: ParserTypeInput,
+    name: 'logParserField',
+    label: 'Log parser type',
+    validator: () => string()
   }
 };
 

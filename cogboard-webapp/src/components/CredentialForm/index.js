@@ -22,7 +22,9 @@ const CredentialsForm = ({
     'UsernameField',
     'PasswordField',
     'PasswordConfirmationField',
-    'TokenField'
+    'TokenField',
+    'SSHKeyField',
+    'SSHKeyPassphraseField'
   ];
 
   const constraints = {
@@ -82,7 +84,9 @@ CredentialsForm.defaultProps = {
   user: '',
   password: '',
   confirmationPassword: '',
-  token: ''
+  token: '',
+  sshKey: '',
+  sshKeyPassphrase: ''
 };
 
 export default CredentialsForm;

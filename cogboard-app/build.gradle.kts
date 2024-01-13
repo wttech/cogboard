@@ -22,6 +22,8 @@ dependencies {
     }
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0")
     implementation(kotlin("stdlib-jdk8"))
+    implementation("com.jcraft:jsch:0.1.55")
+    implementation("org.mongodb:mongo-java-driver:3.12.10")
 
     testImplementation("org.assertj:assertj-core:3.12.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")

@@ -32,7 +32,7 @@ describe('Credentials', () => {
       .assertErrorMessageVisible(
         'Label length must be less or equal to 25.',
         'credential-form-auth-user-input-error'
-      );
+      )
   });
 
   it('User can add new credentials without username, password and token.', () => {

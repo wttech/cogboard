@@ -93,7 +93,8 @@ export const useFormData = (data, config = {}) => {
     withValidation,
     errors,
     validationSchema,
-    setValidationSchema
+    setValidationSchema,
+    setFieldValue
   };
 };
 
@@ -136,3 +137,24 @@ export function useEventListener(eventName, handler, element = window) {
     };
   }, [eventName, element]);
 }
+
+export const useLocalStorage = key => {
+  const stringValue = window.localStorage.getItem(key);
+  const objectValue = stringValue ? JSON.parse(stringValue) : null;
+  const [data, setStoredValue] = useState(objectValue);
+
+  const setData = data => {
+    window.localStorage.setItem(key, JSON.stringify(data));
+    setStoredValue(data);
+  };
+  return [data, setData];
+};
+
+export const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const timeoutRef = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(timeoutRef);
+  }, [value, delay]);
+  return debouncedValue;
+};

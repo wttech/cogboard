@@ -86,6 +86,15 @@ export function fillLinksList() {
   }
 }
 
+export function fillLogsViewer() {
+  cy.get('[data-cy="widget-form-endpoint-input"]').click();
+  cy.get(`[data-value="${Widgets.logsViewer.endpoint}"]`).click();
+  cy.fillSchedulePeriod(Widgets.logsViewer.schedulePeriod);
+  cy.get('[data-cy="widget-form-path-input"]').type(Widgets.logsViewer.path);
+  cy.get('[data-cy="widget-form-log-parser-field-input"]').click();
+  cy.get(`[data-value="${Widgets.logsViewer.parserType}"]`).click();
+}
+
 export function fillServiceCheck() {
   cy.fillSchedulePeriod(Widgets.serviceCheck.schedulePeriod);
   cy.get('[data-cy="widget-form-request-method-input"]').click();
@@ -217,6 +226,9 @@ export function fillDynamicTab(widget) {
       break;
     case 'Link List':
       selectTabAndFillData(fillLinksList);
+      break;
+    case 'Log Viewer':
+      selectTabAndFillData(fillLogsViewer);
       break;
     case 'Service Check':
       selectTabAndFillData(fillServiceCheck);
